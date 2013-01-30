@@ -74,7 +74,8 @@ class SiteController extends Controller
 	}
 
 //***************** from example start
-	public function actionRegister() {
+	public function actionRegister()
+	{
  
 		$model=new RegisterForm;
 		$newUser = new User;
@@ -112,16 +113,17 @@ class SiteController extends Controller
 			if( ! $newUser->validate()){
 				$errors = $newUser->getErrors();
 				print_r($errors);
-    		    Yii::app()->end();
+				Yii::app()->end();
 			}
 
 
-			if ($model->validate() && $newUser->save()) {
+			if ($model->validate() && $newUser->save())
+			{
 				//if want to go login, just uncomment this below
-				 $identity=new UserIdentity($newUser->username,$model->password);
-				 //$identity->authenticate();
-				 Yii::app()->user->login($identity,0);
-				 $this->redirect(array('/user/panel'));
+				$identity=new UserIdentity($newUser->username,$model->password);
+				//$identity->authenticate();
+				Yii::app()->user->login($identity,0);
+				$this->redirect(array('/user/panel'));
  
 				//email activation code starts-----------------------------------------
  
@@ -161,24 +163,23 @@ class SiteController extends Controller
  
 	/**
 	 * Activation Action
-	 */
+	*/
 	public function actionActivate()
 	{
-	$email = Yii::app()->request->getQuery('email');
-	// collect user input data
-	if(isset($email))
-	{
- 
-		$model = User::model()->find('email=:email', array(':email'=>$email));
+		$email = Yii::app()->request->getQuery('email');
+		// collect user input data
+		if(isset($email))
+		{
+			$model = User::model()->find('email=:email', array(':email'=>$email));
  
 			if($email == $model->email){
-			$model->activationstatus=1;
-			$model->validate();
-			$model->save();
+				$model->activationstatus=1;
+				$model->validate();
+				$model->save();
+			}
 		}
-	}
-	// display the login form
-	$this->render('activate',array('model'=>$model));
+		// display the login form
+		$this->render('activate',array('model'=>$model));
 	}
 //***************** from example end
 
