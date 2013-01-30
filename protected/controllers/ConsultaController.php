@@ -115,7 +115,7 @@ class ConsultaController extends Controller
 			$model->created = date('Y-m-d');
 			$model->state = 0;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('/user/panel'));
 		}
 		$this->render('create',array(
 			'model'=>$model,
