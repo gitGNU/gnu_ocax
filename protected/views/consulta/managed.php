@@ -71,31 +71,39 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div>
 </div><!-- search-form -->
 
-<?php 
-    $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+$this->widget('PGridView', array(
 	'id'=>'consulta-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>'teamView',
+    ),
+	'ajaxUpdate'=>true,
+/*
+	'pager'=>array('class'=>'CLinkPager',
+					'header'=>'',
+					'maxButtonCount'=>6,
+					'prevPageLabel'=>'< Prev',
+	),
+*/
 	'columns'=>array(
-        array(
-			'name'=>'title',
-			'value'=>'$data->title',
-		),
-		'assigned',
-		'state',
-		/*
-		'type',
-		'capitulo',
-		'title',
-		'body',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-			'buttons'=>array(
-				'view' => array(
-					'label'=>'View',
-		            'url'=>'Yii::app()->createUrl("consulta/view", array("id"=>$data->id))',
-				),
-				'update' => array(
-					'label'=>'Update',
-		            'url'=>'Yii::app()->createUrl("consulta/reply", array("id"=>$data-
+	        array(
+				'header'=>'Consulta',
+				'name'=>'title',
+				'value'=>'$data->title',
+			),
+			'assigned',
+			'state',
+			/*
+			'type',
+			'capitulo',
+			'title',
+			'body',
+			*/
+            array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+)));
+?>
+
+

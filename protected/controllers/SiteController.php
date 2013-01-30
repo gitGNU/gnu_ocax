@@ -94,7 +94,6 @@ class SiteController extends Controller
 			// if ($model->validate()) {
 			$newUser->username = $model->username;
 			$newUser->fullname = $model->fullname;
-			//$newSalt = $newUser->generateSalt();
 			$newSalt=$newUser->generateSalt();
  
 			$newUser->password = $newUser->hashPassword($model->password,$newSalt);
@@ -122,7 +121,7 @@ class SiteController extends Controller
 				 $identity=new UserIdentity($newUser->username,$model->password);
 				 //$identity->authenticate();
 				 Yii::app()->user->login($identity,0);
-				 $this->redirect(array('site/index'));
+				 $this->redirect(array('/user/panel'));
  
 				//email activation code starts-----------------------------------------
  
@@ -152,7 +151,8 @@ class SiteController extends Controller
 				mail($to, $subject2, $message2, $headers);
 				//email activation code end-----------------------------------------
  
-				$this->redirect(Yii::app()->user->returnUrl);
+				//$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect('/user/panel');
 			} 
 		}
 		// display the register form
@@ -216,3 +216,4 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+}
