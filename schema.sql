@@ -86,6 +86,10 @@ CREATE TABLE IF NOT EXISTS cms_page (
 	metaKeywords varchar( 255 ) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('qui-som', 0, '<p>hello world</p>', 'Qui Som?');
+INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('ajuntament', 1, '<p>hello world</p>', 'L\'Ajuntament');
+
+
 
 
 

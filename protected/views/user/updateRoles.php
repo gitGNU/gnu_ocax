@@ -69,7 +69,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_editor'); ?>
 		<?php echo $form->checkBox($model,'is_editor', array('checked'=>$model->is_editor)); ?>
-		CMS site editor
+		CMS site editor.
 	</div>
 	</div>
 
@@ -77,7 +77,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_manager'); ?> 
 		<?php echo $form->checkBox($model,'is_manager', array('checked'=>$model->is_manager)); ?>
-		Encarga consultas a otros compañeros
+		Encarga consultas a otros compañeros.
 	</div>
 	</div>
 
@@ -85,7 +85,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_admin'); ?>
 		<?php echo $form->checkBox($model,'is_admin', array('checked'=>$model->is_admin)); ?>
-		Administrar this site 
+		Administrar usuarios.
 	</div>
 	</div>
 
