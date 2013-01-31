@@ -3,7 +3,6 @@
 	chris@gatopelao.org
  */
 
-
 CREATE TABLE user (
   id int(11) NOT NULL AUTO_INCREMENT,
   username varchar(32) NOT NULL,
@@ -35,11 +34,12 @@ CREATE TABLE consulta (
   state int(11) DEFAULT 0,
 /*
     0 Esperando respuesta de la OCAB
-    1 Descartado por el OCAB
-    2 Esperando respuesta de la Administración. Assignado a un team_member
-    3 Respuesta con éxito
-    4 Respuesta parcialmente con éxito ¿que significa esto?
-    5 Descartado por la Administración
+	1 OCAB reconoce la entrega (team_memeber assigned)
+    2 Descartado por el OCAB
+    3 Esperando respuesta de la Administración. Assignado a un team_member
+    4 Respuesta con éxito
+    5 Respuesta parcialmente con éxito ¿que significa esto?
+    6 Descartado por la Administración
 */
   title varchar( 255 ) NOT NULL,
   body LONGTEXT,
@@ -71,8 +71,6 @@ CREATE TABLE IF NOT EXISTS email (
 	FOREIGN KEY (sender) REFERENCES user(id),
 	FOREIGN KEY (consulta) REFERENCES consulta(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-
 
 CREATE TABLE IF NOT EXISTS cms_page (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

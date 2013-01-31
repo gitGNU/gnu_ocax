@@ -7,6 +7,7 @@
  * @property integer $is_manager
  * @property integer $is_admin
 */
+Yii::app()->clientScript->registerCoreScript('jquery');
 
 $column=0;
 function changeColumn()
@@ -38,8 +39,8 @@ function changeColumn()
 <div class="left">
 <h1><?php echo CHtml::link('Nueva consulta',array('consulta/create/'));?></h1>
 <p>
-Realizar una nueva consulta.<br />
-Explicar aquí el procedimiento.
+Tanto genéricas como las presupuestarias,
+realizar una nueva consulta sobre la actividad de tu ayuntamiento y nosotros haremos la gestión.<br />
 </p>
 </div>
 <div class="right">
@@ -68,14 +69,14 @@ if($model->is_editor){
 if($model->is_manager){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Gestionar consultas',array('consulta/admin')).'</h1>';
-	echo '<p>Assign new consultas a miembros del equipo y comprobar el estado de todos las consultas.</p>';
+	echo '<p>Asignar nuevas consultas a miembros del equipo y comprobar el estado de todos las consultas.</p>';
 	echo "</div>";
 }
 
 if($model->is_admin){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Admin panel',array('user/admin')).'</h1>';
-	echo "<p>Change user profiles<br />Delete users</p>";
+	echo '<h1>'.CHtml::link('Admin usuarios',array('user/admin')).'</h1>';
+	echo "<p>Change user roles<br />Delete users</p>";
 	echo "</div>";
 }
 
@@ -83,7 +84,6 @@ if($model->is_admin){
 
 </div>
 <div class="clear"></div>
-
 
 <?php
 if($consultas->getData()){
@@ -117,5 +117,17 @@ $this->widget('PGridView', array(
 )));
 }
 ?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut('fast');
+    	}, 1750);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b>Cambios guardados correctamente</b></p>
+    </div>
+<?php endif; ?>
 
 

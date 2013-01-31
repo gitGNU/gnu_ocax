@@ -27,8 +27,6 @@
 	),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username'); ?>
@@ -56,8 +54,12 @@
 
 </div>
 <div class="right">
-<p style="font-size:1.5em">¿Has olvidado tu contraseña?</p>
-Instrucciones aquí
+<p style="font-size:1.5em;margin-bottom:10px;">¿Aun no tienes una cuenta?</p>
+<p><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register">Crea un cuenta</a>
+y audita tu municipio</p>
+<br/>
+<p style="font-size:1.5em;margin-bottom:10px;">¿Has olvidado tu contraseña?</p>
+<p>Instrucciones aquí</p>
 
 </div>
 </div>

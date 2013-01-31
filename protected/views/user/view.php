@@ -3,9 +3,9 @@
 /* @var $model User */
 
 $this->menu=array(
-	array('label'=>'Change User\'s roles', 'url'=>array('updateRoles', 'id'=>$model->id)),
-	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
+	array('label'=>'Cambiar user\'s roles', 'url'=>array('updateRoles', 'id'=>$model->id)),
+	array('label'=>'Delete user', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Todos los usuarios', 'url'=>array('admin')),
 );
 ?>
 
@@ -14,7 +14,6 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'username',
 		'fullname',
 		'email',

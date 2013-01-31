@@ -103,11 +103,12 @@ $this->widget('PGridView', array(
 </div>
 <div class="right">
 <p style="font-size:1.5em">Como hacer una nueva consulta</p>
-<p>Explicación procedimiento<br />En tu panel de gestión hay un enlace para crear una nueva consulta</p>
-<p>Explicación procedimiento<br />En tu panel de gestión hay un enlace para crear una nueva consulta</p>
-<p>Explicación procedimiento<br />En tu panel de gestión hay un enlace para crear una nueva consulta</p>
-<p>Explicación procedimiento<br />En tu panel de gestión hay un enlace para crear una nueva consulta</p>
-<p>Explicación procedimiento<br />En tu panel de gestión hay un enlace para crear una nueva consulta</p>
+<p><b>Crear una cuenta</b><br />Antes de enviarnos una consulta, hace falta
+<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register">registrarse</a></p>
+<p><b>Tu página de gestión</b><br />En tu panel de gestión hay un enlace para crear una nueva consulta</p>
+<p><b>Explicar los dos tipos de consultas</b><br />Se pueden realizar consultas del tipo genérica o presupuestaria</p>
+<p><b>Más</b><br />Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas </p>
+<p><b>Más</b><br />Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas </p>
 </div>
 </div>
 

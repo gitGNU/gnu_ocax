@@ -217,7 +217,8 @@ class ConsultaController extends Controller
 			if($team_member != $model->team_member){
 				if($model->team_member){
 					$model->assigned=date('Y-m-d');
-					$model->state=1;	// recibido por el OCA(x)
+					if($model->state == 0)	// not working !!!
+						$model->state=1;	// recibido por el OCA(x)
 				}else{
 					$model->assigned=Null;
 					$model->state=0;

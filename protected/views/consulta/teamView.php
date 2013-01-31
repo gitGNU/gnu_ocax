@@ -28,11 +28,11 @@ $this->menu=array(
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash_success').fadeOut('fast');
-    	}, 2000);
+    	}, 1750);
 		});
 	</script>
     <div class="flash_success">
-		<p style="margin-top:5px;"><b>Email enviado correctamente</b></p>
+		<p style="margin-top:25px;"><b>Email enviado correctamente</b></p>
     </div>
 <?php endif; ?>
 

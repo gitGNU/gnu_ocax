@@ -29,15 +29,15 @@ class RegisterForm extends CFormModel
 	{
 		return array(
 		// username, password, email are required
-		array('username, fullname, password , password_repeat, email', 'required'),
+		array('username, fullname, password , password_repeat, email, verifyCode', 'required'),
 		// username and email should be unique
 		array('username, email', 'unique', 'className' => 'User'),
 		// email should be in email format
 		array('email', 'email'),
 		array('password', 'length', 'min' => 6, 
-			    'tooShort'=>Yii::t("translation", "{attribute} is too short."),
+			    'tooShort'=>Yii::t("translation", "{attribute} es muy corta (6 carácteres min)."),
 			    'tooLong'=>Yii::t("translation", "{attribute} is too long.")),
-		array('password', 'compare', 'on'=>'registration', 'compareAttribute'=>'password_repeat'),
+		array('password_repeat', 'compare', 'compareAttribute'=>'password'),
 		array('password_repeat', 'safe'),
 		array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements()),
 		);
@@ -49,11 +49,11 @@ class RegisterForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-		'username'=>'Username',
-		'password'=>'Password',
-		'password_repeat'=>'Verified Password',
-		'email'=>'Email',
-		'verifyCode'=>'Verification Code',
+		'username'=>'Nombre de usuario',
+		'password'=>'Constraseña',
+		'password_repeat'=>'Constraseña repitida',
+		'email'=>'Correo electónico',
+		'verifyCode'=>'Captcha',
 		);
 	}
  
@@ -68,7 +68,7 @@ class RegisterForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+				$this->addError('password','Usuario o constraseña incorrecta.');
 		}
 	}
 }

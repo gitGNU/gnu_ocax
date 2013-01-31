@@ -92,30 +92,16 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['RegisterForm'];
  
-			// if ($model->validate()) {
 			$newUser->username = $model->username;
 			$newUser->fullname = $model->fullname;
 			$newSalt=$newUser->generateSalt();
- 
-			$newUser->password = $newUser->hashPassword($model->password,$newSalt);
+ 			$newUser->password = $newUser->hashPassword($model->password,$newSalt);
 			$newUser->salt = $newSalt;
- 
-			$newUser->activationcode = $newUser->generateActivationCode($model->email);
-			// $newUser->activationcode = sha1(mt_rand(10000, 99999).time().$email);
+ 			$newUser->activationcode = $newUser->generateActivationCode($model->email);
 			$newUser->activationstatus = 0;
- 
-			//return $this->hashPassword($password,$this->salt)===$this->password;
-			$newUser->username = $model->username;
- 
-			$newUser->email = $model->email;
+ 			$newUser->username = $model->username;
+ 			$newUser->email = $model->email;
 			$newUser->joined = date('Y-m-d');
- 
-			if( ! $newUser->validate()){
-				$errors = $newUser->getErrors();
-				print_r($errors);
-				Yii::app()->end();
-			}
-
 
 			if ($model->validate() && $newUser->save())
 			{

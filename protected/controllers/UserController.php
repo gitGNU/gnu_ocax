@@ -125,8 +125,10 @@ class UserController extends Controller
 				$model->salt=$model->generateSalt();
 				$model->password = $model->hashPassword($model->new_password,$model->salt);
 			}
-			if($model->save())
+			if($model->save()){
+				Yii::app()->user->setFlash('success', "changes_saved");
 				$this->redirect(array('panel'));
+			}
 		}
 		$this->render('update',array(
 			'model'=>$model,
