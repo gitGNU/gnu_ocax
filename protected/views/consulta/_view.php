@@ -6,12 +6,14 @@
 
 <style>
 .commentBlockLink { float:right;text-align:right; }
-.commentBlockLink span { cursor:pointer; }
+.commentBlockLink span { color:#06c; cursor:pointer; }
+.commentBlockLink span:focus, .commentBlockLink span:hover {color:#09f;}
 .clear { clear:both; }
 </style>
 
 <script>
 function toggleComments(comments_block_id){
+	//$('#comment_form').hide();
 	if ($('#'+comments_block_id).is(":visible"))
 		$('#'+comments_block_id).slideUp('fast');
 	else
