@@ -1,7 +1,6 @@
 <?php
 /* @var $this ConsultaController */
 /* @var $model Consulta */
-Yii::app()->clientScript->registerCoreScript('jquery');
 
 $this->menu=array(
 	array('label'=>'Actualizar estat', 'url'=>array('update', 'id'=>$model->id)),

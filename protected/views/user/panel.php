@@ -7,7 +7,7 @@
  * @property integer $is_manager
  * @property integer $is_admin
 */
-Yii::app()->clientScript->registerCoreScript('jquery');
+
 
 $column=0;
 function changeColumn()

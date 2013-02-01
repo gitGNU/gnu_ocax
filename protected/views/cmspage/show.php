@@ -29,7 +29,7 @@ $this->setPageTitle($model->pageTitle);
 </div>
 
 <div class="right">
-	<div style="text-align:center;padding-bottom:20px;"><?php echo $model->pageTitle; ?></div>
+	<div style="font-size:1.5em;text-align:center;padding-bottom:20px;"><?php echo $model->pageTitle; ?></div>
 	<?php echo $model->body; ?>
 </div>
 </div>

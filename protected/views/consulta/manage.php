@@ -9,8 +9,6 @@ $this->menu=array(
 );
 ?>
 
-<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-
 <div class="consulta">
 <h1>Gestionar consulta</h1>
 

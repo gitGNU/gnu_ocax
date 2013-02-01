@@ -21,8 +21,8 @@ $('.search-form form').submit(function(){
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
+	.left{width: 60%; float: left;  margin: 0px;}
+	.right{width: 38%; float: left; margin: 0px;}
 	.clear{clear:both;}
 
 	.bClose{
@@ -95,7 +95,12 @@ $this->widget('PGridView', array(
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
-			//'state',
+			array(
+				'header'=>'Estat',
+				'name'=>'state',
+				'type' => 'raw',
+				'value'=>'$data->humanStateValues[$data[\'state\']]',
+			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>

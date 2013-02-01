@@ -60,6 +60,19 @@ CREATE TABLE respuesta (
   FOREIGN KEY (team_member) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE comment (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  consulta int(11) NULL,
+  respuesta int(11) NULL,
+  created DATETIME NOT NULL,
+  user int(11) NOT NULL,
+  body LONGTEXT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (consulta) REFERENCES consulta(id),
+  FOREIGN KEY (respuesta) REFERENCES respuesta(id),
+  FOREIGN KEY (user) REFERENCES user(id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	created DATETIME NOT NULL,

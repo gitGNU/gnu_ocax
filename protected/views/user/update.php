@@ -43,8 +43,12 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_socio'); ?>
-		<?php echo $form->checkBox($model,'is_socio', array('checked'=>$model->is_socio)); ?>
-		¿eres socio?
+		¿eres socio? <?php echo $form->checkBox($model,'is_socio', array('checked'=>$model->is_socio)); ?>
+		¿<a href="#" onClick="js:$('#socio_implica').slideDown('fast');">que implica esto</a>?
+		<p id="socio_implica" style="display:none">		
+		Ser socio sólo implica apoyar todas y cada una de las consultas ciudadanas. Es más "simbólico" que práctico legal. Me explico, todas las consultas/instancias que se envíen en el Ayuntamiento llevan la firma y el NIF del Observatorio Ciudadano, si el Obsevatorio en cuestión tiene 2000 socios, de forma simbólica implica que hay 2000 firmas ciudadanas detrás. De todas formas, legalmente una instancia "vale lo mismo" y tiene el mismo valor si está firmada por 1 o 1000 personas.
+		</p>
+
 	</div>
 
 </div>

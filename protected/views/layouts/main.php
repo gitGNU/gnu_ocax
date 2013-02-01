@@ -15,6 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/additional.css" />
+
+	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
 	<?php /*Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/bootstrap/css/bootstrap.min.css'); */?>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>

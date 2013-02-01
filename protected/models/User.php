@@ -112,7 +112,7 @@ class User extends CActiveRecord
 			'password_repeat' => 'Constraseña repetida',
 			'salt' => 'Salt',
 			'email' => 'Email',
-			'is_socio' => 'Is Socio',
+			'is_socio' => 'Socio',
 			'is_team_member' => 'Is Team Member',
 			'is_editor' => 'Is Editor',
 			'is_manager' => 'Is Manager',
