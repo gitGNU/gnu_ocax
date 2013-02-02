@@ -28,8 +28,8 @@ $('.search-form form').submit(function(){
 	.bClose{
 		cursor: pointer;
 		position: absolute;
-		right: 10px;
-		top: 5px;
+		right: -21px;
+		top: -21px;
 	}
 </style>
 
@@ -67,7 +67,7 @@ function showConsulta(consulta_id){
 <div class="outer">
 <div class="left">
 <p>
-Aqui tienes una lista de todas las consultas hechas hasta la fecha de hoy.
+Aqui tienes una lista de todas las consultas hechas hasta la fecha de hoy.<br />
 Puedes <?php echo CHtml::link('definir filtros','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_searchPublic',array(
@@ -121,7 +121,7 @@ $this->widget('PGridView', array(
 
 <div id="consulta" style="display:none;width:850px;">
 <div style="background-color:white;padding:5px;">
-<a class="bClose">x</a>
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="consulta_link"></div>
 <div id="consulta_body"></div>
 </div>

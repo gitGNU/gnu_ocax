@@ -3,7 +3,7 @@
 	chris@gatopelao.org
  */
 
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS user (
   id int(11) NOT NULL AUTO_INCREMENT,
   username varchar(32) NOT NULL,
   fullname VARCHAR(64) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE user (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE consulta (
+CREATE TABLE IF NOT EXISTS consulta (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,
   team_member int(11),
@@ -49,7 +49,7 @@ CREATE TABLE consulta (
   FOREIGN KEY (manager) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE respuesta (
+CREATE TABLE IF NOT EXISTS respuesta (
   id int(11) NOT NULL AUTO_INCREMENT,
   consulta int(11) NOT NULL,
   created DATETIME NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE respuesta (
   FOREIGN KEY (team_member) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE comment (
+CREATE TABLE IF NOT EXISTS comment (
   id int(11) NOT NULL AUTO_INCREMENT,
   consulta int(11) NULL,
   respuesta int(11) NULL,
@@ -71,6 +71,16 @@ CREATE TABLE comment (
   FOREIGN KEY (consulta) REFERENCES consulta(id),
   FOREIGN KEY (respuesta) REFERENCES respuesta(id),
   FOREIGN KEY (user) REFERENCES user(id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS vote (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  respuesta int(11) NOT NULL,
+  user int(11) NOT NULL,
+  vote TINYINT(1) NOT NULL,	/* 0 = dislike, 1 = like */
+  PRIMARY KEY (id),
+  FOREIGN KEY (user) REFERENCES user(id),
+  FOREIGN KEY (respuesta) REFERENCES respuesta(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS email (
