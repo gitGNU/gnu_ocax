@@ -144,8 +144,8 @@ echo '</div><div class="clear"></div>';
 $respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 
 foreach($respuestas as $respuesta){
-	echo '<hr style="margin-bottom:0px;margin-top:10px;">';
-	echo '<p style="font-size:1.3em">Respuesta: '.date_format(date_create($respuesta->created), 'Y-m-d').'</p>';
+	echo '<hr style="margin-bottom:0px;margin-top:20px;">';
+	echo '<p style="font-size:1.5em">Respuesta: '.date_format(date_create($respuesta->created), 'Y-m-d').'</p>';
 	echo '<p>'.$respuesta->body.'</p>';
 	$commments = Comment::model()->findAll(array('condition'=>'respuesta =  '.$respuesta->id));
 

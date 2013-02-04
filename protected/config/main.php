@@ -12,8 +12,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'OCA(x)',
-	//'theme'=>'bootstrap',
-	'theme'=>'classic',
+	'theme'=>'ocax',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
