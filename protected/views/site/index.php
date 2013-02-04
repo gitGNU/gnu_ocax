@@ -8,13 +8,19 @@ $this->pageTitle=Yii::app()->name;
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
 	.left{width: 60%; float: left;  margin: 0px;}
-	.right{width: 38%; float: left; margin: 0px;}
+	.right{width: 35%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
-<div class="outer">
+<div class="outer" style="position:relative">
 <div class="left">
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+
+<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/logo.jpg" />
+
+<p style="position: absolute; top:15px; left: 250px; color:#009ACD; font-size:2.5em; font-weight:bold; text-align:right; ">
+BUROCRÀ.. QUÈ?<br />
+#JUNTESPODEM!
+</p>
 
 <p>Congratulations! You have successfully created your Yii application.</p>
 

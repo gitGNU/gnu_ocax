@@ -9,6 +9,7 @@ body
 
 #page
 {
+	width:950px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	background: white;
@@ -22,6 +23,7 @@ body
 {
 	margin: 0;
 	padding: 0;
+	color:#1F1F1F;
 	background-color:#9CAA9C;
 	/*width:950px;
 	margin:0 auto;*/
@@ -50,13 +52,20 @@ body
 	width:950px;
 	margin:0 auto;
 	padding: 0;
+	color:#1F1F1F;
 	background-color:#9CAA9C;
-padding: 6px 20px 05px 10px;
-
+	padding: 6px 20px 05px 10px;
+/*
 	font-size: 0.8em;
 	text-align: center;
-border: 1px solid #9CAA9C;
+*/
+	border: 1px solid #9CAA9C;
 
+}
+.poweredBy
+{
+	padding-top:10px;
+	text-align:center;
 }
 
 #logo
