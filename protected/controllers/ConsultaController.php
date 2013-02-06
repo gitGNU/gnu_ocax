@@ -32,7 +32,7 @@ class ConsultaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create'),
+				'actions'=>array('create','subscribe'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -96,6 +96,30 @@ class ConsultaController extends Controller
 			echo 0;
 	}
 
+	public function actionSubscribe()
+	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
+
+		if(isset($_POST['consulta']))
+		{
+			$user = Yii::app()->user->getUserID();
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'consulta = '.$_POST['consulta'].' AND user = '.$user;
+			$model=ConsultaSubscribe::model()->find($criteria);
+			if($model){
+				$model->delete();
+				echo '0';
+			}else{
+				$model=new ConsultaSubscribe;
+				$model->consulta = $_POST['consulta'];	// should check if consulta id is valid.
+				$model->user = $user;
+				$model->save();
+				echo '1';
+			}			
+		}
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -114,8 +138,14 @@ class ConsultaController extends Controller
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
 			$model->state = 0;
-			if($model->save())
+			if($model->save()){
+				$subscription=new ConsultaSubscribe;
+				$subscription->user = $model->user;
+				$subscription->consulta = $model->id;
+				$subscription->save();
+
 				$this->redirect(array('/user/panel'));
+			}
 		}
 		$this->render('create',array(
 			'model'=>$model,
@@ -224,9 +254,15 @@ class ConsultaController extends Controller
 					$model->state=0;
 				}
 			}
-			if($model->save())
+			if($model->save()){
+				$subscription=new ConsultaSubscribe;
+				$subscription->user = $model->team_member;
+				$subscription->consulta = $model->id;
+				$subscription->save();
+
 				Yii::app()->user->setFlash('prompt', "prompt_email");
 				$this->redirect(array('adminView','id'=>$model->id));
+			}
 		}
 
 		$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));

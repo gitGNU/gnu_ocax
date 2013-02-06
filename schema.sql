@@ -49,6 +49,15 @@ CREATE TABLE IF NOT EXISTS consulta (
   FOREIGN KEY (manager) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS consulta_subscribe (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  consulta int(11) NOT NULL,
+  user int(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user) REFERENCES user(id),
+  FOREIGN KEY (consulta) REFERENCES consulta(id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS respuesta (
   id int(11) NOT NULL AUTO_INCREMENT,
   consulta int(11) NOT NULL,

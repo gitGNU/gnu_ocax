@@ -33,7 +33,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'My Panel', 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Todo lo mio', 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Consultes', 'url'=>array('/consulta')),
 				array('label'=>'Qui Som?', 'url'=>array('/page/qui-som')),
 				array('label'=>'L\'Ajuntament', 'url'=>array('/page/ajuntament')),
@@ -61,8 +61,8 @@
 	<div style="width: 40%; float: left;  margin: 0px;">
 		<b>Dades de contacte</b><br />
 		Observatori ciutadà de l'Ajuntament de Barcelona<br />
-		Email: info@ocab.es<br />
-		Telèfon: 686 910 992<br />
+		Email: info@example.com<br />
+		Telèfon: 686 xxx xxx<br />
 	</div>
 	<div style="width: 20%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>

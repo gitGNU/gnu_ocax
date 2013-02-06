@@ -82,6 +82,7 @@ class RespuestaController extends Controller
 				$consulta=Consulta::model()->findByPk($model->consulta);
 				$consulta->state=$_POST['Respuesta']['state'];
 				$consulta->save();
+
 				Yii::app()->user->setFlash('prompt', "prompt_email");
 				$this->redirect(array('consulta/teamView','id'=>$model->consulta));
 			}

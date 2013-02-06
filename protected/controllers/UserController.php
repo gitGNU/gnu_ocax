@@ -65,9 +65,22 @@ class UserController extends Controller
 			),
 		));
 
+		$userid=Yii::app()->user->getUserID();
+		$subscribed=new CActiveDataProvider('Consulta',array(
+			'criteria'=>array(
+				'with'=>array('subscriptions'),
+				'condition'=>'	subscriptions.consulta = t.id AND
+								subscriptions.user = '.$userid.' AND
+								t.user != '.$userid.' AND
+								t.team_member != '.$userid.'',
+				'together'=>true,
+			),
+		));
+
 		$this->render('panel',array(
 			'model'=>$this->loadModel($user->id),
 			'consultas'=>$consultas,
+			'subscribed'=>$subscribed,
 		));
 	}
 

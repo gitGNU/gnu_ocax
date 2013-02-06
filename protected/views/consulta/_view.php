@@ -56,7 +56,6 @@ function cancelComment(){
 	$('#comment_form').slideUp('fast');
 }
 function submitComment(form){
-
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/create',
 		type: 'POST',
@@ -108,6 +107,24 @@ function vote(respuesta_id, like){
 	});
 
 }
+function subscribe(el){
+	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
+		$(el).attr('checked', false);
+		alert('Please login to subscribe');
+		return;
+	}
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/consulta/subscribe',
+		type: 'POST',
+		async: false,
+		dataType: 'json',
+		data: { 'consulta': <?php echo $model->id;?> },
+		//beforeSend: function(){ },
+		//complete: function(){ },
+		//success: function(data){ },
+		error: function() { alert("error on subscribe"); },
+	});
+}
 </script>
 
 
@@ -115,18 +132,28 @@ function vote(respuesta_id, like){
 <?php echo $model->body;?>
 
 <?php
-$commments = Comment::model()->findAll(array('condition'=>'consulta =  '.$model->id));
+	$criteria = new CDbCriteria;
+	$criteria->condition = 'consulta = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
+	$checked = '';
+	if( ConsultaSubscribe::model()->findAll($criteria) )
+			$checked = 'checked';
+?>
+<div class="commentBlockLink"><span>Mantenme informado por correo cuando hayan cambios.
+<input type="checkbox" onClick="js:subscribe(this);" <?php echo $checked; ?>/></span>
 
+<?php
+$commments = Comment::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 if($commments){
-	echo '<div class="commentBlockLink">';
-	echo '<span class="link" onClick="js:toggleComments(\'comments_consulta\')">Comentarios ('.count($commments).')</span>';
-	echo '</div><br />';
+	echo '<div class="link" onClick="js:toggleComments(\'comments_consulta\')">Comentarios ('.count($commments).')</div>';
+
 }
 else{
-	echo '<div class="commentBlockLink add_comment_link">';
+	echo '<div class="add_comment_link">';
 	echo '<span class="link" onClick=\'js:getCommentForm("consulta",'.$model->id.',this)\'>Añadir comentario</span>';
 	echo '</div>';
 }
+echo '</div>';
+echo '<div class="clear"></div>';
 
 echo '<div id="comments_consulta" style="display:none">';
 foreach($commments as $comment)

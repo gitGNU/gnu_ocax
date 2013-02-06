@@ -85,6 +85,7 @@ class Consulta extends CActiveRecord
 			'user0' => array(self::BELONGS_TO, 'User', 'user'),
 			'teamMember' => array(self::BELONGS_TO, 'User', 'team_member'),
 			'manager0' => array(self::BELONGS_TO, 'User', 'manager'),
+			'subscriptions' => array(self::HAS_MANY, 'ConsultaSubscribe', 'consulta'),
 		);
 	}
 
@@ -119,7 +120,6 @@ class Consulta extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
 		$criteria->compare('user',$this->user);
 		$criteria->compare('team_member',$this->team_member);
 		$criteria->compare('manager',$this->manager);
@@ -133,6 +133,7 @@ class Consulta extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'created DESC'),
 		));
 	}
 }

@@ -87,6 +87,7 @@ if($model->is_admin){
 
 <?php
 if($consultas->getData()){
+echo '<div style="font-size:1.5em">Mis consultas</div>';
 $this->widget('PGridView', array(
 	'id'=>'consulta-grid',
 	'dataProvider'=>$consultas,
@@ -117,6 +118,45 @@ $this->widget('PGridView', array(
 )));
 }
 ?>
+
+<?php
+
+if($subscribed->getData()){
+echo '<div style="font-size:1.5em">Me he suscrito a estas consultas</div>';
+echo '<span class="hint">Se te enviará un correo cuando se actualicen estas consultas</span>';
+$this->widget('PGridView', array(
+	'id'=>'subscribed-grid',
+	'dataProvider'=>$subscribed,
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>'/ocax/consulta/view',
+    ),
+	'ajaxUpdate'=>true,
+	'pager'=>array('class'=>'CLinkPager',
+					'header'=>'',
+					'maxButtonCount'=>6,
+					'prevPageLabel'=>'< Prev',
+	),
+	'columns'=>array(
+			array(
+				'header'=>'Consultas',
+				'name'=>'title',
+				'value'=>'$data[\'title\']',
+			),
+			'created',
+			array(
+				'header'=>'Estat',
+				'name'=>'state',
+				'type' => 'raw',
+				'value'=>'$data->humanStateValues[$data[\'state\']]',
+				//'value' => 'data[\'state\']',
+			),
+            array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+)));
+}
+
+?>
+
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
