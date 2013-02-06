@@ -12,10 +12,10 @@ $this->menu=array(
 );
 ?>
 
-<?php if(Yii::app()->user->hasFlash('prompt')):?>
+<?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash_prompt">
-        <?php /*echo Yii::app()->user->getFlash('success');*/ ?>
-		<p style="margin-top:5px;"><b>Enviar un correo a <?php echo $model->user0->fullname;?>?</b></p>
+        
+		<p style="margin-top:5px;">Enviar un correo a las <b><?php echo Yii::app()->user->getFlash('prompt_email');?></b> personas suscritas a esta consulta?</p>
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?consulta='.$model->id.'&menu=team';
 		?>

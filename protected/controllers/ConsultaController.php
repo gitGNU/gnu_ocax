@@ -32,11 +32,11 @@ class ConsultaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','subscribe'),
+				'actions'=>array('create','edit','subscribe'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('teamView','edit','update','managed'),
+				'actions'=>array('teamView','update','managed'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -162,13 +162,23 @@ class ConsultaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		$userid= Yii::app()->user->getUserID();
+		if( !($model->team_member == $userid || ($model->state==0 && $model->user == $userid) )){
+			$this->render('/site/index');
+			Yii::app()->end();
+		}
+
 		$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 		if(isset($_POST['Consulta']))
 		{
 			$model->attributes=$_POST['Consulta'];
 			if($model->save()){
-				Yii::app()->user->setFlash('prompt', "prompt_email");
-				$this->redirect(array('teamView','id'=>$model->id));
+				if(Yii::app()->user->getUserID() == $model->team_member){
+					$model->promptEmail();
+					$this->redirect(array('teamView','id'=>$model->id));
+				}else{
+					$this->redirect(array('view','id'=>$model->id));
+				}
 			}
 		}
 		$menu=Null;
@@ -207,7 +217,7 @@ class ConsultaController extends Controller
 		{
 			$model->attributes=$_POST['Consulta'];
 			if($model->save()){
-				Yii::app()->user->setFlash('prompt', "prompt_email");
+				$model->promptEmail();
 				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}
@@ -260,7 +270,7 @@ class ConsultaController extends Controller
 				$subscription->consulta = $model->id;
 				$subscription->save();
 
-				Yii::app()->user->setFlash('prompt', "prompt_email");
+				$model->promptEmail();
 				$this->redirect(array('adminView','id'=>$model->id));
 			}
 		}

@@ -12,7 +12,14 @@
 
 <div class="outer">
 <div class="left">
-<p style="font-weight:bold">Consulta:</p>
+<p>
+<span style="font-weight:bold">Consulta:</span><br />
+<?php
+if($model->state == 0 && $model->user == Yii::app()->user->getUserID())
+	echo '<span>Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' hasta que la OCA(x) reconoce su entrega</span>';
+?>
+</p>
+
 <?php echo '<h1>'.$model->title.'</h1>';?>
 
 </div>

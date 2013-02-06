@@ -22,9 +22,7 @@ if($menu == 'manager'){
 }
 ?>
 
-<h1>Emails a <?php echo $consulta->user0->fullname;?></h1>
-
-<p style="font-size:1.5em">Consulta: <?php echo $consulta->title;?></p>
+Emails enviados desde la consulta <h1><?php echo $consulta->title;?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

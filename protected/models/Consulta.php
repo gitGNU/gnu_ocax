@@ -109,6 +109,13 @@ class Consulta extends CActiveRecord
 		);
 	}
 
+	public function promptEmail()
+	{
+		$subscribers = count(ConsultaSubscribe::model()->findAll(array('condition'=>'consulta='.$this->id)));
+		Yii::app()->user->setFlash('prompt_email', $subscribers);
+	}
+
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
