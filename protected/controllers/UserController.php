@@ -72,7 +72,7 @@ class UserController extends Controller
 				'condition'=>'	subscriptions.consulta = t.id AND
 								subscriptions.user = '.$userid.' AND
 								t.user != '.$userid.' AND
-								t.team_member != '.$userid.'',
+								( t.team_member != '.$userid.' || t.team_member IS NULL )',
 				'together'=>true,
 			),
 		));
