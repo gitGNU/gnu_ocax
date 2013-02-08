@@ -58,8 +58,10 @@ $this->widget('ext.tinymce.TinyMce', array(
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 		<?php	if (!$model->id)
 					$cancelURL='/user/panel';
-				else
+				elseif ($model->team_member == Yii::app()->user->getUserID())
 					$cancelURL='/consulta/teamView/'.$model->id;
+				else
+					$cancelURL='/consulta/'.$model->id;
 		?>
 		<input type="button" value="Cancelar" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 	</div>

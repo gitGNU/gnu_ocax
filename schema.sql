@@ -58,6 +58,19 @@ CREATE TABLE IF NOT EXISTS consulta_subscribe (
   FOREIGN KEY (consulta) REFERENCES consulta(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS budget (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  parent int(11) NULL,
+  year SMALLINT(2) NOT NULL,
+  code int(11) NOT NULL,
+  concept varchar( 255 ) NOT NULL ,
+  provision int(11) NOT NULL,	/* importe previsto */
+  spent int(11) DEFAULT 0,		/* importe real */
+  weight int(10) DEFAULT 0,			/* order for display */
+  PRIMARY KEY (id),
+  FOREIGN KEY (parent) REFERENCES budget(id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS respuesta (
   id int(11) NOT NULL AUTO_INCREMENT,
   consulta int(11) NOT NULL,

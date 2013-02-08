@@ -132,6 +132,14 @@ class ConsultaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		if(isset($_GET['budget'])){
+			$budget=Budget::model()->findByPk($_GET['budget']);
+			if($budget){
+				$model->capitulo = $budget->code;
+				$model->type = 1;
+			}
+		}
+
 		if(isset($_POST['Consulta']))
 		{
 			$model->attributes=$_POST['Consulta'];
@@ -182,7 +190,7 @@ class ConsultaController extends Controller
 			}
 		}
 		$menu=Null;
-		if(isset($_GET['menu']) && Yii::app()->user->isTeamMember())
+		if(isset($_GET['menu']) && ($userid == $model->team_member))
 			$menu=$_GET['menu'];
 		$this->render('edit',array(
 			'model'=>$model,

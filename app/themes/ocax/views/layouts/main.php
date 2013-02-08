@@ -35,6 +35,7 @@
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'Todo lo mio', 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Consultes', 'url'=>array('/consulta')),
+				array('label'=>'Presupuestos', 'url'=>array('/budget')),
 				array('label'=>'Qui Som?', 'url'=>array('/page/qui-som')),
 				array('label'=>'L\'Ajuntament', 'url'=>array('/page/ajuntament')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),

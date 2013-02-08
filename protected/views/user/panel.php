@@ -44,7 +44,7 @@ realizar una nueva consulta sobre la actividad de tu ayuntamiento y nosotros har
 </p>
 </div>
 <div class="right">
-<h1><?php echo CHtml::link('Tus datos de usuario',array('user/update/'));?></h1>
+<h1><?php echo CHtml::link('Mis datos de usuario',array('user/update/'));?></h1>
 <p>
 Change your profile<br />
 Configure your email<br />
@@ -70,6 +70,13 @@ if($model->is_manager){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Gestionar consultas',array('consulta/admin')).'</h1>';
 	echo '<p>Asignar nuevas consultas a miembros del equipo y comprobar el estado de todos las consultas.</p>';
+	echo "</div>";
+}
+
+if($model->is_admin){
+	changeColumn();
+	echo '<h1>'.CHtml::link('Actualizar presupuestos',array('budget/admin')).'</h1>';
+	echo "<p>Crear, modificar y borrar partidas presupuestarias</p>";
 	echo "</div>";
 }
 

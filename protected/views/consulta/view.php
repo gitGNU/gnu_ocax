@@ -16,7 +16,7 @@
 <span style="font-weight:bold">Consulta:</span><br />
 <?php
 if($model->state == 0 && $model->user == Yii::app()->user->getUserID())
-	echo '<span>Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' hasta que la OCA(x) reconoce su entrega</span>';
+	echo '<span>Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y borrarla hasta que la OCA(x) reconozca la entrega</span>';
 ?>
 </p>
 
