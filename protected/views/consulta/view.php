@@ -16,7 +16,14 @@
 <span style="font-weight:bold">Consulta:</span><br />
 <?php
 if($model->state == 0 && $model->user == Yii::app()->user->getUserID())
-	echo '<span>Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y borrarla hasta que la OCA(x) reconozca la entrega</span>';
+	echo '<span>Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y incluso ';
+	$url = '/consulta/delete';
+	echo CHtml::link('borrarla',"#",
+                    array(
+						"submit"=>array('delete', 'id'=>$model->id),
+						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
+						'confirm' => '¿Estás seguro?'));
+	echo ' hasta que la OCA(x) reconozca la entrega</span>';
 ?>
 </p>
 

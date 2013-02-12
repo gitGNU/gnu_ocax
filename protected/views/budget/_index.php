@@ -34,33 +34,10 @@
 <script>
 function toggleChildren(id){
 	if ($('#budget_children_'+id).is(":visible"))
-		$('#budget_children_'+id).slideUp();
+		$('#budget_children_'+id).slideUp('fast');
 	else
-		$('#budget_children_'+id).slideDown();
+		$('#budget_children_'+id).slideDown('fast');
 }
-$(function() {
-	$('.budget').bind('click', function() {
-		budget_id = $(this).attr('budget_id');
-		content = '';
-		if(1 == 1){
-			consulta_link='<?php echo Yii::app()->request->baseUrl;?>/consulta/create?budget='+budget_id;
-			consulta_link='<a href="'+consulta_link+'">hacer una consulta</a>';
-			content=content+'Deseas '+consulta_link+'?';
-		}
-		$('#budget_options_content').html(content);
-		//alert($(this).text());
-		$('#budget_options').bPopup({
-			modalClose: false
-			, position: ([ 'auto', 200 ])
-			, follow: ([false,false])
-			, fadeSpeed: 10
-			, positionStyle: 'absolute'
-			, modelColor: '#ae34d5'
-		});
-	});
-});
-
-
 </script>
 
 <?php
@@ -68,6 +45,7 @@ $(function() {
 function percentage($val1, $val2){
 	return round( ($val1 / $val2) * 100);
 }
+
 function getBackGroundColor($color=0){
 	$colors = array(
 		0 => 'red',
@@ -87,6 +65,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
 	$criteria->condition = 'parent = '.$parent_budget->id;
 	$criteria->order = 'weight ASC';
 	$child_budgets = Budget::model()->findAll($criteria);
+
 	list($color_count, $background_color) = getBackGroundColor($color_count);
 	foreach($child_budgets as $budget){
 
@@ -130,10 +109,13 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
 
 $graph_width=700;
 
+echoChildBudgets($parent_budget, 1, $graph_width, 0);
+
 //echo '<div style="width:'.$graph_width.'px; background-color:lightgrey;">Total: '.number_format($total_budget).'</div><br />';
 
 // it'd be nice to pass all this to echoChildBudgets()
 
+/*
 foreach($budgets_raiz as $budget){
 	$percent=percentage($budget->provision,$total_budget);
 	$width=$graph_width*($percent / 100);
@@ -177,6 +159,7 @@ foreach($budgets_raiz as $budget){
 		echo '</div>';
 	}
 }
+*/
 ?>
 
 <div id="budget_options" style="display:none;width:350px;">

@@ -63,29 +63,27 @@ if($model->is_editor){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Site CMS page editor',array('/cmspage')).'</h1>';
 	echo '<p>Edit the general information pages</p>';
-	echo "</div>";
+	echo '</div>';
 }
 
 if($model->is_manager){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Gestionar consultas',array('consulta/admin')).'</h1>';
 	echo '<p>Asignar nuevas consultas a miembros del equipo y comprobar el estado de todos las consultas.</p>';
-	echo "</div>";
+	echo '</div>';
 }
 
 if($model->is_admin){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Actualizar presupuestos',array('budget/admin')).'</h1>';
-	echo "<p>Crear, modificar y borrar partidas presupuestarias</p>";
-	echo "</div>";
+	echo '<h1>Administrador</h1>';
+	echo CHtml::link('Admin usuarios',array('user/admin')).'<br />';
+	echo CHtml::link('Actualizar presupuestos',array('budget/admin')).'<br />';
+	echo CHtml::link('Gestionar años presupuestarios',array('budget/adminYears')).'<br />';
+	echo CHtml::link('Administrar parámetros globales',array('config/admin')).'</p>';
+	echo '</div>';
 }
 
-if($model->is_admin){
-	changeColumn();
-	echo '<h1>'.CHtml::link('Admin usuarios',array('user/admin')).'</h1>';
-	echo "<p>Change user roles<br />Delete users</p>";
-	echo "</div>";
-}
+
 
 ?>
 

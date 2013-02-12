@@ -1,21 +1,10 @@
 <?php
 /* @var $this BudgetController */
 /* @var $model Budget */
-
-$this->breadcrumbs=array(
-	'Budgets'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Budget', 'url'=>array('index')),
-	array('label'=>'Create Budget', 'url'=>array('create')),
-	array('label'=>'View Budget', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Budget', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Update Budget <?php echo $model->id; ?></h1>
+<?php $parent_budget=$model->findByPk($model->parent);?>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<div style="font-size:1.5em; margin:10px; margin-left:0px;">Actualizar partida del <?php echo $model->year?> - <?php echo $model->year+1?></div>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model,'parent_budget'=>$parent_budget)); ?>

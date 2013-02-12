@@ -1,18 +1,17 @@
 <?php
 /* @var $this BudgetController */
 /* @var $model Budget */
-
-$this->breadcrumbs=array(
-	'Budgets'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Budget', 'url'=>array('index')),
-	array('label'=>'Manage Budget', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Create Budget</h1>
+<?php
+if($parent_id){
+	$parent_budget=$model->findByPk($parent_id);
+	$model->parent = $parent_budget->id;
+	$model->year = $parent_budget->year;
+}
+?>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+
+<div style="font-size:1.5em; margin:10px; margin-left:0px;">Crear partida del <?php echo $model->year?> - <?php echo $model->year+1?></div>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model,'parent_budget'=>$parent_budget)); ?>

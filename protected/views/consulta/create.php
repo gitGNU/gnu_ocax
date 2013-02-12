@@ -6,23 +6,46 @@
 
 
 <?php
+
 if($model->type == 1){
-	$year = date('Y');
+	$year = Config::model()->findByPk('year')->value;
 
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'year = '.$year.' AND parent is NULL';
 	$criteria->order = 'weight ASC';
-	$budgets_raiz = Budget::model()->findAll($criteria);
+	$budget_raiz = Budget::model()->find($criteria);
 
-	//get total € of $budgets_raiz
-	$total_budget=0;
-	foreach($budgets_raiz as $budget)
-		$total_budget=$total_budget+$budget->provision;
-
-	echo '<h1>Presupuestos de '.$year.' Total: '.number_format($total_budget).'€</h1>';
-	$this->renderPartial('//budget/_index',array('budgets_raiz'=>$budgets_raiz, 'total_budget'=>$total_budget));
+	//$this->renderPartial('//budget/_index',array('budgets_raiz'=>$budgets_raiz, 'total_budget'=>$total_budget));
+	echo $this->renderPartial('//budget/_index',array('parent_budget'=>$budget_raiz));
 }
 ?>
+
+<script>
+$(function() {
+	$('.budget').bind('click', function() {
+		budget_id = $(this).attr('budget_id');
+		$.ajax({
+			url: '<?php echo Yii::app()->request->baseUrl;?>/budget/getBudgetDetails/',
+			type: 'GET',
+			async: false,
+			dataType: 'json',
+			data: {'id': budget_id },
+			beforeSend: function(){ /*$ ('#right_loading_gif').show(); */ },
+			complete: function(){ /* $('#right_loading_gif').hide(); */ },
+			success: function(data){
+				if(data != 0){
+					$('#budget_concept').html(data.html);
+					$('#Consulta_budget').val(data.code);
+				}
+			},
+			error: function() {
+				alert("Error on get comment form");
+			}
+		});
+	});
+});
+</script>
+
 
 <h1>Create Consulta</h1>
 

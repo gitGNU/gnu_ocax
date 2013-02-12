@@ -22,6 +22,19 @@ CREATE TABLE IF NOT EXISTS user (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS budget (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  parent int(11) NULL,
+  year SMALLINT(2) NOT NULL,
+  code int(11) NOT NULL,
+  concept varchar( 255 ) NOT NULL ,
+  provision int(11) NOT NULL,	/* importe previsto */
+  spent int(11) DEFAULT 0,		/* importe real */
+  weight int(10) DEFAULT 0,			/* order for display */
+  PRIMARY KEY (id),
+  FOREIGN KEY (parent) REFERENCES budget(id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS consulta (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,
@@ -30,7 +43,7 @@ CREATE TABLE IF NOT EXISTS consulta (
   created date NOT NULL,
   assigned date,	/* date the manager assigned the consulta to a team_member */
   type TINYINT(1) DEFAULT 0, /* generica=0, pressupostaria=1 */
-  capitulo int(11), /* capitol_pressupostario (vacio si és una consulta generica) */
+  budget int(11), /* budget pressupostario (null si és una consulta generica) */
   state int(11) DEFAULT 0,
 /*
     0 Esperando respuesta de la OCAB
@@ -46,7 +59,8 @@ CREATE TABLE IF NOT EXISTS consulta (
   PRIMARY KEY (id),
   FOREIGN KEY (user) REFERENCES user(id),
   FOREIGN KEY (team_member) REFERENCES user(id),
-  FOREIGN KEY (manager) REFERENCES user(id)
+  FOREIGN KEY (manager) REFERENCES user(id),
+  FOREIGN KEY (budget) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS consulta_subscribe (
@@ -56,19 +70,6 @@ CREATE TABLE IF NOT EXISTS consulta_subscribe (
   PRIMARY KEY (id),
   FOREIGN KEY (user) REFERENCES user(id),
   FOREIGN KEY (consulta) REFERENCES consulta(id)
-) ENGINE=INNODB DEFAULT CHARSET = utf8;
-
-CREATE TABLE IF NOT EXISTS budget (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  parent int(11) NULL,
-  year SMALLINT(2) NOT NULL,
-  code int(11) NOT NULL,
-  concept varchar( 255 ) NOT NULL ,
-  provision int(11) NOT NULL,	/* importe previsto */
-  spent int(11) DEFAULT 0,		/* importe real */
-  weight int(10) DEFAULT 0,			/* order for display */
-  PRIMARY KEY (id),
-  FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS respuesta (
@@ -134,7 +135,12 @@ CREATE TABLE IF NOT EXISTS cms_page (
 INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('qui-som', 0, '<p>hello world</p>', 'Qui Som?');
 INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('ajuntament', 1, '<p>hello world</p>', 'L\'Ajuntament');
 
-
+CREATE TABLE IF NOT EXISTS config (
+  parameter VARCHAR(64) PRIMARY KEY,
+  value varchar(255) NOT NULL ,
+  description varchar(255) NOT NULL,
+  can_delete TINYINT(1) DEFAULT 0
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 
 

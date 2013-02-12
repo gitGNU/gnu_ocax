@@ -48,6 +48,9 @@ class Budget extends CActiveRecord
 			array('year, code, concept, provision', 'required'),
 			array('parent, year, code, provision, spent, weight', 'numerical', 'integerOnly'=>true),
 			array('concept', 'length', 'max'=>255),
+			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
+			// and code cannot be parent code ???
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, parent, year, code, concept, provision, spent, weight', 'safe', 'on'=>'search'),
@@ -76,10 +79,10 @@ class Budget extends CActiveRecord
 			'id' => 'ID',
 			'parent' => 'Parent',
 			'year' => 'Year',
-			'code' => 'Code',
+			'code' => 'Código',
 			'concept' => 'Concept',
-			'provision' => 'Provision',
-			'spent' => 'Spent',
+			'provision' => 'Importe provisto',
+			'spent' => 'Importe real',
 			'weight' => 'Weight',
 		);
 	}
@@ -94,6 +97,7 @@ class Budget extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		//$criteria->addCondition('parent is not null');	// dont show year budgets
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('parent',$this->parent);

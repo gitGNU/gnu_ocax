@@ -32,17 +32,33 @@ class BudgetController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(/*'create','update'*/),
+				'actions'=>array('getBudgetDetails'/*'create','update'*/),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('getProvision','admin','create','update','delete'),
+				'actions'=>array(	'admin','create','adminYears',
+									'createYear','updateYear','update','delete',
+									),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+
+	public function actionGetBudgetDetails($id)
+	{
+		//if(!Yii::app()->request->isAjaxRequest)
+		//	Yii::app()->end();
+
+		$model=$this->loadModel($id);
+		if($model){
+			echo CJavaScript::jsonEncode(array(	'html'=>$this->renderPartial('_consultaView',array('model'=>$model),true,true),
+												'code'=>$model->code));
+		}else
+			echo 0;
 	}
 
 	/**
@@ -56,19 +72,44 @@ class BudgetController extends Controller
 		));
 	}
 
-	public function actionGetProvision($id)
-	{
-		$model=$this->loadModel($id);
-		echo number_format($model->provision);
-	}
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+
 	public function actionCreate()
 	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
+
 		$model=new Budget;
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['Budget']))
+		{
+			$model->attributes=$_POST['Budget'];
+			if($model->save())
+				echo 1;
+			else
+				echo 0;
+			Yii::app()->end();
+		}
+		$parent_id=Null;
+		if(!$model->parent && isset($_GET['parent_id'])){
+			$parent_id=$_GET['parent_id'];
+		}
+		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('create',array('model'=>$model,'parent_id'=>$parent_id),true,true)));
+	}
+
+	public function actionCreateYear()
+	{
+		$model=new Budget;
+		$model->scenario = 'newYear';
+
+		$model->concept = 'Partida raiz';
+		$model->code = 0;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -76,11 +117,19 @@ class BudgetController extends Controller
 		if(isset($_POST['Budget']))
 		{
 			$model->attributes=$_POST['Budget'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+
+			if($model->save()){
+				$this->redirect(array('adminYears'));
+			}
 		}
-		$model->year = date('Y');
-		$this->render('create',array(
+		if(!$model->year){
+			if(Yii::app()->user->hasFlash('badYear')){
+				$model->year=Yii::app()->user->getFlash('badYear');
+				Yii::app()->user->setFlash('badYear', $model->year);
+			}else
+				$model->year = Config::model()->findByPk('year')->value;
+		}
+		$this->render('createYear',array(
 			'model'=>$model,
 		));
 	}
@@ -90,7 +139,30 @@ class BudgetController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
+
 	public function actionUpdate($id)
+	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
+
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if(isset($_POST['Budget']))
+		{
+			$model->attributes=$_POST['Budget'];
+			if($model->save())
+				echo 1;
+			else
+				echo 0;
+			Yii::app()->end();
+		}
+		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,false)));
+	}
+
+	public function actionUpdateYear($id)
 	{
 		$model=$this->loadModel($id);
 
@@ -100,14 +172,48 @@ class BudgetController extends Controller
 		if(isset($_POST['Budget']))
 		{
 			$model->attributes=$_POST['Budget'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+				$years=new CActiveDataProvider('Budget',array(
+					'criteria'=>array('condition'=>'parent IS NULL',
+					'order'=>'year DESC'),
+				));
+				$this->redirect(array('adminYears'));
+			}
 		}
 
-		$this->render('update',array(
+		$this->render('updateYear',array(
 			'model'=>$model,
 		));
 	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin()
+	{
+		$model=new Budget('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['year']))
+			$model->year=$_GET['year'];
+		else
+			$model->year=Config::model()->findByPk('year')->value;
+		if(isset($_GET['Budget']))
+			$model->attributes=$_GET['Budget'];
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionAdminYears()
+	{
+		$years=new CActiveDataProvider('Budget',array(
+			'criteria'=>array('condition'=>'parent IS NULL',
+			'order'=>'year DESC'),
+		));
+		$this->render('adminYears',array('years'=>$years,));
+	}
+
 
 	/**
 	 * Deletes a particular model.
@@ -133,20 +239,7 @@ class BudgetController extends Controller
 		$this->render('index'/*,array('dataProvider'=>$dataProvider,)*/);
 	}
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Budget('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Budget']))
-			$model->attributes=$_GET['Budget'];
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

@@ -42,8 +42,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'capitulo'); ?>
-		<?php echo $form->textField($model,'capitulo'); ?>
+		<?php /* echo $form->label($model,'capitulo'); */?>
+		<?php /* echo $form->textField($model,'capitulo'); */?>
 	</div>
 
 	<div class="row">

@@ -1,18 +1,18 @@
 <?php
-/* @var $this EmailController */
+/* @var $this ConfigController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Emails',
+	'Configs',
 );
 
 $this->menu=array(
-	array('label'=>'Create Email', 'url'=>array('create')),
-	array('label'=>'Manage Email', 'url'=>array('admin')),
+	array('label'=>'Create Config', 'url'=>array('create')),
+	array('label'=>'Manage Config', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Emails</h1>
+<h1>Configs</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -12,18 +12,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'parent'); ?>
-		<?php echo $form->textField($model,'parent'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'year'); ?>
-		<?php echo $form->textField($model,'year'); ?>
+		<?php echo $form->hiddenField($model,'year'); ?>
 	</div>
 
 	<div class="row">
@@ -33,7 +23,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?>
-		<?php echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -44,11 +34,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'spent'); ?>
 		<?php echo $form->textField($model,'spent'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'weight'); ?>
-		<?php echo $form->textField($model,'weight'); ?>
 	</div>
 
 	<div class="row buttons">

@@ -32,7 +32,7 @@ class ConsultaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','edit','subscribe'),
+				'actions'=>array('create','edit','subscribe','delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -40,7 +40,7 @@ class ConsultaController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('adminView','admin','manage','delete'),
+				'actions'=>array('adminView','admin','manage'),
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('deny',  // deny all users
@@ -133,11 +133,9 @@ class ConsultaController extends Controller
 		// $this->performAjaxValidation($model);
 
 		if(isset($_GET['budget'])){
-			$budget=Budget::model()->findByPk($_GET['budget']);
-			if($budget){
-				$model->capitulo = $budget->code;
-				$model->type = 1;
-			}
+			//$budget=Budget::model()->findByPk($_GET['budget']);
+			$model->budget=$_GET['budget'];
+			$model->type = 1;
 		}
 
 		if(isset($_POST['Consulta']))
@@ -324,11 +322,22 @@ class ConsultaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+		$user=Yii::app()->user->getUserID();
+		if($model->user == $user || Yii::app()->user->isManager()){
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'consulta = '.$model->id.' AND user = '.$user;
+			$subscription=ConsultaSubscribe::model()->find($criteria);
+			if($subscription)
+				$subscription->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$model->delete();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}else
+			$this->redirect(array('/site/index'));
 	}
 
 	/**

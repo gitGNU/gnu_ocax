@@ -4,32 +4,32 @@
 /* @var $form CActiveForm */
 ?>
 
-<style>
-#parent_provision {
-	float:left;
-	font-size:1.4em;
-	margin-left:10px;
-}
-</style>
+<?php
+if($model->isNewRecord)
+	$submitURL=Yii::app()->createUrl('budget/create');
+else
+	$submitURL=Yii::app()->createUrl('budget/update/'.$model->id);
+?>
 
 <script>
-function getProvision(el){
-	if(! $(el).val()){
-		$('#parent_provision').html('');
-		return
-	}
+function submitBudget(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getProvision',
-		type: 'GET',
+		url: '<?php echo $submitURL; ?>',
+		type: 'POST',
 		async: false,
-		data: {'id': $(el).val() },
+		//dataType: 'json',
+		data: $('#budget-form').serialize(),
 		beforeSend: function(){ /*$ ('#right_loading_gif').show(); */ },
 		complete: function(){ /* $('#right_loading_gif').hide(); */ },
 		success: function(data){
-			$('#parent_provision').html('<b> = '+data+'</b>');
+			if(data == 1){
+				$('#form_container').hide();
+				$('#saved_ok').show();
+				$('#budget-grid').yiiGridView('update');
+			}
 		},
 		error: function() {
-			alert("Error on get parent provision");
+			alert("Error on submitBudget");
 		}
 	});
 }
@@ -38,34 +38,22 @@ function getProvision(el){
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'partida-form',
-	'enableAjaxValidation'=>false,
+	'id'=>'budget-form',
+	'enableAjaxValidation'=>true,
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->hiddenField($model,'year'); ?>
+	<?php echo $form->hiddenField($model,'parent'); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'parent'); ?>
-		<?php
-		$budgets_this_year = $model->findAll(array('condition'=>'year =  '.$model->year));
-		$parent_budgets= CHtml::listData($budgets_this_year,'id',function($budget) {
-			return CHtml::encode($budget->code.': '.$budget->concept);
-		});
-		echo '<div style="float:left">';
-		echo $form->dropDownList($model, 'parent', $parent_budgets, array('prompt'=>'Partida raiz', 'onchange'=>'js:getProvision(this);'));
-		echo '</div><div id="parent_provision"></div><div style="clear:both"></div>';
-		?>
-		<?php echo $form->error($model,'parent'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'year'); ?>
-		<?php echo $form->textField($model,'year'); ?>
-		<?php echo $form->error($model,'year'); ?>
+		<input type="text" value="<?php echo $parent_budget->code.': '.$parent_budget->concept;?>" size="60" disabled/>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'code'); ?>
+		<div class="hint">Solo números</div>
 		<?php echo $form->textField($model,'code'); ?>
 		<?php echo $form->error($model,'code'); ?>
 	</div>
@@ -92,13 +80,13 @@ function getProvision(el){
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'weight'); ?>
-		<div class="hint">Orden de esta partida en la lista de partidas (solo tiene valor estético)</div>
+		<div class="hint">Orden de esta partida en el gráfico de partidas (solo tiene valor estético)</div>
 		<?php echo $form->textField($model,'weight'); ?>
 		<?php echo $form->error($model,'weight'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<input type="button" value="Create" onClick="js:submitBudget();" />
 	</div>
 
 <?php $this->endWidget(); ?>

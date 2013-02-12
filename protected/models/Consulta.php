@@ -65,7 +65,7 @@ class Consulta extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user, created, title, body', 'required'),
-			array('user, team_member, manager, type, capitulo, state', 'numerical', 'integerOnly'=>true),
+			array('user, team_member, manager, budget, type, state', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('assigned', 'safe'),
 			// The following rule is used by search().
@@ -82,10 +82,14 @@ class Consulta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'comments' => array(self::HAS_MANY, 'Comment', 'consulta'),
+			'budget0' => array(self::BELONGS_TO, 'Budget', 'budget'),
 			'user0' => array(self::BELONGS_TO, 'User', 'user'),
 			'teamMember' => array(self::BELONGS_TO, 'User', 'team_member'),
 			'manager0' => array(self::BELONGS_TO, 'User', 'manager'),
 			'subscriptions' => array(self::HAS_MANY, 'ConsultaSubscribe', 'consulta'),
+			'emails' => array(self::HAS_MANY, 'Email', 'consulta'),
+			'respuestas' => array(self::HAS_MANY, 'Respuesta', 'consulta'),
 		);
 	}
 
@@ -127,13 +131,14 @@ class Consulta extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('user',$this->user);
 		$criteria->compare('team_member',$this->team_member);
 		$criteria->compare('manager',$this->manager);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('assigned',$this->assigned,true);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('capitulo',$this->capitulo);
+		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);

@@ -12,18 +12,26 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->hiddenField($model,'budget'); ?>
 
-	<div class="row">
+	<div class="row" style="float:left">
 		<?php echo $form->label($model,'type'); ?>
 		<?php echo $form->dropDownList($model, 'type', $model->humanTypeValues);?>
 		<?php echo $form->error($model,'type'); ?>
+		<p>Desea cambiar el concepto<br /> presupuestario de la consulta?</p>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'capitulo'); ?>
-		<?php echo $form->textField($model,'capitulo'); ?>
-		<?php echo $form->error($model,'capitulo'); ?>
+		<div id="budget_concept" style="margin-left:20px;float:right; font-float:right;">
+		<?php if($model->budget){
+			echo '<b>Concepto presupuestario</b>';
+			$this->renderPartial('//budget/_consultaView',array('model'=>Budget::model()->findByPk($model->budget)));
+		}
+		?>
+		</div>
+
 	</div>
+	<div style="clear:both"></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
