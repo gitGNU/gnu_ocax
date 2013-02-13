@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+
 <style>
 .graph_bar{
 	float:left;
@@ -60,7 +60,9 @@ function getBackGroundColor($color=0){
 	return array($color, 'background-color:'.$colors[$color].';');
 }
 
-function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
+
+
+function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $yearly_total){
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$parent_budget->id;
 	$criteria->order = 'weight ASC';
@@ -68,7 +70,6 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
 
 	list($color_count, $background_color) = getBackGroundColor($color_count);
 	foreach($child_budgets as $budget){
-
 		$percent=percentage($budget->provision,$parent_budget->provision);
 		$width=$graph_width*($percent / 100);
 
@@ -77,9 +78,9 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
 		$criteria->condition = 'parent = '.$budget->id;
 		$is_parent=$budget->find($criteria);
 
-		$budget_indent = $indent * 30;
+		$budget_indent = $indent + 30;
 		if($is_parent)
-			$budget_indent = $indent * 30 - 16 - 4 ;	// 16 is the width of the icon amnd the left:margin
+			$budget_indent = $indent + 30 - 16 - 4 ;	// 16 is the width of the icon amnd the left:margin
 
 		echo '<div style=" margin-left:'.$budget_indent.'px;">';	//contains budget plus show_more icon
 		if($is_parent){
@@ -94,13 +95,14 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
 			echo '</div>';
 
 		echo '<div class="graph_bar" style="width:'.$width.'px; '.$background_color.'">&nbsp;</div>';
-		echo '<div class="graph_bar_percent">'.$percent.'%</div>';
+		$percent=percentage($budget->provision,$yearly_total);
+		echo '<div class="graph_bar_percent">'.$percent.'% del total</div>';
 		echo '</div>';	// budget ends
 		echo '<div style="clear:both"></div>';
 
 		if($is_parent)
 			echo '<div id="budget_children_'.$budget->id.'" style="display:none">';
-		echoChildBudgets($budget, $indent+1, $width, $color_count);
+		echoChildBudgets($budget, $indent+1, $width, $color_count, $yearly_total);
 		if($is_parent)
 			echo '</div>';
 		echo '</div>';
@@ -109,11 +111,12 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count){
 
 $graph_width=700;
 
-echoChildBudgets($parent_budget, 1, $graph_width, 0);
+$yearly_total = $parent_budget->provision;
+echoChildBudgets($parent_budget, 1, $graph_width, 0, $yearly_total);
 
-//echo '<div style="width:'.$graph_width.'px; background-color:lightgrey;">Total: '.number_format($total_budget).'</div><br />';
+//echo '<div style="width:'.$graph_width.'px; background-color:lightgrey;">Total: '.number_format($yearly_total_budget).'</div><br />';
 
-// it'd be nice to pass all this to echoChildBudgets()
+
 ?>
 
 <div id="budget_options" style="display:none;width:350px;">

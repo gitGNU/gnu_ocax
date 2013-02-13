@@ -142,5 +142,7 @@ CREATE TABLE IF NOT EXISTS config (
   can_delete TINYINT(1) DEFAULT 0
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Año por omisión');
+INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x), 'Siglas del observatorio');
 
 

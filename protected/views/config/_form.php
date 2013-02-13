@@ -11,13 +11,16 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
-
 	<div class="row">
+
+
 		<?php echo $form->labelEx($model,'parameter'); ?>
-		<?php echo $form->textField($model,'parameter',array('size'=>60,'maxlength'=>64)); ?>
+		<?php
+		if(!$model->isNewRecord){
+			echo $form->hiddenField($model,'parameter');			
+			echo '<input type="text" value="'.$model->parameter.'" size="60" disabled />';
+		}else
+			echo $form->textField($model,'parameter',array('size'=>60,'maxlength'=>64)); ?>
 		<?php echo $form->error($model,'parameter'); ?>
 	</div>
 

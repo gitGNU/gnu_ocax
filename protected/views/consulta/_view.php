@@ -124,39 +124,13 @@ function vote(respuesta_id, like){
 	});
 
 }
-function subscribe(el){
-	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		$(el).attr('checked', false);
-		alert('Please login to subscribe');
-		return;
-	}
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/consulta/subscribe',
-		type: 'POST',
-		async: false,
-		dataType: 'json',
-		data: { 'consulta': <?php echo $model->id;?> },
-		//beforeSend: function(){ },
-		//complete: function(){ },
-		//success: function(data){ },
-		error: function() { alert("error on subscribe"); },
-	});
-}
 </script>
 
 
 <div style="margin-top:15px">
 <?php echo $model->body;?>
 
-<?php
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'consulta = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
-	$checked = '';
-	if( ConsultaSubscribe::model()->findAll($criteria) )
-			$checked = 'checked';
-?>
-<div class="commentBlockLink"><span>Mantenme informado por correo cuando hayan cambios.
-<input type="checkbox" onClick="js:subscribe(this);" <?php echo $checked; ?>/></span>
+<div class="commentBlockLink">
 
 <?php
 $commments = Comment::model()->findAll(array('condition'=>'consulta =  '.$model->id));
