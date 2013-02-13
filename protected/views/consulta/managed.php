@@ -47,10 +47,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		<?php echo $form->label($model,'type'); ?>
 		<?php echo $form->dropDownList($model, 'type', array(''=>'Sin filtrar') + $model->humanTypeValues);?>
 	</div>
-	<div class="row">
-		<?php echo $form->label($model,'capitulo'); ?>
-		<?php echo $form->textField($model,'capitulo'); ?>
-	</div>
+
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
 		<?php echo $form->dropDownList($model, 'state', array(''=>'Sin filtrar') + $model->humanStateValues);?>

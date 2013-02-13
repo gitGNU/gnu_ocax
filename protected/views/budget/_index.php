@@ -114,52 +114,6 @@ echoChildBudgets($parent_budget, 1, $graph_width, 0);
 //echo '<div style="width:'.$graph_width.'px; background-color:lightgrey;">Total: '.number_format($total_budget).'</div><br />';
 
 // it'd be nice to pass all this to echoChildBudgets()
-
-/*
-foreach($budgets_raiz as $budget){
-	$percent=percentage($budget->provision,$total_budget);
-	$width=$graph_width*($percent / 100);
-
-	// is this budget a parent? (Can we avoid this query?)
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$budget->id;
-	$is_parent=$budget->find($criteria);
-
-
-	$indent =1;
-	$budget_indent = 0;
-	if($is_parent)
-		$budget_indent = $indent - 16 - 4 ;	// 16 is the width of the icon amnd the left:margin
-
-	list($color_count, $background_color) = getBackGroundColor();
-
-	echo '<div style=" margin-left:'.$budget_indent.'px;">';	//contains budget plus show_more icon
-	if($is_parent){
-		echo '<div style="float:left">';
-		echo '<img class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
-		echo '</div>';
-	}
-	echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left">';
-		echo '<div>';
-		echo $budget->concept.' '.number_format($budget->provision).'€ '.$percent.'% del total';
-		echo '</div>';
-
-		echo '<div class="graph_bar" style="width:'.$width.'px; '.$background_color.'">&nbsp;</div>';
-
-	echo '</div>';
-	echo '</div>';
-	echo '<div style="clear:both"></div>';
-
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$budget->id;
-
-	if($is_parent){
-		echo '<div id="budget_children_'.$budget->id.'" style="display:none">';
-		echoChildBudgets($budget, 1, $width, $color_count);
-		echo '</div>';
-	}
-}
-*/
 ?>
 
 <div id="budget_options" style="display:none;width:350px;">

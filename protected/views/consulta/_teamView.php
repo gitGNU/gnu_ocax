@@ -14,7 +14,6 @@
 	        'label'=>'Tipo',
 	        'value'=>$model->humanTypeValues[$model->type],
 		),
-		'capitulo',
 		array(
 	        'label'=>'Estat',
 	        'value'=>$model->humanStateValues[$model->state],
@@ -27,8 +26,15 @@
 	//echo $model->body;
 ?>
 
+<?php
+if($model->budget)
+	echo $this->renderPartial('//budget/_consultaView', array('model'=>$model));
+?>
 
 <?php echo $this->renderPartial('//consulta/_view', array('model'=>$model)); ?>
+
+
+
 
 
 

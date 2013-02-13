@@ -1,6 +1,12 @@
 <?php
 /* @var $this ConsultaController */
 /* @var $model Consulta */
+
+//http://stackoverflow.com/questions/10188391/yii-renderpartial-proccessoutput-true-avoid-duplicate-js-request
+if(Yii::app()->request->isAjaxRequest){
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+}
 ?>
 
 <style>           
@@ -15,15 +21,16 @@
 <p>
 <span style="font-weight:bold">Consulta:</span><br />
 <?php
-if($model->state == 0 && $model->user == Yii::app()->user->getUserID())
+if($model->state == 0 && $model->user == Yii::app()->user->getUserID()){
 	echo '<span>Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y incluso ';
-	$url = '/consulta/delete';
+	//$url = '/consulta/delete';
 	echo CHtml::link('borrarla',"#",
                     array(
 						"submit"=>array('delete', 'id'=>$model->id),
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
 						'confirm' => '¿Estás seguro?'));
 	echo ' hasta que la OCA(x) reconozca la entrega</span>';
+}
 ?>
 </p>
 
@@ -40,7 +47,6 @@ if($model->state == 0 && $model->user == Yii::app()->user->getUserID())
 	        'label'=>'Tipo',
 	        'value'=>$model->humanTypeValues[$model->type],
 		),
-		'capitulo',
 		array(
 	        'label'=>'Estat',
 	        'value'=>$model->humanStateValues[$model->state],

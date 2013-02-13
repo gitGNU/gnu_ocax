@@ -1,6 +1,8 @@
 <?php
 /* @var $this BudgetController */
 /* @var $model Budget */
+Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 ?>
 
 <?php $parent_budget=$model->findByPk($model->parent);?>

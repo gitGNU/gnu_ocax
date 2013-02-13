@@ -159,7 +159,7 @@ class BudgetController extends Controller
 				echo 0;
 			Yii::app()->end();
 		}
-		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,false)));
+		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,true)));
 	}
 
 	public function actionUpdateYear($id)

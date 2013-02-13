@@ -4,7 +4,6 @@
 
 $this->menu=array(
 	array('label'=>'Create Año', 'url'=>array('createYear')),
-	array('label'=>'Listar todas partidas', 'url'=>array('admin')),
 );
 
 ?>

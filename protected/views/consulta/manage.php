@@ -34,9 +34,9 @@ $this->menu=array(
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'capitulo'); ?>
-		<?php echo $form->textField($model,'capitulo'); ?>
-		<?php echo $form->error($model,'capitulo'); ?>
+		<?php /* echo $form->labelEx($model,'capitulo'); */?>
+		<?php /*echo $form->textField($model,'capitulo'); */?>
+		<?php /*echo $form->error($model,'capitulo'); */?>
 	</div>
 
 
