@@ -24,7 +24,11 @@ function submitBudget(){
 		success: function(data){
 			if(data == 1){
 				$('#form_container').hide();
-				$('#saved_ok').show();
+				$('#saved_ok').show( function() {
+				    setTimeout(function(){
+				        $("#saved_ok").fadeOut('slow');
+				    }, 2000);
+				});
 				$('#budget-grid').yiiGridView('update');
 			}
 		},

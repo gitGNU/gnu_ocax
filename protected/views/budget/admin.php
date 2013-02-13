@@ -136,12 +136,25 @@ function updateBudget(budget_id){
 	),
 )); ?>
 
+<div id="saved_ok" style="	display :none;
+							position: absolute;
+							z-index: 1;
+							left: 45%;
+							margin-left: -200px;
+							margin-bottom: 10px;
+							width: 400px;
+							font-size: 1.6em;
+							text-align: center;
+							background-color: #98FB98;
+							">
+Partida guardada correctamente
+</div>
+
 <div>Editar una partida arriba seleccionando
 <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/update.png" />
 o añadirle una sub-partida con
 <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/insert_icon.png" />
 </div>
-<div id="saved_ok" style="display:none; font-size:1.6em; margin-top:25px;">Partida guardada correctamente</div>
 
 <div id="form_container"></div>
 

@@ -73,6 +73,23 @@ function submitComment(form){
 		error: function() { alert("error on create comment"); },
 	});
 }
+function deleteComment(comment_id){
+	retVal = confirm("¿Seguro que deseas borrarlo?");
+	if( retVal == false ){
+		return;
+	}
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/delete/'+comment_id,
+		type: 'POST',
+		async: false,
+		success: function(data){
+				if(data == 1){
+					$('#comment_'+comment_id).remove();
+				}
+		},
+		error: function() { alert("error on delete comment"); },
+	});
+}
 function vote(respuesta_id, like){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		alert('Please login to vote');
