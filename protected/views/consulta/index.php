@@ -44,10 +44,7 @@ function showConsulta(consulta_id){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				url='<?php echo Yii::app()->request->baseUrl; ?>/consulta/'+consulta_id;
-				$("#consulta_link").html('<p>Direct link a <a href="'+url+'">esta consulta</a></p>');
 				$("#consulta_body").html(data.html);
-
 				$('#consulta').bPopup({
                     modalClose: false
 					, follow: ([false,false])
@@ -122,7 +119,6 @@ $this->widget('PGridView', array(
 <div id="consulta" style="display:none;width:850px;">
 <div style="background-color:white;padding:5px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="consulta_link"></div>
 <div id="consulta_body"></div>
 </div>
 <p>&nbsp;</p>

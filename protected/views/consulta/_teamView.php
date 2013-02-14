@@ -27,8 +27,10 @@
 ?>
 
 <?php
-if($model->budget)
-	echo $this->renderPartial('//budget/_consultaView', array('model'=>$model));
+if($model->budget){
+	$budget=Budget::model()->findByPk($model->budget);
+	echo $this->renderPartial('//budget/_consultaView', array('model'=>$budget));
+}
 ?>
 
 <?php echo $this->renderPartial('//consulta/_view', array('model'=>$model)); ?>

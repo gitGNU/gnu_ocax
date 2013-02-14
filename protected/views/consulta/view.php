@@ -10,13 +10,18 @@ if(Yii::app()->request->isAjaxRequest){
 ?>
 
 <style>           
-	.clear{clear:both;}
+.clear{clear:both;}
+.socialIcons {	margin-top:0px; }
+.socialIcons img { cursor:pointer; }
+#directlink span  { cursor:pointer; }
+#directlink span:hover { color:black; }
 </style>
 <script>
 function subscribe(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		$(el).attr('checked', false);
 		alert('Please login to subscribe');
+		$('#subscribe').hide();
 		return;
 	}
 	$.ajax({
@@ -27,13 +32,23 @@ function subscribe(el){
 		data: { 'consulta': <?php echo $model->id;?> },
 		//beforeSend: function(){ },
 		//complete: function(){ },
-		//success: function(data){ },
+		success: function(data){
+			$('#subscribe').fadeOut();
+		},
 		error: function() { alert("error on subscribe"); },
 	});
 }
+function toggleSocialPopup(id){
+	if ( $('#'+id).is(':visible') )
+		$('#'+id).hide();
+	else{
+		$('.social_popup').hide();
+		$('#'+id).show();
+	}
+}
 </script>
 
-<div style="float:right; text-align:right; padding-left:10px; padding-bottom:0px; margin:0px;">
+<div style="float:right; text-align:right; padding-left:10px; padding-bottom:0px; margin:0px; margin-top:0px">
 <?php
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'consulta = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
@@ -41,8 +56,6 @@ function subscribe(el){
 	if( ConsultaSubscribe::model()->findAll($criteria) )
 			$checked = 'checked';
 ?>
-Mantenme informado por correo cuando hayan cambios.
-<input type="checkbox" onClick="js:subscribe(this);" <?php echo $checked; ?>/>
 
 <div class="view" style="padding:5px; text-align:left;">
 <?php $this->widget('zii.widgets.CDetailView', array(
@@ -69,11 +82,52 @@ if($model->budget){
 </div>
 </div>
 
-<div style="font-size:1.5em; text-align:center;letter-spacing:3px;">Consulta</div>
-<p>
+<div class="socialIcons">
+<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/link.png" onClick="js:toggleSocialPopup('directlink');"/>
+<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/mail.png" onClick="js:toggleSocialPopup('subscribe');"/>
+<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/facebook.png" />
+<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/twitter.png" />
+</div>
+
+<div id="subscribe" style="	display :none;
+							position: absolute;
+							padding:5px;
+							z-index: 1;
+							width: 400px;
+							background-color: #98FB98;
+							"
+	class="social_popup">
+Mantenme informado por correo cuando hayan cambios.
+<input type="checkbox"	onClick="js:subscribe(this);"
+						style="
+						    vertical-align: middle;
+						    position: relative;
+						    bottom: 1px;
+						"
+	<?php echo $checked; ?>
+/>
+</div>
+
+<div id="directlink" style="display :none;
+							position: absolute;
+							padding:5px;
+							z-index: 1;
+							width: 400px;
+							background-color: #98FB98;
+							"
+	class="social_popup">
+<?php
+	$url = $this->createAbsoluteUrl('/consulta/'.$model->id);
+	//$url=Yii::app()->request->baseUrl.'/consulta/'.$model->id;
+	echo '<span onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
+?>
+</div>
+
+<div style="font-size:1.9em;text-align:center;letter-spacing:3px;margin:10px;">Consulta</div>
 
 <?php
 if($model->state == 0 && $model->user == Yii::app()->user->getUserID()){
+	echo '<p>';
 	echo '<div style="margin-top:5px;font-style:italic;">Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y incluso ';
 	echo CHtml::link('borrarla',"#",
                     array(
@@ -81,9 +135,9 @@ if($model->state == 0 && $model->user == Yii::app()->user->getUserID()){
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
 						'confirm' => '¿Estás seguro?'));
 	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega.</div>';
+	echo '</p>';
 }
 ?>
-</p>
 
 <?php echo '<h1>'.$model->title.'</h1>';?>
 <?php echo $this->renderPartial('_view', array('model'=>$model,'respuestas'=>$respuestas)); ?>
