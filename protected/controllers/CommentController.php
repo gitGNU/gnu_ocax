@@ -89,6 +89,7 @@ class CommentController extends Controller
 		if(isset($_POST['Comment']))
 		{
 			$model->attributes=$_POST['Comment'];
+			$model->body = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = nl2br($model->body);
 			$model->user=Yii::app()->user->getUserID();
 			$model->created=date('c');

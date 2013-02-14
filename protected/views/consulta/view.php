@@ -11,7 +11,7 @@ if(Yii::app()->request->isAjaxRequest){
 
 <style>           
 .clear{clear:both;}
-.socialIcons {	margin-top:0px; }
+.socialIcons {	margin:0px; }
 .socialIcons img { cursor:pointer; }
 #directlink span  { cursor:pointer; }
 #directlink span:hover { color:black; }
@@ -58,6 +58,7 @@ function toggleSocialPopup(id){
 ?>
 
 <div class="view" style="padding:5px; text-align:left;">
+<div style=""><b>Consulta</b></div>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -123,23 +124,19 @@ Mantenme informado por correo cuando hayan cambios.
 ?>
 </div>
 
-<div style="font-size:1.9em;text-align:center;letter-spacing:3px;margin:10px;">Consulta</div>
-
 <?php
 if($model->state == 0 && $model->user == Yii::app()->user->getUserID()){
-	echo '<p>';
-	echo '<div style="margin-top:5px;font-style:italic;">Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y incluso ';
+	echo '<div style="font-style:italic;">Puedes '.CHtml::link('editar la consulta',array('consulta/edit','id'=>$model->id)).' y incluso ';
 	echo CHtml::link('borrarla',"#",
                     array(
 						"submit"=>array('delete', 'id'=>$model->id),
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
 						'confirm' => '¿Estás seguro?'));
 	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega.</div>';
-	echo '</p>';
 }
 ?>
 
-<?php echo '<h1>'.$model->title.'</h1>';?>
+<?php echo '<h1 style="margin-top:15px;">'.$model->title.'</h1>';?>
 <?php echo $this->renderPartial('_view', array('model'=>$model,'respuestas'=>$respuestas)); ?>
 
 <div class="clear"></div>

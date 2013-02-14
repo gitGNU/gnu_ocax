@@ -144,6 +144,8 @@ class ConsultaController extends Controller
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
 			$model->state = 0;
+			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
 			if($model->save()){
 				$subscription=new ConsultaSubscribe;
 				$subscription->user = $model->user;
@@ -178,6 +180,8 @@ class ConsultaController extends Controller
 		if(isset($_POST['Consulta']))
 		{
 			$model->attributes=$_POST['Consulta'];
+			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
 			if($model->save()){
 				if(Yii::app()->user->getUserID() == $model->team_member){
 					$model->promptEmail();
