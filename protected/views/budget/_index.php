@@ -1,19 +1,30 @@
 <?php
 /* @var $this BudgetController */
 /* @var $dataProvider CActiveDataProvider */
+
+if($model->parent0->parent)
+	$parent_budget=$model->parent0;
+else
+	$parent_budget=$model;
+
 ?>
 
 
 <style>
 .graph_bar{
 	float:left;
-	margin-bottom:10px;
+	margin-bottom:20px;
+	background-color:lightgrey;
+}
+.queriedBudget{
+	color:#33A1C9;
+	font-weight:bold;
 }
 .graph_bar_percent{
-	background-color:#EDEDED;
 	padding-left:5px;
 	padding-right:5px;
-	float:left;
+
+	text-align:right;
 }
 .showChildren{
 	margin-right:4px;
@@ -23,6 +34,7 @@
     opacity: 0.7;
 	cursor:pointer;
 }
+
 	.bClose{
 		cursor: pointer;
 		position: absolute;
@@ -56,13 +68,13 @@ function getBackGroundColor($color=0){
 	$color=$color+1;
 	if($color>3)
 		$color=0;
-	return array($color, 'background-color:black;');
+	return array($color, 'background-color:lightgrey;');
 	return array($color, 'background-color:'.$colors[$color].';');
 }
 
 
 
-function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $yearly_total){
+function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $globals){
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$parent_budget->id;
 	$criteria->order = 'weight ASC';
@@ -78,43 +90,77 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 		$criteria->condition = 'parent = '.$budget->id;
 		$is_parent=$budget->find($criteria);
 
-		$budget_indent = $indent + 30;
-		if($is_parent)
-			$budget_indent = $indent + 30 - 16 - 4 ;	// 16 is the width of the icon amnd the left:margin
+		$budget_indent = 0;
+		if($indent > 0)
+			$budget_indent = 32;
 
-		echo '<div style=" margin-left:'.$budget_indent.'px;">';	//contains budget plus show_more icon
-		if($is_parent){
+
+		echo '<div style=" margin-left:'.$budget_indent.'px;">';
+			if($is_parent)
+			echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
+			else
+			echo '<div style="margin-left:0px">';
+
+			if($is_parent){
 			echo '<div style="float:left;">';
 			echo '<img class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
 			echo '</div>';
-		}
-		echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';	//budget starts
-			echo '<div>';
-			echo $budget->concept.' '.number_format($budget->provision).'€. ';
-			echo $percent.'% de '.$parent_budget->concept;
+			}
+			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
+				$highlight=null;
+				if($budget->id == $globals['queried_budget'])
+					$highlight = 'queriedBudget';
+				echo '<div>';
+				echo '<span class="'.$highlight.'">'.$budget->concept.' '.number_format($budget->provision).'€.</span> ';
+				//echo $percent.'% del total.';
+				echo '</div>';
+			echo '<div class="graph_bar '.$highlight.'" style="width:'.$width.'px;">';
+			$percent=percentage($budget->provision,$globals['yearly_total']);
+			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
 
-		echo '<div class="graph_bar" style="width:'.$width.'px; '.$background_color.'">&nbsp;</div>';
-		$percent=percentage($budget->provision,$yearly_total);
-		echo '<div class="graph_bar_percent">'.$percent.'% del total</div>';
-		echo '</div>';	// budget ends
+			echo '</div>';
+		echo '</div>';
 		echo '<div style="clear:both"></div>';
 
-		if($is_parent)
+		if($is_parent){
 			echo '<div id="budget_children_'.$budget->id.'" style="display:none">';
-		echoChildBudgets($budget, $indent+1, $width, $color_count, $yearly_total);
-		if($is_parent)
+			echoChildBudgets($budget, $indent+1, $width, $color_count, $globals);
 			echo '</div>';
+		}
 		echo '</div>';
 	}
 }
 
-$graph_width=700;
+$graph_width=897;
 
 $yearly_total = $parent_budget->provision;
-echoChildBudgets($parent_budget, 1, $graph_width, 0, $yearly_total);
+$globals=array(	'yearly_total' => $yearly_total,
+				'queried_budget' => $model->id,
+);
 
-//echo '<div style="width:'.$graph_width.'px; background-color:lightgrey;">Total: '.number_format($yearly_total_budget).'</div><br />';
+
+$budget_onclick='';
+if($parent_budget->parent && $parent_budget->parent0->parent){
+	$budget_onclick='class="budget" budget_id="'.$parent_budget->id.'"';
+
+}/*else{
+	$grandparent=$model->findByPk($parent_budget->parent);
+	if($grandparent->parent && $grandparent->parent0->parent){
+		$budget_onclick='class="budget" budget_id="'.$parent_budget->id.'"';
+	}
+}
+*/
+echo '<div '.$budget_onclick.'>';
+echo $parent_budget->concept.'. '.number_format($parent_budget->provision).'€<br />';
+echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">Total: '.number_format($parent_budget->provision).'€ 100%</div><br />';
+echo '</div>';
+
+echo '<p style="font-size:1.3em;text-decoration:underline;">'.number_format($parent_budget->provision).'€ es la suma de las siguientes partidas</p>';
+
+echoChildBudgets($parent_budget, 0, $graph_width, 0, $globals);
+
+
 
 
 ?>

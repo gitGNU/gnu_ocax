@@ -55,7 +55,7 @@ Change your password</p>
 if($model->is_team_member){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Consultas encomendadas',array('consulta/managed')).'</h1>';
-	echo '<p>Gestionar las consultas que te han encargado.</p>';
+	echo '<p>Manage the consultas you are responsable for.</p>';
 	echo "</div>";
 }
 
@@ -68,8 +68,16 @@ if($model->is_editor){
 
 if($model->is_manager){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Gestionar consultas',array('consulta/admin')).'</h1>';
-	echo '<p>Asignar nuevas consultas a miembros del equipo y comprobar el estado de todos las consultas.</p>';
+	echo '<h1>'.CHtml::link('Manage consultas',array('consulta/admin')).'</h1>';
+	echo '<p>Assign nuew consultas a team members y check status.</p>';
+	echo '</div>';
+}
+
+if($model->is_admin){
+	changeColumn();
+	echo '<h1></h1>';
+	echo '<h1>'.CHtml::link('Administer Budgets',array('budget/adminYears')).'</h1>';
+	echo 'Create years and import data.';
 	echo '</div>';
 }
 
@@ -77,9 +85,7 @@ if($model->is_admin){
 	changeColumn();
 	echo '<h1>Administrador</h1>';
 	echo CHtml::link('Admin usuarios',array('user/admin')).'<br />';
-	echo CHtml::link('Actualizar presupuestos',array('budget/admin')).'<br />';
-	echo CHtml::link('Gestionar años presupuestarios',array('budget/adminYears')).'<br />';
-	echo CHtml::link('Administrar parámetros globales',array('config/admin')).'</p>';
+	echo CHtml::link('Administer global parameters.',array('config/admin')).'</p>';
 	echo '</div>';
 }
 
@@ -98,7 +104,7 @@ $this->widget('PGridView', array(
 	'dataProvider'=>$consultas,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>'/ocax/consulta/view',
+        'call'=>Yii::app()->request->baseUrl.'/consulta/view',
     ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
@@ -134,7 +140,7 @@ $this->widget('PGridView', array(
 	'dataProvider'=>$subscribed,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>'/ocax/consulta/view',
+        'call'=>Yii::app()->request->baseUrl.'/consulta/view',
     ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',

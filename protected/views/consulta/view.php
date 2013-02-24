@@ -69,7 +69,9 @@ function toggleSocialPopup(id){
 		),
 		array(
 	        'label'=>'Estat',
-	        'value'=>$model->humanStateValues[$model->state],
+			'type' => 'raw',
+	        'value'=>$model->getHumanStates($model->state),
+
 		),
 	),
 ));
@@ -132,7 +134,7 @@ if($model->state == 0 && $model->user == Yii::app()->user->getUserID()){
 						"submit"=>array('delete', 'id'=>$model->id),
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
 						'confirm' => '¿Estás seguro?'));
-	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega.</div>';
+	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega. (+ comments and subscriptions).</div>';
 }
 ?>
 

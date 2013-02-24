@@ -6,18 +6,20 @@
 
 
 <?php
-
+/*
 if($model->type == 1){
 	$year = Config::model()->findByPk('year')->value;
 
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'year = '.$year.' AND parent is NULL';
-	$criteria->order = 'weight ASC';
-	$budget_raiz = Budget::model()->find($criteria);
+	//$criteria->order = 'weight ASC';
+	//$budget_raiz = Budget::model()->find($criteria);
+	$budget_raiz = Budget::model()->findByPk($model->budget);
 
 	//$this->renderPartial('//budget/_index',array('budgets_raiz'=>$budgets_raiz, 'total_budget'=>$total_budget));
-	echo $this->renderPartial('//budget/_index',array('parent_budget'=>$budget_raiz));
+	echo $this->renderPartial('//budget/_index',array('model'=>$budget_raiz));
 }
+*/
 ?>
 
 <script>

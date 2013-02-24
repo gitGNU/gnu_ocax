@@ -26,14 +26,18 @@ CREATE TABLE IF NOT EXISTS budget (
   id int(11) NOT NULL AUTO_INCREMENT,
   parent int(11) NULL,
   year SMALLINT(2) NOT NULL,
-  code int(11) NOT NULL,
+  csv_id varchar(20) NULL,
+  code varchar(20) NULL,
+  label varchar(255) NULL,
   concept varchar( 255 ) NOT NULL ,
-  provision int(11) NOT NULL,	/* importe previsto */
-  spent int(11) DEFAULT 0,		/* importe real */
-  weight int(10) DEFAULT 0,			/* order for display */
+  provision decimal(13, 2) NOT NULL,	/* importe previsto */
+  spent decimal(13, 2) DEFAULT 0,		/* importe real */
+  weight int(10) DEFAULT 0,				/* order for display */
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+INSERT INTO budget(level, year, code, label, concept, provision) VALUES (0, '2013', '2013', '2013', 100);
 
 CREATE TABLE IF NOT EXISTS consulta (
   id int(11) NOT NULL AUTO_INCREMENT,

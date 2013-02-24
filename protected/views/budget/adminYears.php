@@ -10,24 +10,30 @@ $this->menu=array(
 
 <h1>Gestionar años presupuestarios</h1>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+$this->widget('PGridView', array(
 	'id'=>'budget-grid',
 	'dataProvider'=>$years,
-	//'filter'=>$model,
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/budget/updateYear',
+    ),
+	'ajaxUpdate'=>true,
+	'pager'=>array('class'=>'CLinkPager',
+					'header'=>'',
+					'maxButtonCount'=>6,
+					'prevPageLabel'=>'< Prev',
+	),
 	'columns'=>array(
 		'year',
-		//'code',
 		//'concept',
 		'provision',
 		'spent',
-
 		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}{delete}',
-			'buttons'=>array(
-				'update'=>array('url'=>'Yii::app()->createUrl("budget/updateYear", array("id"=>$data->id))',),
-			),
+			'header'=>'Published',
+			'name'=>'code',
+			'value'=>'$data[\'code\']',
 		),
-
-	),
-)); ?>
+		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+)));
+?>

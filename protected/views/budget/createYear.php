@@ -8,7 +8,7 @@ $this->menu=array(
 
 <h1>Crear año presupuestario</h1>
 
-<?php echo $this->renderPartial('_formYear', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'totalBudgets'=>0)); ?>
 
 <?php if(Yii::app()->user->hasFlash('badYear')):?>
 	<script>

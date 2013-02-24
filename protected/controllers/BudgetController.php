@@ -36,9 +36,9 @@ class BudgetController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'admin','create','adminYears',
+				'actions'=>array(	'getTotalYearlyBudgets','admin','create','adminYears','deleteYearsBudgets',
 									'createYear','updateYear','update','delete',
-									),
+									/*'importCSV','uploadCSV','checkCSVFormat','importCSVData'*/),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -59,6 +59,13 @@ class BudgetController extends Controller
 												'code'=>$model->code));
 		}else
 			echo 0;
+	}
+
+	public function actionGetTotalYearlyBudgets($id)
+	{
+		$model=$this->loadModel($id);
+		$budgets= Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL');
+		echo count($budgets);
 	}
 
 	/**
@@ -117,11 +124,11 @@ class BudgetController extends Controller
 		if(isset($_POST['Budget']))
 		{
 			$model->attributes=$_POST['Budget'];
-
 			if($model->save()){
 				$this->redirect(array('adminYears'));
 			}
 		}
+/*
 		if(!$model->year){
 			if(Yii::app()->user->hasFlash('badYear')){
 				$model->year=Yii::app()->user->getFlash('badYear');
@@ -129,6 +136,7 @@ class BudgetController extends Controller
 			}else
 				$model->year = Config::model()->findByPk('year')->value;
 		}
+*/
 		$this->render('createYear',array(
 			'model'=>$model,
 		));
@@ -215,6 +223,20 @@ class BudgetController extends Controller
 	}
 
 
+	public function actionDeleteYearsBudgets($id)
+	{
+		// need to find possible consultas with budget->year, and stop deletion.
+
+		$model = $this->loadModel($id);
+		$budgets= Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL ORDER BY id DESC');
+
+		foreach($budgets as $budget){
+			$model = Budget::model()->findByPk($budget->id);
+			$model->delete();
+		}
+		$this->render('updateYear', array('model'=>$model));
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -235,8 +257,24 @@ class BudgetController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
+
+		$model = new Budget('publicSearch');
+		//$model = new Budget('search');
+		$model->year = Config::model()->findByPk('year')->value;
+
+		$model->unsetAttributes();  // clear any default values
+
+		if (isset($_GET['Budget'])) {
+			$model->attributes = $_GET['Budget'];
+		}
+		//$model->id = 840;
+		$this->render('index', array(
+			'model' => $model,
+		));
+
+
 		//$dataProvider=new CActiveDataProvider('Partida',array('criteria'=>array('order'=>'weight ASC')));
-		$this->render('index'/*,array('dataProvider'=>$dataProvider,)*/);
+		//$this->render('index'/*,array('dataProvider'=>$dataProvider,)*/);
 	}
 
 
