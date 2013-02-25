@@ -105,7 +105,7 @@ $this->widget('PGridView', array(
 
 <p style="font-size:1.3em">Opcionalmente puedes navegar partidas por próximidad.<br />
 <div class="graph">
-<?php $this->renderPartial('_index',array('model'=>$model));?>
+<?php $this->renderPartial('_interactive',array('model'=>$model));?>
 </div>
 
 

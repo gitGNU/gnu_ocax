@@ -8,6 +8,8 @@ $this->menu=array(
 );
 
 if($totalBudgets){
+	$downloadCsv = array( array('label'=>'Download CSV', 'url'=>(Yii::app()->request->baseUrl.'/files/csv/'.$model->year.'-internal.csv')));
+	array_splice( $this->menu, 1, 0, $downloadCsv );
 	$deleteDatos = array( array( 'label'=>'Borrar partidas', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );
 }

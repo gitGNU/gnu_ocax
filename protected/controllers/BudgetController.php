@@ -260,9 +260,14 @@ class BudgetController extends Controller
 
 		$model = new Budget('publicSearch');
 		//$model = new Budget('search');
-		$model->year = Config::model()->findByPk('year')->value;
+
 
 		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['year']))
+			$model->year = $_GET['year'];
+		else
+			$model->year = Config::model()->findByPk('year')->value;
+
 
 		if (isset($_GET['Budget'])) {
 			$model->attributes = $_GET['Budget'];

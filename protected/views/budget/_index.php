@@ -1,176 +1,89 @@
 <?php
 /* @var $this BudgetController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $model Budget */
 
-if($model->parent0->parent)
-	$parent_budget=$model->parent0;
-else
-	$parent_budget=$model;
+Yii::app()->clientScript->registerScript('search', "
+  $('#budget-form').submit(function(){
+  $.fn.yiiListView.update('search-results', {
+  data: $(this).serialize()
+  });
+  return false;
+});
+");
+
+//$year = Config::model()->findByPk('year')->value;
+$year = $model->year;
 
 ?>
 
-
-<style>
-.graph_bar{
-	float:left;
-	margin-bottom:20px;
-	background-color:lightgrey;
-}
-.queriedBudget{
-	color:#33A1C9;
-	font-weight:bold;
-}
-.graph_bar_percent{
-	padding-left:5px;
-	padding-right:5px;
-
-	text-align:right;
-}
-.showChildren{
-	margin-right:4px;
-	cursor:pointer;
-}
-.budget:hover {
-    opacity: 0.7;
-	cursor:pointer;
-}
-
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
-
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script>
-function toggleChildren(id){
-	if ($('#budget_children_'+id).is(":visible"))
-		$('#budget_children_'+id).slideUp('fast');
-	else
-		$('#budget_children_'+id).slideDown('fast');
-}
+// this is for interactive graphic
+$(function() {
+	$('.budget').bind('click', function() {
+		budget_id = $(this).attr('budget_id');
+		content = '';
+		if(1 == 1){	// why did I if this?
+			consulta_link='<?php echo Yii::app()->request->baseUrl;?>/consulta/create?budget='+budget_id;
+			consulta_link='<a href="'+consulta_link+'">hacer una consulta</a>';
+			content=content+'Deseas '+consulta_link+'?';
+		}
+		$('#budget_options_content').html(content);
+		//alert($(this).text());
+		$('#budget_options').bPopup({
+			modalClose: false
+			, position: ([ 'auto', 200 ])
+			, follow: ([false,false])
+			, fadeSpeed: 10
+			, positionStyle: 'absolute'
+			, modelColor: '#ae34d5'
+		});
+	});
+});
 </script>
 
-<?php
 
-function percentage($val1, $val2){
-	return round( ($val1 / $val2) * 100);
-}
-
-function getBackGroundColor($color=0){
-	$colors = array(
-		0 => 'red',
-		1 => 'blue',
-		2 => 'green',
-		3 => 'yellow'
-	);
-	$color=$color+1;
-	if($color>3)
-		$color=0;
-	return array($color, 'background-color:lightgrey;');
-	return array($color, 'background-color:'.$colors[$color].';');
-}
+<h1>Presupuestos de <?php echo $year;?> Total: <?php echo number_format($budget_raiz->provision);?>€</h1>
 
 
+<div class="">
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'action'=>Yii::app()->createUrl($this->route),
+	'id'=>'budget-form',
+	'method'=>'get',
+)); ?>
 
-function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $globals){
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$parent_budget->id;
-	$criteria->order = 'weight ASC';
-	$child_budgets = Budget::model()->findAll($criteria);
+	<div class="row">
+		<?php echo $form->hiddenField($model,'year'); ?>
+	</div>
 
-	list($color_count, $background_color) = getBackGroundColor($color_count);
-	foreach($child_budgets as $budget){
-		$percent=percentage($budget->provision,$parent_budget->provision);
-		$width=$graph_width*($percent / 100);
+	<div class="row">
+		<?php echo $form->label($model,'code'); ?>
+		<?php echo $form->textField($model,'code'); ?>
+	</div>
 
-		// is this budget a parent? (Can we avoid this query?)
-		$criteria = new CDbCriteria;
-		$criteria->condition = 'parent = '.$budget->id;
-		$is_parent=$budget->find($criteria);
+	<div class="row">
+		<?php echo $form->label($model,'concept'); ?>
+		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
+	</div>
 
-		$budget_indent = 0;
-		if($indent > 0)
-			$budget_indent = 32;
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Filtrar'); ?>
+	</div>
 
+<?php $this->endWidget(); ?>
+</div><!-- search-form -->
 
-		echo '<div style=" margin-left:'.$budget_indent.'px;">';
-			if($is_parent)
-			echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
-			else
-			echo '<div style="margin-left:0px">';
-
-			if($is_parent){
-			echo '<div style="float:left;">';
-			echo '<img class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
-			echo '</div>';
-			}
-			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
-				$highlight=null;
-				if($budget->id == $globals['queried_budget'])
-					$highlight = 'queriedBudget';
-				echo '<div>';
-				echo '<span class="'.$highlight.'">'.$budget->concept.' '.number_format($budget->provision).'€.</span> ';
-				//echo $percent.'% del total.';
-				echo '</div>';
-			echo '<div class="graph_bar '.$highlight.'" style="width:'.$width.'px;">';
-			$percent=percentage($budget->provision,$globals['yearly_total']);
-			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
-			echo '</div>';
-
-			echo '</div>';
-		echo '</div>';
-		echo '<div style="clear:both"></div>';
-
-		if($is_parent){
-			echo '<div id="budget_children_'.$budget->id.'" style="display:none">';
-			echoChildBudgets($budget, $indent+1, $width, $color_count, $globals);
-			echo '</div>';
-		}
-		echo '</div>';
-	}
-}
-
-$graph_width=897;
-
-$yearly_total = $parent_budget->provision;
-$globals=array(	'yearly_total' => $yearly_total,
-				'queried_budget' => $model->id,
-);
+<div style="font-size:1.5em;margin-top:15px;">Resultados del filtro</div>
 
 
-$budget_onclick='';
-if($parent_budget->parent && $parent_budget->parent0->parent){
-	$budget_onclick='class="budget" budget_id="'.$parent_budget->id.'"';
+<?php $this->widget('zii.widgets.CListView', array(
+	'id'=>'search-results',
+	'ajaxUpdate' => true,
+	'dataProvider'=> $model->publicSearch(),
+	'itemView'=>'_searchResults',
+	'enableHistory' => true, 
+)); ?>
 
-}/*else{
-	$grandparent=$model->findByPk($parent_budget->parent);
-	if($grandparent->parent && $grandparent->parent0->parent){
-		$budget_onclick='class="budget" budget_id="'.$parent_budget->id.'"';
-	}
-}
-*/
-echo '<div '.$budget_onclick.'>';
-echo $parent_budget->concept.'. '.number_format($parent_budget->provision).'€<br />';
-echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">Total: '.number_format($parent_budget->provision).'€ 100%</div><br />';
-echo '</div>';
-
-echo '<p style="font-size:1.3em;text-decoration:underline;">'.number_format($parent_budget->provision).'€ es la suma de las siguientes partidas</p>';
-
-echoChildBudgets($parent_budget, 0, $graph_width, 0, $globals);
-
-
-
-
-?>
-
-<div id="budget_options" style="display:none;width:350px;">
-	<div style="background-color:white;padding:5px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-	<div id="budget_options_content">hello</div>
-</div>
-<p>&nbsp;</p>
-</div>
 
 

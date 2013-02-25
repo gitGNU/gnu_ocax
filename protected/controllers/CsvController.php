@@ -54,8 +54,8 @@ class CsvController extends Controller
 
 			$model->csv=CUploadedFile::getInstance($model,'csv');
 
-			$model->csv->saveAs($model->path.'text.csv');
-			$model->csv = 'text.csv';
+			$model->csv->saveAs($model->path.$model->year.'-internal.csv');
+			$model->csv = $model->year.'-internal.csv';
 			$model->step = 2;
 		}
 		$this->render('importCSV', array('model'=>$model));
@@ -120,9 +120,7 @@ class CsvController extends Controller
 				$ids[$id]['total']=(float)$provision;
 				$ids[$id]['children']=array();
 				if(array_key_exists($parent_id, $ids)){
-					//$error[]= '<br />'.$id.' has parent. '.$parent_id.' has total '.$ids[$id]['total'];
 					$ids[$parent_id]['children'][$id]=$provision;
-					//break;
 				}
 			}
 		}else

@@ -101,13 +101,23 @@ class Budget extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->addCondition('parent is null and year = '.$this->year);
+		$yearly_budget=$this->find($criteria);
+		if(!$yearly_budget)
+			return new CActiveDataProvider($this,array('data'=>array()));
+		if(!Yii::app()->user->isAdmin()){
+			if($yearly_budget->code != 1)	//not published
+				return new CActiveDataProvider($this,array('data'=>array()));
+		}
+
+		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent is not null');	// dont show year budgets
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('parent',$this->parent);
+		//$criteria->compare('id',$this->id);
+		//$criteria->compare('parent',$this->parent);
 		$criteria->compare('year',$this->year);
 		$criteria->compare('code',$this->code,true);
-		$criteria->compare('label',$this->label,true);
+		//$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('provision',$this->provision);
 		$criteria->compare('spent',$this->spent);

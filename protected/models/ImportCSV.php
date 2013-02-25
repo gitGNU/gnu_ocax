@@ -10,7 +10,7 @@ class ImportCSV extends CFormModel
 
 	public function init()
 	{
-		$this->path = dirname(Yii::getPathOfAlias('application')).'/upload/importCSV/';
+		$this->path = dirname(Yii::getPathOfAlias('application')).'/app/files/csv/';
 	}
 
 	/**
