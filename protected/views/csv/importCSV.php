@@ -5,12 +5,17 @@
 <style>
 p { font-size:1.3em; }
 .error { margin-left:10px; color:red; }
+.warn { margin-left:10px; color:#CD661D; }
 .success { margin-left:10px; color:green; }
 </style>
 
 <script>
 function changeYear(el){
 	$('#ImportCSV_year').val( $(el).val() );
+}
+function step3_1_to_4(){
+	$('#step_3_1').hide();
+	$('#step_4').show();
 }
 function checkFormat(){
 	$.ajax({
@@ -22,14 +27,35 @@ function checkFormat(){
 		//beforeSend: function(){  },
 		//complete: function(){  },
 		success: function(data){
-					if(data.error)
+					if(data.error){
 						$('#check_format_button').replaceWith('<span class="error">'+data.error+'</span>');
-					else{
+					}else{
 						$('#check_format_button').replaceWith('<span class="success">'+data+' registers seem ok</span>');
 						$('#step_3').show();
 					}
 		},
 		error: function() { alert("error on checkFormat"); },
+	});
+}
+function checkTotals(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/checkCSVTotals',
+		type: 'GET',
+		async: false,
+		dataType: 'json',
+		data: { 'csv_file': '<?php echo $model->csv;?>' },
+		//beforeSend: function(){  },
+		//complete: function(){  },
+		success: function(data){
+					if(data.error){
+						$('#check_totals_button').replaceWith('<span class="warn">Some totals do not match'+data.error+'</span>');
+						$('#step_3_1').show();
+					}else{
+						$('#check_totals_button').replaceWith('<span class="success">'+data+' registers seem ok</span>');
+						$('#step_4').show();
+					}
+		},
+		error: function() { alert("error on checkTotals"); },
 	});
 }
 function importData(){
@@ -48,7 +74,7 @@ function importData(){
 						$("#import_button").attr("disabled", "disabled");
 						msg = '<span class="success">New registers: '+data.new_budgets+', Updated registers: '+data.updated_budgets+'</span>';
 						$('#import_button').replaceWith(msg);
-						$('#step_4').show();
+						$('#step_5').show();
 					}
 		},
 		error: function() { alert("error on importData"); },
@@ -99,8 +125,15 @@ else{
 if($model->step == 2)
 	echo '<p id="step_2">Step 2. Check file format <input id="check_format_button" type="button" value="Check" onClick="js:checkFormat();" /></p>';
 
-echo '<p id="step_3" style="display:none">Step 3. Import data into <b>'.$yearStr.'</b> ';
 
+echo '<p id="step_3" style="display:none">Step 3. Check totals ';
+echo '<input id="check_totals_button" type="button" value="Check" onClick="js:checkTotals();" /></p>';
+
+echo '<p id="step_3_1" style="display:none">';
+echo '<input type="button" value="Try again" onClick="js:location.href=\''.Yii::app()->request->baseUrl.'/csv/importCSV/'.$model->year.'\';" /> ';
+echo '<input type="button" value="Continue anyway" onClick="js:step3_1_to_4();" /></p>';
+
+echo '<p id="step_4" style="display:none">Step 4. Import into database: <b>'.$yearStr.'</b> ';
 echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" /></p>';
 
 $criteria=new CDbCriteria;
@@ -108,7 +141,7 @@ $criteria->condition='parent IS NULL AND year = '.$model->year;
 $year=Budget::model()->find($criteria);
 
 
-echo '<p id="step_4" style="display:none">Return to year '.CHtml::link($yearStr, array('budget/updateYear', 'id'=>$year->id)).'</p>';
+echo '<p id="step_5" style="display:none">Return to year '.CHtml::link($yearStr, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>
 

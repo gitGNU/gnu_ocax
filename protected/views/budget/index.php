@@ -79,12 +79,15 @@ $(function() {
 <?php $this->endWidget(); ?>
 </div><!-- search-form -->
 
+<div style="font-size:1.5em;margin-top:15px;">Resultados del filtro</div>
+
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'id'=>'search-results',
 	'ajaxUpdate' => true,
 	'dataProvider'=> $model->publicSearch(),
 	'itemView'=>'_searchResults',
+	'enableHistory' => true, 
 )); ?>
 
 

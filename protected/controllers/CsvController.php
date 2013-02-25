@@ -28,7 +28,7 @@ class CsvController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('importCSV','uploadCSV','checkCSVFormat','importCSVData'),
+				'actions'=>array('importCSV','uploadCSV','checkCSVFormat','checkCSVTotals','importCSVData'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -63,7 +63,7 @@ class CsvController extends Controller
 
 	public function actionCheckCSVFormat()
 	{
-		$error=null;
+		$error=array();
 		if(isset($_GET['csv_file'])){
 			$model = new ImportCSV;
 			$lines = file($model->path.$_GET['csv_file']);
@@ -76,19 +76,82 @@ class CsvController extends Controller
 					if (strlen(strstr($line,'|'))>0)
 						$correct_field_delimiter=1;
 					else{
-						$error='Delimiter | not found in file.';
+						$error[]='Delimiter | not found in file.';
 						break;
 					}
 				}
 				list($id, $code, $label, $concept, $provision, $spent, $parent_id) = explode("|", $line);
+				$id = trim($id);
+				$parent_id=trim($parent_id);
 				if (in_array($id, $ids)) {
-					$error = 'Register '. ($line_num + 1) .': Internal code "'.$id.'" is not unique';
-					break;
+					$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
+				}
+				if ($parent_id != "" && !in_array($parent_id, $ids)) {
+					$error[]='<br />Register '. ($line_num) .': Internal parent code "'.$parent_id.'" does not exist';
 				}
 				$ids[]=$id;
 			}
 		}else
-			$error = 'File path not defined.';
+			$error[]='File path not defined.';
+		if($error)
+			echo CJavaScript::jsonEncode(array('error'=>$error));
+		else
+			//echo CJavaScript::jsonEncode(array('ids'=>$ids));
+			echo count($lines) - 1;
+	}
+
+	public function actionCheckCSVTotals()
+	{
+		$error=array();
+		if(isset($_GET['csv_file'])){
+			$model = new ImportCSV;
+			$lines = file($model->path.$_GET['csv_file']);
+			$ids = array();
+			foreach ($lines as $line_num => $line) {
+				if($line_num==0)
+					continue;
+				list($id, $code, $label, $concept, $provision, $spent, $parent_id) = explode("|", $line);
+				$id = trim($id);
+				$parent_id=trim($parent_id);
+				$ids[$id]=array();
+				$provision = str_replace('€', '', $provision);
+				$provision = trim(str_replace(',', '', $provision));
+				$ids[$id]['internal_code']=$id;
+				$ids[$id]['total']=(float)$provision;
+				$ids[$id]['children']=array();
+				if(array_key_exists($parent_id, $ids)){
+					//$error[]= '<br />'.$id.' has parent. '.$parent_id.' has total '.$ids[$id]['total'];
+					$ids[$parent_id]['children'][$id]=$provision;
+					//break;
+				}
+			}
+		}else
+			$error[]='File path not defined.';
+		//check totals
+		foreach($ids as $id){
+			if($id['children']){
+				$child_total = 0;
+				foreach($id['children'] as $child => $total)
+					$child_total = $child_total + $total;
+				if($child_total != $id['total']){
+					$errorStr='<div style="margin-top:15px;width:400px;">';
+					$errorStr=$errorStr.'<b>'.$id['internal_code'].' provision is: <span style="float:right;">'.number_format($id['total'], 2).'</span></b>';
+					$rowColor='';
+					foreach($id['children'] as $child => $total){
+						if(!$rowColor){
+							$rowColor='style="background-color:#EBEBEB;"';
+						}else
+							$rowColor='';
+						$errorStr=$errorStr.'<div '.$rowColor.'>'.$child.'<span style="float:right;">'.number_format($total, 2).'</span></div>';
+					}
+					$errorStr=$errorStr.'<span style="float:right;text-decoration: underline overline;">Total: '.number_format($child_total, 2).'</span>';
+					$errorStr=$errorStr.'</div>';
+					$error[]=$errorStr;
+				}
+			}
+		}
+
+
 		if($error)
 			echo CJavaScript::jsonEncode(array('error'=>$error));
 		else
