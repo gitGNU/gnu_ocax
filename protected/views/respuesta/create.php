@@ -14,16 +14,6 @@ $this->menu=array(
 ?>
 
 <style>
-.consulta{
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	background-color:#FFF8DC;
-	padding:10px;
-}
-.consulta h1{
-	padding:10px;
-	margin-bottom:0px;
-}
 .form{
 	-webkit-border-radius:10px;
 	border-radius:10px;
@@ -34,8 +24,7 @@ $this->menu=array(
 }
 </style>
 
-<div class="consulta">
-<h1>Anadir respuesta</h1>
+<h1>Add reply</h1>
 
 <div class="form">
 
@@ -91,6 +80,8 @@ $this->menu=array(
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
+<h1>La consulta</h1>
+<div class="view" style="padding:4px;">
 <?php echo $this->renderPartial('//consulta/_teamView', array('model'=>$consulta)); ?>
 
 </div>

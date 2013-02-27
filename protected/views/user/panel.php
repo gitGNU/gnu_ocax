@@ -69,27 +69,19 @@ if($model->is_editor){
 if($model->is_manager){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Manage consultas',array('consulta/admin')).'</h1>';
-	echo '<p>Assign nuew consultas a team members y check status.</p>';
+	echo '<p>Assign new consultas a team members y check status.</p>';
 	echo '</div>';
 }
 
 if($model->is_admin){
 	changeColumn();
-	echo '<h1></h1>';
-	echo '<h1>'.CHtml::link('Administer Budgets',array('budget/adminYears')).'</h1>';
-	echo 'Create years and import data.';
+	echo '<h1>Administator\'s options</h1>';
+	echo 'Budgets: '.CHtml::link('Create years and import data',array('budget/adminYears')).'<br />';
+	echo 'Users: '.CHtml::link('Admin users and roles',array('user/admin')).'<br />';
+	echo 'Default emails: '.CHtml::link('Define texts to send via email',array('emailtext/admin')).'<br />';
+	echo 'Global parameters: '.CHtml::link('Edit global parameters',array('config/admin')).'<br />';
 	echo '</div>';
 }
-
-if($model->is_admin){
-	changeColumn();
-	echo '<h1>Administrador</h1>';
-	echo CHtml::link('Admin usuarios',array('user/admin')).'<br />';
-	echo CHtml::link('Administer global parameters.',array('config/admin')).'</p>';
-	echo '</div>';
-}
-
-
 
 ?>
 

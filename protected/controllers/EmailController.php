@@ -46,27 +46,6 @@ class EmailController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex($id)
-	{
-
-		$consulta=Consulta::model()->findByPk($id);
-
-		$dataProvider=new CActiveDataProvider('Email', array(
-			'criteria'=>array('condition'=>'consulta='.$id)
-		));
-
-		//$dataProvider=new CActiveDataProvider('Email');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-			'consulta'=>$consulta,
-			'menu'=>$_GET['menu'],
-		));
-	}
-
-
-	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
@@ -77,13 +56,11 @@ class EmailController extends Controller
 		));
 	}
 
-
 	private function getReturnURL($menu_type)
 	{
 		if($menu_type == 'team')
 			return 'consulta/teamView';
-		return 'consulta/adminView';
-
+		return 'consulta/admin';
 	}
 
 	/**
@@ -130,9 +107,9 @@ class EmailController extends Controller
 		$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->consulta));
 
 		if(!$model->body)
-			$model->body='<p>Hola '.$consulta->user0->fullname.',</p>'.$model->messages[$consulta->state];
+			$model->body=Emailtext::model()->findByPk($consulta->state)->body;
 		if(!$model->title)
-			$model->title=$consulta->humanStateValues[$consulta->state];
+			$model->title=$consulta->getHumanStates($consulta->state);
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -180,6 +157,25 @@ class EmailController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex($id)
+	{
+
+		$consulta=Consulta::model()->findByPk($id);
+
+		$dataProvider=new CActiveDataProvider('Email', array(
+			'criteria'=>array('condition'=>'consulta='.$id)
+		));
+
+		//$dataProvider=new CActiveDataProvider('Email');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+			'consulta'=>$consulta,
+			'menu'=>$_GET['menu'],
+		));
+	}
 
 	/**
 	 * Manages all models.

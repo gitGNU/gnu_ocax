@@ -8,39 +8,16 @@
  * @property string $created
  * @property string $title
  * @property integer $sender
- * @property integer $recipient
+ * @property string $recipients
  * @property integer $consulta
  * @property string $body
  *
  * The followings are the available model relations:
  * @property User $sender0
- * @property User $recipient0
  * @property Consulta $consulta0
  */
 class Email extends CActiveRecord
 {
-
-	public $no_reply = 'no-reply@ocab.es';
-
-	// predefined email texts
-	public $messages = array(
-			// Esperando respuesta de la OCAB
-			0 =>'<p>Esperando respuesta de la OCAB</p><p>Cordiales Saludos,</p>',
-			// OCAB reconoce la entrega
-			1 =>'<p>Estamos en ello</p><p>Cordiales Saludos,</p>',
-			// descartado por el OCA(x)
-			2 =>'<p>Lo siento, desestimamos tu petición</p><p>Cordiales Saludos,</p>',
-			// Esperando respuesta de la Administración.
-			3 =>'<p>Esperando respuesta de la Administración.</p><p>Cordiales Saludos,</p>',
-			// Respuesta con éxito
-			4 =>'<p>Respuesta con éxito</p><p>Cordiales Saludos,</p>',
-			// Respuesta parcialmente con éxito
-			5 =>'<p>Respuesta parcialmente con éxito</p><p>Cordiales Saludos,</p>',
-			// Descartado por la Administración
-			6 =>'<p>Descartado por la Administración</p><p>Cordiales Saludos,</p>',
-		);
-
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -67,12 +44,12 @@ class Email extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created, sender, consulta, title, body', 'required'),
+			array('created, title, sender, recipients, consulta, body', 'required'),
 			array('sender, consulta', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, title, sender, consulta, body', 'safe', 'on'=>'search'),
+			array('id, created, title, sender, recipients, consulta, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,9 +73,10 @@ class Email extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'created' => 'Enviado',
-			'title' => 'Asunto',
-			'sender' => 'Remitente',
+			'created' => 'Sent',
+			'title' => 'Title',
+			'sender' => 'Sender',
+			'recipients' => 'Recipients',
 			'consulta' => 'Consulta',
 			'body' => 'Body',
 		);
@@ -117,8 +95,9 @@ class Email extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('created',$this->created,true);
-		$criteria->compare('title',$this->sender);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('sender',$this->sender);
+		$criteria->compare('recipients',$this->recipients,true);
 		$criteria->compare('consulta',$this->consulta);
 		$criteria->compare('body',$this->body,true);
 

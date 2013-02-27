@@ -275,13 +275,20 @@ class ConsultaController extends Controller
 				}
 			}
 			if($model->save()){
-				$subscription=new ConsultaSubscribe;
-				$subscription->user = $model->team_member;
-				$subscription->consulta = $model->id;
-				$subscription->save();
-
+				if(!ConsultaSubscribe::model()->find(array('condition'=>'consulta='.$model->id. ' AND user='.$model->team_member))){
+					$subscription=new ConsultaSubscribe;
+					$subscription->user = $model->team_member;
+					$subscription->consulta = $model->id;
+					$subscription->save();
+				}
 				$model->promptEmail();
-				$this->redirect(array('adminView','id'=>$model->id));
+				$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
+				//$this->redirect(array('manage','id'=>$model->id,'team_members'=>$team_members,));
+				$this->render('manage',array(
+					'model'=>$model,
+					'team_members'=>$team_members,
+				));
+				Yii::app()->end();
 			}
 		}
 

@@ -13,11 +13,15 @@ if(Yii::app()->user->getUserID() == $model->team_member){
 }
 ?>
 
-<div class="consulta">
-<h1>Editar consulta</h1>
+<h1>Editar la consulta</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php
+$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 
+if($respuestas || Yii::app()->user->getUserID() == $model->team_member)
+	echo '<div class="view" style="padding:4px">';
+?>
 
 <?php if(Yii::app()->user->getUserID() == $model->team_member){
 	$this->widget('zii.widgets.CDetailView', array(
@@ -45,13 +49,17 @@ if(Yii::app()->user->getUserID() == $model->team_member){
 }?>
 
 <?php
-$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
+
 foreach($respuestas as $respuesta){
 	echo '<hr>';
 	echo '<p>';
 	echo '<b>Respuesta: '.date_format(date_create($respuesta->created), 'Y-m-d').'</b><br />';
 	echo '<p>'.$respuesta->body.'</p>';
 	echo '</p>';
-}?>
-</div>
+}
+
+if($respuestas || Yii::app()->user->getUserID() == $model->team_member)
+	echo '</div>';
+?>
+
 

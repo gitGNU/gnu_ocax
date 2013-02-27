@@ -96,6 +96,14 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'comments' => array(self::HAS_MANY, 'Comment', 'user'),
+			'consultas' => array(self::HAS_MANY, 'Consulta', 'user'),
+			'consultas1' => array(self::HAS_MANY, 'Consulta', 'team_member'),
+			'consultas2' => array(self::HAS_MANY, 'Consulta', 'manager'),
+			'consultaSubscribes' => array(self::HAS_MANY, 'ConsultaSubscribe', 'user'),
+			'emails' => array(self::HAS_MANY, 'Email', 'sender'),
+			'respuestas' => array(self::HAS_MANY, 'Respuesta', 'team_member'),
+			'votes' => array(self::HAS_MANY, 'Vote', 'user'),
 		);
 	}
 

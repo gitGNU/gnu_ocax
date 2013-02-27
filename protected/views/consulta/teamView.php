@@ -3,14 +3,20 @@
 /* @var $model Consulta */
 
 $this->menu=array(
-	array('label'=>'Actualizar estat', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Anadir respuesta', 'url'=>array('/respuesta/create?consulta='.$model->id)),
-	array('label'=>'Editar Consulta', 'url'=>array('edit', 'id'=>$model->id)),
+	array('label'=>'Update state', 'url'=>array('/consulta/update', 'id'=>$model->id)),
+	array('label'=>'Add reply', 'url'=>array('/respuesta/create?consulta='.$model->id)),
+	array('label'=>'Edit consulta', 'url'=>array('/consulta/edit', 'id'=>$model->id)),
 	array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>'Listar consultas', 'url'=>array('managed')),
+	array('label'=>'List consultas', 'url'=>array('/consulta/managed')),
+
 	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 ?>
+
+<h1>La consulta</h1>
+<div class="view" style="padding:4px;">
+<?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
+</div>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash_prompt">
@@ -35,9 +41,7 @@ $this->menu=array(
     </div>
 <?php endif; ?>
 
-<div class="consulta">
-<?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
-</div>
+
 
 
 

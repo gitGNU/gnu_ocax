@@ -115,9 +115,9 @@ class CsvController extends Controller
 				$parent_id=trim($parent_id);
 				$ids[$id]=array();
 				$provision = str_replace('€', '', $provision);
-				$provision = trim(str_replace(',', '', $provision));
+				$provision = (float)trim(str_replace(',', '', $provision));
 				$ids[$id]['internal_code']=$id;
-				$ids[$id]['total']=(float)$provision;
+				$ids[$id]['total']=$provision;
 				$ids[$id]['children']=array();
 				if(array_key_exists($parent_id, $ids)){
 					$ids[$parent_id]['children'][$id]=$provision;
@@ -131,7 +131,7 @@ class CsvController extends Controller
 				$child_total = 0;
 				foreach($id['children'] as $child => $total)
 					$child_total = $child_total + $total;
-				if($child_total != $id['total']){
+				if(bccomp($child_total, $id['total'])!=0){
 					$errorStr='<div style="margin-top:15px;width:400px;">';
 					$errorStr=$errorStr.'<b>'.$id['internal_code'].' provision is: <span style="float:right;">'.number_format($id['total'], 2).'</span></b>';
 					$rowColor='';

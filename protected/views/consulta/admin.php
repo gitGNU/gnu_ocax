@@ -16,7 +16,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Gestionar Consultas</h1>
+<h1>Manage consultas</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -50,16 +50,31 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update} {delete}',
 			'buttons'=>array(
+/*
 				'view' => array(
 					'label'=>'View',
 		            'url'=>'Yii::app()->createUrl("consulta/adminView", array("id"=>$data->id))',
 				),
+*/
 				'update' => array(
-					'label'=>'Gestionar',
+					'label'=>'Assign',
 		            'url'=>'Yii::app()->createUrl("consulta/manage", array("id"=>$data->id))',
 				),
 			),
 		),
 	),
 )); ?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut();
+    	}, 2000);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b>Email sent correctamente</b></p>
+    </div>
+<?php endif; ?>

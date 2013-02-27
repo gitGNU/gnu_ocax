@@ -24,6 +24,7 @@
 class Consulta extends CActiveRecord
 {
 
+	// this gets removed when getHumanStates is used everywhere
     public $humanStateValues=array(
                         0=>"Esperando respuesta de la OCAB",
 						1=>'OCAB reconoce la entrega',

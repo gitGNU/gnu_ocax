@@ -26,15 +26,9 @@ if($returnURL == 'consulta/adminView'){
 ?>
 
 <style>
-.consulta{
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	background-color:#FFF8DC;
-	padding:10px;
-}
-.consulta h1{
-	padding:10px;
-	margin-bottom:0px;
+#recipients_link{
+	cursor:pointer;
+	text-decoration:underline;
 }
 .form{
 	-webkit-border-radius:10px;
@@ -46,7 +40,17 @@ if($returnURL == 'consulta/adminView'){
 }
 </style>
 
-<div class="consulta">
+<script>
+function toggleRecipients(){
+	if ($('#recipients').is (':visible'))
+		$('#recipients_link').html('Show');
+	else
+		$('#recipients_link').html('Hide');
+	$('#recipients').toggle();
+}
+</script>
+
+
 <h1>Enviar correo</h1>
 
 <div class="form">
@@ -64,7 +68,7 @@ if($returnURL == 'consulta/adminView'){
 		<?php
 
 		$sender=User::model()->findByPk($model->sender);
-		$senderList=array(			  0=>$model->no_reply,
+		$senderList=array(	0=>Config::model()->findByPk('noreply')->value,
 							$sender->id=>$sender->email);
 		$model->sender=0;
 		?>
@@ -75,9 +79,24 @@ if($returnURL == 'consulta/adminView'){
 
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'recipient'); ?>
-		<input value="<?php echo $consulta->user0->email;?>" disabled />
-		<?php /*echo $form->textField($model,'recipient',array('disabled'=>'true')); */?>
+		<?php /*echo $form->labelEx($model,'recipients');*/ ?>
+		<?php
+			$criteria = array(
+				'with'=>array('consultaSubscribes'),
+				'condition'=>' consultaSubscribes.consulta = '.$consulta->id,
+				'together'=>true,
+			);
+			$subscribedUsers = User::model()->findAll($criteria);
+			$model->recipients='';
+			foreach($subscribedUsers as $subscribed)
+				$model->recipients=$model->recipients.' '.$subscribed->email.',';
+			$model->recipients = substr_replace($model->recipients ,"",-1);
+			echo $form->hiddenField($model,'recipients');
+			
+			echo '<p><b>'.count($subscribedUsers).' Recipients</b> <span id="recipients_link" onClick="js:toggleRecipients();">Show</span>';
+			echo '<div id="recipients" style="background-color:white;padding:4px;display:none">'.$model->recipients.'</div>';
+		?>
+		</p>
 	</div>
 
 	<div class="row">
@@ -115,9 +134,8 @@ if($returnURL == 'consulta/adminView'){
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-
+<h1>La consulta</h1>
+<div class="view" style="padding:4px">
 <?php echo $this->renderPartial('//consulta/_teamView', array('model'=>$consulta,'respuestas'=>$respuestas)); ?>
-
 </div>
-
 

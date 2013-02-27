@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS budget (
   csv_id varchar(20) NULL,
   code varchar(20) NULL,
   label varchar(255) NULL,
-  concept varchar( 255 ) NOT NULL ,
+  concept varchar( 255 ) NOT NULL,
   provision decimal(13, 2) NOT NULL,	/* importe previsto */
   spent decimal(13, 2) DEFAULT 0,		/* importe real */
   weight int(10) DEFAULT 0,				/* order for display */
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS budget (
   FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-INSERT INTO budget(level, year, code, label, concept, provision) VALUES (0, '2013', '2013', '2013', 100);
+INSERT INTO budget(year, code, concept, provision) VALUES ('2013', 0, 'root budget', 1000000);
 
 CREATE TABLE IF NOT EXISTS consulta (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -110,11 +110,26 @@ CREATE TABLE IF NOT EXISTS vote (
   FOREIGN KEY (respuesta) REFERENCES respuesta(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS emailtext (
+	state int(11) NOT NULL,
+	body LONGTEXT NOT NULL,
+	PRIMARY KEY (state)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO emailtext(state, body) VALUES (0, '<p>Hola,</p><p>Esperando respuesta de la OCAB</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola,</p><p>Estamos en ello</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola,</p><p>Lo siento, desestimamos tu petición</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>Esperando respuesta de la Administración.</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>Respuesta con éxito</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>Respuesta parcialmente con éxito</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>Descartado por la Administración</p><p>Cordiales Saludos,</p>');
+
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	created DATETIME NOT NULL,
 	title varchar( 255 ) NOT NULL,
 	sender int(11) NOT NULL,
+	recipients LONGTEXT NOT NULL,
 	consulta int(11) NOT NULL,
 	body LONGTEXT NOT NULL,
 	PRIMARY KEY (id),
@@ -148,5 +163,7 @@ CREATE TABLE IF NOT EXISTS config (
 
 INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Año por omisión');
 INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x), 'Siglas del observatorio');
+INSERT INTO config(parameter, value, description) VALUES ('no-reply', 'no-reply@ocax.es', 'No reply email address');
+
 
 

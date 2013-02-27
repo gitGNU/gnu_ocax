@@ -22,17 +22,13 @@
 ));?>
 
 <?php
-	echo '<h1 style="margin-top:10px">'.$model->title.'</h1>';
-	//echo $model->body;
-?>
-
-<?php
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
 	echo $this->renderPartial('//budget/_consultaView', array('model'=>$budget));
 }
 ?>
 
+<?php echo '<h1 style="margin-top:10px">'.$model->title.'</h1>';?>
 <?php echo $this->renderPartial('//consulta/_view', array('model'=>$model)); ?>
 
 
