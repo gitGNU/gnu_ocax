@@ -125,7 +125,7 @@ $this->widget('PGridView', array(
 <?php
 
 if($subscribed->getData()){
-echo '<div style="font-size:1.5em">Me he suscrito a estas consultas</div>';
+echo '<div style="font-size:1.5em">Estoy suscrito a estas consultas</div>';
 echo '<span class="hint">Se te enviará un correo cuando se actualicen estas consultas</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',

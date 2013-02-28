@@ -58,7 +58,6 @@ function toggleSocialPopup(id){
 ?>
 
 <div class="view" style="padding:5px; text-align:left;">
-<div style=""><b>Consulta</b></div>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -76,7 +75,6 @@ function toggleSocialPopup(id){
 	),
 ));
 if($model->budget){
-	echo '<div style="margin-top:10px;"><b>Concept presupuestario</b>';
 	$budget=Budget::model()->findByPk($model->budget);
 	$this->renderPartial('//budget/_consultaView', array('model'=>$budget));
 	echo '</div>';

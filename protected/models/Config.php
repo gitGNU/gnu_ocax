@@ -7,7 +7,6 @@
  * @property string $parameter
  * @property string $value
  * @property string $description
- * @property string $can_delete
  */
 class Config extends CActiveRecord
 {
@@ -39,7 +38,6 @@ class Config extends CActiveRecord
 		return array(
 			array('parameter, value, description', 'required'),
 			array('parameter', 'length', 'max'=>64),
-			array('can_delete', 'numerical', 'integerOnly'=>true),
 			array('value, description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -67,7 +65,6 @@ class Config extends CActiveRecord
 			'parameter' => 'Parameter',
 			'value' => 'Value',
 			'description' => 'Description',
-			'can_delete' => 'Can Delete?',
 		);
 	}
 

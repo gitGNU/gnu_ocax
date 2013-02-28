@@ -50,6 +50,7 @@ class SiteController extends Controller
 	/**
 	 * Displays the contact page
 	 */
+/* original
 	public function actionContact()
 	{
 		$model=new ContactForm;
@@ -72,7 +73,33 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+*/
+	public function actionContact()
+	{
+		$model=new ContactForm;
+		if(isset($_POST['ContactForm']))
+		{
+			$model->attributes=$_POST['ContactForm'];
+			if($model->validate())
+			{
+				//$headers = "From: {$model->email}\r\nReply-To: {$model->email}";
+				$mailer = new Mailer();
 
+				$mailer->AddReplyTo($model->email);
+				$mailer->SetFrom($model->email);
+				$mailer->AddAddress(Config::model()->findByPk('emailContactAddress')->value);
+				$mailer->Subject=$model->subject;
+				$mailer->Body=$model->body;
+
+				if($mailer->send())
+					Yii::app()->user->setFlash('contact','Thank you for contacting us. We will get back as soon as possible.');
+				else
+					Yii::app()->user->setFlash('error','Error while sending email: '.$mailer->ErrorInfo);
+				$this->refresh();
+			}
+		}
+		$this->render('contact',array('model'=>$model));
+	}
 //***************** from example start
 	public function actionRegister()
 	{

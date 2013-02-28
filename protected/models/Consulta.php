@@ -125,7 +125,7 @@ class Consulta extends CActiveRecord
 			'user' => 'Submitted by',
 			'team_member' => 'Assigned to',
 			'manager' => 'Manager',
-			'created' => 'Entregada',
+			'created' => 'Formulada',
 			'assigned' => 'Assignada',
 			'type' => 'Tipo',
 			'capitulo' => 'Capitulo',

@@ -21,6 +21,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.extensions.mailer.Mailer',
 		//'application.extensions.bootstrap-widgets.*',
 	),
 

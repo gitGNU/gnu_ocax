@@ -36,47 +36,13 @@ class ConfigController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','create','update','admin','delete'),
+				'actions'=>array('update','admin'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
-	}
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Config;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Config']))
-		{
-			$model->attributes=$_POST['Config'];
-			if($model->save())
-				$this->redirect(array('admin'));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
 	}
 
 	/**
@@ -104,28 +70,11 @@ class ConfigController extends Controller
 	}
 
 	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$model=$this->loadModel($id);
-		if($model->can_delete){
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		$this->redirect(array('admin'));
-	}
-
-	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
+		$this->layout='//layouts/column1';
 		$model=new Config('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Config']))

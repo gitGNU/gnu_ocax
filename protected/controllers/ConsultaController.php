@@ -274,7 +274,7 @@ class ConsultaController extends Controller
 					$model->state=0;
 				}
 			}
-			if($model->save()){
+			if($model->save() && $model->team_member){
 				if(!ConsultaSubscribe::model()->find(array('condition'=>'consulta='.$model->id. ' AND user='.$model->team_member))){
 					$subscription=new ConsultaSubscribe;
 					$subscription->user = $model->team_member;
@@ -284,6 +284,8 @@ class ConsultaController extends Controller
 				$model->promptEmail();
 				$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
 				//$this->redirect(array('manage','id'=>$model->id,'team_members'=>$team_members,));
+
+				//can we use this instead of render? $this->refresh();
 				$this->render('manage',array(
 					'model'=>$model,
 					'team_members'=>$team_members,

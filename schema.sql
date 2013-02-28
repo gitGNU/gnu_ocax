@@ -157,13 +157,22 @@ INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('ajuntament', 1, 
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,
   value varchar(255) NOT NULL ,
-  description varchar(255) NOT NULL,
-  can_delete TINYINT(1) DEFAULT 0
+  description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Año por omisión');
+INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Default Year (this year)');
 INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x), 'Siglas del observatorio');
-INSERT INTO config(parameter, value, description) VALUES ('no-reply', 'no-reply@ocax.es', 'No reply email address');
+INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'contact@ocax.es', 'Contact email address');
+INSERT INTO config(parameter, value, description) VALUES ('emailNoReply', 'no-reply@ocax.es', 'no-reply email address');
+INSERT INTO config(parameter, description) VALUES ('smtpHost', 'SMTP Server');
+INSERT INTO config(parameter, description) VALUES ('smtpPort', 'SMTP Port');
+INSERT INTO config(parameter, value, description) VALUES ('smtpAuth', '0', 'SMTP Auth (0 or 1)');
+INSERT INTO config(parameter, description) VALUES ('smtpSecure', 'SMTP Secure');
+INSERT INTO config(parameter, description) VALUES ('smtpUsername', 'SMTP Username');
+INSERT INTO config(parameter, description) VALUES ('smtpPassword', 'SMTP Password');
+
+
+
 
 
 
