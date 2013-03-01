@@ -15,7 +15,7 @@
  * @property string $email
  * @property string $joined
  * @property integer $activationcode
- * @property integer $activationstatus
+ * @property integer $is_active
  * @property integer $is_socio
  * @property integer $is_team_member
  * @property integer $is_editor
@@ -70,8 +70,8 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, fullname, password, salt, email, activationcode, activationstatus', 'required'),
-			array('is_socio, is_team_member, is_editor, is_manager, is_admin', 'numerical', 'integerOnly'=>true),
+			array('username, fullname, password, salt, email, activationcode', 'required'),
+			array('is_socio, is_team_member, is_editor, is_manager, is_admin, is_active', 'numerical', 'integerOnly'=>true),
 			array('username, fullname, password, salt, email', 'length', 'max'=>128),
 			array('email', 'email','allowEmpty'=>false),
 			array('email', 'unique', 'className' => 'User'),
@@ -120,6 +120,7 @@ class User extends CActiveRecord
 			'password_repeat' => 'Constraseña repetida',
 			'salt' => 'Salt',
 			'email' => 'Email',
+			'is_active' => 'Active',
 			'is_socio' => 'Socio',
 			'is_team_member' => 'Is Team Member',
 			'is_editor' => 'Is Editor',
@@ -145,9 +146,12 @@ class User extends CActiveRecord
 	 * Create activation code.
 	 * @param string email
 	 */
-	public function generateActivationCode($email)
+	public function generateActivationCode()
 	{
-		return sha1(mt_rand(10000, 99999).time().$email);
+		$code = substr(uniqid(),rand(1,5),15);
+		while ($this->findByAttributes(array('activationcode'=>$code)))
+			$code = substr(uniqid(),rand(1,5),15);
+		return $code;
 	}
  
 	/**
@@ -189,7 +193,7 @@ class User extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('joined',$this->joined,true);
 		$criteria->compare('activationcode',$this->activationcode);
-		$criteria->compare('activationstatus',$this->activationstatus);
+		$criteria->compare('is_active',$this->active);
 		$criteria->compare('is_socio',$this->is_socio);
 		$criteria->compare('is_team_member',$this->is_team_member);
 		$criteria->compare('is_editor',$this->is_editor);

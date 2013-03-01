@@ -43,6 +43,20 @@ class RegisterForm extends CFormModel
 		);
 	}
  
+	//		array('username', 'validateUsername'), 
+    public function validateUsername()
+    {
+		if (strlen($this->username) < 4){
+			return;
+		}
+		if (strlen($this->username) > 32){
+			$this->addError('username','Username too long. Max 32 characters');
+			return;
+		}
+        if (!preg_match('/^[A-Za-z0-9_]+$/', $this->username))
+            $this->addError('username','Only characters a-z A-Z and 0-9 are allowed.');
+    }
+
 	/**
 	 * Declares attribute labels.
 	 */

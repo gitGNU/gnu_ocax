@@ -68,7 +68,7 @@ function toggleRecipients(){
 		<?php
 
 		$sender=User::model()->findByPk($model->sender);
-		$senderList=array(	0=>Config::model()->findByPk('noreply')->value,
+		$senderList=array(	0=>Config::model()->findByPk('emailNoReply')->value,
 							$sender->id=>$sender->email);
 		$model->sender=0;
 		?>

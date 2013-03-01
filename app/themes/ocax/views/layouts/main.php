@@ -61,9 +61,9 @@
 	<div style="width:100%; padding: 0px; float: left;">
 	<div style="width: 40%; float: left;  margin: 0px;">
 		<b>Dades de contacte</b><br />
-		Observatori ciutadà de l'Ajuntament de XXXXXX<br />
-		Email: info@example.com<br />
-		Telèfon: 686 xxx xxx<br />
+		<?php echo Config::model()->findByPk('observatoryName')->value;?><br />
+		Email: <?php echo Config::model()->findByPk('emailContactAddress')->value;?><br />
+		Telèfon: <?php echo Config::model()->findByPk('telephone')->value;?><br />
 	</div>
 	<div style="width: 20%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>

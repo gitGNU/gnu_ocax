@@ -12,7 +12,7 @@ class Mailer
 	public function __construct()
 	{
 		$this->_myMailer = new PHPMailer();
-	    $this->_myMailer->Charset = "UTF-8";
+	    $this->_myMailer->CharSet = "UTF-8";
 
 		$this->_myMailer->IsSMTP();
 		$this->_myMailer->SMTPAuth = Config::model()->findByPk('smtpAuth')->value;

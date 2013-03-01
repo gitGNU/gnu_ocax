@@ -11,9 +11,8 @@ CREATE TABLE IF NOT EXISTS user (
   salt varchar(128) NOT NULL,
   email varchar(128) NOT NULL,
   joined date NOT NULL,
-  activationcode int(11) NOT NULL,
-  activationstatus int(11) NOT NULL,
-
+  activationcode varchar(15) NOT NULL,
+  is_active TINYINT(1) DEFAULT 0,
   is_socio TINYINT(1) DEFAULT 0,
   is_team_member TINYINT(1) DEFAULT 0,
   is_editor TINYINT(1) DEFAULT 0,
@@ -161,7 +160,9 @@ CREATE TABLE IF NOT EXISTS config (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Default Year (this year)');
-INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x), 'Siglas del observatorio');
+INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x)', 'Siglas del observatorio');
+INSERT INTO config(parameter, value, description) VALUES ('observatoryName', 'Observatori ciutadà de l\'Ajuntament de XXXXXX', 'Observatory name');
+INSERT INTO config(parameter, value, description) VALUES ('telephone', '666 666 666', 'Contact telephone');
 INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'contact@ocax.es', 'Contact email address');
 INSERT INTO config(parameter, value, description) VALUES ('emailNoReply', 'no-reply@ocax.es', 'no-reply email address');
 INSERT INTO config(parameter, description) VALUES ('smtpHost', 'SMTP Server');

@@ -50,30 +50,6 @@ class SiteController extends Controller
 	/**
 	 * Displays the contact page
 	 */
-/* original
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
-	}
-*/
 	public function actionContact()
 	{
 		$model=new ContactForm;
@@ -94,13 +70,44 @@ class SiteController extends Controller
 				if($mailer->send())
 					Yii::app()->user->setFlash('contact','Thank you for contacting us. We will get back as soon as possible.');
 				else
-					Yii::app()->user->setFlash('error','Error while sending email: '.$mailer->ErrorInfo);
+					Yii::app()->user->setFlash('error','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
 				$this->refresh();
 			}
 		}
 		$this->render('contact',array('model'=>$model));
 	}
-//***************** from example start
+
+	private function getActivationEmailText($user)
+	{
+		return '<p>Please click the link below to activate your account.<br />'.
+		'<a href="'.Yii::app()->createAbsoluteUrl('site/activate', array('c' => $user->activationcode)).'">'.
+		Yii::app()->createAbsoluteUrl('site/activate', array('c' => $user->activationcode)).'</a></p>';
+	}
+
+	public function actionSendActivationCode()
+	{
+		if(Yii::app()->user->isGuest) // add accessRules() to $this controller instead?
+			Yii::app()->end();
+
+		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
+		$user->activationcode = $user->generateActivationCode();
+		$user->save();
+
+ 		$mailer = new Mailer();
+		$mailer->AddAddress($user->email);
+		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+
+		$mailer->Subject = 'Activate your account';
+		$mailer->Body = '<p>Hello '.$user->fullname.',</p>'.$this->getActivationEmailText($user).'<p>Thank you,';
+		$mailer->Body = $mailer->Body.'<br />'.Config::model()->findByPk('observatoryName')->value.'</p>'; 
+		if($mailer->send())
+			Yii::app()->user->setFlash('newActivationCode','Email to active your account has been sent to '.$user->email);
+		else
+			Yii::app()->user->setFlash('newActivationCodeError','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
+
+		$this->redirect(array('/user/panel'));
+	}
+
 	public function actionRegister()
 	{
  
@@ -114,7 +121,6 @@ class SiteController extends Controller
 			Yii::app()->end();
 		}
  
-		// collect user input data
 		if(isset($_POST['RegisterForm']))
 		{
 			$model->attributes=$_POST['RegisterForm'];
@@ -124,8 +130,8 @@ class SiteController extends Controller
 			$newSalt=$newUser->generateSalt();
  			$newUser->password = $newUser->hashPassword($model->password,$newSalt);
 			$newUser->salt = $newSalt;
- 			$newUser->activationcode = $newUser->generateActivationCode($model->email);
-			$newUser->activationstatus = 0;
+ 			$newUser->activationcode = $newUser->generateActivationCode();
+			$newUser->is_active = 0;
  			$newUser->username = $model->username;
  			$newUser->email = $model->email;
 			$newUser->joined = date('Y-m-d');
@@ -136,41 +142,25 @@ class SiteController extends Controller
 				$identity=new UserIdentity($newUser->username,$model->password);
 				//$identity->authenticate();
 				Yii::app()->user->login($identity,0);
+				//$this->redirect(array('/user/panel'));
+ 
+ 				$mailer = new Mailer();
+				$mailer->AddAddress($newUser->email);
+				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+				$mailer->Subject = 'Welcome to the '.Config::model()->findByPk('siglas')->value;
+
+				$mailer->Body = '<p>Hello '.$newUser->fullname.',</p><p>Time to audit your council!</p>'.
+				$this->getActivationEmailText($newUser).'<p>Thank you,<br />'.
+				Config::model()->findByPk('observatoryName')->value.'</p>'; 
+ 
+				if($mailer->send())
+					Yii::app()->user->setFlash('newActivationCode','Email to active your account has been sent to '.$newUser->email);
+				else
+					Yii::app()->user->setFlash('newActivationCodeError','Error while sending email: '.$mailer->ErrorInfo);
+
 				$this->redirect(array('/user/panel'));
- 
-				//email activation code starts-----------------------------------------
- 
-				$to = $model->email;
-				$subject = "Welcome To GhazaliTajuddin.com!";
-				$message = "Thank you for joining!, we have sent you a separate email that contains your activation link";
-				$from = "FROM: mr.ghazali@gmail.com";
- 
-				mail($to,$subject,$message,$from);
- 
-				//echo $to.$subject.$message.$from;
- 
-				$headers = 'MIME-Version: 1.0' . "\r\n";
-				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-				$headers .= 'From: Mr. Ghazali < mr.ghazali@gmail.com>' . "\r\n";
- 
-				$subject2 = "Your Activation Link";
- 
-				$message2 = "<html><body>Please click this below to activate your membership<br />".
-				Yii::app()->createAbsoluteUrl('site/activate', array('email' => $newUser->email)).
-				"
- 
-				Thanks you.
-				". sha1(mt_rand(10000, 99999).time().$email) ."
-				</body></html>";
- 
-				mail($to, $subject2, $message2, $headers);
-				//email activation code end-----------------------------------------
- 
-				//$this->redirect(Yii::app()->user->returnUrl);
-				$this->redirect('/user/panel');
 			} 
 		}
-		// display the register form
 		$this->render('register',array('model'=>$model));
 	}
  
@@ -179,28 +169,27 @@ class SiteController extends Controller
 	*/
 	public function actionActivate()
 	{
-		$email = Yii::app()->request->getQuery('email');
-		// collect user input data
-		if(isset($email))
+		$code = Yii::app()->request->getQuery('c');
+		if($code)
 		{
-			$model = User::model()->find('email=:email', array(':email'=>$email));
- 
-			if($email == $model->email){
-				$model->activationstatus=1;
-				$model->validate();
+			$model = User::model()->findByAttributes(array('activationcode'=>$code));
+			if($model){
+				$model->is_active=1;
 				$model->save();
 			}
 		}
-		// display the login form
-		$this->render('activate',array('model'=>$model));
+		$this->redirect(array('login'));
 	}
-//***************** from example end
 
 	/**
 	 * Displays the login page
 	 */
 	public function actionLogin()
 	{
+
+		if(!Yii::app()->user->isGuest)
+			$this->redirect(array('/user/panel'));
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request

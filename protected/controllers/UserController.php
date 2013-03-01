@@ -116,6 +116,7 @@ class UserController extends Controller
 	public function actionUpdate()
 	{
 		$model=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
+		$email = $model->email;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -138,9 +139,15 @@ class UserController extends Controller
 				$model->salt=$model->generateSalt();
 				$model->password = $model->hashPassword($model->new_password,$model->salt);
 			}
+			if($email != $model->email)
+				$model->is_active=0;
+
 			if($model->save()){
 				Yii::app()->user->setFlash('success', "changes_saved");
-				$this->redirect(array('panel'));
+				if(!$model->is_active)
+					$this->redirect(array('/site/sendActivationCode'));
+				else
+					$this->redirect(array('panel'));
 			}
 		}
 		$this->render('update',array(

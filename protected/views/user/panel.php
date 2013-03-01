@@ -34,6 +34,15 @@ function changeColumn()
 	.clear{clear:both;}
 </style>
 
+<?php if(!$model->is_active){
+	echo '<h1>Welcome</h1><p>';
+	echo 'Para participar en la '.Config::model()->findByPk('siglas')->value;
+	echo '<span style="background-color:orange"> pedimos que nos confirmas tu dirección de correo electrónico </span></p><p>';
+	echo '- Te hemos enviado un correo-e que contiene sencillas instrucciones.<br />';
+	echo '- Si no has recibido el correo, comprueba que no te haya llegado como spam.<br />';
+	echo '- Si quieres que te enviamos el correo de nuevo a '.$model->email.', '.CHtml::link('clicka aquí',array('site/sendActivationCode'));
+	echo '</p>';
+}?>
 
 <div class="outer">
 <div class="left">
@@ -173,4 +182,27 @@ $this->widget('PGridView', array(
     </div>
 <?php endif; ?>
 
+<?php if(Yii::app()->user->hasFlash('newActivationCode')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut('fast');
+    	}, 3750);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('newActivationCode');?></b></p>
+    </div>
+<?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('newActivationCodeError')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_prompt').fadeOut('fast');
+    	}, 1750);
+		});
+	</script>
+    <div class="flash_prompt">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('newActivationCodeError');?></b></p>
+    </div>
+<?php endif; ?>
 
