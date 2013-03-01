@@ -151,7 +151,7 @@ class ConsultaController extends Controller
 				$subscription->user = $model->user;
 				$subscription->consulta = $model->id;
 				$subscription->save();
-
+				Yii::app()->user->setFlash('success', 'Consulta has been published');
 				$this->redirect(array('/user/panel'));
 			}
 		}

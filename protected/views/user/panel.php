@@ -178,19 +178,7 @@ $this->widget('PGridView', array(
 		});
 	</script>
     <div class="flash_success">
-		<p style="margin-top:25px;"><b>Cambios guardados correctamente</b></p>
-    </div>
-<?php endif; ?>
-
-<?php if(Yii::app()->user->hasFlash('newActivationCode')):?>
-	<script>
-		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
-    	}, 3750);
-		});
-	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('newActivationCode');?></b></p>
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
     </div>
 <?php endif; ?>
 

@@ -101,7 +101,7 @@ class SiteController extends Controller
 		$mailer->Body = '<p>Hello '.$user->fullname.',</p>'.$this->getActivationEmailText($user).'<p>Thank you,';
 		$mailer->Body = $mailer->Body.'<br />'.Config::model()->findByPk('observatoryName')->value.'</p>'; 
 		if($mailer->send())
-			Yii::app()->user->setFlash('newActivationCode','Email to active your account has been sent to '.$user->email);
+			Yii::app()->user->setFlash('success','We sent you an email');
 		else
 			Yii::app()->user->setFlash('newActivationCodeError','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
 
@@ -154,7 +154,7 @@ class SiteController extends Controller
 				Config::model()->findByPk('observatoryName')->value.'</p>'; 
  
 				if($mailer->send())
-					Yii::app()->user->setFlash('newActivationCode','Email to active your account has been sent to '.$newUser->email);
+					Yii::app()->user->setFlash('success','We sent you an email');
 				else
 					Yii::app()->user->setFlash('newActivationCodeError','Error while sending email: '.$mailer->ErrorInfo);
 
@@ -176,7 +176,7 @@ class SiteController extends Controller
 			if($model){
 				$model->is_active=1;
 				$model->save();
-				Yii::app()->user->setFlash('newActivationCode','Your account is active');
+				Yii::app()->user->setFlash('success','Your account is active');
 			}
 		}
 		if(!Yii::app()->user->isGuest)

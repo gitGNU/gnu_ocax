@@ -91,7 +91,7 @@ class EmailController extends Controller
 			$model->sender = Yii::app()->user->getUserID();
 
 			if($model->save()){
-				Yii::app()->user->setFlash('success', "email_sent");
+				Yii::app()->user->setFlash('success', 'Email sent');
 				$this->redirect(array($returnURL,'id'=>$model->consulta));
 			}
 

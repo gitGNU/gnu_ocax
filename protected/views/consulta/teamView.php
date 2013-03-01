@@ -37,7 +37,7 @@ $this->menu=array(
 		});
 	</script>
     <div class="flash_success">
-		<p style="margin-top:25px;"><b>Email enviado correctamente</b></p>
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
     </div>
 <?php endif; ?>
 

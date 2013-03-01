@@ -70,11 +70,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut();
-    	}, 2000);
+			$('.flash_success').fadeOut('fast');
+    	}, 1750);
 		});
 	</script>
     <div class="flash_success">
-		<p style="margin-top:25px;"><b>Email sent correctamente</b></p>
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
     </div>
 <?php endif; ?>

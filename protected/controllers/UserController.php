@@ -143,7 +143,7 @@ class UserController extends Controller
 				$model->is_active=0;
 
 			if($model->save()){
-				Yii::app()->user->setFlash('success', "changes_saved");
+				Yii::app()->user->setFlash('success', "changes saved");
 				if(!$model->is_active)
 					$this->redirect(array('/site/sendActivationCode'));
 				else
