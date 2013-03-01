@@ -51,6 +51,7 @@ return array(
 			'class' => 'WebUser', // http://www.yiiframework.com/wiki/60/
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'autoUpdateFlash' => false,
 		),
 		// uncomment the following to enable URLs in path-format
 

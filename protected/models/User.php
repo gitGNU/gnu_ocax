@@ -193,7 +193,7 @@ class User extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('joined',$this->joined,true);
 		$criteria->compare('activationcode',$this->activationcode);
-		$criteria->compare('is_active',$this->active);
+		$criteria->compare('is_active',$this->is_active);
 		$criteria->compare('is_socio',$this->is_socio);
 		$criteria->compare('is_team_member',$this->is_team_member);
 		$criteria->compare('is_editor',$this->is_editor);

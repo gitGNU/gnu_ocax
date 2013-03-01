@@ -176,9 +176,13 @@ class SiteController extends Controller
 			if($model){
 				$model->is_active=1;
 				$model->save();
+				Yii::app()->user->setFlash('newActivationCode','Your account is active');
 			}
 		}
-		$this->redirect(array('login'));
+		if(!Yii::app()->user->isGuest)
+			$this->redirect(array('/user/panel'));
+		else
+			$this->redirect(array('login'));
 	}
 
 	/**
@@ -186,10 +190,6 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-
-		if(!Yii::app()->user->isGuest)
-			$this->redirect(array('/user/panel'));
-
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -207,6 +207,7 @@ class SiteController extends Controller
 			if($model->validate() && $model->login())
 				$this->redirect(array('user/panel'));
 		}
+
 		// display the login form
 		$this->render('login',array('model'=>$model));
 	}
