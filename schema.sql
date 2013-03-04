@@ -115,13 +115,14 @@ CREATE TABLE IF NOT EXISTS emailtext (
 	PRIMARY KEY (state)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO emailtext(state, body) VALUES (0, '<p>Hola,</p><p>Esperando respuesta de la OCAB</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola,</p><p>Estamos en ello</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola,</p><p>Lo siento, desestimamos tu petición</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>Esperando respuesta de la Administración.</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>Respuesta con éxito</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>Respuesta parcialmente con éxito</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>Descartado por la Administración</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (0, '<p>Hola %name%,</p><p>Este es un correo automático para informarte que se ha creado la consulta.<br />
+												En breve se asignará a un miembro del equipo</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola,</p><p>Estamos en ello</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola,</p><p>Lo siento, desestimamos tu petición</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>Esperando respuesta de la Administración.</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>Respuesta con éxito</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>Respuesta parcialmente con éxito</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>Descartado por la Administración</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
 
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,

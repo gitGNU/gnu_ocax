@@ -24,23 +24,11 @@
 class Consulta extends CActiveRecord
 {
 
-	// this gets removed when getHumanStates is used everywhere
-    public $humanStateValues=array(
-                        0=>"Esperando respuesta de la OCAB",
-						1=>'OCAB reconoce la entrega',
-                        2=>'Descartado por el OCAB',
-                        3=>'Esperando respuesta de la Administración',
-                        4=>'Respuesta con éxito',
-                        5=>'Respuesta parcialmente con éxito',
-                        6=>'Descartado por la Administración'
-					);
-
     public $humanTypeValues=array(
                         0=>'Genérica',
                         1=>'Pressupostària');
 
-
-	public static function getHumanStates($state)
+	public static function getHumanStates($state=Null)
 	{
     	$humanStateValues=array(
                         0=>"Esperando respuesta de la %s",
@@ -51,14 +39,22 @@ class Consulta extends CActiveRecord
                         5=>'Respuesta parcialmente con éxito',
                         6=>'Descartado por la Administración'
 					);
-
-		$str=$humanStateValues[$state];
-		if( strpos($str, '%s') !== false)
-			$str = str_replace("%s", Config::model()->findByPk('siglas')->value , $str);
-		return $str;
-
+		if($state!==Null){
+			$str=$humanStateValues[$state];
+			if( strpos($str, '%s') !== false){
+				$str = str_replace("%s", Config::model()->findByPk('siglas')->value, $str);
+			}
+			return $str;
+		}
+		$siglas=Config::model()->findByPk('siglas')->value;
+		$states = array();
+		foreach($humanStateValues as $key=>$value){
+			if( strpos($value, '%s') !== false)
+				$value = str_replace('%s', $siglas, $value);
+			$states[$key]=$value;
+		}
+		return $states;
 	}
-
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -153,7 +149,7 @@ class Consulta extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		//$criteria->compare('id',$this->id);
 		$criteria->compare('user',$this->user);
 		$criteria->compare('team_member',$this->team_member);
 		$criteria->compare('manager',$this->manager);

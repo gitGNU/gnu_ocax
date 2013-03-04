@@ -50,7 +50,6 @@ $this->widget('ext.tinymce.TinyMce', array(
     ),
 ));
 ?>
-
 		<?php echo $form->error($model,'body'); ?>
 	</div>
 

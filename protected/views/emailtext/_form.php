@@ -11,14 +11,8 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	<?php echo $form->hiddenField($model,'state'); ?>
 	<div class="row">
-		<?php /*echo $form->labelEx($model,'state'); */?>
-		<?php echo $form->hiddenField($model,'state'); ?>
-		<?php /*echo $form->error($model,'state'); */?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
 		$this->widget('ext.tinymce.TinyMce', array(
 		    'model' => $model,
@@ -39,7 +33,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Update'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

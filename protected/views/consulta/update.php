@@ -26,7 +26,7 @@ $this->menu=array(
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
-		<?php echo $form->dropDownList($model, 'state', $model->humanStateValues);?>
+		<?php echo $form->dropDownList($model, 'state', $model->getHumanStates());?>
 	</div>
 
 	<div class="row buttons">

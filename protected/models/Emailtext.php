@@ -37,10 +37,39 @@ class Emailtext extends CActiveRecord
 		return array(
 			array('state, body', 'required'),
 			array('state', 'numerical', 'integerOnly'=>true),
+			array('body', 'validateBody'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('state, body', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function validateBody($attribute,$params)
+	{
+		if($attribute == 'body'){
+			if( strpos($this->body, '%link%') === false)
+				$this->addError('body','Text must include %link%');
+		}
+	}
+
+	public function getBody($consulta=Null)
+	{
+		if($consulta){
+			$consulta_link = '<a href="'.Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'">'.
+			Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'</a>';
+		}else
+			$consulta_link = '<a href="/link/to/the/consulta">/link/to/the/consulta</a>';
+
+		$body = str_replace('%link%', $consulta_link, $this->body);
+		if( strpos($body, '%name%') !== false ){
+			if($consulta && $consulta->state==0)
+				$body = str_replace('%name%', $consulta->user0->fullname, $body);
+			elseif($this->state == 0)
+				$body = str_replace('%name%', '&lt;User\'s fullname will go here&gt;', $body);
+			else
+				$body = str_replace('%name%', '', $body);
+		}
+		return $body;
 	}
 
 	/**

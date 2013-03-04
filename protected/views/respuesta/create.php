@@ -41,7 +41,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->label($consulta,'state');?>
 		<?php $model->state=$consulta->state;?>
-		<?php echo $form->dropDownList($model, 'state', $consulta->humanStateValues);?>
+		<?php echo $form->dropDownList($model, 'state', $consulta->getHumanStates());?>
 	</div>
 
 	<div class="row">

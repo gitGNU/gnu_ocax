@@ -151,7 +151,25 @@ class ConsultaController extends Controller
 				$subscription->user = $model->user;
 				$subscription->consulta = $model->id;
 				$subscription->save();
-				Yii::app()->user->setFlash('success', 'Consulta has been published');
+
+ 				$mailer = new Mailer();
+				
+				$managers=User::model()->findAllByAttributes(array('is_manager'=>'1'));
+				foreach($managers as $manager)
+					$mailer->AddBCC($manager->email);
+
+				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+				$mailer->Subject=$model->getHumanStates($model->state);
+				$mailer->Body=Emailtext::model()->findByPk($model->state)->getBody($model);
+
+				if($mailer->send()){
+					// we need to create a Email model here and save it!!
+					/*
+					$email = new Email;
+					*/
+					Yii::app()->user->setFlash('success', 'Consulta has been published<br/>We have sent you an email');
+				}else
+					Yii::app()->user->setFlash('success', 'Consulta has been published');
 				$this->redirect(array('/user/panel'));
 			}
 		}

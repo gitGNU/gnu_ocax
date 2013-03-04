@@ -42,7 +42,7 @@ if($respuestas || Yii::app()->user->getUserID() == $model->team_member)
 		'capitulo',
 		array(
 	        'label'=>'Estat',
-	        'value'=>$model->humanStateValues[$model->state],
+	        'value'=>$model->getHumanStates($model->state),
 		),
 	),
 	));

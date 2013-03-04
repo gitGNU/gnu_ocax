@@ -28,7 +28,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
-		<?php echo $form->dropDownList($model, 'state', array(""=>"Sin filtrar") + $model->humanStateValues);?>
+		<?php echo $form->dropDownList($model, 'state', array(""=>"Sin filtrar") + $model->getHumanStates());?>
 	</div>
 
 	<div class="row">

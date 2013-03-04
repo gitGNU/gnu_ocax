@@ -16,7 +16,7 @@
 		),
 		array(
 	        'label'=>'Estat',
-	        'value'=>$model->humanStateValues[$model->state],
+	        'value'=>$model->getHumanStates($model->state),
 		),
 	),
 ));?>

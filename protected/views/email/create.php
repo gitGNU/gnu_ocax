@@ -5,21 +5,21 @@
 
 if($returnURL == 'consulta/teamView'){
 	$this->menu=array(
-		array('label'=>'Ver Consulta', 'url'=>array('/consulta/teamView', 'id'=>$consulta->id)),
-		array('label'=>'Actualizar estat', 'url'=>array('/consulta/update', 'id'=>$consulta->id)),
-		array('label'=>'Editar Consulta', 'url'=>array('/consulta/edit', 'id'=>$consulta->id)),
-		array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$consulta->id, 'menu'=>'team')),
-		array('label'=>'Listar consultas', 'url'=>array('/consulta/managed')),
+		array('label'=>'View Consulta', 'url'=>array('/consulta/teamView', 'id'=>$consulta->id)),
+		array('label'=>'Change state', 'url'=>array('/consulta/update', 'id'=>$consulta->id)),
+		array('label'=>'Edit Consulta', 'url'=>array('/consulta/edit', 'id'=>$consulta->id)),
+		array('label'=>'Emails sent', 'url'=>array('/email/index/', 'id'=>$consulta->id, 'menu'=>'team')),
+		array('label'=>'List consultas', 'url'=>array('/consulta/managed')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 }
 if($returnURL == 'consulta/adminView'){
 	$this->menu=array(
-		array('label'=>'Ver Consulta', 'url'=>array('/consulta/adminView', 'id'=>$consulta->id)),
+		//array('label'=>'View Consulta', 'url'=>array('/consulta/adminView', 'id'=>$consulta->id)),
 		//array('label'=>'Actualizar estat', 'url'=>array('/consulta/update', 'id'=>$consulta->id)),
 		//array('label'=>'Editar Consulta', 'url'=>array('/consulta/edit', 'id'=>$consulta->id)),
-		array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$consulta->id, 'menu'=>'manager')),
-		array('label'=>'Listar consultas', 'url'=>array('/consulta/admin')),
+		array('label'=>'Emails sent', 'url'=>array('/email/index/', 'id'=>$consulta->id, 'menu'=>'manager')),
+		array('label'=>'List consultas', 'url'=>array('/consulta/admin')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 }
@@ -93,7 +93,7 @@ function toggleRecipients(){
 			$model->recipients = substr_replace($model->recipients ,"",-1);
 			echo $form->hiddenField($model,'recipients');
 			
-			echo '<p><b>'.count($subscribedUsers).' Recipients</b> <span id="recipients_link" onClick="js:toggleRecipients();">Show</span>';
+			echo '<p><b>'.count($subscribedUsers).' BCC Recipients</b> <span id="recipients_link" onClick="js:toggleRecipients();">Show</span>';
 			echo '<div id="recipients" style="background-color:white;padding:4px;display:none">'.$model->recipients.'</div>';
 		?>
 		</p>

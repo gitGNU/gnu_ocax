@@ -53,7 +53,7 @@ $this->widget('PGridView', array(
 				'header'=>'Estat',
 				'name'=>'state',
 				'type' => 'raw',
-				'value'=>'$data->humanStateValues[$data[\'state\']]',
+				'value'=>'$data->getHumanStates($data[\'state\'])',
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));

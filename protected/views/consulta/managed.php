@@ -50,7 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
-		<?php echo $form->dropDownList($model, 'state', array(''=>'Sin filtrar') + $model->humanStateValues);?>
+		<?php echo $form->dropDownList($model, 'state', array(''=>'Sin filtrar') + $model->getHumanStates());?>
 	</div>
 	<div class="row">
 		<?php echo $form->label($model,'title'); ?>

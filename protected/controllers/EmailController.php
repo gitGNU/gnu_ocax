@@ -83,15 +83,29 @@ class EmailController extends Controller
 
 			$model->attributes=$_POST['Email'];
 			$model->created = date('c');
-			$consulta=Consulta::model()->findByPk($model->consulta);
+			//$consulta=Consulta::model()->findByPk($model->consulta);
 
-			// for email function
-			//echo $_POST['Email']['sender'];
+			if($model->sender == 0)
+				$sent_as=Config::model()->findByPk('emailNoReply')->value;
+			else
+				$sent_as=User::model()->findByPk($model->sender)->email;
 
 			$model->sender = Yii::app()->user->getUserID();
-
 			if($model->save()){
-				Yii::app()->user->setFlash('success', 'Email sent');
+
+ 				$mailer = new Mailer();
+				$addresses = explode(',', $model->recipients);
+				foreach($addresses as $address)
+					$mailer->AddBCC(trim($address));
+				$mailer->SetFrom($sent_as, Config::model()->findByPk('siglas')->value);
+				$mailer->Subject=$model->title;
+				$mailer->Body=$model->body;
+
+				if($mailer->send())
+					Yii::app()->user->setFlash('success','Email sent');
+				else
+					Yii::app()->user->setFlash('error','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
+
 				$this->redirect(array($returnURL,'id'=>$model->consulta));
 			}
 
@@ -107,7 +121,7 @@ class EmailController extends Controller
 		$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->consulta));
 
 		if(!$model->body)
-			$model->body=Emailtext::model()->findByPk($consulta->state)->body;
+			$model->body=Emailtext::model()->findByPk($consulta->state)->getBody($consulta);
 		if(!$model->title)
 			$model->title=$consulta->getHumanStates($consulta->state);
 
