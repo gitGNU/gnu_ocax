@@ -127,6 +127,7 @@ INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>Descartado por la 
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	created DATETIME NOT NULL,
+	sent TINYINT(1) DEFAULT 0,
 	title varchar( 255 ) NOT NULL,
 	sender int(11) NOT NULL,
 	recipients LONGTEXT NOT NULL,

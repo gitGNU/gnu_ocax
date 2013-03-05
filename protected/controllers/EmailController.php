@@ -83,7 +83,7 @@ class EmailController extends Controller
 
 			$model->attributes=$_POST['Email'];
 			$model->created = date('c');
-			//$consulta=Consulta::model()->findByPk($model->consulta);
+			$model->sent=0;
 
 			if($model->sender == 0)
 				$sent_as=Config::model()->findByPk('emailNoReply')->value;
@@ -97,13 +97,16 @@ class EmailController extends Controller
 				$addresses = explode(',', $model->recipients);
 				foreach($addresses as $address)
 					$mailer->AddBCC(trim($address));
+
 				$mailer->SetFrom($sent_as, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->title;
 				$mailer->Body=$model->body;
 
-				if($mailer->send())
+				if($mailer->send()){
+					$model->sent=1;
+					$model->save();
 					Yii::app()->user->setFlash('success','Email sent');
-				else
+				}else
 					Yii::app()->user->setFlash('error','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
 
 				$this->redirect(array($returnURL,'id'=>$model->consulta));

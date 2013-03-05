@@ -94,14 +94,41 @@ class CommentController extends Controller
 			$model->user=Yii::app()->user->getUserID();
 			$model->created=date('c');
 			if($model->save()){
-					echo CJavaScript::jsonEncode(array(
-							'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),
-					));
+
+				echo CJavaScript::jsonEncode(array(
+					'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),
+				));
+
+ 				$mailer = new Mailer();
+
+				if($model->consulta == Null)
+					$consulta = Consulta::model()->findByPk($model->respuesta0->consulta);
+				else
+					$consulta = Consulta::model()->findByPk($model->consulta);
+
+				$criteria = array(
+					'with'=>array('consultaSubscribes'),
+					'condition'=>' consultaSubscribes.consulta = '.$consulta->id,
+					'together'=>true,
+				);
+				$subscribedUsers = User::model()->findAll($criteria);
+
+				foreach($subscribedUsers as $subscribed)
+					$mailer->AddBCC($subscribed->email);
+
+				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+				$mailer->Subject='New comment at: '.$consulta->title;
+
+				$mailer->Body='	<p>A new comment has been added to the consulta "'.$consulta->title.'"<br />
+								<a href="'.Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'">'.
+								Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'</a></p><p><i>'.
+								$model->body.'</i></p><p>Kind regards,<br />'.
+								Config::model()->findByPk('observatoryName')->value.'</p>';
+				$mailer->send();
 			}else
 				echo 0;
 		}else
 			echo 0;
-
 	}
 
 	/**

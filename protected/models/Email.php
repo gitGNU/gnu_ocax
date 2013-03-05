@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'email':
  * @property integer $id
  * @property string $created
+ * @property integer $sent
  * @property string $title
  * @property integer $sender
  * @property string $recipients
@@ -45,11 +46,11 @@ class Email extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created, title, sender, recipients, consulta, body', 'required'),
-			array('sender, consulta', 'numerical', 'integerOnly'=>true),
+			array('sent, sender, consulta', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, title, sender, recipients, consulta, body', 'safe', 'on'=>'search'),
+			array('id, created, sent, title, sender, recipients, consulta, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,7 +74,8 @@ class Email extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'created' => 'Sent',
+			'created' => 'Created',
+			'sent' => 'Sent',
 			'title' => 'Title',
 			'sender' => 'Sender',
 			'recipients' => 'Recipients',
@@ -95,6 +97,7 @@ class Email extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('created',$this->created,true);
+		$criteria->compare('sent',$this->sent);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('sender',$this->sender);
 		$criteria->compare('recipients',$this->recipients,true);

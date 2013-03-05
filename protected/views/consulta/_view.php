@@ -20,6 +20,24 @@
 </style>
 
 <script>
+function isUser(){
+	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
+		alert('Please login to participate');
+		return 0;
+	}else
+		return 1;
+}
+function canParticipate(){
+<?php
+	if(!Yii::app()->user->isGuest && User::model()->findByAttributes(array('username'=>Yii::app()->user->id))->is_active)
+		$participate = 1;
+	else
+		$participate = 0;
+?>
+	if('0' == '<?php echo $participate?>')
+		alert('Before participating, please confirm your email address');
+	return <?php echo $participate?>;
+}
 function toggleComments(comments_block_id){
 	//$('#comment_form').hide();
 	if ($('#'+comments_block_id).is(":visible"))
@@ -28,10 +46,10 @@ function toggleComments(comments_block_id){
 		$('#'+comments_block_id).slideDown('fast');
 }
 function getCommentForm(comment_on, id, el){
-	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		alert('Please login to add comment');
+	if(!isUser())
 		return;
-	}
+	if(!canParticipate())
+		return;
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/getForm',
 		type: 'GET',
@@ -91,10 +109,10 @@ function deleteComment(comment_id){
 	});
 }
 function vote(respuesta_id, like){
-	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		alert('Please login to vote');
+	if(!isUser())
 		return;
-	}
+	if(!canParticipate())
+		return;
 	if(like == 1)
 		totalElement_id='voteLikeTotal_'+respuesta_id;
 	else

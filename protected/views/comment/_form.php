@@ -24,30 +24,7 @@
 	</div>
 
 	<div class="row" style="text-align:right";>
-		<?php /*echo CHtml::submitButton($model->isNewRecord ? 'Publicar' : 'Save'); */ ?>
-
-
 		<input type="button" onClick="js:submitComment($(this).parents('form:first'));" value="Publicar" />
-
-<?php
-/*
-		echo CHtml::ajaxSubmitButton('Publicar', Yii::app()->request->baseUrl.'/comment/create',
-		array(
-			'type'=>'POST',
-			'dataType'=>'json',
-			'data'=>'$("#comment-form").serialize()',
-			'beforeSend'=>'function(){ alert($("#comment-form").serialize()); }',
-			'success'=>'js:function(data){
-				if(data != 0){
-					alert(data);
-					$("#comment_form").after(data.html);
-					$("#comment_form").hide();
-				}
-			}',
-			'error'=>'js:function() { alert("error on create comment"); }',
-		));
-*/
-?>
 		<input type="button" onClick="js:cancelComment();" value="Cancelar" />
 	</div>
 <?php $this->endWidget(); ?>
