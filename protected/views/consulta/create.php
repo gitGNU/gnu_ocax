@@ -24,6 +24,7 @@ if($model->type == 1){
 
 <script>
 $(function() {
+/*
 	$('.budget').bind('click', function() {
 		budget_id = $(this).attr('budget_id');
 		$.ajax({
@@ -32,8 +33,8 @@ $(function() {
 			async: false,
 			dataType: 'json',
 			data: {'id': budget_id },
-			beforeSend: function(){ /*$ ('#right_loading_gif').show(); */ },
-			complete: function(){ /* $('#right_loading_gif').hide(); */ },
+			beforeSend: function(){ },
+			complete: function(){ },
 			success: function(data){
 				if(data != 0){
 					$('#budget_concept').html(data.html);
@@ -46,6 +47,7 @@ $(function() {
 		});
 	});
 });
+*/
 </script>
 
 

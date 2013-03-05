@@ -35,13 +35,8 @@ function changeColumn()
 </style>
 
 <?php if(!$model->is_active){
-	echo '<h1>Welcome</h1><p>';
-	echo 'Para participar en la '.Config::model()->findByPk('siglas')->value;
-	echo '<span style="background-color:orange"> pedimos que nos confirmas tu dirección de correo electrónico </span></p><p>';
-	echo '- Te hemos enviado un correo-e que contiene sencillas instrucciones.<br />';
-	echo '- Si no has recibido el correo, comprueba que no te haya llegado como spam.<br />';
-	echo '- Si quieres que te enviamos el correo de nuevo a '.$model->email.', '.CHtml::link('clicka aquí',array('site/sendActivationCode'));
-	echo '</p>';
+	echo '<h1>Welcome</h1>';
+	$this->renderPartial('_notActiveInfo', array('model'=>$model));
 }?>
 
 <div class="outer">
@@ -85,7 +80,7 @@ if($model->is_manager){
 if($model->is_admin){
 	changeColumn();
 	echo '<h1>Administator\'s options</h1>';
-	echo 'Budgets: '.CHtml::link('Create years and import data',array('budget/adminYears')).'<br />';
+	echo 'Budgets: '.CHtml::link('Years and budget data',array('budget/adminYears')).'<br />';
 	echo 'Users: '.CHtml::link('Admin users and roles',array('user/admin')).'<br />';
 	echo 'Default emails: '.CHtml::link('Define texts to send via email',array('emailtext/admin')).'<br />';
 	echo 'Global parameters: '.CHtml::link('Edit global parameters',array('config/admin')).'<br />';

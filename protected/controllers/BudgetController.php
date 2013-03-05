@@ -189,9 +189,15 @@ class BudgetController extends Controller
 			}
 		}
 
+		$criteria = array(
+			'with'=>array('budget0'),
+			'condition'=>' budget0.year = '.$model->year,
+			'together'=>true,
+		);
+		$consultas = new CActiveDataProvider(Consulta::model(), array('criteria'=>$criteria,));
+
 		$this->render('updateYear',array(
-			'model'=>$model,
-		));
+			'model'=>$model,'consultas'=>$consultas,));
 	}
 
 	/**
@@ -225,16 +231,13 @@ class BudgetController extends Controller
 
 	public function actionDeleteYearsBudgets($id)
 	{
-		// need to find possible consultas with budget->year, and stop deletion.
-
 		$model = $this->loadModel($id);
-		$budgets= Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL ORDER BY id DESC');
 
+		$budgets= Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL ORDER BY id DESC');
 		foreach($budgets as $budget){
-			$model = Budget::model()->findByPk($budget->id);
-			$model->delete();
+			$budget->delete();
 		}
-		$this->render('updateYear', array('model'=>$model));
+		$this->render('updateYear', array('model'=>$model,'count'=>count($consultas->getData())));
 	}
 
 	/**

@@ -33,12 +33,11 @@ $this->menu=array(
 	.clear{clear:both;}
 </style>
 
-<h1>Change Roles '<?php echo $model->username; ?>'</h1>
-
+<h1>Change roles: <?php echo $model->username; ?></h1>
+<p>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'username',
 		'fullname',
 		'email',
@@ -46,8 +45,8 @@ $this->menu=array(
 		'joined',
 	),
 )); ?>
-
-<h2>Roles</h2>
+</p>
+<div style="font-size:1.5em">Roles</div>
 
 <div class="outer" style="margin-top:10px">
 <div class="form">

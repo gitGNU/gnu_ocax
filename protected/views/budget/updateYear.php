@@ -27,4 +27,40 @@ function deleteBudgets(){
 
 <?php echo $this->renderPartial('_formYear', array('model'=>$model, 'totalBudgets'=>$totalBudgets)); ?>
 
+<?php
+if($consultas->getData()){
+echo '<div style="font-size:1.5em">Consultas presupuestarias del '.($model->year).' - '.($model->year + 1).'</div>';
+$this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'consultas-grid',
+	'dataProvider'=>$consultas,
+	'columns'=>array(
+		array(
+			'name'=>'consulta title',
+			'value'=>'$data->title',
+		),
+		'state',
+		array(
+			'name'=>'csv budget code',
+			'value'=>'$data->budget0->csv_id',
+		),
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{view} {delete}',
+			'buttons'=>array(
+				'view' => array(
+					'label'=>'View',
+		            'url'=>'Yii::app()->createUrl("consulta/view", array("id"=>$data->id))',
+				),
+				'delete' => array(
+					'label'=>'Delete consulta',
+		            'url'=>'Yii::app()->createUrl("consulta/delete", array("id"=>$data->id))',
+				),
+			),
+		),
+	),
+));
+
+}
+?>
+
 

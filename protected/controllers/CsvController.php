@@ -170,9 +170,7 @@ class CsvController extends Controller
 			echo CJavaScript::jsonEncode(array('error'=>'Selected year does not exist in database.'));
 			Yii::app()->end();
 		}
-		$error=null;
-		$is_new=0;
-		$is_updated=0;
+		$error=Null;
 		$new_budgets = 0;
 		$updated_budgets = 0;
 		if(isset($_GET['csv_file'])){
@@ -182,51 +180,47 @@ class CsvController extends Controller
 				if($line_num==0)
 					continue;
 				list($csv_id, $code, $label, $concept, $provision, $spent, $csv_parent_id) = explode("|", $line);
-				$csv_id = trim($csv_id);
+
+				$new_budget=new Budget;
+				$new_budget->csv_id = $csv_id;
+				$new_budget->csv_parent_id = trim($csv_parent_id);
+				$new_budget->year = $yearly_budget->year;
+				$new_budget->code = trim($code);
+				$new_budget->label = trim($label);
+				$new_budget->concept = trim($concept);
+				$new_budget->provision = trim(str_replace('€', '', $provision));
+				$new_budget->provision = trim(str_replace(',', '', $new_budget->provision));
+				$new_budget->spent = trim(str_replace('€', '', $spent));
+				$new_budget->spent = trim(str_replace(',', '', $new_budget->spent));
+				if(!$new_budget->spent)
+					$new_budget->spent = 0;
+				$criteria=new CDbCriteria;
+				$criteria->condition='parent IS NOT NULL AND csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
+				$parent=Budget::model()->find($criteria);
+				if($parent)
+					$new_budget->parent = $parent->id;
+				else
+					$new_budget->parent = $yearly_budget->id;
 
 				$criteria=new CDbCriteria;
-				$criteria->condition='parent IS NOT NULL AND csv_id = "'.$csv_id.'" AND year ='.$yearly_budget->year;
+				$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
 				$budget=Budget::model()->find($criteria);
 				if(!$budget){
-					$is_new=1;
-					$budget=new Budget;
-					$budget->csv_id = $csv_id;
-					$budget->year = $yearly_budget->year;
-				}
-				$budget->code = trim($code);
-				$budget->label = trim($label);
-				$budget->concept = trim($concept);
-				$budget->provision = trim(str_replace('€', '', $provision));
-				$budget->provision = trim(str_replace(',', '', $budget->provision));
-				//$budget->provision = trim($provision);
-				
-				//$budget->spent = trim($spent);
-				$budget->spent = trim(str_replace('€', '', $spent));
-				if(!$budget->spent)
-					$budget->spent = 0;
-
-				$csv_parent_id = trim($csv_parent_id);
-
-				if($csv_parent_id){
-					$criteria=new CDbCriteria;
-					$criteria->condition='csv_id="'.$csv_parent_id.'" AND year ='.$yearly_budget->year;
-					$parent=Budget::model()->find($criteria);
-					if($parent)
-						$budget->parent = $parent->id;
-				}else
-					$budget->parent=$yearly_budget->id;
-/*
-				if(!$budget->validate()){
-					foreach($budget->getErrors() as $msg)
-						print_r($msg);
-						echo '<br />';
-				}
-*/
-				if($budget->id)
-					$updated_budgets = $updated_budgets+1;
-				else
+					$new_budget->save();
 					$new_budgets = $new_budgets+1;
+					continue;
+				}
+				$differences = $budget->compare($new_budget);
+				if(count($differences) == 1)	// only difference is the id
+					continue;
+
+				foreach($differences as $attribute=>$values){
+					if($attribute == 'id')
+						continue;
+					$budget->owner->$attribute=$values['new'];
+				}
 				$budget->save();
+				$updated_budgets = $updated_budgets+1;
 			}
 		}else
 			$error = 'File path not defined.';

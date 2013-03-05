@@ -75,6 +75,11 @@ class Budget extends CActiveRecord
 		);
 	}
 
+	public function behaviors()  {
+		// http://www.yiiframework.com/forum/index.php/topic/10285-how-to-compare-two-active-record-models/
+		return array('PCompare'); 
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

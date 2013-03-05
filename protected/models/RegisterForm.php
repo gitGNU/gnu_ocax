@@ -32,6 +32,7 @@ class RegisterForm extends CFormModel
 		array('username, fullname, password , password_repeat, email, verifyCode', 'required'),
 		// username and email should be unique
 		array('username, email', 'unique', 'className' => 'User'),
+		array('username', 'validateUsername'),
 		// email should be in email format
 		array('email', 'email'),
 		array('password', 'length', 'min' => 6, 
@@ -43,7 +44,6 @@ class RegisterForm extends CFormModel
 		);
 	}
  
-	//		array('username', 'validateUsername'), 
     public function validateUsername()
     {
 		if (strlen($this->username) < 4){
@@ -76,6 +76,7 @@ class RegisterForm extends CFormModel
 	 * This is the 'authenticate' validator as declared in rules().
 	 */
 	// what?? no it isn't !!!???? Look into this.
+/*
 	public function authenticate($attribute,$params)
 	{
 		if(!$this->hasErrors())
@@ -85,4 +86,5 @@ class RegisterForm extends CFormModel
 				$this->addError('password','Usuario o constraseña incorrecta.');
 		}
 	}
+*/
 }

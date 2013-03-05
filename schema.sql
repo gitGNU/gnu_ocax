@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS budget (
   parent int(11) NULL,
   year SMALLINT(2) NOT NULL,
   csv_id varchar(20) NULL,
+  csv_parent_id varchar(20) NULL,
   code varchar(20) NULL,
   label varchar(255) NULL,
   concept varchar( 255 ) NOT NULL,

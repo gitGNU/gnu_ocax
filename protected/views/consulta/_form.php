@@ -2,7 +2,22 @@
 /* @var $this ConsultaController */
 /* @var $model Consulta */
 /* @var $form CActiveForm */
+
+$user_id = Yii::app()->user->getUserID();
+$user= User::model()->findByPk($user_id);
+if(!$user->is_active)
+	$this->renderPartial('//user/_notActiveInfo', array('model'=>$user));
 ?>
+
+<script>
+$(document).ready(function() {
+	if(1 != <?php echo $user->is_active;?>){
+		$('#consulta-form').find(':input:not(:disabled)').prop('disabled',true);
+		$('#consulta-form').find(':textarea:not(:disabled)').prop('disabled',true);
+	}
+});
+</script>
+
 
 <div class="form">
 
@@ -57,7 +72,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 		<?php	if (!$model->id)
 					$cancelURL='/user/panel';
-				elseif ($model->team_member == Yii::app()->user->getUserID())
+				elseif ($model->team_member == $user_id)	// remember: a team_memebr can edit a consulta
 					$cancelURL='/consulta/teamView/'.$model->id;
 				else
 					$cancelURL='/consulta/'.$model->id;
