@@ -9,6 +9,7 @@
  * @property integer $level
  * @property integer $year
  * @property string $csv_id
+ * @property string $csv_parent_id
  * @property string $code
  * @property string $label
  * @property string $concept
@@ -52,7 +53,7 @@ class Budget extends CActiveRecord
 			array('year, concept, provision, spent', 'required'),
 			array('parent, year, weight', 'numerical', 'integerOnly'=>true),
 			array('provision, spent', 'type', 'type'=>'float'),
-			array('code, csv_id', 'length', 'max'=>20),
+			array('code, csv_id, csv_parent_id', 'length', 'max'=>20),
 			array('label, concept', 'length', 'max'=>255),
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().
@@ -89,6 +90,7 @@ class Budget extends CActiveRecord
 			'id' => 'ID',
 			'parent' => 'Parent',
 			'csv_id' => 'internal code',
+			'csv_parent_id' => 'internal parent code',
 			'year' => 'Year',
 			'code' => 'Código',
 			'label' => 'Label',
@@ -116,10 +118,8 @@ class Budget extends CActiveRecord
 		}
 
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('parent is not null');	// dont show year budgets
+		$criteria->addCondition('parent is not null');	// dont show year budget
 
-		//$criteria->compare('id',$this->id);
-		//$criteria->compare('parent',$this->parent);
 		$criteria->compare('year',$this->year);
 		$criteria->compare('code',$this->code,true);
 		//$criteria->compare('label',$this->label,true);
@@ -142,7 +142,7 @@ class Budget extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		//$criteria->addCondition('parent is not null');	// dont show year budgets
+		$criteria->addCondition('parent is not null');	// dont show year budget
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('parent',$this->parent);

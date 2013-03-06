@@ -98,7 +98,7 @@ $this->widget('PGridView', array(
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',
 			),
-            array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>
 

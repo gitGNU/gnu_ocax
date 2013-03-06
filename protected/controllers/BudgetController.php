@@ -233,11 +233,28 @@ class BudgetController extends Controller
 	{
 		$model = $this->loadModel($id);
 
-		$budgets= Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL ORDER BY id DESC');
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = '.$model->year.' AND parent IS NOT NULL';
+		$criteria->order = 'id DESC';
+
+		$budgets = $model->findAll($criteria);
+		$referenced_parents=array();
 		foreach($budgets as $budget){
-			$budget->delete();
+			$consulta = Consulta::model()->findByAttributes(array('budget'=>$budget->id));
+			if(!($consulta || in_array($budget->id, $referenced_parents)))
+				$budget->delete();
+			else
+				$referenced_parents[]=$budget->parent;
 		}
-		$this->render('updateYear', array('model'=>$model,'count'=>count($consultas->getData())));
+		$criteria = array(
+			'with'=>array('budget0'),
+			'condition'=>' budget0.year = '.$model->year,
+			'together'=>true,
+		);
+		$consultas = new CActiveDataProvider(Consulta::model(), array('criteria'=>$criteria,));
+
+		$this->render('updateYear',array(
+			'model'=>$model,'consultas'=>$consultas,));
 	}
 
 	/**
@@ -247,7 +264,10 @@ class BudgetController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model=$this->loadModel($id);
+
+		if(!($model->findByPk($model->parent) || Consulta::model()->findByAttributes(array('budget'=>$model->id))))
+			$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

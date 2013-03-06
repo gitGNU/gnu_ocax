@@ -190,12 +190,14 @@ class CsvController extends Controller
 				$new_budget->concept = trim($concept);
 				$new_budget->provision = trim(str_replace('€', '', $provision));
 				$new_budget->provision = trim(str_replace(',', '', $new_budget->provision));
+				if(!$new_budget->provision)
+					$new_budget->provision = 0;
 				$new_budget->spent = trim(str_replace('€', '', $spent));
 				$new_budget->spent = trim(str_replace(',', '', $new_budget->spent));
 				if(!$new_budget->spent)
 					$new_budget->spent = 0;
 				$criteria=new CDbCriteria;
-				$criteria->condition='parent IS NOT NULL AND csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
+				$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
 				$parent=Budget::model()->find($criteria);
 				if($parent)
 					$new_budget->parent = $parent->id;

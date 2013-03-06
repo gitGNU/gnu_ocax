@@ -15,7 +15,7 @@ class ConsultaController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + delete, megaDelete', // we only allow deletion via POST request
 		);
 	}
 
@@ -35,13 +35,17 @@ class ConsultaController extends Controller
 				'actions'=>array('create','edit','subscribe','delete'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			array('allow',
 				'actions'=>array('teamView','update','managed'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			array('allow',
 				'actions'=>array('adminView','admin','manage'),
 				'expression'=>"Yii::app()->user->isManager()",
+			),
+			array('allow', 
+				'actions'=>array('megaDelete'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -369,6 +373,43 @@ class ConsultaController extends Controller
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}else
 			$this->redirect(array('/site/index'));
+	}
+
+	/**
+	 * Deletes a consulta and all references.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionMegaDelete($id)
+	{
+		$model = $this->loadModel($id);
+
+		$subscriptions = ConsultaSubscribe::model()->findAllByAttributes(array('consulta'=>$model->id));
+		foreach($subscriptions as $subscription)
+			$subscription->delete();
+
+		$emails = Email::model()->findAllByAttributes(array('consulta'=>$model->id));
+		foreach($emails as $email)
+			$email->delete();
+
+		$comments = Comment::model()->findAllByAttributes(array('consulta'=>$model->id));
+		foreach($comments as $comment)
+			$comment->delete();
+
+		$respuestas = Respuesta::model()->findAllByAttributes(array('consulta'=>$model->id));
+		foreach($respuestas as $respuesta){
+
+			$votes = Vote::model()->findAllByAttributes(array('respuesta'=>$respuesta->id));
+			foreach($votes as $vote)
+				$vote->delete();
+
+			$comments = Comment::model()->findAllByAttributes(array('respuesta'=>$respuesta->id));
+			foreach($comments as $comment)
+				$comment->delete();
+
+			$respuesta->delete();
+		}
+		$model->delete();
+		echo $id;
 	}
 
 	/**
