@@ -13,8 +13,6 @@
 	.clear{clear:both;}
 </style>
 
-<h1>Login</h1>
-
 <div class="outer">
 <div class="left">
 
@@ -26,6 +24,8 @@
 		'validateOnSubmit'=>true,
 	),
 )); ?>
+
+	<div class="title">Login</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -51,6 +51,7 @@
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<p></p>
 
 </div>
 <div class="right">

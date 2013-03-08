@@ -4,8 +4,13 @@
 ?>
 
 <div class="view">
+	<div style="padding:10px;margin:-10px;background-color:#CAE1FF;margin-bottom:5px;font-size:1.3em;">
+		<b>Subject</b>
+		<?php echo CHtml::encode($data->title); ?>
+	</div>
 
-	<p>
+	<div style="padding:10px;margin:-10px;background-color:#F0F8FF;margin-bottom:15px;">
+	<p style="margin-bottom:10px">
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
 	<?php echo CHtml::encode($data->created); ?>
 	<?php
@@ -17,16 +22,22 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('sender')); ?>:</b>
-	<?php echo CHtml::encode($data->sender0->fullname); ?>
+	<?php
+		if($data->sender)
+			echo CHtml::encode($data->sender0->fullname);
+		else
+			echo 'Automatic email';
+	?>
 	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('sent_as')); ?>:</b>
+	<?php echo CHtml::encode($data->sent_as); ?>
+	</p>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('recipients')); ?>:</b>
 	<?php echo CHtml::encode($data->recipients); ?>
-	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::encode($data->title); ?>
-	</p>
+	</div>
 
 	<?php echo $data->body; ?>
 	<br />

@@ -13,19 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<style>
-.form{
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	background-color:#D9CCB9;
-	padding:10px;
-	margin-bottom:10px;
-
-}
-</style>
-
-<h1>Add reply</h1>
-
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -34,6 +21,8 @@ $this->menu=array(
 	'enableClientValidation'=>false,
 )); ?>
 
+	<div class="title">Add reply</div>
+
 	<?php echo $form->errorSummary($model); ?>
 
 	<?php echo $form->hiddenField($model,'consulta');?>
@@ -41,7 +30,11 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->label($consulta,'state');?>
 		<?php $model->state=$consulta->state;?>
-		<?php echo $form->dropDownList($model, 'state', $consulta->getHumanStates());?>
+		<?php
+			$dropDown_data = Consulta::model()->getHumanStates();
+			unset($dropDown_data[0]);
+		?>
+		<?php echo $form->dropDownList($model, 'state', $dropDown_data);?>
 	</div>
 
 	<div class="row">
@@ -79,10 +72,7 @@ $this->menu=array(
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-
-<h1>La consulta</h1>
-<div class="view" style="padding:4px;">
+<p></p>
 <?php echo $this->renderPartial('//consulta/_teamView', array('model'=>$consulta)); ?>
 
-</div>
 

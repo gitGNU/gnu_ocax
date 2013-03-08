@@ -13,10 +13,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>La consulta</h1>
-<div class="view" style="padding:4px;">
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
-</div>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash_prompt">

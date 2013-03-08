@@ -7,23 +7,33 @@ html, body{
 }
 
 .consulta{
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	background-color:#FFF8DC;
-	padding:10px;
+	padding: 10px;
+	margin: 0;
+	border: 1px solid #C9E0ED;
 }
-.consulta h1{
+.consulta .title{
 	padding:10px;
-	margin-bottom:0px;
-}
-.form{
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	background-color:#D9CCB9;
-	padding:10px;
+	margin:-10px;
+	background-color:#CAE1FF;
 	margin-bottom:10px;
-
+	font-size:1.4em;
 }
+
+.form{
+	background-color:#F0F8FF;
+	padding: 10px;
+	margin: 0;
+	border: 1px solid #C9E0ED;
+}
+
+.form .title{
+	padding:10px;
+	margin:-10px;
+	background-color:#CAE1FF;
+	margin-bottom:15px;
+	font-size:1.4em;
+}
+
 .flash_prompt{
 	top: 0px;
 	position:absolute;

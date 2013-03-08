@@ -27,28 +27,12 @@ $this->menu=array(
 ?>
 
 <style>           
-	.outer{width:100%; padding: 0px; float: left;}
+
 	.left{width: 48%; float: left;  margin: 0px;}
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
-<h1>Change roles: <?php echo $model->username; ?></h1>
-<p>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'username',
-		'fullname',
-		'email',
-		'is_socio',
-		'joined',
-	),
-)); ?>
-</p>
-<div style="font-size:1.5em">Roles</div>
-
-<div class="outer" style="margin-top:10px">
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -56,6 +40,22 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	<div class="title">Change roles</div>
+
+	<div class="row" style="margin:-15px -10px 10px -10px;">
+	<?php $this->widget('zii.widgets.CDetailView', array(
+		'data'=>$model,
+		'attributes'=>array(
+			'username',
+			'fullname',
+			'email',
+			'is_socio',
+			'joined',
+		),
+	)); ?>
+	</div>
+
+<div>
 	<?php changeColumn();?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_team_member'); ?>
@@ -84,7 +84,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_admin'); ?>
 		<?php echo $form->checkBox($model,'is_admin', array('checked'=>$model->is_admin)); ?>
-		Administrar usuarios.
+		Administer users, site, budgets.
 	</div>
 	</div>
 
@@ -92,9 +92,12 @@ $this->menu=array(
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
+</div>
 
 <?php $this->endWidget(); ?>
 
+
 </div><!-- form -->
-</div>
+
+
 

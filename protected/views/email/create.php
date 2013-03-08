@@ -30,14 +30,6 @@ if($returnURL == 'consulta/adminView'){
 	cursor:pointer;
 	text-decoration:underline;
 }
-.form{
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	background-color:#D9CCB9;
-	padding:10px;
-	margin-bottom:10px;
-
-}
 </style>
 
 <script>
@@ -50,9 +42,6 @@ function toggleRecipients(){
 }
 </script>
 
-
-<h1>Enviar correo</h1>
-
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'email-form',
@@ -60,6 +49,8 @@ function toggleRecipients(){
 	//'enableClientValidation'=>false,
 	'action'=>Yii::app()->baseUrl.'/email/create',
 )); ?>
+
+	<div class="title">Send email</div>
 
 	<?php echo $form->hiddenField($model,'consulta'); ?>
 	<input type="hidden" name="Email[returnURL]" value="<?php echo $returnURL;?>" />
@@ -134,8 +125,7 @@ function toggleRecipients(){
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-<h1>La consulta</h1>
-<div class="view" style="padding:4px">
+<p></p>
 <?php echo $this->renderPartial('//consulta/_teamView', array('model'=>$consulta,'respuestas'=>$respuestas)); ?>
-</div>
+
 

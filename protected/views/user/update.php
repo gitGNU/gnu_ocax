@@ -10,16 +10,14 @@
 	.clear{clear:both;}
 </style>
 
-<h1>Cambiar tus datos de usuario</h1>
-
-
-
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>false,
 )); ?>
+
+<div class="title">Cambiar tus datos de usuario</div>
 
 <div class="outer">
 <div class="left">

@@ -9,6 +9,7 @@
  * @property integer $sent
  * @property string $title
  * @property integer $sender
+ * @property string $sent_as
  * @property string $recipients
  * @property integer $consulta
  * @property string $body
@@ -45,12 +46,14 @@ class Email extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created, title, sender, recipients, consulta, body', 'required'),
-			array('sent, sender, consulta', 'numerical', 'integerOnly'=>true),
+			array('created, title, sent_as, recipients, consulta, body', 'required'),
+			array('sent, consulta', 'numerical', 'integerOnly'=>true),
+			array('sender', 'safe'),
 			array('title', 'length', 'max'=>255),
+			array('sent_as', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, sent, title, sender, recipients, consulta, body', 'safe', 'on'=>'search'),
+			array('id, created, sent, title, sender, sent_as, recipients, consulta, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,6 +81,7 @@ class Email extends CActiveRecord
 			'sent' => 'Sent',
 			'title' => 'Title',
 			'sender' => 'Sender',
+			'sent_as' => 'Sent As',
 			'recipients' => 'Recipients',
 			'consulta' => 'Consulta',
 			'body' => 'Body',
@@ -100,6 +104,7 @@ class Email extends CActiveRecord
 		$criteria->compare('sent',$this->sent);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('sender',$this->sender);
+		$criteria->compare('sent_as',$this->sent_as,true);
 		$criteria->compare('recipients',$this->recipients,true);
 		$criteria->compare('consulta',$this->consulta);
 		$criteria->compare('body',$this->body,true);

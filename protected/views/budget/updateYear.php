@@ -129,12 +129,12 @@ $this->widget('PGridView', array(
 
 <div style="float:left;width:80%;color:black;font-weight:strong;">
 <ul>
-<li>Respuestas</li>
-<li>Sent emails</li>
+<li>Replies made by team members</li>
 <li>Files uploaded by team members</li>
-<li>User email subscriptions</li>
+<li>Record of sent emails</li>
 <li>Comments</li>
 <li>Votes</li>
+<li>User email subscriptions</li>
 </ul>
 </div>
 <div style="float:left;margin-top:35px;">

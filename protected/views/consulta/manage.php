@@ -8,7 +8,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Manage consulta</h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -16,6 +15,7 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
+	<div class="title">Manage consulta</div>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -51,17 +51,15 @@ $this->menu=array(
 <div class="clear"></div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Assign'); ?>
 	</div>
 
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<h1>La consulta</h1>
-<div class="view" style="padding:4px;">
+<p></p>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
-</div>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash_prompt">

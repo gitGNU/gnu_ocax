@@ -13,8 +13,6 @@ if(Yii::app()->user->getUserID() == $model->team_member){
 }
 ?>
 
-<h1>Editar la consulta</h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 <?php
 $respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));

@@ -157,23 +157,39 @@ class ConsultaController extends Controller
 				$subscription->save();
 
  				$mailer = new Mailer();
-				
+
+				$mailer->AddAddress($model->user0->email);
+				$recipients=$model->user0->email.',';
 				$managers=User::model()->findAllByAttributes(array('is_manager'=>'1'));
-				foreach($managers as $manager)
+				foreach($managers as $manager){
 					$mailer->AddBCC($manager->email);
+					$recipients=$recipients.' '.$manager->email.',';
+				}
+				$recipients = substr_replace($recipients ,'',-1);
 
 				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->getHumanStates($model->state);
 				$mailer->Body=Emailtext::model()->findByPk($model->state)->getBody($model);
 
+				$email = new Email;
+
+				$email->created = date('c');
+				$email->sender=Null;	//app generated email
+				$email->sent_as=Config::model()->findByPk('emailNoReply')->value;
+				$email->title=$mailer->Subject;
+				$email->body=$mailer->Body;
+				$email->recipients=$recipients;
+				$email->consulta=$model->id;
+
 				if($mailer->send()){
-					// we need to create a Email model here and save it!!
-					/*
-					$email = new Email;
-					*/
+					$email->sent=1;
+					$email->save();
 					Yii::app()->user->setFlash('success', 'Consulta has been published<br/>We have sent you an email');
-				}else
+				}else{
+					$email->sent=0;
+					$email->save();
 					Yii::app()->user->setFlash('success', 'Consulta has been published');
+				}
 				$this->redirect(array('/user/panel'));
 			}
 		}

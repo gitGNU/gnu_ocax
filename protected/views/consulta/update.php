@@ -13,37 +13,40 @@ $this->menu=array(
 );
 ?>
 
-<h1>Change state</h1>
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'consulta-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 <div class="form">
 
+	<div class="title">Change state</div>
+
 	<?php echo $form->errorSummary($model); ?>
 
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
-		<?php echo $form->dropDownList($model, 'state', $model->getHumanStates());?>
+		<?php
+			$dropDown_data = $model->getHumanStates();
+			unset($dropDown_data[0]);
+		?>
+		<?php echo $form->dropDownList($model, 'state', $dropDown_data);?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Actualitzar');
+		<?php echo CHtml::submitButton('Update');
 		$cancelURL='/consulta/teamView/'.$model->id;
 		?>
-		<input type="button" value="Cancelar" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<input type="button" value="Cancel" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<h1>La consulta</h1>
-<div class="view" style="padding:4px;">
+<p></p>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
-</div>
+
 
 
 

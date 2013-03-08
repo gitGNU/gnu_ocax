@@ -22,33 +22,7 @@ if($model->type == 1){
 */
 ?>
 
-<script>
-$(function() {
-/*
-	$('.budget').bind('click', function() {
-		budget_id = $(this).attr('budget_id');
-		$.ajax({
-			url: '<?php echo Yii::app()->request->baseUrl;?>/budget/getBudgetDetails/',
-			type: 'GET',
-			async: false,
-			dataType: 'json',
-			data: {'id': budget_id },
-			beforeSend: function(){ },
-			complete: function(){ },
-			success: function(data){
-				if(data != 0){
-					$('#budget_concept').html(data.html);
-					$('#Consulta_budget').val(data.code);
-				}
-			},
-			error: function() {
-				alert("Error on get comment form");
-			}
-		});
-	});
-});
-*/
-</script>
+<script></script>
 
 
 <h1>Formular una consulta

@@ -86,9 +86,9 @@ class EmailController extends Controller
 			$model->sent=0;
 
 			if($model->sender == 0)
-				$sent_as=Config::model()->findByPk('emailNoReply')->value;
+				$model->sent_as=Config::model()->findByPk('emailNoReply')->value;
 			else
-				$sent_as=User::model()->findByPk($model->sender)->email;
+				$model->sent_as=User::model()->findByPk($model->sender)->email;
 
 			$model->sender = Yii::app()->user->getUserID();
 			if($model->save()){
@@ -98,7 +98,7 @@ class EmailController extends Controller
 				foreach($addresses as $address)
 					$mailer->AddBCC(trim($address));
 
-				$mailer->SetFrom($sent_as, Config::model()->findByPk('siglas')->value);
+				$mailer->SetFrom($model->sent_as, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->title;
 				$mailer->Body=$model->body;
 
@@ -183,7 +183,7 @@ class EmailController extends Controller
 		$consulta=Consulta::model()->findByPk($id);
 
 		$dataProvider=new CActiveDataProvider('Email', array(
-			'criteria'=>array('condition'=>'consulta='.$id)
+			'criteria'=>array('condition'=>'consulta='.$id,'order'=>'created DESC')
 		));
 
 		//$dataProvider=new CActiveDataProvider('Email');

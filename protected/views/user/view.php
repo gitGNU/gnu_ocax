@@ -9,12 +9,13 @@ $this->menu=array(
 );
 ?>
 
-<h1>User: <?php echo $model->username; ?></h1>
-<p>
+
+<div class="form">
+<div class="title">username: <?php echo $model->username; ?></div>
+<div class="row" style="margin:-15px -10px -10px -10px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'username',
 		'fullname',
 		'email',
 		'joined',
@@ -25,10 +26,12 @@ $this->menu=array(
 		'is_admin',
 	),
 )); ?>
-</p>
+</div>
+</div>
+<p></p>
 <?php
 if($consultas->getData()){
-echo '<p style="font-size:1.5em">Consultas de '.$model->fullname.'</p>';
+echo '<span style="font-size:1.5em">Consultas made by '.$model->fullname.'</span>';
 $this->widget('PGridView', array(
 	'id'=>'consulta-grid',
 	'dataProvider'=>$consultas,

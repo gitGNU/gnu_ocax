@@ -55,7 +55,7 @@
 <div class="right">
 
 	<div class="row" style="font-size:1.4em">
-		<?php echo $totalBudgets;?> partidas definidas.
+		<?php echo $totalBudgets;?> defined budgets.
 	</div>
 
 	<div class="row" style="margin-top:50px;">
