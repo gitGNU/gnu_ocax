@@ -34,7 +34,6 @@ $(document).ready(function() {
 
 	<?php if($model->budget){
 		echo '<div class="row" style="margin:-15px -10px 10px -10px;">';
-		echo '<div id="budget_concept">';
 		$this->renderPartial('//budget/_consultaView',array('model'=>Budget::model()->findByPk($model->budget)));
 		echo '</div>';
 	}?>
