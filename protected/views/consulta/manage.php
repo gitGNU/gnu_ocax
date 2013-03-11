@@ -3,6 +3,7 @@
 /* @var $model Consulta */
 
 $this->menu=array(
+	array('label'=>'View consulta', 'url'=>array('adminView', 'id'=>$model->id)),
 	array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>'Listar todas', 'url'=>array('admin')),
 );

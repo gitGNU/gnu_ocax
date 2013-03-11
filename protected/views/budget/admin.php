@@ -11,6 +11,12 @@ $this->menu=array(
 	array('label'=>'List Years', 'url'=>array('adminYears')),
 	//array('label'=>'Show gráfico', 'url'=>array('index')),
 );
+
+$this->contextHelp='<p>Use this grid instead of importing a CSV file.</p>';
+$this->contextHelp=$this->contextHelp.'<p><img src="'.Yii::app()->theme->baseUrl.'/images/update.png" /> Change a budget<br />';
+$this->contextHelp=$this->contextHelp.'<img src="'.Yii::app()->theme->baseUrl.'/images/insert_icon.png" /> Create a sub budget</p>';
+$this->contextHelp=$this->contextHelp.'<p>Form is displayed below</p>';
+
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -108,17 +114,17 @@ function updateBudget(budget_id){
 					'url'=> '"javascript:updateBudget(\"".$data->id."\");"',
 					'visible' => 'true',
 				),
-/*
+
 				'insert' => array(
 					'label'=> 'Add partida',
 					'url'=> '"javascript:createBudget(\"".$data->id."\");"',
 					'imageUrl' => Yii::app()->theme->baseUrl.'/images/insert_icon.png',
 					'visible' => 'true',
 				)
-*/
+
 			),
-			//'template'=>'{delete} {update} {insert}',
-			'template'=>'{delete} {update}',
+			'template'=>'{delete} {update} {insert}',
+			//'template'=>'{delete} {update}',
 		),
 	),
 )); ?>

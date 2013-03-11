@@ -11,6 +11,8 @@ $this->menu=array(
 	array('label'=>'Listar consultas', 'url'=>array('/consulta/managed')),
 	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
+
+$this->contextHelp='This Reply will be published on the website. After publishing you can send an email to subscribed users informing them of this update.';
 ?>
 
 <div class="form">

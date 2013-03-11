@@ -46,23 +46,22 @@ function submitBudget(){
 	'enableAjaxValidation'=>true,
 )); ?>
 
+	<div class="title"><?php echo $title;?></div>
+
 	<?php echo $form->errorSummary($model); ?>
 	<?php echo $form->hiddenField($model,'year'); ?>
 	<?php echo $form->hiddenField($model,'parent'); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'parent'); ?>
-		<input type="text" value="<?php echo $parent_budget->code.': '.$parent_budget->concept;?>" size="60" disabled/>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'csv_id'); ?>
-		<input type="text" value="<?php echo $parent_budget->csv_id;?>" size="60" disabled/>
+		<?php echo $form->textField($model,'csv_id'); ?>
+		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'csv_parent_id'); ?>
-		<input type="text" value="<?php echo $parent_budget->csv_parent_id;?>" size="60" disabled/>
+		<?php echo $form->textField($model,'csv_parent_id'); ?>
+		<?php echo $form->error($model,'csv_parent_id'); ?>
 	</div>
 
 	<div class="row">
@@ -100,7 +99,7 @@ function submitBudget(){
 	</div>
 
 	<div class="row buttons">
-		<input type="button" value="Update" onClick="js:submitBudget();" />
+		<input type="button" value="<?php echo $model->isNewRecord ? 'Create' : 'Update'?>" onClick="js:submitBudget();" />
 	</div>
 
 <?php $this->endWidget(); ?>

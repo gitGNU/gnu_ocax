@@ -54,6 +54,7 @@ class Budget extends CActiveRecord
 			array('parent, year, weight', 'numerical', 'integerOnly'=>true),
 			array('provision, spent', 'type', 'type'=>'float'),
 			array('code, csv_id, csv_parent_id', 'length', 'max'=>20),
+			array('csv_id', 'unique', 'className' => 'Budget'),
 			array('label, concept', 'length', 'max'=>255),
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().

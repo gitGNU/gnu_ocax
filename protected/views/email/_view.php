@@ -4,7 +4,7 @@
 ?>
 
 <div class="view">
-	<div style="padding:10px;margin:-10px;background-color:#CAE1FF;margin-bottom:5px;font-size:1.3em;">
+	<div style="padding:10px;margin:-10px;background-color:#CAE1FF;margin-bottom:10px;font-size:1.3em;">
 		<b>Subject</b>
 		<?php echo CHtml::encode($data->title); ?>
 	</div>

@@ -3,12 +3,12 @@
 /* @var $model Budget */
 
 $this->menu=array(
-	array('label'=>'Create Año', 'url'=>array('createYear')),
+	array('label'=>'Create Year', 'url'=>array('createYear')),
 );
 
 ?>
 
-<h1>Gestionar años presupuestarios</h1>
+<h1>Manage years</h1>
 
 <?php
 $this->widget('PGridView', array(
@@ -37,3 +37,4 @@ $this->widget('PGridView', array(
 		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>
+

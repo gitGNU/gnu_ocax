@@ -34,7 +34,7 @@ function deleteBudgets(){
 }
 function showConsulta(consulta_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/consulta/getConsulta/'+consulta_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/consulta/getConsultaForTeam/'+consulta_id,
 		type: 'GET',
 		async: false,
 		dataType: 'json',
@@ -82,13 +82,12 @@ function megaDelete(el){
 }
 </script>
 
-<h1>Edit year <?php echo ($model->year).' - '.($model->year + 1);?></h1>
-
-<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'totalBudgets'=>$totalBudgets)); ?>
+<?php $title='Edit year '.($model->year).' - '.($model->year + 1);?>
+<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>$title, 'totalBudgets'=>$totalBudgets)); ?>
 
 <?php
 if($consultas->getData()){
-echo '<div style="font-size:1.5em">Consultas presupuestarias del '.($model->year).' - '.($model->year + 1).'</div>';
+echo '<p></p><div style="font-size:1.5em">Consultas presupuestarias del '.($model->year).' - '.($model->year + 1).'</div>';
 $this->widget('PGridView', array(
 	'id'=>'consultas-grid',
 	'dataProvider'=>$consultas,
@@ -113,35 +112,6 @@ $this->widget('PGridView', array(
 
 }
 ?>
-<div id="consulta" style="display:none;width:850px;">
-<div style="background-color:white;padding:5px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div style="margin:-5px;background-color:orange">
-<h1 style="text-align:center;text-decoration:blink;">Warning: Mega delete!</h1>
-</div>
-<div id="consulta_body"></div>
-</div>
+<?php echo $this->renderPartial('//consulta/_megaDelete'); ?>
 
-
-<div style="background-color:orange;padding:5px;">
-<h1 style="text-align:center;">Are you sure you want to delete it all?</h1>
-<div style="width:100%">
-
-<div style="float:left;width:80%;color:black;font-weight:strong;">
-<ul>
-<li>Replies made by team members</li>
-<li>Files uploaded by team members</li>
-<li>Record of sent emails</li>
-<li>Comments</li>
-<li>Votes</li>
-<li>User email subscriptions</li>
-</ul>
-</div>
-<div style="float:left;margin-top:35px;">
-<input type="button" id="mega_delete_button" consulta_id="" onClick="js:megaDelete(this)" value="Yes, delete it all" />
-</div>
-<div style="clear:both"></div>
-</div></div>
-
-</div>
 

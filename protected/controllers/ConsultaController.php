@@ -43,9 +43,9 @@ class ConsultaController extends Controller
 				'actions'=>array('adminView','admin','manage'),
 				'expression'=>"Yii::app()->user->isManager()",
 			),
-			array('allow', 
-				'actions'=>array('megaDelete'),
-				'expression'=>"Yii::app()->user->isAdmin()",
+			array('allow',
+				'actions'=>array('getConsultaForTeam','megaDelete'),
+				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -96,6 +96,19 @@ class ConsultaController extends Controller
 		if($model){
 			$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model,'respuestas'=>$respuestas),true,true)));
+		}else
+			echo 0;
+	}
+
+	public function actionGetConsultaForTeam($id)
+	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
+
+		$model=$this->loadModel($id);
+		if($model){
+			$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
+			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('_teamView',array('model'=>$model,'respuestas'=>$respuestas),true,true)));
 		}else
 			echo 0;
 	}
@@ -375,12 +388,16 @@ class ConsultaController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$user=Yii::app()->user->getUserID();
-		if($model->user == $user || Yii::app()->user->isManager()){
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'consulta = '.$model->id.' AND user = '.$user;
-			$subscription=ConsultaSubscribe::model()->find($criteria);
+		if($model->state==0 && ($model->user == $user || Yii::app()->user->isManager()) ){
+			//$criteria = new CDbCriteria;
+			//$criteria->condition = 'consulta = '.$model->id.' AND user = '.$user;
+			$subscription=ConsultaSubscribe::model()->findByAttributes(array('consulta'=>$model->id));
 			if($subscription)
 				$subscription->delete();
+
+			$email = Email::model()->findByAttributes(array('consulta'=>$model->id));
+			if($email)
+				$email->delete();
 
 			$model->delete();
 

@@ -13,6 +13,4 @@ $this->menu=array(
 );
 ?>
 
-<h1>Text for state "<?php echo Consulta::model()->getHumanStates($model->state); ?>"</h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

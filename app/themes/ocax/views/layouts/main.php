@@ -38,7 +38,7 @@
 				array('label'=>'Consultes', 'url'=>array('/consulta')),
 				array('label'=>'Qui Som?', 'url'=>array('/page/qui-som')),
 				array('label'=>'L\'Ajuntament', 'url'=>array('/page/ajuntament')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				//array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Register', 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

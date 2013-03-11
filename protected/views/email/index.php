@@ -14,8 +14,9 @@ if($menu == 'team'){
 }
 if($menu == 'manager'){
 	$this->menu=array(
+		array('label'=>'View consulta', 'url'=>array('/consulta/adminView', 'id'=>$consulta->id)),
 		array('label'=>'Manage consulta', 'url'=>array('/consulta/manage', 'id'=>$consulta->id)),
-		array('label'=>'Listar consultas', 'url'=>array('/consulta/admin')),
+		array('label'=>'List consultas', 'url'=>array('/consulta/admin')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 	);
 }

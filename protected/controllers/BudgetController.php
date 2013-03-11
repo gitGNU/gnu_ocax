@@ -103,11 +103,15 @@ class BudgetController extends Controller
 				echo 0;
 			Yii::app()->end();
 		}
-		$parent_id=Null;
-		if(!$model->parent && isset($_GET['parent_id'])){
-			$parent_id=$_GET['parent_id'];
+		if(!$model->parent && isset($_GET['parent_id']) && !$model->year){
+			$parent=$model->findByPk($_GET['parent_id']);
+			if($parent){
+				$model->parent=$parent->id;
+				$model->csv_parent_id=$parent->csv_id;
+				$model->year=$parent->year;
+			}
 		}
-		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('create',array('model'=>$model,'parent_id'=>$parent_id),true,true)));
+		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('create',array('model'=>$model),true,true)));
 	}
 
 	public function actionCreateYear()

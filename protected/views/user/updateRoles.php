@@ -84,7 +84,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_admin'); ?>
 		<?php echo $form->checkBox($model,'is_admin', array('checked'=>$model->is_admin)); ?>
-		Administer users, site, budgets.
+		Administer Site, Users, Budgets.
 	</div>
 	</div>
 

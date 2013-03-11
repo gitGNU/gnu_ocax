@@ -11,6 +11,7 @@ $this->menu=array(
 
 	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
+$this->contextHelp='After changing the state you can email subscribed users to inform them of the change';
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(

@@ -14,7 +14,9 @@ $this->menu=array(
 */
 ?>
 
-<h1>Manage default email texts</h1>
+<div class="consulta">
+<div class="title">Manage default email texts</div>
+
 
 <?php $this->widget('PGridView', array(
 	'id'=>'consulta-grid',
@@ -38,3 +40,4 @@ $this->menu=array(
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[state]"'),
 ))); ?>
+</div>

@@ -50,7 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{update} {delete}',
+			'template'=>'{update}',
 			'buttons'=>array(
 /*
 				'view' => array(
@@ -60,7 +60,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 */
 				'update' => array(
 					'label'=>'Assign',
-		            'url'=>'Yii::app()->createUrl("consulta/manage", array("id"=>$data->id))',
+		            'url'=>'Yii::app()->createUrl("consulta/adminView", array("id"=>$data->id))',
 				),
 			),
 		),

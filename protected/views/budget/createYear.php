@@ -1,14 +1,12 @@
 <?php
 
 $this->menu=array(
-	array('label'=>'List Años', 'url'=>array('adminYears')),
+	array('label'=>'List Years', 'url'=>array('adminYears')),
 );
 
 ?>
 
-<h1>Crear año presupuestario</h1>
-
-<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'totalBudgets'=>0)); ?>
+<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>'Create year', 'totalBudgets'=>0)); ?>
 
 <?php if(Yii::app()->user->hasFlash('badYear')):?>
 	<script>

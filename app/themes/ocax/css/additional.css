@@ -15,7 +15,7 @@ html, body{
 	padding:10px;
 	margin:-10px;
 	background-color:#CAE1FF;
-	margin-bottom:10px;
+	margin-bottom:15px;
 	font-size:1.4em;
 }
 
@@ -32,6 +32,22 @@ html, body{
 	background-color:#CAE1FF;
 	margin-bottom:15px;
 	font-size:1.4em;
+}
+
+.contextHelp{
+	background-color:#F0F8FF;
+	padding: 2px;
+	margin: 0;
+	padding-bottom:15px;
+}
+
+.contextHelp .title{
+	padding:4px;
+	margin: -2px;
+	margin-bottom:5px;
+	font-weight:bold;
+	color:#4682B4;
+	background-color:#CAE1FF;
 }
 
 .flash_prompt{

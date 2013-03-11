@@ -17,6 +17,8 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+<div class="title"><?php echo $title;?></div>
+
 <div class="outer">
 <div class="left">
 
