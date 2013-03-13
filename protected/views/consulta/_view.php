@@ -9,13 +9,14 @@
 .commentBlockLink .link { color:#06c; cursor:pointer; }
 .commentBlockLink .link:focus, .commentBlockLink .link:hover {color:#09f;}
 
-.commentBlockLink .like { padding:3px; background-color:#7CCD7C; }
-.commentBlockLink .dislike { padding:3px; background-color:#FF6A6A;}
+.voteBlock { float:right;text-align:right; }
+.voteBlock .like { padding:3px; background-color:#7CCD7C; }
+.voteBlock .dislike { padding:3px; background-color:#FF6A6A;}
 
 .votaLike { cursor:pointer; padding:3px; margin-right:5px; background-color:#C1FFC1; margin-right:10px; }
-.votaDislike  { cursor:pointer; padding:3px; margin-right:5px; background-color:#FFAEB9; margin-right:15px; }
-
+.votaDislike  { cursor:pointer; padding:3px; margin-right:5px; background-color:#FFAEB9; margin-right:0px; }
 .voteTotal { font-weight: bold }
+
 .clear { clear:both; }
 </style>
 
@@ -180,12 +181,13 @@ echo '</div><div class="clear"></div>';
 $respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 
 foreach($respuestas as $respuesta){
-	echo '<hr style="margin-bottom:0px;margin-top:20px;">';
-	echo '<p style="font-size:1.5em">Respuesta: '.date_format(date_create($respuesta->created), 'Y-m-d').'</p>';
-	echo '<p>'.$respuesta->body.'</p>';
-	$commments = Comment::model()->findAll(array('condition'=>'respuesta =  '.$respuesta->id));
+	echo '<div class="respuesta">';	//open respuesta
 
-	echo '<div class="commentBlockLink">';
+	// title bar
+	echo '<div class="title">';
+	echo '<span style="font-size:1.4em;">Respuesta: '.date_format(date_create($respuesta->created), 'Y-m-d').'</span>';
+
+	echo '<div class="voteBlock">';
 	echo '<b>Valoraciones</b> ';
 	echo '<span class="like">positivas <span id="voteLikeTotal_'.$respuesta->id.'" class="voteTotal">';
 	echo Vote::model()->getTotal($respuesta->id, 1);
@@ -195,6 +197,45 @@ foreach($respuestas as $respuesta){
 	echo Vote::model()->getTotal($respuesta->id, 0);
 	echo '</span> </span>';
 	echo '<span class="votaDislike" onClick="js:vote('.$respuesta->id.', 0);">Vota</span>';
+	echo '</div><div class="clear"></div>';
+	echo '</div>';
+
+	// attachments
+	$attachments = File::model()->findAllByAttributes(array('model'=>'Respuesta','model_id'=>$respuesta->id));
+	if($attachments || $model->team_member == Yii::app()->user->getUserID()){
+		echo '<div class="attachments">';
+
+		if($model->team_member == Yii::app()->user->getUserID()){
+			echo '<span class="link" onClick="js:uploadFile('.$respuesta->id.');">Add attachment</span>';
+			echo '<span style="float:right;text-align:right;width:80%;">';
+			foreach($attachments as $attachment){
+				if(!$attachment->name)
+					$attachment->name=end(explode('/', $attachment->uri));
+				echo '<span style="white-space: nowrap;margin-left:10px;">';
+				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a> (delete) ';
+				echo '</span>';
+			}
+			echo '</span>';
+		}else{
+			echo '<span style="float:right;text-align:right;">';
+			echo '<img src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />Attachments:';
+			foreach($attachments as $attachment){
+				if(!$attachment->name)
+					$attachment->name=end(explode('/', $attachment->uri));
+				echo '<span style="white-space: nowrap;margin-left:10px;">';
+				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a> ';
+				echo '</span>';
+			}
+			echo '</span>';
+		}
+		echo '<div class="clear"></div></div>';
+	}
+
+	echo '<p>'.$respuesta->body.'</p>';
+	$commments = Comment::model()->findAll(array('condition'=>'respuesta =  '.$respuesta->id));
+
+	// comments
+	echo '<div class="commentBlockLink">';
 	if($commments){
 		echo '<span class="link" onClick="js:toggleComments(\'comments_respuesta_'.$respuesta->id.'\')">Comentarios ('.count($commments).')</span>';
 	}
@@ -214,9 +255,57 @@ foreach($respuestas as $respuesta){
 		echo '</div>';
 
 	echo '</div><div class="clear"></div>';
+
+	echo '</div>';	//close respuesta
 }?>
 </div>
 
 <div id="comment_form" style="display:none"></div>
+
+
+
+<?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<style>           
+	.bClose{
+		cursor: pointer;
+		position: absolute;
+		right: -21px;
+		top: -21px;
+	}
+</style>
+<script>
+function uploadFile(respuesta_id){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=Respuesta&model_id='+respuesta_id,
+		type: 'POST',
+		async: false,
+		//dataType: 'json',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			if(data != 0){
+				$("#files_content").html(data);
+				$('#files').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get file/create");
+		}
+	});
+}
+</script>
+<div id="files" style="display:none;width:500px;">
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="files_content" style="background-color:white;"></div>
+</div>
+<? endif ?>
+
 
 

@@ -11,7 +11,7 @@ html, body{
 	margin: 0;
 	border: 1px solid #C9E0ED;
 }
-.consulta .title{
+.consulta > .title{
 	padding:10px;
 	margin:-10px;
 	background-color:#CAE1FF;
@@ -41,7 +41,7 @@ html, body{
 	padding-bottom:15px;
 }
 
-.contextHelp .title{
+.contextHelp > .title{
 	padding:4px;
 	margin: -2px;
 	margin-bottom:5px;
@@ -49,6 +49,32 @@ html, body{
 	color:#4682B4;
 	background-color:#CAE1FF;
 }
+
+.respuesta{
+	padding:10px;
+	margin-top:20px;
+	border: 1px solid #C9E0ED;
+}
+.respuesta > .title{
+	padding:10px;
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:#CAE1FF;
+	margin-bottom:10px;
+}
+
+.respuesta > .attachments{
+	padding:5px;
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:#F0F8FF;
+	margin-bottom:10px;
+}
+
+.link { color:#06c; cursor:pointer; }
+.link:focus, .link:hover {color:#09f;}
 
 .flash_prompt{
 	top: 0px;

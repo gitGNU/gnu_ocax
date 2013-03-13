@@ -12,7 +12,9 @@ $this->menu=array(
 	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 
-$this->contextHelp='This Reply will be published on the website. After publishing you can send an email to subscribed users informing them of this update.';
+$this->contextHelp='This Reply will be published on the website.<br /><br />After publishing you can:<br /><br />
+					a) attach files and<br />
+					b) send an email to subscribed users informing them of this update.';
 ?>
 
 <div class="form">
@@ -65,10 +67,10 @@ $this->contextHelp='This Reply will be published on the website. After publishin
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Publicar' : 'Actualitzar');
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Publish' : 'Actualitzar');
 		$cancelURL='/consulta/teamView/'.$consulta->id;
 		?>
-		<input type="button" value="Cancelar" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<input type="button" value="Cancel" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 
 	</div>
 

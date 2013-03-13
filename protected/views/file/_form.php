@@ -44,6 +44,12 @@ function validateFileName(form){
 	<?php echo $form->hiddenField($model,'model'); ?>
 	<?php echo $form->hiddenField($model,'model_id'); ?>
 
+	<?php if($model->model == 'Respuesta'){
+		echo $form->label($model, 'name');
+		echo $form->textField($model, 'name');
+		echo $form->label($model, 'file');
+	}?>
+
 	<?php echo $form->fileField($model, 'file'); ?>
 	<div class="errorMessage" id="file_error"></div>
 
