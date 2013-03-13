@@ -3,11 +3,9 @@
 /* @var $model Config */
 
 $this->menu=array(
-	array('label'=>'Listar parámetros', 'url'=>array('admin')),
+	array('label'=>'List all parameters', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Change value of '<?php echo $model->parameter; ?>'</h1>
 
 <div class="form">
 
@@ -15,6 +13,8 @@ $this->menu=array(
 	'id'=>'config-form',
 	'enableAjaxValidation'=>false,
 )); ?>
+
+	<div class="title">Change value of '<?php echo $model->parameter; ?>'</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'parameter'); ?>

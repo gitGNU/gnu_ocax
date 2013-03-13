@@ -4,6 +4,7 @@
 
 $this->menu=array(
 	array('label'=>'Create CmsPage', 'url'=>array('create')),
+	array('label'=>'Upload file', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -19,6 +20,43 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<style>           
+	.bClose{
+		cursor: pointer;
+		position: absolute;
+		right: -21px;
+		top: -21px;
+	}
+</style>
+<script>
+function uploadFile(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=<?php echo get_class($model);?>',
+		type: 'POST',
+		async: false,
+		//dataType: 'json',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			if(data != 0){
+				$("#files_content").html(data);
+				$('#files').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get file/create");
+		}
+	});
+}
+</script>
 
 <h1>Manage Cms Pages</h1>
 
@@ -55,3 +93,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 	),
 )); ?>
+
+<div id="files" style="display:none;width:500px;">
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="files_content" style="background-color:white;"></div>
+</div>

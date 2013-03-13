@@ -102,9 +102,9 @@ echo '<p>Step 1. Upload .csv file</p>';
 $form = $this->beginWidget(
     'CActiveForm',
     array(
-        'id' => 'upload-form',
-        'enableAjaxValidation' => false,
-        'htmlOptions' => array('enctype' => 'multipart/form-data'),
+		'id' => 'upload-form',
+		'enableAjaxValidation' => false,
+		'htmlOptions' => array('enctype' => 'multipart/form-data'),
 		'action' => Yii::app()->request->baseUrl.'/csv/uploadCSV/'.$model->year,
     ));
 	echo '<p>';

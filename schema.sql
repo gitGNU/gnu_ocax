@@ -157,6 +157,16 @@ CREATE TABLE IF NOT EXISTS cms_page (
 INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('qui-som', 0, '<p>hello world</p>', 'Qui Som?');
 INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('ajuntament', 1, '<p>hello world</p>', 'L\'Ajuntament');
 
+CREATE TABLE IF NOT EXISTS file (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NULL,
+  uri varchar(255) NOT NULL,		/* file system location */
+  webPath varchar(255) NOT NULL,	/* 'http://site.com'.$webPath */
+  model varchar(32) NOT NULL,
+  model_id int(11) NULL,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8
+
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,
   value varchar(255) NOT NULL ,

@@ -28,7 +28,7 @@ class CsvController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('importCSV','uploadCSV','checkCSVFormat','checkCSVTotals','importCSVData'),
+				'actions'=>array('importCSV','uploadCSV','checkCSVFormat','checkCSVTotals','importCSVData','download'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -232,18 +232,36 @@ class CsvController extends Controller
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	public function actionDownload($id)
+	{
+		$model = new ImportCSV;
+		$model->year = $id;
+
+		$header = 'internal code|code|label|concept|provision|spent|internal parent code'.PHP_EOL;
+
+		$file = '/tmp/csv-' . mt_rand(10000,99999);
+		$fh = fopen($file, 'w');
+		fwrite($fh, $header);
+
+		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, code, label, concept, provision, spent, csv_parent_id
+													FROM budget
+													WHERE year = '.$model->year.' AND parent IS NOT NULL');
+		foreach($budgets as $b){
+			fwrite($fh, $b->csv_id.'|'.$b->code.'|'.$b->label.'|'.$b->concept.'|'.$b->provision.'|'.$b->spent.'|'.$b->csv_parent_id. PHP_EOL);
+		}
+		fclose($fh);
+		if (copy($file, $model->path.$model->year.'-internal.csv')) {
+			unlink($file);
+		}
+
+		$link=Yii::app()->request->baseUrl.'/files/csv/'.$model->year.'-internal.csv';
+		$download='<a href="'.$link.'">'.$link.'</a>';
+		Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported.<br />'.$download);
+
+		$criteria=new CDbCriteria;
+		$criteria->condition='parent IS NULL AND year='.$model->year;
+		$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 	}
 
 	/**

@@ -8,7 +8,7 @@ $this->menu=array(
 );
 
 if($totalBudgets){
-	$downloadCsv = array( array('label'=>'Download CSV', 'url'=>(Yii::app()->request->baseUrl.'/files/csv/'.$model->year.'-internal.csv')));
+	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/download', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $downloadCsv );
 	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );
@@ -113,5 +113,11 @@ $this->widget('PGridView', array(
 }
 ?>
 <?php echo $this->renderPartial('//consulta/_megaDelete'); ?>
+
+<?php if(Yii::app()->user->hasFlash('csv_generated')):?>
+    <div class="flash_success" id="csv_generated_ok">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('csv_generated');?></b></p>
+    </div>
+<?php endif; ?>
 
 

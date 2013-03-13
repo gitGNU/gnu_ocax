@@ -169,7 +169,7 @@ $this->widget('PGridView', array(
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash_success').fadeOut('fast');
-    	}, 1750);
+    	}, 2750);
 		});
 	</script>
     <div class="flash_success">
@@ -181,7 +181,7 @@ $this->widget('PGridView', array(
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash_prompt').fadeOut('fast');
-    	}, 1750);
+    	}, 2750);
 		});
 	</script>
     <div class="flash_prompt">

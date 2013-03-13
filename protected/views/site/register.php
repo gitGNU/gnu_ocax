@@ -5,10 +5,6 @@ $this->breadcrumbs=array(
 );
 ?>
  
-<h1>Register</h1>
- 
-<p>Please fill out the following form:</p>
- 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
  'id'=>'register-form',
@@ -18,6 +14,8 @@ $this->breadcrumbs=array(
  ),
 )); ?>
  
+<div class="title">Register</div>
+
 <div class="row">
  <?php echo $form->labelEx($model,'username'); ?>
  <?php echo $form->textField($model,'username'); ?>
