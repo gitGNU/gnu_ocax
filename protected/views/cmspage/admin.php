@@ -4,6 +4,7 @@
 
 $this->menu=array(
 	array('label'=>'Create CmsPage', 'url'=>array('create')),
+	array('label'=>'Show uploaded files', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 	array('label'=>'Upload file', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
 
@@ -31,6 +32,31 @@ $('.search-form form').submit(function(){
 	}
 </style>
 <script>
+function showUploadedFiles(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/showCMSfiles',
+		type: 'POST',
+		async: false,
+		//dataType: 'json',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			if(data != 0){
+				$("#files_content").html(data);
+				$('#files').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on showCMSfiles");
+		}
+	});
+}
 function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=<?php echo get_class($model);?>',
@@ -93,6 +119,18 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 	),
 )); ?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut('fast');
+    	}, 2750);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    </div>
+<?php endif; ?>
 
 <div id="files" style="display:none;width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />

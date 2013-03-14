@@ -207,21 +207,19 @@ foreach($respuestas as $respuesta){
 
 		if($model->team_member == Yii::app()->user->getUserID()){
 			echo '<span class="link" onClick="js:uploadFile('.$respuesta->id.');">Add attachment</span>';
-			echo '<span style="float:right;text-align:right;width:80%;">';
+			echo '<span style="float:right;text-align:right;">';
 			foreach($attachments as $attachment){
-				if(!$attachment->name)
-					$attachment->name=end(explode('/', $attachment->uri));
-				echo '<span style="white-space: nowrap;margin-left:10px;">';
-				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a> (delete) ';
+				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
+				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a>';
+				echo '	<img style="cursor:pointer;vertical-align:text-top;"
+						src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				echo '</span>';
 			}
 			echo '</span>';
 		}else{
 			echo '<span style="float:right;text-align:right;">';
-			echo '<img src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />Attachments:';
+			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />Attachments:';
 			foreach($attachments as $attachment){
-				if(!$attachment->name)
-					$attachment->name=end(explode('/', $attachment->uri));
 				echo '<span style="white-space: nowrap;margin-left:10px;">';
 				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a> ';
 				echo '</span>';
@@ -280,9 +278,6 @@ function uploadFile(respuesta_id){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=Respuesta&model_id='+respuesta_id,
 		type: 'POST',
 		async: false,
-		//dataType: 'json',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
 				$("#files_content").html(data);
@@ -297,6 +292,22 @@ function uploadFile(respuesta_id){
 		},
 		error: function() {
 			alert("Error on get file/create");
+		}
+	});
+}
+function deleteFile(file_id){
+	answer=confirm("Are you sure?");
+	if(!answer)
+		return 1;
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/delete/'+file_id,
+		type: 'POST',
+		async: false,
+		success: function(){
+				$("#attachment_"+file_id).remove();
+		},
+		error: function() {
+			alert("Error on get file/delete");
 		}
 	});
 }

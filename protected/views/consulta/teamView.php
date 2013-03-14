@@ -18,7 +18,7 @@ $this->menu=array(
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash_prompt">
         
-		<p style="margin-top:5px;">Enviar un correo a las <b><?php echo Yii::app()->user->getFlash('prompt_email');?></b> personas suscritas a esta consulta?</p>
+		<p style="margin-top:5px;">Send an email to the <b><?php echo Yii::app()->user->getFlash('prompt_email');?></b> people subscribed to the Consulta?</p>
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?consulta='.$model->id.'&menu=team';
 		?>

@@ -94,11 +94,20 @@ class FileController extends Controller
 				$model->uri=$model->uri.'/'.$model->file->name;
 				$model->webPath=Yii::app()->request->baseUrl.$path.'/'.$model->file->name;
 
+				if(!$model->name)
+					$model->name=$model->file->name;
+
 				$model->save();
 				$model->file->saveAs($model->uri);
-				if($model->model == 'CmsPage')
+
+				if($model->model == 'CmsPage'){
+					Yii::app()->user->setFlash('success', 'File uploaded correctly');
 					$this->redirect(array('cmspage/admin'));
-				else
+				}elseif($model->model == 'Respuesta'){
+					$consulta = Consulta::model()->findByPk(Respuesta::model()->findByPk($model->model_id)->consulta);
+					$consulta->promptEmail();
+					$this->redirect(array('consulta/teamView','id'=>$consulta->id));
+				}else
 					$this->redirect(array('site/index'));
 			}
 		}
@@ -173,8 +182,8 @@ class FileController extends Controller
 		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		//if(!isset($_GET['ajax']))
+		//	$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
