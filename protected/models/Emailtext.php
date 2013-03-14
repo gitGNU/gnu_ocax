@@ -89,8 +89,8 @@ class Emailtext extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'state' => 'State',
-			'body' => 'Body',
+			'state' => __('State'),
+			'body' => __('Body'),
 		);
 	}
 

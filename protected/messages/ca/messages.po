@@ -1,0 +1,330 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ocax_ca\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-03-14 19:11+0100\n"
+"Last-Translator: buttle <chris@gatopelao.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Catalan\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models\n"
+"X-Poedit-SearchPath-1: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views\n"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:80
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Respuesta.php:77
+msgid "Created"
+msgstr "Creada"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:81
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:78
+msgid "Sent"
+msgstr "Enviat"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:82
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:130
+msgid "Title"
+msgstr "Títol"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:83
+msgid "Sender"
+msgstr "Remitent"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:84
+msgid "Sent as"
+msgstr "Enviat com"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:85
+msgid "Recipients"
+msgstr "Destinataris"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:86
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:76
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Respuesta.php:76
+msgid "Consultation"
+msgstr "Consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:87
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:78
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:131
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:93
+msgid "Body"
+msgstr "Cos"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:66
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:116
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:40
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:14
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:67
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:117
+msgid "Full name"
+msgstr "Nom complet"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:68
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:118
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:41
+msgid "Password"
+msgstr "Contrasenya"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:69
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:120
+msgid "Repeat password"
+msgstr "Contrasenya repetida"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:70
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:122
+msgid "Email"
+msgstr "Correu electrònic"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/File.php:79
+msgid "Name"
+msgstr "Nom"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:75
+msgid "URL Name"
+msgstr "Nom per a URL"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:76
+msgid "Block"
+msgstr "Bloc"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:77
+msgid "Published"
+msgstr "Publicada"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:79
+msgid "Page Title"
+msgstr "Títol de pàgina"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:80
+msgid "Menu item order"
+msgstr "Order de item en el menu"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:119
+msgid "New password"
+msgstr "Contrasenya nova"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:123
+msgid "Joined"
+msgstr "Data d'alta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:125
+msgid "Is partner"
+msgstr "És soci"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:92
+msgid "Parent"
+msgstr "Pare"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:95
+msgid "Year"
+msgstr "Any"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:96
+msgid "Code"
+msgstr "Codi"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:97
+msgid "Label"
+msgstr "Etiqueta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:98
+msgid "Concept"
+msgstr "Concepte"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:99
+msgid "Amount provided"
+msgstr "Import proveït"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
+msgid "Real amount"
+msgstr "Import real"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:101
+msgid "Weight"
+msgstr "Pes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:72
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
+msgid "Reply"
+msgstr "Resposta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:73
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:79
+msgid "User"
+msgstr "Usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:74
+msgid "Vote"
+msgstr "Vota"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:80
+msgid "Comment"
+msgstr "Comentari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:65
+msgid "Parameter"
+msgstr "Paràmetre"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:66
+msgid "Value"
+msgstr "Valor"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:67
+msgid "Description"
+msgstr "Descripció"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:35
+#, php-format
+msgid "Waiting for the %s to reply"
+msgstr "Esperant resposta de la %s"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:36
+#, php-format
+msgid "The %s acknowledges the consultation"
+msgstr "El %s reconeix la consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:37
+#, php-format
+msgid "Rejected by the %s"
+msgstr "Descartat por el %s"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:38
+msgid "Waiting for the Administration to reply"
+msgstr "Esperant resposta de la Administració"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:39
+msgid "Duly replied by the Administration"
+msgstr "Resposta amb exit"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:40
+msgid "Parcially answered by the Administration"
+msgstr "Resposta parcialment amb exit"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:41
+msgid "Rejected by the Administration"
+msgstr "Descartat por la Administració"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:122
+msgid "Submitted by"
+msgstr "Entregat por"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:123
+msgid "Assigned to"
+msgstr "Assignada a"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:125
+msgid "Formulated"
+msgstr "Formulat"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:126
+msgid "Assigned"
+msgstr "Assignada"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:127
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/view.php:66
+msgid "Type"
+msgstr "Tipus"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:129
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:92
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/view.php:70
+msgid "State"
+msgstr "Estat"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:39
+msgid "Remember me"
+msgstr "Recorda'm"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/ImportCSV.php:32
+msgid "CSV file"
+msgstr "Fitxer CSV"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:6
+msgid "Change user's roles"
+msgstr "Canviar rols d'usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:7
+msgid "Delete user"
+msgstr "Suprimir usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:8
+msgid "List all users"
+msgstr "Llistar tots els usuaris"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:34
+msgid "Consultations made by"
+msgstr "Consultes fets per"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:64
+msgid "has not made a consultation"
+msgstr "no ha fet cap consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:38
+msgid "Welcome"
+msgstr "Benvingut"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:44
+msgid "New consultation"
+msgstr "Nova consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:51
+msgid "My user information"
+msgstr "Les meves dades d'usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:75
+msgid "Manage consultas"
+msgstr "Gestiona consultes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:97
+msgid "My consultations"
+msgstr "Les meves consultes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:132
+msgid "I am subscribed to these consultations"
+msgstr "Estic escrit a aquestes consultes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:24
+msgid "View User"
+msgstr "Veure Usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:25
+msgid "Manage Users"
+msgstr "Gestiona Usuaris"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:42
+msgid "Change roles"
+msgstr "Canviar rols"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:92
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:74
+msgid "Save"
+msgstr "Desa"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/_search.php:60
+msgid "Search"
+msgstr "Cerca"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:20
+msgid "Change your user information"
+msgstr "Canviar les teves dades d'usuari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:25
+msgid "Your information"
+msgstr "Les teves dades"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:55
+msgid "Change password"
+msgstr "Canviar la contrasenya"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
+msgid "Cancel"
+msgstr "Anul·la"
+

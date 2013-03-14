@@ -23,7 +23,7 @@
 <script>
 function isUser(){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		alert('Please login to participate');
+		alert(__('Please login to participate'));
 		return 0;
 	}else
 		return 1;

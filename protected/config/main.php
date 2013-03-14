@@ -3,8 +3,7 @@
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
-//Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
-//Yii::setPathOfAlias('bootstrap', '/home/chrisf/project/ocax/protected/extensions/bootstrap');
+require_once(dirname(__FILE__).'/../includes/localization.php');
 
 
 // This is the main Web application configuration. Any writable
@@ -13,6 +12,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'OCA(x)',
 	'theme'=>'ocax',
+	'language' => 'ca',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -42,6 +42,11 @@ return array(
 
 	// application components
 	'components'=>array(
+		'messages' => array(
+			'class' => "CGettextMessageSource",
+			'useMoFile' => TRUE,
+		),
+
 /*
         'bootstrap'=>array(
             'class'=>'bootstrap.components.Bootstrap',

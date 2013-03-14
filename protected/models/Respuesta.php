@@ -73,10 +73,10 @@ class Respuesta extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'consulta' => 'Consulta',
-			'created' => 'Created',
+			'consulta' => __('Consultation'),
+			'created' => __('Created'),
 			'team_member' => 'Team Member',
-			'body' => 'Resposta que se publicará en la web',
+			'body' => 'Body',
 		);
 	}
 

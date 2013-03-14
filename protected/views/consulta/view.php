@@ -63,11 +63,11 @@ function toggleSocialPopup(id){
 	'attributes'=>array(
 		'created',
 		array(
-	        'label'=>'Tipo',
+	        'label'=>__('Type'),
 	        'value'=>$model->humanTypeValues[$model->type],
 		),
 		array(
-	        'label'=>'Estat',
+	        'label'=>__('State'),
 			'type' => 'raw',
 	        'value'=>$model->getHumanStates($model->state),
 

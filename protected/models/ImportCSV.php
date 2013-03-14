@@ -29,7 +29,7 @@ class ImportCSV extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'csv' => 'CSV file ',
+			'csv' => __('CSV file'),
 		);
 	}
 

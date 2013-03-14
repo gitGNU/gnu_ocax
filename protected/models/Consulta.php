@@ -25,19 +25,20 @@ class Consulta extends CActiveRecord
 {
 
     public $humanTypeValues=array(
-                        0=>'Genérica',
-                        1=>'Pressupostària');
+							0=>'Generic',
+							1=>'Budgetary', //Pressupostària
+						);
 
 	public static function getHumanStates($state=Null)
 	{
     	$humanStateValues=array(
-                        0=>"Esperando respuesta de la %s",
-						1=>'%s reconoce la entrega',
-                        2=>'Descartado por el %s',
-                        3=>'Esperando respuesta de la Administración',
-                        4=>'Respuesta con éxito',
-                        5=>'Respuesta parcialmente con éxito',
-                        6=>'Descartado por la Administración'
+                        0=>__('Waiting for the %s to reply'),
+						1=>__('The %s acknowledges the consultation'),
+                        2=>__('Rejected by the %s'),
+                        3=>__('Waiting for the Administration to reply'),
+                        4=>__('Duly replied by the Administration'),
+                        5=>__('Parcially answered by the Administration'),
+                        6=>__('Rejected by the Administration'),
 					);
 		if($state!==Null){
 			$str=$humanStateValues[$state];
@@ -118,16 +119,16 @@ class Consulta extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user' => 'Submitted by',
-			'team_member' => 'Assigned to',
+			'user' => __('Submitted by'),
+			'team_member' => __('Assigned to'),
 			'manager' => 'Manager',
-			'created' => 'Formulada',
-			'assigned' => 'Assignada',
-			'type' => 'Tipo',
+			'created' => __('Formulated'),
+			'assigned' => __('Assigned'),
+			'type' => __('Type'),
 			'capitulo' => 'Capitulo',
-			'state' => 'Estat',
-			'title' => 'Titol',
-			'body' => 'Body',
+			'state' => __('State'),
+			'title' => __('Title'),
+			'body' => __('Body'),
 		);
 	}
 

@@ -21,13 +21,12 @@ function changeColumn()
 }
 
 $this->menu=array(
-	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
+	array('label'=>__('View User'), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>__('Manage Users'), 'url'=>array('admin')),
 );
 ?>
 
 <style>           
-
 	.left{width: 48%; float: left;  margin: 0px;}
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
@@ -40,7 +39,7 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title">Change roles</div>
+	<div class="title"><?php echo __('Change roles')?></div>
 
 	<div class="row" style="margin:-15px -10px 10px -10px;">
 	<?php $this->widget('zii.widgets.CDetailView', array(
@@ -49,8 +48,8 @@ $this->menu=array(
 			'username',
 			'fullname',
 			'email',
-			'is_socio',
 			'joined',
+			'is_socio',
 		),
 	)); ?>
 	</div>
@@ -90,7 +89,7 @@ $this->menu=array(
 
 	<div class="clear"></div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton(__('Save')); ?>
 	</div>
 </div>
 

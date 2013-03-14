@@ -113,15 +113,16 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'username' => 'Nombre de usuario',
-			'fullname' => 'Nombre completo',
-			'password' => 'Contraseña',
-			'new_password' => 'Contraseña nueva',
-			'password_repeat' => 'Constraseña repetida',
+			'username' => __('Username'),
+			'fullname' => __('Full name'),
+			'password' => __('Password'),
+			'new_password' => __('New password'),
+			'password_repeat' => __('Repeat password'),
 			'salt' => 'Salt',
-			'email' => 'Email',
+			'email' => __('Email'),
+			'joined' => __('Joined'),
 			'is_active' => 'Active',
-			'is_socio' => 'Socio',
+			'is_socio' => __('Is partner'),
 			'is_team_member' => 'Is Team Member',
 			'is_editor' => 'Is Editor',
 			'is_manager' => 'Is Manager',

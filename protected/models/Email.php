@@ -77,14 +77,14 @@ class Email extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'created' => 'Created',
-			'sent' => 'Sent',
-			'title' => 'Title',
-			'sender' => 'Sender',
-			'sent_as' => 'Sent As',
-			'recipients' => 'Recipients',
-			'consulta' => 'Consulta',
-			'body' => 'Body',
+			'created' => __('Created'),
+			'sent' => __('Sent'),
+			'title' => __('Title'),
+			'sender' => __('Sender'),
+			'sent_as' => __('Sent as'),
+			'recipients' => __('Recipients'),
+			'consulta' => __('Consultation'),
+			'body' => __('Body'),
 		);
 	}
 

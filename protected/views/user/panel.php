@@ -35,20 +35,20 @@ function changeColumn()
 </style>
 
 <?php if(!$model->is_active){
-	echo '<h1>Welcome</h1>';
+	echo '<h1>'.__('Welcome').'</h1>';
 	$this->renderPartial('_notActiveInfo', array('model'=>$model));
 }?>
 
 <div class="outer">
 <div class="left">
-<h1><?php echo CHtml::link('Nueva consulta',array('consulta/create/'));?></h1>
+<h1><?php echo CHtml::link(__('New consultation'),array('consulta/create/'));?></h1>
 <p>
 Tanto genéricas como las presupuestarias,
 realizar una nueva consulta sobre la actividad de tu ayuntamiento y nosotros haremos la gestión.<br />
 </p>
 </div>
 <div class="right">
-<h1><?php echo CHtml::link('Mis datos de usuario',array('user/update/'));?></h1>
+<h1><?php echo CHtml::link(__('My user information'),array('user/update/'));?></h1>
 <p>
 Change your profile<br />
 Configure your email<br />
@@ -72,7 +72,7 @@ if($model->is_editor){
 
 if($model->is_manager){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Manage consultas',array('consulta/admin')).'</h1>';
+	echo '<h1>'.CHtml::link(__('Manage consultas'),array('consulta/admin')).'</h1>';
 	echo '<p>Assign new consultas a team members y check status.</p>';
 	echo '</div>';
 }
@@ -94,7 +94,7 @@ if($model->is_admin){
 
 <?php
 if($consultas->getData()){
-echo '<div style="font-size:1.5em">Mis consultas</div>';
+echo '<div style="font-size:1.5em">'.__('My consultations').'</div>';
 $this->widget('PGridView', array(
 	'id'=>'consulta-grid',
 	'dataProvider'=>$consultas,
@@ -129,7 +129,7 @@ $this->widget('PGridView', array(
 <?php
 
 if($subscribed->getData()){
-echo '<div style="font-size:1.5em">Estoy suscrito a estas consultas</div>';
+echo '<div style="font-size:1.5em">'.__('I am subscribed to these consultations').'</div>';
 echo '<span class="hint">Se te enviará un correo cuando se actualicen estas consultas</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',

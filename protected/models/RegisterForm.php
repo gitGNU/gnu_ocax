@@ -63,10 +63,11 @@ class RegisterForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-		'username'=>'Nombre de usuario',
-		'password'=>'Constraseña',
-		'password_repeat'=>'Constraseña repitida',
-		'email'=>'Correo electónico',
+		'username'=> __('Username'),
+		'fullname'=> __('Full name'),
+		'password'=> __('Password'),
+		'password_repeat'=> __('Repeat password'),
+		'email'=> __('Email'),
 		'verifyCode'=>'Captcha',
 		);
 	}

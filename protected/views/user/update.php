@@ -17,12 +17,12 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-<div class="title">Cambiar tus datos de usuario</div>
+<div class="title"><?php echo __('Change your user information')?></div>
 
 <div class="outer">
 <div class="left">
 
-	<p style="font-size:1.5em">Tus datos</p>
+	<p style="font-size:1.5em"><?php echo __('Your information')?></p>
 
 	<?php /*echo $form->errorSummary($model);*/ ?>
 
@@ -52,7 +52,7 @@
 </div>
 <div class="right">
 
-<p style="font-size:1.5em">Cambiar contraseña</p>
+<p style="font-size:1.5em"><?php echo __('Change password');?></p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'new_password'); ?>
@@ -71,8 +71,8 @@
 <div class="clear"></div>
 
 	<div class="row buttons" style="text-align:center">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-		<input type="button" onclick="window.location='<?php echo Yii::app()->request->baseUrl;?>/user/panel'" value="Cancel" />
+		<?php echo CHtml::submitButton(__('Save')); ?>
+		<input type="button" onclick="window.location='<?php echo Yii::app()->request->baseUrl;?>/user/panel'" value="<?php echo __('Cancel')?>" />
 	</div>
 
 <?php $this->endWidget(); ?>

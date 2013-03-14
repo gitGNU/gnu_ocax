@@ -46,7 +46,7 @@ function validateFileName(form){
 
 	<?php if($model->model == 'Respuesta'){
 		echo $form->label($model, 'name');
-		echo '<div class="hint">Name used for the link</div>';
+		echo '<div class="hint">"Name used for the link"</div>';
 		echo $form->textField($model, 'name');
 		echo $form->label($model, 'file');
 	}?>

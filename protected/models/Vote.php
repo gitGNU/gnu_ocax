@@ -69,9 +69,9 @@ class Vote extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'respuesta' => 'Respuesta',
-			'user' => 'User',
-			'vote' => 'Vote',
+			'respuesta' => __('Reply'),
+			'user' => __('User'),
+			'vote' => __('Vote'),
 		);
 	}
 

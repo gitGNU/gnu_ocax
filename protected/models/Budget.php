@@ -89,17 +89,16 @@ class Budget extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'parent' => 'Parent',
+			'parent' => __('Parent'),
 			'csv_id' => 'internal code',
 			'csv_parent_id' => 'internal parent code',
-			'year' => 'Year',
-			'code' => 'Código',
-			'label' => 'Label',
-			'concept' => 'Concept',
-			'provision' => 'Importe provisto',
-			'spent' => 'Importe real',
-			'spent' => 'Spent',
-			'weight' => 'Weight',
+			'year' => __('Year'),
+			'code' => _('Code'),
+			'label' => _('Label'),
+			'concept' => __('Concept'),
+			'provision' => __('Amount provided'),
+			'spent' => __('Real amount'),
+			'weight' => __('Weight'),
 		);
 	}
 

@@ -76,7 +76,7 @@ class File extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => __('Name'),
 			'uri' => 'Uri',
 			'webPath' => 'Web Path',
 			'model' => 'Model',

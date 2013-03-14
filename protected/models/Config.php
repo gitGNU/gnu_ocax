@@ -62,9 +62,9 @@ class Config extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'parameter' => 'Parameter',
-			'value' => 'Value',
-			'description' => 'Description',
+			'parameter' => __('Parameter'),
+			'value' => __('Value'),
+			'description' => __('Description'),
 		);
 	}
 
