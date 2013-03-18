@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'email':
  * @property integer $id
+ * @property integer $type
  * @property string $created
  * @property integer $sent
  * @property string $title
@@ -48,7 +49,7 @@ class Email extends CActiveRecord
 		return array(
 			array('created, title, sent_as, recipients, consulta, body', 'required'),
 			array('sent, consulta', 'numerical', 'integerOnly'=>true),
-			array('sender', 'safe'),
+			array('sender, type', 'safe'),
 			array('title', 'length', 'max'=>255),
 			array('sent_as', 'length', 'max'=>128),
 			// The following rule is used by search().
@@ -77,6 +78,7 @@ class Email extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'type' => __('Type'),
 			'created' => __('Created'),
 			'sent' => __('Sent'),
 			'title' => __('Title'),

@@ -125,8 +125,6 @@ function vote(respuesta_id, like){
 		async: false,
 		dataType: 'json',
 		data: { 'respuesta': respuesta_id, 'like': like },
-		//beforeSend: function(){ },
-		//complete: function(){ },
 		success: function(data){
 				if(data != 0){
 					if(data.already_voted){
@@ -143,6 +141,86 @@ function vote(respuesta_id, like){
 	});
 
 }
+function getContactForm(recipient_id){
+	if(!isUser())
+		return;
+	if(!canParticipate())
+		return;
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
+		type: 'GET',
+		async: false,
+		//dataType: 'json',
+		data: {'recipient_id': recipient_id, 'consulta_id': <?php echo $model->id?> },
+		beforeSend: function(){ },
+		complete: function(){ /* $('#right_loading_gif').hide(); */ },
+		success: function(data){
+			if(data != 1){
+				$('#contact_petition_content').html();
+				$("#contact_petition_content").html(data);
+				$('#contact_petition').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get Contact petition");
+		}
+	});
+}
+function sendContactForm(form){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
+		type: 'POST',
+		async: false,
+		//dataType: 'json',
+		data: $('#'+form).serialize(),
+		beforeSend: function(){
+					$('#contact_petition_buttons').replaceWith($('#contact_petition_sending'));
+					$('#contact_petition_sending').show();
+					},
+		complete: function(){ /* $('#right_loading_gif').hide(); */ },
+		success: function(data){
+			if(data == 1){
+				$('#contact_petition_sending').replaceWith($('#contact_petition_sent'));
+				$('#contact_petition_sent').show();
+
+			}else{
+				$('#contact_petition_sending').replaceWith($('#contact_petition_error'));
+				$('#contact_petition_error').html(data);
+				$('#contact_petition_error').show();
+			}
+			setTimeout(function() {
+				$('#contact_petition').fadeOut('fast',
+										function(){
+											$('#contact_petition').bPopup().close();
+									});
+    		}, 1000);
+/*
+
+$('#book').fadeOut('slow', function() {
+// Animation complete.
+});
+
+
+				$('#contact').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+*/
+		},
+		error: function() {
+			alert("Error on post Contact petition");
+		}
+	});
+}
 </script>
 
 
@@ -154,12 +232,12 @@ function vote(respuesta_id, like){
 <?php
 $commments = Comment::model()->findAll(array('condition'=>'consulta =  '.$model->id));
 if($commments){
-	echo '<div class="link" onClick="js:toggleComments(\'comments_consulta\')">Comentarios ('.count($commments).')</div>';
+	echo '<div class="link" onClick="js:toggleComments(\'comments_consulta\')">'.__('Comments').' ('.count($commments).')</div>';
 
 }
 else{
 	echo '<div class="add_comment_link">';
-	echo '<span class="link" onClick=\'js:getCommentForm("consulta",'.$model->id.',this)\'>Añadir comentario</span>';
+	echo '<span class="link" onClick=\'js:getCommentForm("consulta",'.$model->id.',this)\'>'.__('Add comment').'</span>';
 	echo '</div>';
 }
 echo '</div>';
@@ -171,7 +249,7 @@ foreach($commments as $comment)
 
 
 	echo '<div class="commentBlockLink add_comment_link">';
-	echo '<span class="link" onClick=\'js:getCommentForm("consulta",'.$model->id.',this)\'>Añadir comentario</span>';
+	echo '<span class="link" onClick=\'js:getCommentForm("consulta",'.$model->id.',this)\'>'.__('Add comment').'</span>';
 	echo '</div>';
 
 echo '</div><div class="clear"></div>';
@@ -185,7 +263,7 @@ foreach($respuestas as $respuesta){
 
 	// title bar
 	echo '<div class="title">';
-	echo '<span style="font-size:1.4em;">Respuesta: '.date_format(date_create($respuesta->created), 'Y-m-d').'</span>';
+	echo '<span style="font-size:1.4em;">'.__('Reply').': '.date_format(date_create($respuesta->created), 'Y-m-d').'</span>';
 
 	echo '<div class="voteBlock">';
 	echo '<b>Valoraciones</b> ';
@@ -206,7 +284,7 @@ foreach($respuestas as $respuesta){
 		echo '<div class="attachments">';
 
 		if($model->team_member == Yii::app()->user->getUserID()){
-			echo '<span class="link" onClick="js:uploadFile('.$respuesta->id.');">Add attachment</span>';
+			echo '<span class="link" onClick="js:uploadFile('.$respuesta->id.');">'.__('Add attachment').'</span>';
 			echo '<span style="float:right;text-align:right;">';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
@@ -235,11 +313,11 @@ foreach($respuestas as $respuesta){
 	// comments
 	echo '<div class="commentBlockLink">';
 	if($commments){
-		echo '<span class="link" onClick="js:toggleComments(\'comments_respuesta_'.$respuesta->id.'\')">Comentarios ('.count($commments).')</span>';
+		echo '<span class="link" onClick="js:toggleComments(\'comments_respuesta_'.$respuesta->id.'\')">'.__('Comments').' ('.count($commments).')</span>';
 	}
 	else{
 		echo '<span class="add_comment_link">';
-		echo '<span class="link" onClick=\'js:getCommentForm("respuesta",'.$respuesta->id.',this)\'>Añadir comentario</span>';
+		echo '<span class="link" onClick=\'js:getCommentForm("respuesta",'.$respuesta->id.',this)\'>'.__('Add comment').'</span>';
 		echo '</span>';
 	}
 	echo '</div><div class="clear"></div>';
@@ -249,7 +327,7 @@ foreach($respuestas as $respuesta){
 		$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
 
 		echo '<div class="commentBlockLink add_comment_link">';
-		echo '<span class="link" onClick=\'js:getCommentForm("respuesta",'.$respuesta->id.',this)\'>Añadir comentario</span>';
+		echo '<span class="link" onClick=\'js:getCommentForm("respuesta",'.$respuesta->id.',this)\'>'.__('Add comment').'</span>';
 		echo '</div>';
 
 	echo '</div><div class="clear"></div>';
@@ -260,10 +338,7 @@ foreach($respuestas as $respuesta){
 
 <div id="comment_form" style="display:none"></div>
 
-
-
-<?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<?php if (!Yii::app()->user->isGuest) : ?>
 <style>           
 	.bClose{
 		cursor: pointer;
@@ -272,6 +347,16 @@ foreach($respuestas as $respuesta){
 		top: -21px;
 	}
 </style>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+
+
+<div id="contact_petition" style="display:none;width:700px;">
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="contact_petition_content"></div>
+</div>
+<? endif ?>
+
+<?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
 <script>
 function uploadFile(respuesta_id){
 	$.ajax({

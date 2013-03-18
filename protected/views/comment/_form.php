@@ -9,7 +9,7 @@
 </script>
 
 <div class="view" style="text-align:left";>
-<b><?php echo $fullname;?></b> comenta ..</br />
+<b><?php echo $fullname;?></b> <?php echo __('comments')?> ..</br />
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comment-form',
 	'action'=>'',

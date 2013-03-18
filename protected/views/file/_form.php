@@ -39,7 +39,7 @@ function validateFileName(form){
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
-	<div class="title">Upload file for <?php echo $model->model;?></div>
+	<div class="title"><?php echo __('Upload file for').' '.$model->model;?></div>
 
 	<?php echo $form->hiddenField($model,'model'); ?>
 	<?php echo $form->hiddenField($model,'model_id'); ?>

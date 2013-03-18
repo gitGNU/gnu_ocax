@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-14 19:11+0100\n"
+"PO-Revision-Date: 2013-03-18 11:54+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,40 +15,46 @@ msgstr ""
 "X-Poedit-SearchPath-0: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models\n"
 "X-Poedit-SearchPath-1: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views\n"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:80
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:81
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:127
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/view.php:66
+msgid "Type"
+msgstr "Tipus"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:82
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Respuesta.php:77
 msgid "Created"
 msgstr "Creada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:81
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:83
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:78
 msgid "Sent"
 msgstr "Enviat"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:82
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:84
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:130
 msgid "Title"
 msgstr "Títol"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:83
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:85
 msgid "Sender"
 msgstr "Remitent"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:84
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:86
 msgid "Sent as"
 msgstr "Enviat com"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:85
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:87
 msgid "Recipients"
 msgstr "Destinataris"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:86
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:88
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:76
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Respuesta.php:76
 msgid "Consultation"
 msgstr "Consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:87
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:89
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:78
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:131
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:93
@@ -153,6 +159,7 @@ msgstr "Pes"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:72
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:255
 msgid "Reply"
 msgstr "Resposta"
 
@@ -228,11 +235,6 @@ msgstr "Formulat"
 msgid "Assigned"
 msgstr "Assignada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:127
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/view.php:66
-msgid "Type"
-msgstr "Tipus"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:129
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:92
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/view.php:70
@@ -246,6 +248,34 @@ msgstr "Recorda'm"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/ImportCSV.php:32
 msgid "CSV file"
 msgstr "Fitxer CSV"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:224
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:305
+msgid "Comments"
+msgstr "Comentaris"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:229
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:241
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:309
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:319
+msgid "Add comment"
+msgstr "Afegeix comentari"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:276
+msgid "Add attachment"
+msgstr "Afegeix adjunt"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_view.php:15
+msgid "comments on the"
+msgstr "comenta el día"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_form.php:12
+msgid "comments"
+msgstr "comenta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/_form.php:42
+msgid "Upload file for"
+msgstr "Escolliu un fitxer"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:6
 msgid "Change user's roles"
@@ -291,6 +321,10 @@ msgstr "Les meves consultes"
 msgid "I am subscribed to these consultations"
 msgstr "Estic escrit a aquestes consultes"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:133
+msgid "You will be sent an email when these consultations are updated"
+msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:24
 msgid "View User"
 msgstr "Veure Usuari"
@@ -325,6 +359,59 @@ msgid "Change password"
 msgstr "Canviar la contrasenya"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:56
 msgid "Cancel"
 msgstr "Anul·la"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:16
+msgid "Petition to make contact via email"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:28
+msgid "Hello"
+msgstr "Hola"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:29
+msgid "a user like you at the"
+msgstr "un usuari com tu de l'"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:30
+msgid "would like to contact you privately via email"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:31
+msgid "However, we do not share users' email addresses"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:32
+msgid "If you wish, you may make contact yourself with"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:33
+msgid "If you think this user is spamming you, you can block future petitions at this link"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:35
+msgid "Kind regards"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:46
+msgid "says"
+msgstr "diu"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:47
+msgid "Optionally, you may attach text to this email"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:55
+msgid "Send email"
+msgstr "Envia correu"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:74
+msgid "Sending email"
+msgstr "Enviant correu electrònic"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:79
+msgid "Email sent"
+msgstr "Correu electrònic enviat"
 

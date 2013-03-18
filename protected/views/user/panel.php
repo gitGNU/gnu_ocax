@@ -130,7 +130,7 @@ $this->widget('PGridView', array(
 
 if($subscribed->getData()){
 echo '<div style="font-size:1.5em">'.__('I am subscribed to these consultations').'</div>';
-echo '<span class="hint">Se te enviará un correo cuando se actualicen estas consultas</span>';
+echo '<span class="hint">'.__('You will be sent an email when these consultations are updated').'</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',
 	'dataProvider'=>$subscribed,

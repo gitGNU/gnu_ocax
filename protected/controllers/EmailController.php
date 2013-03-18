@@ -31,9 +31,13 @@ class EmailController extends Controller
 				'actions'=>array(),
 				'users'=>array('*'),
 			),
+			array('allow', // allow authenticated user to perform
+				'actions'=>array('contactPetition'),
+				'users'=>array('@'),
+			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','create','update'),
-				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working
+				'actions'=>array('index','create'/*,'update'*/),
+				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working. check this.
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -105,9 +109,10 @@ class EmailController extends Controller
 				if($mailer->send()){
 					$model->sent=1;
 					$model->save();
-					Yii::app()->user->setFlash('success','Email sent');
+					$link=CHtml::link(__('View email'),array('email/index/'.$model->consulta.'?menu=manager'));	// need to fix this!!
+					Yii::app()->user->setFlash('success',__('Email sent OK').'&nbsp;&nbsp;&nbsp;'.$link);
 				}else
-					Yii::app()->user->setFlash('error','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
+					Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 
 				$this->redirect(array($returnURL,'id'=>$model->consulta));
 			}
@@ -136,28 +141,62 @@ class EmailController extends Controller
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+	public function actionContactPetition($recipient_id=Null, $consulta_id=Null)
+	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
+
+		$model=new Email;
 
 		if(isset($_POST['Email']))
 		{
 			$model->attributes=$_POST['Email'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+
+			$recipient = User::model()->findByAttributes(array('email'=>$model->recipients));
+
+			if(BlockUser::model()->findByAttributes(array('user'=>$recipient->id, 'blocked_user'=>Yii::app()->user->getUserID()))){
+					echo $recipient->fullname.' '.__('has blocked you');
+					Yii::app()->end();
+			}
+
+			$model->created = date('c');
+			$model->sent=0;
+			$model->type=1;
+			$model->sent_as = Config::model()->findByPk('emailNoReply')->value;
+			$model->body = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
+			$model->body = nl2br($model->body);
+			$model->body = $model->title.'<p><i>'.$model->body.'</i></p>';	//get the preamble from the title
+
+			$model->title= __('User request from the').' '.Config::model()->findByPk('siglas')->value;
+
+			if($model->save()){
+ 				$mailer = new Mailer();
+				$mailer->SetFrom($model->sent_as, Config::model()->findByPk('siglas')->value);
+				$mailer->AddAddress($model->recipients);
+				$mailer->Subject=$model->title;
+				$mailer->Body=$model->body;
+
+				if($mailer->send()){
+					$model->sent=1;
+					$model->save();
+					echo 1;
+				}else{
+					echo $mailer->ErrorInfo.' '.__('Email not sent');
+				}
+				Yii::app()->end();
+			}
+
+			echo 1;
+			Yii::app()->end();
 		}
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		if(isset($_GET['recipient_id']) && isset($_GET['consulta_id'])){
+			$model->consulta=$_GET['consulta_id'];
+			$recipient = User::model()->findByPk($_GET['recipient_id']);
+			echo $this->renderPartial('_contactPetition', array('model'=>$model, 'recipient'=>$recipient, false,true));
+		}else
+			echo 0;
 	}
 
 	/**

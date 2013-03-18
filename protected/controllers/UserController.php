@@ -34,7 +34,7 @@ class UserController extends Controller
 			),
 */
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('panel','update'),
+				'actions'=>array('panel','update','block'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -143,7 +143,7 @@ class UserController extends Controller
 				$model->is_active=0;
 
 			if($model->save()){
-				Yii::app()->user->setFlash('success', "changes saved");
+				Yii::app()->user->setFlash('success', __('Changes saved'));
 				if(!$model->is_active)
 					$this->redirect(array('/site/sendActivationCode'));
 				else
@@ -153,6 +153,24 @@ class UserController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionBlock($id)
+	{
+		$blocked_user=User::model()->findByAttributes(array('username'=>$id));
+		if($blocked_user && $blocked_user->username != Yii::app()->user->id){
+			$userid=Yii::app()->user->getUserID();
+			$block = new BlockUser;
+			if(! $block->findByAttributes(array('user'=>$userid, 'blocked_user'=>$blocked_user->id))){
+
+				$block->user=$userid;
+				$block->blocked_user=$blocked_user->id;
+				$block->save();
+			}
+			Yii::app()->user->setFlash('success', $blocked_user->fullname.' '.__('is blocked'));
+			$this->redirect(array('panel'));
+		}
+		$this->redirect(array('panel'));
 	}
 
 	public function actionUpdateRoles($id)

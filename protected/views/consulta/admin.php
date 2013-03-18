@@ -71,7 +71,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash_success').fadeOut('fast');
-    	}, 1750);
+    	}, 3000);
 		});
 	</script>
     <div class="flash_success">
