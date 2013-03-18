@@ -166,7 +166,7 @@ class EmailController extends Controller
 			$model->sent_as = Config::model()->findByPk('emailNoReply')->value;
 			$model->body = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = nl2br($model->body);
-			$model->body = $model->title.'<p><i>'.$model->body.'</i></p>';	//get the preamble from the title
+			$model->body = '<p>'.$model->title.'</p><p><i>'.$model->body.'</i></p>';	//get the preamble from the title
 
 			$model->title= __('User request from the').' '.Config::model()->findByPk('siglas')->value;
 

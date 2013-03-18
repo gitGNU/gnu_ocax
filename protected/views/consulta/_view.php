@@ -150,7 +150,6 @@ function getContactForm(recipient_id){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
 		type: 'GET',
 		async: false,
-		//dataType: 'json',
 		data: {'recipient_id': recipient_id, 'consulta_id': <?php echo $model->id?> },
 		beforeSend: function(){ },
 		complete: function(){ /* $('#right_loading_gif').hide(); */ },
@@ -177,7 +176,6 @@ function sendContactForm(form){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
 		type: 'POST',
 		async: false,
-		//dataType: 'json',
 		data: $('#'+form).serialize(),
 		beforeSend: function(){
 					$('#contact_petition_buttons').replaceWith($('#contact_petition_sending'));
@@ -199,22 +197,7 @@ function sendContactForm(form){
 										function(){
 											$('#contact_petition').bPopup().close();
 									});
-    		}, 1000);
-/*
-
-$('#book').fadeOut('slow', function() {
-// Animation complete.
-});
-
-
-				$('#contact').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, fadeSpeed: 10
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-                });
-*/
+    		}, 2000);
 		},
 		error: function() {
 			alert("Error on post Contact petition");
@@ -266,15 +249,15 @@ foreach($respuestas as $respuesta){
 	echo '<span style="font-size:1.4em;">'.__('Reply').': '.date_format(date_create($respuesta->created), 'Y-m-d').'</span>';
 
 	echo '<div class="voteBlock">';
-	echo '<b>Valoraciones</b> ';
-	echo '<span class="like">positivas <span id="voteLikeTotal_'.$respuesta->id.'" class="voteTotal">';
+	echo '<b>'.__('Valorations').'</b> ';
+	echo '<span class="like">'.__('positive').' <span id="voteLikeTotal_'.$respuesta->id.'" class="voteTotal">';
 	echo Vote::model()->getTotal($respuesta->id, 1);
 	echo '</span> </span>';
-	echo '<span class="votaLike" onClick="js:vote('.$respuesta->id.', 1);">Vota</span>';
-	echo '<span class="dislike">negativas <span id="voteDislikeTotal_'.$respuesta->id.'" class="voteTotal">';
+	echo '<span class="votaLike" onClick="js:vote('.$respuesta->id.', 1);">'.__('Vote').'</span>';
+	echo '<span class="dislike">'.__('negative').' <span id="voteDislikeTotal_'.$respuesta->id.'" class="voteTotal">';
 	echo Vote::model()->getTotal($respuesta->id, 0);
 	echo '</span> </span>';
-	echo '<span class="votaDislike" onClick="js:vote('.$respuesta->id.', 0);">Vota</span>';
+	echo '<span class="votaDislike" onClick="js:vote('.$respuesta->id.', 0);">'.__('Vote').'</span>';
 	echo '</div><div class="clear"></div>';
 	echo '</div>';
 
@@ -288,7 +271,7 @@ foreach($respuestas as $respuesta){
 			echo '<span style="float:right;text-align:right;">';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
-				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a>';
+				echo '<a href="'.$attachment->webPath.'" target="_new">'.$attachment->name.'</a>';
 				echo '	<img style="cursor:pointer;vertical-align:text-top;"
 						src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				echo '</span>';
@@ -296,10 +279,10 @@ foreach($respuestas as $respuesta){
 			echo '</span>';
 		}else{
 			echo '<span style="float:right;text-align:right;">';
-			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />Attachments:';
+			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />'.__('Attachments').':';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;">';
-				echo '<a href="'.$attachment->webPath.'">'.$attachment->name.'</a> ';
+				echo '<a href="'.$attachment->webPath.'" target="_new">'.$attachment->name.'</a> ';
 				echo '</span>';
 			}
 			echo '</span>';

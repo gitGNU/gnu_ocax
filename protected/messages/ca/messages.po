@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-18 11:54+0100\n"
+"PO-Revision-Date: 2013-03-18 14:53+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -159,7 +159,7 @@ msgstr "Pes"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:72
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:255
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:249
 msgid "Reply"
 msgstr "Resposta"
 
@@ -169,6 +169,8 @@ msgid "User"
 msgstr "Usuari"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:256
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:260
 msgid "Vote"
 msgstr "Vota"
 
@@ -249,21 +251,45 @@ msgstr "Recorda'm"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:224
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:305
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:74
+msgid "Filter"
+msgstr "Filtre"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:82
+msgid "Filtered results"
+msgstr "Resultats de la cerca"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:218
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:299
 msgid "Comments"
 msgstr "Comentaris"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:229
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:241
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:309
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:319
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:223
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:235
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:303
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:313
 msgid "Add comment"
 msgstr "Afegeix comentari"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:276
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:252
+msgid "Valorations"
+msgstr "Valoracions"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:253
+msgid "positive"
+msgstr "positives"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:257
+msgid "negative"
+msgstr "negatives"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:270
 msgid "Add attachment"
 msgstr "Afegeix adjunt"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:282
+msgid "Attachments"
+msgstr "Adjunts"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_view.php:15
 msgid "comments on the"

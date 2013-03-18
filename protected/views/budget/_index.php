@@ -11,9 +11,7 @@ Yii::app()->clientScript->registerScript('search', "
 });
 ");
 
-//$year = Config::model()->findByPk('year')->value;
 $year = $model->year;
-
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
@@ -45,36 +43,42 @@ $(function() {
 
 <h1>Presupuestos de <?php echo $year;?> Total: <?php echo number_format($budget_raiz->provision);?>€</h1>
 
+<div style="
+	border-top: 1px solid #C9E0ED;
+	border-bottom: 1px solid #C9E0ED;
+	padding:20px;
+	margin-left:-30px;
+	margin-right:-40px;
+	background-color:#F0F8FF;
+	-webkit-box-shadow: 0 8px 6px -3px grey;
+	-moz-box-shadow: 0 8px 6px -3px grey;
+	box-shadow: 0 8px 6px -3px grey;
+	">
 
-<div class="">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'id'=>'budget-form',
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->hiddenField($model,'year'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->textField($model,'code'); ?>
-	</div>
+	<?php echo $form->hiddenField($model,'year'); ?>
 
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?>
 		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
-	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Filtrar'); ?>
+		<?php echo $form->label($model,'code'); ?>
+		<?php echo $form->textField($model,'code',array('size'=>5,'maxlength'=>255)); ?>
+
+		<?php echo CHtml::submitButton(__('Filter')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- search-form -->
 
-<div style="font-size:1.5em;margin-top:15px;">Resultados del filtro</div>
+
+
+<div style="font-size:1.5em;margin-top:15px;margin-bottom:5px"><?php echo __('Filtered results')?></div>
 
 
 <?php $this->widget('zii.widgets.CListView', array(
