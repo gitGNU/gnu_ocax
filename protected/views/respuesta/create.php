@@ -67,7 +67,7 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? __('Publish') : __('Actualitzar'));
+		<?php echo CHtml::submitButton($model->isNewRecord ? __('Publish') : __('Update'));
 		$cancelURL='/consulta/teamView/'.$consulta->id;
 		?>
 		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />

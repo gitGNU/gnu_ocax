@@ -11,7 +11,7 @@ $criteria->condition = 'year = '.$year.' AND parent is NULL';
 $budget_raiz = Budget::model()->find($criteria);
 
 if(!$budget_raiz){
-	echo '<h1>Datos no disponibles</h1>';
+	echo '<h1>'. __('No data available').'</h1>';
 }else
 	$this->renderPartial('_index',array('budget_raiz'=>$budget_raiz, 'model'=>$model));
 ?>

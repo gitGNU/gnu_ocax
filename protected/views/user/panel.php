@@ -41,7 +41,7 @@ function changeColumn()
 
 <div class="outer">
 <div class="left">
-<h1><?php echo CHtml::link(__('New consultation'),array('consulta/create/'));?></h1>
+<h1><?php echo CHtml::link(__('New enquiry'),array('consulta/create/'));?></h1>
 <p>
 Tanto genéricas como las presupuestarias,
 realizar una nueva consulta sobre la actividad de tu ayuntamiento y nosotros haremos la gestión.<br />
@@ -58,9 +58,9 @@ Change your password</p>
 
 if($model->is_team_member){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Consultas encomendadas',array('consulta/managed')).'</h1>';
-	echo '<p>Manage the consultas you are responsable for.</p>';
-	echo "</div>";
+	echo '<h1>'.CHtml::link(__('Entrusted enquiries'),array('consulta/managed')).'</h1>';
+	echo '<p>'.__('Manage the enquiries you are responsable for').'</p>';
+	echo '</div>';
 }
 
 if($model->is_editor){
@@ -72,8 +72,8 @@ if($model->is_editor){
 
 if($model->is_manager){
 	changeColumn();
-	echo '<h1>'.CHtml::link(__('Manage consultas'),array('consulta/admin')).'</h1>';
-	echo '<p>Assign new consultas a team members y check status.</p>';
+	echo '<h1>'.CHtml::link(__('Manage enquiries'),array('consulta/admin')).'</h1>';
+	echo '<p>'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';
 }
 
@@ -94,7 +94,7 @@ if($model->is_admin){
 
 <?php
 if($consultas->getData()){
-echo '<div style="font-size:1.5em">'.__('My consultations').'</div>';
+echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
 $this->widget('PGridView', array(
 	'id'=>'consulta-grid',
 	'dataProvider'=>$consultas,
@@ -130,7 +130,7 @@ $this->widget('PGridView', array(
 
 if($subscribed->getData()){
 echo '<div style="font-size:1.5em">'.__('I am subscribed to these consultations').'</div>';
-echo '<span class="hint">'.__('You will be sent an email when these consultations are updated').'</span>';
+echo '<span class="hint">'.__('You will be sent an email when these enquiries are updated').'</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',
 	'dataProvider'=>$subscribed,

@@ -4,39 +4,18 @@
 
 ?>
 
-
+<h1><?php echo __('Formulate a').' '?>
 <?php
-/*
-if($model->type == 1){
-	$year = Config::model()->findByPk('year')->value;
-
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'year = '.$year.' AND parent is NULL';
-	//$criteria->order = 'weight ASC';
-	//$budget_raiz = Budget::model()->find($criteria);
-	$budget_raiz = Budget::model()->findByPk($model->budget);
-
-	//$this->renderPartial('//budget/_index',array('budgets_raiz'=>$budgets_raiz, 'total_budget'=>$total_budget));
-	echo $this->renderPartial('//budget/_index',array('model'=>$budget_raiz));
-}
-*/
-?>
-
-<script></script>
-
-
-<h1>Formular una consulta
-<?php
-if(!$model->budget)
-	echo 'genérica';
+if($model->budget)
+	echo __('budgetary enquiry');
 else
-	echo 'presupuestaria';
+	echo __('generic enquiry');
 ?>
 </h1>
 <?php
 if(!$model->budget){
 	echo '<div style="margin-top:-10px;margin-bottom:15px;">';
-	echo 'Si deseas formular una consulta presupuestaria, primero has de '.CHtml::link('buscar el concepto presupestario',array('/budget')).'</div>';
+	echo __('If you wish to formulate a budgetary enquiry, you must first').' '.CHtml::link('buscar el concepto presupestario',array('/budget')).'</div>';
 
 }
 ?>

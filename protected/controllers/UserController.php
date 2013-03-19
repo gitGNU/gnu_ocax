@@ -168,7 +168,6 @@ class UserController extends Controller
 				$block->save();
 			}
 			Yii::app()->user->setFlash('success', $blocked_user->fullname.' '.__('is blocked'));
-			$this->redirect(array('panel'));
 		}
 		$this->redirect(array('panel'));
 	}

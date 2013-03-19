@@ -32,14 +32,14 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Mis datos', 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Presupuestos', 'url'=>array('/budget')),
-				array('label'=>'Consultes', 'url'=>array('/consulta')),
+				array('label'=>__('Home'), 'url'=>array('/site/index')),
+				array('label'=>__('My page'), 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>__('Budgets'), 'url'=>array('/budget')),
+				array('label'=>__('Enquiries'), 'url'=>array('/consulta')),
 				array('label'=>'Qui Som?', 'url'=>array('/page/qui-som')),
 				array('label'=>'L\'Ajuntament', 'url'=>array('/page/ajuntament')),
-				//array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Register', 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
+				//array('label'=>__('Contact'), 'url'=>array('/site/contact')),
+				array('label'=>__('Register'), 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
@@ -60,10 +60,10 @@
 
 	<div style="width:100%; padding: 0px; float: left;">
 	<div style="width: 40%; float: left;  margin: 0px;">
-		<b>Dades de contacte</b><br />
+		<b><?php echo __('Contact information')?></b><br />
 		<?php echo Config::model()->findByPk('observatoryName')->value;?><br />
-		Email: <?php echo Config::model()->findByPk('emailContactAddress')->value;?><br />
-		Telèfon: <?php echo Config::model()->findByPk('telephone')->value;?><br />
+		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
+		<?php echo __('Telephone').': '.Config::model()->findByPk('telephone')->value;?><br />
 	</div>
 	<div style="width: 20%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>

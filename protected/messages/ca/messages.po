@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-19 12:19+0100\n"
+"PO-Revision-Date: 2013-03-19 17:51+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models\n"
 "X-Poedit-SearchPath-1: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views\n"
+"X-Poedit-SearchPath-2: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts\n"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:81
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:127
@@ -86,6 +87,7 @@ msgstr "Contrasenya repetida"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:70
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:122
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:65
 msgid "Email"
 msgstr "Correu electrònic"
 
@@ -197,7 +199,7 @@ msgstr "Esperant resposta de la %s"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:36
 #, php-format
-msgid "The %s acknowledges the consultation"
+msgid "The %s acknowledges the enquiry"
 msgstr "El %s reconeix la consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Consulta.php:37
@@ -251,13 +253,33 @@ msgstr "Recorda'm"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:73
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:14
+msgid "No data available"
+msgstr "No hi ha dades disponibles"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:56
+msgid "Budget for"
+msgstr "Pressupostes per a"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:57
+msgid "Total"
+msgstr "Total"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:88
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:81
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:96
 msgid "Filtered results"
 msgstr "Resultats de la cerca"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:26
+msgid "Please login to participate"
+msgstr "Please login to participate"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:39
+msgid "Before participating, please confirm your email address"
+msgstr "Before participating, please confirm your email address"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:218
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:299
@@ -290,6 +312,48 @@ msgstr "Afegeix adjunt"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_view.php:282
 msgid "Attachments"
 msgstr "Adjunts"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/create.php:7
+msgid "Formulate a"
+msgstr "Formular una"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/create.php:10
+msgid "budgetary enquiry"
+msgstr "consulta pressupostària"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/create.php:12
+msgid "generic enquiry"
+msgstr "consulta genèrica"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/create.php:18
+msgid "If you wish to formulate a budgetary enquiry, you must first"
+msgstr "If you wish to formulate a budgetary enquiry, you must first"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_form.php:29
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:44
+msgid "New enquiry"
+msgstr "Nova consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_form.php:29
+msgid "Modify enquiry"
+msgstr "Modificar consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_form.php:70
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:70
+msgid "Publish"
+msgstr "Publicar"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_form.php:70
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:70
+msgid "Update"
+msgstr "Actualitza"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/consulta/_form.php:78
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:73
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:56
+msgid "Cancel"
+msgstr "Cancel·la"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_view.php:15
 msgid "comments on the"
@@ -327,20 +391,28 @@ msgstr "no ha fet cap consulta"
 msgid "Welcome"
 msgstr "Benvingut"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:44
-msgid "New consultation"
-msgstr "Nova consulta"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:51
 msgid "My user information"
 msgstr "Les meves dades d'usuari"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:61
+msgid "Entrusted enquiries"
+msgstr "Consultes encomanades"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:62
+msgid "Manage the enquiries you are responsable for"
+msgstr "Manage the enquiries you are responsable for"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:75
-msgid "Manage consultas"
+msgid "Manage enquiries"
 msgstr "Gestiona consultes"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:76
+msgid "Assign enquiries to team members and check status"
+msgstr "Assign enquiries to team members and check status"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:97
-msgid "My consultations"
+msgid "My enquiries"
 msgstr "Les meves consultes"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:132
@@ -348,7 +420,7 @@ msgid "I am subscribed to these consultations"
 msgstr "Estic escrit a aquestes consultes"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:133
-msgid "You will be sent an email when these consultations are updated"
+msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:24
@@ -384,27 +456,13 @@ msgstr "Les teves dades"
 msgid "Change password"
 msgstr "Canviar la contrasenya"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:73
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:56
-msgid "Cancel"
-msgstr "Cancel·la"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:28
 msgid "Add reply"
 msgstr "Afegir resposta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:70
-msgid "Publish"
-msgstr "Publicar"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:70
-msgid "Actualitzar"
-msgstr ""
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:16
 msgid "Petition to make contact via email"
-msgstr ""
+msgstr "Petition to make contact via email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:28
 msgid "Hello"
@@ -416,23 +474,23 @@ msgstr "un usuari com tu de l'"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:30
 msgid "would like to contact you privately via email"
-msgstr ""
+msgstr "would like to contact you privately via email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:31
 msgid "However, we do not share users' email addresses"
-msgstr ""
+msgstr "However, we do not share users' email addresses"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:32
 msgid "If you wish, you may make contact yourself with"
-msgstr ""
+msgstr "If you wish, you may make contact yourself with"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:33
 msgid "If you think this user is spamming you, you can block future petitions at this link"
-msgstr ""
+msgstr "If you think this user is spamming you, you can block future petitions at this link"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:35
 msgid "Kind regards"
-msgstr ""
+msgstr "Kind regards"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:46
 msgid "says"
@@ -440,7 +498,7 @@ msgstr "diu"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:47
 msgid "Optionally, you may attach text to this email"
-msgstr ""
+msgstr "Optionally, you may attach text to this email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:55
 msgid "Send email"
@@ -453,4 +511,32 @@ msgstr "Enviant correu electrònic"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:79
 msgid "Email sent"
 msgstr "Correu electrònic enviat"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:35
+msgid "Home"
+msgstr "Inici"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:36
+msgid "My page"
+msgstr "La meva pàgina"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:37
+msgid "Budgets"
+msgstr "Pressupostes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:38
+msgid "Enquiries"
+msgstr "Consultes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:42
+msgid "Register"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:63
+msgid "Contact information"
+msgstr "Dades de contacte"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:66
+msgid "Telephone"
+msgstr "Telèfon"
 

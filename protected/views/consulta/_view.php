@@ -23,7 +23,7 @@
 <script>
 function isUser(){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		alert(__('Please login to participate'));
+		alert("<?php echo __('Please login to participate')?>");
 		return 0;
 	}else
 		return 1;
@@ -36,7 +36,7 @@ function canParticipate(){
 		$participate = 0;
 ?>
 	if('0' == '<?php echo $participate?>')
-		alert('Before participating, please confirm your email address');
+		alert("<?php echo __('Before participating, please confirm your email address')?>");
 	return <?php echo $participate?>;
 }
 function toggleComments(comments_block_id){

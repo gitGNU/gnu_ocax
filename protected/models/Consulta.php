@@ -33,7 +33,7 @@ class Consulta extends CActiveRecord
 	{
     	$humanStateValues=array(
                         0=>__('Waiting for the %s to reply'),
-						1=>__('The %s acknowledges the consultation'),
+						1=>__('The %s acknowledges the enquiry'),
                         2=>__('Rejected by the %s'),
                         3=>__('Waiting for the Administration to reply'),
                         4=>__('Duly replied by the Administration'),

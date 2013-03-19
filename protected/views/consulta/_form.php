@@ -26,7 +26,7 @@ $(document).ready(function() {
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title"><?php echo $model->isNewRecord ? 'Nueva consulta' : 'Cambiar consulta'?></div>
+	<div class="title"><?php echo $model->isNewRecord ? __('New enquiry') : __('Modify enquiry')?></div>
 
 	<?php echo $form->errorSummary($model); ?>
 	<?php echo $form->hiddenField($model,'budget'); ?>
@@ -67,7 +67,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Publicar' : 'Actualizar'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? __('Publish') : __('Update')); ?>
 		<?php	if (!$model->id)
 					$cancelURL='/user/panel';
 				elseif ($model->team_member == $user_id)	// remember: a team_memebr can edit a consulta
@@ -75,7 +75,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 				else
 					$cancelURL='/consulta/'.$model->id;
 		?>
-		<input type="button" value="Cancelar" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 	</div>
 
 <?php $this->endWidget(); ?>
