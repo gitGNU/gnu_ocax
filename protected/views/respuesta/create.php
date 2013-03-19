@@ -25,7 +25,7 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 	'enableClientValidation'=>false,
 )); ?>
 
-	<div class="title">Add reply</div>
+	<div class="title"><?php echo __('Add reply')?></div>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -52,11 +52,11 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-/*
 			'settings' => array(
-				'height' => '800px',
+				'theme_advanced_buttons1' => "	bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
+												justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
+												undo,redo,|,link,unlink",
 			),
-*/
 		    'htmlOptions' => array(
 		        'rows' => 20,
 		        'cols' => 80,
@@ -67,10 +67,10 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Publish' : 'Actualitzar');
+		<?php echo CHtml::submitButton($model->isNewRecord ? __('Publish') : __('Actualitzar'));
 		$cancelURL='/consulta/teamView/'.$consulta->id;
 		?>
-		<input type="button" value="Cancel" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 
 	</div>
 

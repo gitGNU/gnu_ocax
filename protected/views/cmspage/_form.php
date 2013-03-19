@@ -52,7 +52,11 @@ $this->widget('ext.tinymce.TinyMce', array(
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-
+	'settings' => array(
+		'theme_advanced_buttons1' => "	bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
+										justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
+										undo,redo,|,link,unlink,|,code",
+	),
     'htmlOptions' => array(
         'rows' => 6,
         'cols' => 80,

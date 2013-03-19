@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-18 14:53+0100\n"
+"PO-Revision-Date: 2013-03-19 12:19+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -251,11 +251,11 @@ msgstr "Recorda'm"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:73
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:82
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:81
 msgid "Filtered results"
 msgstr "Resultats de la cerca"
 
@@ -385,9 +385,22 @@ msgid "Change password"
 msgstr "Canviar la contrasenya"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:73
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:56
 msgid "Cancel"
-msgstr "Anul·la"
+msgstr "Cancel·la"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:28
+msgid "Add reply"
+msgstr "Afegir resposta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:70
+msgid "Publish"
+msgstr "Publicar"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/respuesta/create.php:70
+msgid "Actualitzar"
+msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:16
 msgid "Petition to make contact via email"

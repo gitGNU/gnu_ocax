@@ -33,11 +33,7 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1','192.168.172.48','192.168.172.49'),
 		),
-/*
-        'importCSV'=>array(
-			'path'=>'/upload/importCSV/', // path to folder for saving CSV file
-		),
-*/
+
 	),
 
 	// application components

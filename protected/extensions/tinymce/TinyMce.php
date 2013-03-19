@@ -56,8 +56,11 @@ class TinyMce extends CInputWidget
 //        'skin_variant' => "black",
 //        'skin' => 'thebigreason',
         'skin' => 'cirkuit',
+		//chris
+		//http://www.midwesternmac.com/blogs/jeff-geerling/line-breaks-instead-paragraphs
+		'forced_root_block' => FALSE,
 
-        'plugins' => "autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,searchreplace,print,contextmenu,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+        'plugins' => "autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,contextmenu,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 
 //        'plugins' => "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 

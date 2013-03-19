@@ -93,8 +93,8 @@ class Budget extends CActiveRecord
 			'csv_id' => 'internal code',
 			'csv_parent_id' => 'internal parent code',
 			'year' => __('Year'),
-			'code' => _('Code'),
-			'label' => _('Label'),
+			'code' => __('Code'),
+			'label' => __('Label'),
 			'concept' => __('Concept'),
 			'provision' => __('Amount provided'),
 			'spent' => __('Real amount'),
@@ -121,7 +121,7 @@ class Budget extends CActiveRecord
 		$criteria->addCondition('parent is not null');	// dont show year budget
 
 		$criteria->compare('year',$this->year);
-		$criteria->compare('code',$this->code,true);
+		$criteria->compare('code',$this->code);
 		//$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('provision',$this->provision);

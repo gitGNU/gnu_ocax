@@ -239,17 +239,26 @@ class BudgetController extends Controller
 
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'year = '.$model->year.' AND parent IS NOT NULL';
-		$criteria->order = 'id DESC';
+		$criteria->order = 'csv_id DESC';
 
 		$budgets = $model->findAll($criteria);
-		$referenced_parents=array();
-		foreach($budgets as $budget){
-			$consulta = Consulta::model()->findByAttributes(array('budget'=>$budget->id));
-			if(!($consulta || in_array($budget->id, $referenced_parents)))
-				$budget->delete();
+		$total=count($budgets);
+
+		while($budgets){
+			foreach($budgets as $budget){
+				if(Consulta::model()->findByAttributes(array('budget'=>$budget->id)))
+					continue;
+				if(!$model->findByAttributes(array('parent'=>$budget->id)))
+					$budget->delete();
+			}
+			$budgets = $model->findAll($criteria);
+			$new_total=count($budgets);
+			if($total == $new_total)
+				break;
 			else
-				$referenced_parents[]=$budget->parent;
+				$total = $new_total;
 		}
+
 		$criteria = array(
 			'with'=>array('budget0'),
 			'condition'=>' budget0.year = '.$model->year,
