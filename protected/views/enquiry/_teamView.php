@@ -37,11 +37,6 @@ if($model->budget){
 <?php echo '<h1 style="margin-top:10px">'.$model->title.'</h1>';?>
 <?php echo $this->renderPartial('//enquiry/_view', array('model'=>$model)); ?>
 </div>
+
+
 </div>
-
-
-
-
-
-
-

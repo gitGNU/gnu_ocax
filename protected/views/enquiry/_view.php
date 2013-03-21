@@ -319,7 +319,7 @@ foreach($replys as $reply){
 	echo '</div>';
 	echo '</div>';	//close reply
 }?>
-</div>
+
 
 <div id="comment_form" style="display:none"></div>
 
