@@ -1,30 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "email".
+ * This is the model class for table "comment".
  *
- * The followings are the available columns in table 'email':
+ * The followings are the available columns in table 'comment':
  * @property integer $id
- * @property integer $type
- * @property string $created
- * @property integer $sent
- * @property string $title
- * @property integer $sender
- * @property string $sent_as
- * @property string $recipients
  * @property integer $enquiry
+ * @property integer $reply
+ * @property string $created
+ * @property integer $user
  * @property string $body
  *
  * The followings are the available model relations:
- * @property User $sender0
  * @property Enquiry $enquiry0
+ * @property Reply $reply0
+ * @property User $user0
  */
-class Email extends CActiveRecord
+class Comment extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Email the static model class
+	 * @return Comment the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -36,7 +33,7 @@ class Email extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'email';
+		return 'comment';
 	}
 
 	/**
@@ -47,14 +44,11 @@ class Email extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created, title, sent_as, recipients, enquiry, body', 'required'),
-			array('sent, enquiry', 'numerical', 'integerOnly'=>true),
-			array('sender, type', 'safe'),
-			array('title', 'length', 'max'=>255),
-			array('sent_as', 'length', 'max'=>128),
+			array('created, user, body', 'required'),
+			array('enquiry, reply, user', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, sent, title, sender, sent_as, recipients, enquiry, body', 'safe', 'on'=>'search'),
+			array('id, enquiry, reply, created, user, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,10 +60,12 @@ class Email extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'sender0' => array(self::BELONGS_TO, 'User', 'sender'),
 			'enquiry0' => array(self::BELONGS_TO, 'Enquiry', 'enquiry'),
+			'reply0' => array(self::BELONGS_TO, 'Reply', 'reply'),
+			'user0' => array(self::BELONGS_TO, 'User', 'user'),
 		);
 	}
+
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -78,15 +74,11 @@ class Email extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'type' => __('Type'),
-			'created' => __('Created'),
-			'sent' => __('Sent'),
-			'title' => __('Title'),
-			'sender' => __('Sender'),
-			'sent_as' => __('Sent as'),
-			'recipients' => __('Recipients'),
-			'enquiry' => __('Enquirytion'),
-			'body' => __('Body'),
+			'enquiry' => __('Enquiry'),
+			'reply' => __('Reply'),
+			'created' => __('Sent'),
+			'user' => __('User'),
+			'body' => __('Comment'),
 		);
 	}
 
@@ -101,4 +93,15 @@ class Email extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->
+		$criteria->compare('id',$this->id);
+		$criteria->compare('enquiry',$this->enquiry);
+		$criteria->compare('reply',$this->reply);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('user',$this->user);
+		$criteria->compare('body',$this->body,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+}
