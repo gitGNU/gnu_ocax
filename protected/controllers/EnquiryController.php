@@ -28,7 +28,7 @@ class EnquiryController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view','index','getEnquiry','related'),
+				'actions'=>array('view','index','getEnquiry'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -84,19 +84,6 @@ class EnquiryController extends Controller
 		$this->render('index',array(
 			'model'=>$model,
 		));
-	}
-
-	public function actionRelated($id)
-	{
-		$this->layout='//layouts/column1';
-		$model=$this->loadModel($id);
-		$dataprovider = $model->getReformulatedEnquires();
-
-		$this->render('related',array(
-			'model'=>$model,
-			'dataprovider'=>$dataprovider,
-		));
-
 	}
 
 	public function actionGetEnquiry($id)
