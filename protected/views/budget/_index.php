@@ -22,9 +22,9 @@ $(function() {
 		budget_id = $(this).attr('budget_id');
 		content = '';
 		if(1 == 1){	// why did I if this?
-			consulta_link='<?php echo Yii::app()->request->baseUrl;?>/consulta/create?budget='+budget_id;
-			consulta_link='<a href="'+consulta_link+'">hacer una consulta</a>';
-			content=content+'Deseas '+consulta_link+'?';
+			enquiry_link='<?php echo Yii::app()->request->baseUrl;?>/enquiry/create?budget='+budget_id;
+			enquiry_link='<a href="'+enquiry_link+'">hacer una enquiry</a>';
+			content=content+'Deseas '+enquiry_link+'?';
 		}
 		$('#budget_options_content').html(content);
 		//alert($(this).text());

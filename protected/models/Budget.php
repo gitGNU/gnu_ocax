@@ -20,7 +20,7 @@
  * The followings are the available model relations:
  * @property Budget $parent0
  * @property Budget[] $budgets
- * @property Consulta[] $consultas
+ * @property Enquiry[] $enquirys
  */
 class Budget extends CActiveRecord
 {
@@ -73,7 +73,7 @@ class Budget extends CActiveRecord
 		return array(
 			'parent0' => array(self::BELONGS_TO, 'Budget', 'parent'),
 			'budgets' => array(self::HAS_MANY, 'Budget', 'parent'),
-			'consultas' => array(self::HAS_MANY, 'Consulta', 'budget'),
+			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'budget'),
 		);
 	}
 

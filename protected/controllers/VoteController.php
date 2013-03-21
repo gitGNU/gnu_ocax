@@ -69,19 +69,19 @@ class VoteController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['respuesta']) && isset($_POST['like']))
+		if(isset($_POST['reply']) && isset($_POST['like']))
 		{
-			$model->respuesta=$_POST['respuesta'];
+			$model->reply=$_POST['reply'];
 			$model->user = Yii::app()->user->getUserID();
 			$criteria = new CDbCriteria;
-			$criteria->condition = 'respuesta = '.$model->respuesta.' AND user = '.$model->user;
+			$criteria->condition = 'reply = '.$model->reply.' AND user = '.$model->user;
 			$userVote = $model->findAll($criteria);
 			if($userVote)
 				echo CJavaScript::jsonEncode(array('already_voted'=> $userVote[0]->vote));
 			else{
 				$model->vote = $_POST['like'];
 				$model->save();
-				echo CJavaScript::jsonEncode(array('total'=>$model->getTotal($model->respuesta, $model->vote)));
+				echo CJavaScript::jsonEncode(array('total'=>$model->getTotal($model->reply, $model->vote)));
 			}
 		}else
 			echo '0';

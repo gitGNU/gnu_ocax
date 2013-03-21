@@ -30,14 +30,14 @@ $this->menu=array(
 </div>
 <p></p>
 <?php
-if($consultas->getData()){
-echo '<span style="font-size:1.5em">'.__('Consultations made by').' '.$model->fullname.'</span>';
+if($enquirys->getData()){
+echo '<span style="font-size:1.5em">'.__('Enquiries made by').' '.$model->fullname.'</span>';
 $this->widget('PGridView', array(
-	'id'=>'consulta-grid',
-	'dataProvider'=>$consultas,
+	'id'=>'enquiry-grid',
+	'dataProvider'=>$enquirys,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/consulta/view',
+        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
@@ -47,7 +47,7 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'Consultas',
+				'header'=>'Enquirys',
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
@@ -61,5 +61,5 @@ $this->widget('PGridView', array(
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 }else
-echo '<p style="font-size:1.5em">'.$model->fullname.' '.__('has not made a consultation').'</p>';
+echo '<p style="font-size:1.5em">'.$model->fullname.' '.__('has not made a enquirytion').'</p>';
 ?>

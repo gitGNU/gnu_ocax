@@ -16,8 +16,8 @@
 	'enableAjaxValidation'=>false,
 	'enableClientValidation'=>false,
 )); ?>
-	<?php echo $form->hiddenField($model,'consulta');?>
-	<?php echo $form->hiddenField($model,'respuesta');?>
+	<?php echo $form->hiddenField($model,'enquiry');?>
+	<?php echo $form->hiddenField($model,'reply');?>
 
 	<div class="row">
 		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>80)); ?>

@@ -16,7 +16,7 @@
 	<div class="title"><?php echo __('Petition to make contact via email')?></div>
 
 	<?php
-		echo $form->hiddenField($model,'consulta');
+		echo $form->hiddenField($model,'enquiry');
 		$model->recipients=$recipient->email;
 		echo $form->hiddenField($model,'recipients');
 

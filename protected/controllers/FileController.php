@@ -64,7 +64,7 @@ class FileController extends Controller
 
 	private function getPath($modelName,$modelID=Null){
 		$path='/files/'.$modelName;
-		if($modelName == 'Respuesta')
+		if($modelName == 'Reply')
 			$path=$path.'/'.$modelID;
 		return $path;
 	}
@@ -103,10 +103,10 @@ class FileController extends Controller
 				if($model->model == 'CmsPage'){
 					Yii::app()->user->setFlash('success', 'File uploaded correctly');
 					$this->redirect(array('cmspage/admin'));
-				}elseif($model->model == 'Respuesta'){
-					$consulta = Consulta::model()->findByPk(Respuesta::model()->findByPk($model->model_id)->consulta);
-					$consulta->promptEmail();
-					$this->redirect(array('consulta/teamView','id'=>$consulta->id));
+				}elseif($model->model == 'Reply'){
+					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);
+					$enquiry->promptEmail();
+					$this->redirect(array('enquiry/teamView','id'=>$enquiry->id));
 				}else
 					$this->redirect(array('site/index'));
 			}

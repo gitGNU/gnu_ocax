@@ -14,12 +14,12 @@ $this->menu=array(
 */
 ?>
 
-<div class="consulta">
+<div class="enquiry">
 <div class="title">Manage default email texts</div>
 
 
 <?php $this->widget('PGridView', array(
-	'id'=>'consulta-grid',
+	'id'=>'enquiry-grid',
 	'dataProvider'=>$model->search(),
     'onClick'=>array(
         'type'=>'url',
@@ -36,7 +36,7 @@ $this->menu=array(
 				'header'=>'State',
 				//'name'=>'state',
 				'type' => 'raw',
-				'value'=>'Consulta::model()->getHumanStates($data[\'state\'])',
+				'value'=>'Enquiry::model()->getHumanStates($data[\'state\'])',
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[state]"'),
 ))); ?>

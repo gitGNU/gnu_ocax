@@ -27,7 +27,7 @@ $(function() {
 <?php echo '<h1>'.CHtml::encode($model->concept).' '.$yearStr.'</h1>';?>
 
 <?php
-$dataProvider=new CActiveDataProvider('Consulta', array(
+$dataProvider=new CActiveDataProvider('Enquiry', array(
     'criteria'=>array(
         'condition'=>'budget = '.$model->id,
         'order'=>'created DESC',
@@ -40,11 +40,11 @@ $dataProvider=new CActiveDataProvider('Consulta', array(
 
 <?php
 if($dataProvider->getData()){
-	echo '<p style="font-size:1.3em">Deseas  '.CHtml::link('hacer una consulta',array('consulta/create', 'budget'=>$model->id));
+	echo '<p style="font-size:1.3em">Deseas  '.CHtml::link('hacer una enquiry',array('enquiry/create', 'budget'=>$model->id));
 	echo ' sobre esta partida presupuestaria?</p>';
 }else{
-	echo '<p style="font-size:1.3em">Aun no se ha hecho ninguna consulta sobre esta partida presupuestaria. ';
-	echo CHtml::link('Deseas hacer una',array('consulta/create', 'budget'=>$model->id)).'?</p>';
+	echo '<p style="font-size:1.3em">Aun no se ha hecho ninguna enquiry sobre esta partida presupuestaria. ';
+	echo CHtml::link('Deseas hacer una',array('enquiry/create', 'budget'=>$model->id)).'?</p>';
 }
 ?>
 
@@ -71,13 +71,13 @@ if($dataProvider->getData()){
 <p>
 <?php
 if($dataProvider->getData()){
-echo '<div style="font-size:1.3em;margin-top:25px;">Consultas ya realizadas por ciudadanos:</div>';
+echo '<div style="font-size:1.3em;margin-top:25px;">Enquirys ya realizadas por ciudadanos:</div>';
 $this->widget('PGridView', array(
-	'id'=>'consulta-grid',
+	'id'=>'enquiry-grid',
 	'dataProvider'=>$dataProvider,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/consulta/view',
+        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
@@ -87,7 +87,7 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'Consulta',
+				'header'=>'Enquiry',
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),

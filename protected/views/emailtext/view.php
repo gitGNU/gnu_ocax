@@ -8,8 +8,8 @@ $this->menu=array(
 );
 ?>
 
-<div class="consulta">
-<div class="title">Text for state "<?php echo Consulta::model()->getHumanStates($model->state); ?>"</div>
+<div class="enquiry">
+<div class="title">Text for state "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</div>
 
 
 <?php echo $model->getBody();?>

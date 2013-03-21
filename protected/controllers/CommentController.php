@@ -62,10 +62,10 @@ class CommentController extends Controller
 			//Yii::app()->end();
 
 		$model = new Comment;
-		if($comment_on == 'consulta')
-			$model->consulta = $id;
-		if($comment_on == 'respuesta')
-			$model->respuesta = $id;
+		if($comment_on == 'enquiry')
+			$model->enquiry = $id;
+		if($comment_on == 'reply')
+			$model->reply = $id;
 		
 		$user=User::model()->findByPk(Yii::app()->user->getUserID());
 		echo CJavaScript::jsonEncode(array(
@@ -101,14 +101,14 @@ class CommentController extends Controller
 
  				$mailer = new Mailer();
 
-				if($model->consulta == Null)
-					$consulta = Consulta::model()->findByPk($model->respuesta0->consulta);
+				if($model->enquiry == Null)
+					$enquiry = Enquiry::model()->findByPk($model->reply0->enquiry);
 				else
-					$consulta = Consulta::model()->findByPk($model->consulta);
+					$enquiry = Enquiry::model()->findByPk($model->enquiry);
 
 				$criteria = array(
-					'with'=>array('consultaSubscribes'),
-					'condition'=>' consultaSubscribes.consulta = '.$consulta->id,
+					'with'=>array('enquirySubscribes'),
+					'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
 					'together'=>true,
 				);
 				$subscribedUsers = User::model()->findAll($criteria);
@@ -117,11 +117,11 @@ class CommentController extends Controller
 					$mailer->AddBCC($subscribed->email);
 
 				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
-				$mailer->Subject='New comment at: '.$consulta->title;
+				$mailer->Subject='New comment at: '.$enquiry->title;
 
-				$mailer->Body='	<p>A new comment has been added to the consulta "'.$consulta->title.'"<br />
-								<a href="'.Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'">'.
-								Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'</a></p><p><i>'.
+				$mailer->Body='	<p>A new comment has been added to the enquiry "'.$enquiry->title.'"<br />
+								<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
+								Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a></p><p><i>'.
 								$model->body.'</i></p><p>Kind regards,<br />'.
 								Config::model()->findByPk('observatoryName')->value.'</p>';
 				$mailer->send();

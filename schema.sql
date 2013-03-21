@@ -39,16 +39,17 @@ CREATE TABLE IF NOT EXISTS budget (
 
 INSERT INTO budget(year, code, concept, provision) VALUES ('2013', 0, 'root budget', 1000000);
 
-CREATE TABLE IF NOT EXISTS consulta (
+CREATE TABLE IF NOT EXISTS enquiry (
   id int(11) NOT NULL AUTO_INCREMENT,
+  related_to int(11) NULL,	/* related to this another enquiry */
   user int(11) NOT NULL,
   team_member int(11),
   manager int(11),
   created date NOT NULL,
   assigned date,	/* date the manager assigned the consulta to a team_member */
-  type TINYINT(1) DEFAULT 0, /* generica=0, pressupostaria=1 */
+  type TINYINT(1) DEFAULT 0, /* generic=0, budgetary=1 */
   budget int(11), /* budget pressupostario (null si és una consulta generica) */
-  state int(11) DEFAULT 0,
+  state int(11) DEFAULT 1,
 /*
     0 Esperando respuesta de la OCAB
 	1 OCAB reconoce la entrega (team_memeber assigned)
@@ -61,6 +62,7 @@ CREATE TABLE IF NOT EXISTS consulta (
   title varchar( 255 ) NOT NULL,
   body LONGTEXT,
   PRIMARY KEY (id),
+  FOREIGN KEY (related_to) REFERENCES enquiry(id),
   FOREIGN KEY (user) REFERENCES user(id),
   FOREIGN KEY (team_member) REFERENCES user(id),
   FOREIGN KEY (manager) REFERENCES user(id),
@@ -76,47 +78,47 @@ CREATE TABLE IF NOT EXISTS block_user (
   FOREIGN KEY (blocked_user) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS consulta_subscribe (
+CREATE TABLE IF NOT EXISTS enquiry_subscribe (
   id int(11) NOT NULL AUTO_INCREMENT,
-  consulta int(11) NOT NULL,
+  enquiry int(11) NOT NULL,
   user int(11) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user) REFERENCES user(id),
-  FOREIGN KEY (consulta) REFERENCES consulta(id)
+  FOREIGN KEY (enquiry) REFERENCES enquiry(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS respuesta (
+CREATE TABLE IF NOT EXISTS reply (
   id int(11) NOT NULL AUTO_INCREMENT,
-  consulta int(11) NOT NULL,
+  enquiry int(11) NOT NULL,
   created DATETIME NOT NULL,
   team_member int(11) NOT NULL,
   body LONGTEXT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (consulta) REFERENCES consulta(id),
+  FOREIGN KEY (enquiry) REFERENCES enquiry(id),
   FOREIGN KEY (team_member) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS comment (
   id int(11) NOT NULL AUTO_INCREMENT,
-  consulta int(11) NULL,
-  respuesta int(11) NULL,
+  enquiry int(11) NULL,
+  reply int(11) NULL,
   created DATETIME NOT NULL,
   user int(11) NOT NULL,
   body LONGTEXT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (consulta) REFERENCES consulta(id),
-  FOREIGN KEY (respuesta) REFERENCES respuesta(id),
+  FOREIGN KEY (enquiry) REFERENCES enquiry(id),
+  FOREIGN KEY (reply) REFERENCES reply(id),
   FOREIGN KEY (user) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS vote (
   id int(11) NOT NULL AUTO_INCREMENT,
-  respuesta int(11) NOT NULL,
+  reply int(11) NOT NULL,
   user int(11) NOT NULL,
   vote TINYINT(1) NOT NULL,	/* 0 = dislike, 1 = like */
   PRIMARY KEY (id),
   FOREIGN KEY (user) REFERENCES user(id),
-  FOREIGN KEY (respuesta) REFERENCES respuesta(id)
+  FOREIGN KEY (reply) REFERENCES reply(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS emailtext (
@@ -125,14 +127,14 @@ CREATE TABLE IF NOT EXISTS emailtext (
 	PRIMARY KEY (state)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO emailtext(state, body) VALUES (0, '<p>Hola %name%,</p><p>Este es un correo automático para informarte que se ha creado la consulta.<br />
+INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola %name%,</p><p>Este es un correo automático para informarte que se ha creado la consulta.<br />
 												En breve se asignará a un miembro del equipo</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola,</p><p>Estamos en ello</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola,</p><p>Lo siento, desestimamos tu petición</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>Esperando respuesta de la Administración.</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>Respuesta con éxito</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>Respuesta parcialmente con éxito</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>Descartado por la Administración</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola,</p><p>Estamos en ello</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>Lo siento, desestimamos tu petición</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>Esperando respuesta de la Administración.</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>Respuesta con éxito</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>Respuesta parcialmente con éxito</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, body) VALUES (7, '<p>Hola,</p><p>Descartado por la Administración</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
 
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,
@@ -143,11 +145,11 @@ CREATE TABLE IF NOT EXISTS email (
 	sender int(11) NULL,
   	sent_as varchar(128) NOT NULL,
 	recipients LONGTEXT NOT NULL,
-	consulta int(11) NOT NULL,
+	enquiry int(11) NOT NULL,
 	body LONGTEXT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (sender) REFERENCES user(id),
-	FOREIGN KEY (consulta) REFERENCES consulta(id)
+	FOREIGN KEY (enquiry) REFERENCES enquiry(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS cms_page (
@@ -164,8 +166,8 @@ CREATE TABLE IF NOT EXISTS cms_page (
 	metaKeywords varchar( 255 ) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('qui-som', 0, '<p>hello world</p>', 'Qui Som?');
-INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('ajuntament', 1, '<p>hello world</p>', 'L\'Ajuntament');
+INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('about-us', 0, '<p>hello world</p>', 'About us');
+INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('council', 1, '<p>hello world</p>', 'The council');
 
 CREATE TABLE IF NOT EXISTS file (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -175,7 +177,7 @@ CREATE TABLE IF NOT EXISTS file (
   model varchar(32) NOT NULL,
   model_id int(11) NULL,
   PRIMARY KEY (id)
-) ENGINE=INNODB DEFAULT CHARSET = utf8
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,

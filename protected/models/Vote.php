@@ -5,13 +5,13 @@
  *
  * The followings are the available columns in table 'vote':
  * @property integer $id
- * @property integer $respuesta
+ * @property integer $reply
  * @property integer $user
  * @property integer $vote
  *
  * The followings are the available model relations:
  * @property User $user0
- * @property Respuesta $respuesta0
+ * @property Reply $reply0
  */
 class Vote extends CActiveRecord
 {
@@ -41,11 +41,11 @@ class Vote extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('respuesta, user, vote', 'required'),
-			array('respuesta, user, vote', 'numerical', 'integerOnly'=>true),
+			array('reply, user, vote', 'required'),
+			array('reply, user, vote', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, respuesta, user, vote', 'safe', 'on'=>'search'),
+			array('id, reply, user, vote', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,7 +58,7 @@ class Vote extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user0' => array(self::BELONGS_TO, 'User', 'user'),
-			'respuesta0' => array(self::BELONGS_TO, 'Respuesta', 'respuesta'),
+			'reply0' => array(self::BELONGS_TO, 'Reply', 'reply'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class Vote extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'respuesta' => __('Reply'),
+			'reply' => __('Reply'),
 			'user' => __('User'),
 			'vote' => __('Vote'),
 		);
@@ -87,7 +87,7 @@ class Vote extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('respuesta',$this->respuesta);
+		$criteria->compare('reply',$this->reply);
 		$criteria->compare('user',$this->user);
 		$criteria->compare('vote',$this->vote);
 
@@ -96,10 +96,10 @@ class Vote extends CActiveRecord
 		));
 	}
 
-	public function getTotal($respuesta, $vote)
+	public function getTotal($reply, $vote)
 	{
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'respuesta = '.$respuesta.' AND vote = '.$vote;
+		$criteria->condition = 'reply = '.$reply.' AND vote = '.$vote;
 		return count($this->findAll($criteria));
 	}
 

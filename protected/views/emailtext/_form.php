@@ -11,7 +11,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title">Text for state "<?php echo Consulta::model()->getHumanStates($model->state); ?>"</div>
+	<div class="title">Text for state "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</div>
 
 	<?php echo $form->hiddenField($model,'state'); ?>
 	<div class="row">

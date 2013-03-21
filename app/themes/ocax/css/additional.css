@@ -6,12 +6,12 @@ html, body{
 	padding: 0;
 }
 
-.consulta{
+.enquiry{
 	padding: 10px;
 	margin: 0;
 	border: 1px solid #C9E0ED;
 }
-.consulta > .title{
+.enquiry > .title{
 	padding:10px;
 	margin:-10px;
 	background-color:#CAE1FF;
@@ -50,12 +50,12 @@ html, body{
 	background-color:#CAE1FF;
 }
 
-.respuesta{
+.reply{
 	padding:10px;
 	margin-top:20px;
 	border: 1px solid #C9E0ED;
 }
-.respuesta > .title{
+.reply > .title{
 	padding:10px;
 	margin-top:-10px;
 	margin-left:-10px;
@@ -64,13 +64,22 @@ html, body{
 	margin-bottom:10px;
 }
 
-.respuesta > .attachments{
+.reply > .attachments{
 	padding:5px;
 	margin-top:-10px;
 	margin-left:-10px;
 	margin-right:-10px;
 	background-color:#F0F8FF;
 	margin-bottom:10px;
+}
+
+.reply > .bottomBar{
+	padding:5px;
+	margin-top:10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:#F0F8FF;
+	margin-bottom:-10px;
 }
 
 .link { color:#06c; cursor:pointer; }

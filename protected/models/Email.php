@@ -12,12 +12,12 @@
  * @property integer $sender
  * @property string $sent_as
  * @property string $recipients
- * @property integer $consulta
+ * @property integer $enquiry
  * @property string $body
  *
  * The followings are the available model relations:
  * @property User $sender0
- * @property Consulta $consulta0
+ * @property Enquiry $enquiry0
  */
 class Email extends CActiveRecord
 {
@@ -47,14 +47,14 @@ class Email extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created, title, sent_as, recipients, consulta, body', 'required'),
-			array('sent, consulta', 'numerical', 'integerOnly'=>true),
+			array('created, title, sent_as, recipients, enquiry, body', 'required'),
+			array('sent, enquiry', 'numerical', 'integerOnly'=>true),
 			array('sender, type', 'safe'),
 			array('title', 'length', 'max'=>255),
 			array('sent_as', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, sent, title, sender, sent_as, recipients, consulta, body', 'safe', 'on'=>'search'),
+			array('id, created, sent, title, sender, sent_as, recipients, enquiry, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +67,7 @@ class Email extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'sender0' => array(self::BELONGS_TO, 'User', 'sender'),
-			'consulta0' => array(self::BELONGS_TO, 'Consulta', 'consulta'),
+			'enquiry0' => array(self::BELONGS_TO, 'Enquiry', 'enquiry'),
 		);
 	}
 
@@ -85,7 +85,7 @@ class Email extends CActiveRecord
 			'sender' => __('Sender'),
 			'sent_as' => __('Sent as'),
 			'recipients' => __('Recipients'),
-			'consulta' => __('Consultation'),
+			'enquiry' => __('Enquiry'),
 			'body' => __('Body'),
 		);
 	}
@@ -108,7 +108,7 @@ class Email extends CActiveRecord
 		$criteria->compare('sender',$this->sender);
 		$criteria->compare('sent_as',$this->sent_as,true);
 		$criteria->compare('recipients',$this->recipients,true);
-		$criteria->compare('consulta',$this->consulta);
+		$criteria->compare('enquiry',$this->enquiry);
 		$criteria->compare('body',$this->body,true);
 
 		return new CActiveDataProvider($this, array(

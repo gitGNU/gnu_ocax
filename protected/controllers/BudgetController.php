@@ -55,7 +55,7 @@ class BudgetController extends Controller
 
 		$model=$this->loadModel($id);
 		if($model){
-			echo CJavaScript::jsonEncode(array(	'html'=>$this->renderPartial('_consultaView',array('model'=>$model),true,true),
+			echo CJavaScript::jsonEncode(array(	'html'=>$this->renderPartial('_enquiryView',array('model'=>$model),true,true),
 												'code'=>$model->code));
 		}else
 			echo 0;
@@ -198,10 +198,10 @@ class BudgetController extends Controller
 			'condition'=>' budget0.year = '.$model->year,
 			'together'=>true,
 		);
-		$consultas = new CActiveDataProvider(Consulta::model(), array('criteria'=>$criteria,));
+		$enquirys = new CActiveDataProvider(Enquiry::model(), array('criteria'=>$criteria,));
 
 		$this->render('updateYear',array(
-			'model'=>$model,'consultas'=>$consultas,));
+			'model'=>$model,'enquirys'=>$enquirys,));
 	}
 
 	/**
@@ -246,7 +246,7 @@ class BudgetController extends Controller
 
 		while($budgets){
 			foreach($budgets as $budget){
-				if(Consulta::model()->findByAttributes(array('budget'=>$budget->id)))
+				if(Enquiry::model()->findByAttributes(array('budget'=>$budget->id)))
 					continue;
 				if(!$model->findByAttributes(array('parent'=>$budget->id)))
 					$budget->delete();
@@ -264,10 +264,10 @@ class BudgetController extends Controller
 			'condition'=>' budget0.year = '.$model->year,
 			'together'=>true,
 		);
-		$consultas = new CActiveDataProvider(Consulta::model(), array('criteria'=>$criteria,));
+		$enquirys = new CActiveDataProvider(Enquiry::model(), array('criteria'=>$criteria,));
 
 		$this->render('updateYear',array(
-			'model'=>$model,'consultas'=>$consultas,));
+			'model'=>$model,'enquirys'=>$enquirys,));
 	}
 
 	/**
@@ -279,7 +279,7 @@ class BudgetController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		if(!($model->findByPk($model->parent) || Consulta::model()->findByAttributes(array('budget'=>$model->id))))
+		if(!($model->findByPk($model->parent) || Enquiry::model()->findByAttributes(array('budget'=>$model->id))))
 			$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

@@ -44,9 +44,9 @@ function validateFileName(form){
 	<?php echo $form->hiddenField($model,'model'); ?>
 	<?php echo $form->hiddenField($model,'model_id'); ?>
 
-	<?php if($model->model == 'Respuesta'){
+	<?php if($model->model == 'Reply'){
 		echo $form->label($model, 'name');
-		echo '<div class="hint">"Name used for the link"</div>';
+		echo '<div class="hint">'.__('Name used for the link').'</div>';
 		echo $form->textField($model, 'name');
 		echo $form->label($model, 'file');
 	}?>
@@ -55,7 +55,7 @@ function validateFileName(form){
 	<div class="errorMessage" id="file_error"></div>
 
 	<div class="row buttons">
-		<input type="button" value="Upload" onClick="js:validateFileName($('#file-form'));" />
+		<input type="button" value="<?php echo __('Upload')?>" onClick="js:validateFileName($('#file-form'));" />
 	</div>
 
 <?php $this->endWidget(); ?>

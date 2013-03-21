@@ -32,9 +32,9 @@ function deleteBudgets(){
 	if (ans)
 		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/deleteYearsBudgets/<?php echo $model->id;?>';
 }
-function showConsulta(consulta_id){
+function showEnquiry(enquiry_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/consulta/getConsultaForTeam/'+consulta_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiryForTeam/'+enquiry_id,
 		type: 'GET',
 		async: false,
 		dataType: 'json',
@@ -42,9 +42,9 @@ function showConsulta(consulta_id){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#consulta_body").html(data.html);
-				$('#mega_delete_button').attr('consulta_id', consulta_id)
-				$('#consulta').bPopup({
+				$("#enquiry_body").html(data.html);
+				$('#mega_delete_button').attr('enquiry_id', enquiry_id)
+				$('#enquiry').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, fadeSpeed: 10
@@ -54,24 +54,24 @@ function showConsulta(consulta_id){
 			}
 		},
 		error: function() {
-			alert("Error on show consulta");
+			alert("Error on show enquiry");
 		}
 	});
 }
 function megaDelete(el){
-	consulta_id = $(el).attr('consulta_id');
+	enquiry_id = $(el).attr('enquiry_id');
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/consulta/megaDelete/'+consulta_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
 		type: 'POST',
 		async: false,
 		dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
-			$('#consulta').bPopup().close();
+			$('#enquiry').bPopup().close();
 			if(data != 0){
 				//alert('deleted: '+data);
-				$('#consultas-grid').yiiGridView('update');
+				$('#enquirys-grid').yiiGridView('update');
 			}
 		},
 		error: function() {
@@ -86,19 +86,19 @@ function megaDelete(el){
 <?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>$title, 'totalBudgets'=>$totalBudgets)); ?>
 
 <?php
-if($consultas->getData()){
-echo '<p></p><div style="font-size:1.5em">Consultas presupuestarias del '.($model->year).' - '.($model->year + 1).'</div>';
+if($enquirys->getData()){
+echo '<p></p><div style="font-size:1.5em">Enquirys presupuestarias del '.($model->year).' - '.($model->year + 1).'</div>';
 $this->widget('PGridView', array(
-	'id'=>'consultas-grid',
-	'dataProvider'=>$consultas,
+	'id'=>'enquirys-grid',
+	'dataProvider'=>$enquirys,
     'onClick'=>array(
         'type'=>'javascript',
-        'call'=>'showConsulta',
+        'call'=>'showEnquiry',
     ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		array(
-			'name'=>'consulta title',
+			'name'=>'enquiry title',
 			'value'=>'$data->title',
 		),
 		array(
@@ -112,7 +112,7 @@ $this->widget('PGridView', array(
 
 }
 ?>
-<?php echo $this->renderPartial('//consulta/_megaDelete'); ?>
+<?php echo $this->renderPartial('//enquiry/_megaDelete'); ?>
 
 <?php if(Yii::app()->user->hasFlash('csv_generated')):?>
     <div class="flash_success" id="csv_generated_ok">

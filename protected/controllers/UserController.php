@@ -55,7 +55,7 @@ class UserController extends Controller
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
 
 		$id=Yii::app()->user->getUserID();
-		$consultas=new CActiveDataProvider('Consulta', array(
+		$enquirys=new CActiveDataProvider('Enquiry', array(
 			'criteria'=>array(
 				'condition'=>"user=$id",
 				'order'=>'created DESC',
@@ -66,10 +66,10 @@ class UserController extends Controller
 		));
 
 		$userid=Yii::app()->user->getUserID();
-		$subscribed=new CActiveDataProvider('Consulta',array(
+		$subscribed=new CActiveDataProvider('Enquiry',array(
 			'criteria'=>array(
 				'with'=>array('subscriptions'),
-				'condition'=>'	subscriptions.consulta = t.id AND
+				'condition'=>'	subscriptions.enquiry = t.id AND
 								subscriptions.user = '.$userid.' AND
 								t.user != '.$userid.' AND
 								( t.team_member != '.$userid.' || t.team_member IS NULL )',
@@ -79,7 +79,7 @@ class UserController extends Controller
 
 		$this->render('panel',array(
 			'model'=>$this->loadModel($user->id),
-			'consultas'=>$consultas,
+			'enquirys'=>$enquirys,
 			'subscribed'=>$subscribed,
 		));
 	}
@@ -91,7 +91,7 @@ class UserController extends Controller
 	public function actionView($id)
 	{
 
-		$consultas=new CActiveDataProvider('Consulta', array(
+		$enquirys=new CActiveDataProvider('Enquiry', array(
 			'criteria'=>array(
 				'condition'=>"user=$id",
 				'order'=>'created DESC',
@@ -104,7 +104,7 @@ class UserController extends Controller
 		$this->layout='//layouts/column2';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-			'consultas'=>$consultas,
+			'enquirys'=>$enquirys,
 		));
 	}
 

@@ -41,10 +41,10 @@ function changeColumn()
 
 <div class="outer">
 <div class="left">
-<h1><?php echo CHtml::link(__('New enquiry'),array('consulta/create/'));?></h1>
+<h1><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></h1>
 <p>
 Tanto genéricas como las presupuestarias,
-realizar una nueva consulta sobre la actividad de tu ayuntamiento y nosotros haremos la gestión.<br />
+realizar una nueva enquiry sobre la actividad de tu ayuntamiento y nosotros haremos la gestión.<br />
 </p>
 </div>
 <div class="right">
@@ -58,7 +58,7 @@ Change your password</p>
 
 if($model->is_team_member){
 	changeColumn();
-	echo '<h1>'.CHtml::link(__('Entrusted enquiries'),array('consulta/managed')).'</h1>';
+	echo '<h1>'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</h1>';
 	echo '<p>'.__('Manage the enquiries you are responsable for').'</p>';
 	echo '</div>';
 }
@@ -72,7 +72,7 @@ if($model->is_editor){
 
 if($model->is_manager){
 	changeColumn();
-	echo '<h1>'.CHtml::link(__('Manage enquiries'),array('consulta/admin')).'</h1>';
+	echo '<h1>'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</h1>';
 	echo '<p>'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';
 }
@@ -93,14 +93,14 @@ if($model->is_admin){
 <div class="clear"></div>
 
 <?php
-if($consultas->getData()){
+if($enquirys->getData()){
 echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
 $this->widget('PGridView', array(
-	'id'=>'consulta-grid',
-	'dataProvider'=>$consultas,
+	'id'=>'enquiry-grid',
+	'dataProvider'=>$enquirys,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/consulta/view',
+        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
@@ -110,7 +110,7 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'Consultas',
+				'header'=>'Enquirys',
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
@@ -129,14 +129,14 @@ $this->widget('PGridView', array(
 <?php
 
 if($subscribed->getData()){
-echo '<div style="font-size:1.5em">'.__('I am subscribed to these consultations').'</div>';
+echo '<div style="font-size:1.5em">'.__('I am subscribed to these enquirytions').'</div>';
 echo '<span class="hint">'.__('You will be sent an email when these enquiries are updated').'</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',
 	'dataProvider'=>$subscribed,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/consulta/view',
+        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
@@ -146,7 +146,7 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'Consultas',
+				'header'=>'Enquirys',
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
@@ -169,7 +169,7 @@ $this->widget('PGridView', array(
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash_success').fadeOut('fast');
-    	}, 2750);
+    	}, 3500);
 		});
 	</script>
     <div class="flash_success">
@@ -181,7 +181,7 @@ $this->widget('PGridView', array(
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash_prompt').fadeOut('fast');
-    	}, 2750);
+    	}, 3500);
 		});
 	</script>
     <div class="flash_prompt">

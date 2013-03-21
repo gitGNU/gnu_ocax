@@ -63,8 +63,8 @@ class EmailController extends Controller
 	private function getReturnURL($menu_type)
 	{
 		if($menu_type == 'team')
-			return 'consulta/teamView';
-		return 'consulta/admin';
+			return 'enquiry/teamView';
+		return 'enquiry/admin';
 	}
 
 	/**
@@ -109,40 +109,40 @@ class EmailController extends Controller
 				if($mailer->send()){
 					$model->sent=1;
 					$model->save();
-					$link=CHtml::link(__('View email'),array('email/index/'.$model->consulta.'?menu=manager'));	// need to fix this!!
+					$link=CHtml::link(__('View email'),array('email/index/'.$model->enquiry.'?menu=manager'));	// need to fix this!!
 					Yii::app()->user->setFlash('success',__('Email sent OK').'&nbsp;&nbsp;&nbsp;'.$link);
 				}else
 					Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 
-				$this->redirect(array($returnURL,'id'=>$model->consulta));
+				$this->redirect(array($returnURL,'id'=>$model->enquiry));
 			}
 
 		}
-		else{	//Get consulta id
-			if(isset($_GET['consulta']) && !$model->consulta)
-				$model->consulta=$_GET['consulta'];
+		else{	//Get enquiry id
+			if(isset($_GET['enquiry']) && !$model->enquiry)
+				$model->enquiry=$_GET['enquiry'];
 			if(isset($_GET['menu']))
 				$returnURL=$this->getReturnURL($_GET['menu']);
 		}
 		$model->sender=Yii::app()->user->getUserID();
-		$consulta=Consulta::model()->findByPk($model->consulta);
-		$respuestas = Respuesta::model()->findAll(array('condition'=>'consulta =  '.$model->consulta));
+		$enquiry=Enquiry::model()->findByPk($model->enquiry);
+		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->enquiry));
 
 		if(!$model->body)
-			$model->body=Emailtext::model()->findByPk($consulta->state)->getBody($consulta);
+			$model->body=Emailtext::model()->findByPk($enquiry->state)->getBody($enquiry);
 		if(!$model->title)
-			$model->title=$consulta->getHumanStates($consulta->state);
+			$model->title=$enquiry->getHumanStates($enquiry->state);
 
 		$this->render('create',array(
 			'model'=>$model,
 			'returnURL'=>$returnURL,
-			'consulta'=>$consulta,
-			'respuestas'=>$respuestas,
+			'enquiry'=>$enquiry,
+			'replys'=>$replys,
 		));
 	}
 
 
-	public function actionContactPetition($recipient_id=Null, $consulta_id=Null)
+	public function actionContactPetition($recipient_id=Null, $enquiry_id=Null)
 	{
 		if(!Yii::app()->request->isAjaxRequest)
 			Yii::app()->end();
@@ -191,8 +191,8 @@ class EmailController extends Controller
 			Yii::app()->end();
 		}
 
-		if(isset($_GET['recipient_id']) && isset($_GET['consulta_id'])){
-			$model->consulta=$_GET['consulta_id'];
+		if(isset($_GET['recipient_id']) && isset($_GET['enquiry_id'])){
+			$model->enquiry=$_GET['enquiry_id'];
 			$recipient = User::model()->findByPk($_GET['recipient_id']);
 			echo $this->renderPartial('_contactPetition', array('model'=>$model, 'recipient'=>$recipient, false,true));
 		}else
@@ -219,16 +219,16 @@ class EmailController extends Controller
 	public function actionIndex($id)
 	{
 
-		$consulta=Consulta::model()->findByPk($id);
+		$enquiry=Enquiry::model()->findByPk($id);
 
 		$dataProvider=new CActiveDataProvider('Email', array(
-			'criteria'=>array('condition'=>'consulta='.$id,'order'=>'created DESC')
+			'criteria'=>array('condition'=>'enquiry='.$id,'order'=>'created DESC')
 		));
 
 		//$dataProvider=new CActiveDataProvider('Email');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-			'consulta'=>$consulta,
+			'enquiry'=>$enquiry,
 			'menu'=>$_GET['menu'],
 		));
 	}

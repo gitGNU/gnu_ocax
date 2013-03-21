@@ -35,7 +35,7 @@
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'My Panel', 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Consultes', 'url'=>array('/consulta')),
+				array('label'=>'Consultes', 'url'=>array('/enquiry')),
 				array('label'=>'Qui Som?', 'url'=>array('/page/qui-som')),
 				array('label'=>'L\'Ajuntament', 'url'=>array('/page/ajuntament')),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),

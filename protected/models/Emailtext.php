@@ -52,18 +52,18 @@ class Emailtext extends CActiveRecord
 		}
 	}
 
-	public function getBody($consulta=Null)
+	public function getBody($enquiry=Null)
 	{
-		if($consulta){
-			$consulta_link = '<a href="'.Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'">'.
-			Yii::app()->createAbsoluteUrl('consulta/view', array('id' => $consulta->id)).'</a>';
+		if($enquiry){
+			$enquiry_link = '<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
+			Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a>';
 		}else
-			$consulta_link = '<a href="/link/to/the/consulta">/link/to/the/consulta</a>';
+			$enquiry_link = '<a href="/link/to/the/enquiry">/link/to/the/enquiry</a>';
 
-		$body = str_replace('%link%', $consulta_link, $this->body);
+		$body = str_replace('%link%', $enquiry_link, $this->body);
 		if( strpos($body, '%name%') !== false ){
-			if($consulta && $consulta->state==0)
-				$body = str_replace('%name%', $consulta->user0->fullname, $body);
+			if($enquiry && $enquiry->state==0)
+				$body = str_replace('%name%', $enquiry->user0->fullname, $body);
 			elseif($this->state == 0)
 				$body = str_replace('%name%', '&lt;User\'s fullname will go here&gt;', $body);
 			else

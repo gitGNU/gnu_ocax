@@ -3,23 +3,23 @@
 /* @var $model Email */
 /* @var $form CActiveForm */
 
-if($returnURL == 'consulta/teamView'){
+if($returnURL == 'enquiry/teamView'){
 	$this->menu=array(
-		array('label'=>'View Consulta', 'url'=>array('/consulta/teamView', 'id'=>$consulta->id)),
-		array('label'=>'Change state', 'url'=>array('/consulta/update', 'id'=>$consulta->id)),
-		array('label'=>'Edit Consulta', 'url'=>array('/consulta/edit', 'id'=>$consulta->id)),
-		array('label'=>'Emails sent', 'url'=>array('/email/index/', 'id'=>$consulta->id, 'menu'=>'team')),
-		array('label'=>'List consultas', 'url'=>array('/consulta/managed')),
+		array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
+		array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$enquiry->id)),
+		array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
+		array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
+		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 }
-if($returnURL == 'consulta/adminView'){
+if($returnURL == 'enquiry/adminView'){
 	$this->menu=array(
-		//array('label'=>'View Consulta', 'url'=>array('/consulta/adminView', 'id'=>$consulta->id)),
-		//array('label'=>'Actualizar estat', 'url'=>array('/consulta/update', 'id'=>$consulta->id)),
-		//array('label'=>'Editar Consulta', 'url'=>array('/consulta/edit', 'id'=>$consulta->id)),
-		array('label'=>'Emails sent', 'url'=>array('/email/index/', 'id'=>$consulta->id, 'menu'=>'manager')),
-		array('label'=>'List consultas', 'url'=>array('/consulta/admin')),
+		//array('label'=>'View Enquiry', 'url'=>array('/enquiry/adminView', 'id'=>$enquiry->id)),
+		//array('label'=>'Actualizar estat', 'url'=>array('/enquiry/update', 'id'=>$enquiry->id)),
+		//array('label'=>'Editar Enquiry', 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
+		array('label'=>'Emails sent', 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'manager')),
+		array('label'=>'List enquirys', 'url'=>array('/enquiry/admin')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 }
@@ -50,9 +50,9 @@ function toggleRecipients(){
 	'action'=>Yii::app()->baseUrl.'/email/create',
 )); ?>
 
-	<div class="title">Send email</div>
+	<div class="title"><?php echo __('Send email')?></div>
 
-	<?php echo $form->hiddenField($model,'consulta'); ?>
+	<?php echo $form->hiddenField($model,'enquiry'); ?>
 	<input type="hidden" name="Email[returnURL]" value="<?php echo $returnURL;?>" />
 
 	<div class="row">
@@ -73,8 +73,8 @@ function toggleRecipients(){
 		<?php /*echo $form->labelEx($model,'recipients');*/ ?>
 		<?php
 			$criteria = array(
-				'with'=>array('consultaSubscribes'),
-				'condition'=>' consultaSubscribes.consulta = '.$consulta->id,
+				'with'=>array('enquirySubscribes'),
+				'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
 				'together'=>true,
 			);
 			$subscribedUsers = User::model()->findAll($criteria);
@@ -119,13 +119,13 @@ function toggleRecipients(){
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Enviar' : 'Save'); ?>
-		<input type="button" value="Cancel" onclick='js:window.location="<?php echo Yii::app()->baseUrl.'/'.$returnURL.'/'.$consulta->id;?>";' />
+		<input type="button" value="Cancel" onclick='js:window.location="<?php echo Yii::app()->baseUrl.'/'.$returnURL.'/'.$enquiry->id;?>";' />
 
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 <p></p>
-<?php echo $this->renderPartial('//consulta/_teamView', array('model'=>$consulta,'respuestas'=>$respuestas)); ?>
+<?php echo $this->renderPartial('//enquiry/_teamView', array('model'=>$enquiry,'replys'=>$replys)); ?>
 
 
