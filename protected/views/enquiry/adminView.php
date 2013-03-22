@@ -33,17 +33,17 @@ if($model->state == 0){
 <script>
 function showEnquiry(enquiry_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiryForTeam/'+enquiry_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
 		type: 'GET',
 		async: false,
-		dataType: 'json',
+		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#enquiry_body").html(data.html);
+				$("#mega_delete_content").html(data);
 				$('#mega_delete_button').attr('enquiry_id', enquiry_id)
-				$('#enquiry').bPopup({
+				$('#mega_delete').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, fadeSpeed: 10
@@ -53,7 +53,7 @@ function showEnquiry(enquiry_id){
 			}
 		},
 		error: function() {
-			alert("Error on show enquiry");
+			alert("Error on show mega delete");
 		}
 	});
 }
@@ -63,14 +63,15 @@ function megaDelete(el){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
 		type: 'POST',
 		async: false,
-		dataType: 'json',
+		//data: { 'id' : enquiry_id },
+		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
+			$('#mega_delete').bPopup().close();
 			if(data != 0){
-				location.href='<?php echo Yii::app()->request->baseUrl; ?>/enquiry/admin';
-			}else
-				$('#enquiry').bPopup().close();
+				$('#enquirys-grid').yiiGridView('update');
+			}
 		},
 		error: function() {
 			alert("Error on megaDelete");
@@ -105,6 +106,12 @@ function megaDelete(el){
     </div>
 <?php endif; ?>
 
-<?php echo $this->renderPartial('_megaDelete'); ?>
+
+<div id="mega_delete" style="display:none;width:850px;">
+	<div style="background-color:white;padding:5px;">
+		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+		<div id="mega_delete_content"></div>
+	</div>
+</div>
 
 

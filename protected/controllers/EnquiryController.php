@@ -44,7 +44,7 @@ class EnquiryController extends Controller
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('allow',
-				'actions'=>array('getEnquiryForTeam','megaDelete'),
+				'actions'=>array(/*'getEnquiryForTeam',*/ 'getMegaDelete', 'megaDelete'),
 				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -99,6 +99,7 @@ class EnquiryController extends Controller
 			echo 0;
 	}
 
+/*
 	public function actionGetEnquiryForTeam($id)
 	{
 		if(!Yii::app()->request->isAjaxRequest)
@@ -111,6 +112,7 @@ class EnquiryController extends Controller
 		}else
 			echo 0;
 	}
+*/
 
 	public function actionSubscribe()
 	{
@@ -414,59 +416,30 @@ class EnquiryController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$user=Yii::app()->user->getUserID();
-		if($model->state==0 && ($model->user == $user || Yii::app()->user->isManager()) ){
-			//$criteria = new CDbCriteria;
-			//$criteria->condition = 'enquiry = '.$model->id.' AND user = '.$user;
-			$subscription=EnquirySubscribe::model()->findByAttributes(array('enquiry'=>$model->id));
-			if($subscription)
-				$subscription->delete();
-
-			$email = Email::model()->findByAttributes(array('enquiry'=>$model->id));
-			if($email)
-				$email->delete();
-
+		if($model->state==1 && ($model->user == $user || Yii::app()->user->isManager()) ){
 			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}else
-			$this->redirect(array('/site/index'));
+					$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		$this->redirect(array('/site/index'));
 	}
 
 	/**
 	 * Deletes a enquiry and all references.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionMegaDelete($id)
+	public function actionGetMegaDelete($id)
 	{
 		$model = $this->loadModel($id);
+		$object_count = $model->countObjects();
+		echo $this->renderPartial('_megaDelete',array('model'=>$model,'object_count'=>$object_count),true,true);
+	}
 
-		$subscriptions = EnquirySubscribe::model()->findAllByAttributes(array('enquiry'=>$model->id));
-		foreach($subscriptions as $subscription)
-			$subscription->delete();
-
-		$emails = Email::model()->findAllByAttributes(array('enquiry'=>$model->id));
-		foreach($emails as $email)
-			$email->delete();
-
-		$comments = Comment::model()->findAllByAttributes(array('enquiry'=>$model->id));
-		foreach($comments as $comment)
-			$comment->delete();
-
-		$replys = Reply::model()->findAllByAttributes(array('enquiry'=>$model->id));
-		foreach($replys as $reply){
-
-			$votes = Vote::model()->findAllByAttributes(array('reply'=>$reply->id));
-			foreach($votes as $vote)
-				$vote->delete();
-
-			$comments = Comment::model()->findAllByAttributes(array('reply'=>$reply->id));
-			foreach($comments as $comment)
-				$comment->delete();
-
-			$reply->delete();
-		}
+	public function actionMegaDelete($id)
+	{
+		$model=$this->loadModel($id);
 		$model->delete();
 		echo $id;
 	}

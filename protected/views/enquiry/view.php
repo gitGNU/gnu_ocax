@@ -56,7 +56,7 @@ echo 	'<div style="font-size:1.3em">'.__('The enquiry').' "'.$providerData[0]->t
 		' '. (count($providerData)-1) .' '.__('time(s)').'</div>';
 
 $this->widget('PGridView', array(
-	'id'=>'related-enquiry-grid',
+	'id'=>'reforumulated-enquiry-grid',
 	'dataProvider'=>$reformulatedDataprovider,
 	'template' => '{items}{pager}',
 	'rowCssClassExpression'=>'($data->id == '.$model->id.')? "highlight_row":"row_id_".$row." ".($row%2?"even":"odd")',

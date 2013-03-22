@@ -13,6 +13,8 @@
  * The followings are the available model relations:
  * @property Enquiry $enquiry0
  * @property User $teamMember
+ * @property Vote[] $votes
+ * @property Comment[] $comments
  */
 class Reply extends CActiveRecord
 {
@@ -63,6 +65,8 @@ class Reply extends CActiveRecord
 		return array(
 			'enquiry0' => array(self::BELONGS_TO, 'Enquiry', 'enquiry'),
 			'teamMember' => array(self::BELONGS_TO, 'User', 'team_member'),
+			'votes' => array(self::HAS_MANY, 'Vote', 'reply'),
+			'comments' => array(self::HAS_MANY, 'Comment', 'reply'),
 		);
 	}
 
@@ -78,6 +82,18 @@ class Reply extends CActiveRecord
 			'team_member' => 'Team Member',
 			'body' => 'Body',
 		);
+	}
+
+	protected function beforeDelete()
+	{
+		foreach($this->votes as $vote)
+			$vote->delete();
+		foreach($this->comments as $comment)
+			$comment->delete();
+		$files = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$this->id));
+		foreach($files as $file)
+			$file->delete();
+		return parent::beforeDelete();
 	}
 
 	/**

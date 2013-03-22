@@ -69,6 +69,13 @@ class File extends CActiveRecord
 		);
 	}
 
+	protected function beforeDelete()
+	{
+		unlink($this->uri);
+		return parent::beforeDelete();
+	}
+
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

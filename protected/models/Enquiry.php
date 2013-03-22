@@ -21,7 +21,7 @@
  * @property Comment[] $comments
  * @property Email[] $emails
  * @property Enquiry $relatedTo
- * @property Enquiry[] $enquiries
+ * @property Enquiry[] $reformulateds
  * @property User $user0
  * @property User $teamMember
  * @property User $manager0
@@ -108,12 +108,11 @@ class Enquiry extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-
 		return array(
 			'comments' => array(self::HAS_MANY, 'Comment', 'enquiry'),
 			'emails' => array(self::HAS_MANY, 'Email', 'enquiry'),
 			'relatedTo' => array(self::BELONGS_TO, 'Enquiry', 'related_to'),
-			'enquiries' => array(self::HAS_MANY, 'Enquiry', 'related_to'),
+			'reformulateds' => array(self::HAS_MANY, 'Enquiry', 'related_to'),
 			'user0' => array(self::BELONGS_TO, 'User', 'user'),
 			'teamMember' => array(self::BELONGS_TO, 'User', 'team_member'),
 			'manager0' => array(self::BELONGS_TO, 'User', 'manager'),
@@ -157,7 +156,6 @@ class Enquiry extends CActiveRecord
 		sort($related_models);
 		return new CArrayDataProvider(array_values($related_models));
 	}
-
 	public function _getReformulatedEnquires($result)
 	{
 		if(!array_key_exists($this->id, $result))
@@ -166,11 +164,58 @@ class Enquiry extends CActiveRecord
 		if($this->related_to)
 			$result = $this->relatedTo->_getReformulatedEnquires($result);
 
-		foreach($this->enquiries as $related){
-			if(!array_key_exists($related->id, $result))
-				$result = $related->_getReformulatedEnquires($result);
+		foreach($this->reformulateds as $reforumulated){
+			if(!array_key_exists($reforumulated->id, $result))
+				$result = $reforumulated->_getReformulatedEnquires($result);
 		}
 		return $result;
+	}
+
+
+	public function countObjects()
+	{
+		$object_count = array(
+							'reforumulated'=>-1,
+							'replys'=>0,
+							'files'=>0,
+							'emails'=>0,
+							'comments'=>0,
+							'votes'=>0,
+							'subscriptions'=>0,
+						);
+		return $this->_countObjects($object_count);
+	}
+	public function _countObjects($object_count)
+	{
+		$object_count['reforumulated'] = $object_count['reforumulated']+1;
+		$object_count['replys'] = $object_count['replys']+count($this->replys);
+		$object_count['emails'] = $object_count['emails']+count($this->emails);
+		$object_count['comments'] = $object_count['comments']+count($this->comments);
+		$object_count['subscriptions'] = $object_count['subscriptions']+count($this->subscriptions);
+		foreach($this->replys as $reply){
+			$object_count['votes'] = $object_count['votes']+count($reply->votes);
+			$object_count['comments'] = $object_count['comments']+count($reply->comments);
+			$object_count['files'] = $object_count['files']+count(File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$reply->id)));
+		}
+		foreach($this->reformulateds as $reforumulated)
+			$object_count = $reforumulated->_countObjects($object_count);
+		return $object_count;
+	}
+
+	protected function beforeDelete()
+	{
+		foreach($this->reformulateds as $reformulated)
+			$reformulated->delete();
+		foreach($this->replys as $reply)
+			$reply->delete();
+		foreach($this->emails as $email)
+			$email->delete();
+		foreach($this->comments as $comment)
+			$comment->delete();
+		foreach($this->subscriptions as $subscription)
+			$subscription->delete();
+
+		return parent::beforeDelete();
 	}
 
 	/**
