@@ -111,7 +111,7 @@ $this->widget('PGridView', array(
 ));
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget));
+	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget, 'showLinks'=>1));
 }
 ?>
 </div>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-22 12:02+0100\n"
+"PO-Revision-Date: 2013-03-26 22:07+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts\n"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:81
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:139
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:138
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:101
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:18
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:59
@@ -35,7 +35,7 @@ msgid "Sent"
 msgstr "Enviat"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:84
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:141
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:140
 msgid "Title"
 msgstr "Títol"
 
@@ -55,12 +55,13 @@ msgstr "Destinataris"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Reply.php:80
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:54
 msgid "Enquiry"
 msgstr "Consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:89
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:78
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:142
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:141
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:93
 msgid "Body"
 msgstr "Cos"
@@ -94,7 +95,7 @@ msgstr "Contrasenya repetida"
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/File.php:79
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/File.php:86
 msgid "Name"
 msgstr "Nom"
 
@@ -130,36 +131,53 @@ msgstr "Data d'alta"
 msgid "Is partner"
 msgstr "És soci"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:92
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:96
 msgid "Parent"
 msgstr "Pare"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:95
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:99
 msgid "Year"
 msgstr "Any"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:96
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
 msgid "Code"
 msgstr "Codi"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:97
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:101
 msgid "Label"
 msgstr "Etiqueta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:98
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:102
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:6
 msgid "Concept"
 msgstr "Concepte"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:99
-msgid "Amount provided"
-msgstr "Import proveït"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:103
+#, fuzzy
+msgid "Initial provision"
+msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
-msgid "Real amount"
-msgstr "Import real"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
+msgid "Actual provision"
+msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:101
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
+msgid "Spent T1"
+msgstr "Spent T1"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:106
+msgid "Spent T2"
+msgstr "Spent T2"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:107
+msgid "Spent T3"
+msgstr "Spent T3"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:108
+msgid "Spent T4"
+msgstr "Spent T4"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:109
 msgid "Weight"
 msgstr "Pes"
 
@@ -227,34 +245,36 @@ msgstr "Resposta parcialment amb exit"
 msgid "Rejected by the Administration"
 msgstr "Descartat por la Administració"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:133
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:132
 msgid "Related to"
 msgstr "Relacionada amb"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:134
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:133
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:10
 msgid "Submitted by"
 msgstr "Entregat por"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:135
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:134
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:14
 msgid "Assigned to"
 msgstr "Assignada a"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:137
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:136
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:83
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:63
 msgid "Formulated"
 msgstr "Formulat"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:138
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:137
 msgid "Assigned"
 msgstr "Assignada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:140
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:139
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:92
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:78
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:105
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:58
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:63
 msgid "State"
 msgstr "Estat"
@@ -275,15 +295,11 @@ msgstr "No hi ha dades disponibles"
 msgid "Budget for"
 msgstr "Pressupostes per a"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:57
-msgid "Total"
-msgstr "Total"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:88
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:87
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:96
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:95
 msgid "Filtered results"
 msgstr "Resultats de la cerca"
 
@@ -308,14 +324,17 @@ msgid "Upload"
 msgstr "Pujar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:55
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:40
 msgid "The enquiry"
 msgstr "La Consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:55
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:40
 msgid "has been reformulated"
 msgstr "ha estat reformulada"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:56
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:41
 msgid "time(s)"
 msgstr "times(s)"
 
@@ -353,11 +372,15 @@ msgid "Edit enquiry"
 msgstr "Edita consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/teamView.php:9
+msgid "Reformulate enquiry"
+msgstr "Reformulate enquiry"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/teamView.php:10
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/create.php:11
 msgid "Sent emails"
 msgstr "Correu enviats"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/teamView.php:10
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/teamView.php:11
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/create.php:12
 msgid "List enquiries"
 msgstr "Llista consultes"
@@ -426,14 +449,6 @@ msgstr "Afegeix adjunt"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:282
 msgid "Attachments"
 msgstr "Adjunts"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:318
-msgid "Is this reply satisfactory? If not, you may"
-msgstr "És aquesta resposta satisfactòria? Sinó, pots"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:318
-msgid "reformulate the enquiry"
-msgstr "reformular la consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:7
 msgid "Formulate a"
@@ -533,11 +548,11 @@ msgstr "Assign enquiries to team members and check status"
 msgid "My enquiries"
 msgstr "Les meves consultes"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:132
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:128
 msgid "I am subscribed to these enquirytions"
 msgstr "Estic escrit a aquestes consultes"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:133
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:129
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
 

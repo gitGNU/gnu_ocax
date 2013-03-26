@@ -12,8 +12,8 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $downloadCsv );
 	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );
-	$showBudgets = array( array('label'=>'Manage budgets', 'url'=>array('admin?year='.$model->year)));
-	array_splice( $this->menu, 1, 0, $showBudgets );
+	//$showBudgets = array( array('label'=>'Manage budgets', 'url'=>array('admin?year='.$model->year)));
+	//array_splice( $this->menu, 1, 0, $showBudgets );
 }
 ?>
 

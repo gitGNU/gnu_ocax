@@ -40,11 +40,11 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 
 <?php
 if($dataProvider->getData()){
-	echo '<p style="font-size:1.3em">Deseas  '.CHtml::link('hacer una enquiry',array('enquiry/create', 'budget'=>$model->id));
-	echo ' sobre esta partida presupuestaria?</p>';
+	echo '<p style="font-size:1.3em">'.__('Do you wish to').' '.CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id));
+	echo ' '.__('about this budget').'?</p>';
 }else{
-	echo '<p style="font-size:1.3em">Aun no se ha hecho ninguna enquiry sobre esta partida presupuestaria. ';
-	echo CHtml::link('Deseas hacer una',array('enquiry/create', 'budget'=>$model->id)).'?</p>';
+	echo '<p style="font-size:1.3em">'.__('No enquiries have been made about this budget yet').'. '.__('Do you wish to').' ';
+	echo CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id)).'?</p>';
 }
 ?>
 
