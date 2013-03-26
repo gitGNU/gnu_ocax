@@ -97,17 +97,13 @@ if($enquirys->getData()){
 echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
+	'template' => '{items}{pager}',
 	'dataProvider'=>$enquirys,
     'onClick'=>array(
         'type'=>'url',
         'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
 	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
 	'columns'=>array(
 			array(
 				'header'=>'Enquirys',
@@ -133,17 +129,13 @@ echo '<div style="font-size:1.5em">'.__('I am subscribed to these enquirytions')
 echo '<span class="hint">'.__('You will be sent an email when these enquiries are updated').'</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',
+	'template' => '{items}{pager}',
 	'dataProvider'=>$subscribed,
     'onClick'=>array(
         'type'=>'url',
         'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
 	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
 	'columns'=>array(
 			array(
 				'header'=>'Enquirys',
@@ -156,7 +148,6 @@ $this->widget('PGridView', array(
 				'name'=>'state',
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',
-				//'value' => 'data[\'state\']',
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));

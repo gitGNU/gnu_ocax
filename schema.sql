@@ -30,14 +30,18 @@ CREATE TABLE IF NOT EXISTS budget (
   code varchar(20) NULL,
   label varchar(255) NULL,
   concept varchar( 255 ) NOT NULL,
-  provision decimal(13, 2) NOT NULL,	/* importe previsto */
-  spent decimal(13, 2) DEFAULT 0,		/* importe real */
+  initial_provision decimal(14, 2) NOT NULL,
+  actual_provision decimal(14, 2) NOT NULL,
+  spent_t1 decimal(14, 2) NOT NULL,	/* 	1st trimester */
+  spent_t2 decimal(14, 2) NOT NULL,	/* 	2nd trimester */
+  spent_t3 decimal(14, 2) NOT NULL,	/* 	3rd trimester */
+  spent_t4 decimal(14, 2) NOT NULL,	/* 	4th trimester */
   weight int(10) DEFAULT 0,				/* order for display */
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-INSERT INTO budget(year, code, concept, provision) VALUES ('2013', 0, 'root budget', 1000000);
+INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2013', 0, 'root budget', 0, 0);
 
 CREATE TABLE IF NOT EXISTS enquiry (
   id int(11) NOT NULL AUTO_INCREMENT,

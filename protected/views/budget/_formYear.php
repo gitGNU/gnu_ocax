@@ -39,20 +39,6 @@
 		echo '</div>';
 	 }?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'provision'); ?>
-		<div class="hint">Sin comas. Solo punto para céntimos. ej 6000.50</div>
-		<?php echo $form->textField($model,'provision'); ?>
-		<?php echo $form->error($model,'provision'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'spent'); ?>
-		<div class="hint">Sin comas. Solo punto para céntimos.</div>
-		<?php echo $form->textField($model,'spent'); ?>
-		<?php echo $form->error($model,'spent'); ?>
-	</div>
-
 </div>
 <div class="right">
 

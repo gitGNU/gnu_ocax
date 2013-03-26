@@ -16,10 +16,11 @@ $this->menu=array(
 
 <div class="enquiry">
 <div class="title">Manage default email texts</div>
-
+<div style="margin:-10px">
 
 <?php $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
+	'template' => '{items}',
 	'dataProvider'=>$model->search(),
     'onClick'=>array(
         'type'=>'url',
@@ -40,4 +41,5 @@ $this->menu=array(
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[state]"'),
 ))); ?>
+</div>
 </div>

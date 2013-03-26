@@ -54,7 +54,6 @@ $(function() {
 	font-size:1.5em;
 	">
 <?php echo __('Budget for').' '.$year.' - '. ($year+1);?>
-<span style="float:right;text-align:right"> <?php echo __('Total').': '.number_format($budget_raiz->provision).'€';?></span>
 </div>
 
 <div style="

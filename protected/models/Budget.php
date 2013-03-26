@@ -6,21 +6,24 @@
  * The followings are the available columns in table 'budget':
  * @property integer $id
  * @property integer $parent
- * @property integer $level
  * @property integer $year
  * @property string $csv_id
  * @property string $csv_parent_id
  * @property string $code
  * @property string $label
  * @property string $concept
- * @property integer $provision
- * @property integer $spent
+ * @property string $initial_provision
+ * @property string $actual_provision
+ * @property string $spent_t1
+ * @property string $spent_t2
+ * @property string $spent_t3
+ * @property string $spent_t4
  * @property integer $weight
  *
  * The followings are the available model relations:
  * @property Budget $parent0
  * @property Budget[] $budgets
- * @property Enquiry[] $enquirys
+ * @property Enquiry[] $enquiries
  */
 class Budget extends CActiveRecord
 {
@@ -50,9 +53,10 @@ class Budget extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('year, concept, provision, spent', 'required'),
+			array('year, concept, initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'required'),
 			array('parent, year, weight', 'numerical', 'integerOnly'=>true),
-			array('provision, spent', 'type', 'type'=>'float'),
+			array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'type', 'type'=>'float'),
+			//array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'length', 'max'=>14),
 			array('code, csv_id, csv_parent_id', 'length', 'max'=>20),
 			array('csv_id', 'unique', 'className' => 'Budget'),
 			array('label, concept', 'length', 'max'=>255),
@@ -96,8 +100,12 @@ class Budget extends CActiveRecord
 			'code' => __('Code'),
 			'label' => __('Label'),
 			'concept' => __('Concept'),
-			'provision' => __('Amount provided'),
-			'spent' => __('Real amount'),
+			'initial_provision' => __('Initial provision'),
+			'actual_provision' => __('Actual provision'),
+			'spent_t1' => __('Spent T1'),
+			'spent_t2' => __('Spent T2'),
+			'spent_t3' => __('Spent T3'),
+			'spent_t4' => __('Spent T4'),
 			'weight' => __('Weight'),
 		);
 	}
@@ -122,10 +130,8 @@ class Budget extends CActiveRecord
 
 		$criteria->compare('year',$this->year);
 		$criteria->compare('code',$this->code);
-		//$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('provision',$this->provision);
-		$criteria->compare('spent',$this->spent);
+		$criteria->compare('initial_provision',$this->initial_provision);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -152,8 +158,8 @@ class Budget extends CActiveRecord
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('provision',$this->provision);
-		$criteria->compare('spent',$this->spent);
+		$criteria->compare('initial_provision',$this->initial_provision);
+		//$criteria->compare('spent',$this->spent);
 		$criteria->compare('weight',$this->weight);
 
 		return new CActiveDataProvider($this, array(

@@ -82,7 +82,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 
 	list($color_count, $background_color) = getBackGroundColor($color_count);
 	foreach($child_budgets as $budget){
-		$percent=percentage($budget->provision,$parent_budget->provision);
+		$percent=percentage($budget->initial_provision,$parent_budget->initial_provision);
 		$width=$graph_width*($percent / 100);
 
 		// is this budget a parent? (Can we avoid this query?)
@@ -111,11 +111,11 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 				if($budget->id == $globals['queried_budget'])
 					$highlight = 'queriedBudget';
 				echo '<div>';
-				echo '<span class="'.$highlight.'">'.$budget->concept.' '.number_format($budget->provision).'€.</span> ';
+				echo '<span class="'.$highlight.'">'.$budget->concept.' '.number_format($budget->initial_provision).'€.</span> ';
 				//echo $percent.'% del total.';
 				echo '</div>';
 			echo '<div class="graph_bar '.$highlight.'" style="width:'.$width.'px;">';
-			$percent=percentage($budget->provision,$globals['yearly_total']);
+			$percent=percentage($budget->initial_provision,$globals['yearly_total']);
 			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
 
@@ -134,7 +134,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 
 $graph_width=897;
 
-$yearly_total = $parent_budget->provision;
+$yearly_total = $parent_budget->initial_provision;
 $globals=array(	'yearly_total' => $yearly_total,
 				'queried_budget' => $model->id,
 );
@@ -152,11 +152,11 @@ if($parent_budget->parent && $parent_budget->parent0->parent){
 }
 */
 echo '<div '.$budget_onclick.'>';
-echo $parent_budget->concept.'. '.number_format($parent_budget->provision).'€<br />';
-echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">Total: '.number_format($parent_budget->provision).'€ 100%</div><br />';
+echo $parent_budget->concept.'. '.number_format($parent_budget->initial_provision).'€<br />';
+echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">Total: '.number_format($parent_budget->initial_provision).'€ 100%</div><br />';
 echo '</div>';
 
-echo '<p style="font-size:1.3em;text-decoration:underline;">'.number_format($parent_budget->provision).'€ es la suma de las siguientes partidas</p>';
+echo '<p style="font-size:1.3em;text-decoration:underline;">'.number_format($parent_budget->initial_provision).'€ es la suma de las siguientes partidas</p>';
 
 echoChildBudgets($parent_budget, 0, $graph_width, 0, $globals);
 

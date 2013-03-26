@@ -314,9 +314,11 @@ foreach($replys as $reply){
 		echo '</div>';
 
 	echo '</div><div class="clear"></div>';
+/*
 	echo '<div class="bottomBar">';
 	echo __('Is this reply satisfactory? If not, you may').' '.CHtml::link(__('reformulate the enquiry'), array('enquiry/create', 'related'=>$model->id));
 	echo '</div>';
+*/
 	echo '</div>';	//close reply
 }?>
 

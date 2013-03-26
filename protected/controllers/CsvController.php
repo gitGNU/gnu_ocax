@@ -80,7 +80,7 @@ class CsvController extends Controller
 						break;
 					}
 				}
-				list($id, $code, $label, $concept, $provision, $spent, $parent_id) = explode("|", $line);
+				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $s_t1, $s_t2, $s_t3, $s_t4, $parent_id) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				if (in_array($id, $ids)) {
@@ -110,17 +110,17 @@ class CsvController extends Controller
 			foreach ($lines as $line_num => $line) {
 				if($line_num==0)
 					continue;
-				list($id, $code, $label, $concept, $provision, $spent, $parent_id) = explode("|", $line);
+				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $s_t1, $s_t2, $s_t3, $s_t4, $parent_id) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				$ids[$id]=array();
-				$provision = str_replace('€', '', $provision);
-				$provision = (float)trim(str_replace(',', '', $provision));
+				$initial_prov = str_replace('€', '', $initial_prov);
+				$initial_prov = (float)trim(str_replace(',', '', $initial_prov));
 				$ids[$id]['internal_code']=$id;
-				$ids[$id]['total']=$provision;
+				$ids[$id]['total']=$initial_prov;
 				$ids[$id]['children']=array();
 				if(array_key_exists($parent_id, $ids)){
-					$ids[$parent_id]['children'][$id]=$provision;
+					$ids[$parent_id]['children'][$id]=$initial_prov;
 				}
 			}
 		}else
@@ -133,7 +133,7 @@ class CsvController extends Controller
 					$child_total = $child_total + $total;
 				if(bccomp($child_total, $id['total'])!=0){
 					$errorStr='<div style="margin-top:15px;width:400px;">';
-					$errorStr=$errorStr.'<b>'.$id['internal_code'].' provision is: <span style="float:right;">'.number_format($id['total'], 2).'</span></b>';
+					$errorStr=$errorStr.'<b>'.$id['internal_code'].' Initial provision is: <span style="float:right;">'.number_format($id['total'], 2).'</span></b>';
 					$rowColor='';
 					foreach($id['children'] as $child => $total){
 						if(!$rowColor){
@@ -179,7 +179,7 @@ class CsvController extends Controller
 			foreach ($lines as $line_num => $line) {
 				if($line_num==0)
 					continue;
-				list($csv_id, $code, $label, $concept, $provision, $spent, $csv_parent_id) = explode("|", $line);
+				list($csv_id, $code, $label, $concept, $initial_prov, $actual_prov, $s_t1, $s_t2, $s_t3, $s_t4, $csv_parent_id) = explode("|", $line);
 
 				$new_budget=new Budget;
 				$new_budget->csv_id = $csv_id;
@@ -188,14 +188,37 @@ class CsvController extends Controller
 				$new_budget->code = trim($code);
 				$new_budget->label = trim($label);
 				$new_budget->concept = trim($concept);
-				$new_budget->provision = trim(str_replace('€', '', $provision));
-				$new_budget->provision = trim(str_replace(',', '', $new_budget->provision));
-				if(!$new_budget->provision)
-					$new_budget->provision = 0;
-				$new_budget->spent = trim(str_replace('€', '', $spent));
-				$new_budget->spent = trim(str_replace(',', '', $new_budget->spent));
-				if(!$new_budget->spent)
-					$new_budget->spent = 0;
+
+				$new_budget->initial_provision = trim(str_replace('€', '', $initial_prov));
+				$new_budget->initial_provision = trim(str_replace(',', '', $new_budget->initial_provision));
+				if(!$new_budget->initial_provision)
+					$new_budget->initial_provision = 0;
+
+				$new_budget->actual_provision = trim(str_replace('€', '', $actual_prov));
+				$new_budget->actual_provision = trim(str_replace(',', '', $new_budget->actual_provision));
+				if(!$new_budget->actual_provision)
+					$new_budget->actual_provision = 0;
+
+				$new_budget->spent_t1 = trim(str_replace('€', '', $s_t1));
+				$new_budget->spent_t1 = trim(str_replace(',', '', $new_budget->spent_t1));
+				if(!$new_budget->spent_t1)
+					$new_budget->spent_t1 = 0;
+
+				$new_budget->spent_t2 = trim(str_replace('€', '', $s_t2));
+				$new_budget->spent_t2 = trim(str_replace(',', '', $new_budget->spent_t2));
+				if(!$new_budget->spent_t2)
+					$new_budget->spent_t2 = 0;
+
+				$new_budget->spent_t3 = trim(str_replace('€', '', $s_t3));
+				$new_budget->spent_t3 = trim(str_replace(',', '', $new_budget->spent_t3));
+				if(!$new_budget->spent_t3)
+					$new_budget->spent_t3 = 0;
+
+				$new_budget->spent_t4 = trim(str_replace('€', '', $s_t4));
+				$new_budget->spent_t4 = trim(str_replace(',', '', $new_budget->spent_t4));
+				if(!$new_budget->spent_t4)
+					$new_budget->spent_t4 = 0;
+
 				$criteria=new CDbCriteria;
 				$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
 				$parent=Budget::model()->find($criteria);
@@ -238,17 +261,19 @@ class CsvController extends Controller
 		$model = new ImportCSV;
 		$model->year = $id;
 
-		$header = 'internal code|code|label|concept|provision|spent|internal parent code'.PHP_EOL;
+		$header = 'internal code|code|label|concept|initial provision|actual provision|spent t1|spent t2|spent t3|spent t4|internal parent code'.PHP_EOL;
 
 		$file = '/tmp/csv-' . mt_rand(10000,99999);
 		$fh = fopen($file, 'w');
 		fwrite($fh, $header);
 
-		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, code, label, concept, provision, spent, csv_parent_id
+		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, code, label, concept, initial_provision, actual_provision,
+													spent_t1, spent_t2, spent_t3, spent_t4, csv_parent_id
 													FROM budget
 													WHERE year = '.$model->year.' AND parent IS NOT NULL');
 		foreach($budgets as $b){
-			fwrite($fh, $b->csv_id.'|'.$b->code.'|'.$b->label.'|'.$b->concept.'|'.$b->provision.'|'.$b->spent.'|'.$b->csv_parent_id. PHP_EOL);
+			fwrite($fh, $b->csv_id.'|'.$b->code.'|'.$b->label.'|'.$b->concept.'|'.$b->initial_provision.'|'.$b->actual_provision.
+						'|'.$b->spent_t1.'|'.$b->spent_t2.'|'.$b->spent_t3.'|'.$b->spent_t4.'|'.$b->csv_parent_id. PHP_EOL);
 		}
 		fclose($fh);
 		if (copy($file, $model->path.$model->year.'-internal.csv')) {

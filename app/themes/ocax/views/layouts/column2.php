@@ -8,6 +8,9 @@
 <div class="span-5 last">
 	<div id="sidebar">
 	<?php
+
+//http://www.yiiframework.com/doc/blog/1.1/en/portlet.menu
+
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
 		));

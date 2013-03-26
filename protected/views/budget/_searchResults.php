@@ -21,12 +21,12 @@ if($data->code){
 	echo CHtml::encode($data->code).'<br />';
 }
 
-echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('provision')).':</span> ';
-echo number_format(CHtml::encode($data->provision), 2, ',', '.').' €<br />';
+echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('initial_provision')).':</span> ';
+echo number_format(CHtml::encode($data->initial_provision), 2, ',', '.').' €<br />';
 
 
-echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('spent')).':</span> ';
-echo number_format(CHtml::encode($data->spent), 2, ',', '.').' €<br />';
+echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('actual_provision')).':</span> ';
+echo number_format(CHtml::encode($data->actual_provision), 2, ',', '.').' €<br />';
 
 echo '</div>';
 ?>

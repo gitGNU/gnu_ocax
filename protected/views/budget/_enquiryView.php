@@ -8,8 +8,8 @@
 			'value'=> CHtml::link($model->concept, array('budget/view','id'=>$model->id)),
 		),
 		'code',
-		array('name'=>'provision', 'type'=>'raw', 'value'=>number_format($model->provision).'€'),
-		array('name'=>'spent', 'type'=>'raw', 'value'=>number_format($model->spent).'€'),
+		array('name'=>'initial_provision', 'type'=>'raw', 'value'=>number_format($model->initial_provision).'€'),
+		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>number_format($model->actual_provision).'€'),
 	),
 )); ?>
 

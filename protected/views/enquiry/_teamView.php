@@ -31,6 +31,42 @@ if($model->budget){
 	echo $this->renderPartial('//budget/_enquiryView', array('model'=>$budget));
 }
 ?>
+
+
+<?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
+$providerData = $reformulatedDataprovider->getData();
+
+echo '<style>.highlight_row{background:#FFDEAD;}</style>';
+echo 	'<div style="font-size:1.3em">'.__('The enquiry').' "'.$providerData[0]->title.'" '.__('has been reformulated').
+		' '. (count($providerData)-1) .' '.__('time(s)').'</div>';
+
+$this->widget('PGridView', array(
+	'id'=>'reforumulated-enquiry-grid',
+	'dataProvider'=>$reformulatedDataprovider,
+	'template' => '{items}{pager}',
+	'rowCssClassExpression'=>'($data->id == '.$model->id.')? "highlight_row":"row_id_".$row." ".($row%2?"even":"odd")',
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/enquiry/teamView',
+    ),
+	'columns'=>array(
+			array(
+				'header'=>__('Enquiry'),
+				'value'=>'$data[\'title\']',
+			),
+			array(
+				'header'=>__('State'),
+				'type' => 'raw',
+				'value'=>'$data->getHumanStates($data[\'state\'])',
+			),
+			array(
+				'header'=>__('Formulated'),
+				'value'=>'$data[\'created\']',
+			),
+			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+)));
+}?>
+
 </div>
 
 <div style="background-color:white;	margin: 10px -10px -10px -10px;padding:10px;">

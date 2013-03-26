@@ -118,7 +118,8 @@ class BudgetController extends Controller
 	{
 		$model=new Budget;
 		$model->scenario = 'newYear';
-
+		$model->provision = 0;
+		$model->spent = 0;
 		$model->concept = 'Partida raiz';
 		$model->code = 0;
 

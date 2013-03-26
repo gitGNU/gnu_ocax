@@ -48,25 +48,53 @@ if($dataProvider->getData()){
 }
 ?>
 
-<div class="view" style="padding:3px;">
+<div class="view" style="float:left;padding:0px;width:48%">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'code',
 		'concept',
 		array(
-	        'name'=>'provision',
+	        'name'=>'initial_provision',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->provision), 2, ',', '.').' €',
+	        'value'=>number_format(CHtml::encode($model->initial_provision), 2, ',', '.').' €',
 		),
 		array(
-	        'name'=>'spent',
+	        'name'=>'actual_provision',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->spent), 2, ',', '.').' €',
+	        'value'=>number_format(CHtml::encode($model->actual_provision), 2, ',', '.').' €',
 		),
 	),
 )); ?>
 </div>
+<div class="view" style="float:right;padding:0px;width:48%">
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		array(
+	        'name'=>'spent_t1',
+			'type' => 'raw',
+	        'value'=>number_format(CHtml::encode($model->spent_t1), 2, ',', '.').' €',
+		),
+		array(
+	        'name'=>'spent_t2',
+			'type' => 'raw',
+	        'value'=>number_format(CHtml::encode($model->spent_t2), 2, ',', '.').' €',
+		),
+		array(
+	        'name'=>'spent_t3',
+			'type' => 'raw',
+	        'value'=>number_format(CHtml::encode($model->spent_t3), 2, ',', '.').' €',
+		),
+		array(
+	        'name'=>'spent_t4',
+			'type' => 'raw',
+	        'value'=>number_format(CHtml::encode($model->spent_t4), 2, ',', '.').' €',
+		),
+	),
+)); ?>
+</div>
+<div style="clear:both"></div>
 
 <p>
 <?php

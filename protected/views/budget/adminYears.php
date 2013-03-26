@@ -27,8 +27,8 @@ $this->widget('PGridView', array(
 	'columns'=>array(
 		'year',
 		//'concept',
-		'provision',
-		'spent',
+		//'provision',
+		//'spent',
 		array(
 			'header'=>'Published',
 			'name'=>'code',
