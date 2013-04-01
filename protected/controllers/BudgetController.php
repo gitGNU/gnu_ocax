@@ -37,7 +37,7 @@ class BudgetController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'getTotalYearlyBudgets','admin','create','adminYears','deleteYearsBudgets',
-									'createYear','updateYear','update','delete',
+									'createYear','updateYear','featured','feature','update','delete',
 									/*'importCSV','uploadCSV','checkCSVFormat','importCSVData'*/),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -223,6 +223,34 @@ class BudgetController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	public function actionFeatured()
+	{
+		$model=new Budget('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['year']))
+			$model->year=$_GET['year'];
+		else
+			$model->year=Config::model()->findByPk('year')->value;
+		if(isset($_GET['Budget']))
+			$model->attributes=$_GET['Budget'];
+
+		$this->render('featured',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionFeature($id)
+	{
+		$model = $this->loadModel($id);
+		if($model->featured)
+			$model->featured=0;
+		else
+			$model->featured=1;
+		$model->save();
+		echo 1;
+	}
+
 
 	public function actionAdminYears()
 	{

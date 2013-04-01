@@ -18,6 +18,7 @@
  * @property string $spent_t2
  * @property string $spent_t3
  * @property string $spent_t4
+ * @property integer $featured
  * @property integer $weight
  *
  * The followings are the available model relations:
@@ -53,8 +54,8 @@ class Budget extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('year, concept, initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'required'),
-			array('parent, year, weight', 'numerical', 'integerOnly'=>true),
+			array('year, concept, initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4, featured', 'required'),
+			array('parent, year, featured, weight', 'numerical', 'integerOnly'=>true),
 			array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'type', 'type'=>'float'),
 			//array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'length', 'max'=>14),
 			array('code, csv_id, csv_parent_id', 'length', 'max'=>20),
@@ -63,7 +64,7 @@ class Budget extends CActiveRecord
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, parent, year, code, label, concept, provision, spent, weight', 'safe', 'on'=>'search'),
+			array('id, parent, year, code, label, concept, provision, featured, weight', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -124,6 +125,8 @@ class Budget extends CActiveRecord
 			if($yearly_budget->code != 1)	//not published
 				return new CActiveDataProvider($this,array('data'=>array()));
 		}
+		if(!$this->code && !$this->concept)
+			return new CActiveDataProvider($this,array('data'=>array()));
 
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent is not null');	// dont show year budget
@@ -159,7 +162,7 @@ class Budget extends CActiveRecord
 		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('initial_provision',$this->initial_provision);
-		//$criteria->compare('spent',$this->spent);
+		$criteria->compare('featured',$this->featured);
 		$criteria->compare('weight',$this->weight);
 
 		return new CActiveDataProvider($this, array(

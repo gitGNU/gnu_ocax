@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS budget (
   spent_t2 decimal(14, 2) NOT NULL,	/* 	2nd trimester */
   spent_t3 decimal(14, 2) NOT NULL,	/* 	3rd trimester */
   spent_t4 decimal(14, 2) NOT NULL,	/* 	4th trimester */
+  featured TINYINT(1) DEFAULT 0,
   weight int(10) DEFAULT 0,				/* order for display */
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES budget(id)

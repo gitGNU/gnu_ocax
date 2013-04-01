@@ -226,6 +226,7 @@ class CsvController extends Controller
 					$new_budget->parent = $parent->id;
 				else
 					$new_budget->parent = $yearly_budget->id;
+				$new_budget->featured=0;
 
 				$criteria=new CDbCriteria;
 				$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
@@ -235,6 +236,7 @@ class CsvController extends Controller
 					$new_budgets = $new_budgets+1;
 					continue;
 				}
+				$new_budget->featured=$budget->featured;
 				$differences = $budget->compare($new_budget);
 				if(count($differences) == 1)	// only difference is the id
 					continue;

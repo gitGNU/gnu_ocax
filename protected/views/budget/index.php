@@ -8,10 +8,10 @@ $year = $model->year;
 $criteria = new CDbCriteria;
 $criteria->condition = 'year = '.$year.' AND parent is NULL';
 //$criteria->order = 'weight ASC';
-$budget_raiz = Budget::model()->find($criteria);
+$root_budget = Budget::model()->find($criteria);
 
-if(!$budget_raiz){
+if(!$root_budget){
 	echo '<h1>'. __('No data available').'</h1>';
 }else
-	$this->renderPartial('_index',array('budget_raiz'=>$budget_raiz, 'model'=>$model));
+	$this->renderPartial('_index',array('budget_raiz'=>$root_budget, 'model'=>$model));
 ?>
