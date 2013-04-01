@@ -35,18 +35,29 @@ class Enquiry extends CActiveRecord
     public $humanTypeValues=array(
 							0=>'Generic',
 							1=>'Budgetary',
+							2=>'Reclamation',
 						);
+
+	public static function getHumanTypes($type)
+	{
+    	$humanTypeValues=array(
+						0=>__('Generic'),
+						1=>__('Budgetary'),
+						2=>__('Reclamation'),
+					);
+		return $humanTypeValues[$type];
+	}
 
 	public static function getHumanStates($state=Null)
 	{
     	$humanStateValues=array(
-                        1=>__('Waiting for the %s to reply'),
-						2=>__('The %s acknowledges the enquiry'),
-                        3=>__('Rejected by the %s'),
-                        4=>__('Waiting for the Administration to reply'),
-                        5=>__('Duly replied by the Administration'),
-                        6=>__('Parcially answered by the Administration'),
-                        7=>__('Rejected by the Administration'),
+                        1=>__('Pending validation by the %s'),
+						2=>__('Enquiry accepted by the %s'),
+                        3=>__('Enquiry rejected by the %s'),
+                        4=>__('Awaiting response from the Administration'),
+                        5=>__('Replied by the Administration'),
+                        6=>__('Reply considered satisfactory'),
+                        7=>__('Reply considered insatisfactory'),
 					);
 		if($state!==Null){
 			$str=$humanStateValues[$state];

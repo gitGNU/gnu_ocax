@@ -46,6 +46,13 @@ function toggleSocialPopup(id){
 		$('#'+id).show();
 	}
 }
+function toggleStatesDiagram(){
+	if ( $('#states_diagram').is(':visible') )
+		$('#states_diagram').slideUp('fast');
+	else{
+		$('#states_diagram').slideDown('fast');
+	}
+}
 </script>
 
 <?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
@@ -89,8 +96,9 @@ $this->widget('PGridView', array(
 
 <h1><?php echo $model->title?></h1>
 <hr style="margin-top:-10px;margin-bottom:-5px;" />
-
-
+<div id="states_diagram" style="display:none;z-index:10;position:absolute;">
+<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
+</div>
 
 <div class="view" style="float:right;text-align:left;margin-left:10px;padding:0px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
@@ -99,13 +107,16 @@ $this->widget('PGridView', array(
 		'created',
 		array(
 	        'label'=>__('Type'),
-	        'value'=>($model->related_to) ? $model->humanTypeValues[$model->type].' ('.__('reformulated').')' : $model->humanTypeValues[$model->type],
+	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',
-	        'value'=>$model->getHumanStates($model->state),
-
+	        //'value'=>$model->getHumanStates($model->state),
+			'value'=> CHtml::link(
+						CHtml::encode($model->getHumanStates($model->state)), '#',
+						array('onclick'=>'js:toggleStatesDiagram();')
+					),
 		),
 	),
 ));
