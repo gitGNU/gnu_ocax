@@ -48,12 +48,15 @@ $(function() {
 });
 </script>
 
+<div style="font-size:2.5em;text-align:center;margin-top:-10px;">
+<?php echo Config::model()->findByPk('councilName')->value;?>
+</div>
+
 <div style="
-	margin-top:-10px;
 	margin-bottom:15px;
 	font-size:1.5em;
 	">
-<?php echo __('Budget for').' '.$year.' - '. ($year+1);
+<?php echo __('Budget for').' '.$model->getYearString();
 
 if(Yii::app()->user->isAdmin())
 	$years=$model->findAll(array('condition'=>'parent IS NULL'));
@@ -62,8 +65,9 @@ else
 
 if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {
-		return $year->year.' - '. ($year->year +1);
+		return $year->getYearString();
 	});
+
 	echo '<span style="float:right">';
 		echo __('Available years').' ';
 		echo CHtml::dropDownList('budget', $model->year, $list,

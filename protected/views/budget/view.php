@@ -3,7 +3,7 @@
 /* @var $model Budget */
 $this->layout='//layouts/column1';
 
-$yearStr = CHtml::encode($model->year).' - '.CHtml::encode($model->year +1);
+
 ?>
 
 <style>
@@ -24,7 +24,7 @@ $(function() {
 </script>
 
 
-<?php echo '<h1>'.CHtml::encode($model->concept).' '.$yearStr.'</h1>';?>
+<?php echo '<h1>'.CHtml::encode($model->concept).' '.$model->getYearString().'</h1>';?>
 
 <?php
 $dataProvider=new CActiveDataProvider('Enquiry', array(
@@ -38,22 +38,12 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 ));
 ?>
 
-<?php
-if($dataProvider->getData()){
-	echo '<p style="font-size:1.3em">'.__('Do you wish to').' '.CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id));
-	echo ' '.__('about this budget').'?</p>';
-}else{
-	echo '<p style="font-size:1.3em">'.__('No enquiries have been made about this budget yet').'. '.__('Do you wish to').' ';
-	echo CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id)).'?</p>';
-}
-?>
-
 <div class="view" style="float:left;padding:0px;width:48%">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'code',
-		'concept',
+		//'concept',
 		array(
 	        'name'=>'initial_provision',
 			'type' => 'raw',
@@ -96,10 +86,20 @@ if($dataProvider->getData()){
 </div>
 <div style="clear:both"></div>
 
+<?php
+if($dataProvider->getData()){
+	echo '<p style="font-size:1.3em">'.__('Do you wish to').' '.CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id));
+	echo ' '.__('about this budget').'?</p>';
+}else{
+	echo '<p style="font-size:1.3em">'.__('No enquiries have been made about this budget yet').'. '.__('Do you wish to').' ';
+	echo CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id)).'?</p>';
+}
+?>
+
 <p>
 <?php
 if($dataProvider->getData()){
-echo '<div style="font-size:1.3em;margin-top:25px;">Enquirys ya realizadas por ciudadanos:</div>';
+echo '<div style="font-size:1.3em;margin-top:25px;">'.__('Enquirys already made by citizens').':</div>';
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
 	'dataProvider'=>$dataProvider,
@@ -131,7 +131,6 @@ $this->widget('PGridView', array(
 ?>
 </p>
 
-<p style="font-size:1.3em">Opcionalmente puedes navegar partidas por próximidad.<br />
 <div class="graph">
 <?php $this->renderPartial('_interactive',array('model'=>$model));?>
 </div>

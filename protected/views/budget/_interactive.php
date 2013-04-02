@@ -2,11 +2,10 @@
 /* @var $this BudgetController */
 /* @var $dataProvider CActiveDataProvider */
 
-if($model->parent0->parent)
+if(!$model->budgets)
 	$parent_budget=$model->parent0;
 else
 	$parent_budget=$model;
-
 ?>
 
 
@@ -115,7 +114,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 				//echo $percent.'% del total.';
 				echo '</div>';
 			echo '<div class="graph_bar '.$highlight.'" style="width:'.$width.'px;">';
-			$percent=percentage($budget->initial_provision,$globals['yearly_total']);
+			$percent=percentage($budget->initial_provision,$globals['yearly_initial_provision']);
 			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
 
@@ -134,11 +133,9 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 
 $graph_width=897;
 
-$yearly_total = $parent_budget->initial_provision;
-$globals=array(	'yearly_total' => $yearly_total,
+$globals=array(	'yearly_initial_provision' => $model->find('csv_id = "'.$model->csv_id[0].'"')->initial_provision,
 				'queried_budget' => $model->id,
 );
-
 
 $budget_onclick='';
 if($parent_budget->parent && $parent_budget->parent0->parent){
@@ -153,15 +150,14 @@ if($parent_budget->parent && $parent_budget->parent0->parent){
 */
 echo '<div '.$budget_onclick.'>';
 echo $parent_budget->concept.'. '.number_format($parent_budget->initial_provision).'€<br />';
-echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">Total: '.number_format($parent_budget->initial_provision).'€ 100%</div><br />';
+$percent = percentage($parent_budget->initial_provision,$globals['yearly_initial_provision']); 
+echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">'.
+	 number_format($parent_budget->initial_provision).'€ '.$percent.'%</div><br />';
 echo '</div>';
 
-echo '<p style="font-size:1.3em;text-decoration:underline;">'.number_format($parent_budget->initial_provision).'€ es la suma de las siguientes partidas</p>';
+echo '<p style="font-size:1.3em;text-decoration:underline;">"'.$parent_budget->concept.'" '.__('is composed of the following budgets').'</p>';
 
 echoChildBudgets($parent_budget, 0, $graph_width, 0, $globals);
-
-
-
 
 ?>
 

@@ -111,6 +111,11 @@ class Budget extends CActiveRecord
 		);
 	}
 
+	public function getYearString()
+	{
+		return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
+	}
+
 	public function publicSearch()
 	{
 		// Warning: Please modify the following code to remove attributes that
