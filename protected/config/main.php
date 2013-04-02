@@ -4,6 +4,7 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
 require_once(dirname(__FILE__).'/../includes/localization.php');
+require_once(dirname(__FILE__).'/../includes/number_utils.php');
 
 
 // This is the main Web application configuration. Any writable

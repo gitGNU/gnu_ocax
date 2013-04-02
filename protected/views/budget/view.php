@@ -64,7 +64,7 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 		array(
 	        'name'=>'spent_t1',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->spent_t1), 2, ',', '.').' €',
+	        'value'=>number_format(CHtml::encode($model->spent_t1), 2, '.', ',').' €',
 		),
 		array(
 	        'name'=>'spent_t2',
@@ -131,10 +131,47 @@ $this->widget('PGridView', array(
 ?>
 </p>
 
-<div class="graph">
-<?php $this->renderPartial('_interactive',array('model'=>$model));?>
+<?php
+if(!$model->budgets)
+	$parent_budget=$model->parent0;
+else
+	$parent_budget=$model;
+$root_budget = $model->find('csv_id = "'.$model->csv_id[0].'"');
+$graph_width=897;
+?>
+<style>
+.initial_provision_bar{
+	background-color:#BFBFBF;
+}
+.actual_provision_bar{
+	margin-bottom:20px;
+	background-color:#DBDBDB;
+}
+.key{
+	padding:2px;
+	padding-left:10px;
+	padding-right:150px;
+}
+</style>
+<div class="view" style="padding:0px;width:<?php echo $graph_width;?>">
+	<div style="background:#CAE1FF;font-size:1.3em;padding:5px;">
+	<?php
+	$percent = percentage($parent_budget->initial_provision,$root_budget->initial_provision);
+	echo '\''.$parent_budget->concept.'\' '.__('constitutes ').$percent.'% '.__('of the total anual budget').' ';
+	echo __('and is comprised of the following budgets').'.';
+	?>
+	</div>
+	<div style="background:#F0F8FF;padding:10px;margin-bottom:10px;">
+	<?php echo __('Key');?>:
+	<span class="key" style="margin-left:20px;background:#BFBFBF"><?php echo __('Initial provision');?></span>
+	<span class="key" style="margin-left:40px;background:#DBDBDB"><?php echo __('Actual provision');?></span>
+	</div>
+
+	<div class="graph">
+	<?php $this->renderPartial('_interactive',array('model'=>$model,
+													'root_budget'=>$root_budget,
+													'parent_budget'=>$parent_budget,
+													'graph_width'=>$graph_width));?>
+	</div>
 </div>
-
-
-
 

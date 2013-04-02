@@ -2,19 +2,10 @@
 /* @var $this BudgetController */
 /* @var $dataProvider CActiveDataProvider */
 
-if(!$model->budgets)
-	$parent_budget=$model->parent0;
-else
-	$parent_budget=$model;
 ?>
 
 
 <style>
-.graph_bar{
-	float:left;
-	margin-bottom:20px;
-	background-color:lightgrey;
-}
 .queriedBudget{
 	color:#33A1C9;
 	font-weight:bold;
@@ -33,13 +24,12 @@ else
     opacity: 0.7;
 	cursor:pointer;
 }
-
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
+.bClose{
+	cursor: pointer;
+	position: absolute;
+	right: -21px;
+	top: -21px;
+}
 </style>
 
 <script>
@@ -53,9 +43,7 @@ function toggleChildren(id){
 
 <?php
 
-function percentage($val1, $val2){
-	return round( ($val1 / $val2) * 100);
-}
+
 
 function getBackGroundColor($color=0){
 	$colors = array(
@@ -113,8 +101,12 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 				echo '<span class="'.$highlight.'">'.$budget->concept.' '.number_format($budget->initial_provision).'€.</span> ';
 				//echo $percent.'% del total.';
 				echo '</div>';
-			echo '<div class="graph_bar '.$highlight.'" style="width:'.$width.'px;">';
+			echo '<div class="initial_provision_bar '.$highlight.'" style="width:'.$width.'px;">';
 			$percent=percentage($budget->initial_provision,$globals['yearly_initial_provision']);
+			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
+			echo '</div>';
+			echo '<div class="actual_provision_bar '.$highlight.'" style="width:'.$width.'px;">';
+			$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
 			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
 
@@ -131,9 +123,10 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $color_count, $
 	}
 }
 
-$graph_width=897;
 
-$globals=array(	'yearly_initial_provision' => $model->find('csv_id = "'.$model->csv_id[0].'"')->initial_provision,
+
+$globals=array(	'yearly_initial_provision' => $root_budget->initial_provision,
+				'yearly_actual_provision' => $root_budget->actual_provision,
 				'queried_budget' => $model->id,
 );
 
@@ -148,11 +141,7 @@ if($parent_budget->parent && $parent_budget->parent0->parent){
 	}
 }
 */
-$percent = percentage($parent_budget->initial_provision,$globals['yearly_initial_provision']);
-echo '<p style="font-size:1.3em">';
-echo $parent_budget->concept.' '.__('constitutes ').$percent.'% '.__('of the total anual budget').' ';
-echo __('and is composed of the following budgets');
-echo '</p>';
+
 /*
 echo '<div '.$budget_onclick.'>';
 echo $parent_budget->concept.'. '.number_format($parent_budget->initial_provision).'€<br />';
