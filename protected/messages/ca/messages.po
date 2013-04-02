@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-01 18:05+0100\n"
+"PO-Revision-Date: 2013-04-02 11:02+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -131,52 +131,52 @@ msgstr "Data d'alta"
 msgid "Is partner"
 msgstr "És soci"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:96
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:97
 msgid "Parent"
 msgstr "Pare"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:99
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
 msgid "Year"
 msgstr "Any"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:101
 msgid "Code"
 msgstr "Codi"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:101
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:102
 msgid "Label"
 msgstr "Etiqueta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:102
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:103
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:6
 msgid "Concept"
 msgstr "Concepte"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:103
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
 msgid "Initial provision"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
 msgid "Actual provision"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:106
 msgid "Spent T1"
 msgstr "Spent T1"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:106
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:107
 msgid "Spent T2"
 msgstr "Spent T2"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:107
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:108
 msgid "Spent T3"
 msgstr "Spent T3"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:108
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:109
 msgid "Spent T4"
 msgstr "Spent T4"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:109
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:110
 msgid "Weight"
 msgstr "Pes"
 
@@ -241,7 +241,6 @@ msgid "Enquiry rejected by the %s"
 msgstr "Enquiry rejected by the %s"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:57
-#, fuzzy
 msgid "Awaiting response from the Administration"
 msgstr "Esperant resposta de la Administració"
 
@@ -317,6 +316,11 @@ msgstr "about this budget"
 msgid "No enquiries have been made about this budget yet"
 msgstr ""
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:11
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:37
+msgid "Featured budgets"
+msgstr ""
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:14
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
@@ -325,13 +329,21 @@ msgstr "No hi ha dades disponibles"
 msgid "Budget for"
 msgstr "Pressupostes per a"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:87
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:68
+msgid "Available years"
+msgstr "Anys disponibles"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:106
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:95
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:117
 msgid "Filtered results"
 msgstr "Resultats de la cerca"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:52
+msgid "Feature budget"
+msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_view.php:15
 msgid "comments on the"

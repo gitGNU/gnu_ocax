@@ -53,7 +53,26 @@ $(function() {
 	margin-bottom:15px;
 	font-size:1.5em;
 	">
-<?php echo __('Budget for').' '.$year.' - '. ($year+1);?>
+<?php echo __('Budget for').' '.$year.' - '. ($year+1);
+
+if(Yii::app()->user->isAdmin())
+	$years=$model->findAll(array('condition'=>'parent IS NULL'));
+else
+	$years=$model->findAll(array('condition'=>'parent IS NULL AND code = 1'));
+
+if(count($years) > 1){
+	$list=CHtml::listData($years, 'year', function($year) {
+		return $year->year.' - '. ($year->year +1);
+	});
+	echo '<span style="float:right">';
+		echo __('Available years').' ';
+		echo CHtml::dropDownList('budget', $model->year, $list,
+								array(	'id'=>'selectYear',
+										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
+								));
+	echo '</span>';
+}
+?>
 </div>
 
 <div style="
