@@ -148,15 +148,21 @@ if($parent_budget->parent && $parent_budget->parent0->parent){
 	}
 }
 */
+$percent = percentage($parent_budget->initial_provision,$globals['yearly_initial_provision']);
+echo '<p style="font-size:1.3em">';
+echo $parent_budget->concept.' '.__('constitutes ').$percent.'% '.__('of the total anual budget').' ';
+echo __('and is composed of the following budgets');
+echo '</p>';
+/*
 echo '<div '.$budget_onclick.'>';
 echo $parent_budget->concept.'. '.number_format($parent_budget->initial_provision).'€<br />';
-$percent = percentage($parent_budget->initial_provision,$globals['yearly_initial_provision']); 
+
 echo '<div style="width:'.$graph_width.'px; background-color:lightgrey; text-align:right;">'.
 	 number_format($parent_budget->initial_provision).'€ '.$percent.'%</div><br />';
 echo '</div>';
 
 echo '<p style="font-size:1.3em;text-decoration:underline;">"'.$parent_budget->concept.'" '.__('is composed of the following budgets').'</p>';
-
+*/
 echoChildBudgets($parent_budget, 0, $graph_width, 0, $globals);
 
 ?>
