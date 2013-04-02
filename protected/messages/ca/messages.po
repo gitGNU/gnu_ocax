@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-02 17:35+0100\n"
+"PO-Revision-Date: 2013-04-02 18:14+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -324,7 +324,7 @@ msgstr "Enquirys already made by citizens"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:160
 msgid "constitutes "
-msgstr ""
+msgstr "constitueix un"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:160
 msgid "of the total anual budget"
@@ -332,11 +332,15 @@ msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:161
 msgid "and is comprised of the following budgets"
-msgstr "està compost per les següents partides"
+msgstr "i està compost per les següents partides"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:165
 msgid "Key"
 msgstr "Llegenda"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:169
+msgid "Up one level"
+msgstr "Puja un nivell"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:11
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:37

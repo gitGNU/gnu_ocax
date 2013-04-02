@@ -150,21 +150,24 @@ $graph_width=897;
 .key{
 	padding:2px;
 	padding-left:10px;
-	padding-right:150px;
+	padding-right:90px;
 }
 </style>
 <div class="view" style="padding:0px;width:<?php echo $graph_width;?>">
 	<div style="background:#CAE1FF;font-size:1.3em;padding:5px;">
 	<?php
 	$percent = percentage($parent_budget->initial_provision,$root_budget->initial_provision);
-	echo '\''.$parent_budget->concept.'\' '.__('constitutes ').$percent.'% '.__('of the total anual budget').' ';
+	echo '\''.$parent_budget->concept.'\' '.__('constitutes ').' '.$percent.'% '.__('of the total anual budget').' ';
 	echo __('and is comprised of the following budgets').'.';
 	?>
 	</div>
 	<div style="background:#F0F8FF;padding:10px;margin-bottom:10px;">
 	<?php echo __('Key');?>:
 	<span class="key" style="margin-left:20px;background:#BFBFBF"><?php echo __('Initial provision');?></span>
-	<span class="key" style="margin-left:40px;background:#DBDBDB"><?php echo __('Actual provision');?></span>
+	<span class="key" style="margin-left:25px;background:#DBDBDB"><?php echo __('Actual provision');?></span>
+	<?php if($parent_budget->parent && $parent_budget->parent0->parent && $parent_budget->parent0->parent0->parent){
+		echo '<span style="float:right">'.CHtml::link(__('Up one level'),array('budget/view', 'id'=>$parent_budget->parent0->id)).'</span>';
+	}?>
 	</div>
 
 	<div class="graph">
