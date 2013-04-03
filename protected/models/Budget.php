@@ -59,7 +59,7 @@ class Budget extends CActiveRecord
 			array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'type', 'type'=>'float'),
 			//array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'length', 'max'=>14),
 			array('code, csv_id, csv_parent_id', 'length', 'max'=>20),
-			array('csv_id', 'unique', 'className' => 'Budget'),
+			//array('csv_id', 'unique', 'className' => 'Budget'),	// this is a good idea but need to check against year
 			array('label, concept', 'length', 'max'=>255),
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().

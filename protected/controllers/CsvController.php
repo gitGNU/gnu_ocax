@@ -232,6 +232,11 @@ class CsvController extends Controller
 				$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
 				$budget=Budget::model()->find($criteria);
 				if(!$budget){
+
+					//$new_budget->validate();
+					//echo CHtml::errorSummary($new_budget);
+					//Yii::app()->end();
+
 					$new_budget->save();
 					$new_budgets = $new_budgets+1;
 					continue;

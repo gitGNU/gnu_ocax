@@ -47,12 +47,12 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 		array(
 	        'name'=>'initial_provision',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->initial_provision), 2, ',', '.').' €',
+	        'value'=>format_number($model->initial_provision).' €',
 		),
 		array(
 	        'name'=>'actual_provision',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->actual_provision), 2, ',', '.').' €',
+	        'value'=>format_number($model->actual_provision).' €',
 		),
 	),
 )); ?>
@@ -64,22 +64,22 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 		array(
 	        'name'=>'spent_t1',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->spent_t1), 2, '.', ',').' €',
+	        'value'=>format_number($model->spent_t1).' €',
 		),
 		array(
 	        'name'=>'spent_t2',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->spent_t2), 2, ',', '.').' €',
+	        'value'=>format_number($model->spent_t2).' €',
 		),
 		array(
 	        'name'=>'spent_t3',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->spent_t3), 2, ',', '.').' €',
+	        'value'=>format_number($model->spent_t3).' €',
 		),
 		array(
 	        'name'=>'spent_t4',
 			'type' => 'raw',
-	        'value'=>number_format(CHtml::encode($model->spent_t4), 2, ',', '.').' €',
+	        'value'=>format_number($model->spent_t4).' €',
 		),
 	),
 )); ?>
@@ -140,31 +140,31 @@ $root_budget = $model->find('csv_id = "'.$model->csv_id[0].'"');
 $graph_width=897;
 ?>
 <style>
-.initial_provision_bar{
+.actual_provision_bar{
 	background-color:#BFBFBF;
 }
-.actual_provision_bar{
+.initial_provision_bar{
 	margin-bottom:20px;
 	background-color:#DBDBDB;
 }
 .key{
 	padding:2px;
 	padding-left:10px;
-	padding-right:90px;
+	padding-right:60px;
 }
 </style>
 <div class="view" style="padding:0px;width:<?php echo $graph_width;?>">
 	<div style="background:#CAE1FF;font-size:1.3em;padding:5px;">
 	<?php
-	$percent = percentage($parent_budget->initial_provision,$root_budget->initial_provision);
+	$percent = percentage($parent_budget->actual_provision,$root_budget->actual_provision);
 	echo '\''.$parent_budget->concept.'\' '.__('constitutes ').' '.$percent.'% '.__('of the total anual budget').' ';
 	echo __('and is comprised of the following budgets').'.';
 	?>
 	</div>
 	<div style="background:#F0F8FF;padding:10px;margin-bottom:10px;">
 	<?php echo __('Key');?>:
-	<span class="key" style="margin-left:20px;background:#BFBFBF"><?php echo __('Initial provision');?></span>
-	<span class="key" style="margin-left:25px;background:#DBDBDB"><?php echo __('Actual provision');?></span>
+	<span class="key" style="margin-left:15px;background:#BFBFBF"><?php echo __('Actual provision');?></span>
+	<span class="key" style="margin-left:25px;background:#DBDBDB"><?php echo __('Initial provision');?></span>
 	<?php if($parent_budget->parent && $parent_budget->parent0->parent && $parent_budget->parent0->parent0->parent){
 		echo '<span style="float:right">'.CHtml::link(__('Up one level'),array('budget/view', 'id'=>$parent_budget->parent0->id)).'</span>';
 	}?>

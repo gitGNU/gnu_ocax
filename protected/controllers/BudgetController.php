@@ -228,12 +228,12 @@ class BudgetController extends Controller
 		));
 	}
 
-	public function actionFeatured()
+	public function actionFeatured($id)
 	{
 		$model=new Budget('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['year']))
-			$model->year=$_GET['year'];
+		if(isset($id))
+			$model->year=$id;
 		else
 			$model->year=Config::model()->findByPk('year')->value;
 		if(isset($_GET['Budget']))
