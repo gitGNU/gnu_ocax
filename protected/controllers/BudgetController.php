@@ -15,7 +15,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + delete,restoreBudgets', // we only allow deletion via POST request
 		);
 	}
 
@@ -38,7 +38,7 @@ class BudgetController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'getTotalYearlyBudgets','admin','create','adminYears','deleteYearsBudgets',
 									'createYear','updateYear','featured','feature','update','delete',
-									/*'importCSV','uploadCSV','checkCSVFormat','importCSVData'*/),
+									'dumpBudgets','restoreBudgets'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -137,15 +137,6 @@ class BudgetController extends Controller
 				$this->redirect(array('adminYears'));
 			}
 		}
-/*
-		if(!$model->year){
-			if(Yii::app()->user->hasFlash('badYear')){
-				$model->year=Yii::app()->user->getFlash('badYear');
-				Yii::app()->user->setFlash('badYear', $model->year);
-			}else
-				$model->year = Config::model()->findByPk('year')->value;
-		}
-*/
 		$this->render('createYear',array(
 			'model'=>$model,
 		));
@@ -341,17 +332,31 @@ class BudgetController extends Controller
 		if (isset($_GET['Budget'])) {
 			$model->attributes = $_GET['Budget'];
 		}
-		//$model->id = 840;
+
 		$this->render('index', array(
 			'model' => $model,
 		));
-
-
-		//$dataProvider=new CActiveDataProvider('Partida',array('criteria'=>array('order'=>'weight ASC')));
-		//$this->render('index'/*,array('dataProvider'=>$dataProvider,)*/);
 	}
 
+	/**
+	 * Dump the budget table
+	 */
+	public function actionDumpBudgets()
+	{
+		echo Budget::model()->dumpBudgets();
+	}
 
+	/**
+	 * Restore the budget table
+	 */
+	public function actionRestoreBudgets($id)
+	{
+		$result = Budget::model()->restoreBudgets($id);
+		if($result == 0){
+			Yii::app()->user->setFlash('success',__('Database restored correctly'));
+		}
+		return $result;
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-02 18:14+0100\n"
+"PO-Revision-Date: 2013-04-04 18:20+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -153,12 +153,12 @@ msgid "Concept"
 msgstr "Concepte"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:166
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:167
 msgid "Initial provision"
 msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:167
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:166
 msgid "Actual provision"
 msgstr ""
 
@@ -181,6 +181,10 @@ msgstr "Spent T4"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:110
 msgid "Weight"
 msgstr "Pes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:145
+msgid "Budget table saved on the"
+msgstr "Taula de pressupostos guardada el"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:72
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:78
@@ -343,6 +347,10 @@ msgid "Up one level"
 msgstr "Puja un nivell"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:11
+msgid "Restore budgets"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:16
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:37
 msgid "Featured budgets"
 msgstr ""
@@ -378,6 +386,10 @@ msgstr "comenta el día"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_form.php:12
 msgid "comments"
 msgstr "comenta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:9
+msgid "Restore Budget Database"
+msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/_form.php:42
 msgid "Upload file for"

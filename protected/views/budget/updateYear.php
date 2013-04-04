@@ -7,6 +7,11 @@ $this->menu=array(
 	array('label'=>'List Years', 'url'=>array('adminYears')),
 );
 
+if(File::model()->findByAttributes(array('model'=>'Budget'))){
+	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
+	array_splice( $this->menu, 1, 0, $restore );
+}
+
 if($totalBudgets){
 	$featured = array( array('label'=>__('Featured budgets'), 'url'=>array('budget/featured', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $featured );
@@ -43,7 +48,7 @@ function showEnquiry(enquiry_id){
 		success: function(data){
 			if(data != 0){
 				$("#mega_delete_content").html(data);
-				$('#mega_delete_button').attr('enquiry_id', enquiry_id)
+				$('#mega_delete_button').attr('enquiry_id', enquiry_id);
 				$('#mega_delete').bPopup({
                     modalClose: false
 					, follow: ([false,false])
@@ -78,7 +83,48 @@ function megaDelete(el){
 			alert("Error on megaDelete");
 		}
 	});
-
+}
+function showBudgetDumps(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/showBudgetFiles',
+		type: 'POST',
+		async: false,
+		//data: { 'id' : enquiry_id },
+		//dataType: 'json',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			if(data != 0){
+				$("#budget_dumps_content").html(data);
+				$('#budget_dumps').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on show budget dumps");
+		}
+	});
+}
+function restoreBudgets(file_id){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/restoreBudgets/'+file_id,
+		type: 'POST',
+		async: false,
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			$('#budget_dumps').bPopup().close();
+			location.reload(true);
+		},
+		error: function() {
+			alert("Error on restore budgets");
+		}
+	});
 }
 </script>
 
@@ -118,12 +164,29 @@ $this->widget('PGridView', array(
 		<div id="mega_delete_content"></div>
 	</div>
 </div>
+<div id="budget_dumps" style="display:none;width:600px;">
+	<div style="background-color:white">
+		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+		<div id="budget_dumps_content"></div>
+	</div>
+</div>
 
 <?php /*echo $this->renderPartial('//enquiry/_megaDelete');*/ ?>
 
 <?php if(Yii::app()->user->hasFlash('csv_generated')):?>
     <div class="flash_success" id="csv_generated_ok">
 		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('csv_generated');?></b></p>
+    </div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut('fast');
+    	}, 2000);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
     </div>
 <?php endif; ?>
 

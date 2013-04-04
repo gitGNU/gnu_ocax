@@ -35,14 +35,19 @@ class FileController extends Controller
 				'actions'=>array(/*'create','update'*/),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			array('allow',
 				'actions'=>array('showCMSfiles'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			array('allow',
 				'actions'=>array(/*'view',*/'create','validateFileName',/*'update','admin',*/'delete'),
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember()",
 			),
+			array('allow',
+				'actions'=>array('showBudgetFiles'),
+				'expression'=>"Yii::app()->user->isAdmin()",
+			),
+
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -63,7 +68,7 @@ class FileController extends Controller
 */
 
 	private function getPath($modelName,$modelID=Null){
-		$path='/files/'.$modelName;
+		$path=$modelName;
 		if($modelName == 'Reply')
 			$path=$path.'/'.$modelID;
 		return $path;
@@ -92,7 +97,7 @@ class FileController extends Controller
 					mkdir($model->uri, 0700, true);
 
 				$model->uri=$model->uri.'/'.$model->file->name;
-				$model->webPath=Yii::app()->request->baseUrl.$path.'/'.$model->file->name;
+				$model->webPath=Yii::app()->request->baseUrl.'/files/'.$path.'/'.$model->file->name;
 
 				if(!$model->name)
 					$model->name=$model->file->name;
@@ -143,32 +148,6 @@ class FileController extends Controller
 		echo 'File required.';
 	}
 
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-/*
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['File']))
-		{
-			$model->attributes=$_POST['File'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-*/
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -190,6 +169,10 @@ class FileController extends Controller
 	public function actionShowCMSfiles()
 	{
 		echo $this->renderPartial('showCMSfiles',array(),false,true);
+	}
+	public function actionShowBudgetFiles()
+	{
+		echo $this->renderPartial('showBudgetFiles',array(),false,true);
 	}
 
 	/**

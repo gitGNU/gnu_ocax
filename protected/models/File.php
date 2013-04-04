@@ -19,7 +19,7 @@ class File extends CActiveRecord
 
 	public function init()
 	{
-		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app';
+		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app/files/';
 	}
 
 	/**
@@ -48,7 +48,7 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uri, webPath, model', 'required'),
+			array('uri, model', 'required'),
 			array('model_id', 'numerical', 'integerOnly'=>true),
 			array('name, uri, webPath', 'length', 'max'=>255),
 			array('model', 'length', 'max'=>32),

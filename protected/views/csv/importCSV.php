@@ -60,6 +60,25 @@ function checkTotals(){
 		error: function() { alert("error on checkTotals"); },
 	});
 }
+function dumpBudgets(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/dumpBudgets',
+		type: 'GET',
+		async: false,
+		dataType: 'json',
+		//beforeSend: function(){  },
+		//complete: function(){  },
+		success: function(data){
+					if(data == 1){
+						$('#dump_button').replaceWith('<span class="error">Failed to back up Budgets. See your Admin.</span>');
+					}else{
+						$('#dump_button').replaceWith('<span class="success">All budgets backed up ok.</span>');
+						$('#step_5').show();
+					}
+		},
+		error: function() { alert("error on dump Budgets"); },
+	});
+}
 function importData(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/importCSVData/<?php echo $model->year;?>',
@@ -76,7 +95,7 @@ function importData(){
 						$("#import_button").attr("disabled", "disabled");
 						msg = '<span class="success">New registers: '+data.new_budgets+', Updated registers: '+data.updated_budgets+'</span>';
 						$('#import_button').replaceWith(msg);
-						$('#step_5').show();
+						$('#step_6').show();
 					}
 		},
 		error: function() { alert("error on importData"); },
@@ -135,15 +154,17 @@ echo '<p id="step_3_1" style="display:none">';
 echo '<input type="button" value="Try again" onClick="js:location.href=\''.Yii::app()->request->baseUrl.'/csv/importCSV/'.$model->year.'\';" /> ';
 echo '<input type="button" value="Continue anyway" onClick="js:step3_1_to_4();" /></p>';
 
-echo '<p id="step_4" style="display:none">Step 4. Import into database: <b>'.$yearStr.'</b> ';
+echo '<p id="step_4" style="display:none">Step 4. Backup budget database: ';
+echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets();" /></p>';
+
+echo '<p id="step_5" style="display:none">Step 5. Import into database: <b>'.$yearStr.'</b> ';
 echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" /></p>';
 
 $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = '.$model->year;
 $year=Budget::model()->find($criteria);
 
-
-echo '<p id="step_5" style="display:none">Return to year '.CHtml::link($yearStr, array('budget/updateYear', 'id'=>$year->id)).'</p>';
+echo '<p id="step_6" style="display:none">Return to year '.CHtml::link($yearStr, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>
 

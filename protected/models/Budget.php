@@ -116,6 +116,69 @@ class Budget extends CActiveRecord
 		return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
 	}
 
+
+	private function getMySqlParams()
+	{
+		$result=array();
+		$connectionString = Yii::app()->db->connectionString;
+		// this expects $connectionString to be 'mysql:host=host;dbname=name'
+		$connectionString = preg_replace('/^mysql:/', '', $connectionString);
+		$params = explode(';', $connectionString);
+		list($param, $result['host']) = explode('=', $params[0]);
+		list($param, $result['dbname']) = explode('=', $params[1]);
+		$result['user'] = Yii::app()->db->username;
+		$result['pass'] = Yii::app()->db->password;
+		return $result;
+	}
+
+	/**
+	 * Dump the budget table
+	 */
+	public function dumpBudgets()
+	{
+		$timestamp = time();
+		$fileName = 'budget-dump-'.date('Y-m-d-H-i-s',$timestamp).'.sql';
+
+		$file = new File;
+		$file->model = get_class($this);
+		$file->uri = $file->baseDir.$file->model.'/'.$fileName;
+		$file->name = __('Budget table saved on the').' '.date('Y/m/d H:i:s',$timestamp);
+
+		if(!is_dir($file->baseDir.$file->model))	// should move this to model beforeSave.
+			mkdir($file->baseDir.$file->model, 0700, true);
+
+		$params = $this->getMySqlParams();
+		$output = NULL;
+		$return_var = NULL;
+		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->uri;
+		exec($command, $output, $return_var);
+
+		if(!$return_var){
+			$file->save();
+			echo 0;
+		}else{
+			if(file_exists($file->uri))
+				unlink($file->uri);
+			echo 1;
+		}
+	}
+
+	/**
+	 * Restore the budget table
+	 */
+	public function restoreBudgets($file_id)
+	{
+		$file = File::model()->findByPk($file_id);
+
+		$params = $this->getMySqlParams();
+		$output = NULL;
+		$return_var = NULL;
+		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->uri;
+		exec($command, $output, $return_var);
+		echo $return_var;
+	}
+
+
 	public function publicSearch()
 	{
 		// Warning: Please modify the following code to remove attributes that
