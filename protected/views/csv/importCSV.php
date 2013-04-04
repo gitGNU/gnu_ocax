@@ -48,7 +48,9 @@ function checkTotals(){
 		//complete: function(){  },
 		success: function(data){
 					if(data.error){
-						$('#check_totals_button').replaceWith('<span class="warn">Some totals do not match'+data.error+'</span>');
+						alert(data.error);
+					}else if(data.totals){
+						$('#check_totals_button').replaceWith('<span class="warn">Some totals do not match'+data.totals+'</span>');
 						$('#step_3_1').show();
 					}else{
 						$('#check_totals_button').replaceWith('<span class="success">'+data+' registers seem ok</span>');

@@ -114,46 +114,99 @@ class CsvController extends Controller
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				$ids[$id]=array();
+
 				$initial_prov = str_replace('€', '', $initial_prov);
 				$initial_prov = (float)trim(str_replace(',', '', $initial_prov));
+				$actual_prov = str_replace('€', '', $actual_prov);
+				$actual_prov = (float)trim(str_replace(',', '', $actual_prov));
+
 				$ids[$id]['internal_code']=$id;
-				$ids[$id]['total']=$initial_prov;
+				$ids[$id]['initial_total']=$initial_prov;
+				$ids[$id]['actual_total']=$actual_prov;
 				$ids[$id]['children']=array();
 				if(array_key_exists($parent_id, $ids)){
-					$ids[$parent_id]['children'][$id]=$initial_prov;
+					$ids[$parent_id]['children'][$id]=array();
+					$ids[$parent_id]['children'][$id]['id']=$id;
+					$ids[$parent_id]['children'][$id]['initial_prov']=$initial_prov;
+					$ids[$parent_id]['children'][$id]['actual_prov']=$actual_prov;
 				}
 			}
-		}else
-			$error[]='File path not defined.';
-		//check totals
+		}else{
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
+			Yii::app()->end();
+		}
+
+		//check initial totals
+		$initialSummary='';
 		foreach($ids as $id){
 			if($id['children']){
-				$child_total = 0;
-				foreach($id['children'] as $child => $total)
-					$child_total = $child_total + $total;
-				if(bccomp($child_total, $id['total'])!=0){
-					$errorStr='<div style="margin-top:15px;width:400px;">';
-					$errorStr=$errorStr.'<b>'.$id['internal_code'].' Initial provision is: <span style="float:right;">'.number_format($id['total'], 2).'</span></b>';
+				$total = 0;
+				foreach($id['children'] as $child)
+					$total = $total + $child['initial_prov'];
+				
+				if(bccomp($total, $id['initial_total'])!=0){
+					$initialSummary=$initialSummary.'<div style="width:400px;margin-top:15px;">';
+					$initialSummary=$initialSummary.'<b>'.$id['internal_code'].' Initial provision is: <span style="float:right;">'.format_number($id['initial_total']).'</span></b>';
 					$rowColor='';
-					foreach($id['children'] as $child => $total){
+					foreach($id['children'] as $child){
 						if(!$rowColor){
 							$rowColor='style="background-color:#EBEBEB;"';
 						}else
 							$rowColor='';
-						$errorStr=$errorStr.'<div '.$rowColor.'>'.$child.'<span style="float:right;">'.number_format($total, 2).'</span></div>';
+						$initialSummary=$initialSummary.'<div '.$rowColor.'>'.$child['id'].'<span style="float:right;">'.format_number($child['initial_prov']).'</span></div>';
 					}
-					$errorStr=$errorStr.'<span style="float:right;text-decoration: underline overline;">Total: '.number_format($child_total, 2).'</span>';
-					$errorStr=$errorStr.'</div>';
-					$error[]=$errorStr;
+					$initialSummary=$initialSummary.'<span style="float:right;text-decoration: underline overline;">Total: '.format_number($total).'</span></div>';
+					$initialSummary=$initialSummary.'<div style="clear:both"></div>';
 				}
 			}
 		}
 
+		//check actual totals
+		$actualSummary='';
+		foreach($ids as $id){
+			if($id['children']){
+				$total = 0;
+				foreach($id['children'] as $child)
+					$total = $total + $child['actual_prov'];
 
-		if($error)
-			echo CJavaScript::jsonEncode(array('error'=>$error));
+				if(bccomp($total, $id['actual_total'])!=0){
+					$actualSummary=$actualSummary.'<div style="width:400px;margin-top:15px;">';
+					$actualSummary=$actualSummary.'<b>'.$id['internal_code'].' Actual provision is: <span style="float:right;">'.format_number($id['actual_total']).'</span></b>';
+					$rowColor='';
+					foreach($id['children'] as $child){
+						if(!$rowColor){
+							$rowColor='style="background-color:#EBEBEB;"';
+						}else
+							$rowColor='';
+						$actualSummary=$actualSummary.'<div '.$rowColor.'>'.$child['id'].'<span style="float:right;">'.format_number($child['actual_prov']).'</span></div>';
+					}
+					$actualSummary=$actualSummary.'<span style="float:right;text-decoration: underline overline;">Total: '.format_number($total).'</span></div>';
+					$actualSummary=$actualSummary.'<div style="clear:both"></div>';
+				}
+			}
+		}
+
+		if($initialSummary || $actualSummary){
+			$result = '<div style="margin-top:15px;width:850px;">';
+
+			$result = $result.'<div style="float:left;margin-right:50px;">';
+			if($initialSummary)
+				$result = $result.$initialSummary;
+			else
+				$result = $result.'<span style="color:green">Initial provision totals check ok</span>';
+			$result = $result.'</div>';
+
+			$result = $result.'<div style="float:right">';
+			if($actualSummary)
+				$result = $result.$actualSummary;
+			else
+				$result = $result.'<span style="color:green">Actual provision totals check ok</span>';
+			$result = $result.'</div>';
+
+			$result = $result.'<div style="clear:both"></div></div>';
+			echo CJavaScript::jsonEncode(array('totals'=>$result));
+		}
 		else
-			//echo CJavaScript::jsonEncode(array('ids'=>$ids));
 			echo count($lines) - 1;
 	}
 
@@ -295,17 +348,6 @@ class CsvController extends Controller
 		$criteria->condition='parent IS NULL AND year='.$model->year;
 		$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		//$dataProvider=new CActiveDataProvider('Partida',array('criteria'=>array('order'=>'weight ASC')));
-		$this->render('import'/*,array('dataProvider'=>$dataProvider,)*/);
-	}
-
-
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
