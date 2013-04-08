@@ -5,17 +5,10 @@
 $this->layout='//layouts/column1';
 $root_budget = $model->findByAttributes(array('csv_id'=>$model->csv_id[0], 'year'=>$model->year));
 if(!$root_budget){
-	echo '<h2 style="color:red">'.__('Budget with internal code').' "'.$model->csv_id[0].'" '.__('is not defined').'</h2>';
+	$this->render('//site/error',array('code'=>'Budget not found', 'message'=>__('Budget with internal code').' "'.$model->csv_id[0].'" '.__('is not defined')));
 	Yii::app()->end();
 }
 ?>
-
-<style>
-.graph {
-background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/images/graph_paper.png');
-background-repeat:repeat;
-}
-</style>
 
 <script>
 // this is for interactive graphic
@@ -145,6 +138,10 @@ $graph_width=897;
 ?>
 
 <style>
+.graph {
+	background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/images/graph_paper.png');
+	background-repeat:repeat;
+}
 .actual_provision_bar{
 	background-color:#BFBFBF;
 }

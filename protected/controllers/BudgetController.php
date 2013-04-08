@@ -283,16 +283,7 @@ class BudgetController extends Controller
 			else
 				$total = $new_total;
 		}
-
-		$criteria = array(
-			'with'=>array('budget0'),
-			'condition'=>' budget0.year = '.$model->year,
-			'together'=>true,
-		);
-		$enquirys = new CActiveDataProvider(Enquiry::model(), array('criteria'=>$criteria,));
-
-		$this->render('updateYear',array(
-			'model'=>$model,'enquirys'=>$enquirys,));
+		$this->redirect(array('updateYear','id'=>$model->id));
 	}
 
 	/**

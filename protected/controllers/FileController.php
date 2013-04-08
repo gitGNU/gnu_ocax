@@ -96,8 +96,9 @@ class FileController extends Controller
 				if(!is_dir($model->uri))
 					mkdir($model->uri, 0700, true);
 
-				$model->uri=$model->uri.'/'.$model->file->name;
-				$model->webPath=Yii::app()->request->baseUrl.'/files/'.$path.'/'.$model->file->name;
+				$normalized_name = $model->normalize($model->file->name);
+				$model->uri=$model->uri.'/'.$normalized_name;
+				$model->webPath=Yii::app()->request->baseUrl.'/files/'.$path.'/'.$normalized_name;
 
 				if(!$model->name)
 					$model->name=$model->file->name;
@@ -132,12 +133,12 @@ class FileController extends Controller
 		// doing validation like this because I think I can't do it with ajax in a modal window
 		if(isset($_GET['file_name']))
 		{
-			$file_name=$_GET['file_name'];
+			$file_name = $model->normalize($_GET['file_name']);
 			$path=$model->baseDir.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;
 
 			if(!$file_name)
 				echo 'File required.';
-			elseif (!preg_match('/^[a-zA-Z0-9]+\.[a-zA-Z]{3,4}$/', $file_name))
+			elseif (!preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z]{3,4}$/', $file_name))
     	        echo '"'.$file_name.'" Only characters a-z A-Z and 0-9 are allowed. ej: file.pdf';
 			elseif(file_exists($path))
     	        echo '"'.$file_name.'" File already uploaded';

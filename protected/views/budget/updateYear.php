@@ -7,11 +7,6 @@ $this->menu=array(
 	array('label'=>'List Years', 'url'=>array('adminYears')),
 );
 
-if(File::model()->findByAttributes(array('model'=>'Budget'))){
-	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
-	array_splice( $this->menu, 1, 0, $restore );
-}
-
 if($totalBudgets){
 	$featured = array( array('label'=>__('Featured budgets'), 'url'=>array('budget/featured', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $featured );
@@ -22,15 +17,6 @@ if($totalBudgets){
 }
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
-<style>           
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
 <script>
 function deleteBudgets(){
 	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
@@ -84,48 +70,7 @@ function megaDelete(el){
 		}
 	});
 }
-function showBudgetDumps(){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/showBudgetFiles',
-		type: 'POST',
-		async: false,
-		//data: { 'id' : enquiry_id },
-		//dataType: 'json',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
-		success: function(data){
-			if(data != 0){
-				$("#budget_dumps_content").html(data);
-				$('#budget_dumps').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, fadeSpeed: 10
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-                });
-			}
-		},
-		error: function() {
-			alert("Error on show budget dumps");
-		}
-	});
-}
-function restoreBudgets(file_id){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/restoreBudgets/'+file_id,
-		type: 'POST',
-		async: false,
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
-		success: function(data){
-			$('#budget_dumps').bPopup().close();
-			location.reload(true);
-		},
-		error: function() {
-			alert("Error on restore budgets");
-		}
-	});
-}
+
 </script>
 
 <?php $title='Edit year '.($model->year).' - '.($model->year + 1);?>
@@ -162,12 +107,6 @@ $this->widget('PGridView', array(
 	<div style="background-color:white;padding:5px;">
 		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 		<div id="mega_delete_content"></div>
-	</div>
-</div>
-<div id="budget_dumps" style="display:none;width:600px;">
-	<div style="background-color:white">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-		<div id="budget_dumps_content"></div>
 	</div>
 </div>
 

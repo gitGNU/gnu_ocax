@@ -1,0 +1,32 @@
+<?php
+/* @var $this BudgetController */
+/* @var $model Budget */
+$this->layout='//layouts/column1';
+
+
+?>
+
+<style>
+.graph {
+background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/images/graph_paper.png');
+background-repeat:repeat;
+}
+</style>
+
+<script>
+// this is for interactive graphic
+$(function() {
+	$('.budget').bind('click', function() {
+		budget_id = $(this).attr('budget_id');
+		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/view/'+budget_id;
+	});
+});
+</script>
+
+
+<?php echo '<h1>'.CHtml::encode($model->concept).' '.$model->getYearString().'</h1>';?>
+
+<?php
+$dataProvider=new CActiveDataProvider('Enquiry', array(
+    'criteria'=>array(
+     

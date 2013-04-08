@@ -6,9 +6,10 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 ?>
 
 <div class="form">
-<div class="title"><?php echo __('Restore Budget Database');?></div>
-
-<div style="font-size:1.4em;text-align:center">Delete all years and restore from a copy</div>
+<div class="title">
+<?php echo __('Restore all budgets from a backup').' ';?>
+<img style="vertical-align:middle;" src="<?php echo Yii::app()->theme->baseUrl?>/images/down.png" />
+</div>
 
 <div style="margin:-10px">
 <?php
@@ -20,15 +21,16 @@ $dataProvider = new CActiveDataProvider('File', array(
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,
+	'template' => '{items}{pager}',
 	'columns'=>array(
 		'name',
 		array(
 			'class'=>'CButtonColumn',
 			'buttons' => array(
 				'restore' => array(
-					'label'=> __('Restore budget'),
+					'label'=> __('Restore budgets'),
 					'url'=> '"javascript:restoreBudgets(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->theme->baseUrl.'/images/insert_icon.png',
+					'imageUrl' => Yii::app()->theme->baseUrl.'/images/down.png',
 					'visible' => 'true',
 				)
 
@@ -37,8 +39,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 ));
-
 ?>
 </div>
 
+<?php echo __('Note: Delete some backups to save disk space. You only really need the last good copy.');?>
 </div>
