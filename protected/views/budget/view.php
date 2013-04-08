@@ -1,9 +1,13 @@
 <?php
 /* @var $this BudgetController */
 /* @var $model Budget */
+
 $this->layout='//layouts/column1';
-
-
+$root_budget = $model->findByAttributes(array('csv_id'=>$model->csv_id[0], 'year'=>$model->year));
+if(!$root_budget){
+	echo '<h2 style="color:red">'.__('Budget with internal code').' "'.$model->csv_id[0].'" '.__('is not defined').'</h2>';
+	Yii::app()->end();
+}
 ?>
 
 <style>
@@ -99,7 +103,7 @@ if($dataProvider->getData()){
 <p>
 <?php
 if($dataProvider->getData()){
-echo '<div style="font-size:1.3em;margin-top:25px;">'.__('Enquirys already made by citizens').':</div>';
+echo '<div style="font-size:1.3em;margin-top:25px;">'.count($dataProvider->getData()).' '.__('enquiry(s) already made by citizens').':</div>';
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
 	'dataProvider'=>$dataProvider,
@@ -107,6 +111,7 @@ $this->widget('PGridView', array(
         'type'=>'url',
         'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
     ),
+	'template' => '{items}{pager}',
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
 					'header'=>'',
@@ -136,9 +141,9 @@ if(!$model->budgets)
 	$parent_budget=$model->parent0;
 else
 	$parent_budget=$model;
-$root_budget = $model->find('csv_id = "'.$model->csv_id[0].'"');
 $graph_width=897;
 ?>
+
 <style>
 .actual_provision_bar{
 	background-color:#BFBFBF;
@@ -153,6 +158,7 @@ $graph_width=897;
 	padding-right:60px;
 }
 </style>
+
 <div class="view" style="padding:0px;width:<?php echo $graph_width;?>">
 	<div style="background:#CAE1FF;font-size:1.3em;padding:5px;">
 	<?php

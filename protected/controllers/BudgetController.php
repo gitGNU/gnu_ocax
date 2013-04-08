@@ -173,6 +173,7 @@ class BudgetController extends Controller
 	public function actionUpdateYear($id)
 	{
 		$model=$this->loadModel($id);
+		Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -317,14 +318,15 @@ class BudgetController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-
 		$model = new Budget('publicSearch');
-		//$model = new Budget('search');
-
 
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['year']))
+		if(isset($_GET['year'])){
 			$model->year = $_GET['year'];
+			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
+		}
+		elseif(isset(Yii::app()->request->cookies['year']))
+			$model->year = Yii::app()->request->cookies['year']->value;
 		else
 			$model->year = Config::model()->findByPk('year')->value;
 

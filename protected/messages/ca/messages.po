@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-04 18:20+0100\n"
+"PO-Revision-Date: 2013-04-08 09:36+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -153,12 +153,12 @@ msgid "Concept"
 msgstr "Concepte"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:167
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:173
 msgid "Initial provision"
 msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:166
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:172
 msgid "Actual provision"
 msgstr ""
 
@@ -304,50 +304,58 @@ msgstr "Recorda'm"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:91
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:94
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:8
+msgid "Budget with internal code"
+msgstr "Pressupost amb Internal code"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:8
+msgid "is not defined"
+msgstr "no està definida"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:95
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:98
 msgid "Do you wish to"
 msgstr "Do you wish to"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:91
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:95
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:99
 msgid "make an enquiry"
 msgstr "make an enquiry"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:92
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:96
 msgid "about this budget"
 msgstr "about this budget"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:94
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:98
 msgid "No enquiries have been made about this budget yet"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:102
-msgid "Enquirys already made by citizens"
-msgstr "Enquirys already made by citizens"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:106
+msgid "enquiry(s) already made by citizens"
+msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:160
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:166
 msgid "constitutes "
 msgstr "constitueix un"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:160
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:166
 msgid "of the total anual budget"
-msgstr ""
+msgstr "Total dels mapes aportats: "
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:161
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:167
 msgid "and is comprised of the following budgets"
 msgstr "i està compost per les següents partides"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:165
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:171
 msgid "Key"
 msgstr "Llegenda"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:169
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:175
 msgid "Up one level"
 msgstr "Puja un nivell"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:11
-msgid "Restore budgets"
+msgid "Restore database"
 msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:16
@@ -389,6 +397,10 @@ msgstr "comenta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:9
 msgid "Restore Budget Database"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:29
+msgid "Restore budget"
 msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/_form.php:42
