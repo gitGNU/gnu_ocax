@@ -50,6 +50,7 @@ $(function() {
 
 <div style="font-size:2.5em;text-align:center;margin-top:-10px;">
 <?php echo Config::model()->findByPk('councilName')->value;?>
+
 </div>
 
 <div style="
@@ -161,6 +162,15 @@ if( count($data) > 0){ ?>
    background: #1b435e;
    }
 </style>
+
+<?php
+if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
+	echo '<div style="margin-top:40px;">';
+	echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
+	echo '</div>';
+}?>
+
+
 <?php
 	$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
 

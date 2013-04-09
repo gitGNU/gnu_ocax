@@ -28,13 +28,30 @@ class CsvController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('importCSV','uploadCSV','checkCSVFormat','checkCSVTotals','importCSVData','download'),
+				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
+				'checkCSVTotals','importCSVData','download','showYears','regenerateCSV',),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionShowYears()
+	{
+		$dataProvider =new CActiveDataProvider('Budget',array(
+			'criteria'=>array('condition'=>'parent IS NULL',
+			'order'=>'year DESC'),
+		));
+		echo $this->renderPartial('regenCSV',array('dataProvider'=>$dataProvider),false,true);
+	}
+	public function actionRegenerateCSV($id)
+	{
+		if(ImportCSV::createCSV($id))
+			echo 1;
+		else
+			echo 0;
 	}
 
 	public function actionImportCSV($id)
@@ -318,35 +335,14 @@ class CsvController extends Controller
 
 	public function actionDownload($id)
 	{
-		$model = new ImportCSV;
-		$model->year = $id;
+		if(list($file, $budgets) = ImportCSV::createCSV($id)){
+			$download='<a href="'.$file->webPath.'">'.$file->webPath.'</a>';
+			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported.<br />'.$download);
 
-		$header = 'internal code|code|label|concept|initial provision|actual provision|spent t1|spent t2|spent t3|spent t4|internal parent code'.PHP_EOL;
-
-		$file = '/tmp/csv-' . mt_rand(10000,99999);
-		$fh = fopen($file, 'w');
-		fwrite($fh, $header);
-
-		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, code, label, concept, initial_provision, actual_provision,
-													spent_t1, spent_t2, spent_t3, spent_t4, csv_parent_id
-													FROM budget
-													WHERE year = '.$model->year.' AND parent IS NOT NULL');
-		foreach($budgets as $b){
-			fwrite($fh, $b->csv_id.'|'.$b->code.'|'.$b->label.'|'.$b->concept.'|'.$b->initial_provision.'|'.$b->actual_provision.
-						'|'.$b->spent_t1.'|'.$b->spent_t2.'|'.$b->spent_t3.'|'.$b->spent_t4.'|'.$b->csv_parent_id. PHP_EOL);
+			$criteria=new CDbCriteria;
+			$criteria->condition='parent IS NULL AND year='.$id;
+			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 		}
-		fclose($fh);
-		if (copy($file, $model->path.$model->year.'-internal.csv')) {
-			unlink($file);
-		}
-
-		$link=Yii::app()->request->baseUrl.'/files/csv/'.$model->year.'-internal.csv';
-		$download='<a href="'.$link.'">'.$link.'</a>';
-		Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported.<br />'.$download);
-
-		$criteria=new CDbCriteria;
-		$criteria->condition='parent IS NULL AND year='.$model->year;
-		$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 	}
 
 	/**

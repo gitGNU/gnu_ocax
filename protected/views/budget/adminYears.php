@@ -4,6 +4,7 @@
 
 $this->menu=array(
 	array('label'=>'Create Year', 'url'=>array('createYear')),
+	array('label'=>'Prepare zip file', 'url'=>array('file/databaseDownload')),
 );
 if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));

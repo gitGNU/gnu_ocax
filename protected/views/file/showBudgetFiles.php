@@ -33,7 +33,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'imageUrl' => Yii::app()->theme->baseUrl.'/images/down.png',
 					'visible' => 'true',
 				)
-
 			),
 			'template'=>'{restore} {delete}',
 		),

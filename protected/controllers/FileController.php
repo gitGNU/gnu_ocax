@@ -44,7 +44,7 @@ class FileController extends Controller
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
-				'actions'=>array('showBudgetFiles'),
+				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 
@@ -113,6 +113,8 @@ class FileController extends Controller
 					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);
 					$enquiry->promptEmail();
 					$this->redirect(array('enquiry/teamView','id'=>$enquiry->id));
+				}elseif($model->model == 'DatabaseDownload/docs'){
+					$this->redirect(array('file/databaseDownload'));
 				}else
 					$this->redirect(array('site/index'));
 			}
@@ -149,6 +151,38 @@ class FileController extends Controller
 		echo 'File required.';
 	}
 
+	public function actionCreateZipFile()
+	{
+		$file = new File;
+		$zip_name = $file->normalize(Config::model()->findByPk('siglas')->value).'.zip';
+
+		$file->model = 'DatabaseDownload';
+		$file->uri=$file->baseDir.$file->model.'/'.$zip_name;
+		$file->webPath=Yii::app()->request->baseUrl.'/files/'.$file->model.'/'.$zip_name;
+		$file->name = $zip_name;
+
+		$old_zip = File::model()->findByAttributes(array('uri'=>$file->uri));
+
+		$output = NULL;
+		$return_var = NULL;
+		$command = 	'cd '.$file->baseDir.$file->model.';zip /tmp/'.$zip_name.' data/* docs/*';
+
+		exec($command, $output, $return_var);
+		if(!$return_var){
+			if($old_zip){
+				unlink($old_zip->uri);
+				$file = $old_zip;
+			}
+			copy('/tmp/'.$zip_name, $file->uri);
+			unlink('/tmp/'.$zip_name);		
+			$file->save();
+			Yii::app()->user->setFlash('success',__('Zip file updated'));
+		}else{
+			//Yii::app()->user->setFlash('error',__('Error: zip file not created'));
+		}
+		$this->redirect(array('file/databaseDownload'));
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -167,6 +201,11 @@ class FileController extends Controller
 	/**
 	 * Lists all models.
 	 */
+
+	public function actionDatabaseDownload()
+	{
+		$this->render('adminDatabaseDownload');
+	}
 	public function actionShowCMSfiles()
 	{
 		echo $this->renderPartial('showCMSfiles',array(),false,true);

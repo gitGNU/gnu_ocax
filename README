@@ -25,3 +25,6 @@ chown www-data app/assets/
 You need to copy app/images/pgridview to webroot/images
 eg. # ln -s /home/ocax/app/images/pgridview/ /var/www/images/
 !!need to fix this by using assets!!
+
+apt-get install zip
+
