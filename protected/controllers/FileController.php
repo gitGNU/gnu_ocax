@@ -171,6 +171,11 @@ class FileController extends Controller
 		if(!$return_var){
 			if($old_zip){
 				unlink($old_zip->uri);
+				// siglas may have changed
+				$old_zip->uri=$file->uri;
+				$old_zip->webPath=$file->webPath;
+				$old_zip->name=$file->name;
+
 				$file = $old_zip;
 			}
 			copy('/tmp/'.$zip_name, $file->uri);

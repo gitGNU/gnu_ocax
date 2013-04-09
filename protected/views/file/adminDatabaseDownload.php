@@ -91,15 +91,16 @@ function regenCSV(id){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/regenerateCSV/'+id,
 		type: 'GET',
 		async: false,
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
+		beforeSend: function(){ $('#years-grid').replaceWith($('#loading')); $('#loading').show(); },
+		complete: function(){ location.reload(true); },
+/*
 		success: function(data){
 			$('#csvs').bPopup().close();
 			if(data != 0){
 				//$('#file-grid').yiiGridView('update'); // doesn't work so reload page :(
-				location.reload(true);
 			}
 		},
+*/
 		error: function() {
 			alert("Error on regenerate csv");
 		}

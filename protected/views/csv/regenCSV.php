@@ -9,7 +9,7 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 <div class="form">
 <div class="title"><?php echo __('(Re)generate CSV files to include in zip').' ';?></div>
 
-<div style="margin:-10px">
+<div style="margin:-10px;">
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'years-grid',
@@ -39,3 +39,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 </div>
 
+<div id="loading" style="display:none;text-align:center;">
+<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/big_loading.gif" />
+</div>
