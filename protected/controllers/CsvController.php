@@ -152,7 +152,6 @@ class CsvController extends Controller
 			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
 			Yii::app()->end();
 		}
-
 		//check initial totals
 		$initialSummary='';
 		foreach($ids as $id){

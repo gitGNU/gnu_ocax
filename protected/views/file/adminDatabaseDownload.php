@@ -92,15 +92,18 @@ function regenCSV(id){
 		type: 'GET',
 		async: false,
 		beforeSend: function(){ $('#years-grid').replaceWith($('#loading')); $('#loading').show(); },
-		complete: function(){ location.reload(true); },
-/*
+//		complete: function(){ location.reload(true); },
+		complete: function(){},
+
 		success: function(data){
 			$('#csvs').bPopup().close();
+			$.fn.yiiGridView.update('file-grid');
+			//$('#file-grid').yiiGridView('update');
 			if(data != 0){
 				//$('#file-grid').yiiGridView('update'); // doesn't work so reload page :(
 			}
 		},
-*/
+
 		error: function() {
 			alert("Error on regenerate csv");
 		}
@@ -116,7 +119,7 @@ $dataProvider = new CActiveDataProvider('File', array(
 						'order'=>'uri ASC',
 				),
 ));
-echo '<div>'.__('Include these files zip').'</div>';
+echo '<div style="font-size:1.3em">'.__('Files ready to include in zip').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,

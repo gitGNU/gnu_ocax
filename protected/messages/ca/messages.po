@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-08 12:21+0100\n"
+"PO-Revision-Date: 2013-04-09 15:49+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -304,6 +304,10 @@ msgstr "Recorda'm"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/ImportCSV.php:63
+msgid "generated on the"
+msgstr ""
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:8
 msgid "Budget with internal code"
 msgstr "Pressupost amb Internal code"
@@ -363,27 +367,31 @@ msgstr ""
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:59
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:60
 msgid "Budget for"
 msgstr "Pressupostes per a"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:72
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:73
 msgid "Available years"
 msgstr "Anys disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:110
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:111
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:121
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:122
 msgid "Filtered results"
 msgstr "Resultats de la cerca"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:169
+msgid "Download database"
+msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:52
 msgid "Feature budget"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/adminYears.php:9
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/adminYears.php:10
 msgid "Restore database"
 msgstr "Restore database"
 
@@ -395,17 +403,50 @@ msgstr "comenta el día"
 msgid "comments"
 msgstr "comenta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:10
-msgid "Restore all budgets from a backup"
-msgstr "Restaurar tots els pressupostos des d'una còpia"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/csv/regenCSV.php:10
+msgid "(Re)generate CSV files to include in zip"
+msgstr ""
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/csv/regenCSV.php:30
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:31
 msgid "Restore budgets"
 msgstr "Restaurar pressuposts"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:45
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:10
+msgid "Restore all budgets from a backup"
+msgstr "Restaurar tots els pressupostos des d'una còpia"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:44
 msgid "Note: Delete some backups to save disk space. You only really need the last good copy."
 msgstr "Nota: Esborrar alguns backups per estalviar espai de disc. En realitat solament necessites l'última còpia bona"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:6
+msgid "Add file to docs"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:7
+msgid "Add csv to data"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:8
+msgid "Update zip file"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:12
+msgid "Download zip file"
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:111
+msgid "Prepare file"
+msgstr "Prepari fitxer"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:119
+msgid "Files ready to include in zip"
+msgstr "Fitxers llests per incloure en el zip"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:128
+msgid "Files to include"
+msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/_form.php:42
 msgid "Upload file for"
