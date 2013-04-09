@@ -161,7 +161,7 @@ class FileController extends Controller
 		$file->webPath=Yii::app()->request->baseUrl.'/files/'.$file->model.'/'.$zip_name;
 		$file->name = $zip_name;
 
-		$old_zip = File::model()->findByAttributes(array('uri'=>$file->uri));
+		$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
 
 		$output = NULL;
 		$return_var = NULL;

@@ -3,9 +3,9 @@
 /* @var $model File */
 
 $this->menu=array(
+	array('label'=>__('Update zip file'), 'url'=>array('file/createZipFile')),
 	array('label'=>__('Add file to docs'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 	array('label'=>__('Add csv to data'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showYears();')),
-	array('label'=>__('Update zip file'), 'url'=>array('file/createZipFile')),
 	array('label'=>'List Years', 'url'=>array('budget/adminYears')),
 );
 if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
@@ -92,18 +92,10 @@ function regenCSV(id){
 		type: 'GET',
 		async: false,
 		beforeSend: function(){ $('#years-grid').replaceWith($('#loading')); $('#loading').show(); },
-//		complete: function(){ location.reload(true); },
-		complete: function(){},
-
 		success: function(data){
 			$('#csvs').bPopup().close();
 			$.fn.yiiGridView.update('file-grid');
-			//$('#file-grid').yiiGridView('update');
-			if(data != 0){
-				//$('#file-grid').yiiGridView('update'); // doesn't work so reload page :(
-			}
 		},
-
 		error: function() {
 			alert("Error on regenerate csv");
 		}

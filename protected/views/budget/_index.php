@@ -12,10 +12,65 @@ Yii::app()->clientScript->registerScript('search', "
 ");
 
 $year = $model->year;
+$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/raphael-min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.raphael-min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.pie-min.js"></script>
+
+<?php
+
+
+
+?>
+
 <script>
+$(function() {
+var r = Raphael('raphael',800, 440);
+r.text(250, 50, "probando ....").attr({ font: "30px sans-serif" });
+pie = r.piechart(250, 250, 150, [
+
+	<?php	foreach($featured as $budget){
+		echo $budget->actual_provision.',';
+	}?>
+	],
+	{ legend: [
+	<?php	foreach($featured as $budget){
+		echo '["'.$budget->concept.'"],';
+	}?>
+	],
+	legendpos: "east",
+	href: [
+	<?php	foreach($featured as $budget){
+		echo '["'.Yii::app()->getBaseUrl(true).'/budget/view/'.$budget->id.'"],';
+	}?>
+	]
+	}
+
+);
+
+pie.hover(function () {
+		this.sector.stop();
+		this.sector.scale(1.1, 1.1, this.cx, this.cy);
+
+		if (this.label) {
+			this.label[0].stop();
+			this.label[0].attr({ r: 7.5 });
+			this.label[1].attr({ "font-weight": 800 });
+		}
+	},
+	function () {
+		this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+
+		if (this.label) {
+			this.label[0].animate({ r: 5 }, 500, "bounce");
+			this.label[1].attr({ "font-weight": 400 });
+		}
+	});
+});
+
 // this is for interactive graphic
 $(function() {
 	$('.budget').bind('click', function() {
@@ -47,6 +102,7 @@ $(function() {
 	});
 });
 </script>
+
 
 <div style="font-size:2.5em;text-align:center;margin-top:-10px;">
 <?php echo Config::model()->findByPk('councilName')->value;?>
@@ -163,6 +219,8 @@ if( count($data) > 0){ ?>
    }
 </style>
 
+<div id="raphael""></div>
+
 <?php
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 	echo '<div style="margin-top:40px;">';
@@ -172,7 +230,7 @@ if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 
 
 <?php
-	$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
+
 
 	foreach($featured as $budget){
 		echo '<div style="margin-top:40px;">';

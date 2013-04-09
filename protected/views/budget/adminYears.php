@@ -3,8 +3,8 @@
 /* @var $model Budget */
 
 $this->menu=array(
-	array('label'=>'Create Year', 'url'=>array('createYear')),
-	array('label'=>'Prepare zip file', 'url'=>array('file/databaseDownload')),
+	array('label'=>__('Create Year'), 'url'=>array('createYear')),
+	array('label'=>__('Prepare zip file'), 'url'=>array('file/databaseDownload')),
 );
 if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
@@ -18,8 +18,6 @@ function showBudgetDumps(){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/showBudgetFiles',
 		type: 'POST',
 		async: false,
-		//data: { 'id' : enquiry_id },
-		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){

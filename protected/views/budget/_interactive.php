@@ -6,13 +6,12 @@
 
 <style>
 .queriedBudget{
-	color:#33A1C9;
+	color:#4682B4;
 	font-weight:bold;
 }
 .graph_bar_percent{
 	padding-left:5px;
 	padding-right:5px;
-
 	text-align:right;
 }
 .showChildren{
@@ -45,7 +44,7 @@ function toggleChildren(id){
 function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$parent_budget->id;
-	$criteria->order = 'weight ASC';
+	$criteria->order = 'actual_provision DESC';
 	$child_budgets = Budget::model()->findAll($criteria);
 
 	foreach($child_budgets as $budget){
