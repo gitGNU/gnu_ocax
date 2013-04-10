@@ -28,7 +28,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','getPieData'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -77,6 +77,26 @@ class BudgetController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+
+	public function actionGetPieData($id)
+	{
+		$model=$this->loadModel($id);
+		$numbers=array();
+		$labels=array();
+		$links=array();
+		$params=array('parent_id'=>$model->parent,'title'=>$model->concept.': '.$model->code, 'others'=>__('Others'));
+		foreach($model->budgets as $budget){
+			$numbers[] = (int)$budget->actual_provision;
+			$labels[] = $budget->concept;
+			$links[]  = 'javascript:getPie('.$budget->id.')';
+		}
+		$data=array('numbers'=>$numbers,'labels'=>$labels,'links'=>$links,'params'=>$params,);
+		if(Yii::app()->request->isAjaxRequest)
+			echo CJavaScript::jsonEncode($data);
+		else
+			return CJavaScript::jsonEncode($data);
 	}
 
 	/**

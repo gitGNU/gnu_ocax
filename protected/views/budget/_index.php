@@ -1,6 +1,7 @@
 <?php
 /* @var $this BudgetController */
 /* @var $model Budget */
+Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
 Yii::app()->clientScript->registerScript('search', "
   $('#budget-form').submit(function(){
@@ -11,47 +12,63 @@ Yii::app()->clientScript->registerScript('search', "
 });
 ");
 
-$year = $model->year;
+//$year = $model->year;
 $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
 ?>
+
+<style>
+.pie_graph{
+
+}
+</style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/raphael-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.raphael-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.pie-min.js"></script>
 
-<?php
-
-
-
-?>
-
 <script>
-$(function() {
-var r = Raphael('raphael',800, 440);
-r.text(250, 50, "probando ....").attr({ font: "30px sans-serif" });
-pie = r.piechart(250, 250, 150, [
+function getPie(budget_id){
+	new_pie_div=$('<div id="'+budget_id+'" style="visibility:hidden" class="pie_graph"></div>');
+	$('#pie_display').append(new_pie_div);
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
+		type: 'GET',
+		async: false,
+		dataType: 'json',
+		beforeSend: function(){ },
+		success: function(data){
+			createPie(budget_id, data);
+			$('#'+budget_id).hide();
+			$('#'+data.params.parent_id).hide(	"slide",
+												{ direction: "left" },
+												1000,
+												function(){
+													$('#pie_cache').append($('#'+data.params.parent_id));
+													$('#pie_display').append($('#'+budget_id));
+													$('#'+budget_id).css("visibility","visible");
+													$('#'+budget_id).fadeIn('fast');
+												;}
+											);
+		},
+		error: function() {
+			alert("Error on get Pie Data");
+		}
+	});
 
-	<?php	foreach($featured as $budget){
-		echo $budget->actual_provision.',';
-	}?>
-	],
-	{ legend: [
-	<?php	foreach($featured as $budget){
-		echo '["'.$budget->concept.'"],';
-	}?>
-	],
-	legendpos: "east",
-	href: [
-	<?php	foreach($featured as $budget){
-		echo '["'.Yii::app()->getBaseUrl(true).'/budget/view/'.$budget->id.'"],';
-	}?>
-	]
-	}
+}
 
-);
-
-pie.hover(function () {
+function createPie(div_id, data){
+	r = Raphael(div_id, 800, 440);
+	r.text(250, 50, data.params.title).attr({ font: "30px sans-serif" });
+	pie = r.piechart(250, 250, 150, data.numbers,{
+				legend: data.labels,
+				legendpos: "east",
+				legendothers: data.params.others,
+				href: data.links,
+			}
+	);
+	pie.hover(function () {
 		this.sector.stop();
 		this.sector.scale(1.1, 1.1, this.cx, this.cy);
 
@@ -62,14 +79,32 @@ pie.hover(function () {
 		}
 	},
 	function () {
-		this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+		this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "smooth");
 
 		if (this.label) {
 			this.label[0].animate({ r: 5 }, 500, "bounce");
 			this.label[1].attr({ "font-weight": 400 });
 		}
 	});
+}
+
+// legend font size
+// http://stackoverflow.com/questions/13043989/raphael-piechart-legend-font
+// http://stackoverflow.com/questions/4679785/graphael-bar-chart-with-text-x-axis
+// https://gist.github.com/ejucovy/451637
+
+$(function() {
+	<?php
+		foreach($featured as $budget){?>
+			//new_pie_div=$('<div id="<?php echo $budget->id?>" class="pie_graph"></div>');
+			$('#pie_display').append('<div id="<?php echo $budget->id?>" class="pie_graph"></div>');
+			<?php
+			$data = $this->actionGetPieData($budget->id);
+			echo 'createPie('.$budget->id.','.$data.');';
+		}
+	?>
 });
+
 
 // this is for interactive graphic
 $(function() {
@@ -219,7 +254,10 @@ if( count($data) > 0){ ?>
    }
 </style>
 
-<div id="raphael""></div>
+<div>
+<div id="pie_display" style="margin-top:20px"></div>
+<div id="pie_cache" style="display:none"></div>
+</div>
 
 <?php
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
