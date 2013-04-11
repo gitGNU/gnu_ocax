@@ -28,7 +28,26 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.pie-min.js"></script>
 
 <script>
+function slideInChild(parent_id,child_id){
+	$('#scroll_back').attr('parent_id',parent_id);
+	$('#scroll_back').show();
+	$('#'+child_id).hide();
+	$('#'+parent_id).hide(	"slide",
+							{ direction: "left" },
+							1000,
+							function(){
+								$('#'+child_id).css("visibility","visible");
+								$('#'+child_id).fadeIn('fast');
+							;}
+						);
+}
+
 function getPie(budget_id){
+	if($("#pie_display").children("#"+budget_id).length){
+		alert('exists');
+		slideInChild($("#pie_display").children("#"+budget_id).attr('parent_id'),budget_id);
+		return;
+	}
 	new_pie_div=$('<div id="'+budget_id+'" style="visibility:hidden" class="pie_graph"></div>');
 	$('#pie_display').append(new_pie_div);
 	$.ajax({
@@ -38,18 +57,10 @@ function getPie(budget_id){
 		dataType: 'json',
 		beforeSend: function(){ },
 		success: function(data){
+			new_pie_div.attr('parent_id',data.params.parent_id);
+			$('#pie_display').append(new_pie_div);
 			createPie(budget_id, data);
-			$('#'+budget_id).hide();
-			$('#'+data.params.parent_id).hide(	"slide",
-												{ direction: "left" },
-												1000,
-												function(){
-													$('#pie_cache').append($('#'+data.params.parent_id));
-													$('#pie_display').append($('#'+budget_id));
-													$('#'+budget_id).css("visibility","visible");
-													$('#'+budget_id).fadeIn('fast');
-												;}
-											);
+			slideInChild(data.params.parent_id,budget_id);
 		},
 		error: function() {
 			alert("Error on get Pie Data");
@@ -88,6 +99,17 @@ function createPie(div_id, data){
 	});
 }
 
+function goBack(el){
+	parent_pie=$('#'+$(el).attr('parent_id'));
+	if(parent_pie.attr('parent_id')){
+		$('#scroll_back').attr('parent_id',parent_pie.attr('parent_id'));
+	}else{
+		$('#scroll_back').hide();
+	}
+	parent_pie.show("slide",{ direction: "left" },	1000);
+	child_pie=$("#pie_display").children(".pie_graph").hide();
+	return false;
+}
 // legend font size
 // http://stackoverflow.com/questions/13043989/raphael-piechart-legend-font
 // http://stackoverflow.com/questions/4679785/graphael-bar-chart-with-text-x-axis
@@ -117,7 +139,6 @@ $(function() {
 			content=content+'Deseas '+enquiry_link+'?';
 		}
 		$('#budget_options_content').html(content);
-		//alert($(this).text());
 		$('#budget_options').bPopup({
 			modalClose: false
 			, position: ([ 'auto', 200 ])
@@ -254,10 +275,17 @@ if( count($data) > 0){ ?>
    }
 </style>
 
-<div>
-<div id="pie_display" style="margin-top:20px"></div>
-<div id="pie_cache" style="display:none"></div>
+<div style="margin-top:10px;height:10px;">
+<a href="javascript:void(0)" id="scroll_back" style="display:none" onclick="javascript:goBack(this);">go back</a>
+
+<?php
+if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
+	echo '<a style="float:right" href="'.$zip->webPath.'">'.__('Download database').'</a>';
+}?>
 </div>
+
+<div id="pie_display" style="margin-top:20px"></div>
+
 
 <?php
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
