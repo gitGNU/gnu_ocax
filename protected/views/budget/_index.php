@@ -44,7 +44,6 @@ function slideInChild(parent_id,child_id){
 
 function getPie(budget_id){
 	if($("#pie_display").children("#"+budget_id).length){
-		alert('exists');
 		slideInChild($("#pie_display").children("#"+budget_id).attr('parent_id'),budget_id);
 		return;
 	}
@@ -279,6 +278,7 @@ if( count($data) > 0){ ?>
 <a href="javascript:void(0)" id="scroll_back" style="display:none" onclick="javascript:goBack(this);">go back</a>
 
 <?php
+
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 	echo '<a style="float:right" href="'.$zip->webPath.'">'.__('Download database').'</a>';
 }?>
@@ -288,11 +288,14 @@ if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 
 
 <?php
+/*
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 	echo '<div style="margin-top:40px;">';
 	echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
 	echo '</div>';
-}?>
+
+}*/
+?>
 
 
 <?php
