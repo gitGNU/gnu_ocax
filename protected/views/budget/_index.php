@@ -288,13 +288,13 @@ if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 
 
 <?php
-/*
+
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 	echo '<div style="margin-top:40px;">';
 	echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
 	echo '</div>';
+}
 
-}*/
 ?>
 
 

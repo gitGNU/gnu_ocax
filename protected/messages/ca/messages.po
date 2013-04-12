@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-09 18:21+0100\n"
+"PO-Revision-Date: 2013-04-12 09:40+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -307,7 +307,7 @@ msgstr "Fitxer CSV"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/ImportCSV.php:63
 msgid "generated on the"
-msgstr ""
+msgstr "generated on the"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:8
 msgid "Budget with internal code"
@@ -345,7 +345,7 @@ msgstr "constitueix un"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:163
 msgid "of the total anual budget"
-msgstr ""
+msgstr "of the total anual budget"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:164
 msgid "and is comprised of the following budgets"
@@ -368,29 +368,38 @@ msgstr ""
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:60
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:171
 msgid "Budget for"
 msgstr "Pressupostes per a"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:73
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:184
 msgid "Available years"
 msgstr "Anys disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:111
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:222
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:122
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:233
 msgid "Filtered results"
 msgstr "Resultats de la cerca"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:169
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:283
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:294
 msgid "Download database"
-msgstr ""
+msgstr "Baixar base de dades"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:52
 msgid "Feature budget"
 msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/adminYears.php:6
+msgid "Create Year"
+msgstr "Create Year"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/adminYears.php:7
+msgid "Prepare zip file"
+msgstr "Prepare zip file"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/adminYears.php:10
 msgid "Restore database"
@@ -422,32 +431,32 @@ msgid "Note: Delete some backups to save disk space. You only really need the la
 msgstr "Nota: Esborrar alguns backups per estalviar espai de disc. En realitat solament necessites l'última còpia bona"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:6
-msgid "Add file to docs"
-msgstr ""
+msgid "Update zip file"
+msgstr "Update zip file"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:7
-msgid "Add csv to data"
-msgstr ""
+msgid "Add file to docs"
+msgstr "Add file to docs"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:8
-msgid "Update zip file"
-msgstr ""
+msgid "Add csv to data"
+msgstr "Add csv to data"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:12
 msgid "Download zip file"
-msgstr ""
+msgstr "Download zip file"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:114
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:106
 msgid "Prepare file"
 msgstr "Prepari fitxer"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:122
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:114
 msgid "Files ready to include in zip"
 msgstr "Fitxers llests per incloure en el zip"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:131
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/adminDatabaseDownload.php:123
 msgid "Files to include"
-msgstr ""
+msgstr "Files to include"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/_form.php:42
 msgid "Upload file for"
@@ -814,50 +823,54 @@ msgstr "Telèfon"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:112
 msgid "View email"
-msgstr ""
+msgstr "View email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:113
 msgid "Email sent OK"
-msgstr ""
+msgstr "Email sent OK"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:115
 msgid "Error while sending email"
-msgstr ""
+msgstr "Error while sending email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:159
 msgid "has blocked you"
-msgstr ""
+msgstr "has blocked you"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:171
 msgid "User request from the"
-msgstr ""
+msgstr "User request from the"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:185
 msgid "Email not sent"
-msgstr ""
+msgstr "Email not sent"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:146
 msgid "Changes saved"
-msgstr ""
+msgstr "Changes saved"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:170
 msgid "is blocked"
-msgstr ""
+msgstr "is blocked"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:184
 msgid "Zip file updated"
-msgstr ""
+msgstr "Zip file updated"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:228
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:232
 msgid "Enquiry has been published"
-msgstr ""
+msgstr "Enquiry has been published"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:228
 msgid "We have sent you an email"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:349
-msgid "Database restored correctly"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:89
+msgid "Others"
 msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:369
+msgid "Database restored correctly"
+msgstr "Database restored correctly"
 

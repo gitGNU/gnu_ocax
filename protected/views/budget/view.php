@@ -167,7 +167,7 @@ $graph_width=897;
 	<div style="background:#F0F8FF;padding:10px;margin-bottom:10px;">
 	<?php echo __('Key');?>:
 	<span class="key" style="margin-left:15px;background:#BFBFBF"><?php echo __('Actual provision');?></span>
-	<span class="key" style="margin-left:25px;background:#DBDBDB"><?php echo __('Initial provision');?></span>
+	<?php /* <span class="key" style="margin-left:25px;background:#DBDBDB"><?php echo __('Initial provision');?></span> */?>
 	<?php if($parent_budget->parent && $parent_budget->parent0->parent && $parent_budget->parent0->parent0->parent){
 		echo '<span style="float:right">'.CHtml::link(__('Up one level'),array('budget/view', 'id'=>$parent_budget->parent0->id)).'</span>';
 	}?>

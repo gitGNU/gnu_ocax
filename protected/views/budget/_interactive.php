@@ -53,11 +53,11 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		if($indent > 0)
 			$budget_indent = 32;
 
-		echo '<div style=" margin-left:'.$budget_indent.'px;">';
+		echo '<div style=" margin-left:'.$budget_indent.'px;margin-top:20px;">';
 			if($budget->budgets)
-			echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
+				echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
 			else
-			echo '<div style="margin-left:0px">';
+				echo '<div style="margin-left:0px">';
 
 			if($budget->budgets){
 			echo '<div style="float:left;">';
@@ -78,12 +78,12 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
 
-			$percent=percentage($budget->initial_provision,$globals['yearly_actual_provision']);
+	/*		$percent=percentage($budget->initial_provision,$globals['yearly_actual_provision']);
 			$width=$graph_width*(percentage($budget->initial_provision,$parent_budget->actual_provision) / 100);
 			echo '<div class="initial_provision_bar '.$highlight.'" style="width:'.$width.'px;">';
 			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
-
+*/
 			echo '</div>';
 		echo '</div>';
 		echo '<div style="clear:both"></div>';
