@@ -67,13 +67,8 @@
 	</div>
 	<div style="width: 20%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>
-		Nuesta licencia aquí<br/>
-		<?php echo Yii::powered(); ?>
-	</div>
-	<div style="width: 40%; float: left;  margin: 0px;">
-		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>
-		Nuesta licencia aquí<br/>
-		<?php echo Yii::powered(); ?>
+		AGPL<br/>
+		<a href="https://github.com/buttle/ocax">Code @ github</a><br />
 	</div>
 	</div>
 	<div style="clear:both;"></div>
