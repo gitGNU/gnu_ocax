@@ -12,25 +12,39 @@ Yii::app()->clientScript->registerScript('search', "
 });
 ");
 
-//$year = $model->year;
 $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
 ?>
 
 <style>
-.pie_graph{
+.graph_group{
+	border-top-style:solid;
+	border-width:1px;
+	margin-bottom:20px;
+}
+.graph_container{
 
+}
+.graph{
+	width:450px;
+	height:450px;
 }
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/raphael-min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.raphael-min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jraphael/g.pie-min.js"></script>
+
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.css" />
+
+
 
 <script>
 function slideInChild(parent_id,child_id){
-	$('#scroll_back').attr('parent_id',parent_id);
-	$('#scroll_back').show();
+	group=$("#"+parent_id).parents('.graph_group');
+	scroll_back=group.children(".scroll_back");
+	scroll_back.attr('parent_id',parent_id);
+	scroll_back.show();
 	$('#'+child_id).hide();
 	$('#'+parent_id).hide(	"slide",
 							{ direction: "left" },
@@ -41,14 +55,27 @@ function slideInChild(parent_id,child_id){
 							;}
 						);
 }
+function goBack(el){
+	parent_pie=$('#'+$(el).attr('parent_id'));
+	if(parent_pie.attr('parent_id')){
+		$(el).attr('parent_id',parent_pie.attr('parent_id'));
+	}else{
+		$(el).hide();
+	}
+	parent_pie.show("slide",{ direction: "left" },	1000);
+	group=parent_pie.parents('.graph_group');
+	group.children(".graph_container").hide();
+	return false;
+}
 
 function getPie(budget_id){
+/*
 	if($("#pie_display").children("#"+budget_id).length){
 		slideInChild($("#pie_display").children("#"+budget_id).attr('parent_id'),budget_id);
-		return;
+		return false;
 	}
-	new_pie_div=$('<div id="'+budget_id+'" style="visibility:hidden" class="pie_graph"></div>');
-	$('#pie_display').append(new_pie_div);
+*/
+	graph_container=$('<div id="'+budget_id+'" style="visibility:hidden" class="graph_container"></div>');
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
 		type: 'GET',
@@ -56,75 +83,86 @@ function getPie(budget_id){
 		dataType: 'json',
 		beforeSend: function(){ },
 		success: function(data){
-			new_pie_div.attr('parent_id',data.params.parent_id);
-			$('#pie_display').append(new_pie_div);
-			createPie(budget_id, data);
+			graph_container.append('<div style="font-size:1.5em;">'+data.params.title+'</div>');
+			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
+			graph_container.append(graph);
+			graph.attr('parent_id',data.params.parent_id);
+			group=$("#"+data.params.parent_id).parents('.graph_group');
+			group.append(graph_container);
+			createPie(budget_id+'_graph', data);
 			slideInChild(data.params.parent_id,budget_id);
+
 		},
 		error: function() {
 			alert("Error on get Pie Data");
 		}
 	});
-
 }
 
-function createPie(div_id, data){
-	r = Raphael(div_id, 800, 440);
-	r.text(250, 50, data.params.title).attr({ font: "30px sans-serif" });
-	pie = r.piechart(250, 250, 150, data.numbers,{
-				legend: data.labels,
-				legendpos: "east",
-				legendothers: data.params.others,
-				href: data.links,
-			}
-	);
-	pie.hover(function () {
-		this.sector.stop();
-		this.sector.scale(1.1, 1.1, this.cx, this.cy);
 
-		if (this.label) {
-			this.label[0].stop();
-			this.label[0].attr({ r: 7.5 });
-			this.label[1].attr({ "font-weight": 800 });
-		}
+var pie_properties = {
+	//http://www.jqplot.com/docs/files/plugins/jqplot-pieRenderer-js.html
+	grid:{
+			drawGridlines:false,
+			background:"#ffffff",
+			drawBorder:false,
+			shadow:false
 	},
-	function () {
-		this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "smooth");
-
-		if (this.label) {
-			this.label[0].animate({ r: 5 }, 500, "bounce");
-			this.label[1].attr({ "font-weight": 400 });
+	legend:{
+		show:true,
+		placement:"outside",
+		location:"se",
+		rowSpacing:'0.1em',
+		marginBottom:'0px',
+	},
+	//axesDefaults:[],
+	seriesDefaults:{
+		renderer:$.jqplot.PieRenderer,
+		rendererOptions:{
+			shadow:false,
+			padding:0,
+			//sliceMargin: 2,
+			showDataLabels:true,
+			dataLabelThreshold:3,
+			dataLabelCenterOn:false,
+			//"dataLabelPositionFactor":0.6,
+			//"dataLabelNudge":0,
+			//"dataLabels":["Longer","B","C","Longer","None"],
 		}
-	});
-}
-
-function goBack(el){
-	parent_pie=$('#'+$(el).attr('parent_id'));
-	if(parent_pie.attr('parent_id')){
-		$('#scroll_back').attr('parent_id',parent_pie.attr('parent_id'));
-	}else{
-		$('#scroll_back').hide();
 	}
-	parent_pie.show("slide",{ direction: "left" },	1000);
-	child_pie=$("#pie_display").children(".pie_graph").hide();
-	return false;
 }
-// legend font size
-// http://stackoverflow.com/questions/13043989/raphael-piechart-legend-font
-// http://stackoverflow.com/questions/4679785/graphael-bar-chart-with-text-x-axis
-// https://gist.github.com/ejucovy/451637
+function createPie(div_id, data){
+	chart= $.jqplot(div_id, [data.data], pie_properties);
+
+	//http://www.kathyw.org/jQPlot/LinkTest.html
+	$('#'+div_id).bind('jqplotDataClick', 
+		function (ev, seriesIndex, pointIndex, data) {
+			alert(data[1]);
+		}
+	);
+}
 
 $(function() {
+	$.jqplot.config.enablePlugins = true;
+	//http://phpchart.net/phpChart/examples/data_labels.php
 	<?php
 		foreach($featured as $budget){?>
-			//new_pie_div=$('<div id="<?php echo $budget->id?>" class="pie_graph"></div>');
-			$('#pie_display').append('<div id="<?php echo $budget->id?>" class="pie_graph"></div>');
+			group=$('<div class="graph_group"></div>');
+			group.append('<span style="font-size:1.3em"><?php echo $budget->parent0->concept?></span><br />');
+			//group.append('<a href="javascript:void(0)" class="scroll_back" style="display:none" onclick="javascript:goBack(this);">go back</a>');
+			$('#pie_display').append(group);
+			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
+			graph_container.append('<div style="font-size:1.5em;"><?php echo $budget->concept?></div>');
+			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
+			group.append(graph_container);
 			<?php
 			$data = $this->actionGetPieData($budget->id);
-			echo 'createPie('.$budget->id.','.$data.');';
+			echo 'createPie("'.$budget->id.'_graph",'.$data.');';
 		}
 	?>
 });
+
+
 
 
 // this is for interactive graphic
@@ -134,7 +172,7 @@ $(function() {
 		content = '';
 		if(1 == 1){	// why did I if this?
 			enquiry_link='<?php echo Yii::app()->request->baseUrl;?>/enquiry/create?budget='+budget_id;
-			enquiry_link='<a href="'+enquiry_link+'">hacer una enquiry</a>';
+			enquiry_link='<a href="'+enquiry_link+'"><?php echo __('hacer una enquiry');?></a>';
 			content=content+'Deseas '+enquiry_link+'?';
 		}
 		$('#budget_options_content').html(content);
@@ -275,7 +313,7 @@ if( count($data) > 0){ ?>
 </style>
 
 <div style="margin-top:10px;height:10px;">
-<a href="javascript:void(0)" id="scroll_back" style="display:none" onclick="javascript:goBack(this);">go back</a>
+
 
 <?php
 
