@@ -64,7 +64,6 @@ function slideInChild(parent_id,child_id){
 	group=$("#"+parent_id).parents('.graph_group');
 
 	if(graph_container.attr('is_parent') == 0){
-alert('no parent '+child_id);
 		budget_details=graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
@@ -81,6 +80,7 @@ alert('no parent '+child_id);
 							function(){
 								//$('#'+child_id).css("visibility","visible");
 								$('#'+child_id).fadeIn(200);
+								return false;
 							;}
 						);
 	return false;
