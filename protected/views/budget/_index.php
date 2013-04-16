@@ -28,11 +28,18 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	width:450px;
 	height:450px;
 }
+.budget_details{
+	width:450px;
+	float:right;
+}
+.budget_details > a {
+	margin-top:-15px;
+}
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 
-<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
 <script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.css" />
@@ -42,39 +49,29 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 <script>
 function slideInChild(parent_id,child_id){
 	group=$("#"+parent_id).parents('.graph_group');
-	scroll_back=group.children(".scroll_back");
-	scroll_back.attr('parent_id',parent_id);
-	scroll_back.show();
 	$('#'+child_id).hide();
 	$('#'+parent_id).hide(	"slide",
 							{ direction: "left" },
-							1000,
+							600,
 							function(){
 								$('#'+child_id).css("visibility","visible");
-								$('#'+child_id).fadeIn('fast');
+								$('#'+child_id).fadeIn(200);
 							;}
 						);
 }
-function goBack(el){
-	parent_pie=$('#'+$(el).attr('parent_id'));
-	if(parent_pie.attr('parent_id')){
-		$(el).attr('parent_id',parent_pie.attr('parent_id'));
-	}else{
-		$(el).hide();
-	}
-	parent_pie.show("slide",{ direction: "left" },	1000);
-	group=parent_pie.parents('.graph_group');
+function goBack(parent_id){
+	parent_graph_container=$('#'+parent_id);
+	parent_graph_container.show("slide",{ direction: "left" },	500);
+	group=parent_graph_container.parents('.graph_group');
 	group.children(".graph_container").hide();
 	return false;
 }
 
 function getPie(budget_id){
-/*
-	if($("#pie_display").children("#"+budget_id).length){
-		slideInChild($("#pie_display").children("#"+budget_id).attr('parent_id'),budget_id);
+	if($("#"+budget_id).length){
+		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
 		return false;
 	}
-*/
 	graph_container=$('<div id="'+budget_id+'" style="visibility:hidden" class="graph_container"></div>');
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
@@ -83,10 +80,18 @@ function getPie(budget_id){
 		dataType: 'json',
 		beforeSend: function(){ },
 		success: function(data){
-			graph_container.append('<div style="font-size:1.5em;">'+data.params.title+'</div>');
+			title=	'<div style="font-size:1.5em;">'+
+					'<img style="vertical-align:text-bottom;cursor:pointer" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
+					'onclick="javascript:goBack('+data.params.parent_id+');" />'+data.params.title+
+					'</div>';
+			graph_container.attr('parent_id',data.params.parent_id);
+			graph_container.append(title);
+			budget_details=$('<div class="budget_details"><div class="view" style="padding:0px">'+data.params.budget_details+'</div></div>');
+			budget_details.append(data.params.enquiry_link);
+			graph_container.append(budget_details);
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
 			graph_container.append(graph);
-			graph.attr('parent_id',data.params.parent_id);
+			
 			group=$("#"+data.params.parent_id).parents('.graph_group');
 			group.append(graph_container);
 			createPie(budget_id+'_graph', data);
@@ -147,17 +152,23 @@ $(function() {
 	//http://phpchart.net/phpChart/examples/data_labels.php
 	<?php
 		foreach($featured as $budget){?>
+			data = <?php echo $this->actionGetPieData($budget->id);?>
+
 			group=$('<div class="graph_group"></div>');
-			group.append('<span style="font-size:1.3em"><?php echo $budget->parent0->concept?></span><br />');
-			//group.append('<a href="javascript:void(0)" class="scroll_back" style="display:none" onclick="javascript:goBack(this);">go back</a>');
+			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->concept);?></span><br />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
-			graph_container.append('<div style="font-size:1.5em;"><?php echo $budget->concept?></div>');
+			graph_container.append('<div style="font-size:1.5em;"><?php echo CHtml::encode($budget->concept);?></div>');
+
+			budget_details=$('<div class="budget_details"><div class="view" style="padding:0px">'+data.params.budget_details+'</div></div>');
+			budget_details.append(data.params.enquiry_link);
+			graph_container.append(budget_details);
+
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);
+
 			<?php
-			$data = $this->actionGetPieData($budget->id);
-			echo 'createPie("'.$budget->id.'_graph",'.$data.');';
+			echo 'createPie("'.$budget->id.'_graph", data);';
 		}
 	?>
 });
@@ -195,7 +206,6 @@ $(function() {
 	});
 });
 </script>
-
 
 <div style="font-size:2.5em;text-align:center;margin-top:-10px;">
 <?php echo Config::model()->findByPk('councilName')->value;?>

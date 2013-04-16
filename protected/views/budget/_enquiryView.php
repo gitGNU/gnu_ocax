@@ -1,3 +1,7 @@
+<?php
+//Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+//Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

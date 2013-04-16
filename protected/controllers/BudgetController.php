@@ -84,20 +84,18 @@ class BudgetController extends Controller
 	{
 		// [["Sony",7],["Samsumg",13.3],["LG",14.7],["Vizio",5.2],["Insignia",1.2]]
 		$model=$this->loadModel($id);
+		$params=array(	'parent_id'=>$model->parent,
+						'title'=>CHtml::encode($model->concept),
+						'budget_details'=>$this->renderPartial('_enquiryView',array('model'=>$model),true,false),
+						'enquiry_link'=>CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id)),
+					);
 		$data=array();
-		//$labels=array();
-		//$links=array();
-		$params=array('parent_id'=>$model->parent,'title'=>$model->concept, 'others'=>__('Others'));
 		foreach($model->budgets as $budget){
 			$data[] = array(
 							'<span class="link" onClick="javascript:getPie('.$budget->id.')">'.$budget->concept.'</span>',
 							(int)$budget->actual_provision
 						);
-			//$numbers[] = (int)$budget->actual_provision;
-			//$labels[] = $budget->concept;
-			//$links[]  = 'javascript:getPie('.$budget->id.')';
 		}
-		//$result=array('numbers'=>$numbers,'labels'=>$labels,'links'=>$links,'params'=>$params,);
 		$result=array('data'=>$data, 'params'=>$params,);
 		if(Yii::app()->request->isAjaxRequest)
 			echo CJavaScript::jsonEncode($result);
