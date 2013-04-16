@@ -35,29 +35,49 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 .budget_details > a {
 	margin-top:-15px;
 }
+table.jqplot-table-legend{
+    display: block;
+    height: 180px;
+    overflow-y: auto;
+}
+
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
-<script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
-<script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.highlighter.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.css" />
 
 
 
 <script>
 function slideInChild(parent_id,child_id){
+	graph_container=$('#'+child_id);
 	group=$("#"+parent_id).parents('.graph_group');
+
+	if(graph_container.attr('is_parent') == 0){
+		budget_details=graph_container.children('.budget_details');
+		budget_details.hide();
+		group.children('.graph_container').hide();
+		//$('#'+parent_id).hide();
+		$('#'+child_id).show();	
+		budget_details.fadeIn(700);
+		graph_container.find('.legend_item[budget_id='+child_id+']').css('font-weight','bold');
+		return false;
+	}
 	$('#'+child_id).hide();
 	$('#'+parent_id).hide(	"slide",
 							{ direction: "left" },
 							600,
 							function(){
-								$('#'+child_id).css("visibility","visible");
+								//$('#'+child_id).css("visibility","visible");
 								$('#'+child_id).fadeIn(200);
 							;}
 						);
+	return false;
 }
 function goBack(parent_id){
 	parent_graph_container=$('#'+parent_id);
@@ -72,7 +92,8 @@ function getPie(budget_id){
 		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
 		return false;
 	}
-	graph_container=$('<div id="'+budget_id+'" style="visibility:hidden" class="graph_container"></div>');
+	//graph_container=$('<div id="'+budget_id+'" style="visibility:hidden" class="graph_container"></div>');
+	graph_container=$('<div id="'+budget_id+'" class="graph_container"></div>');
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
 		type: 'GET',
@@ -82,9 +103,10 @@ function getPie(budget_id){
 		success: function(data){
 			title=	'<div style="font-size:1.5em;">'+
 					'<img style="vertical-align:text-bottom;cursor:pointer" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
-					'onclick="javascript:goBack('+data.params.parent_id+');" />'+data.params.title+
+					'onclick="javascript:goBack('+data.params.go_back_id+');" />'+data.params.title+
 					'</div>';
 			graph_container.attr('parent_id',data.params.parent_id);
+			graph_container.attr('is_parent',data.params.is_parent);
 			graph_container.append(title);
 			budget_details=$('<div class="budget_details"><div class="view" style="padding:0px">'+data.params.budget_details+'</div></div>');
 			budget_details.append(data.params.enquiry_link);
@@ -96,14 +118,12 @@ function getPie(budget_id){
 			group.append(graph_container);
 			createPie(budget_id+'_graph', data);
 			slideInChild(data.params.parent_id,budget_id);
-
 		},
 		error: function() {
 			alert("Error on get Pie Data");
 		}
 	});
 }
-
 
 var pie_properties = {
 	//http://www.jqplot.com/docs/files/plugins/jqplot-pieRenderer-js.html
@@ -119,6 +139,10 @@ var pie_properties = {
 		location:"se",
 		rowSpacing:'0.1em',
 		marginBottom:'0px',
+		border:'none',
+		rendererOptions:{
+			//numberColumns:2,
+		}
 	},
 	//axesDefaults:[],
 	seriesDefaults:{
@@ -133,7 +157,13 @@ var pie_properties = {
 			//"dataLabelPositionFactor":0.6,
 			//"dataLabelNudge":0,
 			//"dataLabels":["Longer","B","C","Longer","None"],
-		}
+		},
+    highlighter: {
+        show: true,
+        formatString:'%s', 
+        //tooltipLocation:'sw', 
+        useAxesFormatters:false
+    }
 	}
 }
 function createPie(div_id, data){
@@ -142,9 +172,19 @@ function createPie(div_id, data){
 	//http://www.kathyw.org/jQPlot/LinkTest.html
 	$('#'+div_id).bind('jqplotDataClick', 
 		function (ev, seriesIndex, pointIndex, data) {
-			alert(data[1]);
+			 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+			getPie(data[2]);
 		}
 	);
+	$('.legend_item').on('click', function() {
+		budget_id = $(this).attr('budget_id');
+		getPie(budget_id);
+	});
+	//http://jsfiddle.net/Boro/5QA8r/ highlight splice from lengend
+	/*$('.legend_item').on('mouseover', function() {
+		budget_id = $(this).attr('budget_id');
+		alert(budget_id);
+	});*/
 }
 
 $(function() {
@@ -158,6 +198,7 @@ $(function() {
 			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->concept);?></span><br />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
+			graph_container.attr('is_parent',data.params.is_parent);
 			graph_container.append('<div style="font-size:1.5em;"><?php echo CHtml::encode($budget->concept);?></div>');
 
 			budget_details=$('<div class="budget_details"><div class="view" style="padding:0px">'+data.params.budget_details+'</div></div>');
@@ -166,45 +207,11 @@ $(function() {
 
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);
+			createPie("<?php echo $budget->id;?>_graph", data);
 
-			<?php
-			echo 'createPie("'.$budget->id.'_graph", data);';
-		}
-	?>
+	<?php } ?>
 });
 
-
-
-
-// this is for interactive graphic
-$(function() {
-	$('.budget').bind('click', function() {
-		budget_id = $(this).attr('budget_id');
-		content = '';
-		if(1 == 1){	// why did I if this?
-			enquiry_link='<?php echo Yii::app()->request->baseUrl;?>/enquiry/create?budget='+budget_id;
-			enquiry_link='<a href="'+enquiry_link+'"><?php echo __('hacer una enquiry');?></a>';
-			content=content+'Deseas '+enquiry_link+'?';
-		}
-		$('#budget_options_content').html(content);
-		$('#budget_options').bPopup({
-			modalClose: false
-			, position: ([ 'auto', 200 ])
-			, follow: ([false,false])
-			, fadeSpeed: 10
-			, positionStyle: 'absolute'
-			, modelColor: '#ae34d5'
-		});
-	});
-});
-$(function() {
-	$("#Budget_concept").on("click", function(event){
-		$("#Budget_code").val('');
-	});
-	$("#Budget_code").on("click", function(event){
-		$("#Budget_concept").val('');
-	});
-});
 </script>
 
 <div style="font-size:2.5em;text-align:center;margin-top:-10px;">

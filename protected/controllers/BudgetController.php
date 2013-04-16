@@ -82,18 +82,28 @@ class BudgetController extends Controller
 
 	public function actionGetPieData($id)
 	{
-		// [["Sony",7],["Samsumg",13.3],["LG",14.7],["Vizio",5.2],["Insignia",1.2]]
 		$model=$this->loadModel($id);
+		$graphThisModel=$model;
+		$goBackID=$model->parent0->id;
+		$isParent=1;
+		if(!$model->budgets){
+			$isParent=0;
+			$graphThisModel=$model->parent0;
+			$goBackID=$model->parent0->parent0->id;
+		}
 		$params=array(	'parent_id'=>$model->parent,
-						'title'=>CHtml::encode($model->concept),
+						'title'=>CHtml::encode($graphThisModel->concept),
 						'budget_details'=>$this->renderPartial('_enquiryView',array('model'=>$model),true,false),
 						'enquiry_link'=>CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id)),
+						'is_parent'=>$isParent,
+						'go_back_id'=>$goBackID,
 					);
 		$data=array();
-		foreach($model->budgets as $budget){
+		foreach($graphThisModel->budgets as $budget){
 			$data[] = array(
-							'<span class="link" onClick="javascript:getPie('.$budget->id.')">'.$budget->concept.'</span>',
-							(int)$budget->actual_provision
+							'<span class="link legend_item" budget_id="'.$budget->id.'">'.$budget->concept.'</span>',
+							(int)$budget->actual_provision,
+							$budget->id,
 						);
 		}
 		$result=array('data'=>$data, 'params'=>$params,);

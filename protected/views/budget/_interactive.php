@@ -31,6 +31,37 @@
 </style>
 
 <script>
+
+// this is for interactive graphic
+$(function() {
+	$('.budget').bind('click', function() {
+		budget_id = $(this).attr('budget_id');
+		content = '';
+		if(1 == 1){	// why did I if this?
+			enquiry_link='<?php echo Yii::app()->request->baseUrl;?>/enquiry/create?budget='+budget_id;
+			enquiry_link='<a href="'+enquiry_link+'"><?php echo __('hacer una enquiry');?></a>';
+			content=content+'Deseas '+enquiry_link+'?';
+		}
+		$('#budget_options_content').html(content);
+		$('#budget_options').bPopup({
+			modalClose: false
+			, position: ([ 'auto', 200 ])
+			, follow: ([false,false])
+			, fadeSpeed: 10
+			, positionStyle: 'absolute'
+			, modelColor: '#ae34d5'
+		});
+	});
+});
+$(function() {
+	$("#Budget_concept").on("click", function(event){
+		$("#Budget_code").val('');
+	});
+	$("#Budget_code").on("click", function(event){
+		$("#Budget_concept").val('');
+	});
+});
+
 function toggleChildren(id){
 	if ($('#budget_children_'+id).is(":visible"))
 		$('#budget_children_'+id).slideUp('fast');
