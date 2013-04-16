@@ -4,10 +4,24 @@
 
 $this->menu=array(
 	array('label'=>'View enquiry', 'url'=>array('adminView', 'id'=>$model->id)),
-	array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
-	array('label'=>'Listar todas', 'url'=>array('admin')),
+	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
+	array('label'=>__('List all'), 'url'=>array('admin')),
 );
 ?>
+
+<style>           
+	.outer{width:100%; padding: 0px; float: left;}
+	.left{width: 48%; float: left;  margin: 0px;}
+	.right{width: 48%; float: left; margin: 0px;}
+	.clear{clear:both;}
+</style>
+
+<script>
+function reject(){
+	$('#Enquiry_state').val('rejected');
+	$('#enquiry-form').submit();
+}
+</script>
 
 <div class="form">
 
@@ -16,14 +30,13 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title">Manage enquiry</div>
+	<div class="title"><?php echo __('Manage enquiry');?></div>
+
+<div class="outer">
+<div class="left">
 
 	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php /*echo $form->label($model,'state'); */ ?>
-		<?php /*echo $form->dropDownList($model, 'state', $model->humanStateValues);*/?>
-	</div>
+	<?php echo $form->hiddenField($model, 'state');?>
 
 	<div class="row">
 		<?php /*echo $form->label($model,'type');*/ ?>
@@ -40,24 +53,35 @@ $this->menu=array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'team_member'); ?>
-		<div class="hint">Team member responsable for this Enquiry</div>
+		<div class="hint"><?php echo __('Team member responsable for this Enquiry');?></div>
 		<?php
 			$data=CHtml::listData($team_members,'id', 'fullname');
-			echo $form->dropDownList($model, 'team_member', $data, array('prompt'=>'Not assigned'));
+			echo $form->dropDownList($model, 'team_member', $data, array('prompt'=>__('Not assigned')));
 		?>
 		<?php echo $form->error($model,'team_member'); ?>
 	</div>
 
-
-<div class="clear"></div>
-
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Assign'); ?>
+		<?php echo CHtml::submitButton(__('Assign')); ?>
 	</div>
 
+</div>
+<div class="right">
+
+	<div class="row buttons">
+		<b><?php echo __('Reject the Enquiry');?></b>
+		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>
+		<p style="margin-bottom:37px"></p>
+		<?php echo CHtml::button(__('Reject'),array('onclick'=>'reject()')); ?>
+	</div>
+</div>
+</div>
+<div class="clear"></div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+
 
 <p></p>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>

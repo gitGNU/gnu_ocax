@@ -55,7 +55,7 @@ class Enquiry extends CActiveRecord
 						2=>__('Enquiry accepted by the %s'),
                         3=>__('Enquiry rejected by the %s'),
                         4=>__('Awaiting response from the Administration'),
-                        5=>__('Replied by the Administration'),
+                        5=>__('Reply awaiting assessment'),
                         6=>__('Reply considered satisfactory'),
                         7=>__('Reply considered insatisfactory'),
 					);
@@ -141,7 +141,7 @@ class Enquiry extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'related_to' => __('Related to'),
-			'user' => __('Submitted by'),
+			'user' => __('Formulated by'),
 			'team_member' => __('Assigned to'),
 			'manager' => 'Manager',
 			'created' => __('Formulated'),

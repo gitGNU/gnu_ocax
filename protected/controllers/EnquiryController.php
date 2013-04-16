@@ -343,14 +343,16 @@ class EnquiryController extends Controller
 		{
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
-			if($team_member != $model->team_member){
+			if($model->state == 'rejected'){
+				$model->state = 3;
+			}
+			elseif($team_member != $model->team_member){
 				if($model->team_member){
 					$model->assigned=date('Y-m-d');
-					if($model->state == 1)	// not working !!!
-						$model->state=2;	// recibido por el OCA(x)
+					$model->state=2;	// 'Enquiry accepted by the %s'
 				}else{
 					$model->assigned=Null;
-					$model->state=0;
+					$model->state=1;	//'Pending validation by the %s'
 				}
 			}
 			if($model->save() && $model->team_member){

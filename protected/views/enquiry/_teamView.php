@@ -7,7 +7,7 @@
 	'data'=>$model,
 	'attributes'=>array(
 		array(
-	        'label'=>__('Submitted by'),
+	        'label'=>__('Formulated by'),
 	        'value'=>$model->user0->fullname.' '.__('on the').' '.$model->created,
 		),
 		array(

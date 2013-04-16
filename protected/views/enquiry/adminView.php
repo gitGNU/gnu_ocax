@@ -4,10 +4,9 @@
 
 $this->menu=array(
 	//array('label'=>'Ver enquiry', 'url'=>array('/enquiry/adminView', 'id'=>$model->id)),
-	array('label'=>'Manage enquiry', 'url'=>array('manage', 'id'=>$model->id)),
-	array('label'=>'Sent emails', 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
-	
-	array('label'=>'List all', 'url'=>array('admin')),
+	array('label'=>__('Manage enquiry'), 'url'=>array('manage', 'id'=>$model->id)),
+	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
+	array('label'=>__('List all'), 'url'=>array('admin')),
 	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 /*
@@ -16,7 +15,7 @@ if($model->state == 0){
 	array_splice( $this->menu, 1, 0, $deleteEnquiry );
 }else
 */
-	$deleteEnquiry = array( array('label'=>'Delete enquiry', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));
+	$deleteEnquiry = array( array('label'=>__('Delete enquiry'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));
 	array_splice( $this->menu, 1, 0, $deleteEnquiry );
 
 ?>

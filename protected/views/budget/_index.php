@@ -21,6 +21,11 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	border-width:1px;
 	margin-bottom:20px;
 }
+.loading{
+	font-size:1em;
+	float:right;
+	display:none;
+}
 .graph_container{
 
 }
@@ -59,6 +64,7 @@ function slideInChild(parent_id,child_id){
 	group=$("#"+parent_id).parents('.graph_group');
 
 	if(graph_container.attr('is_parent') == 0){
+alert('no parent '+child_id);
 		budget_details=graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
@@ -123,6 +129,7 @@ function getPie(budget_id){
 			alert("Error on get Pie Data");
 		}
 	});
+	return false;
 }
 
 var pie_properties = {
@@ -174,11 +181,13 @@ function createPie(div_id, data){
 		function (ev, seriesIndex, pointIndex, data) {
 			 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
 			getPie(data[2]);
+			return false;
 		}
 	);
 	$('.legend_item').on('click', function() {
 		budget_id = $(this).attr('budget_id');
 		getPie(budget_id);
+		return false;
 	});
 	//http://jsfiddle.net/Boro/5QA8r/ highlight splice from lengend
 	/*$('.legend_item').on('mouseover', function() {
