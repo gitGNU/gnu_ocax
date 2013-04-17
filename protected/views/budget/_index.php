@@ -339,16 +339,18 @@ if( count($data) > 0){ ?>
 </style>
 
 <div style="margin-top:10px;height:10px;">
-
-
 <?php
+echo '<img style="float:right;" src="'.Yii::app()->theme->baseUrl.'/images/graph_types.png" />';
 
 if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-	echo '<a style="float:right" href="'.$zip->webPath.'">'.__('Download database').'</a>';
-}?>
-</div>
+	//echo '<a style="float:right" href="'.$zip->webPath.'">'.__('Download database').'</a>';
+}
 
-<div id="pie_display" style="margin-top:20px"></div>
+?>
+</div>
+<div style="clear:both"></div>
+
+<div id="pie_display" style="margin-top:5px;margin-bottom:15px;"></div>
 
 
 <?php

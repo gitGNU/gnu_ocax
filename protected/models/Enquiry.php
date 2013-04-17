@@ -229,6 +229,29 @@ class Enquiry extends CActiveRecord
 		return parent::beforeDelete();
 	}
 
+	public function publicSearch()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		//$criteria->compare('id',$this->id);
+		$criteria->addCondition('state != 3');
+		//$criteria->compare('related_to',$this->related_to);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('type',$this->type);
+		$criteria->compare('budget',$this->budget);
+		$criteria->compare('state',$this->state);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('body',$this->body,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'created DESC'),
+		));
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

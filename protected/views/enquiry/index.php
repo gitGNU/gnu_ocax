@@ -75,7 +75,7 @@ Puedes <?php echo CHtml::link('definir filtros','#',array('class'=>'search-butto
 <?php
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->publicSearch(),
     'onClick'=>array(
         'type'=>'javascript',
         'call'=>'showEnquiry',
