@@ -55,8 +55,7 @@ class BudgetController extends Controller
 
 		$model=$this->loadModel($id);
 		if($model){
-			echo CJavaScript::jsonEncode(array(	'html'=>$this->renderPartial('_enquiryView',array('model'=>$model),true,true),
-												'code'=>$model->code));
+			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
 		}else
 			echo 0;
 	}

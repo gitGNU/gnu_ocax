@@ -36,7 +36,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','update','managed'),
+				'actions'=>array('teamView','update','managed','changeType'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -241,8 +241,9 @@ class EnquiryController extends Controller
 
 	/**
 	 * If save is successful, the browser will be redirected to the 'view' page.
+	 * team_memeber edits a $model->body and $model->type.
 	 */
-	public function actionEdit($id)	//team_memeber edits a $model->body and $model->type.
+	public function actionEdit($id)
 	{
 		$model=$this->loadModel($id);
 
@@ -270,13 +271,57 @@ class EnquiryController extends Controller
 				}
 			}
 		}
+/*
 		$menu=Null;
 		if(isset($_GET['menu']) && ($userid == $model->team_member))
 			$menu=$_GET['menu'];
+*/
 		$this->render('edit',array(
 			'model'=>$model,
-			'menu'=>$menu,
+			//'menu'=>$menu,
 		));
+	}
+
+	/**
+	 * Change Generic, Budgetary, budget->id
+	 */
+	public function actionChangeType($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		$userid= Yii::app()->user->getUserID();
+		if( $model->team_member != $userid ){
+			$this->render('/site/index');
+			Yii::app()->end();
+		}
+
+		if(isset($_POST['Enquiry']))
+		{
+			$model->attributes=$_POST['Enquiry'];
+			if($model->type == 0)
+				$model->budget = Null;
+			if($model->save()){
+				$this->render('edit',array(
+					'model'=>$model,
+					//'menu'=>$menu,
+				));
+			}
+		}
+
+
+		$budget=new Budget('search');
+		$budget->unsetAttributes();  // clear any default values
+		if(isset($_GET['Budget']))
+			$budget->attributes=$_GET['Budget'];
+
+		$this->render('changeType',array(
+			'model'=>$model,
+			'filterBudgetModel'=>$budget,
+		));
+
 	}
 
 	/**
@@ -364,7 +409,9 @@ class EnquiryController extends Controller
 						$subscription->save();
 					}
 				}
-				$model->promptEmail();
+				if($model->team_member || $model->state == 3)
+					$model->promptEmail();
+/*
 				$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
 				//$this->redirect(array('manage','id'=>$model->id,'team_members'=>$team_members,));
 
@@ -374,6 +421,7 @@ class EnquiryController extends Controller
 					'team_members'=>$team_members,
 				));
 				Yii::app()->end();
+*/
 			}
 		}
 

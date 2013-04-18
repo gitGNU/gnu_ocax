@@ -226,7 +226,7 @@ class Budget extends CActiveRecord
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('csv_parent_id',$this->csv_parent_id,true);
 		$criteria->compare('year',$this->year);
-		$criteria->compare('code',$this->code,true);
+		$criteria->compare('code',$this->code);
 		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('initial_provision',$this->initial_provision);

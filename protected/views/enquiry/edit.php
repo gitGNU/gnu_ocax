@@ -3,11 +3,12 @@
 /* @var $model Enquiry */
 if(Yii::app()->user->getUserID() == $model->team_member){
 	$this->menu=array(
-		array('label'=>'Ver Enquiry', 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
-		array('label'=>'Actualizar estat', 'url'=>array('/enquiry/update', 'id'=>$model->id)),
-		array('label'=>'Anadir reply', 'url'=>array('/reply/create?enquiry='.$model->id)),
-		array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-		array('label'=>'Listar enquirys', 'url'=>array('/enquiry/managed')),
+		array('label'=>__('View Enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
+		array('label'=>__('Change type'), 'url'=>array('/enquiry/changeType', 'id'=>$model->id)),
+		array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$model->id)),
+		array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)),
+		array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
+		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 	);
 }
@@ -27,19 +28,19 @@ if($replys || Yii::app()->user->getUserID() == $model->team_member)
 	'attributes'=>array(
 		array(
 	        'label'=>'Submitted por',
-	        'value'=>$model->user0->fullname.' el día '.$model->created,
+	        'value'=>$model->user0->fullname.' '.__('on the').' '.$model->created,
 		),
 		array(
 	        'label'=>'Asignada a',
-	        'value'=>($model->team_member) ? $model->teamMember->fullname.' on the '.$model->assigned : "",
+	        'value'=>($model->team_member) ? $model->teamMember->fullname.' '.__('on the').' '.$model->assigned : "",
 		),
 		array(
-	        'label'=>'Tipo',
+	        'label'=>__('Type'),
 	        'value'=>$model->humanTypeValues[$model->type],
 		),
 		'capitulo',
 		array(
-	        'label'=>'Estat',
+	        'label'=>__('State'),
 	        'value'=>$model->getHumanStates($model->state),
 		),
 	),

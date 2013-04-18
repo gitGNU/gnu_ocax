@@ -38,13 +38,15 @@ class Enquiry extends CActiveRecord
 							2=>'Reclamation',
 						);
 
-	public static function getHumanTypes($type)
+	public static function getHumanTypes($type=Null)
 	{
     	$humanTypeValues=array(
 						0=>__('Generic'),
 						1=>__('Budgetary'),
 						2=>__('Reclamation'),
 					);
+		if(!$type)
+			return $humanTypeValues;
 		return $humanTypeValues[$type];
 	}
 
