@@ -3,14 +3,9 @@
 /* @var $model Enquiry */
 
 $this->menu=array(
-	//array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 );
-if($model->replys){
-	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/create?related='.$model->id))  );
-	array_splice( $this->menu, 1, 0, $reformulate );
-}
 if($model->state < 3){
 	$submitted = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submitted', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $submitted );
@@ -18,9 +13,17 @@ if($model->state < 3){
 	$edit = array( array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $edit );
 }
-if($model->state >= 3){
+if($model->state == 4){
 	$reply = array( array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)) );
 	array_splice( $this->menu, 0, 0, $reply );
+}
+if($model->state == 5){
+	$assess = array( array('label'=>__('Assess enquiry'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $assess );
+}
+if($model->state > 5){
+	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/create?related='.$model->id))  );
+	array_splice( $this->menu, 0, 0, $reformulate );
 }
 ?>
 

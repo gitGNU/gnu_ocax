@@ -36,7 +36,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','update','managed','changeType','submitted','unSubmit'),
+				'actions'=>array('teamView','managed','changeType','submitted','unSubmit','assess'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -401,10 +401,10 @@ class EnquiryController extends Controller
 	 * All attribs except $body
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionAssess($id)
 	{
 		$model=$this->loadModel($id);
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -413,9 +413,9 @@ class EnquiryController extends Controller
 				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}
-		$this->render('update',array(
+		$this->render('assess',array(
 			'model'=>$model,
-			'replys'=>$replys,
+			//'replys'=>$replys,
 		));
 	}
 
