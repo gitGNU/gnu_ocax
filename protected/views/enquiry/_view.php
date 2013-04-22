@@ -267,7 +267,7 @@ foreach($replys as $reply){
 		echo '<div class="attachments">';
 
 		if($model->team_member == Yii::app()->user->getUserID()){
-			echo '<span class="link" onClick="js:uploadFile('.$reply->id.');">'.__('Add attachment').'</span>';
+			echo '<span class="link" onClick=\'js:uploadFile("Reply",'.$reply->id.');\'>'.__('Add attachment').'</span>';
 			echo '<span style="float:right;text-align:right;">';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
@@ -345,9 +345,9 @@ foreach($replys as $reply){
 
 <?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
 <script>
-function uploadFile(reply_id){
+function uploadFile(model,model_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=Reply&model_id='+reply_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model='+model+'&model_id='+model_id,
 		type: 'POST',
 		async: false,
 		success: function(data){

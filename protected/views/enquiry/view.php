@@ -105,10 +105,12 @@ $this->widget('PGridView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'created',
+
 		array(
 	        'label'=>__('Type'),
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
+
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',

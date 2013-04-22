@@ -51,19 +51,12 @@ CREATE TABLE IF NOT EXISTS enquiry (
   team_member int(11),
   manager int(11),
   created date NOT NULL,
-  assigned date,	/* date the manager assigned the consulta to a team_member */
+  assigned date,	/* date the manager assigned the enquiry to a team_member */
+  submitted date,	/* date the team_member submitted the enquiry to the administration */
+  registry_number varchar( 32 ),	/* number assigned by the council to the enquiry when submitted */
   type TINYINT(1) DEFAULT 0, /* generic=0, budgetary=1 */
-  budget int(11), /* budget pressupostario (null si és una consulta generica) */
+  budget int(11), /* budget (null is a generic enquiry) */
   state int(11) DEFAULT 1,
-/*
-    0 Esperando respuesta de la OCAB
-	1 OCAB reconoce la entrega (team_memeber assigned)
-    2 Descartado por el OCAB
-    3 Esperando respuesta de la Administración. Assignado a un team_member
-    4 Respuesta con éxito
-    5 Respuesta parcialmente con éxito ¿que significa esto?
-    6 Descartado por la Administración
-*/
   title varchar( 255 ) NOT NULL,
   body LONGTEXT,
   PRIMARY KEY (id),

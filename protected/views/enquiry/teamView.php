@@ -4,6 +4,7 @@
 
 $this->menu=array(
 	array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$model->id)),
+	array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submitted', 'id'=>$model->id)),
 	array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)),
 	array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),

@@ -3,7 +3,7 @@
 /* @var $model Enquiry */
 
 $this->menu=array(
-	array('label'=>__('View Enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
+	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
 	array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
@@ -85,7 +85,7 @@ function chooseBudget(budget_id){
 	<div class="row buttons">
 		<?php
 		echo CHtml::submitButton(__('Save'));
-		$cancelURL='/enquiry/teamView/'.$model->id;
+		$cancelURL='/enquiry/edit/'.$model->id;
 		?>
 		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 

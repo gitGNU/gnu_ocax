@@ -3,7 +3,7 @@
 /* @var $model Enquiry */
 
 $this->menu=array(
-	array('label'=>'View enquiry', 'url'=>array('adminView', 'id'=>$model->id)),
+	array('label'=>__('View enquiry'), 'url'=>array('adminView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('List all'), 'url'=>array('admin')),
 );

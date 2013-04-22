@@ -69,8 +69,12 @@ class FileController extends Controller
 
 	private function getPath($modelName,$modelID=Null){
 		$path=$modelName;
+		if($modelID)
+			$path=$path.'/'.$modelID;
+/*
 		if($modelName == 'Reply')
 			$path=$path.'/'.$modelID;
+*/
 		return $path;
 	}
 
@@ -109,12 +113,18 @@ class FileController extends Controller
 				if($model->model == 'CmsPage'){
 					Yii::app()->user->setFlash('success', 'File uploaded correctly');
 					$this->redirect(array('cmspage/admin'));
+
 				}elseif($model->model == 'Reply'){
-					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);
+					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);		// can't I just use $model_id ??
 					$enquiry->promptEmail();
 					$this->redirect(array('enquiry/teamView','id'=>$enquiry->id));
+
+				}elseif($model->model == 'Enquiry'){
+					$this->redirect(array('enquiry/submitted','id'=>$model->model_id));
+
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
+
 				}else
 					$this->redirect(array('site/index'));
 			}

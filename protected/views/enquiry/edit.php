@@ -3,12 +3,9 @@
 /* @var $model Enquiry */
 if(Yii::app()->user->getUserID() == $model->team_member){
 	$this->menu=array(
-		array('label'=>__('View Enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
-		array('label'=>__('Change type'), 'url'=>array('/enquiry/changeType', 'id'=>$model->id)),
-		array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$model->id)),
-		array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)),
-		array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+		array('label'=>__('View Enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
+		array('label'=>__('Change type'), 'url'=>array('changeType', 'id'=>$model->id)),
+		array('label'=>__('List enquiries'), 'url'=>array('managed')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 	);
 }

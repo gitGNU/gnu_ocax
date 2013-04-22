@@ -36,7 +36,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','update','managed','changeType'),
+				'actions'=>array('teamView','update','managed','changeType','submitted'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -292,8 +292,7 @@ class EnquiryController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$userid= Yii::app()->user->getUserID();
-		if( $model->team_member != $userid ){
+		if( $model->team_member != Yii::app()->user->getUserID() ){
 			$this->render('/site/index');
 			Yii::app()->end();
 		}
@@ -304,14 +303,12 @@ class EnquiryController extends Controller
 			if($model->type == 0)
 				$model->budget = Null;
 			if($model->save()){
-				$this->render('edit',array(
+				$this->render('teamView',array(
 					'model'=>$model,
-					//'menu'=>$menu,
 				));
+				Yii::app()->end();
 			}
 		}
-
-
 		$budget=new Budget('search');
 		$budget->unsetAttributes();  // clear any default values
 		if(isset($_GET['Budget']))
@@ -321,7 +318,48 @@ class EnquiryController extends Controller
 			'model'=>$model,
 			'filterBudgetModel'=>$budget,
 		));
+	}
 
+	/**
+	 * team_member submits the enquiry to the administration
+	 */
+	public function actionSubmitted($id)
+	{
+		$model=$this->loadModel($id);
+		$model->scenario = 'submitted_to_council';
+		// Uncomment the following line if AJAX validation is needed
+		//$this->performAjaxValidation($model);
+
+		if( $model->team_member != Yii::app()->user->getUserID() ){
+			$this->render('/user/panel');
+			Yii::app()->end();
+		}
+
+		if(isset($_POST['Enquiry']))
+		{
+
+			$model->attributes=$_POST['Enquiry'];
+			//$model->submitted = date('Y-m-d', strtotime($model->submitted));
+			//if($model->validate())
+			//	$model->state=4;	// Awaiting response from the Administration
+
+			if($model->validate() && File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) )
+				$model->state=4;
+
+			if(Yii::app()->request->isAjaxRequest){
+				//http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
+				if($model->save())
+					echo CJSON::encode(array('status'=>'success'));
+				else
+					echo CActiveForm::validate($model);
+				Yii::app()->end();
+			}
+			if($model->save())
+				$this->redirect(array('teamView','id'=>$model->id));
+		}
+		$this->render('submitted',array(
+			'model'=>$model,
+		));
 	}
 
 	/**
@@ -386,6 +424,7 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
+			$model->manager=Yii::app()->user->getUserID();
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
 			if($model->state == 'rejected'){

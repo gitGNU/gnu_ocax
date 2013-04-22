@@ -11,6 +11,8 @@
  * @property integer $manager
  * @property string $created
  * @property string $assigned
+ * @property string $submitted
+ * @property string $registry_number
  * @property integer $type
  * @property integer $budget
  * @property integer $state
@@ -35,7 +37,7 @@ class Enquiry extends CActiveRecord
     public $humanTypeValues=array(
 							0=>'Generic',
 							1=>'Budgetary',
-							2=>'Reclamation',
+							//2=>'Reclamation',
 						);
 
 	public static function getHumanTypes($type=Null)
@@ -43,9 +45,9 @@ class Enquiry extends CActiveRecord
     	$humanTypeValues=array(
 						0=>__('Generic'),
 						1=>__('Budgetary'),
-						2=>__('Reclamation'),
+						//2=>__('Reclamation'),
 					);
-		if(!$type)
+		if($type == Null)
 			return $humanTypeValues;
 		return $humanTypeValues[$type];
 	}
@@ -105,9 +107,11 @@ class Enquiry extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user, created, title, body', 'required'),
+			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
 			array('related_to, user, team_member, manager, budget, type, state', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
-			array('assigned, body', 'safe'),
+			array('registry_number', 'length', 'max'=>32),
+			array('assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, related_to, user, team_member, manager, created, assigned, type, capitulo, state, title, body', 'safe', 'on'=>'search'),
@@ -148,6 +152,8 @@ class Enquiry extends CActiveRecord
 			'manager' => 'Manager',
 			'created' => __('Formulated'),
 			'assigned' => __('Assigned'),
+			'submitted'=>__('Submitted'),
+			'registry_number'=>__('Registry number'),
 			'type' => __('Type'),
 			'state' => __('State'),
 			'title' => __('Title'),
