@@ -5,9 +5,6 @@
 if($menu == 'team'){
 	$this->menu=array(
 		array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
-		array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$enquiry->id)),
-		array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$enquiry->id)),
-		array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
 		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 	);

@@ -75,12 +75,12 @@ class ReplyController extends Controller
 		if(isset($_POST['Reply']))
 		{
 			$model->attributes=$_POST['Reply'];
-			$model->created = date('c');
+			//$model->created = date('c');
 			$model->team_member = Yii::app()->user->getUserID();
 
 			if($model->save()){
 				$enquiry=Enquiry::model()->findByPk($model->enquiry);
-				$enquiry->state=$_POST['Reply']['state'];
+				$enquiry->state=5;	// Reply awaiting assessment
 				$enquiry->save();
 				$enquiry->promptEmail();
 

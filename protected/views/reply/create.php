@@ -4,12 +4,9 @@
 /* @var $form CActiveForm */
 
 $this->menu=array(
-	array('label'=>'Ver Enquiry', 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
-	array('label'=>'Actualizar estat', 'url'=>array('/enquiry/update', 'id'=>$enquiry->id)),
-	array('label'=>'Editar Enquiry', 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
-	array('label'=>'Emails enviados', 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
-	array('label'=>'Listar enquirys', 'url'=>array('/enquiry/managed')),
-	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
+	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
+	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 );
 
 $this->contextHelp='This Reply will be published on the website.<br /><br />After publishing you can:<br /><br />
@@ -27,19 +24,27 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 
 	<div class="title"><?php echo __('Add reply')?></div>
 
-	<?php echo $form->errorSummary($model); ?>
-
 	<?php echo $form->hiddenField($model,'enquiry');?>
 
 	<div class="row">
-		<?php echo $form->label($enquiry,'state');?>
-		<?php $model->state=$enquiry->state;?>
-		<?php
-			$dropDown_data = Enquiry::model()->getHumanStates();
-			unset($dropDown_data[0]);
-		?>
-		<?php echo $form->dropDownList($model, 'state', $dropDown_data);?>
+		<?php echo $form->label($model,'created'); ?>
+		<div class="hint"><?php echo __('Date the Administration replied');?></div>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
+					'model' => $model,
+					'name'=>'Reply[created]',
+					'value'=>$model->created,
+					'options'=>array(
+						'showAnim'=>'fold',
+						'dateFormat'=>'yy-mm-dd',
+					),
+					'htmlOptions'=>array(
+						'style'=>'height:20px;',
+						'readonly'=>'readonly',
+					),
+		)); ?>
+		<?php echo $form->error($model,'created'); ?>
 	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>

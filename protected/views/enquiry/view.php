@@ -53,6 +53,69 @@ function toggleStatesDiagram(){
 		$('#states_diagram').slideDown('fast');
 	}
 }
+function getContactForm(recipient_id){
+	if(!isUser())
+		return;
+	if(!canParticipate())
+		return;
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
+		type: 'GET',
+		async: false,
+		data: {'recipient_id': recipient_id, 'enquiry_id': <?php echo $model->id?> },
+		beforeSend: function(){ },
+		complete: function(){ /* $('#right_loading_gif').hide(); */ },
+		success: function(data){
+			if(data != 1){
+				$('#contact_petition_content').html();
+				$("#contact_petition_content").html(data);
+				$('#contact_petition').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get Contact petition");
+		}
+	});
+}
+function sendContactForm(form){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
+		type: 'POST',
+		async: false,
+		data: $('#'+form).serialize(),
+		beforeSend: function(){
+					$('#contact_petition_buttons').replaceWith($('#contact_petition_sending'));
+					$('#contact_petition_sending').show();
+					},
+		complete: function(){ /* $('#right_loading_gif').hide(); */ },
+		success: function(data){
+			if(data == 1){
+				$('#contact_petition_sending').replaceWith($('#contact_petition_sent'));
+				$('#contact_petition_sent').show();
+
+			}else{
+				$('#contact_petition_sending').replaceWith($('#contact_petition_error'));
+				$('#contact_petition_error').html(data);
+				$('#contact_petition_error').show();
+			}
+			setTimeout(function() {
+				$('#contact_petition').fadeOut('fast',
+										function(){
+											$('#contact_petition').bPopup().close();
+									});
+    		}, 2000);
+		},
+		error: function() {
+			alert("Error on post Contact petition");
+		}
+	});
+}
 </script>
 
 <?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
@@ -104,12 +167,25 @@ $this->widget('PGridView', array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'created',
+
+
+//if($data->user0->username != Yii::app()->user->id)
+			//echo '<span class="link" onClick="js:getContactForm('.$data->user.')">';
+
+		array(
+	        'label'=>__('Formulated'),
+			'type' => 'raw',
+	        'value'=>($model->user0->username == Yii::app()->user->id) ?
+						$model->created.' '.__('by').' '.$model->user0->fullname :
+						$model->created.' '.__('by').' '.CHtml::link(
+															CHtml::encode($model->user0->fullname), '#',
+															array('onclick'=>'js:getContactForm('.$model->user.');')
+														),
+		),
 		array(
 	        'label'=>__('Type'),
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
-
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',

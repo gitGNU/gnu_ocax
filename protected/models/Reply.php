@@ -49,6 +49,7 @@ class Reply extends CActiveRecord
 		return array(
 			array('enquiry, created, team_member, body', 'required'),
 			array('enquiry, team_member', 'numerical', 'integerOnly'=>true),
+			array('created', 'date', 'allowEmpty'=>false, 'format'=>'yyyy-M-d'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enquiry, created, team_member, body', 'safe', 'on'=>'search'),
@@ -78,7 +79,7 @@ class Reply extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enquiry' => __('Enquiry'),
-			'created' => __('Created'),
+			'created' => __('Date of reply'),
 			'team_member' => 'Team Member',
 			'body' => 'Body',
 		);
