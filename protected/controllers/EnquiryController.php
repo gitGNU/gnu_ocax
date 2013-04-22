@@ -36,7 +36,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','update','managed','changeType','submitted'),
+				'actions'=>array('teamView','update','managed','changeType','submitted','unSubmit'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -330,7 +330,7 @@ class EnquiryController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 
-		if( $model->team_member != Yii::app()->user->getUserID() ){
+		if( $model->team_member != Yii::app()->user->getUserID() || $model->state > 2){
 			$this->render('/user/panel');
 			Yii::app()->end();
 		}
@@ -357,6 +357,26 @@ class EnquiryController extends Controller
 			if($model->save())
 				$this->redirect(array('teamView','id'=>$model->id));
 		}
+		$this->render('submitted',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * team_member deletes documentation
+	 */
+	public function actionUnSubmit($id)
+	{
+		$model=$this->loadModel($id);
+
+		if( $model->team_member != Yii::app()->user->getUserID()){
+			$this->render('/user/panel');
+			Yii::app()->end();
+		}
+		if($file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)))
+				$file->delete();
+		$model->state=2;
+		$model->save();
 		$this->render('submitted',array(
 			'model'=>$model,
 		));
@@ -429,6 +449,8 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			if($model->state == 'rejected'){
 				$model->state = 3;
+				$model->assigned = Null;
+				$model->team_member = Null;
 			}
 			elseif($team_member != $model->team_member){
 				if($model->team_member){

@@ -17,10 +17,13 @@ $documentation = File::model()->findByAttributes(array('model'=>'Enquiry','model
 	.left{width: 58%; float: left;  margin: 0px;}
 	.right{width: 38%; float: left; margin: 0px;}
 	.clear{clear:both;}
+	.icon{cursor:pointer;vertical-align:bottom;}
 </style>
 
 <script>
-
+function deleteDoc(){
+	location.href='<?php echo Yii::app()->request->baseUrl; ?>/enquiry/unSubmit/<?php echo $model->id;?>';
+}
 </script>
 
 
@@ -29,7 +32,13 @@ $documentation = File::model()->findByAttributes(array('model'=>'Enquiry','model
 )); ?>
 <div class="form">
 
-	<div class="title"><?php echo __('Submit enquiry')?></div>
+	<div class="title">
+	<?php
+		echo __('Submit enquiry');
+		if($model->state < 3)
+			echo ' ('.__('not submitted').')';
+	?>
+	</div>
 
 <div class="outer">
 <div class="left">
@@ -62,13 +71,18 @@ $documentation = File::model()->findByAttributes(array('model'=>'Enquiry','model
 
 	<div class="row buttons">
 	<?php
-		if($model->registry_number && $documentation){
+		if($documentation){
 			echo '<div>'.__('Is this information correct? You will not be able to edit it again!').'</div>';
-			echo CHtml::submitButton(__('Save'));
+			$name=__('Yes, it is correct');
+		}else
+			$name=__('Add document');
 
-		}elseif(!$documentation){
+		if($documentation){
+			echo CHtml::submitButton($name);
+		}
+		if(!$documentation){
 			// http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
-			echo CHtml::ajaxSubmitButton(__('Add document'),CHtml::normalizeUrl(array('enquiry/submitted/'.$model->id)),
+			echo CHtml::ajaxSubmitButton(($name),CHtml::normalizeUrl(array('enquiry/submitted/'.$model->id)),
 				array(
 					'dataType'=>'json',
 					'type'=>'post',
@@ -88,8 +102,6 @@ $documentation = File::model()->findByAttributes(array('model'=>'Enquiry','model
 				),
 				array('id'=>'present_step1','style'=>'margin-right:20px;')
 			);
-			$cancelURL=Yii::app()->request->baseUrl.'/enquiry/teamView/'.$model->id;
-			echo '<input type="button" value="'.__('Cancel').'" onclick="js:window.location=\''.$cancelURL.'\';" />';
 		}
 	?>
 	</div>
@@ -101,6 +113,7 @@ $documentation = File::model()->findByAttributes(array('model'=>'Enquiry','model
 	<div class="row">
 		<div style="margin-bottom:5px;font-weight:bold;"><?php echo __('Documentation');?></div>
 		<a href="<?php echo $documentation->webPath;?>" target="_new"><?php echo $documentation->name;?></a>
+		<img class="icon" src="<?php echo Yii::app()->theme->baseUrl;?>/images/delete.png" onClick="js:deleteDoc()" />
 	</div>
 	<?php } ?>
 

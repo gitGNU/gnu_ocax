@@ -105,7 +105,6 @@ $this->widget('PGridView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'created',
-
 		array(
 	        'label'=>__('Type'),
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
@@ -114,7 +113,6 @@ $this->widget('PGridView', array(
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',
-	        //'value'=>$model->getHumanStates($model->state),
 			'value'=> CHtml::link(
 						CHtml::encode($model->getHumanStates($model->state)), '#',
 						array('onclick'=>'js:toggleStatesDiagram();')
@@ -122,6 +120,30 @@ $this->widget('PGridView', array(
 		),
 	),
 ));
+
+if($model->state > 2){
+	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
+	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
+	$submitted_info=$model->submitted.' '.__('Registry number').':'.$model->registry_number;
+
+	$this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		array(
+	        'label'=>__('Submitted'),
+			'type'=>'raw',
+	        'value'=>$submitted_info,
+		),
+		array(
+	        'label'=>__('Documentation'),
+			'type'=>'raw',
+	        'value'=>$link,
+		),
+	),
+	));
+}
+
+
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
 	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget, 'showLinks'=>1));

@@ -25,6 +25,24 @@
 	),
 ));?>
 
+<?php if($model->state > 2){	// Enquiry has been submitted to Administration
+	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
+	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
+	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.', Doc:'.$link;
+
+	$this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		array(
+	        'label'=>__('Submitted'),
+			'type'=>'raw',
+	        'value'=>$submitted_info,
+		),
+	),
+	));
+}?>
+
+
 <?php
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
