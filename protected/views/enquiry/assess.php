@@ -16,7 +16,7 @@ $this->menu=array(
 )); ?>
 <div class="form">
 
-	<div class="title"><?php echo __('Assess enquiry')?></div>
+	<div class="title"><?php echo __('Assess reply')?></div>
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
@@ -26,7 +26,6 @@ $this->menu=array(
 			unset($dropDown_data[2]);
 			unset($dropDown_data[3]);
 			unset($dropDown_data[4]);
-			unset($dropDown_data[5]);
 		?>
 		<?php echo $form->dropDownList($model, 'state', $dropDown_data);?>
 	</div>
@@ -35,7 +34,7 @@ $this->menu=array(
 		<?php echo CHtml::submitButton(__('Assess'));
 		$cancelURL='/enquiry/teamView/'.$model->id;
 		?>
-		<input type="button" value="Cancel" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 
 	</div>
 

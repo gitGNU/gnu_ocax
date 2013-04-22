@@ -18,7 +18,7 @@ if($model->state == 4){
 	array_splice( $this->menu, 0, 0, $reply );
 }
 if($model->state == 5){
-	$assess = array( array('label'=>__('Assess enquiry'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );
+	$assess = array( array('label'=>__('Assess reply'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $assess );
 }
 if($model->state > 5){
