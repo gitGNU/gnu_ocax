@@ -25,7 +25,7 @@
 	),
 ));?>
 
-<?php if($model->state >= 3){	// Enquiry has been submitted to Administration
+<?php if($model->state >= 4){	// Enquiry has been submitted to Administration
 	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
 	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
 	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.', Doc: '.$link;

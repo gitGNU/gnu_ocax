@@ -59,24 +59,24 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array(
-	        'name'=>'spent_t1',
+	        'name'=>'trimester_1',
 			'type' => 'raw',
-	        'value'=>format_number($model->spent_t1).' €',
+	        'value'=>format_number($model->trimester_1).' €',
 		),
 		array(
-	        'name'=>'spent_t2',
+	        'name'=>'trimester_2',
 			'type' => 'raw',
-	        'value'=>format_number($model->spent_t2).' €',
+	        'value'=>format_number($model->trimester_2).' €',
 		),
 		array(
-	        'name'=>'spent_t3',
+	        'name'=>'trimester_3',
 			'type' => 'raw',
-	        'value'=>format_number($model->spent_t3).' €',
+	        'value'=>format_number($model->trimester_3).' €',
 		),
 		array(
-	        'name'=>'spent_t4',
+	        'name'=>'trimester_4',
 			'type' => 'raw',
-	        'value'=>format_number($model->spent_t4).' €',
+	        'value'=>format_number($model->trimester_4).' €',
 		),
 	),
 )); ?>

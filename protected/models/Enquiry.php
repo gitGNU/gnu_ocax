@@ -246,6 +246,7 @@ class Enquiry extends CActiveRecord
 
 		//$criteria->compare('id',$this->id);
 		$criteria->addCondition('state != 3');
+		$criteria->addCondition('state != 1');
 		//$criteria->compare('related_to',$this->related_to);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('type',$this->type);

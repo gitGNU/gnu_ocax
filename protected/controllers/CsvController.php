@@ -97,7 +97,7 @@ class CsvController extends Controller
 						break;
 					}
 				}
-				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $s_t1, $s_t2, $s_t3, $s_t4, $parent_id) = explode("|", $line);
+				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $parent_id) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				if (in_array($id, $ids)) {
@@ -127,7 +127,7 @@ class CsvController extends Controller
 			foreach ($lines as $line_num => $line) {
 				if($line_num==0)
 					continue;
-				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $s_t1, $s_t2, $s_t3, $s_t4, $parent_id) = explode("|", $line);
+				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $parent_id) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				$ids[$id]=array();
@@ -248,7 +248,7 @@ class CsvController extends Controller
 			foreach ($lines as $line_num => $line) {
 				if($line_num==0)
 					continue;
-				list($csv_id, $code, $label, $concept, $initial_prov, $actual_prov, $s_t1, $s_t2, $s_t3, $s_t4, $csv_parent_id) = explode("|", $line);
+				list($csv_id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $csv_parent_id) = explode("|", $line);
 
 				$new_budget=new Budget;
 				$new_budget->csv_id = $csv_id;
@@ -268,25 +268,25 @@ class CsvController extends Controller
 				if(!$new_budget->actual_provision)
 					$new_budget->actual_provision = 0;
 
-				$new_budget->spent_t1 = trim(str_replace('€', '', $s_t1));
-				$new_budget->spent_t1 = trim(str_replace(',', '', $new_budget->spent_t1));
-				if(!$new_budget->spent_t1)
-					$new_budget->spent_t1 = 0;
+				$new_budget->trimester_1 = trim(str_replace('€', '', $t1));
+				$new_budget->trimester_1 = trim(str_replace(',', '', $new_budget->trimester_1));
+				if(!$new_budget->trimester_1)
+					$new_budget->trimester_1 = 0;
 
-				$new_budget->spent_t2 = trim(str_replace('€', '', $s_t2));
-				$new_budget->spent_t2 = trim(str_replace(',', '', $new_budget->spent_t2));
-				if(!$new_budget->spent_t2)
-					$new_budget->spent_t2 = 0;
+				$new_budget->trimester_2 = trim(str_replace('€', '', $t2));
+				$new_budget->trimester_2 = trim(str_replace(',', '', $new_budget->trimester_2));
+				if(!$new_budget->trimester_2)
+					$new_budget->trimester_2 = 0;
 
-				$new_budget->spent_t3 = trim(str_replace('€', '', $s_t3));
-				$new_budget->spent_t3 = trim(str_replace(',', '', $new_budget->spent_t3));
-				if(!$new_budget->spent_t3)
-					$new_budget->spent_t3 = 0;
+				$new_budget->trimester_3 = trim(str_replace('€', '', $t3));
+				$new_budget->trimester_3 = trim(str_replace(',', '', $new_budget->trimester_3));
+				if(!$new_budget->trimester_3)
+					$new_budget->trimester_3 = 0;
 
-				$new_budget->spent_t4 = trim(str_replace('€', '', $s_t4));
-				$new_budget->spent_t4 = trim(str_replace(',', '', $new_budget->spent_t4));
-				if(!$new_budget->spent_t4)
-					$new_budget->spent_t4 = 0;
+				$new_budget->trimester_4 = trim(str_replace('€', '', $t4));
+				$new_budget->trimester_4 = trim(str_replace(',', '', $new_budget->trimester_4));
+				if(!$new_budget->trimester_4)
+					$new_budget->trimester_4 = 0;
 
 				$criteria=new CDbCriteria;
 				$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;

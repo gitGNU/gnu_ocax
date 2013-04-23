@@ -16,12 +16,13 @@ function validateFileName(form){
 				'model' 	: $('#File_model').val(),
 				'model_id' 	: $('#File_model_id').val(),
 		},
-		//beforeSend: function(){ /*alert();*/ },
-		//complete: function(){ $('#right_loading_gif').hide(); },
+		//beforeSend: function() {},
 		success: function(data){
-			if(data == 1)
+			if(data == 1){
+				$('#file-form').hide();
+				$('#loading').show(); 
 				$(form).submit();
-			else
+			}else
 				$("#file_error").html(data);
 		},
 		error: function() {
@@ -44,7 +45,7 @@ function validateFileName(form){
 	<?php echo $form->hiddenField($model,'model'); ?>
 	<?php echo $form->hiddenField($model,'model_id'); ?>
 
-	<?php if($model->model == 'Reply'){
+	<?php if($model->model == 'Reply' || $model->model == 'Enquiry'){
 		echo $form->label($model, 'name');
 		echo '<div class="hint">'.__('Name used for the link').'</div>';
 		echo $form->textField($model, 'name');
@@ -60,4 +61,11 @@ function validateFileName(form){
 
 <?php $this->endWidget(); ?>
 
+<div id="loading" style="display:none;text-align:center;">
+<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/big_loading.gif" />
+</div>
+
 </div><!-- form -->
+
+
+

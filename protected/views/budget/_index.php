@@ -45,6 +45,9 @@ table.jqplot-table-legend{
     height: 180px;
     overflow-y: auto;
 }
+.jqplot-data-label{
+	font-size:1.8em;
+}
 
 </style>
 
@@ -159,7 +162,10 @@ var pie_properties = {
 			padding:0,
 			//sliceMargin: 2,
 			showDataLabels:true,
-			dataLabelThreshold:3,
+			fill: true,
+			sliceMargin: 2,
+			lineWidth: 0, 
+			//dataLabelThreshold:3,
 			dataLabelCenterOn:false,
 			//"dataLabelPositionFactor":0.6,
 			//"dataLabelNudge":0,

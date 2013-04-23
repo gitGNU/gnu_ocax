@@ -153,10 +153,10 @@ class BudgetController extends Controller
 		$model->scenario = 'newYear';
 		$model->initial_provision = 0;
 		$model->actual_provision = 0;
-		$model->spent_t1 = 0;
-		$model->spent_t2 = 0;
-		$model->spent_t3 = 0;
-		$model->spent_t4 = 0;
+		$model->t1 = 0;
+		$model->t2 = 0;
+		$model->t3 = 0;
+		$model->t4 = 0;
 		$model->concept = 'Root budget';
 		$model->code = 0;
 

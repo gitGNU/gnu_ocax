@@ -14,10 +14,10 @@
  * @property string $concept
  * @property string $initial_provision
  * @property string $actual_provision
- * @property string $spent_t1
- * @property string $spent_t2
- * @property string $spent_t3
- * @property string $spent_t4
+ * @property string $trimester_1
+ * @property string $trimester_2
+ * @property string $trimester_3
+ * @property string $trimester_4
  * @property integer $featured
  * @property integer $weight
  *
@@ -54,10 +54,10 @@ class Budget extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('year, concept, initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4, featured', 'required'),
+			array('year, concept, initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4, featured', 'required'),
 			array('parent, year, featured, weight', 'numerical', 'integerOnly'=>true),
-			array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'type', 'type'=>'float'),
-			//array('initial_provision, actual_provision, spent_t1, spent_t2, spent_t3, spent_t4', 'length', 'max'=>14),
+			array('initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4', 'type', 'type'=>'float'),
+			//array('initial_provision, actual_provision, t1, t2, t3, t4', 'length', 'max'=>14),
 			array('code, csv_id, csv_parent_id', 'length', 'max'=>20),
 			//array('csv_id', 'unique', 'className' => 'Budget'),	// this is a good idea but need to check against year
 			array('label, concept', 'length', 'max'=>255),
@@ -103,10 +103,10 @@ class Budget extends CActiveRecord
 			'concept' => __('Concept'),
 			'initial_provision' => __('Initial provision'),
 			'actual_provision' => __('Actual provision'),
-			'spent_t1' => __('Spent T1'),
-			'spent_t2' => __('Spent T2'),
-			'spent_t3' => __('Spent T3'),
-			'spent_t4' => __('Spent T4'),
+			'trimester_1' => __('Spent T1'),
+			'trimester_2' => __('Spent T2'),
+			'trimester_3' => __('Spent T3'),
+			'trimester_4' => __('Spent T4'),
 			'weight' => __('Weight'),
 		);
 	}
