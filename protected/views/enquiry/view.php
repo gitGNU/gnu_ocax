@@ -197,7 +197,7 @@ $this->widget('PGridView', array(
 	),
 ));
 
-if($model->state > 2){
+if($model->state >= 4){
 	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
 	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
 	$submitted_info=$model->submitted.' '.__('Registry number').':'.$model->registry_number;

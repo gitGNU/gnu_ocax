@@ -115,7 +115,7 @@ class FileController extends Controller
 					$this->redirect(array('cmspage/admin'));
 
 				}elseif($model->model == 'Reply'){
-					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);		// can't I just use $model_id ??
+					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);
 					$enquiry->promptEmail();
 					$this->redirect(array('enquiry/teamView','id'=>$enquiry->id));
 

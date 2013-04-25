@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS budget (
   concept varchar( 255 ) NOT NULL,
   initial_provision decimal(14, 2) NOT NULL,
   actual_provision decimal(14, 2) NOT NULL,
-  spent_t1 decimal(14, 2) NOT NULL,	/* 	1st trimester */
-  spent_t2 decimal(14, 2) NOT NULL,	/* 	2nd trimester */
-  spent_t3 decimal(14, 2) NOT NULL,	/* 	3rd trimester */
-  spent_t4 decimal(14, 2) NOT NULL,	/* 	4th trimester */
+  trimester_1 decimal(14, 2) NOT NULL,	/* 	1st trimester */
+  trimester_2 decimal(14, 2) NOT NULL,	/* 	2nd trimester */
+  trimester_3 decimal(14, 2) NOT NULL,	/* 	3rd trimester */
+  trimester_4 decimal(14, 2) NOT NULL,	/* 	4th trimester */
   featured TINYINT(1) DEFAULT 0,
   weight int(10) DEFAULT 0,				/* order for display */
   PRIMARY KEY (id),
@@ -148,6 +148,19 @@ CREATE TABLE IF NOT EXISTS email (
 	PRIMARY KEY (id),
 	FOREIGN KEY (sender) REFERENCES user(id),
 	FOREIGN KEY (enquiry) REFERENCES enquiry(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS bulk_email (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	created DATETIME NOT NULL,
+	sent TINYINT(1) DEFAULT 0 NOT NULL,	/* 0 = draft, 1 = failed, 2 = sent */
+	sender int(11) NOT NULL,
+  	sent_as varchar(128) NOT NULL,
+	recipients LONGTEXT NOT NULL,
+	subject varchar(255) NOT NULL,
+	body LONGTEXT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (sender) REFERENCES user(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS cms_page (

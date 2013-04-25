@@ -81,6 +81,7 @@ if($model->is_admin){
 	changeColumn();
 	echo '<h1>Administator\'s options</h1>';
 	echo CHtml::link('Years and budget data',array('budget/adminYears')).'<br />';
+	echo CHtml::link('Send bulk email',array('bulkEmail/admin')).'<br />';
 	echo CHtml::link('Admin users and roles',array('user/admin')).'<br />';
 	echo CHtml::link('Define texts to send via email',array('emailtext/admin')).'<br />';
 	echo CHtml::link('Edit global parameters',array('config/admin')).'<br />';

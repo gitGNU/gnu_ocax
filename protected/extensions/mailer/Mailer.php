@@ -29,7 +29,7 @@ class Mailer
 	{
 		if (is_object($this->_myMailer) && get_class($this->_myMailer)==='PHPMailer'){
 			if($method == 'send'){
-			    $this->_myMailer->Body = eregi_replace("[\]",'', $this->_myMailer->Body);
+			    //$this->_myMailer->Body = preg_replace('/[\]/','', $this->_myMailer->Body);
 			    $this->_myMailer->MsgHTML($this->_myMailer->Body); 
 			}
 			return call_user_func_array(array($this->_myMailer, $method), $params);

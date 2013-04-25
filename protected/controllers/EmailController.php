@@ -40,7 +40,7 @@ class EmailController extends Controller
 				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working. check this.
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array(/*'admin',*/'delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -236,6 +236,7 @@ class EmailController extends Controller
 	/**
 	 * Manages all models.
 	 */
+/*
 	public function actionAdmin()
 	{
 		$model=new Email('search');
@@ -247,7 +248,7 @@ class EmailController extends Controller
 			'model'=>$model,
 		));
 	}
-
+*/
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
