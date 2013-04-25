@@ -53,7 +53,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'template'=>'{update}',
 			'buttons'=>array(
 				'update' => array(
-					'label'=>'Assign',
+					'label'=>'View',
 		            'url'=>'Yii::app()->createUrl("bulkEmail/view", array("id"=>$data->id))',
 				),
 			),

@@ -309,8 +309,9 @@ class EnquiryController extends Controller
 				Yii::app()->end();
 			}
 		}
-		$budget=new Budget('search');
+		$budget=new Budget('changeTypeSearch');
 		$budget->unsetAttributes();  // clear any default values
+
 		if(isset($_GET['Budget']))
 			$budget->attributes=$_GET['Budget'];
 

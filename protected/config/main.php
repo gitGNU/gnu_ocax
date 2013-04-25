@@ -43,12 +43,11 @@ return array(
 			'class' => "CGettextMessageSource",
 			'useMoFile' => TRUE,
 		),
+        'coreMessages'=>array(
 
-/*
-        'bootstrap'=>array(
-            'class'=>'bootstrap.components.Bootstrap',
+            'basePath'=>'../protected/messages',
         ),
-*/
+
 		'user'=>array(
 			'class' => 'WebUser', // http://www.yiiframework.com/wiki/60/
 			// enable cookie-based authentication

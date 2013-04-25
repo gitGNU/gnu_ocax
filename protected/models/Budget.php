@@ -209,6 +209,30 @@ class Budget extends CActiveRecord
 		));
 	}
 
+
+	public function changeTypeSearch()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
+		foreach($root_budgets as $budget){
+			if($budget->code == 0)	// this year not published
+				$criteria->addCondition('year != '.$budget->year);			
+		}
+		$criteria->addCondition('parent is not null');	// dont show year budget
+
+		$criteria->compare('year',$this->year);
+		$criteria->compare('code',$this->code);
+		$criteria->compare('concept',$this->concept,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

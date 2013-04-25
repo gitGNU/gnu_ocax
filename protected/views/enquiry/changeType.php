@@ -114,7 +114,7 @@ if($model->budget){
 <?php
 	$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'budget-grid',
-	'dataProvider'=>$filterBudgetModel->search(),
+	'dataProvider'=>$filterBudgetModel->changeTypeSearch(),
 	'filter'=>$filterBudgetModel,
 	'columns'=>array(
 		'year',
