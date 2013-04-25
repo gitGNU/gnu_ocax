@@ -19,6 +19,10 @@
 	        'value'=>($model->related_to) ? $model->humanTypeValues[$model->type].' ('.__('reformulated').')' : $model->humanTypeValues[$model->type],
 		),
 		array(
+	        'label'=>__('Subscribed users'),
+	        'value'=>count($model->subscriptions),
+		),
+		array(
 	        'label'=>__('State'),
 	        'value'=>$model->getHumanStates($model->state),
 		),

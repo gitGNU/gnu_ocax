@@ -11,7 +11,10 @@
 			'type'=>'raw',
 			'value'=> isset($showLinks)? CHtml::link($model->concept, array('budget/view','id'=>$model->id)): $model->concept,
 		),
-		'year',
+		array(
+	        'label'=>__('Year'),
+	        'value'=>$model->getYearString(),
+		),
 		'code',
 		array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'),

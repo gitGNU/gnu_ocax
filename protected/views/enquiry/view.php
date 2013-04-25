@@ -187,6 +187,10 @@ $this->widget('PGridView', array(
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
 		array(
+	        'label'=>__('Subscribed users'),
+	        'value'=>count($model->subscriptions),
+		),
+		array(
 	        'label'=>__('State'),
 			'type' => 'raw',
 			'value'=> CHtml::link(

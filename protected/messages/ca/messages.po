@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-25 12:05+0100\n"
+"PO-Revision-Date: 2013-04-25 12:32+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "Destinataris"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Reply.php:81
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:144
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:72
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:76
 msgid "Enquiry"
 msgstr "Consulta"
 
@@ -143,10 +143,10 @@ msgstr "Enviat OK"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:158
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:92
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:148
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:190
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:194
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/edit.php:40
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:22
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:76
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:80
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:63
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/bulkEmail/admin.php:45
 msgid "State"
@@ -312,7 +312,7 @@ msgstr "Assignada a"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:153
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:153
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:176
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:81
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:85
 msgid "Formulated"
 msgstr "Formulat"
 
@@ -321,14 +321,14 @@ msgid "Assigned"
 msgstr "Assignada"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:155
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:209
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:37
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:213
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:41
 msgid "Submitted"
 msgstr "Lliurada"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:156
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:203
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:31
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:207
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:35
 msgid "Registry number"
 msgstr "Nº de registre"
 
@@ -511,17 +511,17 @@ msgid "Upload"
 msgstr "Pujar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:125
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:58
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:62
 msgid "The enquiry"
 msgstr "La Consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:125
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:58
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:62
 msgid "has been reformulated"
 msgstr "ha estat reformulada"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:126
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:59
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:63
 msgid "time(s)"
 msgstr "times(s)"
 
@@ -535,12 +535,17 @@ msgstr "per"
 msgid "reformulated"
 msgstr "reformulada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:214
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:190
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:22
+msgid "Subscribed users"
+msgstr "Usuaris subscrits"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:218
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/submitted.php:114
 msgid "Documentation"
 msgstr "Documentació"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:253
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:257
 msgid "Keep me informed via email when there are changes"
 msgstr "Mantingues-me informat per correu quan hagin canvis"
 
