@@ -142,7 +142,6 @@ class SiteController extends Controller
 				$identity=new UserIdentity($newUser->username,$model->password);
 				//$identity->authenticate();
 				Yii::app()->user->login($identity,0);
-				//$this->redirect(array('/user/panel'));
  
  				$mailer = new Mailer();
 				$mailer->AddAddress($newUser->email);
@@ -214,6 +213,66 @@ class SiteController extends Controller
 
 		// display the login form
 		$this->render('login',array('model'=>$model));
+	}
+
+
+	public function actionRequestNewPassword()
+	{
+		if(isset($_GET['email'])){
+			$email = htmLawed::hl(trim($_GET['email']), array('elements'=>'-*', 'keep_bad'=>0));
+			if($user = User::model()->findByAttributes(array('email'=>$email))){
+
+				$reset = new ResetPassword;
+				$reset->user=$user->id;
+				$reset->created = date('c');
+				$reset->createCode();
+
+				$link=Yii::app()->createAbsoluteUrl('site/resetPassword',array('reset'=>$reset->code));
+				$link='<a href="'.$link.'">'.$link.'</a>';
+
+ 				$mailer = new Mailer();
+				$mailer->AddAddress($user->email);
+				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+				$mailer->Subject=__('New password request');
+
+				$mailer->Body='<p><p>'.__('Hello').' '.$user->fullname.',</p>';
+				$mailer->Body=$mailer->Body.'<p>'.Config::model()->findByPk('siglas')->value.' '.__('has received a request to reset your password').'.<br />';
+				$mailer->Body=$mailer->Body.__('If you have not forgotten your password, please ignore this email').'.</p>';
+				$mailer->Body=$mailer->Body.'<p>'.__('To reset your password, follow this link').'<br />'.$link.'</p>';
+				$mailer->Body=$mailer->Body.'<p>'.__('Kind regards').',<br />'.Config::model()->findByPk('observatoryName')->value.'</p></p>';
+
+				if($mailer->send()){
+					//$reset->deleteAllByAttributes(array('user'=>$user->id));
+					$reset->save();
+					echo '<span style="color:green">'.__('We\'ve just sent you an email').'.</span>';
+				}else
+					echo '<span style="color:red">'.$mailer->ErrorInfo.'</span>';
+			}else
+				echo '<span style="color:red">'.__('Sorry, we cannot find you on our database').'.</span>';
+		}else
+			echo '<span style="color:red">Email missing.</span>';
+	}
+
+	public function actionResetPassword()
+	{
+		if(isset($_GET['reset'])){
+			$code=htmLawed::hl(trim($_GET['reset']), array('elements'=>'-*', 'keep_bad'=>0));
+			if($reset = ResetPassword::model()->findByAttributes(array('code'=>$code))){
+				$created = DateTime::createFromFormat('Y-m-d H:i:s', $reset->created);
+				$dDiff = $created->diff(new DateTime('now'));
+
+				if($dDiff->h > 2){
+					Yii::app()->user->setFlash('error', __('The password recovery link has expired'));
+					$this->redirect(array('/site/login'));
+				}
+				$user=User::model()->findByPk($reset->user);
+				Yii::app()->user->login(UserIdentity::createAuthenticatedIdentity($user->username),0);
+				Yii::app()->user->setFlash('success', __('Please change your password now'));
+				$this->redirect(array('/user/update'));
+			}
+		}
+		$this->redirect(array('/site/index'));
+
 	}
 
 	/**

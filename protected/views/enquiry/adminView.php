@@ -7,14 +7,8 @@ $this->menu=array(
 	array('label'=>__('Manage enquiry'), 'url'=>array('manage', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('List all'), 'url'=>array('admin')),
-	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
-/*
-if($model->state == 0){
-	$deleteEnquiry = array( array('label'=>'Delete enquiry', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),);
-	array_splice( $this->menu, 1, 0, $deleteEnquiry );
-}else
-*/
+
 	$deleteEnquiry = array( array('label'=>__('Delete enquiry'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));
 	array_splice( $this->menu, 1, 0, $deleteEnquiry );
 
@@ -62,15 +56,8 @@ function megaDelete(el){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
 		type: 'POST',
 		async: false,
-		//data: { 'id' : enquiry_id },
-		//dataType: 'json',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
-			$('#mega_delete').bPopup().close();
-			if(data != 0){
-				$('#enquirys-grid').yiiGridView('update');
-			}
+			window.location = '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/admin';
 		},
 		error: function() {
 			alert("Error on megaDelete");

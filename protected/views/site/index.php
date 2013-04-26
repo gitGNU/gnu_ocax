@@ -42,3 +42,4 @@ should you have any questions.</p>
 <p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/box3.jpg" /></p>
 </div>
 </div>
+

@@ -111,4 +111,16 @@ html, body{
 	border-radius: 0px 0px 20px 20px;
 	text-align:center;
 }
-
+.flash_error{
+	top: 0px;
+	position:absolute;
+	left: 50%;
+	margin-left: -230px;
+	z-index: 999;
+	width: 460px;
+	height: 80px;
+	background-color: red;
+	-webkit-border-radius: 0px 0px 20px 20px;
+	border-radius: 0px 0px 20px 20px;
+	text-align:center;
+}

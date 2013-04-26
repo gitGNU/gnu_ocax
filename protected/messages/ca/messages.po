@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-25 12:32+0100\n"
+"PO-Revision-Date: 2013-04-25 17:50+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -174,6 +174,7 @@ msgid "Parent"
 msgstr "Pare"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:15
 msgid "Year"
 msgstr "Any"
 
@@ -445,6 +446,30 @@ msgstr "Restore database"
 msgid "hacer una enquiry"
 msgstr "make an enquiry"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:23
+msgid "Please enter your email address"
+msgstr "Per favor, introdueix el teu correu electrònic"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:89
+msgid "Still haven't got an account?"
+msgstr "Àdhuc no tens un compte?"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:93
+msgid "Forgotten your password?"
+msgstr "Has oblidat la teva contrasenya?"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:96
+msgid "Follow these instructions"
+msgstr "Segueix aquestes instruccions "
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:98
+msgid "Enter your email address and we will send you a link"
+msgstr "Introdueix la teva adreça de correu electrònic i t'enviarem un enllaç"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:99
+msgid "Send"
+msgstr "Enviar"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/comment/_view.php:15
 msgid "comments on the"
 msgstr "comenta el día"
@@ -695,7 +720,7 @@ msgstr "Afegir resposta"
 msgid "Reformulate enquiry"
 msgstr "Reformulate enquiry"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/adminView.php:18
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/adminView.php:12
 msgid "Delete enquiry"
 msgstr "Delete enquiry"
 
@@ -975,6 +1000,7 @@ msgid "Petition to make contact via email"
 msgstr "Petition to make contact via email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:28
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:233
 msgid "Hello"
 msgstr "Hola"
 
@@ -999,8 +1025,9 @@ msgid "If you think this user is spamming you, you can block future petitions at
 msgstr "If you think this user is spamming you, you can block future petitions at this link"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:35
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:237
 msgid "Kind regards"
-msgstr "Kind regards"
+msgstr "Cordials salutacions"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:46
 msgid "says"
@@ -1089,18 +1116,46 @@ msgstr "Changes saved"
 msgid "is blocked"
 msgstr "is blocked"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:194
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:197
 msgid "Zip file updated"
 msgstr "Zip file updated"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:228
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:232
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:231
+msgid "New password request"
+msgstr "Petició de nova contrasenya"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:234
+msgid "has received a request to reset your password"
+msgstr "ha rebut una petició de restableix la teva contrasenya"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:235
+msgid "If you have not forgotten your password, please ignore this email"
+msgstr "Si no has oblidat la teva contrasenya per favor, ignora aquest correu"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:236
+msgid "To reset your password, follow this link"
+msgstr "Per restablir la teva contrasenya, segueix aquest enllaç"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:240
+msgid "We've just sent you an email"
+msgstr "T'hem enviat un correu electrònic"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:244
+msgid "Sorry, we cannot find you on our database"
+msgstr "Disculpa, no et trobem en la nostra base de dades"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:238
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:242
 msgid "Enquiry has been published"
 msgstr "Enquiry has been published"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:228
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:238
 msgid "We have sent you an email"
 msgstr "T'hem enviat un correu electrònic"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:568
+msgid "Enquiry has been deleted"
+msgstr "S'ha esborrat la consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:382
 msgid "Database restored correctly"

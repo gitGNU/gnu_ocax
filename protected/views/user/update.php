@@ -78,3 +78,15 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut('fast');
+    	}, 3500);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    </div>
+<?php endif; ?>

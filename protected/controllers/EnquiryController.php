@@ -178,16 +178,26 @@ class EnquiryController extends Controller
 				$model->state=2;
 			}
 			if($model->save()){
-				$subscription=new EnquirySubscribe;
-				$subscription->user = $model->user;
-				$subscription->enquiry = $model->id;
-				$subscription->save();
-
-				if($model->state==2 && $model->user!=$model->team_member){
+				if($model->related_to){
+					// subscribe users to this new enquiry
+					foreach($related_enquiry->subscriptions as $old_subscription){
+						$subscription=new EnquirySubscribe;
+						$subscription->user = $old_subscription->user;
+						$subscription->enquiry = $model->id;
+						$subscription->save();					
+					}
+				}else{
 					$subscription=new EnquirySubscribe;
-					$subscription->user = $model->team_member;
+					$subscription->user = $model->user;
 					$subscription->enquiry = $model->id;
 					$subscription->save();
+
+					if($model->team_member && $model->user!=$model->team_member){
+						$subscription=new EnquirySubscribe;
+						$subscription->user = $model->team_member;
+						$subscription->enquiry = $model->id;
+						$subscription->save();
+					}
 				}
 
  				$mailer = new Mailer();
@@ -555,6 +565,7 @@ class EnquiryController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$model->delete();
+		Yii::app()->user->setFlash('success', __('Enquiry has been deleted'));
 		echo $id;
 	}
 

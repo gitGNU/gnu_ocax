@@ -211,6 +211,7 @@ class Enquiry extends CActiveRecord
 		$object_count['emails'] = $object_count['emails']+count($this->emails);
 		$object_count['comments'] = $object_count['comments']+count($this->comments);
 		$object_count['subscriptions'] = $object_count['subscriptions']+count($this->subscriptions);
+		$object_count['files'] = $object_count['files']+count(File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)));
 		foreach($this->replys as $reply){
 			$object_count['votes'] = $object_count['votes']+count($reply->votes);
 			$object_count['comments'] = $object_count['comments']+count($reply->comments);
@@ -223,6 +224,8 @@ class Enquiry extends CActiveRecord
 
 	protected function beforeDelete()
 	{
+		if($doc = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)))
+			$doc->delete();
 		foreach($this->reformulateds as $reformulated)
 			$reformulated->delete();
 		foreach($this->replys as $reply)

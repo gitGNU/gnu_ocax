@@ -183,12 +183,22 @@ INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('council', 1, '<p
 CREATE TABLE IF NOT EXISTS file (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(255) NULL,
-  uri varchar(255) NOT NULL,		/* file system location */
-  webPath varchar(255) NULL,	/* 'http://site.com'.$webPath */
+  uri varchar(255) NOT NULL,	/* file system location */
+  webPath varchar(255) NULL,	/* http://site.com'.$webPath */
   model varchar(32) NOT NULL,
   model_id int(11) NULL,
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS reset_password (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user int(11) NOT NULL,
+  code varchar(15) NOT NULL,
+  created DATETIME NOT NULL,
+  FOREIGN KEY (user) REFERENCES user(id),
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,
