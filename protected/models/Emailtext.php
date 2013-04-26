@@ -55,8 +55,9 @@ class Emailtext extends CActiveRecord
 	public function getBody($enquiry=Null)
 	{
 		if($enquiry){
-			$enquiry_link = '<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
-			Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a>';
+			$bad='hello';
+			$enquiry_link = Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id));
+			$enquiry_link = '<a href="'.$enquiry_link.'">'.$enquiry_link.'</a>';
 		}else
 			$enquiry_link = '<a href="/link/to/the/enquiry">/link/to/the/enquiry</a>';
 

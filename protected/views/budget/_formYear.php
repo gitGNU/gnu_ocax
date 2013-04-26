@@ -24,20 +24,26 @@
 
 	<?php /*echo $form->errorSummary($model); */?>
 
+	<div class="row">
 	<?php if(!$model->isNewRecord){
-		echo '<div class="row">';
+
 		echo $form->labelEx($model,'year');
 		$yearStr = ($model->year) .' - '. ($model->year + 1);
 		echo '<input type="text" value="'.$yearStr.'" disabled />';
-		echo '</div>';
 	}else{
-		echo '<div class="row">';
 		echo $form->labelEx($model,'year');
-		echo '<div class="hint">YYYY Solo cuatro dígitos</div>';
+		echo '<div class="hint">YYYY '.__('Only 4 digits').'</div>';
 		echo $form->textField($model,'year');
 		echo $form->error($model,'year');
-		echo '</div>';
 	 }?>
+	</div>
+
+	<div class="row">
+		<b><?php echo __('Population');?></b><br />
+		<?php echo '<div class="hint">'.__('Population this year').'</div>';?>
+		<?php echo $form->textField($model,'initial_provision');?>
+	</div>
+
 
 </div>
 <div class="right">

@@ -151,14 +151,14 @@ class BudgetController extends Controller
 	{
 		$model=new Budget;
 		$model->scenario = 'newYear';
-		$model->initial_provision = 0;
+		$model->initial_provision = '';	// we use this to story the city's population
 		$model->actual_provision = 0;
-		$model->t1 = 0;
-		$model->t2 = 0;
-		$model->t3 = 0;
-		$model->t4 = 0;
+		$model->trimester_1 = 0;
+		$model->trimester_2 = 0;
+		$model->trimester_3 = 0;
+		$model->trimester_4 = 0;
 		$model->concept = 'Root budget';
-		$model->code = 0;
+		$model->code = 0;	// 0 = not published, 1 = published
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

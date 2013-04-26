@@ -24,7 +24,10 @@
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-
+			'settings' => array('convert_urls'=>true,
+								'relative_urls'=>false,
+								'remove_script_host'=>false
+								),
 		    'htmlOptions' => array(
 		        'rows' => 6,
 		        'cols' => 80,
