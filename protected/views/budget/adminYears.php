@@ -58,6 +58,7 @@ function restoreBudgets(file_id){
 <h1>Manage years</h1>
 
 <?php
+//$data[\'initial_provision\']
 $this->widget('PGridView', array(
 	'id'=>'budget-grid',
 	'dataProvider'=>$years,
@@ -80,6 +81,11 @@ $this->widget('PGridView', array(
 			'header'=>'Published',
 			'name'=>'code',
 			'value'=>'$data[\'code\']',
+		),
+		array(
+			'header'=>__('Population'),
+			'name'=>'initial_provision',
+			'value'=>'substr_replace($data[\'initial_provision\'] ,"",-3)',	// remove decimals
 		),
 		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));

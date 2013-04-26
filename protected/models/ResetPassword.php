@@ -8,6 +8,7 @@
  * @property integer $user
  * @property string $code
  * @property string $created
+ * @property integer $used
  *
  * The followings are the available model relations:
  * @property User $user0
@@ -40,8 +41,8 @@ class ResetPassword extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user, code, created', 'required'),
-			array('user', 'numerical', 'integerOnly'=>true),
+			array('user, code, created, used', 'required'),
+			array('user, used', 'numerical', 'integerOnly'=>true),
 			array('code', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

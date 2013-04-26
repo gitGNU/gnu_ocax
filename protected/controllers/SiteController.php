@@ -226,6 +226,7 @@ class SiteController extends Controller
 				$reset->user=$user->id;
 				$reset->created = date('c');
 				$reset->createCode();
+				$reset->used=0;
 
 				$link=Yii::app()->createAbsoluteUrl('site/resetPassword',array('reset'=>$reset->code));
 				$link='<a href="'.$link.'">'.$link.'</a>';
@@ -242,7 +243,6 @@ class SiteController extends Controller
 				$mailer->Body=$mailer->Body.'<p>'.__('Kind regards').',<br />'.Config::model()->findByPk('observatoryName')->value.'</p></p>';
 
 				if($mailer->send()){
-					//$reset->deleteAllByAttributes(array('user'=>$user->id));
 					$reset->save();
 					echo '<span style="color:green">'.__('We\'ve just sent you an email').'.</span>';
 				}else
@@ -257,7 +257,9 @@ class SiteController extends Controller
 	{
 		if(isset($_GET['reset'])){
 			$code=htmLawed::hl(trim($_GET['reset']), array('elements'=>'-*', 'keep_bad'=>0));
-			if($reset = ResetPassword::model()->findByAttributes(array('code'=>$code))){
+			if($reset = ResetPassword::model()->findByAttributes(array('code'=>$code,'used'=>0))){
+				$reset->used=1;
+				$reset->save();
 				$created = DateTime::createFromFormat('Y-m-d H:i:s', $reset->created);
 				$dDiff = $created->diff(new DateTime('now'));
 

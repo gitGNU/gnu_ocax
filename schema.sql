@@ -195,6 +195,7 @@ CREATE TABLE IF NOT EXISTS reset_password (
   user int(11) NOT NULL,
   code varchar(15) NOT NULL,
   created DATETIME NOT NULL,
+  used TINYINT(1) DEFAULT 0 NOT NULL,
   FOREIGN KEY (user) REFERENCES user(id),
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
