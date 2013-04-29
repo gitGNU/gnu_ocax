@@ -39,19 +39,6 @@ function reject(){
 	<?php echo $form->hiddenField($model, 'state');?>
 
 	<div class="row">
-		<?php /*echo $form->label($model,'type');*/ ?>
-		<?php /*echo $form->dropDownList($model, 'type', $model->humanTypeValues);*/ ?>
-		<?php /*echo $form->error($model,'type');*/ ?>
-	</div>
-
-	<div class="row">
-		<?php /* echo $form->labelEx($model,'capitulo'); */?>
-		<?php /*echo $form->textField($model,'capitulo'); */?>
-		<?php /*echo $form->error($model,'capitulo'); */?>
-	</div>
-
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'team_member'); ?>
 		<div class="hint"><?php echo __('Team member responsable for this Enquiry');?></div>
 		<?php
@@ -62,18 +49,24 @@ function reject(){
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(__('Assign')); ?>
+		<?php
+			if(!$model->team_member)
+				echo CHtml::submitButton(__('Assign'));
+			else
+				echo CHtml::submitButton(__('Change team member'));
+		?>
 	</div>
 
 </div>
 <div class="right">
-
+	<?php if($model->state < 4){ // not too late to reject enquiry ?>
 	<div class="row buttons">
 		<b><?php echo __('Reject the Enquiry');?></b>
 		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>
 		<p style="margin-bottom:37px"></p>
 		<?php echo CHtml::button(__('Reject'),array('onclick'=>'reject()')); ?>
 	</div>
+	<?php } ?>
 </div>
 </div>
 <div class="clear"></div>

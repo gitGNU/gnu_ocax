@@ -11,6 +11,8 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 <img style="vertical-align:middle;" src="<?php echo Yii::app()->theme->baseUrl?>/images/down.png" />
 </div>
 
+<?php echo '<div style="font-size:1.2em;margin-bottom:5px;">'.__('These copies are made right before a CSV file is imported').'</div>';?>
+
 <div style="margin:-10px">
 <?php
 $dataProvider = new CActiveDataProvider('File', array(

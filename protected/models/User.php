@@ -199,6 +199,7 @@ class User extends CActiveRecord
 		$criteria->compare('is_team_member',$this->is_team_member);
 		$criteria->compare('is_editor',$this->is_editor);
 		$criteria->compare('is_manager',$this->is_manager);
+		$criteria->compare('is_admin',$this->is_admin);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

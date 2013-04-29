@@ -40,8 +40,11 @@
 
 	<div class="row">
 		<b><?php echo __('Population');?></b><br />
-		<?php echo '<div class="hint">'.__('Population this year').'</div>';?>
-		<?php echo $form->textField($model,'initial_provision');?>
+		<?php
+			$model->initial_provision = substr_replace($model->initial_provision ,"",-3);	//don't want population to have decimals
+			echo '<div class="hint">'.__('Population this year').'</div>';
+			echo $form->textField($model,'initial_provision');
+		?>
 	</div>
 
 
@@ -49,7 +52,7 @@
 <div class="right">
 
 	<div class="row" style="font-size:1.4em">
-		<?php echo $totalBudgets;?> defined budgets.
+		<?php echo $totalBudgets.' '.__('defined budgets');?>
 	</div>
 
 	<div class="row" style="margin-top:50px;">
