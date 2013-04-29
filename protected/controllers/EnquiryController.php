@@ -439,8 +439,6 @@ class EnquiryController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
-		$model->team_member = Yii::app()->user->getUserID();
-
 		$this->render('managed',array(
 			'model'=>$model,
 		));
@@ -466,7 +464,8 @@ class EnquiryController extends Controller
 			elseif($team_member != $model->team_member){
 				if($model->team_member){
 					$model->assigned=date('Y-m-d');
-					$model->state=2;	// 'Enquiry accepted by the %s'
+					if($model->state <= 3)	// maybe enquiry was already accepted and has higher state.
+						$model->state=2;	// Enquiry accepted by the %s
 				}else{
 					$model->assigned=Null;
 					$model->state=1;	//'Pending validation by the %s'
@@ -483,17 +482,6 @@ class EnquiryController extends Controller
 				}
 				if($model->team_member || $model->state == 3)
 					$model->promptEmail();
-/*
-				$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
-				//$this->redirect(array('manage','id'=>$model->id,'team_members'=>$team_members,));
-
-				//can we use this instead of render? $this->refresh();
-				$this->render('manage',array(
-					'model'=>$model,
-					'team_members'=>$team_members,
-				));
-				Yii::app()->end();
-*/
 			}
 		}
 

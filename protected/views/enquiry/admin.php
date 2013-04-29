@@ -16,7 +16,18 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage enquirys</h1>
+
+<style>           
+	.outer{width:100%; padding: 0px; float: left;}
+	.left{width: 63%; float: left;  margin: 0px;}
+	.right{width: 33%; float: left; margin: 0px;}
+	.clear{clear:both;}
+</style>
+
+<div class="outer">
+<div class="left">
+
+<h1><?php echo __('Manage enquiries');?></h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -30,34 +41,43 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
+</div>
+<div class="right">
+	<b><?php echo __('States');?></b><br />
+	<?php
+		foreach($model->getHumanStates() as $key=>$value){
+			echo $key.'&nbsp&nbsp'.$value.'<br />';
+		}
+	?>
+</div>
+</div>
+<div class="clear"></div>
+
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'enquiry-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->adminSearch(),
 	'filter'=>$model,
 	'columns'=>array(
 		'title',
 		'created',
-        array(
-            'name'=>'team_member',
-			'value'=>'(($data->team_member) ? $data->teamMember->username : "")',
-        ),
+		array(
+			'header'=>__('Assigned to'),
+			'name'=>'username',
+			'value'=>'($data->teamMember) ? $data->teamMember->username : ""',
+		),
 		'state',
-		/*
-		'type',
-		'capitulo',
-		'title',
-		'body',
-		*/
+/*
+		array(
+			'name'=>'state',
+			'type'=>'raw',
+			'value'=>'Enquiry::getHumanStates($data->state)',
+		),
+*/
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{update}',
 			'buttons'=>array(
-/*
-				'view' => array(
-					'label'=>'View',
-		            'url'=>'Yii::app()->createUrl("enquiry/adminView", array("id"=>$data->id))',
-				),
-*/
 				'update' => array(
 					'label'=>'Assign',
 		            'url'=>'Yii::app()->createUrl("enquiry/adminView", array("id"=>$data->id))',

@@ -34,37 +34,39 @@
 class Enquiry extends CActiveRecord
 {
 
-    public $humanTypeValues=array(
+	public $username=Null;
+
+
+	public static $humanTypeValues=array(
 							0=>'Generic',
 							1=>'Budgetary',
-							//2=>'Reclamation',
 						);
 
-	public static function getHumanTypes($type=Null)
-	{
-    	$humanTypeValues=array(
-						0=>__('Generic'),
-						1=>__('Budgetary'),
-						//2=>__('Reclamation'),
+	private static $humanStateValues=array(
+                        1=>'Pending validation by the %s',
+						2=>'Enquiry accepted by the %s',
+                        3=>'Enquiry rejected by the %s',
+                        4=>'Awaiting response from the Administration',
+                        5=>'Reply awaiting assessment',
+                        6=>'Reply considered satisfactory',
+                        7=>'Reply considered insatisfactory',
 					);
-		if($type == Null)
-			return $humanTypeValues;
-		return $humanTypeValues[$type];
+
+	public function getHumanTypes($type=Null)
+	{
+		if($type == Null){
+			$types=array();
+			foreach(self::$humanTypeValues as $key=>$value)
+				$types[$key]=__($value);
+			return $types;
+		}
+		return __(self::$humanTypeValues[$type]);
 	}
 
 	public static function getHumanStates($state=Null)
 	{
-    	$humanStateValues=array(
-                        1=>__('Pending validation by the %s'),
-						2=>__('Enquiry accepted by the %s'),
-                        3=>__('Enquiry rejected by the %s'),
-                        4=>__('Awaiting response from the Administration'),
-                        5=>__('Reply awaiting assessment'),
-                        6=>__('Reply considered satisfactory'),
-                        7=>__('Reply considered insatisfactory'),
-					);
 		if($state!==Null){
-			$str=$humanStateValues[$state];
+			$str=__(self::$humanStateValues[$state]);
 			if( strpos($str, '%s') !== false){
 				$str = str_replace("%s", Config::model()->findByPk('siglas')->value, $str);
 			}
@@ -72,7 +74,8 @@ class Enquiry extends CActiveRecord
 		}
 		$siglas=Config::model()->findByPk('siglas')->value;
 		$states = array();
-		foreach($humanStateValues as $key=>$value){
+		foreach(self::$humanStateValues as $key=>$value){
+			$value = __($value);
 			if( strpos($value, '%s') !== false)
 				$value = str_replace('%s', $siglas, $value);
 			$states[$key]=$value;
@@ -114,7 +117,7 @@ class Enquiry extends CActiveRecord
 			array('assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, related_to, user, team_member, manager, created, assigned, type, capitulo, state, title, body', 'safe', 'on'=>'search'),
+			array('id, related_to, user, username, team_member, manager, created, assigned, type, capitulo, state, title, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -268,17 +271,50 @@ class Enquiry extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function teamMemberSearch()
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->compare('team_member',Yii::app()->user->getUserID());
 
-		//$criteria->compare('id',$this->id);
 		$criteria->compare('user',$this->user);
 		$criteria->compare('related_to',$this->related_to);
-		$criteria->compare('team_member',$this->team_member);
+
+		$criteria->compare('manager',$this->manager);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('assigned',$this->assigned,true);
+		$criteria->compare('type',$this->type);
+		$criteria->compare('budget',$this->budget);
+		$criteria->compare('state',$this->state);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('body',$this->body,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'created DESC'),
+		));
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
+	public function adminSearch()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+		$criteria->with=array('teamMember');
+
+		$criteria->compare('user',$this->user);
+		$criteria->compare('related_to',$this->related_to);
+
+		//http://www.yiiframework.com/forum/index.php/topic/8148-cgridview-filter-with-relations/
+		$criteria->compare('teamMember.username', $this->username, true);
+
 		$criteria->compare('manager',$this->manager);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('assigned',$this->assigned,true);

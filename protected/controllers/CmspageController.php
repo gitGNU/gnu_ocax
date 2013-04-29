@@ -50,7 +50,7 @@ class CmspageController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
+	 * Displays a particular model for CMS Editor only.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 
@@ -58,13 +58,12 @@ class CmspageController extends Controller
 	{
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);
-		if($model){
-			$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
-			$this->render('show',array(
-				'model'=>$model,
-				'items'=>$items,
-			));
-		}
+
+		$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
+		$this->render('show',array(
+			'model'=>$model,
+			'items'=>$items,
+		));
 	}
 
 	public function actionShow($pagename)
@@ -72,6 +71,10 @@ class CmspageController extends Controller
 		$this->layout='//layouts/column1';
 		$model = CmsPage::model()->findByAttributes(array('pagename'=>$pagename));
 		if($model){
+			if($model->published == 0 && !Yii::app()->user->isEditor()){
+				throw new CHttpException(404,'The requested page does not exist.');
+				return $model;
+			}
 			$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
 			$this->render('show',array(
 				'model'=>$model,
