@@ -435,8 +435,9 @@ class EnquiryController extends Controller
 		// grid of enquirys by team_member
 		$this->layout='//layouts/column1';
 
-		$model=new Enquiry('search');
+		$model=new Enquiry('teamMemberSearch');
 		$model->unsetAttributes();  // clear any default values
+		//$model->team_member = Yii::app()->user->getUserID();
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
 		$this->render('managed',array(
@@ -509,7 +510,7 @@ class EnquiryController extends Controller
 	public function actionAdmin()
 	{
 		$this->layout='//layouts/column1';
-		$model=new Enquiry('search');
+		$model=new Enquiry('adminSearch');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
