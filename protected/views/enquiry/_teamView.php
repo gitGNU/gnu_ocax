@@ -16,7 +16,7 @@
 		),
 		array(
 	        'label'=>__('Type'),
-	        'value'=>($model->related_to) ? $model->humanTypeValues[$model->type].' ('.__('reformulated').')' : $model->humanTypeValues[$model->type],
+	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
 		array(
 	        'label'=>__('Subscribed users'),

@@ -18,7 +18,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->dropDownList($model, 'type', array(""=>"Sin filtrar") + $model->humanTypeValues);?>
+		<?php echo $form->dropDownList($model, 'type', array(""=>"Sin filtrar") + $model->getHumanTypes());?>
 	</div>
 
 	<div class="row">

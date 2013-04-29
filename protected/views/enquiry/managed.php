@@ -16,7 +16,17 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Enquirys encomendadas a mi</h1>
+<style>           
+	.outer{width:100%; padding: 0px; float: left;}
+	.left{width: 63%; float: left;  margin: 0px;}
+	.right{width: 33%; float: left; margin: 0px;}
+	.clear{clear:both;}
+</style>
+
+<div class="outer">
+<div class="left">
+
+<h1>Enquiries encomendadas a mi</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -25,66 +35,33 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
 )); ?>
-	<div class="row">
-		<?php echo $form->label($model,'user'); ?>
-		<?php echo $form->textField($model,'user'); ?>
-	</div>
-	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-	</div>
-	<div class="row">
-		<?php echo $form->label($model,'assigned'); ?>
-		<?php echo $form->textField($model,'assigned'); ?>
-	</div>
-	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->dropDownList($model, 'type', array(''=>'Sin filtrar') + $model->humanTypeValues);?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'state'); ?>
-		<?php echo $form->dropDownList($model, 'state', array(''=>'Sin filtrar') + $model->getHumanStates());?>
-	</div>
-	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>30,'maxlength'=>255)); ?>
-	</div>
-	<div class="row">
-		<?php echo $form->label($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255)); ?>
-	</div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-<?php $this->endWidget(); ?>
+</div><!-- search-form -->
 
 </div>
-</div><!-- search-form -->
+<div class="right">
+	<b><?php echo __('States');?></b><br />
+	<?php
+		foreach($model->getHumanStates() as $key=>$value){
+			echo $key.'&nbsp&nbsp'.$value.'<br />';
+		}
+	?>
+</div>
+</div>
+<div class="clear" style="margin-bottom:15px"></div>
 
 <?php
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->teamMemberSearch(),
 	//'filter'=>$model,
     'onClick'=>array(
         'type'=>'url',
         'call'=>'teamView',
     ),
 	'ajaxUpdate'=>true,
-/*
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
-*/
 	'columns'=>array(
 	        array(
 				'header'=>'Enquiry',
