@@ -365,8 +365,10 @@ class EnquiryController extends Controller
 					echo CActiveForm::validate($model);
 				Yii::app()->end();
 			}
-			if($model->save())
+			if($model->save()){
+				$model->promptEmail();			
 				$this->redirect(array('teamView','id'=>$model->id));
+			}
 		}
 		$this->render('submitted',array(
 			'model'=>$model,
