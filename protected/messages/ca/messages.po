@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-30 11:46+0100\n"
+"PO-Revision-Date: 2013-04-30 12:29+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgid "Parent"
 msgstr "Pare"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:15
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:19
 msgid "Year"
 msgstr "Any"
 
@@ -187,7 +187,7 @@ msgid "Label"
 msgstr "Etiqueta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:103
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:10
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:14
 msgid "Concept"
 msgstr "Concepte"
 
@@ -405,6 +405,10 @@ msgstr ""
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:14
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:26
+msgid "Euros per person"
+msgstr "Euros per persona"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:241
 msgid "Budget for"
@@ -941,7 +945,7 @@ msgstr "Enviar correu massiu"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/bulkEmail/_form.php:102
 msgid "Preview"
-msgstr ""
+msgstr "Vista preliminar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:6
 msgid "Change user's roles"
@@ -1061,6 +1065,7 @@ msgid "If you think this user is spamming you, you can block future petitions at
 msgstr "If you think this user is spamming you, you can block future petitions at this link"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:35
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:125
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:243
 msgid "Kind regards"
 msgstr "Cordials salutacions"
@@ -1155,6 +1160,14 @@ msgstr "is blocked"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:197
 msgid "Zip file updated"
 msgstr "Zip file updated"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:120
+msgid "New comment at"
+msgstr "Nou comentari en"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:122
+msgid "A new comment has been added to the enquiry"
+msgstr "S'ha afegit un comentari a la consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:237
 msgid "New password request"

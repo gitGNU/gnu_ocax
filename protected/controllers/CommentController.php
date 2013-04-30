@@ -117,12 +117,12 @@ class CommentController extends Controller
 					$mailer->AddBCC($subscribed->email);
 
 				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
-				$mailer->Subject='New comment at: '.$enquiry->title;
+				$mailer->Subject=__('New comment at').': '.$enquiry->title;
 
-				$mailer->Body='	<p>A new comment has been added to the enquiry "'.$enquiry->title.'"<br />
+				$mailer->Body='	<p>'.__('A new comment has been added to the enquiry').' "'.$enquiry->title.'"<br />
 								<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
 								Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a></p><p><i>'.
-								$model->body.'</i></p><p>Kind regards,<br />'.
+								$model->body.'</i></p><p>'.__('Kind regards').',<br />'.
 								Config::model()->findByPk('observatoryName')->value.'</p>';
 				$mailer->send();
 			}else
