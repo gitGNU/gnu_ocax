@@ -354,6 +354,14 @@ class BudgetController extends Controller
 		else
 			$model->year = Config::model()->findByPk('year')->value;
 
+		if(isset($_GET['graph_type'])){
+			$graph_type=$_GET['graph_type'];
+			Yii::app()->request->cookies['graph_type'] = new CHttpCookie('graph_type', $graph_type);
+		}
+		elseif(isset(Yii::app()->request->cookies['graph_type']))
+			$graph_type=Yii::app()->request->cookies['graph_type']->value;
+		else
+			$graph_type='pie';
 
 		if (isset($_GET['Budget'])) {
 			$model->attributes = $_GET['Budget'];
@@ -361,6 +369,7 @@ class BudgetController extends Controller
 
 		$this->render('index', array(
 			'model' => $model,
+			'graph_type' => $graph_type,
 		));
 	}
 

@@ -173,11 +173,15 @@ class Budget extends CActiveRecord
 		$params = $this->getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
-		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->uri;
+#E72A95#18E01E		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->uri;
 		exec($command, $output, $return_var);
 		echo $return_var;
 	}
 
+	public function getPopulation()
+	{
+		return $this->findByAttributes(array('year'=>$this->year,'parent'=>Null))->initial_provision;
+	}
 
 	public function publicSearch()
 	{

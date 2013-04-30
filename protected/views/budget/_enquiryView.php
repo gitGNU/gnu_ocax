@@ -3,7 +3,7 @@
 //Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 
-$population = Budget::model()->findByAttributes(array('year'=>$model->year,'parent'=>Null))->initial_provision;
+//$population = Budget::model()->findByAttributes(array('year'=>$model->year,'parent'=>Null))->initial_provision;
 
 ?>
 
@@ -24,7 +24,7 @@ $population = Budget::model()->findByAttributes(array('year'=>$model->year,'pare
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'),
 		array(
 	        'label'=>__('Euros per person'),
-	        'value'=>format_number($model->actual_provision / $population).' €',
+	        'value'=>format_number($model->actual_provision / $model->getPopulation()).' €',
 		),
 	),
 )); ?>
