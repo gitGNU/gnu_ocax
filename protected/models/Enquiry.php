@@ -36,46 +36,43 @@ class Enquiry extends CActiveRecord
 
 	public $username=Null;
 
-
-	public static $humanTypeValues=array(
-							0=>'Generic',
-							1=>'Budgetary',
-						);
-
-	private static $humanStateValues=array(
-                        1=>'Pending validation by the %s',
-						2=>'Enquiry accepted by the %s',
-                        3=>'Enquiry rejected by the %s',
-                        4=>'Awaiting response from the Administration',
-                        5=>'Pending assessment',
-                        6=>'Reply considered satisfactory',
-                        7=>'Reply considered insatisfactory',
-					);
-
 	public function getHumanTypes($type=Null)
 	{
+		$humanTypeValues=array(
+				0=>__('Generic'),
+				1=>__('Budgetary'),
+		);
+
 		if($type == Null){
 			$types=array();
-			foreach(self::$humanTypeValues as $key=>$value)
+			foreach($humanTypeValues as $key=>$value)
 				$types[$key]=__($value);
 			return $types;
 		}
-		return __(self::$humanTypeValues[$type]);
+		return __($humanTypeValues[$type]);
 	}
 
 	public static function getHumanStates($state=Null)
 	{
+		$humanStateValues=array(
+				1=>__('Pending validation by the %s'),
+				2=>__('Enquiry accepted by the %s'),
+				3=>__('Enquiry rejected by the %s'),
+				4=>__('Awaiting reply from the Administration'),
+				5=>__('Reply pending assessment'),
+				6=>__('Reply considered satisfactory'),
+				7=>__('Reply considered insatisfactory'),
+		);
+
 		if($state!==Null){
-			$str=__(self::$humanStateValues[$state]);
-			if( strpos($str, '%s') !== false){
-				$str = str_replace("%s", Config::model()->findByPk('siglas')->value, $str);
-			}
-			return $str;
+			$value=$humanStateValues[$state];
+			if( strpos($value, '%s') !== false)
+				$value = str_replace("%s", Config::model()->findByPk('siglas')->value, $value);
+			return $value;
 		}
 		$siglas=Config::model()->findByPk('siglas')->value;
 		$states = array();
-		foreach(self::$humanStateValues as $key=>$value){
-			$value = __($value);
+		foreach($humanStateValues as $key=>$value){
 			if( strpos($value, '%s') !== false)
 				$value = str_replace('%s', $siglas, $value);
 			$states[$key]=$value;

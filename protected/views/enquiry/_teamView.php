@@ -7,6 +7,10 @@
 	'data'=>$model,
 	'attributes'=>array(
 		array(
+	        'label'=>__('State'),
+	        'value'=>$model->getHumanStates($model->state),
+		),
+		array(
 	        'label'=>__('Formulated by'),
 	        'value'=>$model->user0->fullname.' '.__('on the').' '.$model->created,
 		),
@@ -21,10 +25,6 @@
 		array(
 	        'label'=>__('Subscribed users'),
 	        'value'=>count($model->subscriptions),
-		),
-		array(
-	        'label'=>__('State'),
-	        'value'=>$model->getHumanStates($model->state),
 		),
 	),
 ));?>
