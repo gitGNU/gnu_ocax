@@ -241,9 +241,9 @@ $(function() {
 <?php echo __('Budget for').' '.$model->getYearString();
 
 if(Yii::app()->user->isAdmin())
-	$years=$model->findAll(array('condition'=>'parent IS NULL'));
+	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
 else
-	$years=$model->findAll(array('condition'=>'parent IS NULL AND code = 1'));
+	$years=$model->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
 
 if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {

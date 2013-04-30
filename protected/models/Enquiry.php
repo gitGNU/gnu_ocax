@@ -47,7 +47,7 @@ class Enquiry extends CActiveRecord
 						2=>'Enquiry accepted by the %s',
                         3=>'Enquiry rejected by the %s',
                         4=>'Awaiting response from the Administration',
-                        5=>'Reply awaiting assessment',
+                        5=>'Pending assessment',
                         6=>'Reply considered satisfactory',
                         7=>'Reply considered insatisfactory',
 					);
@@ -263,7 +263,7 @@ class Enquiry extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'created DESC'),
+			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 	}
 

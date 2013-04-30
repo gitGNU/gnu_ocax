@@ -348,15 +348,12 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
-
 			$model->attributes=$_POST['Enquiry'];
-			//$model->submitted = date('Y-m-d', strtotime($model->submitted));
-			//if($model->validate())
-			//	$model->state=4;	// Awaiting response from the Administration
 
-			if($model->validate() && File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) )
+			if($model->validate() && File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) ){
 				$model->state=4;
-
+				$model->modified=date('c');
+			}
 			if(Yii::app()->request->isAjaxRequest){
 				//http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
 				if($model->save())
@@ -473,6 +470,7 @@ class EnquiryController extends Controller
 					$model->assigned=Null;
 					$model->state=1;	//'Pending validation by the %s'
 				}
+				$model->modified=date('c');
 			}
 			if($model->save()){
 				if($model->team_member){

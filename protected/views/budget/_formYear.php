@@ -25,12 +25,7 @@
 	<?php /*echo $form->errorSummary($model); */?>
 
 	<div class="row">
-	<?php if(!$model->isNewRecord){
-
-		echo $form->labelEx($model,'year');
-		$yearStr = ($model->year) .' - '. ($model->year + 1);
-		echo '<input type="text" value="'.$yearStr.'" disabled />';
-	}else{
+	<?php if($model->isNewRecord){
 		echo $form->labelEx($model,'year');
 		echo '<div class="hint">YYYY '.__('Only 4 digits').'</div>';
 		echo $form->textField($model,'year');

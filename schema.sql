@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS enquiry (
   team_member int(11),
   manager int(11),
   created date NOT NULL,
+  modified DATETIME NOT NULL,
   assigned date,	/* date the manager assigned the enquiry to a team_member */
   submitted date,	/* date the team_member submitted the enquiry to the administration */
   registry_number varchar( 32 ),	/* number assigned by the council to the enquiry when submitted */
