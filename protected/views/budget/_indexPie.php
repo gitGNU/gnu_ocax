@@ -105,9 +105,7 @@ function getPie(budget_id){
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
 			graph_container.append(title);
-			budget_details=$('<div class="budget_details"><div class="view" style="padding:0px">'+data.params.budget_details+'</div></div>');
-			budget_details.append(data.params.enquiry_link);
-			graph_container.append(budget_details);
+			graph_container.append(data.params.budget_details);
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
 			graph_container.append(graph);
 			
@@ -203,18 +201,13 @@ $(function() {
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
 			graph_container.append('<div style="font-size:1.5em;"><?php echo CHtml::encode($budget->concept);?></div>');
-
-			budget_details=$('<div class="budget_details"><div class="view" style="padding:0px">'+data.params.budget_details+'</div></div>');
-			budget_details.append(data.params.enquiry_link);
-			graph_container.append(budget_details);
-
+			//graph_container.append(data.params.budget_details);
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);
 			createPie("<?php echo $budget->id;?>_graph", data);
 
 	<?php } ?>
 });
-
 </script>
 
 

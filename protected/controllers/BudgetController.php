@@ -48,18 +48,6 @@ class BudgetController extends Controller
 	}
 
 
-	public function actionGetBudgetDetailsForBar($id)
-	{
-		//if(!Yii::app()->request->isAjaxRequest)
-		//	Yii::app()->end();
-
-		$model=$this->loadModel($id);
-		if($model){
-			echo $this->renderPartial('detailsForGraph',array('model'=>$model));
-		}else
-			echo 0;
-	}
-
 	public function actionGetTotalYearlyBudgets($id)
 	{
 		$model=$this->loadModel($id);
@@ -78,7 +66,22 @@ class BudgetController extends Controller
 		));
 	}
 
+	public function actionGetBudgetDetailsForBar($id)
+	{
+		//if(!Yii::app()->request->isAjaxRequest)
+		//	Yii::app()->end();
 
+		$model=$this->loadModel($id);
+		if($model){
+			echo '<div class="budget_details view" budget_id='.$model->id.' style="width:543px;padding:0px">';
+			echo $this->renderPartial('_enquiryView',array(	'model'=>$model,
+															'showCreateEnquiry'=>1,
+															'showLinks'=>1),false,true);
+			echo '</div>';
+		}else
+			echo 0;
+	}
+	
 	public function actionGetPieData($id)
 	{
 		$model=$this->loadModel($id);
@@ -92,8 +95,11 @@ class BudgetController extends Controller
 		}
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>CHtml::encode($graphThisModel->concept),
-						'budget_details'=>$this->renderPartial('_enquiryView',array('model'=>$model),true,false),
-						'enquiry_link'=>CHtml::link(__('make an enquiry'),array('enquiry/create', 'budget'=>$model->id)),
+						'budget_details'=>	'<div class="budget_details view" style="padding:0px">'.
+											$this->renderPartial('_enquiryView',array(	'model'=>$model,
+																						'showCreateEnquiry'=>1,
+																						'showLinks'=>1),true,false).
+											'</div>',
 						'is_parent'=>$isParent,
 						'go_back_id'=>$goBackID,
 					);

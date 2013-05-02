@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-04-30 12:29+0100\n"
+"PO-Revision-Date: 2013-05-02 16:36+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgid "Parent"
 msgstr "Pare"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:19
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:22
 msgid "Year"
 msgstr "Any"
 
@@ -187,7 +187,7 @@ msgid "Label"
 msgstr "Etiqueta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:103
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:14
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:17
 msgid "Concept"
 msgstr "Concepte"
 
@@ -361,7 +361,6 @@ msgstr "Do you wish to"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:88
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:92
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:96
 msgid "make an enquiry"
 msgstr "make an enquiry"
 
@@ -397,38 +396,61 @@ msgstr "Llegenda"
 msgid "Up one level"
 msgstr "Puja un nivell"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.php:189
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexPie.php:220
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.jqplot.php:155
+msgid "Filtered results"
+msgstr "Resultats de la cerca"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.php:202
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexPie.php:233
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.jqplot.php:168
+msgid "Download database"
+msgstr "Baixar base de dades"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:11
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:37
 msgid "Featured budgets"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:14
-msgid "No data available"
-msgstr "No hi ha dades disponibles"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:26
-msgid "Euros per person"
-msgstr "Euros per persona"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:241
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:68
 msgid "Budget for"
 msgstr "Pressupostes per a"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:254
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:81
 msgid "Available years"
 msgstr "Anys disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:292
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:119
 msgid "Filter"
 msgstr "Filtre"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:303
-msgid "Filtered results"
-msgstr "Resultats de la cerca"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:143
+msgid "No data available"
+msgstr "No hi ha dades disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_index.php:366
-msgid "Download database"
-msgstr "Baixar base de dades"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:8
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:35
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:44
+msgid "New enquiry"
+msgstr "Nova consulta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:29
+msgid "Euros per person"
+msgstr "Euros per persona"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:33
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:38
+msgid "Enquiries"
+msgstr "Consultes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:36
+msgid "enquir(ies) made"
+msgstr "consultes fetes"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:38
+msgid "0 enquiries made"
+msgstr "0 consultes fetes"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_formYear.php:30
 msgid "Only 4 digits"
@@ -871,11 +893,6 @@ msgstr "Triar pressupost"
 msgid "New reformulated enquiry"
 msgstr "Nova consulta reformulada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:35
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:44
-msgid "New enquiry"
-msgstr "Nova consulta"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:37
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
@@ -1107,10 +1124,6 @@ msgstr "La meva pàgina"
 msgid "Budgets"
 msgstr "Pressupostes"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:38
-msgid "Enquiries"
-msgstr "Consultes"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:42
 msgid "Register"
 msgstr "Registrar-se"
@@ -1214,7 +1227,7 @@ msgstr "T'hem enviat un correu electrònic"
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:382
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:390
 msgid "Database restored correctly"
 msgstr "Database restored correctly"
 

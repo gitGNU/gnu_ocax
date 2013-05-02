@@ -1,7 +1,7 @@
 <?php
 /* @var $this BudgetController */
 /* @var $model Budget */
-Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
+//Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
 $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
 $graph_width=897;
@@ -51,10 +51,14 @@ $graph_width=897;
 
 <script>
 
-// this is for interactive graphic
 $(function() {
 	$('.budget').bind('click', function() {
 		budget_id = $(this).attr('budget_id');
+		if($('.budget_details[budget_id='+budget_id+']').length>0){
+			$('.budget_details').hide();
+			$('.budget_details[budget_id='+budget_id+']').show();
+			return;
+		}
 		el = $(this);
 		$.ajax({
 			url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDetailsForBar/'+budget_id,
@@ -72,6 +76,7 @@ $(function() {
 		});
 	});
 });
+/*
 $(function() {
 	$("#Budget_concept").on("click", function(event){
 		$("#Budget_code").val('');
@@ -80,7 +85,7 @@ $(function() {
 		$("#Budget_concept").val('');
 	});
 });
-
+*/
 function toggleChildren(id){
 	if ($('#budget_children_'+id).is(":visible"))
 		$('#budget_children_'+id).slideUp('fast');
