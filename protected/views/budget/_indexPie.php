@@ -226,7 +226,8 @@ if( count($data) > 0){ ?>
 	));
 }else{
 	echo '<div id="pie_display" style="margin-top:5px;margin-bottom:15px;"></div>';
-
+}
+/*
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 		echo '<div style="margin-top:40px;">';
 		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
@@ -238,4 +239,5 @@ if( count($data) > 0){ ?>
 		echo '</div>';
 	}
 }
+*/
 ?>

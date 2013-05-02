@@ -126,13 +126,19 @@ if(count($years) > 1){
 
 <div style="margin-top:10px;margin-bottom:20px;height:10px;">
 <?php
-$change=Yii::app()->request->baseUrl.'/budget?graph_type';
-echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_bar.png" onclick="window.location=\''.$change.'=bar\'" />';
-echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
 
-if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-	//echo '<a style="float:right" href="'.$zip->webPath.'">'.__('Download database').'</a>';
-}
+$change=Yii::app()->request->baseUrl.'/budget?graph_type';
+echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app()->theme->baseUrl.
+																		'/images/graph_type_bar.png" onclick="window.location=\''.$change.'=bar\'" />';
+echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app()->theme->baseUrl.
+																		'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
+
+	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
+		echo '<div style="margin-top:15px;float:right;margin-right:20px;">';
+		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
+		echo '</div>';
+	}
+
 ?>
 </div>
 <div style="clear:both;"></div>
