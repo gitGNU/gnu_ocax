@@ -28,7 +28,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getPieData'),
+				'actions'=>array('index','view','getPieData','getBudgetDetailsForBar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -48,14 +48,14 @@ class BudgetController extends Controller
 	}
 
 
-	public function actionGetBudgetDetails($id)
+	public function actionGetBudgetDetailsForBar($id)
 	{
 		//if(!Yii::app()->request->isAjaxRequest)
 		//	Yii::app()->end();
 
 		$model=$this->loadModel($id);
 		if($model){
-			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
+			echo $this->renderPartial('detailsForGraph',array('model'=>$model));
 		}else
 			echo 0;
 	}

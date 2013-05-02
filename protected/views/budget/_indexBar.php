@@ -55,20 +55,20 @@ $graph_width=897;
 $(function() {
 	$('.budget').bind('click', function() {
 		budget_id = $(this).attr('budget_id');
-		content = '';
-		if(1 == 1){	// why did I if this?
-			enquiry_link='<?php echo Yii::app()->request->baseUrl;?>/enquiry/create?budget='+budget_id;
-			enquiry_link='<a href="'+enquiry_link+'"><?php echo __('hacer una enquiry');?></a>';
-			content=content+'Deseas '+enquiry_link+'?';
-		}
-		$('#budget_options_content').html(content);
-		$('#budget_options').bPopup({
-			modalClose: false
-			, position: ([ 'auto', 200 ])
-			, follow: ([false,false])
-			, fadeSpeed: 10
-			, positionStyle: 'absolute'
-			, modelColor: '#ae34d5'
+		el = $(this);
+		$.ajax({
+			url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDetailsForBar/'+budget_id,
+			type: 'GET',
+			async: false,
+			//dataType: 'json',
+			beforeSend: function(){ },
+			success: function(data){
+				$('.budget_details').hide();
+				el.append(data);
+			},
+			error: function() {
+				alert("Error on get budget details");
+			}
 		});
 	});
 });
@@ -84,8 +84,10 @@ $(function() {
 function toggleChildren(id){
 	if ($('#budget_children_'+id).is(":visible"))
 		$('#budget_children_'+id).slideUp('fast');
-	else
+	else{
+		//$('.budget_details').hide();		
 		$('#budget_children_'+id).slideDown('fast');
+	}
 }
 </script>
 
@@ -130,6 +132,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 			echo '<div class="actual_provision_bar '.$highlight.'" style="width:'.$width.'px;">';
 			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
+			
 
 	/*		$percent=percentage($budget->initial_provision,$globals['yearly_actual_provision']);
 			$width=$graph_width*(percentage($budget->initial_provision,$parent_budget->actual_provision) / 100);
