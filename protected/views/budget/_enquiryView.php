@@ -2,11 +2,24 @@
 //Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 //Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
-$make_enquiry_link='';
-if(isset($showCreateEnquiry))
-	$make_enquiry_link=	'<span style="float:right">'.
-						CHtml::link(__('New enquiry'),array('enquiry/create', 'budget'=>$model->id)).
-						'</span>';
+if(isset($showLinks)){
+	$create_enquiry_link = 	'<span style="float:right">'.
+							CHtml::link(__('New enquiry'),array('enquiry/create', 'budget'=>$model->id)).
+							'</span>';
+		
+	if($enquiry_count = count($model->enquirys))
+		$enquires =	$enquiry_count.' '.CHtml::link(__('enquir(ies) made'), array('budget/view','id'=>$model->id)).' '.$create_enquiry_link;
+	else
+		$enquiries = __('0 enquiries made').' '.$create_enquiry_link;
+		
+	$budget_concept= CHtml::link($model->concept, '#', array('onclick'=>'js:showBudgetDescription('.$model->id.');'));
+}else{
+	if($enquiry_count = count($model->enquirys))
+		$enquiries = $enquiry_count.' '.__('enquir(ies) made');
+	else
+		$enquiries = __('0 enquiries made');
+	$budget_concept = $model->concept;
+}
 ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
@@ -15,7 +28,7 @@ if(isset($showCreateEnquiry))
 		array(
 			'name'=>__('Concept'),
 			'type'=>'raw',
-			'value'=> isset($showLinks)? CHtml::link($model->concept, array('budget/view','id'=>$model->id)): $model->concept,
+			'value'=> $budget_concept,
 		),
 		array(
 	        'label'=>__('Year'),
@@ -31,10 +44,7 @@ if(isset($showCreateEnquiry))
 		array(
 	        'label'=>__('Enquiries'),
 			'type'=>'raw',
-	        'value'=>count($model->enquirys)?
-	        			count($model->enquirys).' '.CHtml::link(__('enquir(ies) made'), array('budget/view','id'=>$model->id)).
-	        			' '.$make_enquiry_link:
-	        			__('0 enquiries made').' '.$make_enquiry_link,
+	        'value'=>$enquiries,
 		),		
 	),
 )); ?>

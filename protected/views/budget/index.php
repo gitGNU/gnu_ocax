@@ -53,8 +53,40 @@ Yii::app()->clientScript->registerScript('search', "
    border-top-color: #1b435e;
    background: #1b435e;
    }
+   
+   	.bClose{
+		cursor: pointer;
+		position: absolute;
+		right: -21px;
+		top: -21px;
+	}
 </style>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script>
+function showBudgetDescription(budget_id){
+		$.ajax({
+			url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDescription/'+budget_id,
+			type: 'GET',
+			async: false,
+			//dataType: 'json',
+			beforeSend: function(){ },
+			success: function(data){
+				$('#budget_description_body').html(data);
+				$('#budget_description').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			},
+			error: function() {
+				alert("Error on get budget description");
+			}
+		});
+}
+</script>
 
 <div style="font-size:2.5em;text-align:center;margin-top:-10px;">
 <?php echo Config::model()->findByPk('councilName')->value;?>
@@ -154,4 +186,13 @@ if(!$root_budget){
 		$this->renderPartial('_indexPie',array('model'=>$model));
 }
 ?>
+</div>
+
+
+<div id="budget_description" style="display:none;width:700px;">
+<div style="background-color:white;padding:10px;">
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="budget_description_body"></div>
+</div>
+<p>&nbsp;</p>
 </div>

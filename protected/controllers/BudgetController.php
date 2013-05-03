@@ -28,7 +28,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getPieData','getBudgetDetailsForBar'),
+				'actions'=>array('index','view','getPieData','getBudgetDetailsForBar','getBudgetDescription'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -80,6 +80,12 @@ class BudgetController extends Controller
 			echo '</div>';
 		}else
 			echo 0;
+	}
+	
+	public function actionGetBudgetDescription($id)
+	{
+		$model=$this->loadModel($id);
+		echo $this->renderPartial('_description',array('model'=>$model));	
 	}
 	
 	public function actionGetPieData($id)
