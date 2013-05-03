@@ -12,7 +12,7 @@ if(isset($showLinks)){
 	else
 		$enquiries = __('0 enquiries made').' '.$create_enquiry_link;
 		
-	$budget_concept= CHtml::link($model->concept, '#', array('onclick'=>'js:showBudgetDescription('.$model->id.');'));
+	$budget_concept= CHtml::link($model->concept, '#', array('onclick'=>'js:showBudgetDescription('.$model->id.');return false;'));
 }else{
 	if($enquiry_count = count($model->enquirys))
 		$enquiries = $enquiry_count.' '.__('enquir(ies) made');

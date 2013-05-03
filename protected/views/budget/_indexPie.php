@@ -54,7 +54,11 @@ function slideInChild(parent_id,child_id){
 	graph_container=$('#'+child_id);
 	group=$("#"+parent_id).parents('.graph_group');
 
+	//alert(graph_container.attr('is_parent'));
+	//graph_container.attr('parent_id',data.params.parent_id);
+	//graph_container.attr('is_parent',data.params.is_parent);
 	if(graph_container.attr('is_parent') == 0){
+		
 		budget_details=graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
@@ -71,17 +75,14 @@ function slideInChild(parent_id,child_id){
 							function(){
 								//$('#'+child_id).css("visibility","visible");
 								$('#'+child_id).fadeIn(200);
-								return false;
 							;}
 						);
-	return false;
 }
 function goBack(parent_id){
 	parent_graph_container=$('#'+parent_id);
 	parent_graph_container.show("slide",{ direction: "left" },	500);
 	group=parent_graph_container.parents('.graph_group');
 	group.children(".graph_container").hide();
-	return false;
 }
 
 function getPie(budget_id){
@@ -97,10 +98,11 @@ function getPie(budget_id){
 		async: false,
 		dataType: 'json',
 		beforeSend: function(){ },
+		complete: function() { return false; },
 		success: function(data){
 			title=	'<div style="font-size:1.5em;">'+
 					'<img style="vertical-align:text-bottom;cursor:pointer" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
-					'onclick="javascript:goBack('+data.params.go_back_id+');" />'+data.params.title+
+					'onclick="javascript:goBack('+data.params.go_back_id+');return false;" />'+data.params.title+
 					'</div>';
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
@@ -118,7 +120,6 @@ function getPie(budget_id){
 			alert("Error on get Pie Data");
 		}
 	});
-	return false;
 }
 
 var pie_properties = {
@@ -169,6 +170,7 @@ function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);
 
 	//http://www.kathyw.org/jQPlot/LinkTest.html
+
 	$('#'+div_id).bind('jqplotDataClick', 
 		function (ev, seriesIndex, pointIndex, data) {
 			 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
@@ -176,11 +178,8 @@ function createPie(div_id, data){
 			return false;
 		}
 	);
-	$('.legend_item').on('click', function() {
-		budget_id = $(this).attr('budget_id');
-		getPie(budget_id);
-		return false;
-	});
+
+	
 	//http://jsfiddle.net/Boro/5QA8r/ highlight splice from lengend
 	/*$('.legend_item').on('mouseover', function() {
 		budget_id = $(this).attr('budget_id');
@@ -189,6 +188,13 @@ function createPie(div_id, data){
 }
 
 $(function() {
+	
+	$('#pie_display').delegate('.legend_item','click', function() {	
+		budget_id = $(this).attr('budget_id');
+		getPie(budget_id);
+		return false;
+	});
+	
 	$.jqplot.config.enablePlugins = true;
 	//http://phpchart.net/phpChart/examples/data_labels.php
 	<?php
