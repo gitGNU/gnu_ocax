@@ -65,26 +65,26 @@ Yii::app()->clientScript->registerScript('search', "
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script>
 function showBudgetDescription(budget_id){
-		$.ajax({
-			url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDescription/'+budget_id,
-			type: 'GET',
-			async: false,
-			//dataType: 'json',
-			beforeSend: function(){ },
-			success: function(data){
-				$('#budget_description_body').html(data);
-				$('#budget_description').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, fadeSpeed: 10
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-                });
-			},
-			error: function() {
-				alert("Error on get budget description");
-			}
-		});
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDescription/'+budget_id,
+		type: 'GET',
+		async: false,
+		//dataType: 'json',
+		beforeSend: function(){ },
+		success: function(data){
+			$('#budget_description_body').html(data);
+			$('#budget_description').bPopup({
+				modalClose: false
+				, follow: ([false,false])
+				, fadeSpeed: 10
+				, positionStyle: 'absolute'
+				, modelColor: '#ae34d5'
+			});
+		},
+		error: function() {
+			alert("Error on get budget description");
+		}
+	});
 }
 </script>
 

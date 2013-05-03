@@ -8,7 +8,7 @@ if(isset($showLinks)){
 							'</span>';
 		
 	if($enquiry_count = count($model->enquirys))
-		$enquires =	$enquiry_count.' '.CHtml::link(__('enquir(ies) made'), array('budget/view','id'=>$model->id)).' '.$create_enquiry_link;
+		$enquiries = $enquiry_count.' '.CHtml::link(__('enquir(ies) made'), array('budget/view','id'=>$model->id)).' '.$create_enquiry_link;
 	else
 		$enquiries = __('0 enquiries made').' '.$create_enquiry_link;
 		
