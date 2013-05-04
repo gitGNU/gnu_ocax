@@ -33,7 +33,7 @@ if($replys || Yii::app()->user->getUserID() == $model->team_member)
 		),
 		array(
 	        'label'=>__('Type'),
-	        'value'=>$model->humanTypeValues[$model->type],
+	        'value'=>$model->getHumanTypes($model->type),
 		),
 		'capitulo',
 		array(
