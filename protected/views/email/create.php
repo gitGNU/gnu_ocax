@@ -72,12 +72,7 @@ function toggleRecipients(){
 	<div class="row">
 		<?php /*echo $form->labelEx($model,'recipients');*/ ?>
 		<?php
-			$criteria = array(
-				'with'=>array('enquirySubscribes'),
-				'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
-				'together'=>true,
-			);
-			$subscribedUsers = User::model()->findAll($criteria);
+			$subscribedUsers = $enquiry->getEmailRecipients();
 			$model->recipients='';
 			foreach($subscribedUsers as $subscribed)
 				$model->recipients=$model->recipients.' '.$subscribed->email.',';

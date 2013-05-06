@@ -80,7 +80,7 @@ class ReplyController extends Controller
 
 			if($model->save()){
 				$enquiry=Enquiry::model()->findByPk($model->enquiry);
-				$enquiry->state=5;	// Reply awaiting assessment
+				$enquiry->state=ENQUIRY_REPLY_PENDING_ASSESSMENT;
 				$enquiry->modified=date('c');
 				$enquiry->save();
 				$enquiry->promptEmail();

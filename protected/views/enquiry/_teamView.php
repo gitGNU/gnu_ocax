@@ -12,7 +12,7 @@
 		),
 		array(
 	        'label'=>__('Formulated by'),
-	        'value'=>$model->user0->fullname.' '.__('on the').' '.$model->created,
+	        'value'=>$model->user0->fullname.' '.__('on the').' '.$model->created.' ('.$model->user0->email.')',
 		),
 		array(
 	        'label'=>__('Assigned to'),
@@ -29,7 +29,7 @@
 	),
 ));?>
 
-<?php if($model->state >= 4){	// Enquiry has been submitted to Administration
+<?php if($model->state >= ENQUIRY_AWAITING_REPLY){	// Enquiry has been submitted to Administration
 	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
 	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
 	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.', Doc: '.$link;

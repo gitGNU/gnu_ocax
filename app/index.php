@@ -9,5 +9,15 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
+// Enquiry states
+define ('ENQUIRY_PENDING_VALIDATION', 1);
+define ('ENQUIRY_ASSIGNED', 2);
+define ('ENQUIRY_REJECTED', 3);
+define ('ENQUIRY_ACCEPTED', 4);
+define ('ENQUIRY_AWAITING_REPLY', 5);
+define ('ENQUIRY_REPLY_PENDING_ASSESSMENT', 6);
+define ('ENQUIRY_REPLY_SATISFACTORY', 7);
+define ('ENQUIRY_REPLY_INSATISFACTORY', 8);
+
 require_once($yii);
 Yii::createWebApplication($config)->run();

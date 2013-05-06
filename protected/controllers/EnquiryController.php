@@ -36,7 +36,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','managed','changeType','submitted','unSubmit','assess'),
+				'actions'=>array('teamView','managed','validate','changeType','submitted','unSubmit','assess'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -44,7 +44,7 @@ class EnquiryController extends Controller
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('allow',
-				'actions'=>array(/*'getEnquiryForTeam',*/ 'getMegaDelete', 'megaDelete'),
+				'actions'=>array('getMegaDelete', 'megaDelete'),
 				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -98,21 +98,6 @@ class EnquiryController extends Controller
 		}else
 			echo 0;
 	}
-
-/*
-	public function actionGetEnquiryForTeam($id)
-	{
-		if(!Yii::app()->request->isAjaxRequest)
-			Yii::app()->end();
-
-		$model=$this->loadModel($id);
-		if($model){
-			$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
-			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('_teamView',array('model'=>$model,'replys'=>$replys),true,true)));
-		}else
-			echo 0;
-	}
-*/
 
 	public function actionSubscribe()
 	{
@@ -168,14 +153,14 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
-			$model->state = 1;
+			$model->state = ENQUIRY_PENDING_VALIDATION;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
 			if($model->related_to){
 				$related_enquiry=Enquiry::model()->findByPk($model->related_to);
 				$model->team_member=$related_enquiry->team_member;
 				$model->assigned=date('Y-m-d');
-				$model->state=2;
+				$model->state=ENQUIRY_ACCEPTED;
 			}
 			if($model->save()){
 				if($model->related_to){
@@ -205,14 +190,14 @@ class EnquiryController extends Controller
 				$mailer->AddAddress($model->user0->email);
 				$recipients=$model->user0->email.',';
 
-				if($model->state==1){
+				if($model->state==ENQUIRY_PENDING_VALIDATION){
 					$managers=User::model()->findAllByAttributes(array('is_manager'=>'1'));
 					foreach($managers as $manager){
 						$mailer->AddBCC($manager->email);
 						$recipients=$recipients.' '.$manager->email.',';
 					}
 				}
-				if($model->state==2){
+				if($model->state==ENQUIRY_ACCEPTED){
 					$mailer->AddBCC($model->teamMember->email);
 					$recipients=$recipients.' '.$model->teamMember->email.',';
 				}
@@ -274,7 +259,6 @@ class EnquiryController extends Controller
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
 			if($model->save()){
 				if(Yii::app()->user->getUserID() == $model->team_member){
-					$model->promptEmail();
 					$this->redirect(array('teamView','id'=>$model->id));
 				}else{
 					$this->redirect(array('view','id'=>$model->id));
@@ -341,7 +325,7 @@ class EnquiryController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 
-		if( $model->team_member != Yii::app()->user->getUserID() || $model->state > 2){
+		if( $model->team_member != Yii::app()->user->getUserID() || $model->state != ENQUIRY_ACCEPTED){
 			$this->render('/user/panel');
 			Yii::app()->end();
 		}
@@ -351,7 +335,7 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 
 			if($model->validate() && File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) ){
-				$model->state=4;
+				$model->state=ENQUIRY_AWAITING_REPLY;
 				$model->modified=date('c');
 			}
 			if(Yii::app()->request->isAjaxRequest){
@@ -414,7 +398,7 @@ class EnquiryController extends Controller
 	public function actionAssess($id)
 	{
 		$model=$this->loadModel($id);
-		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -444,6 +428,27 @@ class EnquiryController extends Controller
 		));
 	}
 
+	/**
+	 * Validate a model
+	 * Team member accepts or rejects enquiry
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionValidate($id)
+	{
+		$model=$this->loadModel($id);	
+		if(isset($_POST['Enquiry']))
+		{
+			$model->attributes=$_POST['Enquiry'];
+			if($model->save()){
+				$model->promptEmail();			
+			}			
+		}		
+		$this->render('validate',array(
+			'model'=>$model,
+		));		
+	}
+
+
 	public function actionManage($id)
 	{
 		$model=$this->loadModel($id);
@@ -457,18 +462,18 @@ class EnquiryController extends Controller
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
 			if($model->state == 'rejected'){
-				$model->state = 3;
+				$model->state = ENQUIRY_REJECTED;
 				$model->assigned = Null;
 				$model->team_member = Null;
 			}
 			elseif($team_member != $model->team_member){
 				if($model->team_member){
 					$model->assigned=date('Y-m-d');
-					if($model->state <= 3)	// maybe enquiry was already accepted and has higher state.
-						$model->state=2;	// Enquiry accepted by the %s
+					if($model->state <= ENQUIRY_REJECTED) // maybe enquiry was already accepted and has higher state.
+						$model->state=ENQUIRY_ASSIGNED;
 				}else{
 					$model->assigned=Null;
-					$model->state=1;	//'Pending validation by the %s'
+					$model->state=ENQUIRY_PENDING_VALIDATION;
 				}
 				$model->modified=date('c');
 			}
@@ -481,7 +486,7 @@ class EnquiryController extends Controller
 						$subscription->save();
 					}
 				}
-				if($model->team_member || $model->state == 3)
+				if($model->state == ENQUIRY_ASSIGNED || $model->state == ENQUIRY_REJECTED)
 					$model->promptEmail();
 			}
 		}

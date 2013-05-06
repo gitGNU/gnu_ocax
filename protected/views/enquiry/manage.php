@@ -59,7 +59,7 @@ function reject(){
 
 </div>
 <div class="right">
-	<?php if($model->state < 4){ // not too late to reject enquiry ?>
+	<?php if($model->state < ENQUIRY_AWAITING_REPLY){ // not too late to reject enquiry ?>
 	<div class="row buttons">
 		<b><?php echo __('Reject the Enquiry');?></b>
 		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>

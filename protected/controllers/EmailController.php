@@ -109,8 +109,8 @@ class EmailController extends Controller
 				if($mailer->send()){
 					$model->sent=1;
 					$model->save();
-					$link=CHtml::link(__('View email'),array('email/index/'.$model->enquiry.'?menu=manager'));	// need to fix this!!
-					Yii::app()->user->setFlash('success',__('Email sent OK').'&nbsp;&nbsp;&nbsp;'.$link);
+					//$link=CHtml::link(__('View email'),array('email/index/'.$model->enquiry.'?menu=manager'));	// need to fix this!!
+					Yii::app()->user->setFlash('success',__('Email sent OK')/*.'&nbsp;&nbsp;&nbsp;'.$link*/);
 				}else
 					Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 
@@ -137,7 +137,7 @@ class EmailController extends Controller
 			'model'=>$model,
 			'returnURL'=>$returnURL,
 			'enquiry'=>$enquiry,
-			'replys'=>$replys,
+			'replys'=>$replys,	//can I remove this?
 		));
 	}
 

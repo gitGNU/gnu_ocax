@@ -196,7 +196,7 @@ $this->widget('PGridView', array(
 <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
 </div>
 
-<div class="view" style="float:right;text-align:left;margin-left:10px;padding:0px;">
+<div class="view" style="float:right;text-align:left;margin-left:10px;padding:0px;width:500px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -234,7 +234,7 @@ $this->widget('PGridView', array(
 	),
 ));
 
-if($model->state >= 4){
+if($model->state >= ENQUIRY_AWAITING_REPLY){
 	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
 	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
 	$submitted_info=$model->submitted.' '.__('Registry number').':'.$model->registry_number;
@@ -267,9 +267,13 @@ if($model->budget){
 <div>
 <div class="socialIcons" style="margin-top:10px;margin-bottom:10px;">
 <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/link.png" onClick="js:toggleSocialPopup('directlink');"/>
-<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/mail.png" onClick="js:toggleSocialPopup('subscribe');"/>
-<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/facebook.png" />
-<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/twitter.png" />
+<?php
+if($model->state >= ENQUIRY_ACCEPTED){
+	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/mail.png" onClick="js:toggleSocialPopup(\'subscribe\');"/>';
+	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/facebook.png" />';
+	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/twitter.png" />';
+}?>
+
 </div>
 
 <div id="subscribe" style="	display :none;
@@ -314,7 +318,7 @@ if($model->budget){
 </div>
 
 <?php
-if($model->state == 1 && $model->user == Yii::app()->user->getUserID()){
+if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->user->getUserID()){
 	echo '<div style="font-style:italic;">Puedes '.CHtml::link('editar la enquiry',array('enquiry/edit','id'=>$model->id)).' y incluso ';
 	echo CHtml::link('borrarla',"#",
                     array(

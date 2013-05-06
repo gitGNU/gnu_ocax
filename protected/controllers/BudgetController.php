@@ -33,7 +33,7 @@ class BudgetController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('getBudgetDetails'/*'create','update'*/),
-				'users'=>array('@'),
+				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'getTotalYearlyBudgets','admin','create','adminYears','deleteYearsBudgets',
@@ -81,6 +81,22 @@ class BudgetController extends Controller
 		}else
 			echo 0;
 	}
+
+	/**
+	 * team_member uses this to change enquiry type.
+	 */	
+	public function actionGetBudgetDetails($id)
+	{
+		//if(!Yii::app()->request->isAjaxRequest)
+		//  Yii::app()->end();
+ 
+		$model=$this->loadModel($id);
+		if($model){
+			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
+		}else
+			echo 0;
+	} 
+	
 	
 	public function actionGetBudgetDescription($id)
 	{
@@ -128,7 +144,6 @@ class BudgetController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-
 	public function actionCreate()
 	{
 		if(!Yii::app()->request->isAjaxRequest)

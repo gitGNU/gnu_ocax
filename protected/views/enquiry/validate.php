@@ -3,11 +3,10 @@
 /* @var $model Enquiry */
 
 $this->menu=array(
-	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
+	array('label'=>__('View enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List all'), 'url'=>array('managed')),
 );
-
 ?>
 
 <style>           
@@ -18,42 +17,45 @@ $this->menu=array(
 </style>
 
 <script>
-function positive(){
-	$('#Enquiry_state').val('<?php echo ENQUIRY_REPLY_SATISFACTORY;?>');
+function reject(){
+	$('#Enquiry_state').val('<?php echo ENQUIRY_REJECTED;?>');
 	$('#enquiry-form').submit();
 }
-function negative(){
-	$('#Enquiry_state').val('<?php echo ENQUIRY_REPLY_INSATISFACTORY;?>');
+function validate(){
+	$('#Enquiry_state').val('<?php echo ENQUIRY_ACCEPTED;?>');
 	$('#enquiry-form').submit();
 }
 </script>
 
 <div class="form">
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'enquiry-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
 	<?php echo $form->hiddenField($model, 'state');?>
-	<div class="title"><?php echo __('Assess reply')?></div>
+
+	<div class="title"><?php echo __('Validate enquiry');?></div>
 
 <div class="outer">
 
+	<?php echo $form->errorSummary($model); ?>
+
 <div class="left">
 	<div class="row buttons">
-		<b><?php echo __('Reply considered satisfactory');?></b>
-		<div class="hint"><?php echo __('The general consensus is that the reply is satisfactory');?></div>
+		<b><?php echo __('Accept the Enquiry');?></b>
+		<div class="hint"><?php echo __('You accept this enquiry as valid');?></div>
 		<p style="margin-bottom:37px"></p>
-		<?php echo CHtml::button(__('Reply considered satisfactory'),array('onclick'=>'js:positive();')); ?>
+		<?php echo CHtml::button(__('Accept'),array('onclick'=>'js:validate();')); ?>
 	</div>
 
 </div>
 <div class="right">
 	<div class="row buttons">
-		<b><?php echo __('Reply considered insatisfactory');?></b>
-		<div class="hint"><?php echo __('The general consensus is that the reply is not satisfactory');?></div>
+		<b><?php echo __('Reject the Enquiry');?></b>
+		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>
 		<p style="margin-bottom:37px"></p>
-		<?php echo CHtml::button(__('Reply considered insatisfactory'),array('onclick'=>'js:negative();')); ?>
+		<?php echo CHtml::button(__('Reject'),array('onclick'=>'js:reject();')); ?>
 	</div>
 </div>
 </div>
@@ -61,6 +63,8 @@ function negative(){
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+
 
 <p></p>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
@@ -75,9 +79,3 @@ function negative(){
 			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/managed';">No</button>
     </div>
 <?php endif; ?>
-
-
-
-
-
-

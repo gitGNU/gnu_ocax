@@ -55,16 +55,19 @@ class Enquiry extends CActiveRecord
 	public static function getHumanStates($state=Null)
 	{
 		$humanStateValues=array(
-				1=>__('Pending validation by the %s'),
-				2=>__('Enquiry accepted by the %s'),
-				3=>__('Enquiry rejected by the %s'),
-				4=>__('Awaiting reply from the Administration'),
-				5=>__('Reply pending assessment'),
-				6=>__('Reply considered satisfactory'),
-				7=>__('Reply considered insatisfactory'),
+				ENQUIRY_PENDING_VALIDATION		=>__('Pending validation by the %s'),
+				ENQUIRY_ASSIGNED				=>__('Enquiry assigned to team member'),
+				ENQUIRY_REJECTED				=>__('Enquiry rejected by the %s'),
+				ENQUIRY_ACCEPTED				=>__('Enquiry accepted by the %s'),
+				ENQUIRY_AWAITING_REPLY			=>__('Awaiting reply from the Administration'),
+				ENQUIRY_REPLY_PENDING_ASSESSMENT=>__('Reply pending assessment'),
+				ENQUIRY_REPLY_SATISFACTORY		=>__('Reply considered satisfactory'),
+				ENQUIRY_REPLY_INSATISFACTORY	=>__('Reply considered insatisfactory'),
 		);
 
 		if($state!==Null){
+			if(!(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager()) && $state==ENQUIRY_ASSIGNED)
+				$state=ENQUIRY_PENDING_VALIDATION;
 			$value=$humanStateValues[$state];
 			if( strpos($value, '%s') !== false)
 				$value = str_replace("%s", Config::model()->findByPk('siglas')->value, $value);
@@ -161,10 +164,23 @@ class Enquiry extends CActiveRecord
 		);
 	}
 
+	public function getEmailRecipients()
+	{
+		$criteria = array(
+			'with'=>array('enquirySubscribes'),
+			'condition'=>' enquirySubscribes.enquiry = '.$this->id,
+			'together'=>true,
+		);
+		if($this->state == ENQUIRY_ASSIGNED)	// internal email
+			$criteria['condition'] .= ' AND enquirySubscribes.user != '.$this->user;
+			
+		return User::model()->findAll($criteria);
+	}
+
+
 	public function promptEmail()
 	{
-		$subscribers = count(EnquirySubscribe::model()->findAll(array('condition'=>'enquiry='.$this->id)));
-		Yii::app()->user->setFlash('prompt_email', $subscribers);
+		Yii::app()->user->setFlash('prompt_email', count($this->getEmailRecipients()));
 	}
 
 	public function getReformulatedEnquires()
@@ -248,8 +264,9 @@ class Enquiry extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		//$criteria->compare('id',$this->id);
-		$criteria->addCondition('state != 3');
-		$criteria->addCondition('state != 1');
+		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION);
+		$criteria->addCondition('state != '.ENQUIRY_ASSIGNED);
+		$criteria->addCondition('state != '.ENQUIRY_REJECTED);
 		//$criteria->compare('related_to',$this->related_to);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('type',$this->type);
