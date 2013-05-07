@@ -59,21 +59,27 @@ Change your password</p>
 if($model->is_team_member){
 	changeColumn();
 	echo '<h1>'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</h1>';
-	echo '<p>'.__('Manage the enquiries you are responsable for').'</p>';
+	echo 	'<p>'.__('Manage the enquiries you are responsable for').'<br />'.
+			'<a href="http://ocax.net/?El_software:Team_member" target="_new">'.__('Orientation').'</a>'.	
+			'</p>';
 	echo '</div>';
 }
 
 if($model->is_editor){
 	changeColumn();
 	echo '<h1>'.CHtml::link('Site CMS page editor',array('/cmspage')).'</h1>';
-	echo '<p>Edit the general information pages</p>';
+	echo 	'<p>'.__('Edit the general information pages').'<br />'.
+			'<a href="http://ocax.net/?El_software:CMS_editor" target="_new">'.__('Orientation').'</a>'.	
+			'</p>';
 	echo '</div>';
 }
 
 if($model->is_manager){
 	changeColumn();
 	echo '<h1>'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</h1>';
-	echo '<p>'.__('Assign enquiries to team members and check status').'</p>';
+	echo 	'<p>'.__('Assign enquiries to team members and check status').'<br />'.
+			'<a href="http://ocax.net/?El_software:Team_manager" target="_new">'.__('Orientation').'</a>'.		
+			'</p>';
 	echo '</div>';
 }
 

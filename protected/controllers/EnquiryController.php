@@ -440,7 +440,10 @@ class EnquiryController extends Controller
 		{
 			$model->attributes=$_POST['Enquiry'];
 			if($model->save()){
-				$model->promptEmail();			
+				$model->promptEmail();
+				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){
+					// somehow send an email to manager
+				}
 			}			
 		}		
 		$this->render('validate',array(
