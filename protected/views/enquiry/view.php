@@ -2,7 +2,6 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
-//http://stackoverflow.com/questions/10188391/yii-renderpartial-proccessoutput-true-avoid-duplicate-js-request
 if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
@@ -235,32 +234,30 @@ $this->widget('PGridView', array(
 ));
 
 if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
-	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
 	$submitted_info=$model->submitted.' '.__('Registry number').':'.$model->registry_number;
-
+	$attributes=array(
+					array(
+	        			'label'=>__('Submitted'),
+						'type'=>'raw',
+						'value'=>$submitted_info,
+					),
+				);
+	if($model->documentation){
+		$document = '<a href="'.$model->documentation0->webPath.'" target="_new">'.$model->documentation0->name.'</a>';
+		$attributes[]=array(
+				        'label'=>__('Documentation'),
+						'type'=>'raw',
+	        			'value'=>$document,
+					);
+	}
 	$this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		array(
-	        'label'=>__('Submitted'),
-			'type'=>'raw',
-	        'value'=>$submitted_info,
-		),
-		array(
-	        'label'=>__('Documentation'),
-			'type'=>'raw',
-	        'value'=>$link,
-		),
-	),
+		'data'=>$model,
+		'attributes'=>$attributes,
 	));
 }
+if($model->budget)
+	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'enquiry'=>$model));
 
-
-if($model->budget){
-	$budget=Budget::model()->findByPk($model->budget);
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget, 'showLinks'=>1));
-}
 ?>
 </div>
 

@@ -29,10 +29,13 @@
 	),
 ));?>
 
-<?php if($model->state >= ENQUIRY_AWAITING_REPLY){	// Enquiry has been submitted to Administration
-	$file=File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
-	$link='<a href="'.$file->webPath.'" target="_new">'.$file->name.'</a>';
-	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.', Doc: '.$link;
+<?php if($model->state >= ENQUIRY_AWAITING_REPLY){
+	$document=', Doc: ';
+	if($model->documentation)
+		$document .='<a href="'.$model->documentation0->webPath.'" target="_new">'.$model->documentation0->name.'</a>';
+	else
+		$document .='<span style="color:red">'.__('missing').'</span>';
+	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.$document;
 
 	$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

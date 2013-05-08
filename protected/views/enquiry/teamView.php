@@ -7,7 +7,7 @@ $this->menu=array(
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 );
 if($model->state == ENQUIRY_ACCEPTED){
-	$submit = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submitted', 'id'=>$model->id)) );
+	$submit = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $submit );
 }
 if($model->state < ENQUIRY_AWAITING_REPLY){
@@ -21,6 +21,8 @@ if($model->state == ENQUIRY_ASSIGNED){
 if($model->state >= ENQUIRY_AWAITING_REPLY){
 	$reply = array( array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)) );
 	array_splice( $this->menu, 0, 0, $reply );
+	$submit = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $submit );	
 }
 if($model->state == ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	$assess = array( array('label'=>__('Assess reply'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );

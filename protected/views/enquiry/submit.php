@@ -5,11 +5,7 @@
 $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
-	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
-
-$documentation = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
-
 ?>
 
 <style>           
@@ -34,9 +30,10 @@ function deleteDoc(){
 
 	<div class="title">
 	<?php
-		echo __('Submit enquiry');
-		if($model->state < 3)
-			echo ' ('.__('not submitted').')';
+		if($model->state < ENQUIRY_AWAITING_REPLY)
+			echo __('Submit enquiry');
+		else
+			echo __('Correct submission');
 	?>
 	</div>
 
@@ -71,18 +68,18 @@ function deleteDoc(){
 
 	<div class="row buttons">
 	<?php
-		if($documentation){
-			echo '<div>'.__('Is this information correct? You will not be able to edit it again!').'</div>';
-			$name=__('Yes, it is correct');
+		if($model->documentation){
+			echo '<div>'.__('Is this information correct?').'</div>';
+			$name=__('Submit');
 		}else
 			$name=__('Add document');
 
-		if($documentation){
+		if($model->documentation){
 			echo CHtml::submitButton($name);
 		}
-		if(!$documentation){
+		if(!$model->documentation){
 			// http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
-			echo CHtml::ajaxSubmitButton(($name),CHtml::normalizeUrl(array('enquiry/submitted/'.$model->id)),
+			echo CHtml::ajaxSubmitButton(($name),CHtml::normalizeUrl(array('enquiry/submit/'.$model->id)),
 				array(
 					'dataType'=>'json',
 					'type'=>'post',
@@ -109,10 +106,10 @@ function deleteDoc(){
 </div>
 <div class="right">
 
-	<?php if($documentation){ ?>
+	<?php if($model->documentation){ ?>
 	<div class="row">
 		<div style="margin-bottom:5px;font-weight:bold;"><?php echo __('Documentation');?></div>
-		<a href="<?php echo $documentation->webPath;?>" target="_new"><?php echo $documentation->name;?></a>
+		<a href="<?php echo $model->documentation0->webPath;?>" target="_new"><?php echo $model->documentation0->name;?></a>
 		<img class="icon" src="<?php echo Yii::app()->theme->baseUrl;?>/images/delete.png" onClick="js:deleteDoc()" />
 	</div>
 	<?php } ?>
