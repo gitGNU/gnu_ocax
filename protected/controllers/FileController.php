@@ -123,7 +123,13 @@ class FileController extends Controller
 					$this->redirect(array('enquiry/teamView','id'=>$enquiry->id));
 
 				}elseif($model->model == 'Enquiry'){
-					$this->redirect(array('enquiry/submitted','id'=>$model->model_id));
+					if($file_saved){
+						$enquiry = Enquiry::model()->findByPk($model->model_id);
+						$enquiry->documentation = $model->id;
+						$enquiry->save();
+					}
+					$this->redirect(array('enquiry/submit','id'=>$model->model_id));
+					
 
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));

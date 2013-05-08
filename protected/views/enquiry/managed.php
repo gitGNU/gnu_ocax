@@ -42,7 +42,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 </div>
 <div class="right">
-	<b><?php echo __('States');?></b><br />
+	<b><?php echo __('States');?></b>
+	<a href="http://ocax.net/?El_software:Workflow_y_estados" target="_new"><?php echo __('more info');?></a>	
+	<br />
 	<?php
 		foreach($model->getHumanStates() as $key=>$value){
 			echo $key.'&nbsp&nbsp'.$value.'<br />';

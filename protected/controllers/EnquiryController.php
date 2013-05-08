@@ -36,7 +36,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','managed','validate','changeType','submitted','unSubmit','assess'),
+				'actions'=>array('teamView','managed','validate','changeType','submit','unSubmit','assess'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -318,14 +318,14 @@ class EnquiryController extends Controller
 	/**
 	 * team_member submits the enquiry to the administration
 	 */
-	public function actionSubmitted($id)
+	public function actionSubmit($id)
 	{
 		$model=$this->loadModel($id);
 		$model->scenario = 'submitted_to_council';
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 
-		if( $model->team_member != Yii::app()->user->getUserID() || $model->state != ENQUIRY_ACCEPTED){
+		if( $model->team_member != Yii::app()->user->getUserID() || $model->state < ENQUIRY_ACCEPTED){
 			$this->render('/user/panel');
 			Yii::app()->end();
 		}
@@ -334,9 +334,12 @@ class EnquiryController extends Controller
 		{
 			$model->attributes=$_POST['Enquiry'];
 
-			if($model->validate() && File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) ){
-				$model->state=ENQUIRY_AWAITING_REPLY;
-				$model->modified=date('c');
+			if($model->validate() && $file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) ){
+				if($model->state == ENQUIRY_ACCEPTED){
+					$model->state=ENQUIRY_AWAITING_REPLY;
+					$model->modified=date('c');
+				}
+				$model->documentation=$file->id;
 			}
 			if(Yii::app()->request->isAjaxRequest){
 				//http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
@@ -351,7 +354,7 @@ class EnquiryController extends Controller
 				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}
-		$this->render('submitted',array(
+		$this->render('submit',array(
 			'model'=>$model,
 		));
 	}
@@ -367,11 +370,14 @@ class EnquiryController extends Controller
 			$this->render('/user/panel');
 			Yii::app()->end();
 		}
-		if($file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)))
+		if($file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id))){
 				$file->delete();
-		$model->state=2;
+				$model->documentation = Null;
+				if(!$model->state > ENQUIRY_AWAITING_REPLY)
+					$model->state=ENQUIRY_ACCEPTED;
+		}
 		$model->save();
-		$this->render('submitted',array(
+		$this->render('submit',array(
 			'model'=>$model,
 		));
 	}

@@ -13,6 +13,7 @@
  * @property string $assigned
  * @property string $submitted
  * @property string $registry_number
+ * @property integer $documentation
  * @property integer $type
  * @property integer $budget
  * @property integer $state
@@ -111,7 +112,7 @@ class Enquiry extends CActiveRecord
 		return array(
 			array('user, created, title, body', 'required'),
 			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
-			array('related_to, user, team_member, manager, budget, type, state', 'numerical', 'integerOnly'=>true),
+			array('related_to, user, team_member, manager, budget, type, state, documentation', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
 			array('assigned, submitted, body', 'safe'),
@@ -136,6 +137,7 @@ class Enquiry extends CActiveRecord
 			'user0' => array(self::BELONGS_TO, 'User', 'user'),
 			'teamMember' => array(self::BELONGS_TO, 'User', 'team_member'),
 			'manager0' => array(self::BELONGS_TO, 'User', 'manager'),
+			'documentation0' => array(self::BELONGS_TO, 'File', 'documentation'),
 			'budget0' => array(self::BELONGS_TO, 'Budget', 'budget'),
 			'subscriptions' => array(self::HAS_MANY, 'EnquirySubscribe', 'enquiry'),
 			'replys' => array(self::HAS_MANY, 'Reply', 'enquiry'),
@@ -157,6 +159,7 @@ class Enquiry extends CActiveRecord
 			'assigned' => __('Assigned'),
 			'submitted'=>__('Submitted'),
 			'registry_number'=>__('Registry number'),
+			'documentation'=>__('Documentation'),
 			'type' => __('Type'),
 			'state' => __('State'),
 			'title' => __('Title'),

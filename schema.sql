@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS enquiry (
   assigned date,	/* date the manager assigned the enquiry to a team_member */
   submitted date,	/* date the team_member submitted the enquiry to the administration */
   registry_number varchar( 32 ),	/* number assigned by the council to the enquiry when submitted */
+  documentation int(11),	/* the doc. scanned with stamp from the council on submission */
   type TINYINT(1) DEFAULT 0, /* generic=0, budgetary=1 */
   budget int(11), /* budget (null is a generic enquiry) */
   state int(11) DEFAULT 1,
@@ -65,6 +66,7 @@ CREATE TABLE IF NOT EXISTS enquiry (
   FOREIGN KEY (user) REFERENCES user(id),
   FOREIGN KEY (team_member) REFERENCES user(id),
   FOREIGN KEY (manager) REFERENCES user(id),
+  FOREIGN KEY (documentation) REFERENCES file(id),
   FOREIGN KEY (budget) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
