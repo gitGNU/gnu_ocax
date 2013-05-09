@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-09 10:49+0100\n"
+"PO-Revision-Date: 2013-05-09 12:51+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1149,7 +1149,7 @@ msgstr "Si desitges, pots contactar el teu mateix amb"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:38
 msgid "If you think this user is spamming you, you can block future petitions at this link"
-msgstr "Si penses que aquest usuari t'està enviant correu escombraries, pots bloquejar futurs peticions amb aquest enllaç"
+msgstr "Si penses que aquest usuari t'està enviant correu brossa, pots bloquejar futurs peticions amb aquest enllaç"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:40
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:125
@@ -1163,7 +1163,7 @@ msgstr "diu"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:52
 msgid "Optionally, you may attach text to this email"
-msgstr "Optionally, you may attach text to this email"
+msgstr "Si desitges, pots adjuntar un text a aquest correu"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:60
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/create.php:53
@@ -1226,7 +1226,7 @@ msgstr "Error while sending email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:159
 msgid "has blocked you"
-msgstr "has blocked you"
+msgstr "t'ha bloquejat"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:171
 #, php-format
@@ -1243,11 +1243,11 @@ msgstr "Changes saved"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:170
 msgid "is blocked"
-msgstr "is blocked"
+msgstr "està bloquejat"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:203
 msgid "Zip file updated"
-msgstr "Zip file updated"
+msgstr "Fitxer zip actualitzat"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:120
 msgid "New comment at"

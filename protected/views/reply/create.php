@@ -17,7 +17,7 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	//'id'=>'reply-form',
+	'id'=>'reply-form',
 	'enableAjaxValidation'=>true,
 	'enableClientValidation'=>false,
 )); ?>

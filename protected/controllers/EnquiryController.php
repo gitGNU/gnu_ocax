@@ -334,12 +334,11 @@ class EnquiryController extends Controller
 		{
 			$model->attributes=$_POST['Enquiry'];
 
-			if($model->validate() && $file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id)) ){
+			if($model->validate()){
 				if($model->state == ENQUIRY_ACCEPTED){
-					$model->state=ENQUIRY_AWAITING_REPLY;
-					$model->modified=date('c');
+					$model->state = ENQUIRY_AWAITING_REPLY;
+					$model->modified = date('c');
 				}
-				$model->documentation=$file->id;
 			}
 			if(Yii::app()->request->isAjaxRequest){
 				//http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
@@ -350,8 +349,10 @@ class EnquiryController extends Controller
 				Yii::app()->end();
 			}
 			if($model->save()){
-				$model->promptEmail();			
-				$this->redirect(array('teamView','id'=>$model->id));
+				if($model->documentation){
+					$model->promptEmail();			
+					$this->redirect(array('teamView','id'=>$model->id));
+				}
 			}
 		}
 		$this->render('submit',array(
@@ -370,11 +371,11 @@ class EnquiryController extends Controller
 			$this->render('/user/panel');
 			Yii::app()->end();
 		}
-		if($file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id))){
-				$file->delete();
+		if($model->documentation){
+				$model->documentation0->delete();
 				$model->documentation = Null;
-				if(!$model->state > ENQUIRY_AWAITING_REPLY)
-					$model->state=ENQUIRY_ACCEPTED;
+				//if(!$model->state > ENQUIRY_AWAITING_REPLY)
+				//	$model->state=ENQUIRY_ACCEPTED;
 		}
 		$model->save();
 		$this->render('submit',array(
