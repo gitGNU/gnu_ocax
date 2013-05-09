@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
   password varchar(128) NOT NULL,
   salt varchar(128) NOT NULL,
   email varchar(128) NOT NULL,
+  lang char(2) NULL,
   joined date NOT NULL,
   activationcode varchar(15) NOT NULL,
   is_active TINYINT(1) DEFAULT 0,

@@ -215,6 +215,16 @@ class SiteController extends Controller
 		$this->render('login',array('model'=>$model));
 	}
 
+	public function actionLanguage()
+	{
+		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
+			$available_langs = Yii::app()->coreMessages->basePath;
+			if(is_dir($available_langs.'/'.$_GET['lang'])){
+				Yii::app()->request->cookies['lang'] = new CHttpCookie('lang', $_GET['lang']);
+			}
+		}
+		Yii::app()->request->redirect(CHttpRequest::getUrlReferrer());
+	}
 
 	public function actionRequestNewPassword()
 	{

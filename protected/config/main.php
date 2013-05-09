@@ -15,6 +15,8 @@ return array(
 	'theme'=>'ocax',
 	'language' => 'ca',
 
+	'behaviors' => array('ApplicationConfigBehavior'),
+	
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -23,7 +25,6 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.extensions.mailer.Mailer',
-		//'application.extensions.bootstrap-widgets.*',
 	),
 
 	'modules'=>array(
@@ -44,10 +45,8 @@ return array(
 			'useMoFile' => TRUE,
 		),
         'coreMessages'=>array(
-
             'basePath'=>'../protected/messages',
         ),
-
 		'user'=>array(
 			'class' => 'WebUser', // http://www.yiiframework.com/wiki/60/
 			// enable cookie-based authentication

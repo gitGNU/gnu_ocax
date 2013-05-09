@@ -27,7 +27,13 @@
 <div  style="position:relative">
 <div id="header" >
 
+	<div>
 	<div id="logo"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></div>
+	<span style="float:right">
+	<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/language?lang=es">spanish</a>
+	<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/language?lang=ca">catalan</a>
+	</span>
+	</div>
 
 	<div id="mainmenu">
 		<?php
@@ -77,7 +83,7 @@
 	<div style="width: 20%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>
 		AGPL<br/>
-		<a href="https://github.com/buttle/ocax">Code @ github</a><br />
+		<a href="http://ocax.net">ocax.net</a><br />
 	</div>
 	</div>
 	<div style="clear:both;"></div>
