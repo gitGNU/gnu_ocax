@@ -77,7 +77,7 @@ class CmsPage extends CActiveRecord
 			'published' => __('Published'),
 			'body' => __('Body'),
 			'pageTitle' => _('Page Title'),
-			'weight' => __('Menu item order'),
+			'weight' => __('Order'),
 			'heading' => 'Heading',
 			'metaTitle' => 'Meta Title',
 			'metaDescription' => 'Meta Description',

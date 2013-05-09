@@ -37,10 +37,10 @@ class EmailController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','create'/*,'update'*/),
-				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working. check this.
+				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working? check this.
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(/*'admin',*/'delete'),
+				'actions'=>array(/*'admin','delete'*/),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -164,18 +164,18 @@ class EmailController extends Controller
 			$model->sent=0;
 			$model->type=1;
 			$model->sent_as = Config::model()->findByPk('emailNoReply')->value;
-			$model->body = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
-			$model->body = nl2br($model->body);
-			$model->body = '<p>'.$model->title.'</p><p><i>'.$model->body.'</i></p>';	//get the preamble from the title
-
-			$model->title= __('User request from the').' '.Config::model()->findByPk('siglas')->value;
+			$user_text = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
+			$user_text = nl2br($user_text);
+			$model->body = '<p>'.$model->title.'</p>';	//get the preamble from the title
+			
+			$model->title = str_replace("%s", Config::model()->findByPk('siglas')->value, __('Private email request from a user at the %s'));
 
 			if($model->save()){
  				$mailer = new Mailer();
 				$mailer->SetFrom($model->sent_as, Config::model()->findByPk('siglas')->value);
 				$mailer->AddAddress($model->recipients);
 				$mailer->Subject=$model->title;
-				$mailer->Body=$model->body;
+				$mailer->Body=$model->body.'<p><i>'.$user_text.'</i></p>';
 
 				if($mailer->send()){
 					$model->sent=1;
@@ -233,22 +233,6 @@ class EmailController extends Controller
 		));
 	}
 
-	/**
-	 * Manages all models.
-	 */
-/*
-	public function actionAdmin()
-	{
-		$model=new Email('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Email']))
-			$model->attributes=$_GET['Email'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-*/
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

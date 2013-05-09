@@ -181,9 +181,6 @@ CREATE TABLE IF NOT EXISTS cms_page (
 	metaKeywords varchar( 255 ) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('about-us', 0, '<p>hello world</p>', 'About us');
-INSERT INTO cms_page(pagename, block, body, pageTitle) VALUES ('council', 1, '<p>hello world</p>', 'The council');
-
 CREATE TABLE IF NOT EXISTS file (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(255) NULL,

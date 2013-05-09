@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-08 12:08+0100\n"
+"PO-Revision-Date: 2013-05-09 10:49+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgstr "Contrasenya repetida"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:70
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:122
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:65
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:74
 msgid "Email"
 msgstr "Correu electrònic"
 
@@ -124,8 +124,8 @@ msgid "Page Title"
 msgstr "Títol de pàgina"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:80
-msgid "Menu item order"
-msgstr "Order de item en el menu"
+msgid "Order"
+msgstr "Ordre"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BulkEmail.php:42
 msgid "Draft"
@@ -946,7 +946,7 @@ msgstr "Desa"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:88
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/reply/create.php:78
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:56
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:61
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -1130,50 +1130,51 @@ msgstr "Petition to make contact via email"
 msgid "Hello"
 msgstr "Hola"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:29
-msgid "a user like you at the"
-msgstr "un usuari com tu de l'"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:30
-msgid "would like to contact you privately via email"
-msgstr "would like to contact you privately via email"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:31
-msgid "However, we do not share users' email addresses"
-msgstr "However, we do not share users' email addresses"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:32
-msgid "If you wish, you may make contact yourself with"
-msgstr "If you wish, you may make contact yourself with"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:33
-msgid "If you think this user is spamming you, you can block future petitions at this link"
-msgstr "If you think this user is spamming you, you can block future petitions at this link"
+#, php-format
+msgid "a user like you at the %s"
+msgstr "un usuari com tu de l'%s"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:35
+msgid "would like to contact you privately via email"
+msgstr "vol contactar amb tu via email"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:36
+msgid "However, we do not share users' email addresses"
+msgstr "No obstant això, no compartim les adreces de correu dels usuaris"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:37
+msgid "If you wish, you may make contact yourself with"
+msgstr "Si desitges, pots contactar el teu mateix amb"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:38
+msgid "If you think this user is spamming you, you can block future petitions at this link"
+msgstr "Si penses que aquest usuari t'està enviant correu escombraries, pots bloquejar futurs peticions amb aquest enllaç"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:40
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:125
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:243
 msgid "Kind regards"
 msgstr "Cordials salutacions"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:46
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:51
 msgid "says"
 msgstr "diu"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:47
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:52
 msgid "Optionally, you may attach text to this email"
 msgstr "Optionally, you may attach text to this email"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:55
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:60
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/create.php:53
 msgid "Send email"
 msgstr "Envia correu"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:79
 msgid "Sending email"
 msgstr "Enviant correu electrònic"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:79
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:84
 msgid "Email sent"
 msgstr "Correu electrònic enviat"
 
@@ -1193,15 +1194,23 @@ msgstr "La meva pàgina"
 msgid "Budgets"
 msgstr "Pressupostes"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:42
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:40
 msgid "Register"
 msgstr "Registrar-se"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:63
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:41
+msgid "Login"
+msgstr "Login"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:42
+msgid "Logout"
+msgstr "Logout"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:72
 msgid "Contact information"
 msgstr "Dades de contacte"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:66
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:75
 msgid "Telephone"
 msgstr "Telèfon"
 
@@ -1220,8 +1229,9 @@ msgid "has blocked you"
 msgstr "has blocked you"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:171
-msgid "User request from the"
-msgstr "User request from the"
+#, php-format
+msgid "Private email request from a user at the %s"
+msgstr "Petició de contacte privat per email d'un usuari de l'%s"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EmailController.php:185
 msgid "Email not sent"
@@ -1235,7 +1245,7 @@ msgstr "Changes saved"
 msgid "is blocked"
 msgstr "is blocked"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:202
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:203
 msgid "Zip file updated"
 msgstr "Zip file updated"
 

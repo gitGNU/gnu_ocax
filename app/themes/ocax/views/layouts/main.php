@@ -30,20 +30,29 @@
 	<div id="logo"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></div>
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
+		<?php
+			$items=array(
 				array('label'=>__('Home'), 'url'=>array('/site/index')),
 				array('label'=>__('My page'), 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>__('Budgets'), 'url'=>array('/budget')),
 				array('label'=>__('Enquiries'), 'url'=>array('/enquiry')),
-				array('label'=>'Qui Som?', 'url'=>array('/page/about-us')),
-				array('label'=>'L\'Ajuntament', 'url'=>array('/page/council')),
 				//array('label'=>__('Contact'), 'url'=>array('/site/contact')),
 				array('label'=>__('Register'), 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
+				array('label'=>__('Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>__('Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+			);
+			$criteria=new CDbCriteria;
+			$criteria->condition = 'weight = 0 AND published = 1';
+			$criteria->order = 'block DESC';
+			$cms_pages=CmsPage::model()->findAll($criteria);
+			foreach($cms_pages as $page){
+				$item = array( array('label'=>$page->pageTitle, 'url'=>array('/page/'.$page->pagename)) );
+				array_splice( $items, 4, 0, $item );	
+			}
+			$this->widget('zii.widgets.CMenu',array(
+				'items'=>$items,
+			));
+		?>
 	</div><!-- mainmenu -->
 </div>
 

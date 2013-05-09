@@ -26,7 +26,8 @@
 		$block = '<a href="'.$block.'">'.$block.'</a>';
 
 		$model->title=	'<p>'.__('Hello').' '.$recipient->fullname.',</p><p>'.
-						$user->fullname.', '.__('a user like you at the').' '.Config::model()->findByPk('siglas')->value.', '.
+						$user->fullname.', '.
+						str_replace("%s", Config::model()->findByPk('siglas')->value, __('a user like you at the %s')).', '.
 						__('would like to contact you privately via email').'.<br />'.
 						__('However, we do not share users\' email addresses').'.</p><p>'.
 						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p><p>'.
