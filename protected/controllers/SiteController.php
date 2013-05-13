@@ -204,6 +204,12 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
+				$lang = User::model()->findByPk(Yii::app()->user->getUserID())->language;
+				if($lang != Null){
+					$cookie = new CHttpCookie('lang', $lang);
+					$cookie->expire = time()+60*60*24*180; 
+					Yii::app()->request->cookies['lang'] = $cookie;
+				}
 				if(Yii::app()->user->returnUrl != Yii::app()->getHomeUrl())
 					Yii::app()->request->redirect(Yii::app()->user->returnUrl);
 				else
@@ -220,7 +226,9 @@ class SiteController extends Controller
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
 			$available_langs = Yii::app()->coreMessages->basePath;
 			if(is_dir($available_langs.'/'.$_GET['lang'])){
-				Yii::app()->request->cookies['lang'] = new CHttpCookie('lang', $_GET['lang']);
+				$cookie = new CHttpCookie('lang', $_GET['lang']);
+				$cookie->expire = time()+60*60*24*180; 
+				Yii::app()->request->cookies['lang'] = $cookie;
 			}
 		}
 		Yii::app()->request->redirect(CHttpRequest::getUrlReferrer());

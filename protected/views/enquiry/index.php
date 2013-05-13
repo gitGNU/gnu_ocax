@@ -88,12 +88,12 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'Enquirys',
+				'header'=>__('Enquiries'),
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
 			array(
-				'header'=>'Estat',
+				'header'=>__('State'),
 				'name'=>'state',
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',

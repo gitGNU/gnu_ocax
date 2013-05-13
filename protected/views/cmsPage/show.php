@@ -1,6 +1,6 @@
 
 <?php
-$this->setPageTitle($model->pageTitle);
+$this->setPageTitle($content->pageTitle);
 ?>
 
 <style>           
@@ -16,21 +16,28 @@ $this->setPageTitle($model->pageTitle);
 
 <div class="left">
 	<?php
-	foreach ($items as $item) {
+
+	foreach ($items as $menu_item) {
+		foreach($menu_item->cmsPageContents as $item){
+			if($item->language == $content->language){
+				break;	
+			}
+		}
 		$itemclass='';
-		if($model->pagename == $item->pagename)
+		if($content->pageURL == $item->pageURL)
 			$itemclass='class="activeItem"';
 		echo '<div '.$itemclass.'>';
-		echo CHtml::link($item->pageTitle,array('page/'.$item->pagename));
+		echo CHtml::link($item->pageTitle,array('p/'.$menu_item->id.'/'.$item->pageURL));
 		echo '</div>';
 		echo '<br />';
 	}
+
 ?>
 </div>
 
 <div class="right">
-	<div style="font-size:1.5em;text-align:center;padding-bottom:20px;"><?php echo $model->pageTitle; ?></div>
-	<?php echo $model->body; ?>
+	<div style="font-size:1.5em;text-align:center;padding-bottom:20px;"><?php echo $content->pageTitle; ?></div>
+	<?php echo $content->body; ?>
 </div>
 </div>
 

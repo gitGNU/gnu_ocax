@@ -26,13 +26,27 @@ class ApplicationConfigBehavior extends CBehavior
      */
 	public function beginRequest()
 	{
-		if(isset(Yii::app()->request->cookies['lang'])){
-			$lang=Yii::app()->request->cookies['lang']->value;
-			$this->owner->user->setState('applicationLanguage', $lang);
+		if(isset(Yii::app()->request->cookies['lang']))
+			$this->owner->user->setState('applicationLanguage', Yii::app()->request->cookies['lang']->value);	
+		
+		elseif(!Yii::app()->user->isGuest){
+			if ($lang = User::model()->findByPk(Yii::app()->user->getUserID())->language)
+				$this->owner->user->setState('applicationLanguage', $lang);
 		}
-		if ($this->owner->user->getState('applicationLanguage'))
-			$this->owner->language=$this->owner->user->getState('applicationLanguage');
+		
+		elseif($languages = Config::model()->findByPk('languages')->value){
+			$languages = explode(',', $languages);
+			$this->owner->user->setState('applicationLanguage', $languages[0]);	
+		}	
 		else 
-			$this->owner->language='ca';
+			$this->owner->user->setState('applicationLanguage', 'ca');
+
+		$this->owner->language=$this->owner->user->getState('applicationLanguage');
+		
+		if(!isset(Yii::app()->request->cookies['lang'])){
+			$cookie = new CHttpCookie('lang', $this->owner->language);
+			$cookie->expire = time()+60*60*24*180; 
+			Yii::app()->request->cookies['lang'] = $cookie;
+		}
 	}
 }

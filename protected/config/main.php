@@ -4,7 +4,7 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
 require_once(dirname(__FILE__).'/../includes/localization.php');
-require_once(dirname(__FILE__).'/../includes/number_utils.php');
+require_once(dirname(__FILE__).'/../includes/utils.php');
 
 
 // This is the main Web application configuration. Any writable
@@ -67,8 +67,9 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-*/
-				'page/<pagename:[a-z0-9-]+>'=>'cmspage/show',
+				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
+				*/
+				'p/<id:\d+>/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>', // comment out for Gii

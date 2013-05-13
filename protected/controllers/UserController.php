@@ -117,6 +117,7 @@ class UserController extends Controller
 	{
 		$model=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
 		$email = $model->email;
+		$language = $model->language;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -142,8 +143,15 @@ class UserController extends Controller
 			if($email != $model->email)
 				$model->is_active=0;
 
+			if($language != $model->language){
+				Yii::app()->language = $model->language;
+				$cookie = new CHttpCookie('lang', $model->language);
+				$cookie->expire = time()+60*60*24*180; 
+				Yii::app()->request->cookies['lang'] = $cookie;
+			}
+
 			if($model->save()){
-				Yii::app()->user->setFlash('success', __('Changes saved'));
+				Yii::app()->user->setFlash('success', __('Changes saved Ok'));
 				if(!$model->is_active)
 					$this->redirect(array('/site/sendActivationCode'));
 				else
