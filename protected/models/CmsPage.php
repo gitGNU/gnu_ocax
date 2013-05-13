@@ -82,6 +82,14 @@ class CmsPage extends CActiveRecord
 		return $content->pageTitle;
 	}
 
+	public function getContentForModel($lang)
+	{
+		if($content=CmsPageContent::model()->findByAttributes(array('page'=>$this->id,'language'=>Yii::app()->language)))
+			return $content;
+		
+		return CmsPageContent::model()->find(array('condition'=> 'page = '.$this->id.' AND pageTitle IS NOT NULL'));
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

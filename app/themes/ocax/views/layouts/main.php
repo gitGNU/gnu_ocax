@@ -58,7 +58,7 @@
 			$criteria->order = 'block DESC';
 			$cms_pages=CmsPage::model()->findAll($criteria);
 			foreach($cms_pages as $page){
-				$page_content = CmsPageContent::model()->findByAttributes(array('page'=>$page->id,'language'=>Yii::app()->language));
+				$page_content = $page->getContentForModel(Yii::app()->language);
 				$item = array( array('label'=>$page_content->pageTitle, 'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL)) );
 				array_splice( $items, 4, 0, $item );	
 			}

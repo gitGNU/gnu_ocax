@@ -66,12 +66,11 @@ class CmsPageController extends Controller
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);	
 		
-		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>Yii::app()->language));
-
 		if($model->published == 0 && !Yii::app()->user->isEditor()){
 			throw new CHttpException(404,'The requested page does not exist.');
 			return $model;
 		}
+		$content = $model->getContentForModel(Yii::app()->language);
 		$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
 		$this->render('show',array(
 			'model'=>$model,

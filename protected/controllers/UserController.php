@@ -144,12 +144,12 @@ class UserController extends Controller
 			if($email != $model->email)
 				$model->is_active=0;
 
-			if($language != $model->language){
+			//if($language != $model->language){
 				Yii::app()->language = $model->language;
 				$cookie = new CHttpCookie('lang', $model->language);
 				$cookie->expire = time()+60*60*24*180; 
 				Yii::app()->request->cookies['lang'] = $cookie;
-			}
+			//}
 
 			if($model->save()){
 				Yii::app()->user->setFlash('success', __('Changes saved Ok'));
