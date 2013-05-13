@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
   password varchar(128) NOT NULL,
   salt varchar(128) NOT NULL,
   email varchar(128) NOT NULL,
-  lang char(2) NULL,
+  language char(2) NULL,
   joined date NOT NULL,
   activationcode varchar(15) NOT NULL,
   is_active TINYINT(1) DEFAULT 0,
@@ -169,18 +169,28 @@ CREATE TABLE IF NOT EXISTS bulk_email (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS cms_page (
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	pagename varchar( 255 ) NOT NULL ,
-	block int( 10 ) NOT NULL DEFAULT '0',
+	id int(11) NOT NULL AUTO_INCREMENT,
+	block int( 10 ) NOT NULL,
+	weight int( 10 ) NOT NULL,
 	published tinyint( 1 ) NOT NULL DEFAULT '0',
-	heading varchar( 255 ) DEFAULT NULL ,
-	body LONGTEXT,
+	PRIMARY KEY (id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS cms_page_content (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	page int(11) NOT NULL,
+	language char(2) NOT NULL,
+	pageURL varchar( 255 ) NOT NULL ,
 	pageTitle varchar( 255 ) DEFAULT NULL ,
-	weight int( 10 ) NOT NULL DEFAULT '0',
+	body LONGTEXT,
+	heading varchar( 255 ) DEFAULT NULL ,
 	metaTitle varchar( 255 ) DEFAULT NULL ,
 	metaDescription varchar( 255 ) DEFAULT NULL ,
-	metaKeywords varchar( 255 ) DEFAULT NULL
+	metaKeywords varchar( 255 ) DEFAULT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (page) REFERENCES cms_page(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 
 CREATE TABLE IF NOT EXISTS file (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -216,6 +226,7 @@ INSERT INTO config(parameter, value, description) VALUES ('observatoryName', 'Ob
 INSERT INTO config(parameter, value, description) VALUES ('telephone', '666 666 666', 'Contact telephone');
 INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'contact@ocax.es', 'Contact email address');
 INSERT INTO config(parameter, value, description) VALUES ('emailNoReply', 'no-reply@ocax.es', 'no-reply email address');
+INSERT INTO config(parameter, value, description) VALUES ('languages', 'es,ca', 'Available languages on this site');
 INSERT INTO config(parameter, description) VALUES ('smtpHost', 'SMTP Server');
 INSERT INTO config(parameter, description) VALUES ('smtpPort', 'SMTP Port');
 INSERT INTO config(parameter, value, description) VALUES ('smtpAuth', '0', 'SMTP Auth (0 or 1)');

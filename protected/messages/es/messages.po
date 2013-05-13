@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-09 17:29+0100\n"
+"PO-Revision-Date: 2013-05-10 11:42+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,31 +71,31 @@ msgid "Body"
 msgstr "Cuerpo"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:66
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:116
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:121
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:40
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:14
 msgid "Username"
 msgstr "Nombre de usuario"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:67
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:117
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:122
 msgid "Full name"
 msgstr "Nombe completo"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:68
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:118
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:123
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:41
 msgid "Password"
 msgstr "Contraseña"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:69
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:120
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:125
 msgid "Repeat password"
 msgstr "Contraseña repetida"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:70
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:122
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:127
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:86
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -145,6 +145,7 @@ msgstr "Enviado OK"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:180
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:226
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/edit.php:40
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:96
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:10
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:83
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:63
@@ -157,15 +158,19 @@ msgstr "Estado"
 msgid "Subject"
 msgstr "Asunto"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:119
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:124
 msgid "New password"
 msgstr "Contraseña nueva"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:123
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:128
+msgid "Language"
+msgstr "Idioma"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:129
 msgid "Joined"
 msgstr "Data d'alta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:125
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:131
 msgid "Is partner"
 msgstr "És soci"
 
@@ -192,8 +197,9 @@ msgid "Concept"
 msgstr "Concepto"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
+#, fuzzy
 msgid "Initial provision"
-msgstr ""
+msgstr "Ancho inicial panel lateral"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:169
@@ -245,15 +251,19 @@ msgstr "Vota"
 msgid "Comment"
 msgstr "Comentario"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:65
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:56
+msgid "is not a valid language."
+msgstr "no es un idioma válida"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:79
 msgid "Parameter"
 msgstr "Parámetro"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:66
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:80
 msgid "Value"
 msgstr "Valor"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:67
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:81
 msgid "Description"
 msgstr "Descripción"
 
@@ -466,7 +476,8 @@ msgid "Euros per person"
 msgstr "Euros por persona"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:73
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:38
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:91
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:50
 msgid "Enquiries"
 msgstr "Consultas"
 
@@ -507,6 +518,19 @@ msgstr "Restore database"
 #, fuzzy
 msgid "hacer una enquiry"
 msgstr "make an enquiry"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/config/admin.php:6
+msgid "Global parameters"
+msgstr "Parámetros globales"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/config/admin.php:8
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/admin.php:47
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/managed.php:46
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:63
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:72
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:81
+msgid "more info"
+msgstr "més info"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:23
 msgid "Please enter your email address"
@@ -821,14 +845,6 @@ msgstr "Gestiona consultas"
 msgid "States"
 msgstr "Estados"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/admin.php:47
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/managed.php:46
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:63
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:72
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:81
-msgid "more info"
-msgstr "més info"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:20
 msgid "Reformulated enquires"
 msgstr "Consultes reformuladas"
@@ -936,15 +952,15 @@ msgstr "Selecciona un pressupost de la taula més a baix"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/changeType.php:87
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:92
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:93
 msgid "Save"
 msgstr "Guardar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/changeType.php:90
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:88
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:75
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:94
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/reply/create.php:78
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:61
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:57
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1108,6 +1124,10 @@ msgid "Your information"
 msgstr "Tus datos"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:55
+msgid "Your preferred language"
+msgstr "Tu idioma preferido"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:74
 msgid "Change password"
 msgstr "Cambiar la contraseña"
 
@@ -1124,55 +1144,55 @@ msgid "Petition to make contact via email"
 msgstr "Petition to make contact via email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:28
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:239
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:257
 msgid "Hello"
 msgstr "Hola"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:32
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:30
 #, php-format
 msgid "a user like you at the %s"
 msgstr "un usuari com tu de l'%s"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:35
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:31
 msgid "would like to contact you privately via email"
 msgstr "vol contactar amb tu via email"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:36
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:32
 msgid "However, we do not share users' email addresses"
 msgstr "No obstant això, no compartim les adreces de correu dels usuaris"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:37
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:33
 msgid "If you wish, you may make contact yourself with"
 msgstr "Si desitges, pots contactar el teu mateix amb"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:38
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:34
 msgid "If you think this user is spamming you, you can block future petitions at this link"
 msgstr "Si penses que aquest usuari t'està enviant correu brossa, pots bloquejar futurs peticions amb aquest enllaç"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:40
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:36
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:125
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:243
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:261
 msgid "Kind regards"
 msgstr "Cordials salutacions"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:51
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:47
 msgid "says"
 msgstr "diu"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:52
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:48
 msgid "Optionally, you may attach text to this email"
 msgstr "Si desitges, pots adjuntar un text a aquest correu"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:60
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:56
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/create.php:53
 msgid "Send email"
 msgstr "Envia correu"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:79
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:75
 msgid "Sending email"
 msgstr "Enviant correu electrònic"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:84
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:80
 msgid "Email sent"
 msgstr "Correu electrònic enviat"
 
@@ -1180,35 +1200,35 @@ msgstr "Correu electrònic enviat"
 msgid "Update state"
 msgstr "Actualitza estat"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:35
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:47
 msgid "Home"
 msgstr "Inici"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:36
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:48
 msgid "My page"
 msgstr "Mi página"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:37
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:49
 msgid "Budgets"
 msgstr "Pressupostes"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:40
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:52
 msgid "Register"
 msgstr "Registrar-se"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:41
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:53
 msgid "Login"
 msgstr "Login"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:42
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:54
 msgid "Logout"
 msgstr "Logout"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:72
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:84
 msgid "Contact information"
 msgstr "Dades de contacte"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:75
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:87
 msgid "Telephone"
 msgstr "Telèfon"
 
@@ -1235,11 +1255,11 @@ msgstr "Petició de contacte privat per email d'un usuari de l'%s"
 msgid "Email not sent"
 msgstr "Email not sent"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:146
-msgid "Changes saved"
-msgstr "Changes saved"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:153
+msgid "Changes saved Ok"
+msgstr "Se han guardado los cambios correctamente"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:170
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:177
 msgid "is blocked"
 msgstr "està bloquejat"
 
@@ -1255,35 +1275,35 @@ msgstr "Nou comentari en"
 msgid "A new comment has been added to the enquiry"
 msgstr "S'ha afegit un comentari a la consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:237
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:255
 msgid "New password request"
 msgstr "Petició de nova contrasenya"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:240
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:258
 msgid "has received a request to reset your password"
 msgstr "ha rebut una petició de restableix la teva contrasenya"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:241
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:259
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr "Si no has oblidat la teva contrasenya per favor, ignora aquest correu"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:242
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:260
 msgid "To reset your password, follow this link"
 msgstr "Per restablir la teva contrasenya, segueix aquest enllaç"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:247
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:265
 msgid "We've just sent you an email"
 msgstr "T'hem enviat un correu electrònic"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:251
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:269
 msgid "Sorry, we cannot find you on our database"
 msgstr "Disculpa, no et trobem en la nostra base de dades"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:267
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:285
 msgid "The password recovery link has expired"
 msgstr "L'enllaç per recuperar la teva contrasenya s'ha caducat"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:272
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:290
 msgid "Please change your password now"
 msgstr "Per favor, canvia la teva contrasenya ara"
 
@@ -1296,7 +1316,7 @@ msgstr "Enquiry has been published"
 msgid "We have sent you an email"
 msgstr "T'hem enviat un correu electrònic"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:571
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:572
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 

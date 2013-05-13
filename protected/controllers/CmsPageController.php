@@ -1,6 +1,6 @@
 <?php
 
-class CmspageController extends Controller
+class CmsPageController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -9,7 +9,7 @@ class CmspageController extends Controller
 	public $layout='//layouts/column2';
 
 	public $defaultAction = 'admin';
-
+	
 	/**
 	 * @return array action filters
 	 */
@@ -37,12 +37,6 @@ class CmspageController extends Controller
 				'actions'=>array('admin','delete','create','update','view'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
-/*
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-*/
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -50,38 +44,40 @@ class CmspageController extends Controller
 	}
 
 	/**
-	 * Displays a particular model for CMS Editor only.
+	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-
-	public function actionView($id)
+	public function actionView($id,$lang)
 	{
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);
+		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 
 		$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
 		$this->render('show',array(
 			'model'=>$model,
 			'items'=>$items,
+			'content'=>$content,
 		));
 	}
 
-	public function actionShow($pagename)
+	public function actionShow($id,$pageURL)
 	{
 		$this->layout='//layouts/column1';
-		$model = CmsPage::model()->findByAttributes(array('pagename'=>$pagename));
-		if($model){
-			if($model->published == 0 && !Yii::app()->user->isEditor()){
-				throw new CHttpException(404,'The requested page does not exist.');
-				return $model;
-			}
-			$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
-			$this->render('show',array(
-				'model'=>$model,
-				'items'=>$items,
-			));
-		}else
+		$model = $this->loadModel($id);	
+		
+		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>Yii::app()->language));
+
+		if($model->published == 0 && !Yii::app()->user->isEditor()){
 			throw new CHttpException(404,'The requested page does not exist.');
+			return $model;
+		}
+		$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
+		$this->render('show',array(
+			'model'=>$model,
+			'items'=>$items,
+			'content'=>$content,
+		));
 	}
 
 	/**
@@ -90,22 +86,33 @@ class CmspageController extends Controller
 	 */
 	public function actionCreate()
 	{
+		// http://www.yiiframework.com/wiki/19/
 		$model=new CmsPage;
+		$content =new CmsPageContent;
+		$languages=explode(',', Config::model()->findByPk('languages')->value);
+		$content->language=$languages[0];
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CmsPage']))
+		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
 		{
 			$model->attributes=$_POST['CmsPage'];
-			$model->pagename = str_replace(' ', '-', $model->pagename);
-			$model->pagename = strtolower($model->pagename);
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$content->attributes=$_POST['CmsPageContent'];
+			
+			$content->page=0;	// dummy value. should do this with validation rule but it didn't work.
+			//$content->setScenario('cms_page_create');
+			if($model->validate() && $content->validate()){
+				$model->save();
+				$content->page=$model->id;
+				$content->save();
+				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'content'=>$content,
 		));
 	}
 
@@ -116,22 +123,43 @@ class CmspageController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		if(isset($_GET['lang']))
+			$lang=$_GET['lang'];
+		else{
+			$languages=explode(',', Config::model()->findByPk('languages')->value);
+			$lang=$languages[0];
+		}
 		$model=$this->loadModel($id);
+		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		if(!$content){
+			$orig_content=CmsPageContent::model()->find(array('condition'=> 'page = '.$model->id.' AND pageURL IS NOT NULL'));
+			$content = new  CmsPageContent;
+			$content->language = $lang;
+			$content->pageURL = $orig_content->pageURL;
+			$content->pageTitle = $orig_content->pageTitle;
+			$content->body = $orig_content->body;
+			$content->page=$model->id;
+			$content->save();
+		}
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CmsPage']))
+		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
 		{
 			$model->attributes=$_POST['CmsPage'];
-			$model->pagename = str_replace(' ', '-', $model->pagename);
-			$model->pagename = strtolower($model->pagename);
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$content->attributes=$_POST['CmsPageContent'];
+			
+			if($model->validate() && $content->validate()){
+				$model->save();
+				$content->save();
+				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
+			}
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'content'=>$content,
 		));
 	}
 
@@ -152,7 +180,6 @@ class CmspageController extends Controller
 	/**
 	 * Lists all models.
 	 */
-/*
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('CmsPage');
@@ -160,7 +187,7 @@ class CmspageController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
-*/
+
 	/**
 	 * Manages all models.
 	 */
@@ -179,7 +206,9 @@ class CmspageController extends Controller
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
+	 * @param integer $id the ID of the model to be loaded
+	 * @return CmsPage the loaded model
+	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
@@ -191,7 +220,7 @@ class CmspageController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
+	 * @param CmsPage $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{

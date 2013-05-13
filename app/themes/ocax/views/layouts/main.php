@@ -29,10 +29,16 @@
 
 	<div>
 	<div id="logo"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></div>
-	<span style="float:right">
-	<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/language?lang=es">spanish</a>
-	<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/language?lang=ca">catalan</a>
-	</span>
+	<?php
+		$languages=explode(',', Config::model()->findByPk('languages')->value);
+		if(isset($languages[1])){
+			echo '<span style="float:right">';
+			foreach($languages as $lang){
+				echo '<a href="'.Yii::app()->request->baseUrl.'/site/language?lang='.$lang.'">'.$lang.'</a> ';
+			}
+			echo '</span>';
+		}
+	?>
 	</div>
 
 	<div id="mainmenu">
@@ -52,7 +58,8 @@
 			$criteria->order = 'block DESC';
 			$cms_pages=CmsPage::model()->findAll($criteria);
 			foreach($cms_pages as $page){
-				$item = array( array('label'=>$page->pageTitle, 'url'=>array('/page/'.$page->pagename)) );
+				$page_content = CmsPageContent::model()->findByAttributes(array('page'=>$page->id,'language'=>Yii::app()->language));
+				$item = array( array('label'=>$page_content->pageTitle, 'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL)) );
 				array_splice( $items, 4, 0, $item );	
 			}
 			$this->widget('zii.widgets.CMenu',array(

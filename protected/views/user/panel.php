@@ -67,7 +67,7 @@ if($model->is_team_member){
 
 if($model->is_editor){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Site CMS page editor',array('/cmspage')).'</h1>';
+	echo '<h1>'.CHtml::link('Site CMS page editor',array('/cmsPage')).'</h1>';
 	echo 	'<p>'.__('Edit the general information pages').'<br />'.
 			'<a href="http://ocax.net/?El_software:CMS_editor" target="_new">'.__('more info').'</a>'.	
 			'</p>';

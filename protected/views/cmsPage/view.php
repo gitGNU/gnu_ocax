@@ -1,5 +1,5 @@
 <?php
-/* @var $this CmspageController */
+/* @var $this CmsPageController */
 /* @var $model CmsPage */
 
 $this->breadcrumbs=array(
@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+	array('label'=>'List CmsPage', 'url'=>array('index')),
 	array('label'=>'Create CmsPage', 'url'=>array('create')),
 	array('label'=>'Update CmsPage', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Delete CmsPage', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
@@ -22,14 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'block',
-		'pagename',
-		'pageTitle',
-		'body',
 		'weight',
 		'published',
-		'heading',
-		'metaTitle',
-		'metaDescription',
-		'metaKeywords',
 	),
 )); ?>

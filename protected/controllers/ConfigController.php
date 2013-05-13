@@ -60,6 +60,12 @@ class ConfigController extends Controller
 		if(isset($_POST['Config']))
 		{
 			$model->attributes=$_POST['Config'];
+			if($model->parameter == 'languages'){
+				$model->value = str_replace(' ','',$model->value);
+				$model->value = rtrim($model->value, ',');
+				$model->setScenario('language');	
+			}
+
 			if($model->save())
 				$this->redirect(array('admin'));
 		}

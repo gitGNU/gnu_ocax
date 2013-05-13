@@ -8,6 +8,7 @@
 	.left{width: 48%; float: left;  margin: 0px;}
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
+	
 </style>
 
 <div class="form">
@@ -38,6 +39,15 @@
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
+	<?php
+		if($listData = getLanguagesArray()){
+			echo '<div class="row">';
+			echo $form->labelEx($model,'language');
+			echo '<div class="hint">'.__('Your preferred language').'</div>';
+			echo $form->dropDownList($model, 'language', $listData );
+			echo '</div>';
+		}	
+	?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_socio'); ?>
