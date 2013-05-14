@@ -58,6 +58,7 @@ class CmsPageController extends Controller
 			'model'=>$model,
 			'items'=>$items,
 			'content'=>$content,
+			'noLanguageLinks'=>1,
 		));
 	}
 

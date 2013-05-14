@@ -11,6 +11,30 @@ $this->setPageTitle($content->pageTitle);
 	.activeItem a{color: red;}
 </style>
 
+<?php if(isset($noLanguageLinks)){ ?>
+<style>
+#goBack{
+	font-size:1.5em;
+	margin:-25px;
+	margin-bottom:30px;
+	padding-left:20px;
+	width:100%;
+	background-color:lightgrey;	
+}
+</style>
+<script>
+$(function() {
+	$('.language_link').hide();
+});
+</script>
+<?php
+echo '<div id="goBack">';
+echo CHtml::link('<< '.__('CMS editor'),array(	'cmsPage/update',
+												'id'=>$model->id,
+												'lang'=>$content->language,
+										));
+echo '</div>';
+} ?>
 
 <div class="outer">
 

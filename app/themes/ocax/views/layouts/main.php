@@ -34,7 +34,7 @@
 		if(isset($languages[1])){
 			echo '<span style="float:right">';
 			foreach($languages as $lang){
-				echo '<a href="'.Yii::app()->request->baseUrl.'/site/language?lang='.$lang.'">'.$lang.'</a> ';
+				echo '<a class="language_link" href="'.Yii::app()->request->baseUrl.'/site/language?lang='.$lang.'">'.$lang.'</a> ';
 			}
 			echo '</span>';
 		}
