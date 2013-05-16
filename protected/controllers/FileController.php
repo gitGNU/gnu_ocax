@@ -113,7 +113,7 @@ class FileController extends Controller
 
 				if($model->model == 'CmsPage'){
 					if($file_saved)
-						Yii::app()->user->setFlash('success', 'File uploaded correctly');
+						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
 					$this->redirect(array('cmsPage/admin'));
 
 				}elseif($model->model == 'Reply'){

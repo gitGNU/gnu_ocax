@@ -1,6 +1,7 @@
 
 <?php
 $this->setPageTitle($content->pageTitle);
+
 ?>
 
 <style>           
@@ -40,7 +41,7 @@ echo '</div>';
 
 <div class="left">
 	<?php
-
+	$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block, 'published'=>1), array('order'=>'weight'));
 	foreach ($items as $menu_item) {
 		foreach($menu_item->cmsPageContents as $item){
 			if($item->language == $content->language){

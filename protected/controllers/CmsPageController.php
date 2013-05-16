@@ -53,10 +53,8 @@ class CmsPageController extends Controller
 		$model = $this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 
-		$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
 		$this->render('show',array(
 			'model'=>$model,
-			'items'=>$items,
 			'content'=>$content,
 			'noLanguageLinks'=>1,
 		));
@@ -72,10 +70,8 @@ class CmsPageController extends Controller
 			return $model;
 		}
 		$content = $model->getContentForModel(Yii::app()->language);
-		$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block), array('order'=>'weight'));
 		$this->render('show',array(
 			'model'=>$model,
-			'items'=>$items,
 			'content'=>$content,
 		));
 	}
@@ -100,6 +96,7 @@ class CmsPageController extends Controller
 			$model->attributes=$_POST['CmsPage'];
 			$content->attributes=$_POST['CmsPageContent'];
 			
+			$content->pageURL=strtolower($content->pageURL);
 			$content->page=0;	// dummy value. should do this with validation rule but it didn't work.
 			//$content->setScenario('cms_page_create');
 			if($model->validate() && $content->validate()){
@@ -149,7 +146,7 @@ class CmsPageController extends Controller
 		{
 			$model->attributes=$_POST['CmsPage'];
 			$content->attributes=$_POST['CmsPageContent'];
-			
+			$content->pageURL=strtolower($content->pageURL);
 			if($model->validate() && $content->validate()){
 				$model->save();
 				$content->save();

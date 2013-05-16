@@ -28,7 +28,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'template'=>'{regen}',
 			'buttons' => array(
 				'regen' => array(
-					'label'=> __('Restore budgets'),
+					'label'=> __('Include budgets'),
 					'url'=> '"javascript:regenCSV(\"".$data->year."\");"',
 					'imageUrl' => Yii::app()->theme->baseUrl.'/images/regen.png',
 					'visible' => 'true',

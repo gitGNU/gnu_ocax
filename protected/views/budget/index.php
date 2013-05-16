@@ -89,16 +89,16 @@ function showBudgetDescription(budget_id){
 </script>
 
 <div style="font-size:2.5em;text-align:center;margin-top:-10px;">
-<?php echo Config::model()->findByPk('councilName')->value;?>
+<?php echo __('Budgets');?>
 
 </div>
 
 <div style="
 	margin-bottom:15px;
 	font-size:1.5em;
+	float:right;
 	">
-<?php echo __('Budget for').' '.$model->getYearString();
-
+<?php
 if(Yii::app()->user->isAdmin())
 	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
 else
@@ -108,17 +108,15 @@ if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {
 		return $year->getYearString();
 	});
-
-	echo '<span style="float:right">';
 		echo __('Available years').' ';
 		echo CHtml::dropDownList('budget', $model->year, $list,
 								array(	'id'=>'selectYear',
 										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
 								));
-	echo '</span>';
 }
 ?>
 </div>
+<div style="clear:both"></div>
 
 <div style="
 	border-top: 1px solid #C9E0ED;
