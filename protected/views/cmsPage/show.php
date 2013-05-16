@@ -52,7 +52,7 @@ echo '</div>';
 		if($content->pageURL == $item->pageURL)
 			$itemclass='class="activeItem"';
 		echo '<div '.$itemclass.'>';
-		echo CHtml::link($item->pageTitle,array('p/'.$menu_item->id.'/'.$item->pageURL));
+		echo CHtml::link(CHtml::encode($item->pageTitle),array('p/'.$menu_item->id.'/'.$item->pageURL));
 		echo '</div>';
 		echo '<br />';
 	}
@@ -61,7 +61,7 @@ echo '</div>';
 </div>
 
 <div class="right">
-	<div style="font-size:1.5em;text-align:center;padding-bottom:20px;"><?php echo $content->pageTitle; ?></div>
+	<div style="font-size:1.5em;text-align:center;padding-bottom:20px;"><?php echo CHtml::encode($content->pageTitle); ?></div>
 	<?php echo $content->body; ?>
 </div>
 </div>

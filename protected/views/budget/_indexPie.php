@@ -52,32 +52,27 @@ table.jqplot-table-legend{
 <script>
 function slideInChild(parent_id,child_id){
 	graph_container=$('#'+child_id);
+	graph_container.hide();
 	group=$("#"+parent_id).parents('.graph_group');
 
-	//alert(graph_container.attr('is_parent'));
-	//graph_container.attr('parent_id',data.params.parent_id);
-	//graph_container.attr('is_parent',data.params.is_parent);
 	if(graph_container.attr('is_parent') == 0){
-		
 		budget_details=graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
-		//$('#'+parent_id).hide();
 		$('#'+child_id).show();	
 		budget_details.fadeIn(700);
 		graph_container.find('.legend_item[budget_id='+child_id+']').css('font-weight','bold');
 		return false;
 	}
-	$('#'+child_id).hide();
-	$('#'+parent_id).hide(	"slide",
-							{ direction: "left" },
-							600,
-							function(){
-								//$('#'+child_id).css("visibility","visible");
-								$('#'+child_id).fadeIn(200);
-							;}
-						);
+	group.children('.graph_container:visible').hide("slide",
+													{ direction: "left" },
+													600,
+													function(){
+														$('#'+child_id).fadeIn(200);
+													;}
+					);
 }
+
 function goBack(parent_id){
 	parent_graph_container=$('#'+parent_id);
 	parent_graph_container.show("slide",{ direction: "left" },	500);
@@ -90,7 +85,6 @@ function getPie(budget_id){
 		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
 		return false;
 	}
-	//graph_container=$('<div id="'+budget_id+'" style="visibility:hidden" class="graph_container"></div>');
 	graph_container=$('<div id="'+budget_id+'" class="graph_container"></div>');
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
@@ -168,6 +162,7 @@ var pie_properties = {
 }
 function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);
+	//$('#'+div_id).hide();	
 
 	//http://www.kathyw.org/jQPlot/LinkTest.html
 
@@ -216,8 +211,6 @@ $(function() {
 });
 </script>
 
-
-
 <?php
 $dataProvider = $model->publicSearch();
 $data = $dataProvider->getData();
@@ -233,17 +226,5 @@ if( count($data) > 0){ ?>
 }else{
 	echo '<div id="pie_display" style="margin-top:5px;margin-bottom:15px;"></div>';
 }
-/*
-	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div style="margin-top:40px;">';
-		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
-		echo '</div>';
-	}
-	foreach($featured as $budget){
-		echo '<div style="margin-top:40px;">';
-		echo CHtml::link($budget->concept,array('budget/view','id'=>$budget->id), array('class'=>'button'));
-		echo '</div>';
-	}
-}
-*/
+
 ?>
