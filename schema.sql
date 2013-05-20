@@ -42,8 +42,17 @@ CREATE TABLE IF NOT EXISTS budget (
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
-
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2013', 0, 'root budget', 10000, 0);
+
+CREATE TABLE IF NOT EXISTS budget_description (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  code varchar(20) NULL,
+  type TINYINT(1) DEFAULT 0, /* 0=income, 1=spenditure */
+  language char(2) NOT NULL,
+  concept varchar( 255 ) NOT NULL,
+  description LONGTEXT,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS enquiry (
   id int(11) NOT NULL AUTO_INCREMENT,
