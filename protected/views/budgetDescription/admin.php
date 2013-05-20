@@ -21,7 +21,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php echo __('Manage Budget Descriptions');?></h1>
+<h1><?php echo __('Manage budget descriptions');?></h1>
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -37,13 +37,12 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'code',
 		array(
-			'name'=>'type',
-			'value'=>'$data->getHumanTypes($data->type)',
-			'filter'=>CHtml::activeDropDownList($model, 'type', $model->getHumanTypes(), array('prompt'=>__('Not filtered'))),
+			'name'=>'category',
+			'value'=>'BudgetCategory::model()->findByPk($data->category)->code',
+			'filter'=>CHtml::listData(BudgetCategory::model()->findAll(),'id','code'),
 		),
 		'language',
 		'concept',
-		//'description',
 		array(
 			'class'=>'CButtonColumn',
 		),

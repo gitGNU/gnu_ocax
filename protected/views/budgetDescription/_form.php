@@ -19,9 +19,11 @@
 
 	<div class="row" style="float:left">
 		<?php
-			echo $form->labelEx($model,'type');
-			echo $form->dropDownList($model, 'type', $model->getHumanTypes(), array('prompt'=>__('Select a type')));
-			echo $form->error($model,'type');
+			echo $form->labelEx($model,'category');
+			echo $form->dropDownList($model, 'category',
+									CHtml::listData(BudgetCategory::model()->findAll(),'id','code'), array('prompt'=>__('Select a category'))
+									);
+			echo $form->error($model,'category');
 		?>
 	</div>
 	
@@ -55,8 +57,8 @@
 	'attributes'=>array(
 		'code',
 		array(
-			'name'=>'type',
-			'value'=>$model->getHumanTypes($model->type),
+			'name'=>'category',
+			'value'=>BudgetCategory::model()->findByPk($model->category)->code,
 		),
 		array(
 			'name'=>'language',

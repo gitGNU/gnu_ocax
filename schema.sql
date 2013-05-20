@@ -44,14 +44,25 @@ CREATE TABLE IF NOT EXISTS budget (
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2013', 0, 'root budget', 10000, 0);
 
+CREATE TABLE IF NOT EXISTS budget_category (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  code char(3) NOT NULL,
+  description varchar( 255 ) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+INSERT INTO budget_category(code, description) VALUES ('I-E','Income-Economic');
+INSERT INTO budget_category(code, description) VALUES ('S-E','Spenditure-Economic');
+
+
 CREATE TABLE IF NOT EXISTS budget_description (
   id int(11) NOT NULL AUTO_INCREMENT,
+  category int(11) NOT NULL,
   code varchar(20) NULL,
-  type TINYINT(1) DEFAULT 0, /* 0=income, 1=spenditure */
   language char(2) NOT NULL,
   concept varchar( 255 ) NOT NULL,
   description LONGTEXT,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (category) REFERENCES budget_category(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS enquiry (

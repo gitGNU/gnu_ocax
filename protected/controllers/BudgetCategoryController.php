@@ -1,6 +1,6 @@
 <?php
 
-class BudgetDescriptionController extends Controller
+class BudgetCategoryController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -36,7 +36,7 @@ class BudgetDescriptionController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','create','update','admin','delete'),
+				'actions'=>array('create','update','admin','delete'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -46,33 +46,22 @@ class BudgetDescriptionController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-		$model=new BudgetDescription;
-		$model->setScenario('create');
+		$model=new BudgetCategory;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		$model->category='';
 
-		if(isset($_POST['BudgetDescription']))
+		if(isset($_POST['BudgetCategory']))
 		{
-			$model->attributes=$_POST['BudgetDescription'];
+			$model->attributes=$_POST['BudgetCategory'];
+			$model->code=strtoupper($model->code);
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -92,11 +81,11 @@ class BudgetDescriptionController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BudgetDescription']))
+		if(isset($_POST['BudgetCategory']))
 		{
-			$model->attributes=$_POST['BudgetDescription'];
+			$model->attributes=$_POST['BudgetCategory'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
@@ -118,26 +107,16 @@ class BudgetDescriptionController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('BudgetDescription');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
-		$model=new BudgetDescription('search');
+		$model=new BudgetCategory('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['BudgetDescription']))
-			$model->attributes=$_GET['BudgetDescription'];
+		if(isset($_GET['BudgetCategory']))
+			$model->attributes=$_GET['BudgetCategory'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -148,12 +127,12 @@ class BudgetDescriptionController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return BudgetDescription the loaded model
+	 * @return BudgetCategory the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=BudgetDescription::model()->findByPk($id);
+		$model=BudgetCategory::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -161,11 +140,11 @@ class BudgetDescriptionController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param BudgetDescription $model the model to be validated
+	 * @param BudgetCategory $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='budget-description-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='budget-category-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

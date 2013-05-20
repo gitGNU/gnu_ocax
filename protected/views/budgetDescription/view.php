@@ -19,8 +19,8 @@ $this->menu=array(
 	'attributes'=>array(
 		'code',
 		array(
-			'name'=>'type',
-			'value'=>$model->getHumanTypes($model->type),
+			'name'=>'category',
+			'value'=>BudgetCategory::model()->findByPk($model->category)->code,
 		),
 		array(
 			'name'=>'language',

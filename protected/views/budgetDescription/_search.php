@@ -22,8 +22,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->textField($model,'type'); ?>
+		<?php echo $form->label($model,'category'); ?>
+		<?php echo $form->textField($model,'category'); ?>
 	</div>
 
 	<div class="row">
