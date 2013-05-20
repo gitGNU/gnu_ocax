@@ -69,9 +69,9 @@ class BudgetDescription extends CActiveRecord
 			array('type', 'numerical', 'integerOnly'=>true),
 			array('language', 'length', 'max'=>2),
 			array('code', 'length', 'max'=>20),
-			array('combination', 'validCombination'),
+			array('combination', 'validCombination', 'on'=>'create'),
 			array('concept', 'length', 'max'=>255),
-			array('description', 'safe'),
+			array('combination, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('code, type, language, concept, description', 'safe', 'on'=>'search'),

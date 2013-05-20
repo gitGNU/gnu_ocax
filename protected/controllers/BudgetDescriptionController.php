@@ -63,7 +63,7 @@ class BudgetDescriptionController extends Controller
 	public function actionCreate()
 	{
 		$model=new BudgetDescription;
-
+		$model->setScenario('create');
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		$model->type='';
