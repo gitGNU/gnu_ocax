@@ -29,7 +29,8 @@ class CsvController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
-				'checkCSVTotals','importCSVData','download','showYears','regenerateCSV',),
+				'checkCSVTotals','importCSVData','download','showYears','regenerateCSV',
+				'importDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -251,7 +252,7 @@ class CsvController extends Controller
 				list($csv_id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $csv_parent_id) = explode("|", $line);
 
 				$new_budget=new Budget;
-				$new_budget->csv_id = $csv_id;
+				$new_budget->csv_id = trim($csv_id);
 				$new_budget->csv_parent_id = trim($csv_parent_id);
 				$new_budget->year = $yearly_budget->year;
 				$new_budget->code = trim($code);
@@ -341,6 +342,48 @@ class CsvController extends Controller
 			$criteria=new CDbCriteria;
 			$criteria->condition='parent IS NULL AND year='.$id;
 			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
+		}
+	}
+
+	/**
+	 * import budget descriptions
+	 * upload csv to app/files/csv/descriptions.csv and call url csv/importDescriptions
+	 */
+	public function actionImportDescriptions()
+	{
+		$model = new ImportCSV;
+		$mega_array = explode('|', file_get_contents($model->path.'descriptions.csv'));
+		array_shift($mega_array);
+		$header=1;
+		while($mega_array){
+			$field_cnt=0;
+			$row=array();
+			while($field_cnt < 7){
+				$row[] = array_shift($mega_array);
+				//echo $field_cnt.': '.$row[$field_cnt].'<br />';
+				$field_cnt++;
+			}
+			if(!$header){
+					$budget=new BudgetDescription;	
+					$budget->csv_id = trim(trim($row[0], '"'));
+					$budget->language = trim(trim($row[2], '"'));
+					$budget->code = trim(trim($row[3], '"'));
+					//$budget->label = trim($label);
+					$budget->concept = trim(trim($row[5], '"'));
+					$description=str_replace('"', '', $row[6]);
+					$budget->description = nl2br($description);
+					
+					//$budget->text = strip_tags(str_replace("<br />", " ", $description));
+					$budget->text = $description;
+					//$budget->validate();
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										
+					if(!$budget->save()){
+						echo CHtml::errorSummary($budget);
+						Yii::app()->end();
+					}
+			}else
+				$header=0;
+			echo '<p>New row</p>';
 		}
 	}
 

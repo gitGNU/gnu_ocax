@@ -17,18 +17,18 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'category'); ?>
-		<?php echo $form->textField($model,'category'); ?>
+		<?php echo $form->label($model,'csv_id'); ?>
+		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'language'); ?>
 		<?php echo $form->textField($model,'language',array('size'=>2,'maxlength'=>2)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'code'); ?>
+		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">
@@ -39,6 +39,11 @@
 	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'text'); ?>
+		<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row buttons">

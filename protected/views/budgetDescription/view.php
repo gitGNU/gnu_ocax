@@ -2,11 +2,6 @@
 /* @var $this BudgetDescriptionController */
 /* @var $model BudgetDescription */
 
-$this->breadcrumbs=array(
-	'Budget Descriptions'=>array('index'),
-	$model->id,
-);
-
 $this->menu=array(
 	array('label'=>__('Create description'), 'url'=>array('create')),
 	array('label'=>__('Update description'), 'url'=>array('update', 'id'=>$model->id)),
@@ -14,20 +9,19 @@ $this->menu=array(
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );
 ?>
+
+<p>
+<div style="margin:-10px">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		'csv_id',
+		'language',
 		'code',
-		array(
-			'name'=>'category',
-			'value'=>BudgetCategory::model()->findByPk($model->category)->code,
-		),
-		array(
-			'name'=>'language',
-			'value'=>$model->getHumanLanguages($model->language),
-		),
+		'concept',
 	),
 )); ?>
+</div>
+</p>
 
-<h1 style="margin-top:20px"><?php echo $model->concept;?></h1>
 <?php echo $model->description; ?>

@@ -3,12 +3,7 @@
 /* @var $model Enquiry */
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').slideDown();
-	return false;
-});
 $('.search-form form').submit(function(){
-	$('.search-form').slideUp();
 	$.fn.yiiGridView.update('enquiry-grid', {
 		data: $(this).serialize()
 	});
@@ -64,14 +59,20 @@ function showEnquiry(enquiry_id){
 <div class="outer">
 <div class="left">
 <p>
-Aqui tienes una lista de todas las enquirys hechas hasta la fecha de hoy.<br />
-Puedes <?php echo CHtml::link('definir filtros','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_searchPublic',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<span style="font-size:1.5em"><?php echo __('Enquiries made to date');?></span></br>
+<?php echo __('This is a list of enquiries made by citizens like you.');?>
 </p>
+<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
+	<p>
+
+	<div class="search-form">
+		<?php $this->renderPartial('_searchPublic',array(
+			'model'=>$model,
+		)); ?>
+	</div><!-- search-form -->
+	</p>
+<?php } ?>
+
 <?php
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
@@ -104,7 +105,8 @@ $this->widget('PGridView', array(
 
 </div>
 <div class="right">
-<p style="font-size:1.5em">Como hacer una nueva enquiry</p>
+<p style="font-size:1.5em"><?php echo __('Formulate a new enquiry')?></p>
+
 <p><b>Crear una cuenta</b><br />Antes de enviarnos una enquiry, hace falta
 <a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register">registrarse</a></p>
 <p><b>Tu página de gestión</b><br />En tu panel de gestión hay un enlace para crear una nueva enquiry</p>

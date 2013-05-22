@@ -22,6 +22,16 @@ CREATE TABLE IF NOT EXISTS user (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS file (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NULL,
+  uri varchar(255) NOT NULL,	/* file system location */
+  webPath varchar(255) NULL,	/* http://site.com'.$webPath */
+  model varchar(32) NOT NULL,
+  model_id int(11) NULL,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS budget (
   id int(11) NOT NULL AUTO_INCREMENT,
   parent int(11) NULL,
@@ -44,26 +54,17 @@ CREATE TABLE IF NOT EXISTS budget (
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2013', 0, 'root budget', 10000, 0);
 
-CREATE TABLE IF NOT EXISTS budget_category (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  code char(3) NOT NULL,
-  description varchar( 255 ) NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=INNODB DEFAULT CHARSET = utf8;
-INSERT INTO budget_category(code, description) VALUES ('I-E','Income-Economic');
-INSERT INTO budget_category(code, description) VALUES ('S-E','Spenditure-Economic');
-
-
 CREATE TABLE IF NOT EXISTS budget_description (
   id int(11) NOT NULL AUTO_INCREMENT,
-  category int(11) NOT NULL,
-  code varchar(20) NULL,
+  csv_id varchar(20) NOT NULL,
   language char(2) NOT NULL,
+  code varchar(20) NULL,
   concept varchar( 255 ) NOT NULL,
-  description LONGTEXT,
-  PRIMARY KEY (id),
-  FOREIGN KEY (category) REFERENCES budget_category(id)
-) ENGINE=INNODB DEFAULT CHARSET = utf8;
+  description MEDIUMTEXT,
+  text MEDIUMTEXT,	/* description without tags */
+  FULLTEXT (concept, text),
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS enquiry (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -81,7 +82,7 @@ CREATE TABLE IF NOT EXISTS enquiry (
   budget int(11), /* budget (null is a generic enquiry) */
   state int(11) DEFAULT 1,
   title varchar( 255 ) NOT NULL,
-  body LONGTEXT,
+  body MEDIUMTEXT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (related_to) REFERENCES enquiry(id),
   FOREIGN KEY (user) REFERENCES user(id),
@@ -91,14 +92,14 @@ CREATE TABLE IF NOT EXISTS enquiry (
   FOREIGN KEY (budget) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS block_user (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  user int(11) NOT NULL,
-  blocked_user int(11) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (user) REFERENCES user(id),
-  FOREIGN KEY (blocked_user) REFERENCES user(id)
-) ENGINE=INNODB DEFAULT CHARSET = utf8;
+CREATE TABLE IF NOT EXISTS enquiry_description (
+  /* id int(11) NOT NULL AUTO_INCREMENT, */
+  enquiry int(11) NOT NULL,
+  title varchar( 255 ) NOT NULL,
+  body MEDIUMTEXT NOT NULL,
+  FULLTEXT (title, body),
+  PRIMARY KEY (enquiry)
+) ENGINE=MyISAM DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS enquiry_subscribe (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -114,7 +115,7 @@ CREATE TABLE IF NOT EXISTS reply (
   enquiry int(11) NOT NULL,
   created DATETIME NOT NULL,
   team_member int(11) NOT NULL,
-  body LONGTEXT NOT NULL,
+  body MEDIUMTEXT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (enquiry) REFERENCES enquiry(id),
   FOREIGN KEY (team_member) REFERENCES user(id)
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS comment (
   reply int(11) NULL,
   created DATETIME NOT NULL,
   user int(11) NOT NULL,
-  body LONGTEXT NOT NULL,
+  body TEXT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (enquiry) REFERENCES enquiry(id),
   FOREIGN KEY (reply) REFERENCES reply(id),
@@ -145,7 +146,7 @@ CREATE TABLE IF NOT EXISTS vote (
 
 CREATE TABLE IF NOT EXISTS emailtext (
 	state int(11) NOT NULL,
-	body LONGTEXT NOT NULL,
+	body MEDIUMTEXT NOT NULL,
 	PRIMARY KEY (state)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -167,13 +168,22 @@ CREATE TABLE IF NOT EXISTS email (
 	title varchar( 255 ) NOT NULL,
 	sender int(11) NULL,
   	sent_as varchar(128) NOT NULL,
-	recipients LONGTEXT NOT NULL,
+	recipients TEXT NOT NULL,
 	enquiry int(11) NOT NULL,
-	body LONGTEXT NOT NULL,
+	body TEXT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (sender) REFERENCES user(id),
 	FOREIGN KEY (enquiry) REFERENCES enquiry(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS block_user (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user int(11) NOT NULL,
+  blocked_user int(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user) REFERENCES user(id),
+  FOREIGN KEY (blocked_user) REFERENCES user(id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS bulk_email (
 	id int(11) NOT NULL AUTO_INCREMENT,
@@ -181,9 +191,9 @@ CREATE TABLE IF NOT EXISTS bulk_email (
 	sent TINYINT(1) DEFAULT 0 NOT NULL,	/* 0 = draft, 1 = failed, 2 = sent */
 	sender int(11) NOT NULL,
   	sent_as varchar(128) NOT NULL,
-	recipients LONGTEXT NOT NULL,
+	recipients TEXT NOT NULL,
 	subject varchar(255) NOT NULL,
-	body LONGTEXT NOT NULL,
+	body TEXT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (sender) REFERENCES user(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -202,7 +212,7 @@ CREATE TABLE IF NOT EXISTS cms_page_content (
 	language char(2) NOT NULL,
 	pageURL varchar( 255 ) NOT NULL ,
 	pageTitle varchar( 255 ) DEFAULT NULL ,
-	body LONGTEXT,
+	body MEDIUMTEXT,
 	heading varchar( 255 ) DEFAULT NULL ,
 	metaTitle varchar( 255 ) DEFAULT NULL ,
 	metaDescription varchar( 255 ) DEFAULT NULL ,
@@ -210,17 +220,6 @@ CREATE TABLE IF NOT EXISTS cms_page_content (
 	PRIMARY KEY (id),
 	FOREIGN KEY (page) REFERENCES cms_page(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-
-CREATE TABLE IF NOT EXISTS file (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(255) NULL,
-  uri varchar(255) NOT NULL,	/* file system location */
-  webPath varchar(255) NULL,	/* http://site.com'.$webPath */
-  model varchar(32) NOT NULL,
-  model_id int(11) NULL,
-  PRIMARY KEY (id)
-) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS reset_password (
   id int(11) NOT NULL AUTO_INCREMENT,

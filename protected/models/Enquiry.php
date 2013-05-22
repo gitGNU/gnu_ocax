@@ -243,8 +243,10 @@ class Enquiry extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		if($doc = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)))
-			$doc->delete();
+		$desc=EnquiryDescription::model()->findByPk($this->id);
+		$desc->delete();
+		if($this->documentation)
+			$this->documentation0->delete();
 		foreach($this->reformulateds as $reformulated)
 			$reformulated->delete();
 		foreach($this->replys as $reply)
@@ -261,22 +263,22 @@ class Enquiry extends CActiveRecord
 
 	public function publicSearch()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
+		$search_text=$this->body;
+		/*
+			1. check exact phrase in enquiry body.
+			2. check exact phrase in enquiry title.
+			3. check exact phrase in budget descriptions.
+		
+		*/
 		$criteria=new CDbCriteria;
-
-		//$criteria->compare('id',$this->id);
-		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION);
-		$criteria->addCondition('state != '.ENQUIRY_ASSIGNED);
-		$criteria->addCondition('state != '.ENQUIRY_REJECTED);
-		//$criteria->compare('related_to',$this->related_to);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('budget',$this->budget);
-		$criteria->compare('state',$this->state);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('body',$this->body,true);
+		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
+								' AND state != '.ENQUIRY_ASSIGNED.
+								' AND state != '.ENQUIRY_REJECTED);
+								
+		//$criteria->compare('type',$this->type);
+		//$criteria->compare('state',$this->state);
+		//$criteria->compare('title',$search_text);
+		$criteria->compare('body',$search_text,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

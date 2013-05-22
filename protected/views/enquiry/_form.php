@@ -66,7 +66,9 @@ $this->widget('ext.tinymce.TinyMce', array(
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-
+    'settings' => array(
+    	'entity_encoding' => "raw",
+	),
     'htmlOptions' => array(
         'rows' => 10,
         'cols' => 80,

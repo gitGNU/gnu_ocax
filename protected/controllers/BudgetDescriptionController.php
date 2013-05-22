@@ -28,12 +28,8 @@ class BudgetDescriptionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(),
+				'actions'=>array('getDescription'),
 				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(),
-				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('view','create','update','admin','delete'),
@@ -64,13 +60,16 @@ class BudgetDescriptionController extends Controller
 	{
 		$model=new BudgetDescription;
 		$model->setScenario('create');
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		$model->category='';
 
 		if(isset($_POST['BudgetDescription']))
 		{
 			$model->attributes=$_POST['BudgetDescription'];
+			$model->text = strip_tags($model->description);	
+			$model->csv_id = strtoupper($model->csv_id);
+			$model->language = strtolower($model->language);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -95,6 +94,7 @@ class BudgetDescriptionController extends Controller
 		if(isset($_POST['BudgetDescription']))
 		{
 			$model->attributes=$_POST['BudgetDescription'];
+			$model->text = strip_tags($model->description);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

@@ -17,19 +17,15 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row" style="float:left">
-		<?php
-			echo $form->labelEx($model,'category');
-			echo $form->dropDownList($model, 'category',
-									CHtml::listData(BudgetCategory::model()->findAll(),'id','code'), array('prompt'=>__('Select a category'))
-									);
-			echo $form->error($model,'category');
-		?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'csv_id'); ?>
+		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
-	
+
 	<?php
 		if($listData = getLanguagesArray()){
-			echo '<div class="row" style="float:left;margin-left:40px">';
+			echo '<div class="row">';
 			echo $form->labelEx($model,'language');
 			//echo '<div class="hint">'.__('Description language').'</div>';
 			echo $form->dropDownList($model, 'language', $listData, array('prompt'=>__('Select a language')));
@@ -41,62 +37,48 @@
 		}	
 	?>
 
-	<div class="row" style="float:left;margin-left:40px">
-		<?php
-			echo $form->labelEx($model,'code');
-			echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20));
-			echo $form->error($model,'code');
-		?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'code'); ?>
+		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'code'); ?>
 	</div>
-<?php }else{ ?>
 
-<p>
-<div style="margin:-10px">
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'code',
-		array(
-			'name'=>'category',
-			'value'=>BudgetCategory::model()->findByPk($model->category)->code,
+<?php }else{ ?>
+	<p>
+	<div style="margin:-10px">
+	<?php $this->widget('zii.widgets.CDetailView', array(
+		'data'=>$model,
+		'attributes'=>array(
+			'csv_id',
+			'language',
+			'code',
 		),
-		array(
-			'name'=>'language',
-			'value'=>$model->getHumanLanguages($model->language),
-		),
-	),
-)); ?>
-</div>
-</p>
+	)); ?>
+	</div>
+	</p>
 <?php } ?>
 
-	<div class="row" style="clear:both">
-		<?php
-			echo $form->labelEx($model,'concept');
-			echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255));
-			echo $form->error($model,'concept');
-		?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'concept'); ?>
+		<?php echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'concept'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php /* echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); */ ?>
 <?php
 $this->widget('ext.tinymce.TinyMce', array(
     'model' => $model,
     'attribute' => 'description',
-    // Optional config
     'compressorRoute' => 'tinyMce/compressor',
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-	'settings' => array(
-		'theme_advanced_buttons1' => "	bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
-										justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
-										undo,redo,|,link,unlink,|,code",
+    'settings' => array(
+    	'entity_encoding' => "raw",
 	),
     'htmlOptions' => array(
-        'rows' => 6,
+        'rows' => 10,
         'cols' => 80,
     ),
 ));
@@ -104,8 +86,10 @@ $this->widget('ext.tinymce.TinyMce', array(
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
+
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? __('Create') : __('Save')); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
