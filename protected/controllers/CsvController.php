@@ -98,7 +98,7 @@ class CsvController extends Controller
 						break;
 					}
 				}
-				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $parent_id) = explode("|", $line);
+				list($id, $parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				if (in_array($id, $ids)) {
@@ -128,7 +128,7 @@ class CsvController extends Controller
 			foreach ($lines as $line_num => $line) {
 				if($line_num==0)
 					continue;
-				list($id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $parent_id) = explode("|", $line);
+				list($id, $parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
 				$ids[$id]=array();
@@ -249,7 +249,7 @@ class CsvController extends Controller
 			foreach ($lines as $line_num => $line) {
 				if($line_num==0)
 					continue;
-				list($csv_id, $code, $label, $concept, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $csv_parent_id) = explode("|", $line);
+				list($csv_id, $csv_parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 
 				$new_budget=new Budget;
 				$new_budget->csv_id = trim($csv_id);
