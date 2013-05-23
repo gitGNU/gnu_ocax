@@ -21,7 +21,15 @@ $(function() {
 </script>
 
 
-<?php echo '<h1>'.CHtml::encode($model->concept).' '.$model->getYearString().'</h1>';?>
+<?php
+	echo '<div style="font-size:1.6em">'.$model->getTitle().'</div>';
+	if($description = $model->getDescription()){
+		echo '<p style="margin-top:15px;">';
+		echo $description;
+		echo '</p>';
+
+	}
+?>
 
 <?php
 $dataProvider=new CActiveDataProvider('Enquiry', array(
@@ -40,7 +48,7 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'code',
-		//'concept',
+		'year',
 		array(
 	        'name'=>'initial_provision',
 			'type' => 'raw',

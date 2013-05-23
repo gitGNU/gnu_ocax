@@ -4,7 +4,7 @@
 
 
 $this->menu=array(
-	array('label'=>'Create BudgetDescription', 'url'=>array('create')),
+	array('label'=>__('Create description'), 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

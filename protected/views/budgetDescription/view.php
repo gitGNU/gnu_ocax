@@ -24,4 +24,10 @@ $this->menu=array(
 </div>
 </p>
 
-<?php echo $model->description; ?>
+<?php
+	if($model->text){
+		echo '<p><span style="font-size:1.2em">'.__('Description').'</span></p>';
+		echo $model->description;
+	}else
+		echo '<span style="font-size:1.2em;color:red;">'.__('Description not defined').'</span>';
+?>

@@ -128,7 +128,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 				if($budget->id == $globals['queried_budget'])
 					$highlight = 'queriedBudget';
 				echo '<div>';
-				echo '<span class="'.$highlight.'">'.$budget->concept.' '.format_number($budget->actual_provision).' €</span> ';
+				echo '<span class="'.$highlight.'">'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
 				echo '</div>';
 
 			$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
@@ -176,7 +176,7 @@ foreach($featured as $featured_budget){
 					'queried_budget' => $featured_budget->id,
 	);
 	
-	echo '<span style="font-size:1.3em">'.CHtml::encode($featured_budget->concept).'</span><br />';
+	echo '<span style="font-size:1.3em">'.CHtml::encode($featured_budget->getConcept()).'</span><br />';
 	echo '<div class="graph">';
 	//echo '<span style="float:right;font-weight:bold">'.$graph_percentage.' % of total budget</span><div style="clear:both"></div>';
 	echoChildBudgets($featured_budget, 0, $graph_width, $globals);

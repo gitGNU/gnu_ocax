@@ -1,6 +1,8 @@
 <?php
 
 function percentage($val1, $val2){
+	if($val2 == 0)
+		return 100;
 	$percent = ($val1 / $val2) * 100;
 	//$decimals = strlen($percent) - strrpos($percent, '.') - 1;
 
@@ -20,9 +22,11 @@ function getLanguagesArray($available=Null){
 	if(isset($languages[1])){
 		foreach($languages as $language){
 			if($language == 'es')
-				$listData['es'] = 'Español';
+				$listData['es'] = 'Castellano';
 			if($language == 'ca')
 				$listData['ca'] = 'Català';
+			if($language == 'gl')
+				$listData['gl'] = 'Gallego';
 			if($language == 'en')
 				$listData['en'] = 'English';
 		}
