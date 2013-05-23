@@ -67,7 +67,7 @@ class BudgetDescriptionController extends Controller
 		if(isset($_POST['BudgetDescription']))
 		{
 			$model->attributes=$_POST['BudgetDescription'];
-			$model->text = strip_tags($model->description);	
+			$model->text = trim(strip_tags($model->description));
 			$model->csv_id = strtoupper($model->csv_id);
 			$model->language = strtolower($model->language);
 			if($model->save())
@@ -94,7 +94,7 @@ class BudgetDescriptionController extends Controller
 		if(isset($_POST['BudgetDescription']))
 		{
 			$model->attributes=$_POST['BudgetDescription'];
-			$model->text = strip_tags($model->description);
+			$model->text = trim(strip_tags($model->description));
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

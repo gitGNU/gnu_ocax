@@ -8,6 +8,7 @@
  * @property string $csv_id
  * @property string $language
  * @property string $code
+  * @property string $label
  * @property string $concept
  * @property string $description
  * @property string $text
@@ -45,6 +46,7 @@ class BudgetDescription extends CActiveRecord
 		return array(
 			array('csv_id, language, concept', 'required'),
 			array('csv_id, code', 'length', 'max'=>20),
+			array('label', 'length', 'max'=>32),
 			array('language', 'length', 'max'=>2),
 			array('combination', 'validCombination', 'on'=>'create'),
 			array('concept', 'length', 'max'=>255),
@@ -84,6 +86,7 @@ class BudgetDescription extends CActiveRecord
 			'csv_id' => 'Internal_code',
 			'language' => __('Language'),
 			'code' => __('Code'),
+			'label' => __('Label'),
 			'concept' => __('Concept'),
 			'description' => __('Description'),
 			'text' => 'Text',

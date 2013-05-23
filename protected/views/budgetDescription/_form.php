@@ -59,6 +59,12 @@
 <?php } ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'label'); ?>
+		<?php echo $form->textField($model,'label',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'label'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'concept'); ?>
 		<?php echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'concept'); ?>

@@ -193,15 +193,16 @@ $(function() {
 	$.jqplot.config.enablePlugins = true;
 	//http://phpchart.net/phpChart/examples/data_labels.php
 	<?php
-		foreach($featured as $budget){?>
+		foreach($featured as $budget){ ?>
+		
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_group"></div>');
-			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->concept);?></span><br />');
+			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->getConcept());?></span><br />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
-			graph_container.append('<div style="font-size:1.5em;"><?php echo CHtml::encode($budget->concept);?></div>');
+			graph_container.append('<div style="font-size:1.5em;"><?php echo CHtml::encode($budget->getConcept());?></div>');
 			//graph_container.append(data.params.budget_details);
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);

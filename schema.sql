@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS budget_description (
   csv_id varchar(20) NOT NULL,
   language char(2) NOT NULL,
   code varchar(20) NULL,
+  label varchar(32) NULL,
   concept varchar( 255 ) NOT NULL,
   description MEDIUMTEXT,
   text MEDIUMTEXT,	/* description without tags */

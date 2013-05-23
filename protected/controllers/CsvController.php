@@ -368,13 +368,13 @@ class CsvController extends Controller
 					$budget->csv_id = trim(trim($row[0], '"'));
 					$budget->language = trim(trim($row[2], '"'));
 					$budget->code = trim(trim($row[3], '"'));
-					//$budget->label = trim($label);
-					$budget->concept = trim(trim($row[5], '"'));
+					$budget->label = trim(trim($row[4], '"'));
+					$budget->concept = trim(trim(trim($row[5], '"')),'.');
 					$description=str_replace('"', '', $row[6]);
+					$description=trim($description);
 					$budget->description = nl2br($description);
-					
-					//$budget->text = strip_tags(str_replace("<br />", " ", $description));
 					$budget->text = $description;
+					
 					//$budget->validate();
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										
 					if(!$budget->save()){
@@ -383,7 +383,6 @@ class CsvController extends Controller
 					}
 			}else
 				$header=0;
-			echo '<p>New row</p>';
 		}
 	}
 
