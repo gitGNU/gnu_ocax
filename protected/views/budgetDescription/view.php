@@ -19,6 +19,7 @@ $this->menu=array(
 		'language',
 		'code',
 		'concept',
+		'common',
 	),
 )); ?>
 </div>

@@ -374,7 +374,8 @@ class CsvController extends Controller
 					$description=trim($description);
 					$budget->description = nl2br($description);
 					$budget->text = $description;
-					
+					$budget->common = 1;
+										
 					//$budget->validate();
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										
 					if(!$budget->save()){

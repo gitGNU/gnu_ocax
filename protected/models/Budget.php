@@ -113,7 +113,8 @@ class Budget extends CActiveRecord
 
 	public function getYearString()
 	{
-		return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
+		return CHtml::encode($this->year);
+		//return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
 	}
 
 	public function getConcept()
@@ -228,6 +229,7 @@ class Budget extends CActiveRecord
 		if(!$this->code && !$this->concept)
 			return new CActiveDataProvider($this,array('data'=>array()));
 
+/*
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent is not null');	// dont show year budget
 
@@ -235,10 +237,41 @@ class Budget extends CActiveRecord
 		$criteria->compare('code',$this->code);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('initial_provision',$this->initial_provision);
+*/
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        $text = $this->concept;
+
+		$sql = "SELECT `budget`.*,
+						`budget_description`.`concept` AS `desc_concept`,
+						`budget_description`.`text`,
+						MATCH (`budget_description`.`concept`, `budget_description`.`text`) AGAINST (\"$text\") AS score
+
+				FROM `budget_description`
+
+				INNER JOIN `budget` ON (`budget`.`csv_id` = `budget_description`.`csv_id`)
+
+				WHERE
+					MATCH (`budget_description`.`concept`, `budget_description`.`text`) AGAINST (\"$text\")
+					AND `budget`.`year` = $this->year
+					AND `budget_description`.`language` = \"".Yii::app()->language."\"
+				ORDER BY score DESC";
+
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
+
+
+		//$sort = new CSort();
+		//$sort->attributes = array('title','release_date');
+
+		return new CSqlDataProvider($sql,array(	'totalItemCount'=>$count,
+												'pagination'=>array('pageSize'=>10),
+												//'sort'=>$sort,
+											));
+		//echo $p->getData()[0];
+
+		//return new CActiveDataProvider($this, array(
+		//	'criteria'=>$criteria,
+		//));
 	}
 
 

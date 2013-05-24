@@ -5,29 +5,30 @@
 
 <style>
 .label { color:grey; font-weight:bold;}
-
 </style>
 
 <?php
-$yearStr = CHtml::encode($data->year).' - '.CHtml::encode($data->year +1);
+
+$model=Budget::model();
 
 echo '<div style="margin-bottom:25px">';
-echo '<b>'.CHtml::encode($data->concept).'</b> '.$yearStr.'<br />';
-$url = Yii::app()->createAbsoluteUrl('budget/view', array('id'=>$data->id));
-echo CHtml::link($url, array('view', 'id'=>$data->id)).'<br />';
+echo '<span class="highlight_text"><b>';
+if($data['code'])
+	echo $data['code'].': ';
+echo CHtml::encode($data['desc_concept']).'</b></span><br />';
+//echo 'Score: '.CHtml::encode($data['score']).'<br />';
 
-if($data->code){
-	echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('code')).':</span> ';
-	echo CHtml::encode($data->code).'<br />';
-}
+$url = Yii::app()->createAbsoluteUrl('budget/view', array('id'=>$data['id']));
+echo CHtml::link($url, array('view', 'id'=>$data['id']), array('onclick'=>'js:showBudget('.$data['id'].');return false;')).'<br />';
+	
+echo '<span class="label">'.CHtml::encode($model->getAttributeLabel('initial_provision')).':</span> ';
+echo number_format(CHtml::encode($data['initial_provision']), 2, ',', '.').' €<br />';
 
-echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('initial_provision')).':</span> ';
-echo number_format(CHtml::encode($data->initial_provision), 2, ',', '.').' €<br />';
+echo '<span class="label">'.CHtml::encode($model->getAttributeLabel('actual_provision')).':</span> ';
+echo number_format(CHtml::encode($data['actual_provision']), 2, ',', '.').' €<br />';
 
-
-echo '<span class="label">'.CHtml::encode($data->getAttributeLabel('actual_provision')).':</span> ';
-echo number_format(CHtml::encode($data->actual_provision), 2, ',', '.').' €<br />';
-
+echo '<p class="highlight_text">'.CHtml::encode($data['text']).'</p>';
 echo '</div>';
+
 ?>
 

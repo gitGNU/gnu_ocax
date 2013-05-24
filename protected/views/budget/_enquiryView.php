@@ -36,7 +36,8 @@ if(isset($showLinks)){
 	}else
 		$enquiries = '0 '.__('enquiries made').' '.$create_enquiry_link;
 		
-	$budget_concept= CHtml::link($model->getConcept(), '#', array('onclick'=>'js:showBudgetDescription('.$model->id.');return false;'));
+	$budget_concept= CHtml::link($model->getConcept(), array('view', 'id'=>$model->id), array('onclick'=>'js:showBudget('.$model->id.');return false;'));
+	
 }else{
 	if($enquiry_count){
 		if($enquiry_count == 1)
@@ -49,14 +50,8 @@ if(isset($showLinks)){
 }
 ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		array(
-			'name'=>__('Concept'),
-			'type'=>'raw',
-			'value'=> $budget_concept,
-		),
+<?php
+$attributes=array(
 		array(
 	        'label'=>__('Year'),
 	        'value'=>$model->getYearString(),
@@ -72,7 +67,24 @@ if(isset($showLinks)){
 	        'label'=>__('Enquiries'),
 			'type'=>'raw',
 	        'value'=>$enquiries,
-		),		
-	),
+		),
+	);
+
+if(!isset($noConcept)){
+	$concept =	array(
+					array(
+						'name'=>__('Concept'),
+						'type'=>'raw',
+						'value'=> $budget_concept,
+					),	
+				);
+	array_splice( $attributes, 0, 0, $concept );
+}
+
+?>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>$attributes,
 )); ?>
 

@@ -3,10 +3,8 @@
 /* @var $model Budget */
 //Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
-$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
-$graph_width=897;
-
 ?>
+
 <style>
 .graph {
 	background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/images/graph_paper.png');
@@ -96,8 +94,6 @@ function toggleChildren(id){
 }
 </script>
 
-
-
 <?php
 
 function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
@@ -158,61 +154,37 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	}
 }
 
-foreach($featured as $featured_budget){
-	
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$featured_budget->id;
-	
-	$largest_provision=0;
-	foreach(Budget::model()->findAll($criteria) as $budget){
-		if($budget->actual_provision > $largest_provision)
-			$largest_provision = $budget->actual_provision;
-	}
-	$graph_percentage=percentage($largest_provision, $featured_budget->actual_provision);
-	
-	$globals=array(	'yearly_initial_provision' => $featured_budget->initial_provision,
-					'yearly_actual_provision' => $featured_budget->actual_provision,
-					'largest_provision'=> $largest_provision,
-					'queried_budget' => $featured_budget->id,
-	);
-	
-	echo '<span style="font-size:1.3em">'.CHtml::encode($featured_budget->getConcept()).'</span><br />';
-	echo '<div class="graph">';
-	//echo '<span style="float:right;font-weight:bold">'.$graph_percentage.' % of total budget</span><div style="clear:both"></div>';
-	echoChildBudgets($featured_budget, 0, $graph_width, $globals);
-	echo '</div>';
-	echo '<hr style="margin-top:20px;margin-bottom:20px" />';
-}
-
 ?>
 
-
 <?php
-$dataProvider = $model->publicSearch();
-$data = $dataProvider->getData();
-if( count($data) > 0){ ?>
-	<div style="font-size:1.5em;margin-top:15px;margin-bottom:5px"><?php echo __('Filtered results')?></div>
-	<?php $this->widget('zii.widgets.CListView', array(
-		'id'=>'search-results',
-		'ajaxUpdate' => true,
-		'dataProvider'=> $dataProvider,
-		'itemView'=>'_searchResults',
-		'enableHistory' => true, 
-	));
-}else{
-	echo '<div id="bar_display" style="margin-top:5px;margin-bottom:15px;"></div>';
-}
-/*
-	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div style="margin-top:40px;">';
-		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
+	$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
+	$graph_width=897;
+	
+	echo '<div id="bar_display" style="margin-top:5px;margin-bottom:15px;">';
+	foreach($featured as $featured_budget){
+	
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'parent = '.$featured_budget->id;
+	
+		$largest_provision=0;
+		foreach(Budget::model()->findAll($criteria) as $budget){
+			if($budget->actual_provision > $largest_provision)
+				$largest_provision = $budget->actual_provision;
+		}
+		$graph_percentage=percentage($largest_provision, $featured_budget->actual_provision);
+	
+		$globals=array(	'yearly_initial_provision' => $featured_budget->initial_provision,
+						'yearly_actual_provision' => $featured_budget->actual_provision,
+						'largest_provision'=> $largest_provision,
+						'queried_budget' => $featured_budget->id,
+		);
+	
+		echo '<span style="font-size:1.3em">'.CHtml::encode($featured_budget->getConcept()).'</span><br />';
+		echo '<div class="graph">';
+		//echo '<span style="float:right;font-weight:bold">'.$graph_percentage.' % of total budget</span><div style="clear:both"></div>';
+		echoChildBudgets($featured_budget, 0, $graph_width, $globals);
 		echo '</div>';
+		echo '<hr style="margin-top:20px;margin-bottom:20px" />';
 	}
-	foreach($featured as $budget){
-		echo '<div style="margin-top:40px;">';
-		echo CHtml::link($budget->concept,array('budget/view','id'=>$budget->id), array('class'=>'button'));
-		echo '</div>';
-	}
-}
-*/
+	echo '</div>';
 ?>

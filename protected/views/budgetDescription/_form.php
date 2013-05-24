@@ -65,6 +65,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'common'); ?>
+		<div class="hint"><?php echo __('Common to all councils');?></div>
+		<?php echo $form->checkBox($model,'common', array('checked'=>$model->common)); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'concept'); ?>
 		<?php echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'concept'); ?>

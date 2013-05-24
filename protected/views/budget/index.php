@@ -22,6 +22,7 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 
 <style>
+.highlight { background-color: #FFEC8B; }
 .button {
    border-top: 1px solid #96d1f8;
    background: #65a9d7;
@@ -63,28 +64,57 @@ Yii::app()->clientScript->registerScript('search', "
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
+
 <script>
-function showBudgetDescription(budget_id){
+function showBudget(budget_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDescription/'+budget_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		async: false,
-		//dataType: 'json',
-		beforeSend: function(){ },
+		dataType: 'json',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
-			$('#budget_description_body').html(data);
-			$('#budget_description').bPopup({
-				modalClose: false
-				, follow: ([false,false])
-				, fadeSpeed: 10
-				, positionStyle: 'absolute'
-				, modelColor: '#ae34d5'
-			});
+			if(data != 0){
+				$("#budget_body").html(data.html);
+				$('#budget').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
 		},
 		error: function() {
-			alert("Error on get budget description");
+			alert("Error on show budget");
 		}
 	});
+}
+function highlightResult(){
+	stringArray=$('#Budget_concept').val().split(" ");
+	for (var i = 0; i < stringArray.length; i++) {
+		if(stringArray[i].length > 3)
+	    	$('.highlight_text').highlight(stringArray[i], { wordsOnly: true });
+		else
+			continue;
+	}
+}
+function afterSearch(){
+	if($.fn.yiiListView.getKey('search-results', 0)){
+		$('#the_graphs').hide();
+		$('#no_results').hide();
+		$('#search_results_container').show();
+		highlightResult();
+		$("html,body").animate({scrollTop:0},0);
+	}
+	else{
+		$('#search_results_container').hide();
+		$('#no_results').hide();
+		$('#no_results').fadeIn('fast');
+		$('#the_graphs').show();
+	}
 }
 </script>
 
@@ -156,7 +186,10 @@ if(count($years) > 1){
 
 <div style="margin-top:10px;margin-bottom:20px;height:10px;">
 <?php
-
+echo 	'<div id="no_results" style="float:left;font-size:1.3em;margin-top:15px;display:none">'.
+		__('No search results').
+		'</div>';
+		
 $change=Yii::app()->request->baseUrl.'/budget?graph_type';
 echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app()->theme->baseUrl.
 																		'/images/graph_type_bar.png" onclick="window.location=\''.$change.'=bar\'" />';
@@ -173,24 +206,35 @@ echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app
 </div>
 <div style="clear:both;"></div>
 
-<div>
 <?php
-if(!$root_budget){
-	echo '<h1>'. __('No data available').'</h1>';
-}else{
-	if($graph_type == 'bar')
-		$this->renderPartial('_indexBar',array('model'=>$model));
-	else
-		$this->renderPartial('_indexPie',array('model'=>$model));
-}
+	echo '<div id="search_results_container" style="display:none">';
+	$this->widget('zii.widgets.CListView', array(
+		'id'=>'search-results',
+		'ajaxUpdate' => true,
+		'dataProvider'=> $model->publicSearch(),
+		'itemView'=>'_searchResults',
+		'enableHistory' => true,
+		'afterAjaxUpdate' => 'js:function(){ afterSearch(); }',
+	));
+	echo '</div>';
+
+	echo '<div id="the_graphs">';
+	if(!$root_budget){
+		echo '<h1>'. __('No data available').'</h1>';
+	}else{
+		if($graph_type == 'bar')
+			$this->renderPartial('_indexBar',array('model'=>$model));
+		else
+			$this->renderPartial('_indexPie',array('model'=>$model));
+	}
+	echo '</div>';
 ?>
-</div>
 
 
-<div id="budget_description" style="display:none;width:700px;">
+<div id="budget" style="display:none;width:900px;">
 <div style="background-color:white;padding:10px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="budget_description_body"></div>
+<div id="budget_body"></div>
 </div>
 <p>&nbsp;</p>
 </div>

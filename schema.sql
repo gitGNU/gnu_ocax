@@ -63,6 +63,8 @@ CREATE TABLE IF NOT EXISTS budget_description (
   concept varchar( 255 ) NOT NULL,
   description MEDIUMTEXT,
   text MEDIUMTEXT,	/* description without tags */
+  common TINYINT(1) NOT NULL DEFAULT 0,	/* Is this description common to all councils */
+  modified DATETIME NULL,
   FULLTEXT (concept, text),
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET = utf8;

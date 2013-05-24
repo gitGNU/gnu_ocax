@@ -8,10 +8,12 @@
  * @property string $csv_id
  * @property string $language
  * @property string $code
-  * @property string $label
+ * @property string $label
  * @property string $concept
  * @property string $description
  * @property string $text
+ * @property integer $common
+ * @property string $modified
  */
 class BudgetDescription extends CActiveRecord
 {
@@ -45,6 +47,7 @@ class BudgetDescription extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('csv_id, language, concept', 'required'),
+			array('common', 'numerical', 'integerOnly'=>true),
 			array('csv_id, code', 'length', 'max'=>20),
 			array('label', 'length', 'max'=>32),
 			array('language', 'length', 'max'=>2),
@@ -90,8 +93,11 @@ class BudgetDescription extends CActiveRecord
 			'concept' => __('Concept'),
 			'description' => __('Description'),
 			'text' => 'Text',
+			'common' => __('Common'),
+			'modified' => __('Modified'),
 		);
 	}
+
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

@@ -70,6 +70,7 @@ class BudgetDescriptionController extends Controller
 			$model->text = trim(strip_tags($model->description));
 			$model->csv_id = strtoupper($model->csv_id);
 			$model->language = strtolower($model->language);
+			$model->modified = date('c');
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -95,6 +96,7 @@ class BudgetDescriptionController extends Controller
 		{
 			$model->attributes=$_POST['BudgetDescription'];
 			$model->text = trim(strip_tags($model->description));
+			$model->modified = date('c');
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

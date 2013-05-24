@@ -94,7 +94,8 @@ class EnquiryController extends Controller
 		$model=$this->loadModel($id);
 		if($model){
 			$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
-			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model,'replys'=>$replys),true,true)));
+			// can remove replys ??
+			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model,/*'replys'=>$replys*/),true,true)));
 		}else
 			echo 0;
 	}

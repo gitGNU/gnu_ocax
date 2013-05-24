@@ -26,6 +26,7 @@ if(Yii::app()->request->isAjaxRequest){
 #directlink span  { cursor:pointer; }
 #directlink span:hover { color:black; }
 </style>
+
 <script>
 function subscribe(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
@@ -326,7 +327,7 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 }
 ?>
 
-<?php echo $this->renderPartial('_view', array('model'=>$model,'replys'=>$replys)); ?>
+<?php echo $this->renderPartial('_view', array('model'=>$model,/*'replys'=>$replys*/)); ?>
 </div>
 <div class="clear"></div>
 

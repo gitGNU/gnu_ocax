@@ -213,19 +213,5 @@ $(function() {
 </script>
 
 <?php
-$dataProvider = $model->publicSearch();
-$data = $dataProvider->getData();
-if( count($data) > 0){ ?>
-	<div style="font-size:1.5em;margin-top:15px;margin-bottom:5px"><?php echo __('Filtered results')?></div>
-	<?php $this->widget('zii.widgets.CListView', array(
-		'id'=>'search-results',
-		'ajaxUpdate' => true,
-		'dataProvider'=> $dataProvider,
-		'itemView'=>'_searchResults',
-		'enableHistory' => true, 
-	));
-}else{
-	echo '<div id="pie_display" style="margin-top:5px;margin-bottom:15px;"></div>';
-}
-
+echo '<div id="pie_display" style="margin-top:5px;margin-bottom:15px;"></div>';
 ?>
