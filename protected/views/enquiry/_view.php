@@ -20,6 +20,7 @@
 .clear { clear:both; }
 </style>
 
+
 <script>
 function isUser(){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
@@ -139,7 +140,6 @@ function vote(reply_id, like){
 		},
 		error: function() { alert("error on vote"); },
 	});
-
 }
 </script>
 
@@ -262,7 +262,7 @@ foreach($replys as $reply){
 
 <div id="comment_form" style="display:none"></div>
 
-<?php if (!Yii::app()->user->isGuest) : ?>
+<!--
 <style>           
 	.bClose{
 		cursor: pointer;
@@ -271,13 +271,21 @@ foreach($replys as $reply){
 		top: -21px;
 	}
 </style>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+-->
 
-
-<div id="contact_petition" style="display:none;width:700px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="contact_petition_content"></div>
+<div id="budget_popup" style="display:none;width:900px;">
+	<div style="background-color:white;padding:10px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="budget_popup_body"></div>
+	</div>
+	<p>&nbsp;</p>
 </div>
+
+<?php if (!Yii::app()->user->isGuest) : ?>
+	<div id="contact_petition" style="display:none;width:700px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="contact_petition_content"></div>
+	</div>
 <? endif ?>
 
 <?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
@@ -321,6 +329,7 @@ function deleteFile(file_id){
 	});
 }
 </script>
+
 <div id="files" style="display:none;width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="files_content" style="background-color:white;"></div>

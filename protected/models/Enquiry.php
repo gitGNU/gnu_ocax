@@ -243,8 +243,8 @@ class Enquiry extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		$desc=EnquiryDescription::model()->findByPk($this->id);
-		$desc->delete();
+		if($text=EnquiryText::model()->findByPk($this->id))	//remove if statement when dev.ocax is ready
+			$text->delete();
 		if($this->documentation)
 			$this->documentation0->delete();
 		foreach($this->reformulateds as $reformulated)

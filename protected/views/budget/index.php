@@ -77,8 +77,8 @@ function showBudget(budget_id){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#budget_body").html(data.html);
-				$('#budget').bPopup({
+				$("#budget_popup_body").html(data.html);
+				$('#budget_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, fadeSpeed: 10
@@ -231,10 +231,10 @@ echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app
 ?>
 
 
-<div id="budget" style="display:none;width:900px;">
+<div id="budget_popup" style="display:none;width:900px;">
 <div style="background-color:white;padding:10px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="budget_body"></div>
+<div id="budget_popup_body"></div>
 </div>
 <p>&nbsp;</p>
 </div>

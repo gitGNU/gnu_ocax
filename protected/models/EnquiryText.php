@@ -1,19 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "enquiry_description".
+ * This is the model class for table "enquiry_text".
  *
- * The followings are the available columns in table 'enquiry_description':
+ * The followings are the available columns in table 'enquiry_text':
  * @property integer $enquiry
  * @property string $title
  * @property string $body
  */
-class EnquiryDescription extends CActiveRecord
+class EnquiryText extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return EnquiryDescription the static model class
+	 * @return EnquiryText the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -25,7 +25,7 @@ class EnquiryDescription extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'enquiry_description';
+		return 'enquiry_text';
 	}
 
 	/**

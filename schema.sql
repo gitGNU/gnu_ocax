@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS enquiry (
   FOREIGN KEY (budget) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS enquiry_description (
+CREATE TABLE IF NOT EXISTS enquiry_text (
   /* id int(11) NOT NULL AUTO_INCREMENT, */
   enquiry int(11) NOT NULL,
   title varchar( 255 ) NOT NULL,

@@ -52,7 +52,7 @@
 
 	<div class="row" style="margin-top:50px;">
 		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->dropDownList($model, 'code', array('0'=>'Not published','1'=>'Published'));?>
+		<?php echo $form->dropDownList($model, 'code', array('0'=>__('Not published'),'1'=>__('Published')));?>
 		<?php echo $form->error($model,'code'); ?>
 	</div>
 
@@ -61,7 +61,7 @@
 <div class="clear"></div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? __('Create') : __('Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -164,10 +164,10 @@ class EnquiryController extends Controller
 				$model->state=ENQUIRY_ACCEPTED;
 			}
 			if($model->save()){
-				$description = new EnquiryDescription;
+				$description = new EnquiryText;
 				$description->enquiry=$model->id;
 				$description->title=$model->title;
-				$description->body=strip_tags(str_replace("<br />", " ", $model->body));
+				$description->body=trim(strip_tags(str_replace("<br />", " ", $model->body)));
 				$description->save();
 				
 				if($model->related_to){
@@ -265,9 +265,9 @@ class EnquiryController extends Controller
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
 			if($model->save()){
-				$description=EnquiryDescription::model()->findByPk($model->id);
+				$description=EnquiryText::model()->findByPk($model->id);
 				$description->title=$model->title;
-				$description->body= strip_tags(str_replace("<br />", " ", $model->body));
+				$description->body= trim(strip_tags(str_replace("<br />", " ", $model->body)));
 				$description->save();
 								
 				if(Yii::app()->user->getUserID() == $model->team_member){

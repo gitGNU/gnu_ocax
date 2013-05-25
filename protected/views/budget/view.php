@@ -2,6 +2,11 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
+if(Yii::app()->request->isAjaxRequest){
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+}
+
 $this->layout='//layouts/column1';
 $root_budget = $model->findByAttributes(array('csv_id'=>$model->csv_id[0], 'year'=>$model->year));
 if(!$root_budget){
@@ -87,6 +92,7 @@ $this->widget('PGridView', array(
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 }
+
 ?>
 </p>
 

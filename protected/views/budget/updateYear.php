@@ -14,9 +14,21 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $downloadCsv );
 	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );
+}elseif($model->year != Config::model()->findByPk('year')){
+	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
+	array_splice( $this->menu, 1, 0, $deleteYear );
 }
 ?>
-
+<style>
+   	.bClose{
+		cursor: pointer;
+		position: absolute;
+		right: -21px;
+		top: -21px;
+	}
+</style>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script>
 function deleteBudgets(){
 	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
@@ -73,12 +85,12 @@ function megaDelete(el){
 
 </script>
 
-<?php $title='Edit year '.($model->year).' - '.($model->year + 1);?>
+<?php $title=__('Edit year').' '.$model->year;?>
 <?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>$title, 'totalBudgets'=>$totalBudgets)); ?>
 
 <?php
 if($enquirys->getData()){
-echo '<p></p><div style="font-size:1.5em">Enquirys presupuestarias del '.($model->year).' - '.($model->year + 1).'</div>';
+echo '<p></p><div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';
 $this->widget('PGridView', array(
 	'id'=>'enquirys-grid',
 	'dataProvider'=>$enquirys,

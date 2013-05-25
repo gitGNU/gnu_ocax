@@ -64,6 +64,7 @@ function toggleStatesDiagram(){
 		$('#states_diagram').slideDown('fast');
 	}
 }
+
 function getContactForm(recipient_id){
 	if(!isUser())
 		return;
@@ -75,7 +76,7 @@ function getContactForm(recipient_id){
 		async: false,
 		data: {'recipient_id': recipient_id, 'enquiry_id': <?php echo $model->id?> },
 		beforeSend: function(){ },
-		complete: function(){ /* $('#right_loading_gif').hide(); */ },
+		complete: function(){ },
 		success: function(data){
 			if(data != 1){
 				$('#contact_petition_content').html();
@@ -127,25 +128,29 @@ function sendContactForm(form){
 		}
 	});
 }
-function showBudgetDescription(budget_id){
+function showBudget(budget_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDescription/'+budget_id,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		async: false,
-		//dataType: 'json',
-		beforeSend: function(){ },
+		dataType: 'json',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
-			$('#budget_description_body').html(data);
-			$('#budget_description').bPopup({
-				modalClose: false
-				, follow: ([false,false])
-				, fadeSpeed: 10
-				, positionStyle: 'absolute'
-				, modelColor: '#ae34d5'
-			});
+			if(data != 0){
+				alert('here');
+				$("#budget_popup_body").html(data.html);
+				$('#budget_popup').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
 		},
 		error: function() {
-			alert("Error on get budget description");
+			alert("Error on show budget");
 		}
 	});
 }
@@ -330,13 +335,5 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 <?php echo $this->renderPartial('_view', array('model'=>$model,/*'replys'=>$replys*/)); ?>
 </div>
 <div class="clear"></div>
-
-<div id="budget_description" style="display:none;width:700px;">
-<div style="background-color:white;padding:10px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="budget_description_body"></div>
-</div>
-<p>&nbsp;</p>
-</div>
 
 
