@@ -1,5 +1,7 @@
 <?php
 
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 
 ?>

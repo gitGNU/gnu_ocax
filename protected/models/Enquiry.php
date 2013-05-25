@@ -245,8 +245,6 @@ class Enquiry extends CActiveRecord
 	{
 		if($text=EnquiryText::model()->findByPk($this->id))	//remove if statement when dev.ocax is ready
 			$text->delete();
-		if($this->documentation)
-			$this->documentation0->delete();
 		foreach($this->reformulateds as $reformulated)
 			$reformulated->delete();
 		foreach($this->replys as $reply)
@@ -261,15 +259,17 @@ class Enquiry extends CActiveRecord
 		return parent::beforeDelete();
 	}
 
+	protected function afterDelete()
+	{
+		parent::afterDelete();
+		if($file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)))
+			$file->delete();
+	}
+
 	public function publicSearch()
 	{
 		$search_text=$this->body;
-		/*
-			1. check exact phrase in enquiry body.
-			2. check exact phrase in enquiry title.
-			3. check exact phrase in budget descriptions.
-		
-		*/
+
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
 								' AND state != '.ENQUIRY_ASSIGNED.

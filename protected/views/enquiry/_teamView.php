@@ -1,3 +1,19 @@
+<?php
+if(Yii::app()->request->isAjaxRequest){
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+}
+?>
+
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<style>
+	   	.bClose{
+		cursor: pointer;
+		position: absolute;
+		right: -21px;
+		top: -21px;
+	}
+</style>
 
 <div class="enquiry">
 <div class="title"><?php echo __('The Enquiry')?></div>
@@ -101,3 +117,5 @@ $this->widget('PGridView', array(
 
 
 </div>
+
+

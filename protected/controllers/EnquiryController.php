@@ -384,12 +384,17 @@ class EnquiryController extends Controller
 			Yii::app()->end();
 		}
 		if($model->documentation){
-				$model->documentation0->delete();
-				$model->documentation = Null;
-				//if(!$model->state > ENQUIRY_AWAITING_REPLY)
-				//	$model->state=ENQUIRY_ACCEPTED;
+			$file=$model->documentation0;
+			$model->documentation = Null;
+			//if(!$model->state > ENQUIRY_AWAITING_REPLY)
+			//	$model->state=ENQUIRY_ACCEPTED;
+			$model->save();
+			if(!$file->delete()){
+				$model->documentation = $file->id;
+				$model->save();
+			}			
 		}
-		$model->save();
+
 		$this->render('submit',array(
 			'model'=>$model,
 		));

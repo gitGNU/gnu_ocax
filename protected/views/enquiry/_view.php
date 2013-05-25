@@ -2,7 +2,12 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
+if(Yii::app()->request->isAjaxRequest){
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+}
 ?>
+
 
 <style>
 .commentBlockLink { float:right;text-align:right; }
@@ -251,27 +256,12 @@ foreach($replys as $reply){
 		echo '</div>';
 
 	echo '</div><div class="clear"></div>';
-/*
-	echo '<div class="bottomBar">';
-	echo __('Is this reply satisfactory? If not, you may').' '.CHtml::link(__('reformulate the enquiry'), array('enquiry/create', 'related'=>$model->id));
-	echo '</div>';
-*/
+
 	echo '</div>';	//close reply
 }?>
 
 
 <div id="comment_form" style="display:none"></div>
-
-<!--
-<style>           
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
--->
 
 <div id="budget_popup" style="display:none;width:900px;">
 	<div style="background-color:white;padding:10px;">
@@ -288,6 +278,7 @@ foreach($replys as $reply){
 	</div>
 <? endif ?>
 
+
 <?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
 <script>
 function uploadFile(model,model_id){
@@ -297,8 +288,8 @@ function uploadFile(model,model_id){
 		async: false,
 		success: function(data){
 			if(data != 0){
-				$("#files_content").html(data);
-				$('#files').bPopup({
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, fadeSpeed: 10
@@ -329,12 +320,10 @@ function deleteFile(file_id){
 	});
 }
 </script>
-
-<div id="files" style="display:none;width:500px;">
+<div id="files_popup" style="display:none;width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="background-color:white;"></div>
+<div id="files_popup_content" style="background-color:white;"></div>
 </div>
 <? endif ?>
-
 
 

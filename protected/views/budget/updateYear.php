@@ -33,7 +33,7 @@ if($totalBudgets){
 function deleteBudgets(){
 	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
 	if (ans)
-		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/deleteYearsBudgets/<?php echo $model->id;?>';
+		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/deleteYearsBudgets/<?php echo $model->id ;?>';
 }
 function showEnquiry(enquiry_id){
 	$.ajax({
@@ -74,7 +74,8 @@ function megaDelete(el){
 		success: function(data){
 			$('#mega_delete').bPopup().close();
 			if(data != 0){
-				$('#enquirys-grid').yiiGridView('update');
+				window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/updateYear/<?php echo $model->id;?>';
+				//$('#enquirys-grid').yiiGridView('update'); // get this working again (jquery overwritten)
 			}
 		},
 		error: function() {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-14 19:08+0100\n"
+"PO-Revision-Date: 2013-05-25 11:36+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,9 +19,9 @@ msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:81
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:163
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:218
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:224
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/edit.php:35
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:38
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:59
 msgid "Type"
 msgstr "Tipo"
@@ -57,13 +57,12 @@ msgstr "Destinatarios"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:88
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Reply.php:81
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:176
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:79
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:182
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:95
 msgid "Enquiry"
 msgstr "Consulta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:89
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:78
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BulkEmail.php:94
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:166
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:94
@@ -71,31 +70,31 @@ msgid "Body"
 msgstr "Cuerpo"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:66
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:121
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:104
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:40
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:14
 msgid "Username"
 msgstr "Nombre de usuario"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:67
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:122
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:105
 msgid "Full name"
 msgstr "Nombe completo"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:68
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:123
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:106
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/LoginForm.php:41
 msgid "Password"
 msgstr "Contraseña"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:69
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:125
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:108
 msgid "Repeat password"
 msgstr "Contraseña repetida"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/RegisterForm.php:70
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:127
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:86
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:110
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:87
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -106,26 +105,6 @@ msgstr "Nombre"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Reply.php:82
 msgid "Date of reply"
 msgstr "Fecha de respuesta"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:75
-msgid "URL Name"
-msgstr "Nombre para URL"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:76
-msgid "Block"
-msgstr "Bloc"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:77
-msgid "Published"
-msgstr "Publicada"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:79
-msgid "Page Title"
-msgstr "Título de página"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/CmsPage.php:80
-msgid "Order"
-msgstr "Orden"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BulkEmail.php:42
 msgid "Draft"
@@ -142,12 +121,12 @@ msgstr "Enviado OK"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BulkEmail.php:89
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:164
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Emailtext.php:93
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:180
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:226
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:186
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:232
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/edit.php:40
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:96
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:10
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:83
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:97
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:99
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/create.php:63
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/bulkEmail/admin.php:45
 msgid "State"
@@ -158,19 +137,20 @@ msgstr "Estado"
 msgid "Subject"
 msgstr "Asunto"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:124
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:107
 msgid "New password"
 msgstr "Contraseña nueva"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:128
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:111
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:90
 msgid "Language"
 msgstr "Idioma"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:129
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:112
 msgid "Joined"
 msgstr "Fecha de alta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:131
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/User.php:114
 msgid "Is partner"
 msgstr "És soci"
 
@@ -179,30 +159,33 @@ msgid "Parent"
 msgstr "Padre"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:100
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:62
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:58
 msgid "Year"
 msgstr "Año"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:101
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetCategory.php:71
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:91
 msgid "Code"
 msgstr "Código"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:102
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:92
 msgid "Label"
 msgstr "Etiqueta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:103
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:57
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:93
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:78
 msgid "Concept"
 msgstr "Concepto"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:104
-#, fuzzy
 msgid "Initial provision"
-msgstr "Ancho inicial panel lateral"
+msgstr "Previsto inicial"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:105
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:169
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:177
 msgid "Actual provision"
 msgstr ""
 
@@ -226,13 +209,13 @@ msgstr "Spent T4"
 msgid "Weight"
 msgstr "Pes"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:145
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Budget.php:174
 msgid "Budget table saved on the"
 msgstr "Tabla de presupuestos guardada el"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:72
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:78
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:186
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:191
 msgid "Reply"
 msgstr "Respuesta"
 
@@ -242,14 +225,21 @@ msgid "User"
 msgstr "Usuario"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Vote.php:74
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:193
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:197
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:198
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:202
 msgid "Vote"
 msgstr "Vota"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:81
 msgid "Comment"
 msgstr "Comentario"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetCategory.php:72
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:81
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:94
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:30
+msgid "Description"
+msgstr "Descripción"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:56
 msgid "is not a valid language."
@@ -262,10 +252,6 @@ msgstr "Parámetro"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:80
 msgid "Value"
 msgstr "Valor"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Config.php:81
-msgid "Description"
-msgstr "Descripción"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:43
 msgid "Generic"
@@ -319,20 +305,20 @@ msgid "Related to"
 msgstr "Relacionada con"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:155
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:14
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:30
 msgid "Formulated by"
 msgstr "Formulada por"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:156
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:18
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:34
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/admin.php:67
 msgid "Assigned to"
 msgstr "Asignada a"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:158
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:185
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:208
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:88
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:191
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:214
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:104
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -341,20 +327,20 @@ msgid "Assigned"
 msgstr "Asignada"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:160
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:240
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:44
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:246
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:60
 msgid "Submitted"
 msgstr "Entregada"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:161
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:237
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:38
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:243
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:54
 msgid "Registry number"
 msgstr "Nº de registro"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Enquiry.php:162
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/submit.php:111
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:248
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:254
 msgid "Documentation"
 msgstr "Documentación"
 
@@ -366,117 +352,148 @@ msgstr "Recuérdame"
 msgid "CSV file"
 msgstr "Fichero CSV"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/ImportCSV.php:63
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/ImportCSV.php:64
 msgid "generated on the"
 msgstr "generated on the"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:8
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:66
+msgid "Internal_code/Language combination already exists."
+msgstr "La combinación Internal_code/Idioma ya existe"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:96
+msgid "Common"
+msgstr "Común"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/BudgetDescription.php:97
+msgid "Modified"
+msgstr "Modificado"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:13
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:8
 msgid "Budget with internal code"
 msgstr "Presupuesto con Internal code"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:8
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:13
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:8
 msgid "is not defined"
 msgstr "no está definida"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:88
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:91
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:49
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:53
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:96
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:99
 msgid "Do you wish to"
 msgstr "Do you wish to"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:88
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:92
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:49
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:54
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:96
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:100
 msgid "make an enquiry"
 msgstr "make an enquiry"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:89
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:50
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:97
 msgid "about this budget"
 msgstr "about this budget"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:91
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:52
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:99
 msgid "No enquiries have been made about this budget yet"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:99
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:65
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:107
 msgid "enquiry(s) already made by citizens"
 msgstr ""
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:163
-msgid "constitutes "
-msgstr "constitueix un"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:163
-msgid "of the total anual budget"
-msgstr "of the total anual budget"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:164
-msgid "and is comprised of the following budgets"
-msgstr "i està compost per les següents partides"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:168
-msgid "Key"
-msgstr "Leyenda"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:172
-msgid "Up one level"
-msgstr "Sube un nivel"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.php:194
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexPie.php:225
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.jqplot.php:155
-msgid "Filtered results"
-msgstr "Resultats de la cerca"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:11
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:37
 msgid "Featured budgets"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:100
-msgid "Budget for"
-msgstr "Presupuestes para"
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:18
+msgid "Delete year"
+msgstr "Borrar año"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:113
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:89
+msgid "Edit year"
+msgstr "Editar año"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/updateYear.php:94
+msgid "Budgetary enquiries for"
+msgstr "Consultas presupuestarias del"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:122
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:49
+msgid "Budgets"
+msgstr "Presupuestos"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:141
 msgid "Available years"
 msgstr "Años disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:151
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:179
 msgid "Filter"
 msgstr "Filtro"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:170
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_indexBar.jqplot.php:168
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:190
+msgid "No search results"
+msgstr "No hubo coincidencias"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:201
 msgid "Download database"
 msgstr "Bajar base de datos"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:181
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:223
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:171
+msgid "constitutes "
+msgstr "constitueix un"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:171
+msgid "of the total anual budget"
+msgstr "of the total anual budget"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:172
+msgid "and is comprised of the following budgets"
+msgstr "i està compost per les següents partides"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:176
+msgid "Key"
+msgstr "Leyenda"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:180
+msgid "Up one level"
+msgstr "Sube un nivel"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:27
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:35
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:44
 msgid "New enquiry"
 msgstr "Nueva consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:31
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:33
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:44
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:32
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:34
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:46
 msgid "1 enquiry made"
 msgstr "1 consulta hecha"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:35
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:38
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:46
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:36
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:39
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:48
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:50
 msgid "enquiries made"
 msgstr "consultas hechas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:69
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:65
 msgid "Euros per person"
 msgstr "Euros por persona"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:73
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:91
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_enquiryView.php:69
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:92
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:50
 msgid "Enquiries"
 msgstr "Consultas"
@@ -497,6 +514,27 @@ msgstr "La población de este año"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_formYear.php:50
 msgid "defined budgets"
 msgstr "Partidas definidas"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_formYear.php:55
+msgid "Not published"
+msgstr "No publicado"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_formYear.php:55
+msgid "Published"
+msgstr "Publicada"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_formYear.php:64
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/_form.php:122
+msgid "Create"
+msgstr "Crear"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/_formYear.php:64
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/_form.php:122
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/changeType.php:87
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:92
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:84
+msgid "Save"
+msgstr "Guardar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/featured.php:52
 msgid "Feature budget"
@@ -568,14 +606,64 @@ msgstr "comenta el día"
 msgid "comments"
 msgstr "comenta"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/show.php:33
+msgid "CMS editor"
+msgstr "CMS editor"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/admin.php:6
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/update.php:6
+msgid "Create CmsPage"
+msgstr "Create CmsPage"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/admin.php:87
+msgid "Manage Cms Pages"
+msgstr "Manage Cms Pages"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/admin.php:107
+msgid "Page name"
+msgstr "Nombre de página"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/admin.php:111
+#, fuzzy
+msgid "block"
+msgstr "Bloc"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/admin.php:112
+msgid "weight"
+msgstr "Peso"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/admin.php:113
+msgid "published"
+msgstr "publicada"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/update.php:7
+msgid "View CmsPage"
+msgstr "Ver CmcPage"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/update.php:8
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/create.php:6
+msgid "Manage CmsPage"
+msgstr "Manage CmsPage"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/update.php:12
+msgid "Update CMS Page"
+msgstr "Update CMS Page"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/create.php:10
+msgid "Create CMS Page"
+msgstr "Create CMS Page"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/cmsPage/_form.php:31
+msgid "Translations"
+msgstr "Traducciones"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/csv/regenCSV.php:11
 msgid "(Re)generate CSV files to include in zip"
 msgstr ""
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/csv/regenCSV.php:31
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:33
-msgid "Restore budgets"
-msgstr "Restaurar presupuestos"
+msgid "Include budgets"
+msgstr "Incluir partida"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:10
 msgid "Restore all budgets from a backup"
@@ -584,6 +672,10 @@ msgstr "Restaurar todos los presupuestos desde una copia"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:14
 msgid "These copies are made right before a CSV file is imported"
 msgstr "Las copias se hacen justo antes de importar ficheros CSV"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:33
+msgid "Restore budgets"
+msgstr "Restaurar presupuestos"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/file/showBudgetFiles.php:46
 msgid "Note: Delete some backups to save disk space. You only really need the last good copy."
@@ -679,37 +771,37 @@ msgstr "Entrega"
 msgid "Add document"
 msgstr "Añadir documento"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:157
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:65
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:163
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:81
 msgid "The enquiry"
 msgstr "La Consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:157
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:65
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:163
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:81
 msgid "has been reformulated"
 msgstr "ha estado reformulada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:158
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:66
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:164
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:82
 msgid "time(s)"
 msgstr "times(s)"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:211
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:212
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:217
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:218
 msgid "by"
 msgstr "por"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:219
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:23
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:225
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:39
 msgid "reformulated"
 msgstr "reformulada"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:222
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:228
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:42
 msgid "Subscribed users"
 msgstr "Usuarios subscritos"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:291
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:297
 msgid "Keep me informed via email when there are changes"
 msgstr "Mantenme informado por correo cuando hayan cambios"
 
@@ -725,8 +817,8 @@ msgstr "Cambiar tipo"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/edit.php:28
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/edit.php:32
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:15
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:19
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:31
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:35
 msgid "on the"
 msgstr "el día"
 
@@ -783,6 +875,18 @@ msgstr "The enquiry is inappropriate"
 msgid "Reject"
 msgstr "Rechaza"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:62
+msgid "Enquiries made to date"
+msgstr "Consultas hechas hasta hoy"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:63
+msgid "This is a list of enquiries made by citizens like you."
+msgstr ""
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/index.php:108
+msgid "Formulate a new enquiry"
+msgstr "Formula una consulta nueva"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/assess.php:38
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/teamView.php:28
 msgid "Assess reply"
@@ -796,13 +900,18 @@ msgstr ""
 msgid "The general consensus is that the reply is not satisfactory"
 msgstr ""
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:3
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:19
 msgid "The Enquiry"
 msgstr "La Consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:37
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:53
 msgid "missing"
 msgstr "falta"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_searchPublic.php:17
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/_search.php:60
+msgid "Search"
+msgstr "Busca"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/teamView.php:14
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/changeType.php:7
@@ -845,33 +954,33 @@ msgstr "Gestiona consultas"
 msgid "States"
 msgstr "Estados"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:20
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:22
 msgid "Reformulated enquires"
 msgstr "Consultas reformuladas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:21
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:23
 msgid "Replies"
 msgstr "Respuestas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:24
 msgid "Files"
 msgstr "Ficheros"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:23
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:25
 msgid "Record of sent emails"
 msgstr "Récord de correos enviados"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:24
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:154
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:236
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:159
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:241
 msgid "Comments"
 msgstr "Comentarios"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:25
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:27
 msgid "Votes"
 msgstr "Votos"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_megaDelete.php:28
 msgid "User email subscriptions"
 msgstr "Subscripciones por email"
 
@@ -891,38 +1000,38 @@ msgstr "Acceptes aquesta consulta com a vàlida"
 msgid "Accept"
 msgstr "Accepta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:26
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:32
 msgid "Please login to participate"
 msgstr "Please login to participate"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:39
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:45
 msgid "Before participating, please confirm your email address"
 msgstr "Before participating, please confirm your email address"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:158
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:171
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:240
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:250
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:163
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:176
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:245
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:255
 msgid "Add comment"
 msgstr "Añadir comentario"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:189
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:194
 msgid "Valorations"
 msgstr "Valoraciones"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:190
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:195
 msgid "positive"
 msgstr "positivas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:194
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:199
 msgid "negative"
 msgstr "negativas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:207
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:212
 msgid "Add attachment"
 msgstr "Añadir adjunto"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:219
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:224
 msgid "Attachments"
 msgstr "Adjuntos"
 
@@ -950,15 +1059,9 @@ msgstr "La consulta original"
 msgid "Select a budget from the grid below"
 msgstr "Selecciona un presupuesto de la tabla más abajo"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/changeType.php:87
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/updateRoles.php:92
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:93
-msgid "Save"
-msgstr "Guardar"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/changeType.php:90
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:88
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:94
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:90
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:85
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/reply/create.php:78
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:57
 msgid "Cancel"
@@ -976,12 +1079,12 @@ msgstr "Nueva consulta reformulada"
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:80
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:82
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/reply/create.php:75
 msgid "Publish"
 msgstr "Publicar"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:80
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_form.php:82
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/reply/create.php:75
 msgid "Update"
 msgstr "Actualiza"
@@ -1043,6 +1146,45 @@ msgstr "Enviar correo masivo"
 msgid "Preview"
 msgstr "Vista preliminar"
 
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:6
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/admin.php:7
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/update.php:6
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/create.php:10
+msgid "Create description"
+msgstr "Crear descripción"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:7
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/update.php:13
+msgid "Update description"
+msgstr "Update description"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:8
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/update.php:8
+msgid "Delete description"
+msgstr "Delete description"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:9
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/update.php:9
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/create.php:6
+msgid "Manage descriptions"
+msgstr "Manage descriptions"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:33
+msgid "Description not defined"
+msgstr "Manage descriptions"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/update.php:7
+msgid "View description"
+msgstr "View description"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/_form.php:31
+msgid "Select a language"
+msgstr "Seleccionar lenguaje"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/_form.php:69
+msgid "Common to all councils"
+msgstr "Común a todos los ayuntamientos"
+
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/view.php:6
 msgid "Change user's roles"
 msgstr "Cambiar roles de usuario"
@@ -1087,15 +1229,15 @@ msgstr ""
 msgid "Assign enquiries to team members and check status"
 msgstr "Assign enquiries to team members and check status"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:104
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:110
 msgid "My enquiries"
 msgstr "Mis consultas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:135
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:141
 msgid "I am subscribed to these enquirytions"
 msgstr "Estoy subscrito a estas consultas"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:136
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:142
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se te enviará un correo electrónico cuando estas consultas se actualicen"
 
@@ -1111,23 +1253,19 @@ msgstr "Gestiona Usuarios"
 msgid "Change roles"
 msgstr "Cambiar roles"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/_search.php:60
-msgid "Search"
-msgstr "Busca"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:20
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:21
 msgid "Change your user information"
 msgstr "Cambiar tus datos de usuario"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:25
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:26
 msgid "Your information"
 msgstr "Tus datos"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:55
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:46
 msgid "Your preferred language"
 msgstr "Tu idioma preferido"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:74
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/update.php:65
 msgid "Change password"
 msgstr "Cambiar la contraseña"
 
@@ -1208,10 +1346,6 @@ msgstr "Inici"
 msgid "My page"
 msgstr "Mi página"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:49
-msgid "Budgets"
-msgstr "Presupuestos"
-
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:52
 msgid "Register"
 msgstr "Registrarse"
@@ -1224,11 +1358,11 @@ msgstr "Login"
 msgid "Logout"
 msgstr "Logout"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:84
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:85
 msgid "Contact information"
 msgstr "Datos de contacto"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:87
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:88
 msgid "Telephone"
 msgstr "Teléfono"
 
@@ -1255,13 +1389,17 @@ msgstr "Petición de contacto privado por email de un usuario del '%s"
 msgid "Email not sent"
 msgstr "Email no enviado"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:153
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:155
 msgid "Changes saved Ok"
 msgstr "Se han guardado los cambios correctamente"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:177
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/UserController.php:179
 msgid "is blocked"
 msgstr "está bloqueado"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:116
+msgid "File uploaded correctly"
+msgstr "File uploaded correctly"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/FileController.php:203
 msgid "Zip file updated"
@@ -1307,20 +1445,24 @@ msgstr "El enlace para recuperar tu contraseña se ha caducado"
 msgid "Please change your password now"
 msgstr "Por favor, cambia tu contraseña ahora"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:223
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:227
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:230
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:234
 msgid "Enquiry has been published"
 msgstr "Enquiry has been published"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:223
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:230
 msgid "We have sent you an email"
 msgstr "Te hemos enviado un correo electrónico"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:572
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/EnquiryController.php:589
 msgid "Enquiry has been deleted"
 msgstr "Se ha borrado la consulta"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:418
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:379
+msgid "Year deleted"
+msgstr "Año borrado"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/BudgetController.php:440
 msgid "Database restored correctly"
 msgstr "Database restored correctly"
 
