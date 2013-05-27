@@ -106,10 +106,18 @@ $this->widget('PGridView', array(
 
 </div>
 <div class="right">
-<p style="font-size:1.5em"><?php echo __('Formulate a new enquiry')?></p>
+<div style="font-size:1.5em"><?php echo __('Formulate a new enquiry')?></div>
 
-<p><b>Crear una cuenta</b><br />Antes de enviarnos una enquiry, hace falta
-<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register">registrarse</a></p>
+<p>
+<?php
+	if(Yii::app()->user->isGuest){
+		echo 	__('Remember you must first').' '.
+				'<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
+				'<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>';
+	}
+;?>
+</p>
+
 <p><b>Tu página de gestión</b><br />En tu panel de gestión hay un enlace para crear una nueva enquiry</p>
 <p><b>Explicar los dos tipos de enquirys</b><br />Se pueden realizar enquirys del tipo genérica o presupuestaria</p>
 <p><b>Más</b><br />Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas </p>

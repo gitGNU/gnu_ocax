@@ -138,7 +138,6 @@ function showBudget(budget_id){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				alert('here');
 				$("#budget_popup_body").html(data.html);
 				$('#budget_popup').bPopup({
                     modalClose: false
@@ -262,8 +261,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 	));
 }
 if($model->budget)
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'enquiry'=>$model));
-
+	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'showEnquiriesMadeLink'=>1, 'enquiry'=>$model));
 ?>
 </div>
 
