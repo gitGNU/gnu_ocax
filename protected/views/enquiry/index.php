@@ -93,6 +93,7 @@ $this->widget('PGridView', array(
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
+			'created',
 			array(
 				'header'=>__('State'),
 				'name'=>'state',

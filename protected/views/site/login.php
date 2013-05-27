@@ -56,7 +56,7 @@ function requestNewPasswd(){
 	),
 )); ?>
 
-	<div class="title">Login</div>
+	<div class="title"><?php echo __('Login')?></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -77,7 +77,7 @@ function requestNewPasswd(){
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton(__('Login')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -87,8 +87,7 @@ function requestNewPasswd(){
 </div>
 <div class="right">
 <p style="font-size:1.5em;margin-bottom:10px;"><?php echo __('Still haven\'t got an account?');?></p>
-<p><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register"><?php echo __('Sign up');?></a>
-y audita tu municipio</p>
+<p><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register"><?php echo __('Sign up');?></a></p>
 <br/>
 <p style="font-size:1.5em;margin-bottom:10px;"><?php echo __('Forgotten your password?');?></p>
 

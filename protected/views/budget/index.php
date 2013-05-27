@@ -80,9 +80,8 @@ function showBudget(budget_id){
 				$("#budget_popup_body").html(data.html);
 				$('#budget_popup').bPopup({
                     modalClose: false
-					, follow: ([false,false])
 					, fadeSpeed: 10
-					, positionStyle: 'absolute'
+					, positionStyle: 'fixed'
 					, modelColor: '#ae34d5'
                 });
 			}
@@ -197,7 +196,7 @@ echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app
 																		'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
 
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div style="margin-top:15px;float:right;margin-right:20px;">';
+		echo '<div style="margin-top:22px;float:right;margin-right:20px;">';
 		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
 		echo '</div>';
 	}

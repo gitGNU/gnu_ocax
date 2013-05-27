@@ -23,22 +23,26 @@ else{
 }
 
 if(isset($showLinks)){
+	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.');return false;');
 	$create_enquiry_link = 	'<span style="float:right">'.
 							CHtml::link(__('New enquiry'),array('enquiry/create', 'budget'=>$model->id)).
 							'</span>';
 	if($enquiry_count){
 		if($enquiry_count == 1){
-			if(isset($enquiry) && $enquiry->budget == $model->id)
+			if(isset($enquiry) && $enquiry->budget == $model->id && isset($showEnquiriesMadeLink))
 				$enquiries = __('1 enquiry made').' '.$create_enquiry_link;
 			else
-				$enquiries = CHtml::link(__('1 enquiry made'), array('budget/view','id'=>$model->id)).' '.$create_enquiry_link;
-		}else
-			$enquiries = CHtml::link($enquiry_count.' '.__('enquiries made'), array('budget/view','id'=>$model->id)).' '.$create_enquiry_link;
-			
+				$enquiries = CHtml::link(__('1 enquiry made'), array('budget/view','id'=>$model->id), $budgetModal).' '.$create_enquiry_link;
+		}else{
+			if(isset($showEnquiriesMadeLink))
+				$enquiries = CHtml::link($enquiry_count.' '.__('enquiries made'), array('budget/view','id'=>$model->id), $budgetModal).' '.$create_enquiry_link;
+			else
+				$enquiries = $enquiry_count.' '.__('enquiries made').' '.$create_enquiry_link;
+		}
 	}else
 		$enquiries = '0 '.__('enquiries made').' '.$create_enquiry_link;
 
-	$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), array('onclick'=>'js:showBudget('.$model->id.');return false;'));
+	$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), $budgetModal);
 	
 }else{
 	if($enquiry_count){

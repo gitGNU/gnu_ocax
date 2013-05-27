@@ -92,6 +92,12 @@
 		AGPL<br/>
 		<a href="http://ocax.net">ocax.net</a><br />
 	</div>
+	<div style="width:35%; float:right;  margin:0px; cursor:pointer;" onClick="window.location='http://www.auditoriaciudadana.net'">
+		<img style="float:right" src="<?php echo Yii::app()->theme->baseUrl; ?>/images/LogoPACD.png" />
+		<?php echo __('An iniciative of the Auditoria Ciutadana del Deute');
+		//Una iniciativa de la Plataforma per l'Auditoria Ciutadana del Deute
+		?>
+	</div>
 	</div>
 	<div style="clear:both;"></div>
 	</div><!-- footer -->
