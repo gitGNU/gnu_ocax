@@ -2,10 +2,20 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
+/*
 if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 }
+*/
+
+if(Yii::app()->clientScript->isScriptRegistered('jquery.js'))
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+if(Yii::app()->clientScript->isScriptRegistered('jquery.min.js'))
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+if(Yii::app()->clientScript->isScriptRegistered('jquery.ba-bbq.js'))
+	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 
 $this->layout='//layouts/column1';
 
@@ -69,7 +79,7 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 
 <?php
 
-if(/*!Yii::app()->request->isAjaxRequest &&*/ count($dataProvider->getData()) > 0){
+if(count($dataProvider->getData()) > 0){
 	echo '<p>';
 	if(count($dataProvider->getData()) == 1)
 		echo '<div style="font-size:1.3em;margin-top:25px;">'.__('One enquiry has already been made about this budget').'</div>';
@@ -79,7 +89,7 @@ if(/*!Yii::app()->request->isAjaxRequest &&*/ count($dataProvider->getData()) > 
 	}
 
 	$this->widget('PGridView', array(
-		'id'=>'enquiry-grid',
+		'id'=>'budgets-enquiry-grid',
 		'dataProvider'=>$dataProvider,
 	    'onClick'=>array(
 	        'type'=>'url',

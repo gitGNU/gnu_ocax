@@ -43,8 +43,10 @@ function changeColumn()
 <div class="left">
 <h1><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></h1>
 <p>
-Tanto genéricas como las presupuestarias,
-realizar una nueva enquiry sobre la actividad de tu ayuntamiento y nosotros haremos la gestión.<br />
+<?php
+$str = __('Ask here what you\'d like to know to your Council. To make a budgetary enquiry go to the %s section and forumlate the enquiry from there').'.';
+echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
+?>
 </p>
 </div>
 <div class="right">

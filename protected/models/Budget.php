@@ -103,10 +103,10 @@ class Budget extends CActiveRecord
 			'concept' => __('Concept'),
 			'initial_provision' => __('Initial provision'),
 			'actual_provision' => __('Actual provision'),
-			'trimester_1' => __('Spent T1'),
-			'trimester_2' => __('Spent T2'),
-			'trimester_3' => __('Spent T3'),
-			'trimester_4' => __('Spent T4'),
+			'trimester_1' => __('Trimester 1'),
+			'trimester_2' => __('Trimester 2'),
+			'trimester_3' => __('Trimester 3'),
+			'trimester_4' => __('Trimester 4'),
 			'weight' => __('Weight'),
 		);
 	}

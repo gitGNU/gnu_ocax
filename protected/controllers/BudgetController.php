@@ -61,9 +61,25 @@ class BudgetController extends Controller
 	 */
 	public function actionView($id)
 	{
+		
+		$model=$this->loadModel($id);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
+	}
+
+	public function actionGetBudget($id)
+	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
+
+		$model=$this->loadModel($id);
+		if($model){
+			//echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model,'dataProvider'=>$dataProvider),true,true)));
+			echo $this->renderPartial('view',array('model'=>$model),true,true);
+		}else
+			echo 0;
 	}
 
 	public function actionGetBudgetDetailsForBar($id)
@@ -83,41 +99,6 @@ class BudgetController extends Controller
 			echo 0;
 	}
 
-	/**
-	 * team_member uses this to change enquiry type.
-	 */	
-	public function actionGetBudgetDetails($id)
-	{
-		//if(!Yii::app()->request->isAjaxRequest)
-		//  Yii::app()->end();
- 
-		$model=$this->loadModel($id);
-		if($model){
-			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
-		}else
-			echo 0;
-	} 
-	
-	public function actionGetBudget($id)
-	{
-		if(!Yii::app()->request->isAjaxRequest)
-			Yii::app()->end();
-
-		$model=$this->loadModel($id);
-		if($model){
-			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model),true,true)));
-		}else
-			echo 0;
-	}
-
-/*
-	public function actionGetBudgetDescription($id)
-	{
-		$model=$this->loadModel($id);
-		echo $this->renderPartial('_description',array('model'=>$model));	
-	}
-*/
-
 	public function actionGetPieData($id)
 	{
 		$model=$this->loadModel($id);
@@ -129,7 +110,6 @@ class BudgetController extends Controller
 			$graphThisModel=$model->parent0;
 			$goBackID=$model->parent0->parent0->id;
 		}
-
 		
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>CHtml::encode($graphThisModel->getConcept()),
@@ -151,11 +131,27 @@ class BudgetController extends Controller
 						);
 		}
 		$result=array('data'=>$data, 'params'=>$params,);
+		
 		if(Yii::app()->request->isAjaxRequest)
 			echo CJavaScript::jsonEncode($result);
 		else
 			return CJavaScript::jsonEncode($result);
 	}
+
+	/**
+	 * team_member uses this to change enquiry type.
+	 */	
+	public function actionGetBudgetDetails($id)
+	{
+		//if(!Yii::app()->request->isAjaxRequest)
+		//  Yii::app()->end();
+ 
+		$model=$this->loadModel($id);
+		if($model){
+			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
+		}else
+			echo 0;
+	} 
 
 	/**
 	 * Creates a new model.

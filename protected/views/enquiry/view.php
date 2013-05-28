@@ -5,6 +5,7 @@
 if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 }
 ?>
 <?php if(!Yii::app()->request->isAjaxRequest){?>
@@ -133,12 +134,12 @@ function showBudget(budget_id){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		async: false,
-		dataType: 'json',
+		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#budget_popup_body").html(data.html);
+				$("#budget_popup_body").html(data);
 				$('#budget_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
