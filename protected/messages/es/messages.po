@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-28 15:58+0100\n"
+"PO-Revision-Date: 2013-05-28 17:12+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -386,7 +386,7 @@ msgstr "Todavía nadie ha hecho una consulta al Ayuntamiento sobre esta partida 
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:71
 msgid "Do you wish to make an enquiry"
-msgstr "¿Quieres hacerte una"
+msgstr "¿Quieres hacer tu una"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:85
 msgid "One enquiry has already been made about this budget"

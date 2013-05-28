@@ -67,6 +67,12 @@ Yii::app()->clientScript->registerScript('search', "
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
 
 <script>
+$(function() {
+	$('#Budget_concept').focus(function () {
+		$('#Budget_code').val('');
+	});
+});
+
 function showBudget(budget_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,

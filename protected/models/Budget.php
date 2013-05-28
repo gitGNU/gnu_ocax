@@ -202,7 +202,6 @@ class Budget extends CActiveRecord
 		$params = $this->getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
-#E72A95#18E01E		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->uri;
 		exec($command, $output, $return_var);
 		echo $return_var;
 	}
@@ -229,15 +228,30 @@ class Budget extends CActiveRecord
 		if(!$this->code && !$this->concept)
 			return new CActiveDataProvider($this,array('data'=>array()));
 
-/*
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('parent is not null');	// dont show year budget
 
-		$criteria->compare('year',$this->year);
-		$criteria->compare('code',$this->code);
-		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('initial_provision',$this->initial_provision);
-*/
+		if($this->code){
+			$sql = "SELECT `budget`.*,
+						`budget_description`.`concept` AS `desc_concept`,
+						`budget_description`.`text`
+
+				FROM `budget_description`
+
+				INNER JOIN `budget` ON (`budget`.`csv_id` = `budget_description`.`csv_id`)
+
+				WHERE
+					`budget`.`year` = $this->year
+					AND `budget`.`code` = $this->code
+					AND `budget`.`parent` is not null
+					AND `budget_description`.`language` = \"".Yii::app()->language."\"";
+
+			
+			$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+			$count = Yii::app()->db->createCommand($cnt)->queryScalar();
+
+			return new CSqlDataProvider($sql,array(	'totalItemCount'=>$count,
+													'pagination'=>array('pageSize'=>10),
+												));
+		}
 
         $text = $this->concept;
 
@@ -259,19 +273,9 @@ class Budget extends CActiveRecord
 		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
 		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
 
-
-		//$sort = new CSort();
-		//$sort->attributes = array('title','release_date');
-
 		return new CSqlDataProvider($sql,array(	'totalItemCount'=>$count,
 												'pagination'=>array('pageSize'=>10),
-												//'sort'=>$sort,
 											));
-		//echo $p->getData()[0];
-
-		//return new CActiveDataProvider($this, array(
-		//	'criteria'=>$criteria,
-		//));
 	}
 
 
