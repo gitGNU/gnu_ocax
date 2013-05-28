@@ -43,22 +43,13 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 
 	echo '<div>';
 		echo '<div class="view" style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right;">';
-		echo $this->renderPartial('_enquiryView',array(	'model'=>$model,
-														'showCreateEnquiry'=>1,
-														'showLinks'=>1,
-														'noConcept'=>1,
+		$this->renderPartial('_enquiryView',array(	'model'=>$model,
+													'showCreateEnquiry'=>1,
+													'showLinks'=>1,
+													'noConcept'=>1,
 												),false,true);
-		$this->widget('zii.widgets.CDetailView', array(
-		'data'=>$model,
-		'attributes'=>array(
-						array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
-						array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1).' €'),
-						array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2).' €'),
-						array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3).' €'),
-						array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4).' €'),
-					),
-		));
-		echo '</div>';	
+		$this->renderPartial('_moreDetails',array('model'=>$model));
+	echo '</div>';	
 	
 	echo '<p  style="margin-top:15px;">';
 	if($description = $model->getDescription()){
