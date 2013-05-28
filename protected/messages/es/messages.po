@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-28 12:09+0100\n"
+"PO-Revision-Date: 2013-05-28 15:58+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Destinatarios"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:88
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Reply.php:81
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:105
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:107
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:182
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:95
 msgid "Enquiry"
@@ -369,30 +369,30 @@ msgstr "Común"
 msgid "Modified"
 msgstr "Modificado"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:24
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:8
 msgid "Budget with internal code"
 msgstr "Presupuesto con Internal code"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:24
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:8
 msgid "is not defined"
 msgstr "no está definida"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:68
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:70
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:99
 msgid "No enquiries have been made about this budget yet"
 msgstr "Todavía nadie ha hecho una consulta al Ayuntamiento sobre esta partida presupuestaria"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:69
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:71
 msgid "Do you wish to make an enquiry"
 msgstr "¿Quieres hacerte una"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:83
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:85
 msgid "One enquiry has already been made about this budget"
 msgstr "Ya hay una consulta hecha sobre esta partida presupuestaria"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:85
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:87
 #, php-format
 msgid "%s enquiries have already been made about this budget"
 msgstr "Ya hay %s consultas hechas sobre esta partida presupuestaria"
@@ -1034,11 +1034,19 @@ msgstr "Accepta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:32
 msgid "Please login to participate"
-msgstr "Please login to participate"
+msgstr "Por favor, inicia una sesión para participar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:45
 msgid "Before participating, please confirm your email address"
-msgstr "Before participating, please confirm your email address"
+msgstr "Antes de participar por favor, confirma tu dirección de correo electrónico"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:138
+msgid "You have already voted favourably"
+msgstr "Ya has votado favorablemente"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:140
+msgid "You have already voted unfavourably"
+msgstr "Ya has votado desfavorablemente"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:163
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:176
@@ -1456,11 +1464,11 @@ msgstr "Petición de nueva contraseña"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:258
 msgid "has received a request to reset your password"
-msgstr "ha rebut una petició de restableix la teva contrasenya"
+msgstr "ha recibido una petición para restablecer tu contraseña"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:259
 msgid "If you have not forgotten your password, please ignore this email"
-msgstr "Si no has oblidat la teva contrasenya per favor, ignora aquest correu"
+msgstr "Si no has olvidado tu contraseña por favor, ignora este correo"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:260
 msgid "To reset your password, follow this link"

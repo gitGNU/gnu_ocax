@@ -121,13 +121,17 @@ $this->widget('PGridView', array(
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 			array(
-				'header'=>'Enquirys',
+				'header'=>__('Enquiries'),
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
-			'created',
 			array(
-				'header'=>'Estat',
+				'header'=>__('Formulated'),
+				'name'=>'created',
+				'value'=>'format_date($data[\'created\'])',
+			),
+			array(
+				'header'=>__('State'),
 				'name'=>'state',
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',
@@ -153,13 +157,17 @@ $this->widget('PGridView', array(
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 			array(
-				'header'=>'Enquirys',
+				'header'=>__('Enquiries'),
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
-			'created',
 			array(
-				'header'=>'Estat',
+				'header'=>__('Formulated'),
+				'name'=>'created',
+				'value'=>'format_date($data[\'created\'])',
+			),
+			array(
+				'header'=>__('State'),
 				'name'=>'state',
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',

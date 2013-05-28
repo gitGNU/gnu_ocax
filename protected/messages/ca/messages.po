@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-28 12:09+0100\n"
+"PO-Revision-Date: 2013-05-28 16:02+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Destinataris"
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Email.php:88
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Reply.php:81
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/models/Comment.php:77
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:105
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:107
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/view.php:182
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_teamView.php:95
 msgid "Enquiry"
@@ -369,30 +369,30 @@ msgstr "Comú"
 msgid "Modified"
 msgstr "Modificat"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:24
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:8
 msgid "Budget with internal code"
 msgstr "Pressupost amb Internal code"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:22
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:24
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:8
 msgid "is not defined"
 msgstr "no està definida"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:68
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:70
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/old.view.php:99
 msgid "No enquiries have been made about this budget yet"
 msgstr "Encara ningú no ha fet una consulta a l'Ajuntament sobre aquesta partida pressupostària"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:69
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:71
 msgid "Do you wish to make an enquiry"
 msgstr "En vols fer tu una"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:83
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:85
 msgid "One enquiry has already been made about this budget"
 msgstr "Ja hi ha una consulta feta sobre aquesta partida pressupostària"
 
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:85
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/view.php:87
 #, php-format
 msgid "%s enquiries have already been made about this budget"
 msgstr "Ja hi ha %s consultes fetes sobre aquesta partida pressupostària"
@@ -415,6 +415,7 @@ msgid "Budgetary enquiries for"
 msgstr "Consultes pressupostàries del"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budget/index.php:121
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:48
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/app/themes/ocax/views/layouts/main.php:49
 msgid "Budgets"
 msgstr "Pressupostos"
@@ -580,7 +581,7 @@ msgstr "més info"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:23
 msgid "Please enter your email address"
-msgstr "Per favor, introdueix el teu correu electrònic"
+msgstr "Si us plau, introdueix el teu correu electrònic"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:59
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/site/login.php:80
@@ -1036,11 +1037,19 @@ msgstr "Accepta"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:32
 msgid "Please login to participate"
-msgstr "Please login to participate"
+msgstr "Si us plau, inicia una sessió per a participar"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:45
 msgid "Before participating, please confirm your email address"
-msgstr "Before participating, please confirm your email address"
+msgstr "Abans de participar si us plau, confirma la teva adreça de correu electrònic"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:138
+msgid "You have already voted favourably"
+msgstr "Ja has votat favorablement"
+
+#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:140
+msgid "You have already voted unfavourably"
+msgstr "Ja has votat desfavorablement"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:163
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/enquiry/_view.php:176
@@ -1247,11 +1256,6 @@ msgstr "Benvingut"
 #, php-format
 msgid "Ask here what you'd like to know to your Council. To make a budgetary enquiry go to the %s section and forumlate the enquiry from there"
 msgstr "Pregunta el que vulguis saber al teu ajuntament, des d'aquest apartat pots fer una consulta oberta. Per a fer una consulta pressupostària ves a la pestanya %s i realitzar la consulta des d'allà"
-
-#: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:48
-#, fuzzy
-msgid "Budget"
-msgstr "Pressupostos"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/user/panel.php:53
 msgid "My user information"
@@ -1479,7 +1483,7 @@ msgstr "T'hem enviat un correu electrònic"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:269
 msgid "Sorry, we cannot find you on our database"
-msgstr "Disculpa, no et trobem en la nostra base de dades"
+msgstr "Disculpa, no et trobem en la base de dades"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/SiteController.php:285
 msgid "The password recovery link has expired"

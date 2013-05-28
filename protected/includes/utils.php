@@ -33,4 +33,13 @@ function getLanguagesArray($available=Null){
 	}
 	return $listData;
 }
+
+function format_date($date, $hours=Null){
+	$date = new DateTime($date);
+	if($hours)
+		return $date->format('d-m-Y H:i:s');
+	else
+		return $date->format('d-m-Y');
+}
+
 ?>

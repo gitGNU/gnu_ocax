@@ -93,7 +93,11 @@ $this->widget('PGridView', array(
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
-			'created',
+			array(
+				'header'=>__('Formulated'),
+				'name'=>'created',
+				'value'=>'format_date($data[\'created\'])',
+			),
 			array(
 				'header'=>__('State'),
 				'name'=>'state',

@@ -12,7 +12,7 @@
 	?>
 	<?php echo CHtml::encode($data->user0->fullname); ?></span></b>
 
-	<?php echo __('comments on the').' '.date( "Y-m-d H:m", strtotime($data->created));
+	<?php echo __('comments on the').' '.format_date($data->created,1);
 		if($data->user == Yii::app()->user->getUserID())
 			echo '<img style="cursor:pointer;margin-left:5px;" alt="Borrar" src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onClick="js:deleteComment('.$data->id.')" />';
 	?>

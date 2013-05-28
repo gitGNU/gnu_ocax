@@ -152,12 +152,17 @@ var pie_properties = {
 			//"dataLabelNudge":0,
 			//"dataLabels":["Longer","B","C","Longer","None"],
 		},
-    highlighter: {
-        show: true,
-        formatString:'%s', 
-        //tooltipLocation:'sw', 
-        useAxesFormatters:false
-    }
+    	highlighter: {
+    	    show: true,
+    	    formatString:'%s', 
+    	    //tooltipLocation:'sw', 
+    	    useAxesFormatters:false
+    	},
+    	/*
+    	cursor: {
+    		style: "pointer",
+    	}
+    	*/
 	}
 }
 function createPie(div_id, data){

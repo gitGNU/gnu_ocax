@@ -80,8 +80,9 @@ function showBudget(budget_id){
 				$("#budget_popup_body").html(data);
 				$('#budget_popup').bPopup({
                     modalClose: false
+					, follow: ([false,false])
 					, fadeSpeed: 10
-					, positionStyle: 'fixed'
+					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
 			}

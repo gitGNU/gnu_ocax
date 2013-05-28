@@ -135,9 +135,9 @@ function vote(reply_id, like){
 				if(data != 0){
 					if(data.already_voted){
 						if(data.already_voted == 1)
-							word='favorablemente';
+							alert('<?php echo __('You have already voted favourably');?>');
 						else
-							word='desfavorablemente';
+							alert('<?php echo __('You have already voted unfavourably');?>');
 						alert('ya has votado '+word);
 					}else
 						$("#"+totalElement_id).html(data.total);

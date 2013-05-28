@@ -189,7 +189,8 @@ $this->widget('PGridView', array(
 			),
 			array(
 				'header'=>__('Formulated'),
-				'value'=>'$data[\'created\']',
+				'name'=>'created',
+				'value'=>'format_date($data[\'created\'])',
 			),
 			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
@@ -205,17 +206,12 @@ $this->widget('PGridView', array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-
-
-//if($data->user0->username != Yii::app()->user->id)
-			//echo '<span class="link" onClick="js:getContactForm('.$data->user.')">';
-
 		array(
 	        'label'=>__('Formulated'),
 			'type' => 'raw',
 	        'value'=>($model->user0->username == Yii::app()->user->id) ?
-						$model->created.' '.__('by').' '.$model->user0->fullname :
-						$model->created.' '.__('by').' '.CHtml::link(
+						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
+						format_date($model->created).' '.__('by').' '.CHtml::link(
 															CHtml::encode($model->user0->fullname), '#',
 															array('onclick'=>'js:getContactForm('.$model->user.');')
 														),
@@ -240,7 +236,7 @@ $this->widget('PGridView', array(
 ));
 
 if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$submitted_info=$model->submitted.' '.__('Registry number').':'.$model->registry_number;
+	$submitted_info=format_date($model->submitted).' '.__('Registry number').':'.$model->registry_number;
 	$attributes=array(
 					array(
 	        			'label'=>__('Submitted'),

@@ -114,7 +114,11 @@ if(count($dataProvider->getData()) > 0){
 					'type' => 'raw',
 					'value'=>'$data->getHumanStates($data[\'state\'])',
 				),
-				'created',
+				array(
+					'header'=>__('Formulated'),
+					'name'=>'created',
+					'value'=>'format_date($data[\'created\'])',
+				),
     	        array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	)));
 }
