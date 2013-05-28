@@ -46,8 +46,7 @@ $(document).ready(function() {
 	<?php if($model->budget){
 		echo '<div class="row" style="margin:-15px -10px 10px -10px;">';
 		$budget=Budget::model()->findByPk($model->budget);
-		$this->renderPartial('//budget/_enquiryView',array('model'=>$budget));
-		$this->renderPartial('//budget/_moreDetails',array('model'=>$budget));
+		$this->renderPartial('//budget/_enquiryView',array('model'=>$budget,'showMore'=>1));
 		echo '</div>';
 	}?>
 

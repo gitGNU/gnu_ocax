@@ -47,8 +47,8 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 													'showCreateEnquiry'=>1,
 													'showLinks'=>1,
 													'noConcept'=>1,
+													'showMore'=>1,
 												),false,true);
-		$this->renderPartial('_moreDetails',array('model'=>$model));
 	echo '</div>';	
 	
 	echo '<p  style="margin-top:15px;">';

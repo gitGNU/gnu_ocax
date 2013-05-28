@@ -69,8 +69,7 @@ if(Yii::app()->request->isAjaxRequest){
 <?php
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget));
-	$this->renderPartial('//budget/_moreDetails', array('model'=>$budget));
+	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget,'showMore'=>1));
 }
 ?>
 

@@ -92,8 +92,7 @@ class BudgetController extends Controller
 			echo '<div class="budget_details view" budget_id='.$model->id.' style="width:543px;padding:0px">';
 			echo $this->renderPartial('_enquiryView',array(	'model'=>$model,
 															'showCreateEnquiry'=>1,
-															'showLinks'=>1,
-															'showEnquiriesMadeLink'=>1),false,true);
+															'showLinks'=>1),false,true);
 			echo '</div>';
 		}else
 			echo 0;
@@ -116,8 +115,7 @@ class BudgetController extends Controller
 						'budget_details'=>	'<div class="budget_details view" style="padding:0px">'.
 											$this->renderPartial('_enquiryView',array(	'model'=>$model,
 																						'showCreateEnquiry'=>1,
-																						'showLinks'=>1,
-																						'showEnquiriesMadeLink'=>1),true,false).
+																						'showLinks'=>1),true,false).
 											'</div>',
 						'is_parent'=>$isParent,
 						'go_back_id'=>$goBackID,

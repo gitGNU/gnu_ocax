@@ -34,7 +34,7 @@ if(isset($showLinks)){
 			else
 				$enquiries = CHtml::link(__('1 enquiry made'), array('budget/view','id'=>$model->id), $budgetModal).' '.$create_enquiry_link;
 		}else{
-			if(isset($showEnquiriesMadeLink))
+			if(!isset($showMore))
 				$enquiries = CHtml::link($enquiry_count.' '.__('enquiries made'), array('budget/view','id'=>$model->id), $budgetModal).' '.$create_enquiry_link;
 			else
 				$enquiries = $enquiry_count.' '.__('enquiries made').' '.$create_enquiry_link;
@@ -54,9 +54,7 @@ if(isset($showLinks)){
 		$enquiries = '0 '.__('enquiries made');
 	$budget_concept = $model->getConcept();
 }
-?>
 
-<?php
 $attributes=array(
 		array(
 	        'label'=>__('Year'),
@@ -69,28 +67,51 @@ $attributes=array(
 	        'label'=>__('Euros per person'),
 	        'value'=>format_number($model->actual_provision / $model->getPopulation()).' €',
 		),
-		array(
-	        'label'=>__('Enquiries'),
-			'type'=>'raw',
-	        'value'=>$enquiries,
-		),
+
 	);
 
 if(!isset($noConcept)){
-	$concept =	array(
-					array(
-						'name'=>__('Concept'),
-						'type'=>'raw',
-						'value'=> $budget_concept,
-					),	
-				);
-	array_splice( $attributes, 0, 0, $concept );
+	$row =	array(
+				array(
+					'name'=>__('Concept'),
+					'type'=>'raw',
+					'value'=> $budget_concept,
+				),	
+			);
+	array_splice( $attributes, 0, 0, $row );
 }
-
-?>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+if(!isset($showMore)){
+	$row =	array(
+	       		'label'=>__('Enquiries'),
+				'type'=>'raw',
+				'value'=>$enquiries,
+			);
+	$attributes[]=$row;
+}
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>$attributes,
-)); ?>
+));
+
+if(isset($showMore)){
+	$this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
+					array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1).' €'),
+					array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2).' €'),
+					array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3).' €'),
+					array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4).' €'),
+					array(
+	        			'label'=>__('Enquiries'),
+						'type'=>'raw',
+						'value'=>$enquiries,
+					),
+				),
+	));
+
+}
+?>
+
+
 

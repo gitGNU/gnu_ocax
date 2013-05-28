@@ -227,11 +227,11 @@ class EnquiryController extends Controller
 				if($mailer->send()){
 					$email->sent=1;
 					$email->save();
-					Yii::app()->user->setFlash('success', __('Enquiry has been published').'<br/>'.__('We have sent you an email'));
+					Yii::app()->user->setFlash('success', __('We have sent you an email'));
 				}else{
 					$email->sent=0;
 					$email->save();
-					Yii::app()->user->setFlash('success', __('Enquiry has been published'));
+					Yii::app()->user->setFlash('success', __('Your enquiry has been registered correctly'));
 				}
 				$this->redirect(array('/user/panel'));
 			}
