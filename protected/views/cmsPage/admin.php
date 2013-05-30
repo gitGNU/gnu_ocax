@@ -107,7 +107,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'header'=>__('Page name'),
 			'value'=>'CmsPage::model()->getTitleForModel($data->id)',
 		),
-		'block'
+		'block',
 		'weight',
 		'published',
 		array(

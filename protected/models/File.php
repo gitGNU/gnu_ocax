@@ -6,8 +6,7 @@
  * The followings are the available columns in table 'file':
  * @property integer $id
  * @property string $name
- * @property string $uri
- * @property string $webPath
+ * @property string $path
  * @property string $model
  * @property integer $model_id
  */
@@ -19,7 +18,7 @@ class File extends CActiveRecord
 
 	public function init()
 	{
-		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app/files/';
+		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app';
 	}
 
 	/**
@@ -48,13 +47,13 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uri, model', 'required'),
+			array('path, model', 'required'),
 			array('model_id', 'numerical', 'integerOnly'=>true),
-			array('name, uri, webPath', 'length', 'max'=>255),
+			array('name, path', 'length', 'max'=>255),
 			array('model', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, uri, webPath, model, model_id', 'safe', 'on'=>'search'),
+			array('id, name, path, model, model_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,8 +70,8 @@ class File extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		if(file_exists($this->uri))
-			unlink($this->uri);
+		if(file_exists($this->getURI()))
+			unlink($this->getURI());
 		return parent::beforeDelete();
 	}
 
@@ -85,10 +84,9 @@ class File extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => __('Name'),
-			'uri' => 'Uri',
-			'webPath' => 'Web Path',
+			'path' => __('Path'),
 			'model' => 'Model',
-			'model_id' => 'Model',
+			'model_id' => 'Model ID',
 		);
 	}
 
@@ -105,14 +103,23 @@ class File extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('uri',$this->uri,true);
-		$criteria->compare('webPath',$this->webPath,true);
+		$criteria->compare('path',$this->path,true);
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('model_id',$this->model_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function getURI()
+	{
+		return dirname(Yii::getPathOfAlias('application')).'/app'.$this->path;
+	}
+	
+	public function getWebPath()
+	{
+		return Yii::app()->request->baseUrl.$this->path;
 	}
 
 	public function normalize( $str )

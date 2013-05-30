@@ -8,7 +8,7 @@ $this->menu=array(
 	array('label'=>__('Add csv to data'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showYears();')),
 );
 if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-	$download = array( array('label'=>__('Download zip file'), 'url'=>$csv_file->webPath));
+	$download = array( array('label'=>__('Download zip file'), 'url'=>$csv_file->getWebPath()));
 	array_splice( $this->menu, 3, 0, $download );
 }
 ?>
@@ -107,7 +107,7 @@ function regenCSV(id){
 <?php
 $dataProvider = new CActiveDataProvider('File', array(
     'criteria'=>array(	'condition'=>'model = "DatabaseDownload/data" OR model = "DatabaseDownload/docs"',
-						'order'=>'uri ASC',
+						'order'=>'path ASC',
 				),
 ));
 echo '<div style="font-size:1.3em">'.__('Files ready to include in zip').'</div>';
@@ -159,3 +159,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
     </div>
 <?php endif; ?>
 
+<?php if(Yii::app()->user->hasFlash('error')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_error').fadeOut('fast');
+    	}, 2000);
+		});
+	</script>
+    <div class="flash_error">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('error');?></b></p>
+    </div>
+<?php endif; ?>

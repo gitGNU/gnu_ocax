@@ -106,7 +106,7 @@ $this->widget('PGridView', array(
 			'value'=>'$data->title',
 		),
 		array(
-			'name'=>'csv budget code',
+			'name'=>'internal code',
 			'value'=>'$data->budget0->csv_id',
 		),
 		'state',

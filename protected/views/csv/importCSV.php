@@ -86,13 +86,12 @@ function importData(){
 		async: false,
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>'	},
-		//beforeSend: function(){  },
-		//complete: function(){  },
+		beforeSend: function(){ $("#import_button").attr("disabled", "disabled"); $('#loading_importing_csv').show(); },
+		complete: function(){ $('#loading_importing_csv').hide(); },
 		success: function(data){
 					if(data.error)
 						$('#import_button').replaceWith('<span class="error">'+data.error+'</span>');
 					else{
-						$("#import_button").attr("disabled", "disabled");
 						msg = '<span class="success">New registers: '+data.new_budgets+', Updated registers: '+data.updated_budgets+'</span>';
 						$('#import_button').replaceWith(msg);
 						$('#step_6').show();
@@ -158,7 +157,9 @@ echo '<p id="step_4" style="display:none">Step 4. Backup budget database: ';
 echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets();" /></p>';
 
 echo '<p id="step_5" style="display:none">Step 5. Import into database: <b>'.$yearStr.'</b> ';
-echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" /></p>';
+echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" />';
+echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->theme->baseUrl.'/images/loading.gif" />';
+echo '</p>';
 
 $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = '.$model->year;

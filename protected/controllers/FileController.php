@@ -95,20 +95,19 @@ class FileController extends Controller
 			$model->file=CUploadedFile::getInstance($model,'file');
 			if($model->file){
 				$path=$this->getPath($model->model,$model->model_id);
-				$model->uri=$model->baseDir.$path;
+				$model->path='/files/'.$path;
 
-				if(!is_dir($model->uri))
-					mkdir($model->uri, 0700, true);
+				if(!is_dir($model->getURI()))
+					mkdir($model->getURI(), 0700, true);
 
 				$normalized_name = $model->normalize($model->file->name);
-				$model->uri=$model->uri.'/'.$normalized_name;
-				$model->webPath=Yii::app()->request->baseUrl.'/files/'.$path.'/'.$normalized_name;
+				$model->path=$model->path.'/'.$normalized_name;
 
 				if(!$model->name)
 					$model->name=$model->file->name;
 
 
-				if($file_saved = $model->file->saveAs($model->uri))
+				if($file_saved = $model->file->saveAs($model->getURI()))
 					$model->save();
 
 				if($model->model == 'CmsPage'){
@@ -155,7 +154,7 @@ class FileController extends Controller
 		if(isset($_GET['file_name']))
 		{
 			$file_name = $model->normalize($_GET['file_name']);
-			$path=$model->baseDir.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;
+			$path=$model->baseDir.'/files/'.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;			
 
 			if(!$file_name)
 				echo 'File required.';
@@ -176,33 +175,31 @@ class FileController extends Controller
 		$zip_name = $file->normalize(Config::model()->findByPk('siglas')->value).'.zip';
 
 		$file->model = 'DatabaseDownload';
-		$file->uri=$file->baseDir.$file->model.'/'.$zip_name;
-		$file->webPath=Yii::app()->request->baseUrl.'/files/'.$file->model.'/'.$zip_name;
+		$file->path='/files/'.$file->model.'/'.$zip_name;
 		$file->name = $zip_name;
 
 		$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
 
 		$output = NULL;
 		$return_var = NULL;
-		$command = 	'cd '.$file->baseDir.$file->model.';zip /tmp/'.$zip_name.' data/* docs/*';
+		$command = 	'cd '.$file->baseDir.'/files/'.$file->model.';zip /tmp/'.$zip_name.' data/* docs/*';
 
 		exec($command, $output, $return_var);
 		if(!$return_var){
 			if($old_zip){
-				unlink($old_zip->uri);
+				unlink($old_zip->getURI());
 				// siglas may have changed
-				$old_zip->uri=$file->uri;
-				$old_zip->webPath=$file->webPath;
+				$old_zip->path=$file->path;
 				$old_zip->name=$file->name;
 
 				$file = $old_zip;
 			}
-			copy('/tmp/'.$zip_name, $file->uri);
+			copy('/tmp/'.$zip_name, $file->getURI());
 			unlink('/tmp/'.$zip_name);		
 			$file->save();
 			Yii::app()->user->setFlash('success',__('Zip file updated'));
 		}else{
-			//Yii::app()->user->setFlash('error',__('Error: zip file not created'));
+			Yii::app()->user->setFlash('error',__('Error: zip file not created'));
 		}
 		$this->redirect(array('file/databaseDownload'));
 	}

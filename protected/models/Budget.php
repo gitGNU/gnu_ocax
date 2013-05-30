@@ -170,24 +170,24 @@ class Budget extends CActiveRecord
 
 		$file = new File;
 		$file->model = get_class($this);
-		$file->uri = $file->baseDir.$file->model.'/'.$fileName;
-		$file->name = __('Budget table saved on the').' '.date('Y/m/d H:i:s',$timestamp);
+		$file->path = '/files/'.$file->model.'/'.$fileName;
+		$file->name = __('Budget table saved on the').' '.date('d-m-Y H:i:s',$timestamp);
 
-		if(!is_dir($file->baseDir.$file->model))	// should move this to model beforeSave.
-			mkdir($file->baseDir.$file->model, 0700, true);
+		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
+			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
 
 		$params = $this->getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
-		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->uri;
+		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->getURI();
 		exec($command, $output, $return_var);
 
 		if(!$return_var){
 			$file->save();
 			echo 0;
 		}else{
-			if(file_exists($file->uri))
-				unlink($file->uri);
+			if(file_exists($file->getURI()))
+				unlink($file->getURI());
 			echo 1;
 		}
 	}
@@ -202,6 +202,7 @@ class Budget extends CActiveRecord
 		$params = $this->getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
+		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->getURI();
 		exec($command, $output, $return_var);
 		echo $return_var;
 	}

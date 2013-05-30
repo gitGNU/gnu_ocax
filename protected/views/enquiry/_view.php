@@ -213,7 +213,7 @@ foreach($replys as $reply){
 			echo '<span style="float:right;text-align:right;">';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
-				echo '<a href="'.$attachment->webPath.'" target="_new">'.$attachment->name.'</a>';
+				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a>';
 				echo '	<img style="cursor:pointer;vertical-align:text-top;"
 						src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				echo '</span>';
@@ -224,7 +224,7 @@ foreach($replys as $reply){
 			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />'.__('Attachments').':';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;">';
-				echo '<a href="'.$attachment->webPath.'" target="_new">'.$attachment->name.'</a> ';
+				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a> ';
 				echo '</span>';
 			}
 			echo '</span>';

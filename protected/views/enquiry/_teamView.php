@@ -48,7 +48,7 @@ if(Yii::app()->request->isAjaxRequest){
 <?php if($model->state >= ENQUIRY_AWAITING_REPLY){
 	$document=', Doc: ';
 	if($model->documentation)
-		$document .='<a href="'.$model->documentation0->webPath.'" target="_new">'.$model->documentation0->name.'</a>';
+		$document .='<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
 	else
 		$document .='<span style="color:red">'.__('missing').'</span>';
 	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.$document;

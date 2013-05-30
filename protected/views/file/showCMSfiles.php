@@ -12,7 +12,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(
-		'webPath',
+		array(
+			'header'=>'web path',
+			'name'=>'path',
+			'type'=>'raw',
+			'value'=>'$data->getWebPath()',
+		),
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{delete}',

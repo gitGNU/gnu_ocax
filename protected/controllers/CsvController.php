@@ -336,7 +336,7 @@ class CsvController extends Controller
 	public function actionDownload($id)
 	{
 		if(list($file, $budgets) = ImportCSV::createCSV($id)){
-			$download='<a href="'.$file->webPath.'">'.$file->webPath.'</a>';
+			$download='<a href="'.$file->getWebPath().'">'.$file->getWebPath().'</a>';
 			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported.<br />'.$download);
 
 			$criteria=new CDbCriteria;

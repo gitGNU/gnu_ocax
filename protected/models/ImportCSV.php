@@ -38,9 +38,8 @@ class ImportCSV extends CFormModel
 		$file = new File;
 		$file->name = $year.'.csv';
 		$file->model = 'DatabaseDownload/data';
-		$file->uri=$file->baseDir.$file->model.'/'.$file->name;
-		$file->webPath=Yii::app()->request->baseUrl.'/files/'.$file->model.'/'.$file->name;
-		if($existing_file = File::model()->findByAttributes(array('uri'=>$file->uri)))
+		$file->path='/files/'.$file->model.'/'.$file->name;
+		if($existing_file = File::model()->findByAttributes(array('path'=>$file->path)))
 			$file = $existing_file;
 
 		$header = 'internal code|internal parent code|code|initial provision|actual provision|trimester 1|trimester 2|trimester 3|trimester 4|label|concept'.PHP_EOL;
@@ -59,9 +58,9 @@ class ImportCSV extends CFormModel
 						'|'.$b->label.'|'.$b->concept.PHP_EOL);
 		}
 		fclose($fh);
-		if (copy($tmp_fn, $file->uri)) {
+		if (copy($tmp_fn, $file->getURI())) {
 			unlink($tmp_fn);
-			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('Y-m-d H:i:s').')';
+			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('d-m-Y H:i:s').')';
 			$file->save();
 			return array($file, $budgets);
 		}else

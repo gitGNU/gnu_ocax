@@ -245,7 +245,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 					),
 				);
 	if($model->documentation){
-		$document = '<a href="'.$model->documentation0->webPath.'" target="_new">'.$model->documentation0->name.'</a>';
+		$document = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
 		$attributes[]=array(
 				        'label'=>__('Documentation'),
 						'type'=>'raw',
