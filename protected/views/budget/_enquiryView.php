@@ -29,7 +29,7 @@ if(isset($showLinks)){
 							'</span>';
 	if($enquiry_count){
 		if($enquiry_count == 1){
-			if(isset($enquiry) && $enquiry->budget == $model->id && isset($showEnquiriesMadeLink))
+			if((isset($enquiry) && $enquiry->budget == $model->id) || isset($showMore))
 				$enquiries = __('1 enquiry made').' '.$create_enquiry_link;
 			else
 				$enquiries = CHtml::link(__('1 enquiry made'), array('budget/view','id'=>$model->id), $budgetModal).' '.$create_enquiry_link;
