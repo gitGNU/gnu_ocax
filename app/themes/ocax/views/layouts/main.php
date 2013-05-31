@@ -46,8 +46,8 @@
 			$items=array(
 				array('label'=>__('Home'), 'url'=>array('/site/index')),
 				array('label'=>__('My page'), 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>__('Budgets'), 'url'=>array('/budget')),
-				array('label'=>__('Enquiries'), 'url'=>array('/enquiry')),
+				array('label'=>__('Budgets'), 'url'=>array('/budget'),'active'=> (strcasecmp(Yii::app()->controller->id, 'budget') === 0)  ? true : false),
+				array('label'=>__('Enquiries'), 'url'=>array('/enquiry'),'active'=> (strcasecmp(Yii::app()->controller->id, 'enquiry') === 0)  ? true : false),
 				//array('label'=>__('Contact'), 'url'=>array('/site/contact')),
 				array('label'=>__('Register'), 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>__('Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
