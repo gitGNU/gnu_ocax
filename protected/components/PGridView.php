@@ -36,7 +36,7 @@ class PGridView extends CGridView
 	public function init()
 	{
 		$this->htmlOptions['class']='pgrid-view';
-		$this->cssFile=Yii::app()->request->baseUrl.'/css/pgridview.css';
+		$this->cssFile=Yii::app()->theme->baseUrl.'/css/pgridview.css';
 
 		$this->loadingCssClass='pgrid-view-loading';
 		parent::init();

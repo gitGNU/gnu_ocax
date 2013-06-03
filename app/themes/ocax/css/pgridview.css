@@ -1,6 +1,8 @@
+
+
 .pgrid-view-loading
 {
-	background: url("/images/pgridview/loading.gif") no-repeat;
+	background: url("../images/pgridview/loading.gif") no-repeat;
 }
 
 .pgrid-view table.items
@@ -26,7 +28,7 @@
 .pgrid-view table.items th
 {
 	color: white;
-	background: url("/images/pgridview/bg.gif") repeat-x scroll left top white;
+	background: url("../images/pgridview/bg.gif") repeat-x scroll left top white;
 	text-align: center;
 }
 
@@ -44,13 +46,13 @@
 
 .pgrid-view table.items th a.asc
 {
-	background:url("/images/pgridview/up.gif") right center no-repeat;
+	background:url("../images/pgridview/up.gif") right center no-repeat;
 	padding-right: 10px;
 }
 
 .pgrid-view table.items th a.desc
 {
-	background:url("/images/pgridview/down.gif") right center no-repeat;
+	background:url("../images/pgridview/down.gif") right center no-repeat;
 	padding-right: 10px;
 }
 
