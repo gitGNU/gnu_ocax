@@ -19,8 +19,6 @@ $this->setPageTitle($content->pageTitle);
 	margin:-25px;
 	margin-bottom:30px;
 	padding-left:20px;
-	width:100%;
-	background-color:lightgrey;	
 }
 </style>
 <script>

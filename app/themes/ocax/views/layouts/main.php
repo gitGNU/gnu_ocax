@@ -59,8 +59,11 @@
 			$cms_pages=CmsPage::model()->findAll($criteria);
 			foreach($cms_pages as $page){
 				$page_content = $page->getContentForModel(Yii::app()->language);
-				$item = array( array('label'=>CHtml::encode($page_content->pageTitle), 'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL)) );
-				array_splice( $items, 4, 0, $item );	
+				$item = array( array(	'label'=>CHtml::encode($page_content->pageTitle),
+										'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL),
+										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
+								));
+				array_splice( $items, 4, 0, $item );
 			}
 			$this->widget('zii.widgets.CMenu',array(
 				'items'=>$items,
