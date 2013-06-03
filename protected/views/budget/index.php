@@ -22,7 +22,6 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 
 <style>
-.highlight { background-color: #FFEC8B; }
 .button {
    border-top: 1px solid #96d1f8;
    background: #65a9d7;
@@ -124,17 +123,20 @@ function afterSearch(){
 }
 </script>
 
-<div style="font-size:2.5em;text-align:center;margin-top:-10px;">
+<div style="font-size:3em;text-align:left;margin-top:-10px;">
 <?php echo __('Budgets');?>
 
 </div>
 
 <div style="
 	margin-bottom:15px;
-	font-size:1.5em;
-	float:right;
+	font-size:1.2em;
+    color:#00CADC;
 	">
 <?php
+
+echo 'ggg';	// julio, antes teniamos un string aqui. ahora al quitarlo, sube lo de abajo.
+
 if(Yii::app()->user->isAdmin())
 	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
 else
@@ -144,26 +146,25 @@ if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {
 		return $year->getYearString();
 	});
+		echo '<span style="float:right">';
 		echo __('Available years').' ';
 		echo CHtml::dropDownList('budget', $model->year, $list,
 								array(	'id'=>'selectYear',
 										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
 								));
+		echo '</span>';
 }
 ?>
 </div>
-<div style="clear:both"></div>
 
 <div style="
-	border-top: 1px solid #C9E0ED;
-	border-bottom: 1px solid #C9E0ED;
+	border-top: 2px dashed #555555;
+	border-bottom: 0px solid #C9E0ED;
 	padding:20px;
-	margin-left:-30px;
-	margin-right:-40px;
-	background-color:#F0F8FF;
-	-webkit-box-shadow: 0 8px 6px -3px grey;
-	-moz-box-shadow: 0 8px 6px -3px grey;
-	box-shadow: 0 8px 6px -3px grey;
+	margin-left:0px;
+	margin-right:0px;
+    margin-top:10px;
+	background-color:#FFFFFF;
 	">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -197,10 +198,8 @@ echo 	'<div id="no_results" style="float:left;font-size:1.3em;margin-top:15px;di
 		'</div>';
 		
 $change=Yii::app()->request->baseUrl.'/budget?graph_type';
-echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app()->theme->baseUrl.
-																		'/images/graph_type_bar.png" onclick="window.location=\''.$change.'=bar\'" />';
-echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app()->theme->baseUrl.
-																		'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
+echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_bar.png" onclick="window.location=\''.$change.'=bar\'" />';
+echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
 
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 		echo '<div style="margin-top:22px;float:right;margin-right:20px;">';
@@ -212,6 +211,7 @@ echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app
 </div>
 <div style="clear:both;"></div>
 
+<div>
 <?php
 	echo '<div id="search_results_container" style="display:none">';
 	$this->widget('zii.widgets.CListView', array(
@@ -243,4 +243,6 @@ echo '<img style="float:right;cursor:pointer;margin-right:20px;" src="'.Yii::app
 <div id="budget_popup_body"></div>
 </div>
 <p>&nbsp;</p>
+</div>
+
 </div>

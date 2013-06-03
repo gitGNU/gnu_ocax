@@ -4,7 +4,8 @@ body
 	padding: 0;
 	color: #555;
 	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+	background: url(../images/back.jpg) no-repeat  fixed #eeeeee;
+	background-position:bottom;
 }
 
 #page
@@ -13,8 +14,7 @@ body
 	margin-top: 0px;
 	margin-bottom: 0px;
 	background: white;
-	padding: 6px 20px 05px 10px;
-	border: 1px solid #9FB6CD;
+	padding: 45px 20px 0px 10px;
 	border-top: 0px;
 	border-bottom: 0px;
 }
@@ -24,7 +24,7 @@ body
 	margin: 0;
 	padding: 0;
 	color:#1F1F1F;
-	background-color:#9FB6CD;
+	background-color:FFFFFF;
 	/*width:950px;
 	margin:0 auto;*/
 }
@@ -46,22 +46,39 @@ body
 	padding: 20px 20px 20px 0;
 }
 
+
+/*FOOTER*/
+
 #footer
 {
 	margin:0;
 	width:950px;
 	margin:0 auto;
-	padding: 0;
 	color:#1F1F1F;
-	background-color:#9FB6CD;
+	background-color:#676767;
 	padding: 6px 20px 05px 10px;
 /*
 	font-size: 0.8em;
 	text-align: center;
 */
-	border: 1px solid #9CAA9C;
 
 }
+
+
+#footer div
+{
+	color:#a6a6a6;
+	margin-top: 30px;
+	margin-bottom:15px;
+}
+
+#footer div b
+{
+	color:#FFFFFF;
+}
+
+
+
 .poweredBy
 {
 	padding-top:10px;
@@ -70,18 +87,23 @@ body
 
 #logo
 {
-	padding: 10px 20px;
-	font-size: 200%;
+	font-size: 90%;
+ 	background: url(../images/obsevatori.png) 0 0 no-repeat;
+	padding-top: 10px;
+	padding-bottom:185px;
 }
 
 #mainmenu
 {
-	/*background:white url(bg.gif) repeat-x left top;*/
+	background-color:transparent
+;
+	padding-right:30px;
 }
 
 #mainmenu ul
 {
-	padding:06px 20px 5px 10px;
+	background-color:#transparent;
+	padding:6px 20px 4px 0px;
 	margin:0px;
 }
 
@@ -92,9 +114,9 @@ body
 
 #mainmenu ul li a
 {
-	color:#ffffff;
-	background-color:transparent;
-	font-size:12px;
+	color:#676767;
+	background-color:#FFFFFF;
+	font-size:18px;
 	font-weight:bold;
 	text-decoration:none;
 	padding:5px 8px;
@@ -102,10 +124,13 @@ body
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-	color: #6399cd;
-	background-color:#FFFFFF;
+	color: #FFFFFF;
+	background-color:#00cadc;
 	text-decoration:none;
 }
+
+
+
 
 div.flash-error, div.flash-notice, div.flash-success
 {
@@ -253,4 +278,66 @@ div.search-form
 .operations li a:hover
 {
 	background: #80CFFF;
+}
+
+
+
+
+/*PAGINAS*/
+
+
+/*ENQUIRIYS*/
+
+.enquirys b
+{
+	font-weight:bold;
+	font-size:115%;
+	color:#00CADC;
+}
+
+.enquirys_titular
+{
+	font-size:225%;
+	color:#929292;
+	
+}
+
+
+
+/*PAGINA USUARIO*/
+
+
+
+#nueva_consulta {
+ float:left;
+ margin-right: 8px;
+ margin-bottom:8px;
+ outline: none;
+ text-indent: -5000px;
+ display:block;
+ width:422px;
+ height:115px;
+ color:#F00;
+ background: url(../images/novaconsulta.gif) 0 0 no-repeat;
+ background-color:transparent;
+ }
+
+#nueva_consulta:hover {
+ background-position: -422px 0;
+ background-color: none;
+ }
+ 
+ 
+ 
+ 
+ 
+ #boxes
+{
+	margin: 0;
+	padding: 0;
+	color: #555;
+	width:300px;
+	height:200px;
+	font: normal 10pt Arial,Helvetica,sans-serif;
+	background: url(../images/boxes.jpg) no-repeat  fixed #eeeeee;
 }

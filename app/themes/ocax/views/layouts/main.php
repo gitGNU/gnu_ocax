@@ -27,8 +27,8 @@
 <div  style="position:relative">
 <div id="header" >
 
-	<div>
-	<div id="logo"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></div>
+	<div id="logo"><div style="display:none;"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></div></div>
+
 	<?php
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		if(isset($languages[1])){
@@ -39,7 +39,7 @@
 			echo '</span>';
 		}
 	?>
-	</div>
+
 
 	<div id="mainmenu">
 		<?php
@@ -70,6 +70,8 @@
 			));
 		?>
 	</div><!-- mainmenu -->
+
+
 </div>
 
 
@@ -84,22 +86,20 @@
 	<div id="footer">
 
 	<div style="width:100%; padding: 0px; float: left;">
-	<div style="width: 40%; float: left;  margin: 0px;">
+	<div style="width: 33%; float: left;  margin: 0px;">
 		<b><?php echo __('Contact information')?></b><br />
+		PACD, Plataforma Auditoría <br>Ciudadana de la Deuda
 		<?php echo Config::model()->findByPk('observatoryName')->value;?><br />
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
 		<?php echo __('Telephone').': '.Config::model()->findByPk('telephone')->value;?><br />
 	</div>
-	<div style="width: 20%; float: left;  margin: 0px;">
+	<div style="width: 28%; float: left;  margin: 0px;">
+		Una iniciativa de: <br /><br /><img src="http://chrislab1.solukom.com/julio/themes/ocax/images/logopacd.png" /><br />
+	</div>
+    <div style="width: 33%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>
 		AGPL<br/>
-		<a href="http://ocax.net">ocax.net</a><br />
-	</div>
-	<div style="width:35%; float:right;  margin:0px; cursor:pointer;" onClick="window.location='http://www.auditoriaciudadana.net'">
-		<img style="float:right" src="<?php echo Yii::app()->theme->baseUrl; ?>/images/LogoPACD.png" />
-		<?php echo __('An iniciative of the Auditoria Ciutadana del Deute');
-		//Una iniciativa de la Plataforma per l'Auditoria Ciutadana del Deute
-		?>
+		<a href="https://github.com/buttle/ocax">Code @ github</a><br />
 	</div>
 	</div>
 	<div style="clear:both;"></div>

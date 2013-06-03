@@ -8,9 +8,10 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 
 <style>
 .graph_group{
-	border-top-style:solid;
-	border-width:1px;
+		border-top: 2px dashed #555555;
 	margin-bottom:20px;
+	margin-top:20px;
+	padding-top:15px;
 }
 .loading{
 	font-size:1em;
@@ -18,22 +19,27 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	display:none;
 }
 .graph_container{
+		margin-bottom:0px;
 
 }
 .graph{
 	width:450px;
 	height:450px;
+			margin-bottom:60px;
+
 }
 .budget_details{
 	width:450px;
 	float:right;
 }
+
 .budget_details > a {
 	margin-top:-15px;
 }
 table.jqplot-table-legend{
     display: block;
-    height: 180px;
+	width:80%;
+    height: 200px;
     overflow-y: auto;
 }
 .jqplot-data-label{
@@ -135,6 +141,9 @@ var pie_properties = {
 			//numberColumns:2,
 		}
 	},
+	seriesColors: [ "#00C9DB", "#00DB80", "#C9DB00", "#DB8000", "#DB1200", "#DB005B",
+        "#1AECFF", "#8000DB", "#009AA8", "#9AA800", "#A80E00"],
+
 	//axesDefaults:[],
 	seriesDefaults:{
 		renderer:$.jqplot.PieRenderer,

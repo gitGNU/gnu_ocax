@@ -11,11 +11,24 @@
 	background-repeat:repeat;
 }
 .actual_provision_bar{
-	background-color:#BFBFBF;
+	background-color:#00cadc;
+	padding: 8px 4px 15px 4px;
+	font-weight:bold;
+	color:#000000;
+	font-size:18px;
+	margin-top:5px;
+	margin-bottom:10px;
 }
 .initial_provision_bar{
 	margin-bottom:20px;
-	background-color:#DBDBDB;
+	background-color:#59bac3;
+	padding: 8px 4px 15px 4px;
+	font-weight:bold;
+	color:#000000;
+	font-size:18px;
+	margin-top:5px;
+	margin-bottom:10px;
+
 }
 .key{
 	padding:2px;
@@ -93,6 +106,8 @@ function toggleChildren(id){
 	}
 }
 </script>
+
+
 
 <?php
 

@@ -7,8 +7,8 @@ $this->pageTitle=Yii::app()->name;
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 60%; float: left;  margin: 0px;}
-	.right{width: 35%; float: left; margin: 0px;}
+	.left{width: 50%; float: left;  margin: 0px;}
+	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
@@ -37,9 +37,11 @@ should you have any questions.</p>
 
 </div>
 <div class="right">
-<p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/box1.jpg" /></p>
-<p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/box2.jpg" /></p>
-<p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/box3.jpg" /></p>
+<div id="boxes"></div>
+<p><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/box1.jpg" /></p>
+<p><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/box2.jpg" /></p>
+<p><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/box3.jpg" /></p>
+
 </div>
 </div>
 

@@ -20,18 +20,18 @@ html, body{
 }
 
 .form{
-	background-color:#F0F8FF;
+	background-color:#00CADC;
 	padding: 10px;
 	margin: 0;
-	border: 1px solid #C9E0ED;
 }
 
 .form .title{
 	padding:10px;
 	margin:-10px;
-	background-color:#CAE1FF;
+	background-color:#transparent;
+	color:#FFF;
 	margin-bottom:15px;
-	font-size:1.4em;
+	font-size:1.6em;
 }
 
 .contextHelp{
@@ -82,8 +82,8 @@ html, body{
 	margin-bottom:-10px;
 }
 
-.link { color:#06c; cursor:pointer; }
-.link:focus, .link:hover {color:#09f;}
+.link { color:#555555; cursor:pointer; }
+.link:focus, .link:hover {color:#000000; text-decoration:underline;}
 
 .flash_prompt{
 	top: 0px;
@@ -111,16 +111,4 @@ html, body{
 	border-radius: 0px 0px 20px 20px;
 	text-align:center;
 }
-.flash_error{
-	top: 0px;
-	position:absolute;
-	left: 50%;
-	margin-left: -230px;
-	z-index: 999;
-	width: 460px;
-	height: 80px;
-	background-color: red;
-	-webkit-border-radius: 0px 0px 20px 20px;
-	border-radius: 0px 0px 20px 20px;
-	text-align:center;
-}
+
