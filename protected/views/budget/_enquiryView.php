@@ -89,12 +89,16 @@ if(!isset($showMore)){
 	$attributes[]=$row;
 }
 $this->widget('zii.widgets.CDetailView', array(
+	'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>$attributes,
 ));
 
 if(isset($showMore)){
 	$this->widget('zii.widgets.CDetailView', array(
+	'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
+
+	
 	'data'=>$model,
 	'attributes'=>array(
 					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
