@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS user (
 CREATE TABLE IF NOT EXISTS file (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(255) NULL,
-  uri varchar(255) NOT NULL,	/* file system location */
-  webPath varchar(255) NULL,	/* http://site.com'.$webPath */
+  path varchar(255) NULL,
   model varchar(32) NOT NULL,
   model_id int(11) NULL,
   PRIMARY KEY (id)
