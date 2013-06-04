@@ -17,6 +17,7 @@
  * @property string $joined
  * @property integer $activationcode
  * @property integer $is_active
+ * @property integer $is_disabled
  * @property integer $is_socio
  * @property integer $is_team_member
  * @property integer $is_editor
@@ -55,7 +56,7 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, fullname, password, salt, email, activationcode', 'required'),
-			array('is_socio, is_team_member, is_editor, is_manager, is_admin, is_active', 'numerical', 'integerOnly'=>true),
+			array('is_socio, is_team_member, is_editor, is_manager, is_admin, is_active, is_disabled', 'numerical', 'integerOnly'=>true),
 			array('username, fullname, password, salt, email', 'length', 'max'=>128),
 			array('email', 'email','allowEmpty'=>false),
 			array('email', 'unique', 'className' => 'User'),
@@ -86,12 +87,13 @@ class User extends CActiveRecord
 			//'bulkEmails' => array(self::HAS_MANY, 'BulkEmail', 'sender'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'user'),
 			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'user'),
-			'enquirys1' => array(self::HAS_MANY, 'Enquiry', 'team_member'),
-			'enquirys2' => array(self::HAS_MANY, 'Enquiry', 'manager'),
+			'assignedEnquirues' => array(self::HAS_MANY, 'Enquiry', 'team_member'),
+			'managedEnquiries' => array(self::HAS_MANY, 'Enquiry', 'manager'),
 			'enquirySubscribes' => array(self::HAS_MANY, 'EnquirySubscribe', 'user'),
 			'emails' => array(self::HAS_MANY, 'Email', 'sender'),
 			'replys' => array(self::HAS_MANY, 'Reply', 'team_member'),
 			'votes' => array(self::HAS_MANY, 'Vote', 'user'),
+			'resetPasswords' => array(self::HAS_MANY, 'ResetPassword', 'user'),
 		);
 	}
 
@@ -174,7 +176,8 @@ class User extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->addCondition('is_disabled = 0');
+		
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('fullname',$this->fullname,true);
@@ -184,6 +187,7 @@ class User extends CActiveRecord
 		$criteria->compare('joined',$this->joined,true);
 		$criteria->compare('activationcode',$this->activationcode);
 		$criteria->compare('is_active',$this->is_active);
+		$criteria->compare('is_disabled',$this->is_disabled);
 		$criteria->compare('is_socio',$this->is_socio);
 		$criteria->compare('is_team_member',$this->is_team_member);
 		$criteria->compare('is_editor',$this->is_editor);

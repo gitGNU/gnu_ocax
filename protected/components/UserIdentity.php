@@ -31,8 +31,12 @@ class UserIdentity extends CUserIdentity
 		if(!$user)
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		else{
-			if( $user->hashPassword($this->password,$user->salt) === $user->password )
+			if( $user->is_disabled )
+				$this->errorCode=self::ERROR_USERNAME_INVALID;
+				
+			elseif( $user->hashPassword($this->password,$user->salt) === $user->password )
 				$this->errorCode=self::ERROR_NONE;
+				
 			else
 				$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		}
