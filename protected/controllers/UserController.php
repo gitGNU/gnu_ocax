@@ -209,7 +209,18 @@ class UserController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model=$this->loadModel($id);
+
+		foreach($model->comments as $comment)
+			$comment->delete();
+		foreach($model->votes as $vote)
+			$vote->delete();
+		foreach($model->enquirySubscribes as $subscription)
+			$subscription->delete();
+		foreach($model->resetPasswords as $resetPassword)
+			$resetPassword->delete();
+			
+		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

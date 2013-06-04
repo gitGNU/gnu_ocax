@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS user (
   joined date NOT NULL,
   activationcode varchar(15) NOT NULL,
   is_active TINYINT(1) DEFAULT 0,
+  is_disabled TINYINT(1) DEFAULT 0,
   is_socio TINYINT(1) DEFAULT 0,
   is_team_member TINYINT(1) DEFAULT 0,
   is_editor TINYINT(1) DEFAULT 0,

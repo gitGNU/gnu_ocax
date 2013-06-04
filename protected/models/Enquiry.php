@@ -171,7 +171,7 @@ class Enquiry extends CActiveRecord
 	{
 		$criteria = array(
 			'with'=>array('enquirySubscribes'),
-			'condition'=>' enquirySubscribes.enquiry = '.$this->id,
+			'condition'=>' enquirySubscribes.enquiry = '.$this->id.' AND is_disabled = 0',
 			'together'=>true,
 		);
 		if($this->state == ENQUIRY_ASSIGNED)	// internal email
