@@ -132,6 +132,7 @@ class SiteController extends Controller
 			$newUser->salt = $newSalt;
  			$newUser->activationcode = $newUser->generateActivationCode();
 			$newUser->is_active = 0;
+			$newUser->is_disabled = 0;
  			$newUser->username = $model->username;
  			$newUser->email = $model->email;
 			$newUser->joined = date('Y-m-d');
@@ -239,7 +240,10 @@ class SiteController extends Controller
 		if(isset($_GET['email'])){
 			$email = htmLawed::hl(trim($_GET['email']), array('elements'=>'-*', 'keep_bad'=>0));
 			if($user = User::model()->findByAttributes(array('email'=>$email))){
-
+				if($user->is_disabled){
+					echo '<span style="color:red">'.__('Invalid email address').'.</span>';
+					Yii::app()->end();
+				}
 				$reset = new ResetPassword;
 				$reset->user=$user->id;
 				$reset->created = date('c');
@@ -286,6 +290,9 @@ class SiteController extends Controller
 					$this->redirect(array('/site/login'));
 				}
 				$user=User::model()->findByPk($reset->user);
+				if($user->is_disabled)
+					$this->redirect(array('/site/index'));
+					
 				Yii::app()->user->login(UserIdentity::createAuthenticatedIdentity($user->username),0);
 				Yii::app()->user->setFlash('success', __('Please change your password now'));
 				$this->redirect(array('/user/update'));

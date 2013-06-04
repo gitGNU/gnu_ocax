@@ -209,7 +209,7 @@ $this->widget('PGridView', array(
 		array(
 	        'label'=>__('Formulated'),
 			'type' => 'raw',
-	        'value'=>($model->user0->username == Yii::app()->user->id) ?
+	        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
 						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
 						format_date($model->created).' '.__('by').' '.CHtml::link(
 															CHtml::encode($model->user0->fullname), '#',
