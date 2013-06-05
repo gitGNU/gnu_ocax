@@ -9,7 +9,8 @@ $this->menu=array(
 
 if(!$model->enquirys){
 	$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
-							'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
+							'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
+					));
 	array_splice( $this->menu, 1, 0, $item );	
 }
 ?>
@@ -134,3 +135,15 @@ echo '<p style="font-size:1.5em">'.$model->fullname.' '.__('has not made a enqui
 		<div id="mega_delete_content"></div>
 	</div>
 </div>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash_success').fadeOut('fast');
+    	}, 2000);
+		});
+	</script>
+    <div class="flash_success">
+		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    </div>
+<?php endif; ?>

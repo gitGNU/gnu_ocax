@@ -202,4 +202,12 @@ $this->widget('PGridView', array(
 		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('newActivationCodeError');?></b></p>
     </div>
 <?php endif; ?>
-
+<?php if(Yii::app()->user->hasFlash('prompt_blockuser')){
+	list($name, $user_id) = explode("|", Yii::app()->user->getFlash('prompt_blockuser'));
+    echo '<div class="flash_prompt">';
+		echo '<p style="margin-top:5px;font-weight:bold;">'.__('Do you want to block').' '.$name.'?</p>';
+		$url=Yii::app()->request->baseUrl.'/user/block/'.$user_id.'?confirmed=1';
+		echo '<button onclick="js:window.location=\''.$url.'\'">'.__('Yes').'</button>'.'&nbsp;&nbsp;&nbsp;';
+		echo '<button onclick="$(\'.flash_prompt\').slideUp(\'fast\')">'.__('No').'</button>';
+	echo '</div>';
+} ?>
