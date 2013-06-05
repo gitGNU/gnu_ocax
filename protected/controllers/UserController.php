@@ -167,16 +167,23 @@ class UserController extends Controller
 	public function actionBlock($id)
 	{
 		$blocked_user=User::model()->findByAttributes(array('username'=>$id));
-		if($blocked_user && $blocked_user->username != Yii::app()->user->id){
+		if(!$blocked_user)
+			$this->redirect(array('panel'));
+		if($blocked_user->username != Yii::app()->user->id){
 			$userid=Yii::app()->user->getUserID();
-			$block = new BlockUser;
-			if(! $block->findByAttributes(array('user'=>$userid, 'blocked_user'=>$blocked_user->id))){
-
-				$block->user=$userid;
-				$block->blocked_user=$blocked_user->id;
-				$block->save();
+			if(isset($_GET['confirmed'])){
+				$block = new BlockUser;
+				if(! $block->findByAttributes(array('user'=>$userid, 'blocked_user'=>$blocked_user->id))){
+	
+					$block->user=$userid;
+					$block->blocked_user=$blocked_user->id;
+					$block->save();
+				}
+				Yii::app()->user->setFlash('success', $blocked_user->fullname.' '.__('is blocked'));
+			}else{
+				if(! BlockUser::model()->findByAttributes(array('user'=>$userid, 'blocked_user'=>$blocked_user->id)))
+					Yii::app()->user->setFlash('prompt_blockuser', $blocked_user->fullname.'|'.$id);
 			}
-			Yii::app()->user->setFlash('success', $blocked_user->fullname.' '.__('is blocked'));
 		}
 		$this->redirect(array('panel'));
 	}
