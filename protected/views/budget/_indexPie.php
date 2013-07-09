@@ -8,7 +8,7 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 
 <style>
 .graph_group{
-		border-top: 2px dashed #555555;
+	border-top: 2px dashed #555555;
 	margin-bottom:20px;
 	margin-top:20px;
 	padding-top:15px;
@@ -50,9 +50,9 @@ table.jqplot-table-legend{
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/scripts/jqplot.pieProperties.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/jquery.jqplot.css" />
-
 
 
 <script>
@@ -122,58 +122,7 @@ function getPie(budget_id){
 	});
 }
 
-var pie_properties = {
-	//http://www.jqplot.com/docs/files/plugins/jqplot-pieRenderer-js.html
-	grid:{
-			drawGridlines:false,
-			background:"#ffffff",
-			drawBorder:false,
-			shadow:false
-	},
-	legend:{
-		show:true,
-		placement:"outside",
-		location:"se",
-		rowSpacing:'0.1em',
-		marginBottom:'0px',
-		border:'none',
-		rendererOptions:{
-			//numberColumns:2,
-		}
-	},
-	seriesColors: [ "#00C9DB", "#00DB80", "#C9DB00", "#DB8000", "#DB1200", "#DB005B",
-        "#1AECFF", "#8000DB", "#009AA8", "#9AA800", "#A80E00"],
 
-	//axesDefaults:[],
-	seriesDefaults:{
-		renderer:$.jqplot.PieRenderer,
-		rendererOptions:{
-			shadow:false,
-			padding:0,
-			//sliceMargin: 2,
-			showDataLabels:true,
-			fill: true,
-			sliceMargin: 2,
-			lineWidth: 0, 
-			//dataLabelThreshold:3,
-			dataLabelCenterOn:false,
-			//"dataLabelPositionFactor":0.6,
-			//"dataLabelNudge":0,
-			//"dataLabels":["Longer","B","C","Longer","None"],
-		},
-    	highlighter: {
-    	    show: true,
-    	    formatString:'%s', 
-    	    //tooltipLocation:'sw', 
-    	    useAxesFormatters:false
-    	},
-    	/*
-    	cursor: {
-    		style: "pointer",
-    	}
-    	*/
-	}
-}
 function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);
 	//$('#'+div_id).hide();	
@@ -187,7 +136,12 @@ function createPie(div_id, data){
 			return false;
 		}
 	);
-
+	$('#'+div_id).bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {
+		$(this).css( 'cursor', 'pointer' );                
+	}); 
+	$('#'+div_id).bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {
+		$(this).css( 'cursor', 'default' );                
+	});
 	
 	//http://jsfiddle.net/Boro/5QA8r/ highlight splice from lengend
 	/*$('.legend_item').on('mouseover', function() {
