@@ -98,8 +98,8 @@
 	</div>
     <div style="width: 33%; float: left;  margin: 0px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>
-		AGPL<br/>
-		<a href="https://github.com/buttle/ocax">Code @ github</a><br />
+		AGPLv3<br/>
+		<a href="https://gitorious.org/ocax/">gitorious.org/ocax</a><br />
 	</div>
 	</div>
 	<div style="clear:both;"></div>
