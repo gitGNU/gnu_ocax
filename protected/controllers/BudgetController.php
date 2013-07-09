@@ -119,6 +119,7 @@ class BudgetController extends Controller
 											'</div>',
 						'is_parent'=>$isParent,
 						'go_back_id'=>$goBackID,
+						'actual_provision'=>(int)$graphThisModel->actual_provision,
 					);
 		$data=array();
 		foreach($graphThisModel->budgets as $budget){

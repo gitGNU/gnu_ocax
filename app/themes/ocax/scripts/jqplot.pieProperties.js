@@ -28,7 +28,7 @@ var pie_properties = {
 			//sliceMargin: 2,
 			showDataLabels:true,
 			fill: true,
-			sliceMargin: 2,
+			sliceMargin: 0,
 			lineWidth: 0, 
 			//dataLabelThreshold:3,
 			dataLabelCenterOn:false,
