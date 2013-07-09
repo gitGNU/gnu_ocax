@@ -100,13 +100,16 @@ function getPie(budget_id){
 		beforeSend: function(){ },
 		complete: function() { return false; },
 		success: function(data){
-			title=	'<div style="font-size:1.5em;">'+
-					'<img style="vertical-align:text-bottom;cursor:pointer" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
-					'onclick="javascript:goBack('+data.params.go_back_id+');return false;" />'+data.params.title+
-					'</div>';
+			back_button= '<img style="vertical-align:text-bottom;cursor:pointer" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
+						 'onclick="javascript:goBack('+data.params.go_back_id+');return false;" />';
+			if(!data.params.is_parent)
+				title='<span class="link" style="font-size:1.5em;text-decoration:underline;color:cyan" onclick="javascript:goBack('+data.params.parent_id+');">'+data.params.title+'</span>';
+			else
+				title='<span style="font-size:1.5em;">'+data.params.title+'</span>';
+				
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
-			graph_container.append(title);
+			graph_container.append('<div>'+back_button+'<div style="width:100%;text-align:center;">'+title+'</div></div>');
 			graph_container.append(data.params.budget_details);
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
 			graph_container.append(graph);
@@ -125,23 +128,20 @@ function getPie(budget_id){
 
 function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);
-	//$('#'+div_id).hide();	
-
-	//http://www.kathyw.org/jQPlot/LinkTest.html
-
-	$('#'+div_id).bind('jqplotDataClick', 
-		function (ev, seriesIndex, pointIndex, data) {
-			 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-			getPie(data[2]);
-			return false;
-		}
-	);
-	$('#'+div_id).bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {
-		$(this).css( 'cursor', 'pointer' );                
-	}); 
-	$('#'+div_id).bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {
-		$(this).css( 'cursor', 'default' );                
-	});
+	if(data.params.actual_provision==0){
+		$('#'+div_id).append('<div style="position:absolute;top:20px;left:30px;font-size:20em;color:grey;">0€</div>');
+	}else{
+		//http://www.kathyw.org/jQPlot/LinkTest.html
+		$('#'+div_id).bind('jqplotDataClick', 
+			function (ev, seriesIndex, pointIndex, data) {
+				 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+				getPie(data[2]);
+				return false;
+			}
+		);
+		$('#'+div_id).bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {$(this).css('cursor','pointer');}); 
+		$('#'+div_id).bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {$(this).css('cursor','default');});
+	}
 	
 	//http://jsfiddle.net/Boro/5QA8r/ highlight splice from lengend
 	/*$('.legend_item').on('mouseover', function() {
