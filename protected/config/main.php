@@ -83,7 +83,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=ocax',
 			'emulatePrepare' => true,
 			'username' => 'ocax',
-			'password' => 'bFW23bQpKTaVasY8',
+			'password' => 'UxMJaCmbS8cYEbDj',
 			'charset' => 'utf8',
 		),
 
