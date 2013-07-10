@@ -7,25 +7,16 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 }
-?>
-<?php if(!Yii::app()->request->isAjaxRequest){?>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
-<style>
-	   	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
+if(!Yii::app()->request->isAjaxRequest){?>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <?php } ?>
 
 <style>           
-.clear{clear:both;}
-.socialIcons {	margin:0px; }
-.socialIcons img { cursor:pointer; }
-#directlink span  { cursor:pointer; }
-#directlink span:hover { color:black; }
+	.clear{clear:both;}
+	.socialIcons {	margin:0px; }
+	.socialIcons img { cursor:pointer; }
+	#directlink span  { cursor:pointer; }
+	#directlink span:hover { color:black; }
 </style>
 
 <script>
@@ -202,8 +193,9 @@ $this->widget('PGridView', array(
 <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
 </div>
 
-<div class="view" style="float:right;text-align:left;margin-left:10px;padding:0px;width:500px;">
+<div style="margin-top:5px;float:right;text-align:left;margin-left:10px;padding:0px;width:500px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
+	'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>array(
 		array(

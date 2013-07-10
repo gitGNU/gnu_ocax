@@ -89,7 +89,7 @@ class BudgetController extends Controller
 
 		$model=$this->loadModel($id);
 		if($model){
-			echo '<div class="budget_details view" budget_id='.$model->id.' style="width:543px;padding:0px">';
+			echo '<div class="budget_details" budget_id='.$model->id.' style="width:543px;padding:0px">';
 			echo $this->renderPartial('_enquiryView',array(	'model'=>$model,
 															'showCreateEnquiry'=>1,
 															'showLinks'=>1),false,true);
@@ -112,7 +112,7 @@ class BudgetController extends Controller
 		
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>CHtml::encode($graphThisModel->getConcept()),
-						'budget_details'=>	'<div class="budget_details view" style="padding:0px">'.
+						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
 											$this->renderPartial('_enquiryView',array(	'model'=>$model,
 																						'showCreateEnquiry'=>1,
 																						'showLinks'=>1),true,false).

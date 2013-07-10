@@ -5,7 +5,7 @@ table.detail-view .null
 
 table.detail-view
 {
-	background: white;
+	background: #ccc;
 	border-collapse: collapse;
 	width: 100%;
 	margin: 0;
@@ -14,8 +14,7 @@ table.detail-view
 table.detail-view th, table.detail-view td
 {
 	font-size: 0.9em;
-	/*border: 1px white solid;*/
-	border: 2px yellow solid;
+	border: 1px white solid;
 	padding: 0.3em 0.6em;
 	vertical-align: top;
 }
@@ -26,6 +25,13 @@ table.detail-view th
 	width: 160px;
 }
 
+table.detail-view td:nth-child(1){
+    background-color: #ccc;
+}
+table.detail-view td:nth-child(2){
+    background-color: #eee;
+}
+/*
 table.detail-view tr.odd
 {
 	background:#E5F1F4;
@@ -35,6 +41,7 @@ table.detail-view tr.even
 {
 	background:#F8F8F8;
 }
+*/
 
 table.detail-view tr.odd th
 {
