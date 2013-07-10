@@ -100,16 +100,20 @@ function getPie(budget_id){
 		beforeSend: function(){ },
 		complete: function() { return false; },
 		success: function(data){
-			back_button= '<img style="vertical-align:text-bottom;cursor:pointer" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
-						 'onclick="javascript:goBack('+data.params.go_back_id+');return false;" />';
-			if(!data.params.is_parent)
-				title='<span class="link" style="font-size:1.5em;text-decoration:underline;color:cyan" onclick="javascript:goBack('+data.params.parent_id+');">'+data.params.title+'</span>';
-			else
-				title='<span style="font-size:1.5em;">'+data.params.title+'</span>';
+			back_button= '<div style="width:35px;float:left;">'+
+						 '<img style="vertical-align:text-bottom;cursor:pointer;" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
+						 'onclick="javascript:goBack('+data.params.go_back_id+');return false;" /></div>';
+			if(!data.params.is_parent){
+				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+data.params.parent_id+
+						'" onclick="js:showBudget('+data.params.parent_id+');return false;">'+data.params.title+'</a>';
+			}else
+				title=data.params.title;
 				
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
-			graph_container.append('<div>'+back_button+'<div style="width:100%;text-align:center;">'+title+'</div></div>');
+			graph_container.append(	'<div style="margin-left:-30px;">'+back_button+
+									'<span style="width:905px;float:right;text-align:center;font-size:1.5em">'+title+'</span></div>');
+			graph_container.append('<div style="clear:both"></div>');
 			graph_container.append(data.params.budget_details);
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
 			graph_container.append(graph);
