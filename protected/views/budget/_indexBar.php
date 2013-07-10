@@ -35,10 +35,6 @@
 	padding-left:10px;
 	padding-right:60px;
 }
-.queriedBudget{
-	color:#4682B4;
-	font-weight:bold;
-}
 .graph_bar_percent{
 	padding-left:5px;
 	padding-right:5px;
@@ -48,15 +44,9 @@
 	margin-right:4px;
 	cursor:pointer;
 }
-.budget:hover {
+.highlightGraphBar:hover {
     opacity: 0.7;
 	cursor:pointer;
-}
-.bClose{
-	cursor: pointer;
-	position: absolute;
-	right: -21px;
-	top: -21px;
 }
 </style>
 
@@ -65,26 +55,29 @@
 $(function() {
 	$('.budget').bind('click', function() {
 		budget_id = $(this).attr('budget_id');
+		
 		if($('.budget_details[budget_id='+budget_id+']').length>0){
 			$('.budget_details').hide();
 			$('.budget_details[budget_id='+budget_id+']').show();
-			return;
+		}else{
+			el = $(this);
+			$.ajax({
+				url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDetailsForBar/'+budget_id,
+				type: 'GET',
+				async: false,
+				//dataType: 'json',
+				beforeSend: function(){ },
+				success: function(data){
+					$('.budget_details').hide();
+					el.append(data);
+				},
+				error: function() {
+					alert("Error on get budget details");
+				}
+			});
 		}
-		el = $(this);
-		$.ajax({
-			url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDetailsForBar/'+budget_id,
-			type: 'GET',
-			async: false,
-			//dataType: 'json',
-			beforeSend: function(){ },
-			success: function(data){
-				$('.budget_details').hide();
-				el.append(data);
-			},
-			error: function() {
-				alert("Error on get budget details");
-			}
-		});
+		$('.no-highlightGraphBar').removeClass('no-highlightGraphBar').addClass('highlightGraphBar');
+		$(this).removeClass('highlightGraphBar').addClass('no-highlightGraphBar');
 	});
 });
 /*
@@ -136,12 +129,12 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 			echo '<img id="toggle_'.$budget->id.'" class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
 			echo '</div>';
 			}
-			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
+			echo '<div class="budget highlightGraphBar" budget_id="'.$budget->id.'" style="float:left;">';
 				$highlight=null;
-				if($budget->id == $globals['queried_budget'])
-					$highlight = 'queriedBudget';
+				//if($budget->id == $globals['queried_budget'])
+				//	$highlight = 'queriedBudget';
 				echo '<div>';
-				echo '<span class="'.$highlight.'">'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
+				echo '<span>'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
 				echo '</div>';
 
 			$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
