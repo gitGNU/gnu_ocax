@@ -98,11 +98,13 @@ $(function() {
 });
 */
 function toggleChildren(id){
-	if ($('#budget_children_'+id).is(":visible"))
+	if ($('#budget_children_'+id).is(":visible")){
 		$('#budget_children_'+id).slideUp('fast');
-	else{
+		$('#toggle_'+id).attr('src','<?php echo Yii::app()->theme->baseUrl?>/images/plus_icon.png');
+	}else{
 		//$('.budget_details').hide();		
 		$('#budget_children_'+id).slideDown('fast');
+		$('#toggle_'+id).attr('src','<?php echo Yii::app()->theme->baseUrl?>/images/minus_icon.png');
 	}
 }
 </script>
@@ -131,7 +133,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 
 			if($budget->budgets){
 			echo '<div style="float:left;">';
-			echo '<img class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
+			echo '<img id="toggle_'.$budget->id.'" class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
 			echo '</div>';
 			}
 			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
