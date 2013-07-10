@@ -54,12 +54,6 @@ Yii::app()->clientScript->registerScript('search', "
    background: #1b435e;
    }
    
-   	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
