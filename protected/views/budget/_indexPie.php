@@ -9,9 +9,8 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 <style>
 .graph_group{
 	border-top: 2px dashed #555555;
-	margin-bottom:20px;
-	margin-top:20px;
-	padding-top:15px;
+	margin-top:40px;
+	padding:0px;
 }
 .loading{
 	font-size:1em;
@@ -25,8 +24,12 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 .graph{
 	width:450px;
 	height:450px;
-			margin-bottom:60px;
-
+	margin:0px;
+}
+.pie_graph_title{
+	width:100%;
+	text-align:center;
+	font-size:1.5em;	
 }
 .budget_details{
 	width:450px;
@@ -44,6 +47,13 @@ table.jqplot-table-legend{
 }
 .jqplot-data-label{
 	font-size:1.8em;
+}
+#go_back{
+	position:absolute;
+	top:0px;
+	left:-30px;
+	padding:0px;
+	cursor:pointer;
 }
 </style>
 
@@ -82,8 +92,12 @@ function slideInChild(parent_id,child_id){
 function goBack(parent_id){
 	parent_graph_container=$('#'+parent_id);
 	parent_graph_container.show("slide",{ direction: "left" },	500);
+
 	group=parent_graph_container.parents('.graph_group');
 	group.children(".graph_container").hide();
+	
+
+	
 }
 
 function getPie(budget_id){
@@ -100,27 +114,30 @@ function getPie(budget_id){
 		beforeSend: function(){ },
 		complete: function() { return false; },
 		success: function(data){
-			back_button= '<div style="width:35px;float:left;">'+
-						 '<img style="vertical-align:text-bottom;cursor:pointer;" src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
-						 'onclick="javascript:goBack('+data.params.go_back_id+');return false;" /></div>';
+			graph_container.attr('parent_id',data.params.parent_id);
+			graph_container.attr('is_parent',data.params.is_parent);
+			
 			if(!data.params.is_parent){
 				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+data.params.parent_id+
 						'" onclick="js:showBudget('+data.params.parent_id+');return false;">'+data.params.title+'</a>';
 			}else
 				title=data.params.title;
-				
-			graph_container.attr('parent_id',data.params.parent_id);
-			graph_container.attr('is_parent',data.params.is_parent);
-			graph_container.append(	'<div style="margin-left:-30px;">'+back_button+
-									'<span style="width:905px;float:right;text-align:center;font-size:1.5em">'+title+'</span></div>');
-			graph_container.append('<div style="clear:both"></div>');
+			graph_container.append('<div class="pie_graph_title">'+title+'</div>');
+			
 			graph_container.append(data.params.budget_details);
+			
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
 			graph_container.append(graph);
 			
 			group=$("#"+data.params.parent_id).parents('.graph_group');
 			group.append(graph_container);
 			createPie(budget_id+'_graph', data);
+			
+			back_button= '<div id="go_back">'+
+						 '<img src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
+						 'onclick="javascript:goBack('+data.params.go_back_id+');return false;" /></div>';	 
+			$('#'+budget_id+'_graph').append(back_button);		
+			
 			slideInChild(data.params.parent_id,budget_id);
 		},
 		error: function() {
@@ -132,6 +149,7 @@ function getPie(budget_id){
 
 function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);
+	
 	if(data.params.actual_provision==0){
 		$('#'+div_id).append('<div style="position:absolute;top:20px;left:30px;font-size:20em;color:grey;">0€</div>');
 	}else{
@@ -185,5 +203,5 @@ $(function() {
 </script>
 
 <?php
-echo '<div id="pie_display" style="margin-top:5px;margin-bottom:15px;"></div>';
+echo '<div id="pie_display"></div>';
 ?>
