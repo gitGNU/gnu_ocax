@@ -27,6 +27,7 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	margin:0px;
 }
 .pie_graph_title{
+	margin-bottom:10px;
 	width:100%;
 	text-align:center;
 	font-size:1.5em;	

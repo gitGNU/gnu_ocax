@@ -42,7 +42,7 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 	echo '<div style="font-size:1.6em">'.$model->getTitle().'</div>';
 
 	echo '<div>';
-		echo '<div class="view" style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right;">';
+		echo '<div style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right;">';
 		$this->renderPartial('_enquiryView',array(	'model'=>$model,
 													'showCreateEnquiry'=>1,
 													'showLinks'=>1,
