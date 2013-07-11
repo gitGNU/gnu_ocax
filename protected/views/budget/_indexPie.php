@@ -26,8 +26,8 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	width:450px;
 	height:450px;
 			margin-bottom:60px;
-
 }
+
 .budget_details{
 	width:450px;
 	float:right;
@@ -126,8 +126,8 @@ var pie_properties = {
 	//http://www.jqplot.com/docs/files/plugins/jqplot-pieRenderer-js.html
 	grid:{
 			drawGridlines:false,
-			background:"#ffffff",
 			drawBorder:false,
+			background:"#f1ede8",
 			shadow:false
 	},
 	legend:{
@@ -141,8 +141,8 @@ var pie_properties = {
 			//numberColumns:2,
 		}
 	},
-	seriesColors: [ "#00C9DB", "#00DB80", "#C9DB00", "#DB8000", "#DB1200", "#DB005B",
-        "#1AECFF", "#8000DB", "#009AA8", "#9AA800", "#A80E00"],
+	seriesColors: [ "#62b5cf", "#a1a150", "#fed675", "#e85c54", "#ea6da2", "#007281",
+        "#6b8912", "#b98f00", "#a30132", "#b83187", ],
 
 	//axesDefaults:[],
 	seriesDefaults:{

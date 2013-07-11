@@ -24,20 +24,8 @@ Yii::app()->clientScript->registerScript('search', "
 <style>
 .button {
    border-top: 1px solid #96d1f8;
-   background: #65a9d7;
-   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
-   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
-   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
-   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
-   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background: #00CADC;
    padding: 13.5px 27px;
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
    color: white;
    font-size: 19px;
    font-family: Helvetica, Arial, Sans-Serif;
@@ -135,7 +123,7 @@ function afterSearch(){
 	">
 <?php
 
-echo 'ggg';	// julio, antes teniamos un string aqui. ahora al quitarlo, sube lo de abajo.
+echo ' .';	// julio, antes teniamos un string aqui. ahora al quitarlo, sube lo de abajo.
 
 if(Yii::app()->user->isAdmin())
 	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
@@ -164,7 +152,6 @@ if(count($years) > 1){
 	margin-left:0px;
 	margin-right:0px;
     margin-top:10px;
-	background-color:#FFFFFF;
 	">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
