@@ -1,7 +1,7 @@
 var pie_properties = {
 	grid:{
 			drawGridlines:false,
-			background:"#ffffff",
+			background:"#f1ede8",
 			drawBorder:false,
 			shadow:false
 	},
@@ -16,8 +16,8 @@ var pie_properties = {
 			//numberColumns:2,
 		}
 	},
-	seriesColors: [ "#00C9DB", "#00DB80", "#C9DB00", "#DB8000", "#DB1200", "#DB005B",
-        "#1AECFF", "#8000DB", "#009AA8", "#9AA800", "#A80E00"],
+	seriesColors: [ "#62b5cf", "#a1a150", "#fed675", "#e85c54", "#ea6da2", "#007281",
+					"#6b8912", "#b98f00", "#a30132", "#b83187", ],
 
 	//axesDefaults:[],
 	seriesDefaults:{
