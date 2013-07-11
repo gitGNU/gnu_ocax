@@ -245,6 +245,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 					);
 	}
 	$this->widget('zii.widgets.CDetailView', array(
+		'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
 		'data'=>$model,
 		'attributes'=>$attributes,
 	));
