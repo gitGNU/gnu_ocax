@@ -32,6 +32,7 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	text-align:center;
 	font-size:1.5em;	
 }
+
 .budget_details{
 	width:450px;
 	float:right;
@@ -146,7 +147,6 @@ function getPie(budget_id){
 		}
 	});
 }
-
 
 function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);

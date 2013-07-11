@@ -1,5 +1,8 @@
 
 
+
+
+
 .pgrid-view-loading
 {
 	background: url("../images/pgridview/loading.gif") no-repeat;
@@ -16,7 +19,7 @@
 .pgrid-view table.items th, .pgrid-view table.items td
 {
 	font-size: 0.9em;
-	border: 1px white solid;
+	border: 2px #f1ede8 solid;
 	padding: 0.3em;
 }
 
@@ -32,14 +35,14 @@
 	background: url("../images/pgridview/bg.gif") repeat-x scroll left top white;
 	text-align: center;
 */
-	color: black;
-	background-color: #00EE76;
-	text-align: center;
+	color: #FFFFFF;
+	background-color: #676767;
+	text-align: left;
 }
 
 .pgrid-view table.items th a
 {
-	color: black;
+	color:  #FFFFFF;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -63,13 +66,13 @@
 
 .pgrid-view table.items tr.even
 {
-	background: #F8F8F8;
+	background: #ded8d1;
 	cursor: pointer;
 }
 
 .pgrid-view table.items tr.odd
 {
-	background: #E5F1F4;
+	background: #94c68d;
 	cursor: pointer;
 }
 

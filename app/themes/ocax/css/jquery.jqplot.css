@@ -65,7 +65,6 @@
     right: -20px;
     margin-right: 0px;
     padding:1px 5px 1px 5px;
-    /*background-color: white;*/
     z-index: 2;
     font-size: 1.5em;
 }
@@ -133,8 +132,7 @@ table.jqplot-table-legend {
 }
 
 table.jqplot-table-legend, table.jqplot-cursor-legend {
-    background-color: rgba(255,255,255,0.6);
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     position: absolute;
     font-size: 0.75em;
 }

@@ -122,10 +122,23 @@ $this->widget('PGridView', array(
 ;?>
 </p>
 
-<p><b>Tu página de gestión</b><br />En tu panel de gestión hay un enlace para crear una nueva enquiry</p>
-<p><b>Explicar los dos tipos de enquirys</b><br />Se pueden realizar enquirys del tipo genérica o presupuestaria</p>
-<p><b>Más</b><br />Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas </p>
-<p><b>Más</b><br />Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas Cosas </p>
+<p><b>¿Cuales son los estados de una consulta?</b><br /><br />
+
+1.- Esperando aceptación del Observatorio.<br /><br />
+
+2.- Consulta aceptada por el Observatorio<br /><br />
+
+3.- Consulta rechazada por el Observatorio.<br /><br />
+
+4.- Consulta aceptada por el Observatorio.<br /><br />
+
+5.- Esperando respuesta del Ayuntamiento.<br /><br />
+
+6.- Respuesta del Ayuntamiento pendiente de valorar.<br /><br />
+
+7.- Respuesta del Ayuntamiento satisfactoria.<br /><br />
+
+8.- Respuesta del Ayuntamiento insatisfactoria.</p>
 </div>
 </div>
 
