@@ -120,14 +120,17 @@ function sendContactForm(form){
 		}
 	});
 }
-function showBudget(budget_id){
+function showBudget(budget_id, element){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		async: false,
 		//dataType: 'json',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
+		beforeSend: function(){
+						$('.loading_gif').remove();
+						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
+					},
+		complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
 			if(data != 0){
 				$("#budget_popup_body").html(data);

@@ -44,7 +44,7 @@
 	margin-right:4px;
 	cursor:pointer;
 }
-.highlightGraphBar:hover {
+.budget:hover {
     opacity: 0.7;
 	cursor:pointer;
 }
@@ -52,6 +52,7 @@
 
 <script>
 
+/*
 $(function() {
 	$('.budget').bind('click', function() {
 		budget_id = $(this).attr('budget_id');
@@ -59,6 +60,7 @@ $(function() {
 		if($('.budget_details[budget_id='+budget_id+']').length>0){
 			$('.budget_details').hide();
 			$('.budget_details[budget_id='+budget_id+']').show();
+			alert('cache');
 		}else{
 			el = $(this);
 			$.ajax({
@@ -80,6 +82,14 @@ $(function() {
 		$(this).removeClass('highlightGraphBar').addClass('no-highlightGraphBar');
 	});
 });
+*/
+$(function() {
+	$('.budget').bind('click', function() {
+		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
+	});
+});
+
+
 /*
 $(function() {
 	$("#Budget_concept").on("click", function(event){
@@ -129,7 +139,8 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 			echo '<img id="toggle_'.$budget->id.'" class="showChildren" src="'.Yii::app()->theme->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
 			echo '</div>';
 			}
-			echo '<div class="budget highlightGraphBar" budget_id="'.$budget->id.'" style="float:left;">';
+			//echo '<div class="budget highlightGraphBar" budget_id="'.$budget->id.'" style="float:left;">';
+			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
 				$highlight=null;
 				//if($budget->id == $globals['queried_budget'])
 				//	$highlight = 'queriedBudget';
