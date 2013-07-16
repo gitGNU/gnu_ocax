@@ -23,7 +23,7 @@ else{
 }
 
 if(isset($showLinks)){
-	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.');return false;');
+	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.', this);return false;');
 	$create_enquiry_link = 	'<span style="float:right">'.
 							CHtml::link(__('New enquiry'),array('enquiry/create', 'budget'=>$model->id)).
 							'</span>';

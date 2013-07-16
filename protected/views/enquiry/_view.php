@@ -10,9 +10,10 @@ if(Yii::app()->request->isAjaxRequest){
 
 
 <style>
-.commentBlockLink { float:right;text-align:right; }
-.commentBlockLink .link { color:#06c; cursor:pointer; }
-.commentBlockLink .link:focus, .commentBlockLink .link:hover {color:#09f;}
+.comments { margin-top:15px; }
+
+.link { color:#06c; cursor:pointer; }
+.link:focus, .link:hover {color:#09f;}
 
 .voteBlock { float:right;text-align:right; }
 .voteBlock .like { padding:3px; background-color:#7CCD7C; }
@@ -70,6 +71,8 @@ function getCommentForm(comment_on, id, el){
 			$('#comment_form').html(data.html);
 			$(el).after($('#comment_form'));
 			$('#comment_form').show();
+			$('.add_comment_link').show();
+			$('#comment_form').prev('.add_comment_link').hide();
 		},
 		error: function() {
 			alert("Error on get comment form");
@@ -79,6 +82,7 @@ function getCommentForm(comment_on, id, el){
 function cancelComment(){
 	$('#comment_form').html();
 	$('#comment_form').slideUp('fast');
+	$('#comment_form').prev('.add_comment_link').show();
 }
 function submitComment(form){
 	$.ajax({
@@ -87,19 +91,30 @@ function submitComment(form){
 		async: false,
 		dataType: 'json',
 		data: $(form).serialize(),
-		//beforeSend: function(){  },
-		complete: function(){ $(form).parents('div:first').remove(); },
-					
+		beforeSend: function(){
+						$(form).find('button').attr('disabled', 'disabled');
+						$(form).find('.loading_gif').show();
+					},
+		complete: function(){
+						$(form).parents('div:first').remove();
+					},
 		success: function(data){
 				if(data != 0){
-					$(form).parents('.add_comment_link:first').before(data.html);
+					$('#comment_form').parents('.add_comment:first').before(data.html);
+					
+					show_comments_link = $('#comment_form').parents('.comments').find('.show_comments_link');
+					comment_count = show_comments_link.find('.comment_count');
+					count = parseInt(comment_count.html())+1;
+					comment_count.html(count);
+					show_comments_link.show();
 				}
+				$('#comment_form').prev('.add_comment_link').show();
 		},
 		error: function() { alert("error on create comment"); },
 	});
 }
 function deleteComment(comment_id){
-	retVal = confirm("¿Seguro que deseas borrarlo?");
+	retVal = confirm("<?php echo __('Are you sure you want to delete it?');?>");
 	if( retVal == false ){
 		return;
 	}
@@ -109,6 +124,12 @@ function deleteComment(comment_id){
 		async: false,
 		success: function(data){
 				if(data == 1){
+					show_comments_link = $('#comment_'+comment_id).parents('.comments').find('.show_comments_link');
+					comment_count = show_comments_link.find('.comment_count');
+					count = comment_count.html() -1;
+					comment_count.html(count);
+					if(count == 0)
+						show_comments_link.hide();
 					$('#comment_'+comment_id).remove();
 				}
 		},
@@ -152,30 +173,36 @@ function vote(reply_id, like){
 <div style="clear:both"></div>
 
 <?php
-echo '<div class="commentBlockLink">';	// comments open
 
-$commments = Comment::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
-if($commments){
-	echo '<div class="link" onClick="js:toggleComments(\'comments_enquiry\')">'.__('Comments').' ('.count($commments).')</div>';
-}
-else{
-	echo '<div class="add_comment_link">';
-	echo '<span class="link" onClick=\'js:getCommentForm("enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
-	echo '</div>';
-}
-echo '</div>';
+echo '<div class="comments">';	// comments on enquiry open
 
-echo '<div class="clear"></div>';
+$comments = Comment::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+$visible='';
+if(!$comments){
+	$visible='style="display:none;"';
+}
+
+echo '<div class="show_comments_link link" '.$visible.' onClick="js:toggleComments(\'comments_enquiry\')">';
+echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)</div>';
+
+if(!$comments){
+	echo '<div class="add_comment">';
+	echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
+	echo '</div>';	
+}
 
 echo '<div id="comments_enquiry" style="display:none">';
-foreach($commments as $comment)
-	$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
+	foreach($comments as $comment){
+		$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
+	}
+	if($comments){
+		echo '<div class="add_comment">';
+		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
+		echo '</div>';
+	}
 
-
-	echo '<div class="commentBlockLink add_comment_link">';
-	echo '<span class="link" onClick=\'js:getCommentForm("enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
-	echo '</div>';
 echo '</div>';
+echo '</div>';	// comments on enquiry close
 
 ?>
 <div class="clear"></div>
@@ -233,32 +260,38 @@ foreach($replys as $reply){
 	}
 
 	echo '<p>'.$reply->body.'</p>';
-	$commments = Comment::model()->findAll(array('condition'=>'reply =  '.$reply->id));
+	
+// -------------- comments on reply open
+echo '<div class="comments">';	
+$comments = Comment::model()->findAll(array('condition'=>'reply =  '.$reply->id));
+$visible='';
+if(!$comments){
+	$visible='style="display:none;"';
+}
+echo '<div class="show_comments_link link" '.$visible.' onClick="js:toggleComments(\'comments_reply_'.$reply->id.'\')">';
+echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)</div>';
+	
+if(!$comments){
+	echo '<div class="add_comment">';
+	echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
+	echo '</div>';	
+}
 
-	// comments
-	echo '<div class="commentBlockLink">';
-	if($commments){
-		echo '<span class="link" onClick="js:toggleComments(\'comments_reply_'.$reply->id.'\')">'.__('Comments').' ('.count($commments).')</span>';
-	}
-	else{
-		echo '<span class="add_comment_link">';
-		echo '<span class="link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
-		echo '</span>';
-	}
-	echo '</div><div class="clear"></div>';
-
-	echo '<div id="comments_reply_'.$reply->id.'" style="display:none">';
-	foreach($commments as $comment)
+echo '<div id="comments_reply_'.$reply->id.'" style="display:none">';
+	foreach($comments as $comment){
 		$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
-
-		echo '<div class="commentBlockLink add_comment_link">';
-		echo '<span class="link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
+	}
+	if($comments){
+		echo '<div class="add_comment">';
+		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
 		echo '</div>';
+	}
 
-	echo '</div><div class="clear"></div>';
-
-	echo '</div>';	//close reply
+echo '</div>';
+echo '</div>';
+// ----------------comments on reply close
 }?>
+<div class="clear"></div>
 
 
 <div id="comment_form" style="display:none"></div>
