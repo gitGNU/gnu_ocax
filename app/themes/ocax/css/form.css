@@ -34,9 +34,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-div.form
-{
-}
+
 
 div.form input,
 div.form textarea,
@@ -58,8 +56,7 @@ div.form label
 	font-weight: bold;
 	font-size: 0.9em;
 	display: block;
-	color:#FFF;
-}
+	}
 
 div.form .row
 {

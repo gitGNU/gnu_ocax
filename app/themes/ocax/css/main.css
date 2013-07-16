@@ -1,18 +1,18 @@
 /* --------------------- GRIS 2 --------------------- */
 
 body
-{ background-color: #ded8d1;}
+{ background-color: #e4ded7;}
 
 
 
 /* --------------------- GRIS 3 --------------------- */
 
 #page
-{ background-color: #f1ede8;}
+{ background-color: #f5f1ed;}
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-   background-color:#f1ede8;
+   background-color:#f5f1ed;
 }
 
 
@@ -26,12 +26,10 @@ body
 /* --------------------- COLOR --------------------- */
 
 
-#mainmenu ul li a
+#mainmenu ul li a 
 {
 	background-color:#61b5d0;
 }
-
-
 
 
 
@@ -64,7 +62,7 @@ body
 	width:950px;
 	margin-top: 0px;
 	margin-bottom: 0px;
-	padding: 45px 20px 0px 10px;
+	padding: 25px 20px 0px 10px;
 	border-top: 0px;
 	border-bottom: 0px;
 }
@@ -163,7 +161,7 @@ body
 
 #mainmenu ul li a
 {
-	color:#f1ede8;
+	color:#f5f1ed;
 	font-size:18px;
 	font-weight:bold;
 	text-decoration:none;
