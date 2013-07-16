@@ -19,7 +19,7 @@ echo CHtml::encode($data['desc_concept']).'</b></span><br />';
 //echo 'Score: '.CHtml::encode($data['score']).'<br />';
 
 $url = Yii::app()->createAbsoluteUrl('budget/view', array('id'=>$data['id']));
-echo CHtml::link($url, array('view', 'id'=>$data['id']), array('onclick'=>'js:showBudget('.$data['id'].');return false;')).'<br />';
+echo CHtml::link($url, array('view', 'id'=>$data['id']), array('onclick'=>'js:showBudget('.$data['id'].', this);return false;')).'<br />';
 	
 echo '<span class="label">'.CHtml::encode($model->getAttributeLabel('initial_provision')).':</span> ';
 echo number_format(CHtml::encode($data['initial_provision']), 2, ',', '.').' €<br />';

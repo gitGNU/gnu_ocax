@@ -14,7 +14,7 @@
 
 	<?php echo __('comments on the').' '.format_date($data->created,1);
 		if($data->user == Yii::app()->user->getUserID())
-			echo '<img style="cursor:pointer;margin-left:5px;" alt="Borrar" src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onClick="js:deleteComment('.$data->id.')" />';
+			echo '<img style="cursor:pointer;margin-left:5px;vertical-align:middle" alt="'.__('Delete').'" src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onClick="js:deleteComment('.$data->id.')" />';
 	?>
 	</p>
 	<p style="text-align:left">
