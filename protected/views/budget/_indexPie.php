@@ -102,7 +102,7 @@ function goBack(parent_id){
 	
 }
 
-function getPie(budget_id){
+function getPie(budget_id, element){
 	if($("#"+budget_id).length){
 		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
 		return false;
@@ -113,15 +113,15 @@ function getPie(budget_id){
 		type: 'GET',
 		async: false,
 		dataType: 'json',
-		beforeSend: function(){ },
-		complete: function() { return false; },
+		beforeSend: function(){ $('.pie_loading_gif').hide(); $(element).show(); },
+		complete: function() { $('.pie_loading_gif').hide(); return false; },
 		success: function(data){
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
 			
 			if(!data.params.is_parent){
 				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+data.params.parent_id+
-						'" onclick="js:showBudget('+data.params.parent_id+');return false;">'+data.params.title+'</a>';
+						'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';
 			}else
 				title=data.params.title;
 			graph_container.append('<div class="pie_graph_title">'+title+'</div>');
@@ -158,7 +158,7 @@ function createPie(div_id, data){
 		$('#'+div_id).bind('jqplotDataClick', 
 			function (ev, seriesIndex, pointIndex, data) {
 				 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-				getPie(data[2]);
+				getPie(data[2], $(this).parents('.graph_group').find('.pie_loading_gif'));
 				return false;
 			}
 		);
@@ -177,7 +177,7 @@ $(function() {
 	
 	$('#pie_display').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
-		getPie(budget_id);
+		getPie(budget_id, $(this).parents('.graph_group').find('.pie_loading_gif'));
 		return false;
 	});
 	
@@ -189,7 +189,8 @@ $(function() {
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_group"></div>');
-			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->getConcept());?></span><br />');
+			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->getConcept());?></span>');
+			group.append(' <img style="vertical-align:middle;display:none" class="pie_loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
