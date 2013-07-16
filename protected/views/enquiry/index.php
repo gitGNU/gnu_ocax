@@ -35,8 +35,8 @@ function showEnquiry(enquiry_id){
 		type: 'GET',
 		async: false,
 		dataType: 'json',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
+		beforeSend: function(){ $('#enquiry-grid').addClass('pgrid-view-loading'); },
+		complete: function(){ $('#enquiry-grid').removeClass('pgrid-view-loading'); },
 		success: function(data){
 			if(data != 0){
 				$("#enquiry_body").html(data.html);

@@ -59,6 +59,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
 	'dataProvider'=>$model->adminSearch(),
 	'filter'=>$model,
