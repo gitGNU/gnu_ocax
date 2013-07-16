@@ -80,10 +80,10 @@ return array(
 
 		// uncomment the following to use a MySQL database
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=ocax',
+			'connectionString' => 'mysql:host=localhost;dbname=ocax_julio',
 			'emulatePrepare' => true,
-                        'username' => 'ocax',
-                        'password' => 'ocax',
+                        'username' => 'ocax_julio',
+                        'password' => 'JUZhyMvrtxfDx6p3',
 			'charset' => 'utf8',
 		),
 
