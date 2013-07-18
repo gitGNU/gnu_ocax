@@ -261,35 +261,35 @@ foreach($replys as $reply){
 
 	echo '<p>'.$reply->body.'</p>';
 	
-// -------------- comments on reply open
-echo '<div class="comments">';	
-$comments = Comment::model()->findAll(array('condition'=>'reply =  '.$reply->id));
-$visible='';
-if(!$comments){
-	$visible='style="display:none;"';
-}
-echo '<div class="show_comments_link link" '.$visible.' onClick="js:toggleComments(\'comments_reply_'.$reply->id.'\')">';
-echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)</div>';
+	echo '<div class="comments">';	//comments on reply open
 	
-if(!$comments){
-	echo '<div class="add_comment">';
-	echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
-	echo '</div>';	
-}
-
-echo '<div id="comments_reply_'.$reply->id.'" style="display:none">';
-	foreach($comments as $comment){
-		$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
+	$comments = Comment::model()->findAll(array('condition'=>'reply =  '.$reply->id));
+	$visible='';
+	if(!$comments){
+		$visible='style="display:none;"';
 	}
-	if($comments){
+	echo '<div class="show_comments_link link" '.$visible.' onClick="js:toggleComments(\'comments_reply_'.$reply->id.'\')">';
+	echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)</div>';
+	
+	if(!$comments){
 		echo '<div class="add_comment">';
 		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
-		echo '</div>';
+		echo '</div>';	
 	}
 
-echo '</div>';
-echo '</div>';
-// ----------------comments on reply close
+	echo '<div id="comments_reply_'.$reply->id.'" style="display:none">';
+		foreach($comments as $comment){
+			$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
+		}
+		if($comments){
+			echo '<div class="add_comment">';
+			echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
+			echo '</div>';
+		}
+	echo '</div>';
+	echo '</div>';		//comments on reply close
+	
+	echo '</div>';		//close reply
 }?>
 <div class="clear"></div>
 
