@@ -1,5 +1,6 @@
 notes
 *~
+protected/config/main.php
 assets/*
 !assets/.gitignore
 protected/runtime/*
