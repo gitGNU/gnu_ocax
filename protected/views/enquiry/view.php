@@ -20,6 +20,29 @@ if(!Yii::app()->request->isAjaxRequest){?>
 </style>
 
 <script>
+!function(d,s,id){
+	var js,fjs=d.getElementsByTagName(s)[0];
+	if(!d.getElementById(id)){
+		js=d.createElement(s);
+		js.id=id;
+		js.src="https://platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js,fjs);
+	}
+}
+(document,"script","twitter-wjs");
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<script>
 function subscribe(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		$(el).attr('checked', false);
@@ -264,8 +287,22 @@ if($model->budget)
 <?php
 if($model->state >= ENQUIRY_ACCEPTED){
 	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/mail.png" onClick="js:toggleSocialPopup(\'subscribe\');"/>';
-	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/facebook.png" />';
-	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/twitter.png" />';
+	echo '<div	class="fb-like"
+				data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+				data-send="false"
+				data-layout="button_count"
+				data-width="450"
+				data-show-faces="false"
+				data-font="arial"
+				style="margin-right:10px">
+		</div>';
+	echo '<a	href="https://twitter.com/share"
+				class="twitter-share-button"
+				data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+				data-text="'.$model->title.'"
+				data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
+				data-lang="en">
+		</a>';
 }?>
 
 </div>

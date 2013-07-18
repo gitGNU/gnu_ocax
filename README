@@ -16,15 +16,12 @@ Directory structure
 Installation
 
 Create database with schema.sql
-Modify database connection parameters in protected/config/main.php
+Copy protected/config/main.example.php to protected/config/main.php
+Modify mysql connection parameters in protected/config/main.php
 
 File permissions
 chown -R www-data protected/runtime/ protected/data/
 chown www-data app/assets/
-
-You need to copy app/images/pgridview to webroot/images
-eg. # ln -s /home/ocax/app/images/pgridview/ /var/www/images/
-!!need to fix this by using assets!!
 
 apt-get install zip
 
