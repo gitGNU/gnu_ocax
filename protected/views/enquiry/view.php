@@ -12,11 +12,19 @@ if(!Yii::app()->request->isAjaxRequest){?>
 <?php } ?>
 
 <style>           
-	.clear{clear:both;}
-	.socialIcons {	margin:0px; }
-	.socialIcons img { cursor:pointer; }
-	#directlink span  { cursor:pointer; }
-	#directlink span:hover { color:black; }
+.socialIcons {	margin:0px; }
+.socialIcons img { cursor:pointer;  margin-right:10px; }
+#directlink span  { cursor:pointer; }
+#directlink span:hover { color:black; }
+.social_popup {	
+	display :none;
+	position: absolute;
+	padding:7px;
+	z-index: 1;
+	width: 330px;
+	background-color: #98FB98;
+}
+.clear{clear:both;}	
 </style>
 
 <script>
@@ -33,13 +41,15 @@ if(!Yii::app()->request->isAjaxRequest){?>
 </script>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+</script>
 
 
 <script>
@@ -64,14 +74,18 @@ function subscribe(el){
 		error: function() { alert("error on subscribe"); },
 	});
 }
-function toggleSocialPopup(id){
-	if ( $('#'+id).is(':visible') )
-		$('#'+id).hide();
-	else{
-		$('.social_popup').hide();
-		$('#'+id).show();
+
+function clickSocialIcon(el){
+	if( $(el).attr('social_icon') ){
+		$('#'+$(el).attr('social_icon')).show();
 	}
 }
+$(function() {
+	$('.social_popup').mouseleave(function() {
+		$('.social_popup').hide();
+	});
+});
+
 function toggleStatesDiagram(){
 	if ( $('#states_diagram').is(':visible') )
 		$('#states_diagram').slideUp('fast');
@@ -172,6 +186,9 @@ function showBudget(budget_id, element){
 	});
 }
 </script>
+
+
+ 
 
 <?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
 $providerData = $reformulatedDataprovider->getData();
@@ -283,38 +300,15 @@ if($model->budget)
 
 <div>
 <div class="socialIcons" style="margin-top:10px;margin-bottom:10px;">
-<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/link.png" onClick="js:toggleSocialPopup('directlink');"/>
-<?php
-if($model->state >= ENQUIRY_ACCEPTED){
-	echo '<img src="'.Yii::app()->theme->baseUrl.'/images/mail.png" onClick="js:toggleSocialPopup(\'subscribe\');"/>';
-	echo '<div	class="fb-like"
-				data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-				data-send="false"
-				data-layout="button_count"
-				data-width="450"
-				data-show-faces="false"
-				data-font="arial"
-				style="margin-right:10px">
-		</div>';
-	echo '<a	href="https://twitter.com/share"
-				class="twitter-share-button"
-				data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-				data-text="'.$model->title.'"
-				data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
-				data-lang="en">
-		</a>';
-}?>
 
+<div id="directlink" class="social_popup">
+<?php
+	$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
+	echo '<span onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
+?>
 </div>
 
-<div id="subscribe" style="	display :none;
-							position: absolute;
-							padding:5px;
-							z-index: 1;
-							width: 400px;
-							background-color: #98FB98;
-							"
-	class="social_popup">
+<div id="subscribe" class="social_popup">
 <?php
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'enquiry = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
@@ -333,20 +327,34 @@ if($model->state >= ENQUIRY_ACCEPTED){
 />
 </div>
 
-<div id="directlink" style="display :none;
-							position: absolute;
-							padding:5px;
-							z-index: 1;
-							width: 400px;
-							background-color: #98FB98;
-							"
-	class="social_popup">
+<img social_icon="directlink" src="<?php echo Yii::app()->theme->baseUrl;?>/images/link.png" onClick="js:clickSocialIcon(this);"/>
 <?php
-	$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-	//$url=Yii::app()->request->baseUrl.'/enquiry/'.$model->id;
-	echo '<span onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
-?>
+if($model->state >= ENQUIRY_ACCEPTED){
+	echo '<img social_icon="subscribe" src="'.Yii::app()->theme->baseUrl.'/images/mail.png" onClick="js:clickSocialIcon(this);"/>';
+	echo '<div	class="fb-like"
+				data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+				data-send="false"
+				data-layout="button_count"
+				data-width="80px"
+				data-show-faces="false"
+				data-font="arial">
+		</div>';
+	echo '<span style="margin-left:10px"></span>';
+	echo '<a	href="https://twitter.com/share"
+				class="twitter-share-button"
+				data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+				data-counturl="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+				data-text="'.$model->title.'"
+				data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
+				data-lang="en"
+				style="width:80px">
+		</a>';
+
+}?>
+
 </div>
+
+
 
 <?php
 if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->user->getUserID()){
