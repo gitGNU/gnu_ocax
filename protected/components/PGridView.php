@@ -24,7 +24,6 @@
  */
 
 
-
 Yii::import('zii.widgets.grid.CGridView');
 
 class PGridView extends CGridView
@@ -35,7 +34,7 @@ class PGridView extends CGridView
 
 	public function init()
 	{
-		$this->htmlOptions['class']='pgrid-view';
+		$this->htmlOptions['class']='pgrid-view pgrid-cursor-pointer';
 		$this->cssFile=Yii::app()->theme->baseUrl.'/css/pgridview.css';
 
 		$this->loadingCssClass='pgrid-view-loading';

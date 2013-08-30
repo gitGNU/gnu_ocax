@@ -58,13 +58,13 @@ function restoreBudgets(file_id){
 
 <?php
 //$data[\'initial_provision\']
-$this->widget('PGridView', array(
+$this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
+	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'budget-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/budget/updateYear').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$years,
-    'onClick'=>array(
-        'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/budget/updateYear',
-    ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
 					'header'=>'',
@@ -73,9 +73,6 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 		'year',
-		//'concept',
-		//'provision',
-		//'spent',
 		array(
 			'header'=>'Published',
 			'name'=>'code',
@@ -86,19 +83,11 @@ $this->widget('PGridView', array(
 			'name'=>'initial_provision',
 			'value'=>'substr_replace($data[\'initial_provision\'] ,"",-3)',	// remove decimals
 		),
-		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
-<style>           
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
+
 <div id="budget_dumps" style="display:none;width:600px;">
 	<div style="background-color:white">
 		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />

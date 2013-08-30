@@ -19,13 +19,6 @@ $('.search-form form').submit(function(){
 	.left{width: 60%; float: left;  margin: 0px;}
 	.right{width: 38%; float: left; margin: 0px;}
 	.clear{clear:both;}
-
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
 </style>
 
 <script>

@@ -110,14 +110,15 @@ if($model->is_admin){
 <?php
 if($enquirys->getData()){
 echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
-$this->widget('PGridView', array(
+$this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
+	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/view').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'template' => '{items}{pager}',
 	'dataProvider'=>$enquirys,
-    'onClick'=>array(
-        'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
-    ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 			array(
@@ -136,7 +137,6 @@ $this->widget('PGridView', array(
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',
 			),
-            array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 }
 ?>

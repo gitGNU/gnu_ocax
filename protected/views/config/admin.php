@@ -9,18 +9,16 @@
 </div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'config-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('update').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'parameter',
 		'value',
 		'description',
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}',
-		),
 	),
 )); ?>

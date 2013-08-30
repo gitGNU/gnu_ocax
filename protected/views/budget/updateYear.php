@@ -20,14 +20,7 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $deleteYear );
 }
 ?>
-<style>
-   	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
+
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script>
 function deleteBudgets(){
