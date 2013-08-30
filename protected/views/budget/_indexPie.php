@@ -11,6 +11,7 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	border-top: 2px dashed #555555;
 	margin-top:40px;
 	padding:0px;
+	height:500px;
 }
 .loading{
 	font-size:1em;
@@ -18,8 +19,7 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 	display:none;
 }
 .graph_container{
-		margin-bottom:0px;
-
+	margin-bottom:0px;
 }
 .graph{
 	width:450px;
@@ -73,14 +73,14 @@ function slideInChild(parent_id,child_id){
 	graph_container.hide();
 	group=$("#"+parent_id).parents('.graph_group');
 
-	if(graph_container.attr('is_parent') == 0){
+	if(graph_container.attr('is_parent') == 0){		
 		budget_details=graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
 		$('#'+child_id).show();	
 		budget_details.fadeIn(700);
 		graph_container.find('.legend_item[budget_id='+child_id+']').css('font-weight','bold');
-		return false;
+		return;
 	}
 	group.children('.graph_container:visible').hide("slide",
 													{ direction: "left" },
@@ -97,17 +97,14 @@ function goBack(parent_id){
 
 	group=parent_graph_container.parents('.graph_group');
 	group.children(".graph_container").hide();
-	
-
-	
 }
 
 function getPie(budget_id, element){
 	if($("#"+budget_id).length){
 		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
-		return false;
+		return;
 	}
-	graph_container=$('<div id="'+budget_id+'" class="graph_container"></div>');
+	
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
 		type: 'GET',
@@ -116,6 +113,7 @@ function getPie(budget_id, element){
 		beforeSend: function(){ $('.pie_loading_gif').hide(); $(element).show(); },
 		complete: function() { $('.pie_loading_gif').hide(); return false; },
 		success: function(data){
+			graph_container=$('<div id="'+budget_id+'" class="graph_container"></div>');
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
 			

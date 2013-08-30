@@ -21,6 +21,8 @@ $dataProvider = new CActiveDataProvider('File', array(
 				),
 ));
 $this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,
 	'template' => '{items}{pager}',

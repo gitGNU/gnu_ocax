@@ -13,6 +13,8 @@ Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 <div style="margin:-10px;">
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'years-grid',
 	'dataProvider'=>$dataProvider,
 	'template' => '{items}{pager}',

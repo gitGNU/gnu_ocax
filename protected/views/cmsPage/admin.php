@@ -4,33 +4,13 @@
 
 $this->menu=array(
 	array('label'=>__('Create CmsPage'), 'url'=>array('create')),
-	array('label'=>'Show uploaded files', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
-	array('label'=>'Upload file', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
+	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
+	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#cms-page-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
-<style>           
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
+
 <script>
 function showUploadedFiles(){
 	$.ajax({
@@ -86,22 +66,12 @@ function uploadFile(){
 
 <h1><?php echo __('Manage Cms Pages')?></h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'cms-page-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('update').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
@@ -112,10 +82,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'block',
 		'weight',
 		'published',
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}',
-		),
 	),
 )); ?>
 

@@ -1,31 +1,18 @@
 <?php
 /* @var $this EmailtextController */
 /* @var $model Emailtext */
-
-$this->breadcrumbs=array(
-	'Emailtexts'=>array('index'),
-	'Manage',
-);
-/*
-$this->menu=array(
-	array('label'=>'List Emailtext', 'url'=>array('index')),
-	array('label'=>'Create Emailtext', 'url'=>array('create')),
-);
-*/
 ?>
 
-<div class="enquiry">
-<div class="title">Manage default email texts</div>
-<div style="margin:-10px">
+<h1><?php echo __('Manage default email texts');?></h1>
 
-<?php $this->widget('PGridView', array(
-	'id'=>'enquiry-grid',
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'id'=>'text-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/emailtext/update').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'template' => '{items}',
 	'dataProvider'=>$model->search(),
-    'onClick'=>array(
-        'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/emailtext/update',
-    ),
 	'ajaxUpdate'=>true,
 	'pager'=>array('class'=>'CLinkPager',
 					'header'=>'',
@@ -34,12 +21,9 @@ $this->menu=array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'State',
-				//'name'=>'state',
+				'header'=>__('State'),
 				'type' => 'raw',
 				'value'=>'Enquiry::model()->getHumanStates($data[\'state\'])',
 			),
-            array('class'=>'PHiddenColumn','value'=>'"$data[state]"'),
 ))); ?>
-</div>
-</div>
+

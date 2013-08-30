@@ -61,6 +61,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/adminView').'/id/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->adminSearch(),
 	'filter'=>$model,
 	'columns'=>array(
@@ -79,16 +81,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'value'=>'Enquiry::getHumanStates($data->state)',
 		),
 */
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}',
-			'buttons'=>array(
-				'update' => array(
-					'label'=>'Assign',
-		            'url'=>'Yii::app()->createUrl("enquiry/adminView", array("id"=>$data->id))',
-				),
-			),
-		),
 	),
 )); ?>
 

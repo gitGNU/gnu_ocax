@@ -1,7 +1,10 @@
 
 
 
-
+.pgrid-cursor-pointer table.items tr td
+{
+	cursor: pointer;
+}
 
 .pgrid-view-loading
 {
@@ -67,13 +70,11 @@
 .pgrid-view table.items tr.even
 {
 	background: #ded8d1;
-	cursor: pointer;
 }
 
 .pgrid-view table.items tr.odd
 {
 	background: #94c68d;
-	cursor: pointer;
 }
 
 .pgrid-view table.items tr.selected
