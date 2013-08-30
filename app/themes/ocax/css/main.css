@@ -15,12 +15,23 @@ body
    background-color:#f5f1ed;
 }
 
+#popup_content_j
+{
+   background-color:#e4ded7;
+}
 
 /* --------------------- GRIS 4 --------------------- */
 
 #footer
 { background-color:#676767;}
 
+a:focus, a:hover {color:#676767; }
+
+
+#budget_titulo_j
+{
+	color: #A1A150;
+}
 
 
 /* --------------------- COLOR --------------------- */
@@ -28,20 +39,26 @@ body
 
 #mainmenu ul li a 
 {
-	background-color:#61b5d0;
+	background-color:#A1A150;
 }
 
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#A1A150;}
 
 
-@font-face {
+a {color:#A1A150;}
 
-font-family: SourceSans;
-
-src: url(../fonts/SourceSansPro-Regular.ttf) format(‘truetype’);
-
+#nombre_ocax
+{
+	color: #A1A150;
 }
 
+.actual_provision_bar{
+	background-color:#A1A150;
+}
 
+.initial_provision_bar{
+	background-color:#778f3d;
+}
 
 
 
@@ -53,8 +70,8 @@ body
 	padding: 0;
 	color: #555;
 	font: normal 10pt;
-	font-family: SourceSans,Arial,Helvetica,sans-serif;
-	background-position:bottom;
+font-family: 'Source Sans Pro', sans-serif;
+background-position:bottom;
 }
 
 #page
@@ -66,6 +83,7 @@ body
 	border-top: 0px;
 	border-bottom: 0px;
 }
+
 
 #header
 {
@@ -86,7 +104,7 @@ body
 
 #content
 {
-    padding: 20px;
+    padding: 10px;
 }
 
 #sidebar
@@ -134,10 +152,13 @@ body
 
 #logo
 {
-	font-size: 90%;
- 	background: url(../images/obsevatori.png) 0 0 no-repeat;
+	font-size: 400%;
+	line-height: 100%;
+	letter-spacing:-1pt;
+	color:#a6a29e;
+	font-weight:200;
 	padding-top: 10px;
-	padding-bottom:185px;
+	padding-bottom:90px;
 }
 
 #mainmenu
@@ -170,7 +191,7 @@ body
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-	color: #61b5d0;
+	color: #A1A150;
 	text-decoration:none;
 }
 
@@ -331,6 +352,26 @@ div.search-form
 /*PAGINAS*/
 
 
+
+/*ELEMENTOS COMUNES*/
+
+#header_bar_j
+{
+width:950px; 
+margin: 0 auto;
+padding: 10px 20px 0px 10px;
+height:20px;
+
+}
+
+
+.language_link
+{
+	font-size:16px;
+
+}
+
+
 /*ENQUIRIYS*/
 
 .enquirys b
@@ -375,7 +416,6 @@ div.search-form
  
  
  
- 
  #boxes
 {
 	margin: 0;
@@ -385,4 +425,49 @@ div.search-form
 	height:200px;
 	font: normal 10pt Arial,Helvetica,sans-serif;
 	background: url(../images/boxes.jpg) no-repeat  fixed #eeeeee;
+}
+
+
+
+
+
+#nombre_ocax
+{
+	text-decoration:underline;
+}
+
+
+
+
+
+/*BUDGET*/
+
+#budget_titulo_j
+{
+	font-size: 600%;
+	line-height: 100%;
+	letter-spacing:-2pt;
+	font-weight:200;
+}
+
+
+#budget_search_j
+{
+	border-top: 2px dashed #555555;
+	border-bottom: 0px solid #C9E0ED;
+	padding:20px;
+	margin-left:0px;
+	margin-right:0px;
+    margin-top:25px;
+}
+
+
+
+/*POPUP*/
+
+#popup_content_j
+{
+	background-image:url(../images/line.gif);
+   padding:25px;
+  font-size:110%;
 }

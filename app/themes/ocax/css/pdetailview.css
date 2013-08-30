@@ -5,7 +5,7 @@ table.detail-view .null
 
 table.detail-view
 {
-	background: #ccc;
+	background: #white;
 	border-collapse: collapse;
 	width: 100%;
 	margin: 0;
@@ -13,16 +13,16 @@ table.detail-view
 
 table.detail-view th, table.detail-view td
 {
-	font-size: 0.9em;
-	border: 1px white solid;
+	font-size: 1.0em;
+	border-top: 1px black solid;
 	padding: 0.3em 0.6em;
 	vertical-align: top;
 }
 
 table.detail-view th
 {
-	text-align: right;
-	width: 160px;
+	text-align: left;
+	width: 120px;
 }
 
 table.detail-view td:nth-child(1){
