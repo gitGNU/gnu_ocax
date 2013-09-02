@@ -45,7 +45,6 @@
 
 <?php }else{ ?>
 	<p>
-	<div style="margin:-10px">
 	<?php $this->widget('zii.widgets.CDetailView', array(
 		'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
 		'data'=>$model,
@@ -55,7 +54,6 @@
 			'code',
 		),
 	)); ?>
-	</div>
 	</p>
 <?php } ?>
 

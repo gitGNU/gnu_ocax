@@ -21,7 +21,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Budget Descriptions</h1>
+<h1><?php echo __('Manage Budget descriptions');?></h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -48,6 +48,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'concept',
 		array(
 			'class'=>'CButtonColumn',
+			'buttons'=>array(
+				'view' => array(
+					'url'=>'Yii::app()->createUrl("budgetDescription/view/".$data->id)',
+				),
+			),
 		),
 	),
 )); ?>
+
+
+

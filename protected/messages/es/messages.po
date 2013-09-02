@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-18 12:21+0100\n"
+"PO-Revision-Date: 2013-09-02 10:10+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1186,7 +1186,7 @@ msgstr "Manage descriptions"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/view.php:33
 msgid "Description not defined"
-msgstr "Manage descriptions"
+msgstr "Falta incluir una descripción"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/budgetDescription/update.php:7
 msgid "View description"

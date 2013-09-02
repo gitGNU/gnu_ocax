@@ -10,9 +10,11 @@ $this->menu=array(
 );
 ?>
 
+<h1><?php echo __('Budget description');?></h1>
 <p>
-<div style="margin:-10px">
+
 <?php $this->widget('zii.widgets.CDetailView', array(
+	'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>array(
 		'csv_id',
@@ -22,13 +24,13 @@ $this->menu=array(
 		'common',
 	),
 )); ?>
-</div>
+
 </p>
 
 <?php
 	if($model->text){
-		echo '<p><span style="font-size:1.2em">'.__('Description').'</span></p>';
+		echo '<h2>'.__('Description').'</h2>';
 		echo $model->description;
 	}else
-		echo '<span style="font-size:1.2em;color:red;">'.__('Description not defined').'</span>';
+		echo '<span style="font-size:1.3em;color:red;">'.__('Description not defined').'</span>';
 ?>

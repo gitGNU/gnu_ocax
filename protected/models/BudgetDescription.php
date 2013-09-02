@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'budget_description':
  * @property integer $id
+ * @property string $new_id
  * @property string $csv_id
  * @property string $language
  * @property string $code
@@ -48,17 +49,26 @@ class BudgetDescription extends CActiveRecord
 		return array(
 			array('csv_id, language, concept', 'required'),
 			array('common', 'numerical', 'integerOnly'=>true),
-			array('csv_id, code', 'length', 'max'=>20),
+			array('csv_id, code', 'length', 'max'=>32),
 			array('label', 'length', 'max'=>32),
 			array('language', 'length', 'max'=>2),
 			array('combination', 'validCombination', 'on'=>'create'),
+			array('id', 'unique', 'className' => 'BudgetDescription', 'on'=>'create'),
 			array('concept', 'length', 'max'=>255),
-			array('description, text', 'safe'),
+			array('description, text, new_id', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, csv_id, language, code, concept, description, text', 'safe', 'on'=>'search'),
+			array('csv_id, language, code, concept, description, text', 'safe', 'on'=>'search'),
 		);
 	}
+
+	protected function beforeSave()
+	{
+		if(!$this->id)
+			$this->id = $this->language.$this->csv_id;
+		return parent::beforeSave();
+	}
+
 
 	public function validCombination($attribute,$params)
 	{
@@ -110,13 +120,13 @@ class BudgetDescription extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		//$criteria->compare('id',$this->id);
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('language',$this->language,true);
 		$criteria->compare('code',$this->code);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('text',$this->text,true);
+		//$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

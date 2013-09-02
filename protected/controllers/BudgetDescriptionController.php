@@ -32,13 +32,21 @@ class BudgetDescriptionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','create','update','admin','delete'),
+				'actions'=>array('view','create','update','admin','delete','newID'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	// this is to convert the id field into a varchar.
+	public function actionNewID()
+	{
+		$rows = BudgetDescription::model()->findAll();
+		foreach($rows as $row)
+			$row->save();
 	}
 
 	/**
@@ -73,7 +81,7 @@ class BudgetDescriptionController extends Controller
 			$model->language = strtolower($model->language);
 			$model->modified = date('c');
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(Yii::app()->createUrl('budgetDescription/view/'.$model->id));
 		}
 
 		$this->render('create',array(
@@ -100,7 +108,7 @@ class BudgetDescriptionController extends Controller
 			$model->text = trim(strip_tags($model->text));
 			$model->modified = date('c');
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(Yii::app()->createUrl('budgetDescription/view/'.$model->id));
 		}
 
 		$this->render('update',array(

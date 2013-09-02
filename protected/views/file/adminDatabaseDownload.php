@@ -128,11 +128,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view} {delete}',
-		'buttons'=>array(
-			'view' => array(
-				'url'=> '"javascript:location.href=\"".$data->webPath."\";"',
+			'buttons'=>array(
+				'view' => array(
+					'url'=> '"javascript:location.href=\"".$data->webPath."\";"',
+				),
 			),
-		),
 		),
 	),
 

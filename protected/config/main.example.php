@@ -73,6 +73,7 @@ return array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>', // comment out for Gii
+				'<controller:\w+>/<action:\w+>/<id:[\a-z0-9-]+>'=>'<controller>/<action>',	// BudgetDescription IDs
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 
 			),

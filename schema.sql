@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS budget (
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2013', 0, 'root budget', 10000, 0);
 
 CREATE TABLE IF NOT EXISTS budget_description (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  csv_id varchar(20) NOT NULL,
+  id varchar(34) NOT NULL,
+  csv_id varchar(32) NOT NULL,
   language char(2) NOT NULL,
   code varchar(20) NULL,
   label varchar(32) NULL,
