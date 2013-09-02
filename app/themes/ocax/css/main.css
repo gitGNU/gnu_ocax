@@ -32,17 +32,10 @@ body
 }
 
 
-
 @font-face {
-
-font-family: SourceSans;
-
-src: url(../fonts/SourceSansPro-Regular.ttf) format(‘truetype’);
-
+	font-family: SansPro;
+	src: url("../../../fonts/SansPro-Regular.woff");
 }
-
-
-
 
 
 /* --------------------- RESTO --------------------- */
@@ -53,7 +46,7 @@ body
 	padding: 0;
 	color: #555;
 	font: normal 10pt;
-	font-family: SourceSans,Arial,Helvetica,sans-serif;
+	font-family: SansPro,Arial,Helvetica,sans-serif;
 	background-position:bottom;
 }
 

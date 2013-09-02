@@ -12,13 +12,16 @@
 //http://www.yiiframework.com/doc/blog/1.1/en/portlet.menu
 
 		$this->beginWidget('zii.widgets.CPortlet', array(
-			'title'=>'Operations',
+			'title'=>__('Options'),
 		));
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,
 			'htmlOptions'=>array('class'=>'operations'),
 		));
 		$this->endWidget();
+		
+		
+		
 		if($this->contextHelp){
 			echo '<div class="contextHelp">';
 			echo '<div class="title">Context help</div>';

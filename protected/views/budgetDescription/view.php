@@ -20,6 +20,7 @@ $this->menu=array(
 		'csv_id',
 		'language',
 		'code',
+		'label',
 		'concept',
 		'common',
 	),
