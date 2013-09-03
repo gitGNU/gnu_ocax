@@ -37,6 +37,8 @@ function featureBudget(budget_id){
 <h1><?php echo __('Featured budgets').' '.($model->year).' - '.($model->year + 1)?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'budget-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,

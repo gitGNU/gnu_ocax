@@ -35,9 +35,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'bulk-email-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/bulkEmail/view').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
@@ -50,15 +52,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'value'=>'$data->getHumanSentValues($data[\'sent\'])',
 		),
 		//'sent',
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}',
-			'buttons'=>array(
-				'update' => array(
-					'label'=>'View',
-		            'url'=>'Yii::app()->createUrl("bulkEmail/view", array("id"=>$data->id))',
-				),
-			),
-		),
+
 	),
 )); ?>

@@ -6,7 +6,7 @@
 <h1><?php echo __('Manage default email texts');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'id'=>'text-grid',
 	'selectableRows'=>1,
