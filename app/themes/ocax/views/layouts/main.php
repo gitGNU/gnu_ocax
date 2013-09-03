@@ -4,6 +4,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
+    
+    <!-- TIPOS DESDE GOOGLE -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,400,200,300,600' rel='stylesheet' type='text/css'>
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -25,21 +28,59 @@
 <body>
 
 <div  style="position:relative">
-<div id="header" >
 
-	<div id="logo"><div style="display:none;"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></div></div>
 
+
+<div id="header_bar_j">
+
+
+	<div id="header_login_j" style=" width:420px; float: right; 	"><img src="../../images/user.png" />
+		<?php
+			$items=array(
+				//array('label'=>__('Contact'), 'url'=>array('/site/contact')),
+				//array('label'=>__('Register'), 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>__('Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>__('Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+			);
+			$criteria=new CDbCriteria;
+			$criteria->condition = 'weight = 0 AND published = 1';
+			$criteria->order = 'block DESC';
+			$cms_pages=CmsPage::model()->findAll($criteria);
+			foreach($cms_pages as $page){
+				$page_content = $page->getContentForModel(Yii::app()->language);
+				$item = array( array(	'label'=>CHtml::encode($page_content->pageTitle),
+										'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL),
+										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
+								));
+				array_splice( $items, 4, 0, $item );
+			}
+			$this->widget('zii.widgets.CMenu',array(
+				'items'=>$items,
+			));
+		?>
+	</div>
+
+<span>
 	<?php
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		if(isset($languages[1])){
-			echo '<span style="float:right">';
+			echo '<span style="float:right; position:relative">';
 			foreach($languages as $lang){
 				echo '<a class="language_link" href="'.Yii::app()->request->baseUrl.'/site/language?lang='.$lang.'">'.$lang.'</a> ';
 			}
 			echo '</span>';
 		}
 	?>
+    </span>
+ </div>   
 
+
+
+
+
+<div id="header" >
+    
+	<div id="logo"><div>Observatori Ciutadà <br>de l'<span id="nombre_ocax"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></span></div></div>
 
 	<div id="mainmenu">
 		<?php
