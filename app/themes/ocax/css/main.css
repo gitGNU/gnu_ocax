@@ -48,6 +48,19 @@ h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#A1A150;}
 @font-face {
 	font-family: SansPro;
 	src: url("../../../fonts/SansPro-Regular.woff");
+}
+
+@font-face {
+	font-family: SansPro;
+	src: url("../../../fonts/SansPro-ExtraLight.woff");
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: SansPro;
+	src: url("../../../fonts/SansPro-Semibold.woff");
+	font-weight: bold;
+}
 
 a {color:#A1A150;}
 
@@ -75,7 +88,6 @@ body
 	font: normal 10pt;
 	font-family: SansPro,Arial,Helvetica,sans-serif;
 	background-position:bottom;
-background-position:bottom;
 }
 
 #page

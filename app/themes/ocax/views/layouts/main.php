@@ -80,7 +80,7 @@
 
 <div id="header" >
     
-	<div id="logo"><div>Observatori Ciutadà <br>de l'<span id="nombre_ocax"><?php echo CHtml::encode(Config::model()->findByPk('observatoryName')->value); ?></span></div></div>
+	<div id="logo"><div>Observatori Ciutadà <br>de l'<span id="nombre_ocax"><?php echo CHtml::encode(Config::model()->findByPk('councilName')->value); ?></span></div></div>
 
 	<div id="mainmenu">
 		<?php

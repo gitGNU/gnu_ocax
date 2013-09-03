@@ -57,12 +57,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
 	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
 	'selectableRows'=>1,
-	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/adminView').'/id/"+$.fn.yiiGridView.getSelection(id);}',
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/adminView').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->adminSearch(),
 	'filter'=>$model,
 	'columns'=>array(
