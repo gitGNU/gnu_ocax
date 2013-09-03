@@ -14,10 +14,9 @@ $this->pageTitle=Yii::app()->name;
 	.clear{clear:both;}
 </style>
 
-<div class="outer" style="position:relative">
+<div class="outer" style="position:relative; height:200px;">
 <div class="left">
 
-Text benvinguda del web
 
 
 
@@ -25,9 +24,6 @@ Text benvinguda del web
 
 
 <div class="right">
-<p><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/box1.jpg" /></p>
-<p><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/box2.jpg" /></p>
-<p><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/box3.jpg" /></p>
 
 </div>
 </div>

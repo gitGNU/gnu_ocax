@@ -11,7 +11,6 @@
 	background-repeat:repeat;
 }
 .actual_provision_bar{
-	background-color:#00cadc;
 	padding: 8px 4px 15px 4px;
 	font-weight:bold;
 	color:#000000;
@@ -21,7 +20,6 @@
 }
 .initial_provision_bar{
 	margin-bottom:20px;
-	background-color:#59bac3;
 	padding: 8px 4px 15px 4px;
 	font-weight:bold;
 	color:#000000;

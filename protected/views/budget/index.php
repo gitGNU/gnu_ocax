@@ -24,7 +24,7 @@ Yii::app()->clientScript->registerScript('search', "
 <style>
 .button {
    border-top: 1px solid #96d1f8;
-   background: #00CADC;
+   background: #A1A150;
    padding: 13.5px 27px;
    color: white;
    font-size: 19px;
@@ -108,7 +108,12 @@ function afterSearch(){
 }
 </script>
 
-<div style="font-size:3em;text-align:left;margin-top:-10px;">
+
+<div style="
+	margin-right:0px;
+    margin-top:10px;
+	">
+<div id="budget_titulo_j" style="float:left;">
 <?php echo __('Budgets');?>
 
 </div>
@@ -116,7 +121,7 @@ function afterSearch(){
 <div style="
 	margin-bottom:15px;
 	font-size:1.2em;
-    color:#00CADC;
+    float:right;
 	">
 <?php
 
@@ -142,14 +147,11 @@ if(count($years) > 1){
 ?>
 </div>
 
-<div style="
-	border-top: 2px dashed #555555;
-	border-bottom: 0px solid #C9E0ED;
-	padding:20px;
-	margin-left:0px;
-	margin-right:0px;
-    margin-top:10px;
-	">
+</div>
+
+<div style="clear:both"></div>
+
+<div id="budget_search_j">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
@@ -222,7 +224,7 @@ echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl
 
 
 <div id="budget_popup" style="display:none;width:900px;">
-<div style="background-color:white;padding:10px;">
+<div id="popup_content_j">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="budget_popup_body"></div>
 </div>
