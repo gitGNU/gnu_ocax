@@ -6,58 +6,7 @@ Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
 ?>
 
-<style>
-.graph_group{
-	border-top: 2px dashed #555555;
-	margin-top:40px;
-	padding:0px;
-	height:500px;
-}
-.loading{
-	font-size:1em;
-	float:right;
-	display:none;
-}
-.graph_container{
-	margin-bottom:0px;
-}
-.graph{
-	width:450px;
-	height:450px;
-	margin:0px;
-}
-.pie_graph_title{
-	margin-bottom:10px;
-	width:100%;
-	text-align:left;
-	font-size:1.5em;	
-}
 
-.budget_details{
-	width:450px;
-	float:right;
-}
-
-.budget_details > a {
-	margin-top:-15px;
-}
-table.jqplot-table-legend{
-    display: block;
-	width:460px;
-    height: 200px;
-    overflow-y: auto;
-}
-.jqplot-data-label{
-	font-size:1.8em;
-}
-#go_back{
-	position:absolute;
-	top:0px;
-	left:-30px;
-	padding:0px;
-	cursor:pointer;
-}
-</style>
 
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>

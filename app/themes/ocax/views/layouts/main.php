@@ -32,6 +32,34 @@
 
 
 <div id="header_bar_j">
+
+
+	<div id="header_login_j" style=" width:420px; float: right; 	"><img src="../../images/user.png" />
+		<?php
+			$items=array(
+				//array('label'=>__('Contact'), 'url'=>array('/site/contact')),
+				//array('label'=>__('Register'), 'url'=>array('/site/register'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>__('Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>__('Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+			);
+			$criteria=new CDbCriteria;
+			$criteria->condition = 'weight = 0 AND published = 1';
+			$criteria->order = 'block DESC';
+			$cms_pages=CmsPage::model()->findAll($criteria);
+			foreach($cms_pages as $page){
+				$page_content = $page->getContentForModel(Yii::app()->language);
+				$item = array( array(	'label'=>CHtml::encode($page_content->pageTitle),
+										'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL),
+										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
+								));
+				array_splice( $items, 4, 0, $item );
+			}
+			$this->widget('zii.widgets.CMenu',array(
+				'items'=>$items,
+			));
+		?>
+	</div>
+
 <span>
 	<?php
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
