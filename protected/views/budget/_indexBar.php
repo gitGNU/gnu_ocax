@@ -6,10 +6,6 @@
 ?>
 
 <style>
-.graph {
-	background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/images/graph_paper.png');
-	background-repeat:repeat;
-}
 .actual_provision_bar{
 	padding: 8px 4px 15px 4px;
 	font-weight:bold;
@@ -33,19 +29,7 @@
 	padding-left:10px;
 	padding-right:60px;
 }
-.graph_bar_percent{
-	padding-left:5px;
-	padding-right:5px;
-	text-align:right;
-}
-.showChildren{
-	margin-right:4px;
-	cursor:pointer;
-}
-.budget:hover {
-    opacity: 0.7;
-	cursor:pointer;
-}
+
 </style>
 
 <script>
@@ -199,7 +183,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		);
 	
 		echo '<span style="font-size:1.3em">'.CHtml::encode($featured_budget->getConcept()).'</span><br />';
-		echo '<div class="graph">';
+		echo '<div class="bar_graph">';
 		//echo '<span style="float:right;font-weight:bold">'.$graph_percentage.' % of total budget</span><div style="clear:both"></div>';
 		echoChildBudgets($featured_budget, 0, $graph_width, $globals);
 		echo '</div>';

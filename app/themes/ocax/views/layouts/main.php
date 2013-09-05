@@ -122,10 +122,11 @@
 		<?php echo __('Telephone').': '.Config::model()->findByPk('telephone')->value;?><br />
 	</div>
 	<div style="width: 28%; float: left;  margin: 0px;">
-		Una iniciativa de: <br /><br /><img src="http://chrislab1.solukom.com/julio/themes/ocax/images/logopacd.png" /><br />
+	
+		Una iniciativa de: <br /><br /><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/logopacd.png"/><br />
 	</div>
     <div style="width: 33%; float: left;  margin: 0px;">
-		Copyright &copy; <?php echo date('Y'); ?> por <?php echo CHtml::encode(Yii::app()->name); ?><br/>
+		Copyright &copy; <?php echo date('Y'); ?> por OCA(x)<br/>
 		AGPLv3<br/>
 		<a href="https://gitorious.org/ocax/">gitorious.org/ocax</a><br />
 	</div>

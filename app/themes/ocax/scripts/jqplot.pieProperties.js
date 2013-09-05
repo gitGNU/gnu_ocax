@@ -39,7 +39,7 @@ var pie_properties = {
     	highlighter: {
     	    show: true,
     	    formatString:'%s', 
-    	    //tooltipLocation:'sw', 
+    	    tooltipLocation:'ne', 
     	    useAxesFormatters:false,
     	},
 	}

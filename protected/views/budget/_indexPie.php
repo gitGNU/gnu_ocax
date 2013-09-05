@@ -82,9 +82,7 @@ function getPie(budget_id, element){
 			group.append(graph_container);
 			createPie(budget_id+'_graph', data);
 			
-			back_button= '<div id="go_back">'+
-						 '<img src="<?php echo Yii::app()->theme->baseUrl?>/images/go_back.png" '+
-						 'onclick="javascript:goBack('+data.params.go_back_id+');return false;" /></div>';	 
+			back_button='<div class="prev_budget_arrow" onclick="javascript:goBack('+data.params.go_back_id+');return false;"></div>';	 
 			$('#'+budget_id+'_graph').append(back_button);		
 			
 			slideInChild(data.params.parent_id,budget_id);

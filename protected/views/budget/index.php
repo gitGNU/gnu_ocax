@@ -62,7 +62,7 @@ function showBudget(budget_id, element){
 		//dataType: 'json',
 		beforeSend: function(){
 						$('.loading_gif').remove();
-						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
+						$(element).after('<img style="vertical-align:top;" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
 					},
 		complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
@@ -163,9 +163,8 @@ if(count($years) > 1){
 
 
 <!-- ********** FILTRO / BAJAR BASE DATOS ********** -->
-<div>
-
-	<div class="row" style="width:60%; float: left;">
+<div style="width:60%; float: left;">
+	<div class="row">
 		<?php echo $form->label($model,'concept'); ?> 
 		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
 
@@ -177,29 +176,24 @@ if(count($years) > 1){
 	</div>
 
 <?php $this->endWidget(); ?>
-</div><!-- search-form -->
-
-
-<div style="margin-top:10px;margin-bottom:20px;height:10px; float: right;">
 <?php
-echo 	'<div id="no_results" style="float:left;font-size:1.3em;margin-top:15px;display:none">'.
+	echo '<div id="no_results" style="float:left;font-size:1.3em;margin-top:15px;display:none">'.
 		__('No search results').
 		'</div>';
-		
-$change=Yii::app()->request->baseUrl.'/budget?graph_type';
-echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_bar.png" onclick="window.location=\''.$change.'=bar\'" />';
-echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
+?>
+</div><!-- search-form -->
+
+<div style="width:35%; float:right; align:right;">
+<?php
+	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
+	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
+	echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div style="margin-top:22px;float:right;margin-right:10px;">';
-		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
-		echo '</div>';
+		echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
 	}
-
 ?>
 </div>
-
-
 
 </div>
 <!-- ********** FIN FILTRO / BAJAR BASE DATOS ********** -->
@@ -231,14 +225,11 @@ echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl
 	}
 	echo '</div>';
 ?>
-
-
-<div id="budget_popup" style="display:none;width:900px;">
-<div id="popup_content_j">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="budget_popup_body"></div>
-</div>
-<p>&nbsp;</p>
 </div>
 
+<div id="budget_popup" class="popup_content_j" style="display:none;width:900px;">
+		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+		<div id="budget_popup_body"></div>
 </div>
+
+
