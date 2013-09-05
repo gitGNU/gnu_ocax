@@ -161,23 +161,26 @@ if(count($years) > 1){
 
 	<?php echo $form->hiddenField($model,'year'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'concept'); ?>
+
+<!-- ********** FILTRO / BAJAR BASE DATOS ********** -->
+<div>
+
+	<div class="row" style="width:60%; float: left;">
+		<?php echo $form->label($model,'concept'); ?> 
 		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
 
 		<span style="margin-left:15px">
-		<?php echo $form->label($model,'code'); ?>
+		<?php echo $form->label($model,'code'); ?> 
 		<?php echo $form->textField($model,'code',array('size'=>5,'maxlength'=>255)); ?>
 		</span>
-		<span style="margin-left:150px;"><?php echo CHtml::submitButton(__('Filter')); ?></span>
+		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Filter')); ?></span>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- search-form -->
-<div style="clear:both"></div>
 
 
-<div style="margin-top:10px;margin-bottom:20px;height:10px;">
+<div style="margin-top:10px;margin-bottom:20px;height:10px; float: right;">
 <?php
 echo 	'<div id="no_results" style="float:left;font-size:1.3em;margin-top:15px;display:none">'.
 		__('No search results').
@@ -188,13 +191,20 @@ echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl
 echo '<img style="float:right;cursor:pointer;" src="'.Yii::app()->theme->baseUrl.'/images/graph_type_pie.png" onclick="window.location=\''.$change.'=pie\'" />';
 
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div style="margin-top:22px;float:right;margin-right:20px;">';
+		echo '<div style="margin-top:22px;float:right;margin-right:10px;">';
 		echo '<a class="button" href="'.$zip->webPath.'">'.__('Download database').'</a>';
 		echo '</div>';
 	}
 
 ?>
 </div>
+
+
+
+</div>
+<!-- ********** FIN FILTRO / BAJAR BASE DATOS ********** -->
+
+
 <div style="clear:both;"></div>
 
 <div>

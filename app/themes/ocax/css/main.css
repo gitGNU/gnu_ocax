@@ -21,6 +21,8 @@ body
    background-color:#e4ded7;
 }
 
+
+
 /* --------------------- GRIS 4 --------------------- */
 
 #footer
@@ -45,6 +47,29 @@ a:focus, a:hover {color:#676767; }
 
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#A1A150;}
 
+.cms_titulo_j {color:#A1A150;}
+
+a {color:#A1A150;}
+
+#nombre_ocax
+{
+	color: #A1A150;
+}
+
+.actual_provision_bar{
+	background-color:#A1A150;
+}
+
+.initial_provision_bar{
+	background-color:#778f3d;
+}
+
+
+
+/* --------------------- TIPO --------------------- */
+
+
+
 @font-face {
 	font-family: SansPro;
 	src: url("../../../fonts/SansPro-Regular.woff");
@@ -60,21 +85,6 @@ h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#A1A150;}
 	font-family: SansPro;
 	src: url("../../../fonts/SansPro-Semibold.woff");
 	font-weight: bold;
-}
-
-a {color:#A1A150;}
-
-#nombre_ocax
-{
-	color: #A1A150;
-}
-
-.actual_provision_bar{
-	background-color:#A1A150;
-}
-
-.initial_provision_bar{
-	background-color:#778f3d;
 }
 
 
@@ -173,9 +183,8 @@ body
 	letter-spacing:-1pt;
 	color:#a6a29e;
 	font-weight:200;
-	padding-top: 15px;
+	padding-top: 0px;
 	padding-bottom:90px;
-	margin-left: -15px;
 }
 
 #mainmenu
@@ -376,41 +385,41 @@ div.search-form
 {
 width:950px; 
 margin: 0 auto;
-padding: 10px 20px 0px 10px;
+padding: 10px 0px 0px 10px;
 height:20px;
 
 }
 
-
-#header_login_j ul
+#header_login_j
 {
 font-size: 16px;
 font-weight:800;
 list-style-type: none;
-background-image:url('../images/user.png');
 background-repeat: no-repeat;
 background-position: left bottom;
-padding-left: 28px;
-margin-left:25px;
-
+margin-left:35px;
 }
 
-#header_login_j ul li
-{
-	display: inline;
-}
 
 #header_login_j a
+{
+	font-size: 16px;
+	font-weight:800;
+	text-decoration:underline;
+}
+
+#header_login_j a:hover
 {
 	text-decoration:none;
 }
 
-
-
 .language_link
 {
 	font-size:16px;
+	text-decoration:none;
 }
+
+
 
 
 /*ENQUIRIYS*/
@@ -474,6 +483,29 @@ margin-left:25px;
 }
 
 
+/*CMS*/
+
+
+.cms_titulo_j
+{
+	font-size: 400%;
+	line-height: 100%;
+	letter-spacing:-2pt;
+	font-weight:200;
+	margin-bottom:30px;
+}
+
+.cms_content_j 
+{
+	font-size: 18px;
+	line-height: 170%;
+	font-weight:200;
+	margin-right:50px;
+	color:#000;
+}
+
+
+
 /*BUDGET*/
 
 #budget_titulo_j
@@ -487,30 +519,11 @@ margin-left:25px;
 
 #budget_search_j
 {
-	border-top: 2px dashed #555555;
-	border-bottom: 0px solid #C9E0ED;
-	padding:20px;
+	padding:8px;
 	margin-left:0px;
 	margin-right:0px;
     margin-top:25px;
 }
-
-
-
-/*POPUP*/
-
-#popup_content_j
-{
-	background-image:url(../images/line.gif);
-   padding:25px;
-  font-size:110%;
-}
-
-
-
-
-
-/*BAR*/
 
 .graph_group{
 background-image:url('../images/bar.gif');
@@ -567,3 +580,14 @@ table.jqplot-table-legend{
 	cursor:pointer;
 }
 
+
+
+
+
+/*POPUP*/
+
+#popup_content_j
+{
+   padding:25px;
+  font-size:110%;
+}

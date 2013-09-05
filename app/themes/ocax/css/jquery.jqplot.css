@@ -2,7 +2,7 @@
 .jqplot-target {
     position: relative;
     color: #FFFFFF;
-    font-family: Arial, Helvetica, sans-serif;
+	font-family: SansPro,Arial,Helvetica,sans-serif;
     font-size: 1em;
 /*    height: 300px;
     width: 400px;*/
@@ -205,10 +205,16 @@ table.jqplot-cursor-tooltip {
 }
 
 .jqplot-highlighter-tooltip, .jqplot-canvasOverlay-tooltip {
-    font-size: 1.00em;
-    white-space: nowrap;
-    background:#676767;
-    padding: 7px 15px 7px 15px;
+	font-size:14px;
+	font-weight:bold;    
+	white-space: nowrap;
+    background:#000000;
+    padding: 5px 12px 5px 12px;
+	color:#FFF;
+}
+
+.jqplot-highlighter-tooltip span {
+	color:#FFF;
 }
 
 .jqplot-point-label {

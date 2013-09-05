@@ -59,8 +59,8 @@ echo '</div>';
 </div>
 
 <div class="right">
-	<div style="font-size:1.5em;text-align:center;padding-bottom:20px;"><?php echo CHtml::encode($content->pageTitle); ?></div>
-	<?php echo $content->body; ?>
+	<div class="cms_titulo_j"><?php echo CHtml::encode($content->pageTitle); ?></div>
+	<div class="cms_content_j"><?php echo $content->body; ?></div>
 </div>
 </div>
 
