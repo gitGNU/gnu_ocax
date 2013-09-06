@@ -463,6 +463,7 @@ class EnquiryController extends Controller
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
+			$model->modified = date('c');
 			if($model->save()){
 				$model->promptEmail();
 				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){

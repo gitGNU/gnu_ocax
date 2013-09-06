@@ -45,7 +45,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 		$document .='<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
 	else
 		$document .='<span style="color:red">'.__('missing').'</span>';
-	$submitted_info=$model->submitted.', '.__('Registry number').':'.$model->registry_number.$document;
+	$submitted_info=$model->submitted.', '.__('Registry number').': '.$model->registry_number.$document;
 
 	$this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
