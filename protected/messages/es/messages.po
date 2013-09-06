@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-09-02 10:10+0100\n"
+"PO-Revision-Date: 2013-09-06 18:23+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1329,15 +1329,15 @@ msgstr "quiere contactar contigo vía email"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:32
 msgid "However, we do not share users' email addresses"
-msgstr "No obstant això, no compartim les adreces de correu dels usuaris"
+msgstr "Sin embargo, no compartimos las direcciones de correo de los usuarios"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:33
 msgid "If you wish, you may make contact yourself with"
-msgstr "Si desitges, pots contactar el teu mateix amb"
+msgstr "Si deseas, puedes contactar tu mismo con"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:34
 msgid "If you think this user is spamming you, you can block future petitions at this link"
-msgstr "Si penses que aquest usuari t'està enviant correu brossa, pots bloquejar futurs peticions amb aquest enllaç"
+msgstr "Si pienses que este usuario te está enviando correo basura, puedes bloquear futuros peticiones con este enlace"
 
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/views/email/_contactPetition.php:36
 #: /home/pas/chrisf/shares/dev.bcn.uned/repo/ocax/protected/controllers/CommentController.php:125

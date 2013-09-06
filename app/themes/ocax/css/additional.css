@@ -1,14 +1,6 @@
 /* --------------------- COLOR --------------------- */
 
 
-.form .title{
-	color:#61b5d0;
-}
-
-
-
-
-
 /* force a vertical scroll bar */
 html, body{
 	height: 100%;
@@ -27,20 +19,6 @@ html, body{
 	background-color:#CAE1FF;
 	margin-bottom:15px;
 	font-size:1.4em;
-}
-
-.form{
-	padding: 10px;
-	margin: 0;
-}
-
-
-.form .title{
-	padding:10px;
-	margin:-10px;
-	background-color:#transparent;
-	margin-bottom:15px;
-	font-size:1.6em;
 }
 
 .contextHelp{

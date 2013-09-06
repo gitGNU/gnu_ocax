@@ -248,7 +248,7 @@ $this->widget('PGridView', array(
 						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
 						format_date($model->created).' '.__('by').' '.CHtml::link(
 															CHtml::encode($model->user0->fullname), '#',
-															array('onclick'=>'js:getContactForm('.$model->user.');')
+															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
 														),
 		),
 		array(

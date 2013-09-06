@@ -1,9 +1,9 @@
 var pie_properties = {
 	grid:{
 			drawGridlines:false,
-			background:"#f1ede8",
+			background:"#f5f1ed",
 			drawBorder:false,
-			shadow:false
+			shadow:false,
 	},
 	legend:{
 		show:true,
@@ -12,9 +12,11 @@ var pie_properties = {
 		rowSpacing:'0.1em',
 		marginBottom:'0px',
 		border:'none',
+		/*
 		rendererOptions:{
-			//numberColumns:2,
+			numberColumns:2,
 		}
+		*/
 	},
 	seriesColors: [ "#62b5cf", "#a1a150", "#fed675", "#e85c54", "#ea6da2", "#007281",
 					"#6b8912", "#b98f00", "#a30132", "#b83187", ],

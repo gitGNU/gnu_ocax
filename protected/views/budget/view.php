@@ -100,15 +100,15 @@ if(count($dataProvider->getData()) > 0){
 					'value'=>'$data[\'title\']',
 				),
 				array(
+					'header'=>__('Formulated'),
+					'name'=>'created',
+					'value'=>'format_date($data[\'created\'])',
+				),
+				array(
 					'header'=>'Estat',
 					'name'=>'state',
 					'type' => 'raw',
 					'value'=>'$data->getHumanStates($data[\'state\'])',
-				),
-				array(
-					'header'=>__('Formulated'),
-					'name'=>'created',
-					'value'=>'format_date($data[\'created\'])',
 				),
     	        array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	)));

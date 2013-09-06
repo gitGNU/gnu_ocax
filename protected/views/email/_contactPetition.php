@@ -33,13 +33,12 @@
 						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p><p>'.
 						__('If you think this user is spamming you, you can block future petitions at this link').'<br />'.
 						$block.'</p>'.
-						__('Kind regards').',<br />'.Config::model()->findByPk('observatoryName')->value;
+						'<p>'.__('Kind regards').',<br />'.Config::model()->findByPk('observatoryName')->value.'</p>';
 
 		echo '<div style="	background-color:white;
 							margin:-10px;
 							margin-top:-15px;
 							margin-bottom:0px;
-							border-bottom: 1px solid #C9E0ED;
 							padding:5px">'.$model->title.'</div>';		
 		echo $form->hiddenField($model,'title');
 

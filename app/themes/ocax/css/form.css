@@ -34,7 +34,20 @@
  * @license http://www.yiiframework.com/license/
  */
 
+div.form{
+	background-color:#f5f1ed;
+	padding: 10px;
+	margin: 0;
+}
 
+div.form .title{
+	color:#61b5d0;
+	padding:10px;
+	margin:-10px;
+	background-color:#transparent;
+	margin-bottom:15px;
+	font-size:1.6em;
+}
 
 div.form input,
 div.form textarea,
