@@ -12,7 +12,7 @@ function validateFileName(form){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/validateFileName',
 		type: 'GET',
 		async: false,
-		data: {	'file_name'	: $('#File_file').val(),
+		data: {	'file_name'	: $('#File_file').val().replace('C:\\fakepath\\', ''),
 				'model' 	: $('#File_model').val(),
 				'model_id' 	: $('#File_model_id').val(),
 		},

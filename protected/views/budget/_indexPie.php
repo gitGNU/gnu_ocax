@@ -49,6 +49,7 @@ function goBack(parent_id){
 }
 
 function getPie(budget_id, element){
+	$('.jqplot-highlighter-tooltip').hide();
 	if($("#"+budget_id).length){
 		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
 		return;

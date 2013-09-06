@@ -271,7 +271,7 @@ $this->widget('PGridView', array(
 ));
 
 if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$submitted_info=format_date($model->submitted).' '.__('Registry number').':'.$model->registry_number;
+	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
 	$attributes=array(
 					array(
 	        			'label'=>__('Submitted'),
