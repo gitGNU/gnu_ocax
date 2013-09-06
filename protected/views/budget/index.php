@@ -163,7 +163,7 @@ if(count($years) > 1){
 
 
 <!-- ********** FILTRO / BAJAR BASE DATOS ********** -->
-<div style="width:60%; float: left;">
+<div style="width:60%; float: left; margin-top:23px;">
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?> 
 		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
@@ -183,7 +183,7 @@ if(count($years) > 1){
 ?>
 </div><!-- search-form -->
 
-<div style="width:35%; float:right; align:right;">
+<div style="width:40%; float:right; align:right;">
 <?php
 	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
 	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';

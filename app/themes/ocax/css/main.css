@@ -522,37 +522,57 @@ margin-left:35px;
 	padding:8px;
 	margin-left:0px;
 	margin-right:0px;
-    margin-top:25px;
+    margin-top:0px;
+	margin-bottom:75px;
 }
 
 #download_database
 {
-	background-image:url('../images/download_database.png');
-	width:62px;
-	height:65px;
+	background: url("../images/download_database.png") no-repeat scroll 0 0 transparent;
+	width:54px;
+	height:51px;
 	float:right;
 	cursor:pointer;
-	margin-right:30px;
+	margin-right:60px;
 }
+
+#download_database:hover
+{
+    background-position: -54px 0;
+	}
 
 /* PIE BUDGET */
 
 #change_to_pie
 {
-	background-image:url('../images/graph_type_pie.png');
-	width:62px;
-	height:60px;
+		background: url("../images/graph_type_pie.png") no-repeat scroll 0 0 transparent;
+	width:54px;
+	height:51px;
 	float:right;
 	cursor:pointer;
+	margin-right:15px;
 }
+
+#change_to_pie:hover
+{
+    background-position: -54px 0;
+	}
+	
 #change_to_bar
 {
-	background-image:url('../images/graph_type_bar.png');
-	width:68px;
-	height:60px;
+		background: url("../images/graph_type_bar.png") no-repeat scroll 0 0 transparent;
+	width:54px;
+	height:51px;
 	float:right;
 	cursor:pointer;
 }
+
+#change_to_bar:hover
+{
+    background-position: -54px 0;
+	}
+	
+	
 
 .graph_group{
 	background-image:url('../images/bar.gif');
@@ -561,6 +581,7 @@ margin-left:35px;
 	padding:0px;
 	padding-top:10px;
 	height:500px;
+	margin-bottom:75px;
 }
 .graph_container{
 	margin-bottom:0px;
