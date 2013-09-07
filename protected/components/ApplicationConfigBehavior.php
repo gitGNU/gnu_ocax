@@ -2,7 +2,6 @@
 
 //http://www.yiiframework.com/wiki/208/how-to-use-an-application-behavior-to-maintain-runtime-configuration/
 
-
 /**
  * ApplicationConfigBehavior is a behavior for the application.
  * It loads additional config parameters that cannot be statically 
