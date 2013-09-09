@@ -67,18 +67,34 @@ Yii::app()->clientScript->registerScript('search', "
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
 
 <script>
+var budgetCache=new Array();
+
 $(function() {
 	$('#Budget_concept').focus(function () {
 		$('#Budget_code').val('');
 	});
 });
 
+function _showBudget(budget_id){
+	$("#budget_popup_body").html(budgetCache[budget_id]);
+	$('#budget_popup').bPopup({
+		modalClose: false
+		, follow: ([false,false])
+		, fadeSpeed: 10
+		, positionStyle: 'absolute'
+		, modelColor: '#ae34d5'
+	});
+}
+
 function showBudget(budget_id, element){
+	if(budgetCache[budget_id]){
+		_showBudget(budget_id);
+		return;	
+	}
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		async: false,
-		//dataType: 'json',
 		beforeSend: function(){
 						$('.loading_gif').remove();
 						$(element).after('<img style="vertical-align:top;" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
@@ -86,14 +102,8 @@ function showBudget(budget_id, element){
 		complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
 			if(data != 0){
-				$("#budget_popup_body").html(data);
-				$('#budget_popup').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, fadeSpeed: 10
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-                });
+				budgetCache[budget_id]=data;
+				_showBudget(budget_id);
 			}
 		},
 		error: function() {

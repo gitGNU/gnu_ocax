@@ -25,7 +25,7 @@
 <div class="view" id="comment_<?php echo $data->id;?>">
 	<p style="margin-bottom:5px"><b>
 	<?php if(! ($data->user0->username == Yii::app()->user->id || $data->user0->is_disabled == 1))
-			echo '<span class="link" onClick="js:getContactForm('.$data->user.')">';
+			echo '<span class="link" onClick="js:getContactForm('.$data->user.');return false;">';
 		else
 			echo '<span>';
 	?>
