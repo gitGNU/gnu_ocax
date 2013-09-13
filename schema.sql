@@ -255,6 +255,8 @@ INSERT INTO config(parameter, value, description) VALUES ('smtpAuth', '0', 'SMTP
 INSERT INTO config(parameter, description) VALUES ('smtpSecure', 'SMTP Secure');
 INSERT INTO config(parameter, description) VALUES ('smtpUsername', 'SMTP Username');
 INSERT INTO config(parameter, description) VALUES ('smtpPassword', 'SMTP Password');
+INSERT INTO config(parameter, description) VALUES ('socialTwitterURL', 'Observatory\'s twitter URL');
+INSERT INTO config(parameter, description) VALUES ('socialFacebookURL', 'Observatory\'s facebook URL');
 
 
 

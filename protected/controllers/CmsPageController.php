@@ -113,7 +113,6 @@ class CmsPageController extends Controller
 			$model->attributes=$_POST['CmsPage'];
 			$content->attributes=$_POST['CmsPageContent'];
 			
-			$content->pageURL=strtolower($content->pageURL);
 			$content->page=0;	// dummy value. should do this with validation rule but it didn't work.
 			//$content->setScenario('cms_page_create');
 			if($model->validate() && $content->validate()){
@@ -163,7 +162,7 @@ class CmsPageController extends Controller
 		{
 			$model->attributes=$_POST['CmsPage'];
 			$content->attributes=$_POST['CmsPageContent'];
-			$content->pageURL=strtolower($content->pageURL);
+
 			if($model->validate() && $content->validate()){
 				$model->save();
 				$content->save();

@@ -111,6 +111,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 		<?php echo $form->error($content,'body'); ?>
 	</div>
 
+<?php if(1 == 0){ ?>
 	<div class="row">
 		<?php echo $form->labelEx($content,'heading'); ?>
 		<?php echo $form->textField($content,'heading',array('size'=>60,'maxlength'=>255)); ?>
@@ -134,7 +135,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 		<?php echo $form->textField($content,'metaKeywords',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($content,'metaKeywords'); ?>
 	</div>
-
+<?php } ?>
 
 
 	<div class="row buttons">
