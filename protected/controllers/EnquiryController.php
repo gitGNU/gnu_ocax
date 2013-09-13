@@ -443,6 +443,7 @@ class EnquiryController extends Controller
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
+			$model->modified = date('c');
 			if($model->save()){
 				$model->promptEmail();
 				$this->redirect(array('teamView','id'=>$model->id));

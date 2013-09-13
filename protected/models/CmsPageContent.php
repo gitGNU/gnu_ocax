@@ -113,37 +113,13 @@ class CmsPageContent extends CActiveRecord
 		);
 	}
 
-	/**
-	* Function: sanitize
-	* Returns a sanitized string, typically for URLs.
-	*
-	* Parameters:
-	* $string - The string to sanitize.
-	* $lowercase - Force the string to lowercase?
-	* $alnum - If set to *true*, will remove all non-alphanumeric characters.
-	*/
-	// https://gist.github.com/ichiriac/4307267
-	public function sanitizeURL($string, $lowercase = true, $alnum = false)
+	public function sanitizeURL($string)
 	{
-		$string = trim(
-			strtr(
-				strip_tags(
-					str_replace(
-						array('`', '^', '\''), null,
-							iconv(
-								'UTF-8',
-								'US-ASCII//TRANSLIT//IGNORE',
-								strtr($string, '\'', ' ')
-						)
-					)
-				),
-				'~`!@?#$%§^&*()_=+[]{}\\/|;:,"\'<>.',
-				' '
-			)
-		);
-		if ($alnum) $string = preg_replace('/[^a-zA-Z0-9]/', ' ', $string);
-		if ($lowercase) $string = strtolower($string);
-		return preg_replace('/\s+/', '-', $string);
+		$string = str_replace(' ', '-', $string);
+		$string = preg_replace('/[^-a-zA-Z0-9_]/', '-', $string);
+		$string = strtolower($string);
+
+		return $string;
 	}
 	
 
