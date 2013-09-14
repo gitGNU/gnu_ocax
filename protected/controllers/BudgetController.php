@@ -144,6 +144,7 @@ class BudgetController extends Controller
 							'<span class="link legend_item" budget_id="'.$budget->id.'">'.$budget->getConcept().'</span>',
 							(int)$budget->actual_provision,
 							$budget->id,
+							format_number($budget->actual_provision),
 						);
 		}
 		$result=array('data'=>$data, 'params'=>$params,);

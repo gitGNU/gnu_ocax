@@ -27,7 +27,6 @@ var pie_properties = {
 		rendererOptions:{
 			shadow:false,
 			padding:0,
-			//sliceMargin: 2,
 			showDataLabels:true,
 			fill: true,
 			sliceMargin: 0,
@@ -36,11 +35,11 @@ var pie_properties = {
 			dataLabelCenterOn:false,
 			//"dataLabelPositionFactor":0.6,
 			//"dataLabelNudge":0,
-			//"dataLabels":["Longer","B","C","Longer","None"],
+			//dataLabels:["Longer","B","C","Longer","None"],
 		},
     	highlighter: {
     	    show: true,
-    	    formatString:'%s', 
+			formatString: '%s<br /><span style="display:none">%s%s</span>%s €',
     	    tooltipLocation:'ne', 
     	    useAxesFormatters:false,
     	},
