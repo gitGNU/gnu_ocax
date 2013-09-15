@@ -8,8 +8,10 @@ body
 
 /* --------------------- GRIS 3 --------------------- */
 
-#page
+#page 
 { background-color: #f5f1ed;}
+
+
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
@@ -93,11 +95,11 @@ a {color:#A1A150;}
 body
 {
 	margin: 0;
+	background: url("../images/back.png") repeat-x scroll 0 0 #e4ded7;
 	padding: 0;
 	color: #555;
 	font: normal 10pt;
 	font-family: SansPro,Arial,Helvetica,sans-serif;
-	background-position:bottom;
 }
 
 #page
@@ -178,14 +180,15 @@ body
 
 #logo
 {
-	font-size: 400%;
-	line-height: 100%;
+	font-size: 470%;
+	line-height: 95%;
 	letter-spacing:-1pt;
 	color:#a6a29e;
 	font-weight:200;
-	padding-top: 0px;
-	padding-bottom:90px;
+	padding: 15px 20px 120px 0px;
+
 }
+
 
 #mainmenu
 {
@@ -379,39 +382,66 @@ div.search-form
 
 
 
-/*ELEMENTOS COMUNES*/
+
+.outer_index_j
+{
+
+	background: url(../images/backindex.jpg) no-repeat scroll right bottom transparent;
+width:100%; padding: 0px; float: left;
+}
+
+
+/*HEADER BAR*/
 
 #header_bar_j
 {
-width:950px; 
-margin: 0 auto;
-padding: 10px 0px 0px 10px;
-height:20px;
+	margin: 0;
+	padding: 0;
+	color:#1F1F1F;
+	height:34px;
+	vertical-align:middle;
+	font-size: 16px;
+}
 
+#header_bar_container
+{
+	width:950px;
+	margin:0 auto;
 }
 
 #header_login_j
 {
-font-size: 16px;
-font-weight:800;
-list-style-type: none;
-background-repeat: no-repeat;
-background-position: left bottom;
-margin-left:35px;
+	font-weight:800;
+	list-style-type: none;
+	background: url(../images/separador.png) no-repeat scroll right transparent;
+	margin-right:17px;
+	padding-right:17px;
+	height:30px;
+	vertical-align:middle;
 }
 
 
-#header_login_j a
+
+#header_languaje a
 {
-	font-size: 16px;
-	font-weight:800;
 	text-decoration:underline;
 }
 
-#header_login_j a:hover
+#header_languaje a:hover
 {
 	text-decoration:none;
 }
+
+#header_languaje
+{
+font-weight:800;
+list-style-type: none;
+	background: none;
+height:30px;
+vertical-align:middle;
+}
+
+
 
 .language_link
 {

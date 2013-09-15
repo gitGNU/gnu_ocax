@@ -31,9 +31,9 @@
 
 
 <div id="header_bar_j">
+<div id="header_bar_container">
 
-
-	<div id="header_login_j" style="float:right;">
+	<div id="header_languaje" style="float:right;">
    		<?php
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		if(isset($languages[1])){
@@ -55,10 +55,17 @@
 		?>
 	</div>
     
+    
+    <div id="header_login_j" style="float:right;">
+    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/fb_bar.gif" />
+    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/tw_bar.gif" />
+	</div>
+    
+    
     	<div id="header_login_j" style="float:right;">	
 	<?php echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/> '.__('Home'), array('/site/index')); ?></div>
 
-
+</div> 
 </div>   
 
 

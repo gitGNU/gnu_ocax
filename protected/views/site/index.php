@@ -14,7 +14,7 @@ $this->pageTitle=Yii::app()->name;
 	.clear{clear:both;}
 </style>
 
-<div class="outer" style="position:relative; height:200px;">
+<div class="outer_index_j" style="position:relative; height:800px;">
 <div class="left">
 
 
