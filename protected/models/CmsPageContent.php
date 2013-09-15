@@ -1,6 +1,24 @@
 <?php
 
 /**
+ * OCAX -- Citizen driven Municipal Observatory software
+ * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
  * This is the model class for table "cms_page_content".
  *
  * The followings are the available columns in table 'cms_page_content':
@@ -58,6 +76,12 @@ class CmsPageContent extends CActiveRecord
 		);
 	}
 
+	protected function beforeSave()
+	{
+		$this->pageURL = $this->sanitizeURL($this->pageURL);
+		return parent::beforeSave();
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -88,6 +112,16 @@ class CmsPageContent extends CActiveRecord
 			'metaKeywords' => 'Meta Keywords',
 		);
 	}
+
+	public function sanitizeURL($string)
+	{
+		$string = str_replace(' ', '-', $string);
+		$string = preg_replace('/[^-a-zA-Z0-9]/', '-', $string);
+		$string = strtolower($string);
+
+		return $string;
+	}
+	
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

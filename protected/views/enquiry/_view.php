@@ -1,4 +1,23 @@
 <?php
+
+/**
+ * OCAX -- Citizen driven Municipal Observatory software
+ * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
@@ -165,6 +184,69 @@ function vote(reply_id, like){
 				}					
 		},
 		error: function() { alert("error on vote"); },
+	});
+}
+function getContactForm(recipient_id){
+	if(!isUser())
+		return;
+	if(!canParticipate())
+		return;
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
+		type: 'GET',
+		async: false,
+		data: {'recipient_id': recipient_id, 'enquiry_id': <?php echo $model->id?> },
+		beforeSend: function(){ },
+		complete: function(){ },
+		success: function(data){
+			if(data != 1){
+				$('#contact_petition_content').html();
+				$("#contact_petition_content").html(data);
+				$('#contact_petition').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, fadeSpeed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get Contact petition");
+		}
+	});
+}
+function sendContactForm(form){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
+		type: 'POST',
+		async: false,
+		data: $('#'+form).serialize(),
+		beforeSend: function(){
+					$('#contact_petition_buttons').replaceWith($('#contact_petition_sending'));
+					$('#contact_petition_sending').show();
+					},
+		complete: function(){ /* $('#right_loading_gif').hide(); */ },
+		success: function(data){
+			if(data == 1){
+				$('#contact_petition_sending').replaceWith($('#contact_petition_sent'));
+				$('#contact_petition_sent').show();
+
+			}else{
+				$('#contact_petition_sending').replaceWith($('#contact_petition_error'));
+				$('#contact_petition_error').html(data);
+				$('#contact_petition_error').show();
+			}
+			setTimeout(function() {
+				$('#contact_petition').fadeOut('fast',
+										function(){
+											$('#contact_petition').bPopup().close();
+									});
+    		}, 2000);
+		},
+		error: function() {
+			alert("Error on post Contact petition");
+		}
 	});
 }
 </script>
