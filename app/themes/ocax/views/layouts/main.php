@@ -57,13 +57,14 @@
     
     
     <div id="header_login_j" style="float:right;">
-    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/fb_bar.gif" />
-    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/tw_bar.gif" />
+    <a href="<?php echo Config::model()->findByPk('socialFacebookURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/fb_bar.gif" /></a>
+    <a href="<?php echo Config::model()->findByPk('socialTwitterURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/tw_bar.gif" /></a>
 	</div>
     
     
-    	<div id="header_login_j" style="float:right;">	
-	<?php echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/> '.__('Home'), array('/site/index')); ?></div>
+	<div id="header_login_j" style="float:right;">	
+	<?php echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/> '.__('Home'), array('/site/index')); ?>
+	</div>
 
 </div> 
 </div>   
@@ -80,7 +81,7 @@
 		<?php
 			$items=array(
 				//array('label'=>__('Home'), 'url'=>array('/site/index')),
-				array('label'=>__('My page'), 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
+				//array('label'=>__('My page'), 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>__('Budgets'), 'url'=>array('/budget'),'active'=> (strcasecmp(Yii::app()->controller->id, 'budget') === 0)  ? true : false),
 				array('label'=>__('Enquiries'), 'url'=>array('/enquiry'),'active'=> (strcasecmp(Yii::app()->controller->id, 'enquiry') === 0)  ? true : false),
 				//array('label'=>__('Contact'), 'url'=>array('/site/contact')),
@@ -98,7 +99,13 @@
 										'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL),
 										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
 								));
-				array_splice( $items, 4, 0, $item );
+				array_splice( $items, 0, 0, $item );
+			}
+			if(!Yii::app()->user->isGuest){
+				$item = array( array(	'label'=>__('My page'),
+										'url'=>array('/user/panel'),
+						));
+				array_splice( $items, 0, 0, $item );		
 			}
 			$this->widget('zii.widgets.CMenu',array(
 				'items'=>$items,
