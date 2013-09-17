@@ -380,14 +380,10 @@ div.search-form
 
 /*PAGINAS*/
 
-
-
-
 .outer_index_j
 {
-
 	background: url(../images/backindex.jpg) no-repeat scroll right bottom transparent;
-width:100%; padding: 0px; float: left;
+	width:100%; padding: 0px; float: left;
 }
 
 
@@ -399,8 +395,12 @@ width:100%; padding: 0px; float: left;
 	padding: 0;
 	color:#1F1F1F;
 	height:34px;
-	vertical-align:middle;
 	font-size: 16px;
+}
+
+#header_bar_j img
+{
+	vertical-align:middle;
 }
 
 #header_bar_container
@@ -409,7 +409,7 @@ width:100%; padding: 0px; float: left;
 	margin:0 auto;
 }
 
-#header_login_j
+.header_block_j
 {
 	font-weight:800;
 	list-style-type: none;
@@ -417,36 +417,16 @@ width:100%; padding: 0px; float: left;
 	margin-right:17px;
 	padding-right:17px;
 	height:30px;
-	vertical-align:middle;
+	float:right;
 }
 
-
-
-#header_languaje a
+.header_last_block
 {
-	text-decoration:underline;
-}
-
-#header_languaje a:hover
-{
-	text-decoration:none;
-}
-
-#header_languaje
-{
-font-weight:800;
-list-style-type: none;
+	font-weight:800;
+	list-style-type: none;
 	background: none;
-height:30px;
-vertical-align:middle;
-}
-
-
-
-.language_link
-{
-	font-size:16px;
-	text-decoration:none;
+	height:30px;
+	float:right;
 }
 
 
