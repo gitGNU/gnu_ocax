@@ -552,8 +552,8 @@ vertical-align:middle;
 	padding:8px;
 	margin-left:0px;
 	margin-right:0px;
-    margin-top:0px;
-	margin-bottom:75px;
+    margin-top:20px;
+	margin-bottom:5px;
 }
 
 #download_database
@@ -563,7 +563,6 @@ vertical-align:middle;
 	height:51px;
 	float:right;
 	cursor:pointer;
-	margin-right:60px;
 }
 
 #download_database:hover
@@ -575,7 +574,7 @@ vertical-align:middle;
 
 #change_to_pie
 {
-		background: url("../images/graph_type_pie.png") no-repeat scroll 0 0 transparent;
+	background: url("../images/graph_type_pie.png") no-repeat scroll 0 0 transparent;
 	width:54px;
 	height:51px;
 	float:right;
@@ -590,7 +589,7 @@ vertical-align:middle;
 	
 #change_to_bar
 {
-		background: url("../images/graph_type_bar.png") no-repeat scroll 0 0 transparent;
+	background: url("../images/graph_type_bar.png") no-repeat scroll 0 0 transparent;
 	width:54px;
 	height:51px;
 	float:right;
@@ -607,11 +606,11 @@ vertical-align:middle;
 .graph_group{
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
-	background-position: top;	margin-top:40px;
+	background-position: top;	margin-top:0px;
 	padding:0px;
-	padding-top:10px;
+
 	height:500px;
-	margin-bottom:75px;
+	margin-bottom:45px;
 }
 .graph_container{
 	margin-bottom:0px;
@@ -622,10 +621,11 @@ vertical-align:middle;
 	margin:0px;
 }
 .pie_graph_title{
-	margin-bottom:10px;
-	width:100%;
-	text-align:left;
-	font-size:1.7em;	
+	margin-bottom:30px;
+	line-height: 70%;
+	font-size: 22pt;
+	letter-spacing:-1pt;
+	font-weight:200;
 }
 
 .budget_details{

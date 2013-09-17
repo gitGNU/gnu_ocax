@@ -137,25 +137,63 @@ function afterSearch(){
 }
 </script>
 
+<style>           
+	.outer{width:100%; padding: 0px;}
+	.left{width: 49%; float: left;  margin: 0px;}
+	.right{width: 49%; float: left; margin: 0px;}
+	.clear{clear:both;}
+</style>
 
-<div style="
-	margin-right:0px;
-    margin-top:10px;
-	">
-<div id="budget_titulo_j" style="float:left;">
-<?php echo __('Budgets');?>
+<div class="outer">
+<div class="left" style="height:140px">
+
+<div id="budget_titulo_j"><?php echo __('Budgets');?></div>
+
+
+<div id="budget_search_j"><!-- search-form start -->
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'action'=>Yii::app()->createUrl($this->route),
+	'id'=>'budget-form',
+	'method'=>'get',
+)); ?>
+
+	<?php echo $form->hiddenField($model,'year'); ?>
+
+<div>
+
+	<div class="row">
+		<?php echo $form->label($model,'concept'); ?> 
+		<?php echo $form->textField($model,'concept',array('size'=>10,'maxlength'=>200)); ?>
+
+		<span style="margin-left:15px;">
+		<?php echo $form->label($model,'code'); ?> 
+		<?php echo $form->textField($model,'code',array('size'=>2,'maxlength'=>10)); ?>
+		</span>
+		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
+	</div>
+
 
 </div>
+<?php $this->endWidget(); ?>
 
-<div style="
-	margin-bottom:15px;
-	font-size:1.2em;
-    float:right;
-	">
 <?php
+	echo '<div id="no_results" style="display:none;float:right">'.
+		__('No search results').
+		'</div>';
+?>
 
-echo ' .';	// julio, antes teniamos un string aqui. ahora al quitarlo, sube lo de abajo.
+</div><!-- search-form end-->
 
+
+</div>
+<div class="right">
+
+
+
+<!--  Select year start  -->
+<div style="float:right; width:48%; margin-bottom:30px;">
+
+<?php
 if(Yii::app()->user->isAdmin())
 	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
 else
@@ -165,70 +203,46 @@ if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {
 		return $year->getYearString();
 	});
-		echo '<span style="float:right">';
-		echo __('Available years').' ';
+		echo '<div style="float:right">';
+		echo __('Available years').'<br />';
 		echo CHtml::dropDownList('budget', $model->year, $list,
 								array(	'id'=>'selectYear',
 										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
 								));
-		echo '</span>';
+		echo '</div>';
+		echo '<div style="margin-right:45px" id="change_to_bar" ></div>';	// cambia por icono de 'años disponibles'
 }
 ?>
 </div>
+<!--  Select year finished  -->
 
-</div>
-
-<div style="clear:both"></div>
-
-<div id="budget_search_j">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'id'=>'budget-form',
-	'method'=>'get',
-)); ?>
-
-	<?php echo $form->hiddenField($model,'year'); ?>
-
-
-<!-- ********** FILTRO / BAJAR BASE DATOS ********** -->
-<div style="width:60%; float: left; margin-top:23px;">
-	<div class="row">
-		<?php echo $form->label($model,'concept'); ?> 
-		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
-
-		<span style="margin-left:15px">
-		<?php echo $form->label($model,'code'); ?> 
-		<?php echo $form->textField($model,'code',array('size'=>5,'maxlength'=>255)); ?>
-		</span>
-		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Filter')); ?></span>
-	</div>
-
-<?php $this->endWidget(); ?>
+<!--  Change graph type start  -->
+<div style="clear:right">
 <?php
-	echo '<div id="no_results" style="float:left;font-size:1.3em;margin-top:15px;display:none">'.
-		__('No search results').
-		'</div>';
-?>
-</div><!-- search-form -->
-
-<div style="width:40%; float:right; align:right;">
-<?php
+	echo '<div style="float:right; width:48%; padding-top:10px; border-top: 2px dashed #555555;">';
 	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
+	echo 'this is some text';
 	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 	echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
-
+	echo '</div>';
+	
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
+		echo '<div style="float:left; width:48%; padding-top:10px; border-top: 2px dashed #555555;">';
+		echo 'Download database';
 		echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
+		echo '</div>';
 	}
 ?>
 </div>
+<!--  Change graph type finish  -->
 
 </div>
-<!-- ********** FIN FILTRO / BAJAR BASE DATOS ********** -->
+
+</div>
+<div style="clear:both"></div>
 
 
-<div style="clear:both;"></div>
+
 
 <div>
 <?php

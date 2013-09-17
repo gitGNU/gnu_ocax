@@ -89,10 +89,10 @@ $attributes=array(
 
 	);
 
-if(!isset($noConcept)){
+if(!isset($hideConcept)){
 	$row =	array(
 				array(
-					'name'=>__('Concept'),
+					'name'=>$model->getLabel(),
 					'type'=>'raw',
 					'value'=> $budget_concept,
 				),	

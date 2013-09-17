@@ -86,11 +86,14 @@ function getPie(budget_id, element){
 			graph_container.attr('parent_id',data.params.parent_id);
 			graph_container.attr('is_parent',data.params.is_parent);
 			
-			if(!data.params.is_parent){
+			if(data.params.is_parent){
+				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+budget_id+
+						'" onclick="js:showBudget('+budget_id+', this);return false;">'+data.params.title+'</a>';
+			}else{
 				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+data.params.parent_id+
-						'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';
-			}else
-				title=data.params.title;
+						'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';			
+			}
+	
 			graph_container.append('<div class="pie_graph_title">'+title+'</div>');
 			
 			graph_container.append(data.params.budget_details);
@@ -159,7 +162,8 @@ $(function() {
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
-			graph_container.append('<div class="pie_graph_title"><?php echo CHtml::encode($budget->getConcept());?></div>');
+			title= '<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/<?php echo $budget->id;?>" onclick="js:showBudget(<?php echo $budget->id;?>, this);return false;"><?php echo CHtml::encode($budget->getConcept());?></a>';	
+			graph_container.append('<div class="pie_graph_title">'+title+'</div>');
 			graph_container.append(data.params.budget_details);
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);

@@ -79,11 +79,10 @@ class EnquiryController extends Controller
 	{
 		$this->layout='//layouts/column1';
 		$model=$this->loadModel($id);
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+		$this->pageTitle=CHtml::encode(__('Enquiry').': '.$model->title);
 
 		$this->render('view',array(
 			'model'=>$model,
-			'replys'=>$replys,
 		));
 	}
 
@@ -93,6 +92,7 @@ class EnquiryController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
+		$this->pageTitle=CHtml::encode(__('Enquiries').' '.Config::model()->findByPk('councilName')->value);
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Enquiry']))
@@ -148,6 +148,7 @@ class EnquiryController extends Controller
 	public function actionCreate()
 	{
 		$this->layout='//layouts/column1';
+		$this->pageTitle=CHtml::encode(__('New enquiry'));
 		$model=new Enquiry;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -264,6 +265,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionEdit($id)
 	{
+		$this->pageTitle=CHtml::encode(__('Modify enquiry'));
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed

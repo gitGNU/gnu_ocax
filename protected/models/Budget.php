@@ -135,6 +135,17 @@ class Budget extends CActiveRecord
 		//return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
 	}
 
+
+	public function getLabel()
+	{
+		$label='';
+		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
+			if($description->label)
+				$label = $description->label;
+		}
+		return $label;
+	}
+
 	public function getConcept()
 	{
 		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))

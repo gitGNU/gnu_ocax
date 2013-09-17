@@ -324,7 +324,7 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 }
 ?>
 
-<?php echo $this->renderPartial('_view', array('model'=>$model,/*'replys'=>$replys*/)); ?>
+<?php echo $this->renderPartial('_view', array('model'=>$model)); ?>
 </div>
 <div class="clear"></div>
 

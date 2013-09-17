@@ -80,7 +80,7 @@ class BudgetController extends Controller
 	{
 		
 		$model=$this->loadModel($id);
-
+		$this->pageTitle=CHtml::encode(__('Budget').': '.$model->title);
 		$this->render('view',array(
 			'model'=>$model,
 		));
@@ -121,10 +121,12 @@ class BudgetController extends Controller
 		$graphThisModel=$model;
 		$goBackID=$model->parent0->id;
 		$isParent=1;
+		$hideConcept=1;
 		if(!$model->budgets){
 			$isParent=0;
 			$graphThisModel=$model->parent0;
 			$goBackID=$model->parent0->parent0->id;
+			$hideConcept=Null;
 		}
 		
 		$params=array(	'parent_id'=>$model->parent,
@@ -132,7 +134,9 @@ class BudgetController extends Controller
 						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
 											$this->renderPartial('_enquiryView',array(	'model'=>$model,
 																						'showCreateEnquiry'=>1,
-																						'showLinks'=>1),true,false).
+																						'showLinks'=>1,
+																						'hideConcept'=>$hideConcept),
+																						true,false).
 											'</div>',
 						'is_parent'=>$isParent,
 						'go_back_id'=>$goBackID,
@@ -406,6 +410,7 @@ class BudgetController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
+		$this->pageTitle=CHtml::encode(__('Budgets').' '.Config::model()->findByPk('councilName')->value);
 		$model = new Budget('publicSearch');
 
 		$model->unsetAttributes();  // clear any default values

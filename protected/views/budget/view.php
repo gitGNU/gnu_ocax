@@ -67,6 +67,7 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 													'showLinks'=>1,
 													'noConcept'=>1,
 													'showMore'=>1,
+													'hideConcept'=>1,
 												),false,true);
 	echo '</div>';	
 	
