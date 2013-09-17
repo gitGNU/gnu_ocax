@@ -19,16 +19,7 @@
  */
 
 $this->setPageTitle($content->pageTitle);
-
 ?>
-
-<style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 15%; float: left;  margin: 0px;}
-	.right{width: 83%; float: left; margin: 0px;}
-	.clear{clear:both;}
-	.activeItem a{color: red;}
-</style>
 
 <?php if(isset($noLanguageLinks)){ ?>
 <style>
@@ -53,10 +44,30 @@ echo CHtml::link('<< '.__('CMS editor'),array(	'cmsPage/update',
 echo '</div>';
 } ?>
 
+
+<!-- start page here -->
+
+<style>           
+	.outer{width:100%; padding: 0px;}
+	.left{width: 73%; float: left;  margin: 0px;}
+	.right{width: 25%; float: left; margin: 0px;}
+
+	#cmsPageMenu {border:2px solid #ddd;}
+	.cmsPageMenuItem { font-size:1.6em; }
+	.activeMenuItem a {color: red;}
+	
+</style>
+
+
 <div class="outer">
 
 <div class="left">
-	<?php
+	<div class="cms_titulo_j"><?php echo CHtml::encode($content->pageTitle); ?></div>
+	<div class="cms_content_j"><?php echo $content->body; ?></div>
+</div>
+
+<div id="cmsPageMenu" class="right">
+<?php
 	$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block, 'published'=>1), array('order'=>'weight'));
 	foreach ($items as $menu_item) {
 		foreach($menu_item->cmsPageContents as $item){
@@ -64,23 +75,17 @@ echo '</div>';
 				break;	
 			}
 		}
-		$itemclass='';
+		$itemclass='class="cmsPageMenuItem"';
 		if($content->pageURL == $item->pageURL)
-			$itemclass='class="activeItem"';
+			$itemclass='class="cmsPageMenuItem activeMenuItem"';
 		echo '<div '.$itemclass.'>';
 		echo CHtml::link(CHtml::encode($item->pageTitle),array('p/'.$menu_item->id.'/'.$item->pageURL));
 		echo '</div>';
-		echo '<br />';
-	}
 
+	}
 ?>
 </div>
-
-<div class="right">
-	<div class="cms_titulo_j"><?php echo CHtml::encode($content->pageTitle); ?></div>
-	<div class="cms_content_j"><?php echo $content->body; ?></div>
-</div>
 </div>
 
-<div class="clear"></div>
+<div style="clear:both"></div>
 
