@@ -229,7 +229,7 @@ if(count($years) > 1){
 	
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 		echo '<div style="float:left; width:48%; padding-top:10px; border-top: 2px dashed #555555;">';
-		echo 'Download database';
+		echo __('Download database');
 		echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
 		echo '</div>';
 	}
