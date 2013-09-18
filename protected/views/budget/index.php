@@ -147,8 +147,10 @@ function afterSearch(){
 <div class="outer">
 <div class="left" style="height:140px">
 
-<div id="budget_titulo_j"><?php echo __('Budgets');?></div>
-
+<div>
+	<div id="big_budget_icon" style="float:left"></div>
+	<div id="budget_titulo_j" style=""><?php echo __('Budgets');?></div>
+</div>
 
 <div id="budget_search_j"><!-- search-form start -->
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -189,7 +191,6 @@ function afterSearch(){
 <div class="right">
 
 
-
 <!--  Select year start  -->
 <div style="float:right; width:48%; margin-bottom:30px;">
 
@@ -219,7 +220,7 @@ if(count($years) > 1){
 <!--  Change graph type start  -->
 <div style="clear:right">
 <?php
-	echo '<div style="float:right; width:48%; padding-top:10px; border-top: 2px dashed #555555;">';
+	echo '<div style="float:right; width:50%; padding-top:10px; border-top: 2px dashed #555555;">';
 	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
 	echo 'this is some text';
 	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';

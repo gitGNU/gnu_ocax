@@ -130,7 +130,7 @@ class BudgetController extends Controller
 		}
 		
 		$params=array(	'parent_id'=>$model->parent,
-						'title'=>CHtml::encode($graphThisModel->getConcept()),
+						'title'=>$graphThisModel->getConcept(),
 						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
 											$this->renderPartial('_enquiryView',array(	'model'=>$model,
 																						'showCreateEnquiry'=>1,
@@ -410,7 +410,7 @@ class BudgetController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-		$this->pageTitle=CHtml::encode(__('Budgets').' '.Config::model()->findByPk('councilName')->value);
+		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('councilName')->value;
 		$model = new Budget('publicSearch');
 
 		$model->unsetAttributes();  // clear any default values

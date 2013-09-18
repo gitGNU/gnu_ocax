@@ -92,7 +92,7 @@ class EnquiryController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-		$this->pageTitle=CHtml::encode(__('Enquiries').' '.Config::model()->findByPk('councilName')->value);
+		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('councilName')->value;
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Enquiry']))

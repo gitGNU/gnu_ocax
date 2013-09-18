@@ -201,12 +201,15 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 						'queried_budget' => $featured_budget->id,
 		);
 	
-		echo '<span style="font-size:1.3em">'.CHtml::encode($featured_budget->getConcept()).'</span><br />';
-		echo '<div class="bar_graph">';
-		//echo '<span style="float:right;font-weight:bold">'.$graph_percentage.' % of total budget</span><div style="clear:both"></div>';
-		echoChildBudgets($featured_budget, 0, $graph_width, $globals);
+		echo '<div class="graph_bar_group">';
+		
+		echo '<a  class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';
+		echo CHtml::encode($featured_budget->getConcept()).'</a>';
+		echo '<div class="graph_bar_container">';
+			echoChildBudgets($featured_budget, 0, $graph_width, $globals);
 		echo '</div>';
-		echo '<hr style="margin-top:20px;margin-bottom:20px" />';
+		echo '</div>';
+
 	}
 	echo '</div>';
 ?>

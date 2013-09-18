@@ -39,7 +39,7 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 function slideInChild(parent_id,child_id){
 	graph_container=$('#'+child_id);
 	graph_container.hide();
-	group=$("#"+parent_id).parents('.graph_group');
+	group=$("#"+parent_id).parents('.graph_pie_group');
 
 	if(graph_container.attr('is_parent') == 0){		
 		budget_details=graph_container.children('.budget_details');
@@ -63,7 +63,7 @@ function goBack(parent_id){
 	parent_graph_container=$('#'+parent_id);
 	parent_graph_container.show("slide",{ direction: "left" },	500);
 
-	group=parent_graph_container.parents('.graph_group');
+	group=parent_graph_container.parents('.graph_pie_group');
 	group.children(".graph_container").hide();
 }
 
@@ -94,14 +94,14 @@ function getPie(budget_id, element){
 						'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';			
 			}
 	
-			graph_container.append('<div class="pie_graph_title">'+title+'</div>');
+			graph_container.append('<div class="graph_title">'+title+'</div>');
 			
 			graph_container.append(data.params.budget_details);
 			
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
 			graph_container.append(graph);
 			
-			group=$("#"+data.params.parent_id).parents('.graph_group');
+			group=$("#"+data.params.parent_id).parents('.graph_pie_group');
 			group.append(graph_container);
 			createPie(budget_id+'_graph', data);
 			
@@ -126,7 +126,7 @@ function createPie(div_id, data){
 		$('#'+div_id).bind('jqplotDataClick', 
 			function (ev, seriesIndex, pointIndex, data) {
 				 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-				getPie(data[2], $(this).parents('.graph_group').find('.pie_loading_gif'));
+				getPie(data[2], $(this).parents('.graph_pie_group').find('.pie_loading_gif'));
 				return false;
 			}
 		);
@@ -145,7 +145,7 @@ $(function() {
 	
 	$('#pie_display').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
-		getPie(budget_id, $(this).parents('.graph_group').find('.pie_loading_gif'));
+		getPie(budget_id, $(this).parents('.graph_pie_group').find('.pie_loading_gif'));
 		return false;
 	});
 	
@@ -156,14 +156,14 @@ $(function() {
 		
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
-			group=$('<div class="graph_group"></div>');
+			group=$('<div class="graph_pie_group"></div>');
 			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->getConcept());?></span>');
 			group.append(' <img style="vertical-align:middle;display:none" class="pie_loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
 			title= '<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/<?php echo $budget->id;?>" onclick="js:showBudget(<?php echo $budget->id;?>, this);return false;"><?php echo CHtml::encode($budget->getConcept());?></a>';	
-			graph_container.append('<div class="pie_graph_title">'+title+'</div>');
+			graph_container.append('<div class="graph_title">'+title+'</div>');
 			graph_container.append(data.params.budget_details);
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);
