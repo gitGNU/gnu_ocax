@@ -180,12 +180,12 @@ body
 
 #logo
 {
-	font-size: 470%;
-	line-height: 95%;
-	letter-spacing:-1pt;
+	font-size: 410%;
+	line-height: 90%;
+	letter-spacing:-0.5pt;
 	color:#a6a29e;
 	font-weight:200;
-	padding: 15px 20px 120px 0px;
+	padding: 15px 20px 90px 0px;
 
 }
 
@@ -498,9 +498,9 @@ div.search-form
 
 .cms_titulo_j
 {
-	font-size: 400%;
+	font-size: 410%;
 	line-height: 100%;
-	letter-spacing:-2pt;
+	letter-spacing:-0.5pt;
 	font-weight:200;
 	margin-bottom:30px;
 }
@@ -536,6 +536,17 @@ div.search-form
 	margin-bottom:5px;
 }
 
+.download_options_j{
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;	
+	margin-top:0px;
+	float:left; 
+	width:46%; 
+	padding-top:10px;
+}
+
+
 #download_database
 {
 	background: url("../images/download_database.png") no-repeat scroll 0 0 transparent;
@@ -560,6 +571,16 @@ div.search-form
 	}
 
 /* PIE BUDGET */
+
+.graphbar_options_j{
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;	
+	margin-top:0px;
+	float:right; 
+	width:46%; 
+	padding-top:10px;
+}
 
 #change_to_pie
 {
@@ -589,6 +610,11 @@ div.search-form
 {
     background-position: -54px 0;
 }
+
+
+
+
+
 	
 /* Graphs */	
 
@@ -620,7 +646,7 @@ div.search-form
 	background-repeat: repeat-x;
 	background-position: top;	margin-top:0px;
 	padding:0px;
-
+	margin-top:5px;
 	height:500px;
 	margin-bottom:45px;
 }

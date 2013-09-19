@@ -192,7 +192,7 @@ function afterSearch(){
 
 
 <!--  Select year start  -->
-<div style="float:right; width:48%; margin-bottom:30px;">
+<div class="graphbar_options_j" style="margin-bottom:30px;">
 
 <?php
 if(Yii::app()->user->isAdmin())
@@ -220,7 +220,7 @@ if(count($years) > 1){
 <!--  Change graph type start  -->
 <div style="clear:right">
 <?php
-	echo '<div style="float:right; width:50%; padding-top:10px; border-top: 2px dashed #555555;">';
+	echo '<div class="graphbar_options_j">';
 	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
 	echo 'this is some text';
 	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
@@ -228,7 +228,7 @@ if(count($years) > 1){
 	echo '</div>';
 	
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div style="float:left; width:48%; padding-top:10px; border-top: 2px dashed #555555;">';
+		echo '<div class="download_options_j">';
 		echo 'Download database';
 		echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
 		echo '</div>';
