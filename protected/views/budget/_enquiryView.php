@@ -76,10 +76,10 @@ if(isset($showLinks)){
 
 $attributes=array(
 		array(
-	        'label'=>__('Year'),
-	        'value'=>$model->getYearString(),
+	        'label'=>($model->code)? __('Year / Code'):__('Year'),
+	        'value'=>($model->code)? $model->getYearString().' / '.$model->code:$model->getYearString(),
 		),
-		'code',
+		//'code',
 		//array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'),
 		array(
