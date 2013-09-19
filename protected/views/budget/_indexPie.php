@@ -45,9 +45,10 @@ function slideInChild(parent_id,child_id){
 		budget_details=graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
-		$('#'+child_id).show();	
+		graph_container.show();	
 		budget_details.fadeIn(700);
 		graph_container.find('.legend_item[budget_id='+child_id+']').css('font-weight','bold');
+		addColorKeyToBudgetDetails(graph_container,child_id);		
 		return;
 	}
 	group.children('.graph_container:visible').hide("slide",
@@ -57,6 +58,14 @@ function slideInChild(parent_id,child_id){
 														$('#'+child_id).fadeIn(200);
 													;}
 					);
+}
+
+function addColorKeyToBudgetDetails(graph_container,budget_id){
+	item = graph_container.find('.legend_item[budget_id='+budget_id+']');
+	swatch = item.parent().prev('td');
+	swatch = swatch.find('.jqplot-table-legend-swatch');
+	concept = graph_container.find('.budget_details').find('th:first');
+	concept.css('border-left', '4px solid '+swatch.css('background-color'));
 }
 
 function goBack(parent_id){
@@ -132,21 +141,20 @@ function createPie(div_id, data){
 		);
 		$('#'+div_id).bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {$(this).css('cursor','pointer');}); 
 		$('#'+div_id).bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {$(this).css('cursor','default');});
+
 	}
-	
-	//http://jsfiddle.net/Boro/5QA8r/ highlight splice from lengend
-	/*$('.legend_item').on('mouseover', function() {
-		budget_id = $(this).attr('budget_id');
-		alert(budget_id);
-	});*/
 }
 
 $(function() {
-	
+
 	$('#pie_display').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
 		getPie(budget_id, $(this).parents('.graph_pie_group').find('.pie_loading_gif'));
 		return false;
+	});
+
+	$('#pie_display').on('mouseleave', '.jqplot-target', function() {
+		$('.jqplot-highlighter-tooltip').fadeOut('fast');
 	});
 	
 	$.jqplot.config.enablePlugins = true;
