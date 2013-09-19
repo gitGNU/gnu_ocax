@@ -452,8 +452,6 @@ div.search-form
 
 /*PAGINA USUARIO*/
 
-
-
 #nueva_consulta {
  float:left;
  margin-right: 8px;
@@ -473,10 +471,16 @@ div.search-form
  background-color: none;
  }
  
+.sub_title{
+	margin-bottom:15px;
+	line-height: 70%;
+	font-size: 22pt;
+	letter-spacing:-1pt;
+	font-weight:200;
+} 
  
  
- 
- #boxes
+#boxes
 {
 	margin: 0;
 	padding: 0;

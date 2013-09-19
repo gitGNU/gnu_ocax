@@ -65,7 +65,7 @@ function addColorKeyToBudgetDetails(graph_container,budget_id){
 	swatch = item.parent().prev('td');
 	swatch = swatch.find('.jqplot-table-legend-swatch');
 	concept = graph_container.find('.budget_details').find('th:first');
-	concept.css('border-left', '4px solid '+swatch.css('background-color'));
+	concept.css('border-left', '5px solid '+swatch.css('background-color'));
 }
 
 function goBack(parent_id){

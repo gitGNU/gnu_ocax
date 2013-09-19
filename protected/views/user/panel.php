@@ -52,13 +52,14 @@ function changeColumn()
 </style>
 
 <?php if(!$model->is_active){
-	echo '<h1>'.__('Welcome').'</h1>';
+	echo '<div class="sub_title">'.__('Welcome').'</div>';
 	$this->renderPartial('_notActiveInfo', array('model'=>$model));
 }?>
 
 <div class="outer">
 <div class="left">
-<h1><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></h1>
+<div id="nueva_consulta"></div>
+<div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
 <p>
 <?php
 $str = __('Ask here what you\'d like to know to your Council. To make a budgetary enquiry go to the %s section and forumlate the enquiry from there').'.';
@@ -67,17 +68,18 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 </p>
 </div>
 <div class="right">
-<h1><?php echo CHtml::link(__('My user information'),array('user/update/'));?></h1>
+<div id="nueva_consulta"></div>
+<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
 <p>
-Change your profile<br />
-Configure your email<br />
-Change your password</p>
+<?php echo __('Change your profile');?><br />
+<?php echo __('Configure your email');?><br />
+<?php echo __('Change your password');?></p>
 </div>
 <?php
 
 if($model->is_team_member){
 	changeColumn();
-	echo '<h1>'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</h1>';
+	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</div>';
 	echo 	'<p>'.__('Manage the enquiries you are responsable for').'<br />'.
 			'<a href="http://ocax.net/?El_software:Team_member" target="_new">'.__('more info').'</a>'.	
 			'</p>';
@@ -86,7 +88,7 @@ if($model->is_team_member){
 
 if($model->is_editor){
 	changeColumn();
-	echo '<h1>'.CHtml::link('Site CMS page editor',array('/cmsPage')).'</h1>';
+	echo '<div class="sub_title">'.CHtml::link('Site CMS page editor',array('/cmsPage')).'</div>';
 	echo 	'<p>'.__('Edit the general information pages').'<br />'.
 			'<a href="http://ocax.net/?El_software:CMS_editor" target="_new">'.__('more info').'</a>'.	
 			'</p>';
@@ -95,7 +97,7 @@ if($model->is_editor){
 
 if($model->is_manager){
 	changeColumn();
-	echo '<h1>'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</h1>';
+	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</div>';
 	echo 	'<p>'.__('Assign enquiries to team members and check status').'<br />'.
 			'<a href="http://ocax.net/?El_software:Team_manager" target="_new">'.__('more info').'</a>'.		
 			'</p>';
@@ -104,7 +106,7 @@ if($model->is_manager){
 
 if($model->is_admin){
 	changeColumn();
-	echo '<h1>Administator\'s options</h1>';
+	echo '<div class="sub_title">Administator\'s options</div>';
 	echo '<div style="float:left">';
 		echo CHtml::link('Users and roles',array('user/admin')).'<br />';	
 		echo CHtml::link('Email text templates',array('emailtext/admin')).'<br />';
