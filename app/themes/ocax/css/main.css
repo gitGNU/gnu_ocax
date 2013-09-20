@@ -32,11 +32,15 @@ body
 
 a:focus, a:hover {color:#676767; }
 
+.activeMenuItem a {color: #676767; text-decoration:none;}
+
 
 #budget_titulo_j
 {
 	color: #A1A150;
 }
+
+
 
 
 /* --------------------- COLOR --------------------- */
@@ -56,6 +60,10 @@ a {color:#A1A150;}
 #nombre_ocax
 {
 	color: #A1A150;
+}
+
+div.form .title{
+	color:#A1A150;
 }
 
 .actual_provision_bar{
@@ -459,23 +467,107 @@ div.search-form
  outline: none;
  text-indent: -5000px;
  display:block;
- width:422px;
- height:115px;
+ width:44px;
+ height:36px;
  color:#F00;
- background: url(../images/novaconsulta.gif) 0 0 no-repeat;
+ background: url(../images/novaconsulta.png) 0 0 no-repeat;
  background-color:transparent;
  }
 
 #nueva_consulta:hover {
- background-position: -422px 0;
+ background-position: -44px 0;
  background-color: none;
  }
+ 
+ .panel_left {
+	width: 60%; 
+	float: left; 
+	padding:10px 0px 0px 0px;
+}
+
+ 
+.panel_right {
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;
+	width: 27%; 
+	float: right; 
+	padding:10px 0px 0px 0px;
+}
+
+
+.panel_separator {
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;
+	width: 100%; 
+	float: right; 
+	padding:10px 0px 0px 0px;
+	margin-top: 20px;
+}
+
+ 
+ #datos_usuario {
+ float:left;
+ margin-right: 8px;
+ margin-bottom:10px;
+ outline: none;
+ text-indent: -5000px;
+ display:block;
+ width:32px;
+ height:36px;
+ color:#F00;
+ background: url(../images/datos_usuario.png) 0 0 no-repeat;
+ background-color:transparent;
+ }
+
+#datos_usuario:hover {
+ background-position: -32px 0;
+ background-color: none;
+ }
+ 
+  
+ #panel_cms {
+ float:left;
+ margin-right: 8px;
+ margin-bottom:10px;
+ outline: none;
+ text-indent: -5000px;
+ display:block;
+ width:44px;
+ height:36px;
+ color:#F00;
+ background: url(../images/cms_editor.png) 0 0 no-repeat;
+ background-color:transparent;
+ }
+
+#panel_cms:hover {
+ background-position: -44px 0;
+ background-color: none;
+ }
+ 
+ #panel_consulta {
+ float:left;
+ margin-right: 8px;
+ margin-bottom:10px;
+ outline: none;
+ text-indent: -5000px;
+ display:block;
+ width:44px;
+ height:36px;
+ color:#F00;
+ background: url(../images/panelconsulta.png) 0 0 no-repeat;
+ background-color:transparent;
+ }
+
+
+ 
  
 .sub_title{
 	margin-bottom:15px;
 	line-height: 70%;
 	font-size: 22pt;
-	letter-spacing:-1pt;
+	letter-spacing:-0.5pt;	
 	font-weight:200;
 } 
  
@@ -506,7 +598,7 @@ div.search-form
 	line-height: 100%;
 	letter-spacing:-0.5pt;
 	font-weight:200;
-	margin-bottom:30px;
+	margin-bottom:45px;
 }
 
 .cms_content_j 
@@ -517,6 +609,32 @@ div.search-form
 	margin-right:50px;
 	color:#000;
 }
+
+#cmsPageMenu
+{
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;
+	width: 27%; 
+	float: right; 
+	padding:10px 0px 0px 0px;
+}
+
+
+#cmsinfo {
+ float:left;
+ margin: -35px 8px 10px 0px;
+ outline: none;
+ text-indent: -5000px;
+ display:block;
+ width:32px;
+ height:36px;
+ color:#F00;
+ background: url(../images/cmsinfo.png) 0 0 no-repeat;
+ background-color:transparent;
+ }
+
+
 
 
 
@@ -545,9 +663,20 @@ div.search-form
 	background-repeat: repeat-x;
 	background-position: top;	
 	margin-top:0px;
+	margin-bottom: 30px;
 	float:left; 
 	width:46%; 
 	padding-top:10px;
+}
+
+	
+#budget_year
+{
+	background: url("../images/budgetyear.png") no-repeat scroll 0 0 transparent;
+	width:44px;
+	height:36px;
+	float:left;
+	cursor:pointer;
 }
 
 
@@ -556,7 +685,7 @@ div.search-form
 	background: url("../images/download_database.png") no-repeat scroll 0 0 transparent;
 	width:54px;
 	height:51px;
-	float:right;
+	float:left;
 	cursor:pointer;
 }
 
@@ -581,6 +710,7 @@ div.search-form
 	background-repeat: repeat-x;
 	background-position: top;	
 	margin-top:0px;
+	margin-bottom:30px;
 	float:right; 
 	width:46%; 
 	padding-top:10px;
@@ -589,30 +719,30 @@ div.search-form
 #change_to_pie
 {
 	background: url("../images/graph_type_pie.png") no-repeat scroll 0 0 transparent;
-	width:54px;
-	height:51px;
-	float:right;
+	width:32px;
+	height:36px;
+	float:left;
 	cursor:pointer;
-	margin-right:15px;
+	margin-right:25px;
 }
 
 #change_to_pie:hover
 {
-    background-position: -54px 0;
+    background-position: -32px 0;
 	}
 	
 #change_to_bar
 {
 	background: url("../images/graph_type_bar.png") no-repeat scroll 0 0 transparent;
-	width:54px;
-	height:51px;
-	float:right;
+	width:32px;
+	height:36px;
+	float:left;
 	cursor:pointer;
 }
 
 #change_to_bar:hover
 {
-    background-position: -54px 0;
+    background-position: -32px 0;
 }
 
 
@@ -631,8 +761,7 @@ div.search-form
 	margin-bottom:30px;
 	line-height: 70%;
 	font-size: 22pt;
-	letter-spacing:-1pt;
-	font-weight:200;
+	letter-spacing:-0.5pt;	font-weight:200;
 }
 
 

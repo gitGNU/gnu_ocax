@@ -46,8 +46,6 @@ function changeColumn()
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
@@ -57,8 +55,9 @@ function changeColumn()
 }?>
 
 <div class="outer">
-<div class="left">
+<div class="panel_left">
 <div id="nueva_consulta"></div>
+<div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
 <p>
 <?php
@@ -67,13 +66,20 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 ?>
 </p>
 </div>
-<div class="right">
-<div id="nueva_consulta"></div>
+<div class="panel_right">
+<div id="datos_usuario"></div>
+<div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
 <p>
 <?php echo __('Change your profile');?><br />
 <?php echo __('Configure your email');?><br />
 <?php echo __('Change your password');?></p>
+</div>
+
+
+<div class="panel_separator" style="width:100%;">
+<div id="panel_cms"></div>
+<div class="clear"></div>
 </div>
 <?php
 
@@ -124,7 +130,12 @@ if($model->is_admin){
 ?>
 
 </div>
+
+
+<div class="panel_separator" style="width:100%;">
+<div id="panel_consulta"></div>
 <div class="clear"></div>
+</div>
 
 <?php
 if($enquirys->getData()){

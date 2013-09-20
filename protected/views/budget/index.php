@@ -148,7 +148,6 @@ function afterSearch(){
 <div class="left" style="height:140px">
 
 <div>
-	<div id="big_budget_icon" style="float:left"></div>
 	<div id="budget_titulo_j" style=""><?php echo __('Budgets');?></div>
 </div>
 
@@ -192,7 +191,7 @@ function afterSearch(){
 
 
 <!--  Select year start  -->
-<div class="graphbar_options_j" style="margin-bottom:30px;">
+<div class="graphbar_options_j" >
 
 <?php
 if(Yii::app()->user->isAdmin())
@@ -211,7 +210,7 @@ if(count($years) > 1){
 										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
 								));
 		echo '</div>';
-		echo '<div style="margin-right:45px" id="change_to_bar" ></div>';	// cambia por icono de 'años disponibles'
+		echo '<div style="margin-right:45px" id="budget_year" ></div>';	// cambia por icono de 'años disponibles'
 }
 ?>
 </div>
@@ -222,15 +221,15 @@ if(count($years) > 1){
 <?php
 	echo '<div class="graphbar_options_j">';
 	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
-	echo 'this is some text';
 	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 	echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
+	echo 'this is some text';
 	echo '</div>';
 	
 	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 		echo '<div class="download_options_j">';
-		echo __('Download database');
 		echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
+		echo __('Download database');
 		echo '</div>';
 	}
 ?>
