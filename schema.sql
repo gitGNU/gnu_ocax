@@ -257,6 +257,8 @@ INSERT INTO config(parameter, description) VALUES ('smtpUsername', 'SMTP Usernam
 INSERT INTO config(parameter, description) VALUES ('smtpPassword', 'SMTP Password');
 INSERT INTO config(parameter, description) VALUES ('socialTwitterURL', 'Observatory\'s twitter URL');
 INSERT INTO config(parameter, description) VALUES ('socialFacebookURL', 'Observatory\'s facebook URL');
+INSERT INTO config(parameter, value, description) VALUES ('scheme', '1', 'Site\'s color scheme');
+
 
 
 

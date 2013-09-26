@@ -1,0 +1,54 @@
+
+body { color: #555; background-color: #e4ded7; }
+h1, h2, h3, h4, h5, h6 { color:#db7093; }
+a { color:#db7093; }
+a:focus, a:hover { color:#676767; }
+
+#page { background-color: #f5f1ed; }
+
+#mainmenu ul li a {	color:#f5f1ed; background-color:#db7093; }
+#mainmenu ul li a:hover, #mainmenu ul li.active a {	color: #db7093; background-color:#f5f1ed; }
+
+
+#logo { color:#a6a29e; }
+#nombre_ocax { color: #db7093; }
+
+#header { color:#1F1F1F;}
+#header_bar_j { color:#1F1F1F; }
+
+
+
+#footer { color:#1F1F1F; background-color:#676767; }
+#footer div { color:#a6a6a6; }
+#footer div b {	color:#ffffff; }
+
+div.form .title{ color:#db7093; }
+
+/*ENQUIRIYS*/
+.enquirys b { color:#00CADC; }
+.enquirys_titular {	color:#929292; }
+
+
+/*PAGINA USUARIO*/
+#nueva_consulta { color:#f00; }
+#datos_usuario { color:#f00; }
+#panel_cms { color:#f00; }
+#panel_consulta { color:#f00; }
+
+
+/*CMS Pages*/
+.cms_titulo_j { color:#db7093; }
+.activeMenuItem a { color: #676767; }
+.cms_content_j { color:#000; }
+#cmsinfo { color:#f00; }
+
+/*Budgets*/
+#budget_titulo_j { color: #db7093; }
+/*graph bar*/
+.actual_provision_bar{ background-color:#db7093; }
+.initial_provision_bar{ background-color:#778f3d; }
+
+
+/*POPUP Lightbox*/
+.popup_content_j { background-color: #e4ded7; }
+/* #popup_content_j { background-color:#e4ded7; } */
