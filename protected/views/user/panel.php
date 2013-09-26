@@ -33,12 +33,12 @@ function changeColumn()
 	if($column==0)
 	{
 		echo '<div class="clear"></div>';
-		echo '<div class="left">';
+		echo '<div class="panel_left">';
 		$column=1;
 	}
 	else
 	{
-		echo '<div class="right">';
+		echo '<div class="panel_right">';
 		$column=0;
 	}
 }
@@ -55,7 +55,7 @@ function changeColumn()
 }?>
 
 <div class="outer">
-<div class="panel_left">
+<div class="panel_left" style="width:60%">
 <div id="nueva_consulta"></div>
 <div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
@@ -66,7 +66,7 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 ?>
 </p>
 </div>
-<div class="panel_right">
+<div class="panel_right" style="width:27%">
 <div id="datos_usuario"></div>
 <div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
@@ -77,13 +77,23 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 </div>
 
 
-<div class="panel_separator" style="width:100%;">
-<div id="panel_cms"></div>
-<div class="clear"></div>
-</div>
+
 <?php
 
+$panel_separator_added=0;
+function addPanelSeparator(){
+	global $panel_separator_added;
+	if(!$panel_separator_added){
+		echo '<div class="panel_separator" style="width:100%;">';
+		echo '<div id="panel_cms"></div>';
+		echo '<div class="clear"></div>';
+		echo '</div>';	
+		$panel_separator_added=1;
+	}
+}
+
 if($model->is_team_member){
+	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</div>';
 	echo 	'<p>'.__('Manage the enquiries you are responsable for').'<br />'.
@@ -93,6 +103,7 @@ if($model->is_team_member){
 }
 
 if($model->is_editor){
+	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link('Site CMS page editor',array('/cmsPage')).'</div>';
 	echo 	'<p>'.__('Edit the general information pages').'<br />'.
@@ -102,6 +113,7 @@ if($model->is_editor){
 }
 
 if($model->is_manager){
+	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</div>';
 	echo 	'<p>'.__('Assign enquiries to team members and check status').'<br />'.
@@ -111,6 +123,7 @@ if($model->is_manager){
 }
 
 if($model->is_admin){
+	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">Administator\'s options</div>';
 	echo '<div style="float:left">';
@@ -138,7 +151,10 @@ if($model->is_admin){
 </div>
 
 <?php
+$noEnquiries=1;
+
 if($enquirys->getData()){
+$noEnquiries=0;
 echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
@@ -174,6 +190,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 <?php
 
 if($subscribed->getData()){
+$noEnquiries=0;
 echo '<div style="font-size:1.5em">'.__('I am subscribed to these enquirytions').'</div>';
 echo '<span class="hint">'.__('You will be sent an email when these enquiries are updated').'</span>';
 $this->widget('PGridView', array(
@@ -204,6 +221,12 @@ $this->widget('PGridView', array(
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
+}
+
+if($noEnquiries){
+	echo '<div class="sub_title">';
+	echo __('Enquiries of your interest will be displayed here');
+	echo '</div>';
 }
 
 ?>
