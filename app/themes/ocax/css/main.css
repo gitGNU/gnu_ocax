@@ -467,15 +467,15 @@ div.search-form
  outline: none;
  text-indent: -5000px;
  display:block;
- width:44px;
- height:36px;
+ width:55px;
+ height:46px;
  color:#F00;
  background: url(../images/novaconsulta.png) 0 0 no-repeat;
  background-color:transparent;
  }
 
 #nueva_consulta:hover {
- background-position: -44px 0;
+ background-position: -55px 0;
  background-color: none;
  }
  
@@ -514,15 +514,15 @@ div.search-form
  outline: none;
  text-indent: -5000px;
  display:block;
- width:32px;
- height:36px;
+ width:46px;
+ height:46px;
  color:#F00;
  background: url(../images/datos_usuario.png) 0 0 no-repeat;
  background-color:transparent;
  }
 
 #datos_usuario:hover {
- background-position: -32px 0;
+ background-position: -46px 0;
  background-color: none;
  }
  
@@ -534,15 +534,15 @@ div.search-form
  outline: none;
  text-indent: -5000px;
  display:block;
- width:44px;
- height:36px;
+ width:55px;
+ height:46px;
  color:#F00;
  background: url(../images/cms_editor.png) 0 0 no-repeat;
  background-color:transparent;
  }
 
 #panel_cms:hover {
- background-position: -44px 0;
+ background-position: -55px 0;
  background-color: none;
  }
  
@@ -553,8 +553,8 @@ div.search-form
  outline: none;
  text-indent: -5000px;
  display:block;
- width:44px;
- height:36px;
+ width:55px;
+ height:46px;
  color:#F00;
  background: url(../images/panelconsulta.png) 0 0 no-repeat;
  background-color:transparent;
@@ -623,12 +623,12 @@ div.search-form
 
 #cmsinfo {
  float:left;
- margin: -35px 8px 10px 0px;
+ margin: -45px 8px 10px 0px;
  outline: none;
  text-indent: -5000px;
  display:block;
- width:32px;
- height:36px;
+ width:46px;
+ height:46px;
  color:#F00;
  background: url(../images/cmsinfo.png) 0 0 no-repeat;
  background-color:transparent;
@@ -673,8 +673,8 @@ div.search-form
 #budget_year
 {
 	background: url("../images/budgetyear.png") no-repeat scroll 0 0 transparent;
-	width:44px;
-	height:36px;
+	width:55px;
+	height:46px;
 	float:left;
 	cursor:pointer;
 }
@@ -683,10 +683,11 @@ div.search-form
 #download_database
 {
 	background: url("../images/download_database.png") no-repeat scroll 0 0 transparent;
-	width:54px;
-	height:51px;
+	width:55px;
+	height:46px;
 	float:left;
 	cursor:pointer;
+	margin-right:15px;
 }
 
 
@@ -700,7 +701,7 @@ div.search-form
 
 #download_database:hover
 {
-    background-position: -54px 0;
+    background-position: -55px 0;
 	}
 
 /* PIE BUDGET */
@@ -710,7 +711,7 @@ div.search-form
 	background-repeat: repeat-x;
 	background-position: top;	
 	margin-top:0px;
-	margin-bottom:30px;
+	margin-bottom:40px;
 	float:right; 
 	width:46%; 
 	padding-top:10px;
@@ -719,30 +720,32 @@ div.search-form
 #change_to_pie
 {
 	background: url("../images/graph_type_pie.png") no-repeat scroll 0 0 transparent;
-	width:32px;
-	height:36px;
+	width:46px;
+	height:46px;
 	float:left;
 	cursor:pointer;
-	margin-right:25px;
+	margin-right:15px;
 }
 
 #change_to_pie:hover
 {
-    background-position: -32px 0;
+    background-position: -46px 0;
 	}
 	
 #change_to_bar
 {
 	background: url("../images/graph_type_bar.png") no-repeat scroll 0 0 transparent;
-	width:32px;
-	height:36px;
+	width:46px;
+	height:46px;
 	float:left;
 	cursor:pointer;
+	margin-right:10px;
+
 }
 
 #change_to_bar:hover
 {
-    background-position: -32px 0;
+    background-position: -46px 0;
 }
 
 
@@ -758,9 +761,9 @@ div.search-form
 	margin:0px;
 }
 .graph_title{
-	margin-bottom:30px;
-	line-height: 70%;
-	font-size: 22pt;
+	margin-bottom:15px;
+	line-height: 100%;
+	font-size: 28pt;
 	letter-spacing:-0.5pt;	font-weight:200;
 }
 
@@ -778,7 +781,7 @@ div.search-form
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
 	background-position: top;	margin-top:0px;
-	padding:0px;
+	padding:7px 0px 0px 0px;
 	margin-top:5px;
 	height:500px;
 	margin-bottom:45px;
@@ -790,14 +793,23 @@ div.search-form
 
 .prev_budget_arrow{
 	background-image:url('../images/prev_budget.png');
-	width:88px;
-	height:72px;
+	width:69px;
+	height:69px;
 	position:absolute;
 	top:0px;
-	left:-30px;
+	left:0px;
 	padding:0px;
 	cursor:pointer;
 }
+
+.prev_budget_arrow:hover
+{
+    background-position: -69px 0;
+}
+
+
+
+
 
 /* BAR BUDGET */
 

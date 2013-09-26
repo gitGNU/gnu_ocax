@@ -165,7 +165,7 @@ $(function() {
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_pie_group"></div>');
-			group.append('<span style="font-size:1.3em"><?php echo CHtml::encode($budget->parent0->getConcept());?></span>');
+			group.append('<span style="font-size:1.5em; line-height: 110%;"><?php echo CHtml::encode($budget->parent0->getConcept());?></span>');
 			group.append(' <img style="vertical-align:middle;display:none" class="pie_loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');

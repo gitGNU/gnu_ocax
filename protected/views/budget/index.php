@@ -203,14 +203,14 @@ if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {
 		return $year->getYearString();
 	});
-		echo '<div style="float:right">';
+		echo '<div style="margin-right:15px" id="budget_year" ></div>';	// cambia por icono de 'años disponibles'
+		echo '<div style="float:left">';
 		echo __('Available years').'<br />';
 		echo CHtml::dropDownList('budget', $model->year, $list,
 								array(	'id'=>'selectYear',
 										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
 								));
 		echo '</div>';
-		echo '<div style="margin-right:45px" id="budget_year" ></div>';	// cambia por icono de 'años disponibles'
 }
 ?>
 </div>

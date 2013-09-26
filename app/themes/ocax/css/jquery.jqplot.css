@@ -263,10 +263,12 @@ div.jqplot-noData-container {
 
 table.jqplot-table-legend{
     display: block;
-	width:485px;
+	width:500px;
     height: 200px;
     overflow-y: auto;
 	font-size:1.2em;
+	margin-left:15px;
+font-weight:light;
 }
 .jqplot-data-label{
 	font-size:1.8em;
