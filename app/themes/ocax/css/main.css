@@ -480,17 +480,14 @@ div.search-form
  }
  
  .panel_left {
-	width: 60%; 
+	width: 49%; 
 	float: left; 
 	padding:10px 0px 0px 0px;
 }
 
  
 .panel_right {
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;
-	width: 27%; 
+	width: 49%; 
 	float: right; 
 	padding:10px 0px 0px 0px;
 }
