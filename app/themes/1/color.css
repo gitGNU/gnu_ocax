@@ -1,0 +1,82 @@
+
+body { color: #555; background-color: #e4ded7; }
+h1, h2, h3, h4, h5, h6 { color:#a1a150; }
+a { color:#a1a150; }
+a:focus, a:hover { color:#676767; }
+
+#page { background-color: #f5f1ed; }
+
+#mainmenu ul li a {	color:#f5f1ed; background-color:#a1a150; }
+#mainmenu ul li a:hover, #mainmenu ul li.active a {	color: #a1a150; background-color:#f5f1ed; }
+
+
+#logo { color:#a6a29e; }
+#nombre_ocax { color: #a1a150; }
+
+#header { color:#1F1F1F; }
+#header_bar_j { color:#1F1F1F; }
+
+
+
+#footer { color:#1F1F1F; background-color:#676767; }
+#footer div { color:#a6a6a6; }
+#footer div b {	color:#ffffff; }
+
+div.form .title{ color:#a1a150; }
+
+/*ENQUIRIYS*/
+.enquirys b { color:#00CADC; }
+.enquirys_titular {	color:#929292; }
+
+
+/*PAGINA USUARIO*/
+#nueva_consulta {
+	color:#f00;
+	background-color:transparent;
+	background: url("./images/novaconsulta.png") 0 0 no-repeat;
+}
+#datos_usuario {
+	color:#f00;
+	background-color:transparent;
+	background: url("./images/datos_usuario.png") 0 0 no-repeat;
+}
+#control_panel { 
+	color:#f00;
+	background-color:transparent;
+	background: url("./images/control_panel.png") 0 0 no-repeat;
+}
+#panel_consulta {
+	color:#f00;
+	background-color:transparent;
+	background: url("./images/panel_consulta.png") 0 0 no-repeat;
+}
+
+
+/*CMS Pages*/
+.cms_titulo_j { color:#a1a150; }
+.activeMenuItem a { color: #676767; }
+.cms_content_j { color:#000; }
+#cmsinfo {
+	color:#f00;
+	background-color:transparent;
+	background: url("./images/cmsinfo.png") 0 0 no-repeat;
+}
+
+/*Budgets*/
+#budget_titulo_j { color: #a1a150; }
+#download_database { background: url("./images/download_database.png") no-repeat scroll 0 0 transparent; }
+#budget_year { background: url("./images/budgetyear.png") no-repeat scroll 0 0 transparent; }
+#change_to_pie { background: url("./images/graph_type_pie.png") no-repeat scroll 0 0 transparent; }
+#change_to_bar { background: url("./images/graph_type_bar.png") no-repeat scroll 0 0 transparent; }
+
+.prev_budget_arrow{	background-image:url('./images/prev_budget.png'); }
+
+
+/*graph bar*/
+.actual_provision_bar{ background-color:#a1a150; }
+.initial_provision_bar{ background-color:#778f3d; }
+
+
+/*POPUP Lightbox*/
+.popup_content_j { background-color: #e4ded7; }
+/* #popup_content_j { background-color:#e4ded7; } */

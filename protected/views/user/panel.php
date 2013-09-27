@@ -16,7 +16,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+?>
+
+<?php
 /* @var $this UserController */
 /* @var $model User */
 /*
@@ -85,7 +87,7 @@ function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
 		echo '<div class="panel_separator" style="width:100%;">';
-		echo '<div id="panel_cms"></div>';
+		echo '<div id="control_panel"></div>';
 		echo '<div class="clear"></div>';
 		echo '</div>';	
 		$panel_separator_added=1;
@@ -158,7 +160,7 @@ $noEnquiries=0;
 echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
 	'selectableRows'=>1,

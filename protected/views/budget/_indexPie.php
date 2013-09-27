@@ -31,9 +31,8 @@ $featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1)
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/plugins/jqplot.highlighter.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/scripts/jqplot.pieProperties.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/jquery.jqplot.css" />
-
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot.pieProperties.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.jqplot.css" />
 
 <script>
 function slideInChild(parent_id,child_id){
@@ -166,7 +165,7 @@ $(function() {
 
 			group=$('<div class="graph_pie_group"></div>');
 			group.append('<span style="font-size:1.5em; line-height: 110%;"><?php echo CHtml::encode($budget->parent0->getConcept());?></span>');
-			group.append(' <img style="vertical-align:middle;display:none" class="pie_loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
+			group.append(' <img style="vertical-align:middle;display:none" class="pie_loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);

@@ -98,7 +98,7 @@ function requestNewPasswd(){
 <div id="passwd_instructions" class="form" style="display:none">
 <p id="passwd_text" style="height:20px;"><?php echo __('Enter your email address and we will send you a link');?></p>
 <input id="email" type="text" style="margin-right:10px;" /><button id="email_button" onClick="js:requestNewPasswd();"><?php echo __('Send');?></button>
-<img id="loading" src="<?php echo Yii::app()->theme->baseUrl;?>/images/small_loading.gif" style="vertical-align:middle;margin-left:10px;display:none"/>
+<img id="loading" src="<?php echo Yii::app()->request->baseUrl;?>/images/small_loading.gif" style="vertical-align:middle;margin-left:10px;display:none"/>
 </div>
 </p>
 

@@ -50,11 +50,10 @@ class PGridView extends CGridView
 	public $onClick=array();
 	public $url=Null;
 
-
 	public function init()
 	{
 		$this->htmlOptions['class']='pgrid-view pgrid-cursor-pointer';
-		$this->cssFile=Yii::app()->theme->baseUrl.'/css/pgridview.css';
+		$this->cssFile=Yii::app()->request->baseUrl.'/css/pgridview.css';
 
 		$this->loadingCssClass='pgrid-view-loading';
 		parent::init();

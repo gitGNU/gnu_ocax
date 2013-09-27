@@ -97,7 +97,7 @@ function showBudget(budget_id, element){
 		async: false,
 		beforeSend: function(){
 						$('.loading_gif').remove();
-						$(element).after('<img style="vertical-align:top;" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
+						$(element).after('<img style="vertical-align:top;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 					},
 		complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
