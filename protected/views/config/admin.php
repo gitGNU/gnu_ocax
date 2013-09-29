@@ -29,7 +29,7 @@
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'config-grid',
 	'selectableRows'=>1,
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('update').'/"+$.fn.yiiGridView.getSelection(id);}',

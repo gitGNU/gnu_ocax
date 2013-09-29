@@ -132,7 +132,7 @@ $dataProvider = new CActiveDataProvider('File', array(
 echo '<div style="font-size:1.3em">'.__('Files ready to include in zip').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,
 	'template' => '{items}{pager}',

@@ -55,7 +55,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'bulk-email-grid',
 	'selectableRows'=>1,
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/bulkEmail/view').'/"+$.fn.yiiGridView.getSelection(id);}',

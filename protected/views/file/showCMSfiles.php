@@ -29,7 +29,7 @@ $dataProvider = new CActiveDataProvider('File', array(
 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(

@@ -79,7 +79,7 @@ function restoreBudgets(file_id){
 //$data[\'initial_provision\']
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'budget-grid',
 	'selectableRows'=>1,
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/budget/updateYear').'/"+$.fn.yiiGridView.getSelection(id);}',

@@ -121,7 +121,7 @@ function showBudget(budget_id, element){
 		//dataType: 'json',
 		beforeSend: function(){
 						$('.loading_gif').remove();
-						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />');
+						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 					},
 		complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
@@ -189,12 +189,12 @@ $this->widget('PGridView', array(
 <h1><?php echo $model->title?></h1>
 <hr style="margin-top:-10px;margin-bottom:-5px;" />
 <div id="states_diagram" style="display:none;z-index:10;position:absolute;">
-<img src="<?php echo Yii::app()->theme->baseUrl;?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
+<img src="<?php echo Yii::app()->request->baseUrl;?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
 </div>
 
 <div style="margin-top:5px;float:right;text-align:left;margin-left:10px;padding:0px;width:500px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
+	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>array(
 		array(
@@ -244,7 +244,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 					);
 	}
 	$this->widget('zii.widgets.CDetailView', array(
-		'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
+		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 		'data'=>$model,
 		'attributes'=>$attributes,
 	));
@@ -283,10 +283,10 @@ if($model->budget)
 />
 </div>
 
-<img social_icon="directlink" src="<?php echo Yii::app()->theme->baseUrl;?>/images/link.png" onClick="js:clickSocialIcon(this);"/>
+<img social_icon="directlink" src="<?php echo Yii::app()->request->baseUrl;?>/images/link.png" onClick="js:clickSocialIcon(this);"/>
 <?php
 if($model->state >= ENQUIRY_ACCEPTED){
-	echo '<img social_icon="subscribe" src="'.Yii::app()->theme->baseUrl.'/images/mail.png" onClick="js:clickSocialIcon(this);"/>';
+	echo '<img social_icon="subscribe" src="'.Yii::app()->request->baseUrl.'/images/mail.png" onClick="js:clickSocialIcon(this);"/>';
 	echo '<div	class="fb-like"
 				data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
 				data-send="false"

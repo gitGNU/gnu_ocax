@@ -57,7 +57,7 @@ function featureBudget(budget_id){
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
-	'cssFile'=>Yii::app()->theme->baseUrl.'/css/pgridview.css',
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'budget-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -72,7 +72,7 @@ function featureBudget(budget_id){
 				'feature' => array(
 					'label'=> __('Feature budget'),
 					'url'=> '"javascript:featureBudget(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->theme->baseUrl.'/images/insert_icon.png',
+					'imageUrl' => Yii::app()->request->baseUrl.'/images/insert_icon.png',
 					'visible' => 'true',
 				)
 
