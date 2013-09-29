@@ -131,14 +131,14 @@
 		<?php echo __('Telephone').': '.Config::model()->findByPk('telephone')->value;?><br />
 	</div>
 	
-	<div style="width: 28%; float: left;  margin: 0px;">
-		Una iniciativa de: <a href="http://ocax.net">http://ocax.net</a>
+	<div style="width: 28%; float: left;  margin: 0px; text-align:center">
+		Una iniciativa de:
 		<br /><br />
 		<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"/>
 	</div>
 	
     <div style="width: 33%; float: left;  margin: 0px;">
-		Copyright &copy; <?php echo date('Y'); ?> por OCAX<br/>
+		Copyright &copy; <?php echo date('Y'); ?> por <a href="http://ocax.net">OCAX</a><br/>
 		AGPLv3 <a href="https://gitorious.org/ocax/">https://gitorious.org/ocax</a><br />
 	</div>
 	

@@ -22,6 +22,7 @@
 /* @var $model File */
 Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 ?>
 
 <div class="form">
@@ -53,7 +54,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'restore' => array(
 					'label'=> __('Restore budgets'),
 					'url'=> '"javascript:restoreBudgets(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->theme->baseUrl.'/images/down.png',
+					'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
 					'visible' => 'true',
 				)
 			),
