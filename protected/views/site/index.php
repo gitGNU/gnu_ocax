@@ -46,29 +46,36 @@ shuffle($images);
 </style>
 
 <script>
-var pageNumber = 0;
+var TOTAL_PAGES = 3;
+
+var pageCnt = 0;
+var wallpaperCnt = 0;
 var wallpapers = <?php echo json_encode($images); ?>;
 var pageCache=new Array();
 
 function nextPage(){
-	pageNumber = pageNumber +1;
-	if(pageNumber == wallpapers.length)
-		pageNumber = 0;
+	wallpaperCnt = wallpaperCnt +1;
+	if(wallpaperCnt == wallpapers.length)
+		wallpaperCnt = 0;
 		
-	if(pageCache[pageNumber]){
-		showPage(pageNumber);
+	pageCnt = pageCnt +1;
+	if(pageCnt == TOTAL_PAGES)
+		pageCnt = 0;
+		
+	if(pageCache[pageCnt]){
+		showPage();
 		return;	
 	}
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/site/getIndexContent/'+pageNumber,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/site/getIndexContent/'+pageCnt,
 		type: 'GET',
 		async: false,
 		//beforeSend: function(){	$('.loading_gif').remove();	},
 		//complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
 			if(data != 0){
-				pageCache[pageNumber]=data;
-				showPage(pageNumber);
+				pageCache[pageCnt]=data;
+				showPage();
 			}
 		},
 		error: function() {
@@ -77,10 +84,10 @@ function nextPage(){
 	});
 }
 
-function showPage(pageNumber){
+function showPage(){
 	$('#wallpaper').hide();
-	$('#wallpaper').css('background-image', 'url("<?php echo Yii::app()->theme->baseUrl;?>/wallpaper/'+wallpapers[pageNumber]+'")');
-	$('#wallpaper').html(pageCache[pageNumber]);
+	$('#wallpaper').css('background-image', 'url("<?php echo Yii::app()->theme->baseUrl;?>/wallpaper/'+wallpapers[wallpaperCnt]+'")');
+	$('#wallpaper').html(pageCache[pageCnt]);
 	$('#wallpaper').fadeIn('fast');
 }
 
