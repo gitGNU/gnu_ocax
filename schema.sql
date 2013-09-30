@@ -245,8 +245,8 @@ INSERT INTO config(parameter, value, description) VALUES ('councilName', 'City o
 INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Default Year (this year)');
 INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x)', 'Observatory\'s initials');
 INSERT INTO config(parameter, value, description) VALUES ('observatoryName', 'Observatori ciutadà de l\'Ajuntament de XXXXXX', 'Observatory name');
-INSERT INTO config(parameter, value, description) VALUES ('telephone', '666 666 666', 'Contact telephone');
-INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'contact@ocax.es', 'Contact email address');
+INSERT INTO config(parameter, value, description) VALUES ('telephone', '', 'Contact telephone');
+INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'info@ocax.net', 'Contact email address');
 INSERT INTO config(parameter, value, description) VALUES ('emailNoReply', 'no-reply@ocax.es', 'no-reply email address');
 INSERT INTO config(parameter, value, description) VALUES ('languages', 'es,ca', 'Available languages on this site');
 INSERT INTO config(parameter, description) VALUES ('smtpHost', 'SMTP Server');
@@ -257,11 +257,6 @@ INSERT INTO config(parameter, description) VALUES ('smtpUsername', 'SMTP Usernam
 INSERT INTO config(parameter, description) VALUES ('smtpPassword', 'SMTP Password');
 INSERT INTO config(parameter, description) VALUES ('socialTwitterURL', 'Observatory\'s twitter URL');
 INSERT INTO config(parameter, description) VALUES ('socialFacebookURL', 'Observatory\'s facebook URL');
-
-
-
-
-
 
 
 

@@ -128,7 +128,9 @@
 		PACD, Plataforma Auditoría <br>Ciudadana de la Deuda
 		<?php echo Config::model()->findByPk('observatoryName')->value;?><br />
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
-		<?php echo __('Telephone').': '.Config::model()->findByPk('telephone')->value;?><br />
+		<?php if($telf = Config::model()->findByPk('telephone')->value)
+			echo __('Telephone').': '.$telf.'<br />';
+		?>
 	</div>
 	
 	<div style="width: 28%; float: left;  margin: 0px; text-align:center">

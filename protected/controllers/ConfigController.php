@@ -76,7 +76,11 @@ class ConfigController extends Controller
 
 		if(isset($_POST['Config']))
 		{
+			if( $_POST['Config']['parameter'] == 'telephone')
+				$model->setScenario('canBeEmpty');
+				
 			$model->attributes=$_POST['Config'];
+			
 			if($model->parameter == 'languages'){
 				$model->value = str_replace(' ','',$model->value);
 				$model->value = rtrim($model->value, ',');

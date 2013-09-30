@@ -54,9 +54,9 @@ class Config extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('parameter, value, description', 'required'),
-			array('parameter', 'length', 'max'=>64),
-			array('value, description', 'length', 'max'=>255),
+			array('value', 'required', 'except'=>'canBeEmpty'),
+			array('parameter, description', 'required'),
+			array('value', 'length', 'max'=>255),
 			array('value','validateLanguage', 'on'=>'language'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

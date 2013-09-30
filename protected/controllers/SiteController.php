@@ -49,6 +49,12 @@ class SiteController extends Controller
 
 		$this->render('index');
 	}
+	
+	public function actionGetIndexContent($id)
+	{
+		echo $this->renderPartial('_index'.$id);	
+		
+	}
 
 	/**
 	 * This is the action to handle external exceptions.
@@ -234,7 +240,6 @@ class SiteController extends Controller
 					$this->redirect(array('user/panel'));
 			}
 		}
-
 		// display the login form
 		$this->render('login',array('model'=>$model));
 	}
