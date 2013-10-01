@@ -158,6 +158,7 @@ class SiteController extends Controller
 			$newUser->is_disabled = 0;
  			$newUser->username = $model->username;
  			$newUser->email = $model->email;
+ 			$newUser->is_socio = $model->is_socio;
 			$newUser->joined = date('Y-m-d');
 
 			if ($model->validate() && $newUser->save())

@@ -5,6 +5,19 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<script>
+$("input[type='checkbox']").each(function(){
+	if(!$(this).is(':checked')) $(this).val("0");
+	$(this).click(function(){
+		if($(this).is(':checked'))
+			$(this).val("1");
+		else
+			$(this).val("0");
+	});                                                               
+});
+</script>
+
+
 <style>
 #RegisterForm_verifyCode { display: block; }
 .outer{width:100%; padding: 0px; float: left;}
@@ -14,7 +27,6 @@ $this->breadcrumbs=array(
 </style>
 
 <div class="outer">
-<div class="left">
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -24,6 +36,10 @@ $this->breadcrumbs=array(
  'validateOnSubmit'=>true,
  ),
 )); ?>
+
+<div class="left">
+
+
  
 <div class="title"><?php echo __('Register');?></div>
 
@@ -72,8 +88,7 @@ $this->breadcrumbs=array(
  <?php echo CHtml::submitButton(__('Register')); ?>
  </div>
  
-<?php $this->endWidget(); ?>
-</div><!-- form -->
+
 
 </div>
 <div class="right">
@@ -81,13 +96,30 @@ $this->breadcrumbs=array(
 <p>Porque registrarse</p>
 <p>Porque registrarse</p>
 <p>Porque registrarse</p>
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
+
+
+<div style="border:solid 1px;">
+<p>
+Ser socio sólo implica apoyar todas y cada una de las enquirys ciudadanas.
+Es más "simbólico" que práctico legal. Me explico, todas las enquirys/instancias que
+se envíen en el Ayuntamiento llevan la firma y el NIF del Observatorio Ciudadano,
+si el Obsevatorio en cuestión tiene 2000 socios, de forma simbólica implica que hay 2000 firmas ciudadanas detrás.
+De todas formas, legalmente una instancia "vale lo mismo" y tiene el mismo valor si está firmada por 1 o 1000 personas.
+</p>
+<p>
+Yes, I want to be a socio. <?php echo $form->checkBox($model,'is_socio'); ?>
+</p>
+</div>
+
 <p>Porque registrarse</p>
 <p>Porque registrarse</p>
 <p>Porque registrarse</p>
 
+
 </div>
+
+<?php $this->endWidget(); ?>
+</div><!-- form -->
+
+
 </div>

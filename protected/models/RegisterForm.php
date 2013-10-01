@@ -35,7 +35,8 @@ class RegisterForm extends CFormModel
 	public $salt;
 	public $email;
 	public $verifyCode;
- 
+	public $is_socio;
+	
 	private $_identity;
  
 	/**
@@ -53,6 +54,7 @@ class RegisterForm extends CFormModel
 		array('username', 'validateUsername'),
 		// email should be in email format
 		array('email', 'email'),
+		array('is_socio', 'boolean'),
 		array('password', 'length', 'min' => 6, 
 			    'tooShort'=>Yii::t("translation", "{attribute} es muy corta (6 carácteres min)."),
 			    'tooLong'=>Yii::t("translation", "{attribute} is too long.")),

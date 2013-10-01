@@ -60,7 +60,7 @@ $this->menu=array(
 	<div class="title"><?php echo __('Change roles')?></div>
 
 	<?php $this->widget('zii.widgets.CDetailView', array(
-		'cssFile' => Yii::app()->theme->baseUrl.'/css/pdetailview.css',
+		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 		'data'=>$model,
 		'attributes'=>array(
 			'username',
