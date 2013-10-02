@@ -126,10 +126,14 @@
 	<div style="width: 33%; float: left;  margin: 0px;">
 		<b><?php echo __('Contact information')?></b><br />
 		<?php echo Config::model()->getObservatoryName();?><br />
+		<?php if($blog = Config::model()->findByPk('observatoryBlog')->value)
+			echo '<a href="'.$blog.'">'.$blog.'</a><br />';
+		?>
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';
 		?>
+		
 	</div>
 	
 	<div style="width: 28%; float: left;  margin: 0px; text-align:center">

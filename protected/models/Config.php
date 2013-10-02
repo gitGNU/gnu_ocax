@@ -109,7 +109,7 @@ class Config extends CActiveRecord
 	public function getObservatoryName()
 	{
 		$title=str_replace('%s', $this->findByPk('councilName')->value, $this->findByPk('observatoryName')->value);
-		return str_replace('#', '', $title);
+		return str_replace('#', ' ', $title);
 	}
 
 

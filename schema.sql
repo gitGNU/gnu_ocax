@@ -241,10 +241,11 @@ CREATE TABLE IF NOT EXISTS config (
   description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO config(parameter, value, description) VALUES ('councilName', 'City of Kaipara Flats', 'Name of the council');
+INSERT INTO config(parameter, value, description) VALUES ('councilName', 'Ajuntament de Espanistán', 'Name of the council');
 INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Default Year (this year)');
 INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x)', 'Observatory\'s initials');
-INSERT INTO config(parameter, value, description) VALUES ('observatoryName', 'Observatori Ciutadà Municipal#de l\'Ajuntament de %s', 'Observatory name');
+INSERT INTO config(parameter, value, description) VALUES ('observatoryName', 'Observatori Ciutadà Municipal#de l\'%s', 'Observatory name');
+INSERT INTO config(parameter, value, description) VALUES ('observatoryBlog', '', 'Observatory blog');
 INSERT INTO config(parameter, value, description) VALUES ('telephone', '', 'Contact telephone');
 INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'info@ocax.net', 'Contact email address');
 INSERT INTO config(parameter, value, description) VALUES ('emailNoReply', 'no-reply@ocax.es', 'no-reply email address');
