@@ -71,7 +71,7 @@
 
 
 <div id="header" >
-	<div id="logo"><div>Observatori Ciutadà <br>de l'<span id="nombre_ocax"><?php echo CHtml::encode(Config::model()->findByPk('councilName')->value); ?></span></div></div>
+	<div id="logo"><div><?php echo Config::model()->getSiteTitle(); ?></div></div>
 
 	<div id="mainmenu">
 		<?php
@@ -125,8 +125,7 @@
 	
 	<div style="width: 33%; float: left;  margin: 0px;">
 		<b><?php echo __('Contact information')?></b><br />
-		PACD, Plataforma Auditoría <br>Ciudadana de la Deuda
-		<?php echo Config::model()->findByPk('observatoryName')->value;?><br />
+		<?php echo Config::model()->getObservatoryName();?><br />
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';

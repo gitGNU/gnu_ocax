@@ -52,7 +52,7 @@
 						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p><p>'.
 						__('If you think this user is spamming you, you can block future petitions at this link').'<br />'.
 						$block.'</p>'.
-						'<p>'.__('Kind regards').',<br />'.Config::model()->findByPk('observatoryName')->value.'</p>';
+						'<p>'.__('Kind regards').',<br />'.Config::model()->getObservatoryName().'</p>';
 
 		echo '<div style="	background-color:white;
 							margin:-10px;

@@ -140,7 +140,7 @@ class CommentController extends Controller
 								<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
 								Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a></p><p><i>'.
 								$model->body.'</i></p><p>'.__('Kind regards').',<br />'.
-								Config::model()->findByPk('observatoryName')->value.'</p>';
+								Config::model()->getObservatoryName().'</p>';
 				$mailer->send();
 			}else
 				echo 0;

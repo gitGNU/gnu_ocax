@@ -122,7 +122,7 @@ class SiteController extends Controller
 
 		$mailer->Subject = 'Activate your account';
 		$mailer->Body = '<p>Hello '.$user->fullname.',</p>'.$this->getActivationEmailText($user).'<p>Thank you,';
-		$mailer->Body = $mailer->Body.'<br />'.Config::model()->findByPk('observatoryName')->value.'</p>'; 
+		$mailer->Body = $mailer->Body.'<br />'.Config::model()->getObservatoryName().'</p>'; 
 		if($mailer->send())
 			Yii::app()->user->setFlash('success','We sent you an email');
 		else
@@ -175,7 +175,7 @@ class SiteController extends Controller
 
 				$mailer->Body = '<p>Hello '.$newUser->fullname.',</p><p>Time to audit your council!</p>'.
 				$this->getActivationEmailText($newUser).'<p>Thank you,<br />'.
-				Config::model()->findByPk('observatoryName')->value.'</p>'; 
+				Config::model()->getObservatoryName().'</p>'; 
  
 				if($mailer->send())
 					Yii::app()->user->setFlash('success','We sent you an email');
@@ -285,7 +285,7 @@ class SiteController extends Controller
 				$mailer->Body=$mailer->Body.'<p>'.Config::model()->findByPk('siglas')->value.' '.__('has received a request to reset your password').'.<br />';
 				$mailer->Body=$mailer->Body.__('If you have not forgotten your password, please ignore this email').'.</p>';
 				$mailer->Body=$mailer->Body.'<p>'.__('To reset your password, follow this link').'<br />'.$link.'</p>';
-				$mailer->Body=$mailer->Body.'<p>'.__('Kind regards').',<br />'.Config::model()->findByPk('observatoryName')->value.'</p></p>';
+				$mailer->Body=$mailer->Body.'<p>'.__('Kind regards').',<br />'.Config::model()->getObservatoryName().'</p></p>';
 
 				if($mailer->send()){
 					$reset->save();

@@ -100,6 +100,19 @@ class Config extends CActiveRecord
 		);
 	}
 
+	public function getSiteTitle()
+	{
+		$title=str_replace('%s', '<span id="nombre_ocax">'.$this->findByPk('councilName')->value.'</span>', $this->findByPk('observatoryName')->value);
+		return str_replace('#', '<br />', $title);
+	}
+
+	public function getObservatoryName()
+	{
+		$title=str_replace('%s', $this->findByPk('councilName')->value, $this->findByPk('observatoryName')->value);
+		return str_replace('#', '', $title);
+	}
+
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
