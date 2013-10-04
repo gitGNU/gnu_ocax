@@ -124,17 +124,29 @@
     color: #999999;
 }
 
-table.jqplot-table-legend {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    margin-left: 12px;
-    margin-right: 12px;
+table.jqplot-table-legend{
+    display: block;
+}
+
+div.jqplot-table-legend-container {
+	margin-top: 12px;
+	margin-bottom: 12px;
+	margin-left:15px;
+	margin-right: 12px;	
+	width: 500px;
+	height:200px;
+	overflow-y: auto;
+}
+
+table.jqplot-table-legend tbody{
+
 }
 
 table.jqplot-table-legend, table.jqplot-cursor-legend {
     border: 0px solid #cccccc;
     position: absolute;
-    font-size: 0.75em;
+    /* font-size: 0.75em; */
+    font-size:1.2em;
 }
 
 td.jqplot-table-legend {
@@ -261,15 +273,7 @@ div.jqplot-noData-container {
     background-color: rgba(96%, 96%, 96%, 0.3);
 }
 
-table.jqplot-table-legend{
-    display: block;
-	width:500px;
-    height: 200px;
-    overflow-y: auto;
-	font-size:1.2em;
-	margin-left:15px;
-font-weight:light;
-}
+
 .jqplot-data-label{
 	font-size:1.8em;
 }

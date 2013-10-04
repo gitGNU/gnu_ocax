@@ -262,7 +262,7 @@ class SiteController extends Controller
 	{
 		if(isset($_GET['email'])){
 			$email = htmLawed::hl(trim($_GET['email']), array('elements'=>'-*', 'keep_bad'=>0));
-			if($user = User::model()->findByAttributes(array('email'=>$email))){
+			if(filter_var($email, FILTER_VALIDATE_EMAIL) && $user = User::model()->findByAttributes(array('email'=>$email))){
 				if($user->is_disabled){
 					echo '<span style="color:red">'.__('Invalid email address').'.</span>';
 					Yii::app()->end();

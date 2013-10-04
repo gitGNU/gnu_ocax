@@ -126,7 +126,15 @@ function getPie(budget_id, element){
 
 function createPie(div_id, data){
 	chart= $.jqplot(div_id, [data.data], pie_properties);
-	
+
+	// fix for IExplorer Does not respect table height property. we wrap it with a <div>
+	legend = $('#'+div_id).find('table');
+	legendContainer=$('<div class="jqplot-table-legend-container"></div>');
+	legendContainer.attr('style',legend.attr('style'));
+	legend.attr('style','');
+	legend.before( legendContainer );
+	legendContainer.append( legend );
+
 	if(data.params.actual_provision==0){
 		$('#'+div_id).append('<div style="position:absolute;top:20px;left:30px;font-size:20em;color:grey;">0€</div>');
 	}else{
