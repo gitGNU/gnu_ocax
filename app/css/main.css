@@ -608,7 +608,8 @@ div.search-form
 
 
 .graph_container{
-	margin-bottom:0px;
+	margin:0px;
+	padding:0px;
 }
 
 .budget_details{
@@ -619,9 +620,9 @@ div.search-form
 .graph_pie_group{
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
-	background-position: top;	margin-top:0px;
-	padding:7px 0px 0px 0px;
-	margin-top:5px;
+	background-position: top;
+	padding:7px 0px 20px 0px;
+	margin-top:15px;
 	height:500px;
 	margin-bottom:45px;
 }

@@ -63,7 +63,7 @@ function changeColumn()
 <div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
 <p>
 <?php
-$str = __('Ask here what you\'d like to know to your Council. To make a budgetary enquiry go to the %s section and forumlate the enquiry from there').'.';
+$str = __('ENQUIRY_NEW_MSG');
 echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 ?>
 </p>

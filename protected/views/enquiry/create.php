@@ -51,12 +51,8 @@ if(!$model->budget){
 </div>
 
 <div class="right">
-	<p style="font-size:1.5em">Procedimiento</p>
-	<p>Tu creas la enquiry</p>
-	<p>Nosotros la asignamos a una persona de nuestro equipo quien se encargará de ella.</p>
-	<p>Recibirás correos informándote del proceso.</p>
-	<p>más cosas</p>
-	<p>más cosas</p>
+	<p style="font-size:1.5em"><?php echo __('Enquiry steps')?></p>
+	<?php echo __('ENQUIRIES_STEP_MSG');?>
 </div>
 </div>
 <div style="clear:both"></div>
