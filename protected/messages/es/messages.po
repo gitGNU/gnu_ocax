@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-10-08 17:10+0100\n"
+"PO-Revision-Date: 2013-10-08 18:26+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -564,6 +564,10 @@ msgstr "Registrarse"
 #: protected/views/site/register.php:83
 msgid "Please enter the letters as they are shown in the image above"
 msgstr "Copia las letras tal como salen en la imagen arriba"
+
+#: protected/views/site/register.php:96
+msgid "REGISTER_MSG"
+msgstr "<p>Ser usuario te permitirá realizar consultas a tu ayuntamiento de manera pública y directa, así como compartirlas con otros ciudadanos de tu municipio.</p><p> Cuantos más ciudadanos seamos los que luchemos unidos por la transparencia, más cerca estaremos de conseguir que las decisiones en política y gestión de nuestro municipio sean tomadas desde la ciudadanía.</p>"
 
 #: protected/views/site/login.php:23
 msgid "Please enter your email address"

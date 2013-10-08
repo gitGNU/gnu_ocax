@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-10-08 17:15+0100\n"
+"PO-Revision-Date: 2013-10-08 18:27+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -563,6 +563,10 @@ msgstr "Registrar-se"
 #: protected/views/site/register.php:83
 msgid "Please enter the letters as they are shown in the image above"
 msgstr "Copia les lletres tal com surten en la imatge a dalt"
+
+#: protected/views/site/register.php:96
+msgid "REGISTER_MSG"
+msgstr "<p>Ser usuari et permetrà realitzar consultes al teu ajuntament de manera  pública i directa, així com compartir-les amb altres ciutadans del teu municipi.</p><p> Quants més ciutadans siguem els que lluitem units per la  transparència, més a prop estarem d'aconseguir que les decisions en  política i gestió del nostre municipi siguin preses des de la  ciutadania.</p>"
 
 #: protected/views/site/login.php:23
 msgid "Please enter your email address"

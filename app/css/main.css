@@ -2,6 +2,13 @@
 
 h1, h2, h3, h4, h5, h6 {font-weight:normal}
 
+h1 {
+	line-height: 70%;
+	font-size: 22pt;
+	letter-spacing:-0.5pt;	
+	font-weight:200;
+	margin-bottom:15px;
+}
 
 @font-face {
 	font-family: SansPro;

@@ -93,10 +93,7 @@ $("input[type='checkbox']").each(function(){
 </div>
 <div class="right">
 
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
-
+<?php echo __('REGISTER_MSG'); ?>
 
 <div style="border:solid 1px;">
 <p>
@@ -110,10 +107,6 @@ De todas formas, legalmente una instancia "vale lo mismo" y tiene el mismo valor
 Yes, I want to be a socio. <?php echo $form->checkBox($model,'is_socio'); ?>
 </p>
 </div>
-
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
-<p>Porque registrarse</p>
 
 
 </div>
