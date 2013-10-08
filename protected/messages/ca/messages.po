@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-10-07 10:23+0100\n"
+"PO-Revision-Date: 2013-10-08 17:15+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1275,18 +1275,25 @@ msgid "Enquiries made by"
 msgstr "Consultes fetes per"
 
 #: protected/views/user/view.php:148
-#, fuzzy
 msgid "has not made a enquiry"
 msgstr "no ha fet cap consulta"
+
+#: protected/views/user/_notActiveInfo.php:23
+msgid "USER_NOT_ACTIVE_INFO"
+msgstr "<p>Per començar a realitzar consultes i a subscriure't a consultes d'altres usuaris, és necessari que confirmis la teva adreça de correu electrònic.</p><p>- T'hem enviat un correu electrònic amb unes senzilles instruccions.<br />- Si no has rebut el correu, comprova que no t'hagi arribat com spam.<br />- Si vols que t'enviem el correu de nou a %s, fes %s.<br />- Si la teva adreça de correu no és %s la pots canviar per una altra fent %s.</p>"
+
+#: protected/views/user/_notActiveInfo.php:26
+#: protected/views/user/_notActiveInfo.php:28
+msgid "click here"
+msgstr "clic aquí"
 
 #: protected/views/user/panel.php:55
 msgid "Welcome"
 msgstr "Benvingut"
 
 #: protected/views/user/panel.php:66
-#, php-format
-msgid "Ask here what you'd like to know to your Council. To make a budgetary enquiry go to the %s section and forumlate the enquiry from there"
-msgstr "Pregunta el que vulguis saber al teu ajuntament, des d'aquest apartat pots fer una consulta oberta. Per a fer una consulta pressupostària ves a la pestanya %s i realitzar la consulta des d'allà"
+msgid "ENQUIRY_NEW_MSG"
+msgstr "Pregunta el que vulguis saber al teu ajuntament, des d'aquest apartat  pots fer una consulta oberta. Per a fer una consulta pressupostària ves a  la pestanya %s i realitzar la consulta des d'allà."
 
 #: protected/views/user/panel.php:74
 msgid "My user information"
@@ -1334,7 +1341,7 @@ msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitz
 
 #: protected/views/user/panel.php:230
 msgid "Enquiries of your interest will be displayed here"
-msgstr ""
+msgstr "Les consultes que hagis realitzat o a les quals t'hagis subscrit apareixeran aquí"
 
 #: protected/views/user/panel.php:263
 msgid "Do you want to block"
@@ -1389,7 +1396,8 @@ msgid "Petition to make contact via email"
 msgstr "Petition to make contact via email"
 
 #: protected/views/email/_contactPetition.php:47
-#: protected/controllers/SiteController.php:284
+#: protected/controllers/SiteController.php:126
+#: protected/controllers/SiteController.php:299
 msgid "Hello"
 msgstr "Hola"
 
@@ -1416,7 +1424,7 @@ msgstr "Si penses que aquest usuari t'està enviant correu brossa, pots bloqueja
 
 #: protected/views/email/_contactPetition.php:55
 #: protected/controllers/CommentController.php:142
-#: protected/controllers/SiteController.php:288
+#: protected/controllers/SiteController.php:303
 msgid "Kind regards"
 msgstr "Cordials salutacions"
 
@@ -1452,6 +1460,8 @@ msgstr "Email sent OK"
 
 #: protected/controllers/EmailController.php:133
 #: protected/controllers/BulkEmailController.php:164
+#: protected/controllers/SiteController.php:133
+#: protected/controllers/SiteController.php:158
 msgid "Error while sending email"
 msgstr "Error while sending email"
 
@@ -1496,39 +1506,70 @@ msgstr "Nou comentari en"
 msgid "A new comment has been added to the enquiry"
 msgstr "S'ha afegit un comentari a la consulta"
 
-#: protected/controllers/SiteController.php:267
+#: protected/controllers/SiteController.php:107
+msgid "Please click the link below to activate your account"
+msgstr "Per favor, fes clic en el següent enllaç per activar el teu compte"
+
+#: protected/controllers/SiteController.php:125
+msgid "Activate your account"
+msgstr "Activar el teu compte"
+
+#: protected/controllers/SiteController.php:128
+#: protected/controllers/SiteController.php:153
+msgid "Thank you"
+msgstr "Moltes gràcies"
+
+#: protected/controllers/SiteController.php:131
+#: protected/controllers/SiteController.php:156
+msgid "We sent you an email"
+msgstr "T'hem enviat un correu electrònic"
+
+#: protected/controllers/SiteController.php:148
+#: protected/controllers/SiteController.php:150
+msgid "Welcome to the"
+msgstr "Benvingut a l'"
+
+#: protected/controllers/SiteController.php:151
+msgid "NEW_USER_EMAIL_MSG"
+msgstr "Acabem de donar d'alta el teu usuari.<br />Des d'aquest moment ja pots realitzar consultes, subscriure't a consultes d'altres ciutadans, així com valorar  les respostes del nostre Ajuntament."
+
+#: protected/controllers/SiteController.php:218
+msgid "Your account is active"
+msgstr "S'ha activat el teu compte"
+
+#: protected/controllers/SiteController.php:282
 msgid "Invalid email address"
 msgstr "Adreça de correu invàlida"
 
-#: protected/controllers/SiteController.php:282
+#: protected/controllers/SiteController.php:297
 msgid "New password request"
 msgstr "Petició de nova contrasenya"
 
-#: protected/controllers/SiteController.php:285
+#: protected/controllers/SiteController.php:300
 msgid "has received a request to reset your password"
 msgstr "ha rebut una petició de restableix la teva contrasenya"
 
-#: protected/controllers/SiteController.php:286
+#: protected/controllers/SiteController.php:301
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr "Si no has oblidat la teva contrasenya per favor, ignora aquest correu"
 
-#: protected/controllers/SiteController.php:287
+#: protected/controllers/SiteController.php:302
 msgid "To reset your password, follow this link"
 msgstr "Per restablir la teva contrasenya, segueix aquest enllaç"
 
-#: protected/controllers/SiteController.php:292
+#: protected/controllers/SiteController.php:307
 msgid "We've just sent you an email"
 msgstr "T'hem enviat un correu electrònic"
 
-#: protected/controllers/SiteController.php:296
+#: protected/controllers/SiteController.php:311
 msgid "Sorry, we cannot find you on our database"
 msgstr "Disculpa, no et trobem en la base de dades"
 
-#: protected/controllers/SiteController.php:312
+#: protected/controllers/SiteController.php:327
 msgid "The password recovery link has expired"
 msgstr "L'enllaç per recuperar la teva contrasenya s'ha caducat"
 
-#: protected/controllers/SiteController.php:320
+#: protected/controllers/SiteController.php:335
 msgid "Please change your password now"
 msgstr "Per favor, canvia la teva contrasenya ara"
 
@@ -1545,9 +1586,8 @@ msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
 #: protected/controllers/BudgetController.php:83
-#, fuzzy
 msgid "Budget"
-msgstr "Pressupostos"
+msgstr "Pressuposto"
 
 #: protected/controllers/BudgetController.php:398
 msgid "Year deleted"

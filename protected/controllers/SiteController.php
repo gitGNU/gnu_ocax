@@ -73,6 +73,7 @@ class SiteController extends Controller
 	/**
 	 * Displays the contact page
 	 */
+	/*
 	public function actionContact()
 	{
 		$model=new ContactForm;
@@ -99,10 +100,11 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+	*/
 
 	private function getActivationEmailText($user)
 	{
-		return '<p>Please click the link below to activate your account.<br />'.
+		return '<p>'.__('Please click the link below to activate your account').'.<br />'.
 		'<a href="'.Yii::app()->createAbsoluteUrl('site/activate', array('c' => $user->activationcode)).'">'.
 		Yii::app()->createAbsoluteUrl('site/activate', array('c' => $user->activationcode)).'</a></p>';
 	}
@@ -120,16 +122,44 @@ class SiteController extends Controller
 		$mailer->AddAddress($user->email);
 		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
 
-		$mailer->Subject = 'Activate your account';
-		$mailer->Body = '<p>Hello '.$user->fullname.',</p>'.$this->getActivationEmailText($user).'<p>Thank you,';
-		$mailer->Body = $mailer->Body.'<br />'.Config::model()->getObservatoryName().'</p>'; 
+		$mailer->Subject = __('Activate your account');
+		$mailer->Body = '<p>'.__('Hello').' '.$user->fullname.',</p>'.
+						$this->getActivationEmailText($user).
+						'<p>'.__('Thank you').',<br />'.
+						Config::model()->getObservatoryName().'</p>'; 
 		if($mailer->send())
-			Yii::app()->user->setFlash('success','We sent you an email');
+			Yii::app()->user->setFlash('success',__('We sent you an email'));
 		else
-			Yii::app()->user->setFlash('newActivationCodeError','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
+			Yii::app()->user->setFlash('newActivationCodeError',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 
 		$this->redirect(array('/user/panel'));
 	}
+
+	public function actionSendWelcomeText()
+	{
+		if(Yii::app()->user->isGuest) // add accessRules() to $this controller instead?
+			Yii::app()->end();
+
+		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
+		
+		$mailer = new Mailer();
+		$mailer->AddAddress($user->email);
+		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+		$mailer->Subject = __('Welcome to the').' '.Config::model()->getObservatoryName();
+
+		$mailer->Body = '<p>'.__('Welcome to the').' '.Config::model()->getObservatoryName().',</p>'.
+						'<p>'.__('NEW_USER_EMAIL_MSG').'</p>'.
+						'<p>'.$this->getActivationEmailText($user).'</p>'.
+						'<p>'.__('Thank you').',<br />'.Config::model()->getObservatoryName().'</p>';
+ 
+		if($mailer->send())
+			Yii::app()->user->setFlash('success',__('We sent you an email'));
+		else
+			Yii::app()->user->setFlash('newActivationCodeError',__('Error while sending email').'<br />'.$mailer->ErrorInfo);
+
+		$this->redirect(array('/user/panel'));		
+	}
+
 
 	public function actionRegister()
 	{
@@ -167,22 +197,7 @@ class SiteController extends Controller
 				$identity=new UserIdentity($newUser->username,$model->password);
 				//$identity->authenticate();
 				Yii::app()->user->login($identity,0);
- 
- 				$mailer = new Mailer();
-				$mailer->AddAddress($newUser->email);
-				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
-				$mailer->Subject = 'Welcome to the '.Config::model()->findByPk('siglas')->value;
-
-				$mailer->Body = '<p>Hello '.$newUser->fullname.',</p><p>Time to audit your council!</p>'.
-				$this->getActivationEmailText($newUser).'<p>Thank you,<br />'.
-				Config::model()->getObservatoryName().'</p>'; 
- 
-				if($mailer->send())
-					Yii::app()->user->setFlash('success','We sent you an email');
-				else
-					Yii::app()->user->setFlash('newActivationCodeError','Error while sending email: '.$mailer->ErrorInfo);
-
-				$this->redirect(array('/user/panel'));
+				$this->actionSendWelcomeText();
 			} 
 		}
 		$this->render('register',array('model'=>$model));
@@ -200,7 +215,7 @@ class SiteController extends Controller
 			if($model){
 				$model->is_active=1;
 				$model->save();
-				Yii::app()->user->setFlash('success','Your account is active');
+				Yii::app()->user->setFlash('success',__('Your account is active'));
 			}
 		}
 		if(!Yii::app()->user->isGuest)

@@ -84,13 +84,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'new_password'); ?>
-		<?php echo $form->passwordField($model,'new_password'); ?>
+		<?php echo $form->passwordField($model,'new_password',array('autocomplete'=>'off'));	?>
 		<?php echo $form->error($model,'new_password'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password_repeat'); ?>
-		<?php echo $form->passwordField($model,'password_repeat'); ?>
+		<?php echo $form->passwordField($model,'password_repeat',array('autocomplete'=>'off')); ?>
 		<?php echo $form->error($model,'password_repeat'); ?>
 	</div>
 
