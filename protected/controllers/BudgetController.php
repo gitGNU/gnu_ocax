@@ -53,8 +53,8 @@ class BudgetController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'getTotalYearlyBudgets','admin','create','adminYears','deleteYearsBudgets',
-									'createYear','updateYear','featured','feature','update','delete',
+				'actions'=>array(	'getTotalYearlyBudgets',/*'admin','create',*/'adminYears','deleteYearsBudgets',
+									'createYear','updateYear','featured','feature',/*'update',*/'delete',
 									'dumpBudgets','restoreBudgets'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -178,6 +178,7 @@ class BudgetController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+	 /*
 	public function actionCreate()
 	{
 		if(!Yii::app()->request->isAjaxRequest)
@@ -207,6 +208,7 @@ class BudgetController extends Controller
 		}
 		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('create',array('model'=>$model),true,true)));
 	}
+	*/
 
 	public function actionCreateYear()
 	{
@@ -242,6 +244,7 @@ class BudgetController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 
+	/*
 	public function actionUpdate($id)
 	{
 		if(!Yii::app()->request->isAjaxRequest)
@@ -263,6 +266,7 @@ class BudgetController extends Controller
 		}
 		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,true)));
 	}
+	*/
 
 	public function actionUpdateYear($id)
 	{
@@ -298,6 +302,7 @@ class BudgetController extends Controller
 	/**
 	 * Manages all models.
 	 */
+	 /*
 	public function actionAdmin()
 	{
 		$model=new Budget('search');
@@ -313,6 +318,7 @@ class BudgetController extends Controller
 			'model'=>$model,
 		));
 	}
+	*/
 
 	public function actionFeatured($id)
 	{

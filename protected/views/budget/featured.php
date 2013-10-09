@@ -36,7 +36,6 @@ function featureBudget(budget_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/feature',
 		type: 'GET',
-		async: false,
 		data: {'id': budget_id },
 		success: function(data){
 			if(data != 0){

@@ -45,7 +45,6 @@ function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		beforeSend: function(){ $('#enquiry-grid').addClass('pgrid-view-loading'); },
 		complete: function(){ 

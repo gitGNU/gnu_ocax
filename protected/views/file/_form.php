@@ -30,7 +30,6 @@ function validateFileName(form){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/validateFileName',
 		type: 'GET',
-		async: false,
 		data: {	'file_name'	: $('#File_file').val().replace('C:\\fakepath\\', ''),
 				'model' 	: $('#File_model').val(),
 				'model_id' 	: $('#File_model_id').val(),
@@ -81,7 +80,7 @@ function validateFileName(form){
 <?php $this->endWidget(); ?>
 
 <div id="loading" style="display:none;text-align:center;">
-<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/big_loading.gif" />
+<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />
 </div>
 
 </div><!-- form -->

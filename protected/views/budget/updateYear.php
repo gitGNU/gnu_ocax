@@ -50,8 +50,6 @@ function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
 		type: 'GET',
-		async: false,
-		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
@@ -77,9 +75,6 @@ function megaDelete(el){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
 		type: 'POST',
-		async: false,
-		//data: { 'id' : enquiry_id },
-		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){

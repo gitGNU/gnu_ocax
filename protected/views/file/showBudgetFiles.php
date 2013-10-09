@@ -23,13 +23,11 @@
 Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
+Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
 <div class="form">
-<div class="title">
-<?php echo __('Restore all budgets from a backup').' ';?>
-<img style="vertical-align:middle;" src="<?php echo Yii::app()->theme->baseUrl?>/images/down.png" />
-</div>
+<div class="title"><?php echo __('Restore all budgets from a backup');?></div>
 
 <?php echo '<div style="font-size:1.2em;margin-bottom:5px;">'.__('These copies are made right before a CSV file is imported').'</div>';?>
 

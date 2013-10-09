@@ -69,7 +69,6 @@ function nextPage(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/site/getIndexContent/'+pageCnt,
 		type: 'GET',
-		async: false,
 		//beforeSend: function(){	$('.loading_gif').remove();	},
 		//complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){

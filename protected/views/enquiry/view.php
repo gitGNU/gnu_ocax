@@ -82,7 +82,6 @@ function subscribe(el){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/subscribe',
 		type: 'POST',
-		async: false,
 		dataType: 'json',
 		data: { 'enquiry': <?php echo $model->id;?> },
 		//beforeSend: function(){ },
@@ -117,8 +116,6 @@ function showBudget(budget_id, element){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
-		async: false,
-		//dataType: 'json',
 		beforeSend: function(){
 						$('.loading_gif').remove();
 						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');

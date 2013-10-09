@@ -52,55 +52,12 @@
 </style>
 
 <script>
-
-/*
-$(function() {
-	$('.budget').bind('click', function() {
-		budget_id = $(this).attr('budget_id');
-		
-		if($('.budget_details[budget_id='+budget_id+']').length>0){
-			$('.budget_details').hide();
-			$('.budget_details[budget_id='+budget_id+']').show();
-			alert('cache');
-		}else{
-			el = $(this);
-			$.ajax({
-				url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDetailsForBar/'+budget_id,
-				type: 'GET',
-				async: false,
-				//dataType: 'json',
-				beforeSend: function(){ },
-				success: function(data){
-					$('.budget_details').hide();
-					el.append(data);
-				},
-				error: function() {
-					alert("Error on get budget details");
-				}
-			});
-		}
-		$('.no-highlightGraphBar').removeClass('no-highlightGraphBar').addClass('highlightGraphBar');
-		$(this).removeClass('highlightGraphBar').addClass('no-highlightGraphBar');
-	});
-});
-*/
 $(function() {
 	$('.budget').bind('click', function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
 	});
 });
 
-
-/*
-$(function() {
-	$("#Budget_concept").on("click", function(event){
-		$("#Budget_code").val('');
-	});
-	$("#Budget_code").on("click", function(event){
-		$("#Budget_concept").val('');
-	});
-});
-*/
 function toggleChildren(id){
 	if ($('#budget_children_'+id).is(":visible")){
 		$('#budget_children_'+id).slideUp('fast');

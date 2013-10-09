@@ -22,6 +22,11 @@
 /* @var $model File */
 Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
+Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
+
+
+echo '<h1 style="padding:5px">'.__('Uploaded files').'</h1>';
 
 $dataProvider = new CActiveDataProvider('File', array(
     'criteria'=>array('condition'=>'model = "CmsPage"')

@@ -80,7 +80,6 @@ function getCommentForm(comment_on, id, el){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/getForm',
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		data: {'comment_on': comment_on, 'id': id },
 		beforeSend: function(){ /*$ ('#right_loading_gif').show(); */ },
@@ -107,7 +106,6 @@ function submitComment(form){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/create',
 		type: 'POST',
-		async: false,
 		dataType: 'json',
 		data: $(form).serialize(),
 		beforeSend: function(){
@@ -140,7 +138,6 @@ function deleteComment(comment_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/delete/'+comment_id,
 		type: 'POST',
-		async: false,
 		success: function(data){
 				if(data == 1){
 					show_comments_link = $('#comment_'+comment_id).parents('.comments').find('.show_comments_link');
@@ -168,7 +165,6 @@ function vote(reply_id, like){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/vote/create',
 		type: 'POST',
-		async: false,
 		dataType: 'json',
 		data: { 'reply': reply_id, 'like': like },
 		success: function(data){
@@ -178,7 +174,6 @@ function vote(reply_id, like){
 							alert('<?php echo __('You have already voted favourably');?>');
 						else
 							alert('<?php echo __('You have already voted unfavourably');?>');
-						alert('ya has votado '+word);
 					}else
 						$("#"+totalElement_id).html(data.total);
 				}					
@@ -194,7 +189,6 @@ function getContactForm(recipient_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
 		type: 'GET',
-		async: false,
 		data: {'recipient_id': recipient_id, 'enquiry_id': <?php echo $model->id?> },
 		beforeSend: function(){ },
 		complete: function(){ },
@@ -220,7 +214,6 @@ function sendContactForm(form){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/email/contactPetition',
 		type: 'POST',
-		async: false,
 		data: $('#'+form).serialize(),
 		beforeSend: function(){
 					$('#contact_petition_buttons').replaceWith($('#contact_petition_sending'));
@@ -324,7 +317,7 @@ foreach($replys as $reply){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
 				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a>';
 				echo '	<img style="cursor:pointer;vertical-align:text-top;"
-						src="'.Yii::app()->theme->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
+						src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				echo '</span>';
 			}
 			echo '</span>';
@@ -400,7 +393,6 @@ function uploadFile(model,model_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model='+model+'&model_id='+model_id,
 		type: 'POST',
-		async: false,
 		success: function(data){
 			if(data != 0){
 				$("#files_popup_content").html(data);
@@ -425,7 +417,6 @@ function deleteFile(file_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/delete/'+file_id,
 		type: 'POST',
-		async: false,
 		success: function(){
 				$("#attachment_"+file_id).remove();
 		},

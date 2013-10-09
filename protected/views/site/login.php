@@ -26,7 +26,6 @@ function requestNewPasswd(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/site/requestNewPassword',
 		type: 'GET',
-		async: false,
 		data: { 'email': $('#email').val() },
 		beforeSend: function(){ $('#loading').show(); $('#email_button').prop('disabled', true);  },
 		success: function(data){

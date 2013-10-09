@@ -52,7 +52,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'regen' => array(
 					'label'=> __('Include budgets'),
 					'url'=> '"javascript:regenCSV(\"".$data->year."\");"',
-					'imageUrl' => Yii::app()->theme->baseUrl.'/images/regen.png',
+					'imageUrl' => Yii::app()->request->baseUrl.'/images/regen.png',
 					'visible' => 'true',
 				)
 			),
@@ -63,5 +63,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 </div>
 
 <div id="loading" style="display:none;text-align:center;">
-<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/big_loading.gif" />
+<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />
 </div>

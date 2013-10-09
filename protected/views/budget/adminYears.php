@@ -34,9 +34,8 @@ if(File::model()->findByAttributes(array('model'=>'Budget'))){
 function showBudgetDumps(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/showBudgetFiles',
-		type: 'POST',
-		async: false,
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		type: 'GET',
+		// beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){

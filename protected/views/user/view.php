@@ -33,21 +33,12 @@ if(!$model->enquirys){
 }
 ?>
 
-<style>
-   	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script>
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
 		type: 'GET',
-		async: false,
 		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
@@ -74,7 +65,6 @@ function megaDelete(el){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
 		type: 'POST',
-		async: false,
 		//data: { 'id' : enquiry_id },
 		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
@@ -95,7 +85,8 @@ function megaDelete(el){
 
 <div class="form">
 <div class="title"><?php echo __('Username').': '.$model->username; ?></div>
-<div class="row" style="margin:-15px -10px -10px -10px;">
+
+<div class="row" style="margin:0px -10px -10px -10px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,

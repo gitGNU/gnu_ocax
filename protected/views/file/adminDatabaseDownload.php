@@ -32,21 +32,12 @@ if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))
 }
 ?>
 
-<style>           
-	.bClose{
-		cursor: pointer;
-		position: absolute;
-		right: -21px;
-		top: -21px;
-	}
-</style>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script>
 function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=DatabaseDownload/docs',
 		type: 'POST',
-		async: false,
 		success: function(data){
 			if(data != 0){
 				$("#files_content").html(data);
@@ -71,7 +62,6 @@ function deleteFile(file_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/delete/'+file_id,
 		type: 'POST',
-		async: false,
 		success: function(){
 				$("#attachment_"+file_id).remove();
 		},
@@ -84,7 +74,6 @@ function showYears(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/showYears',
 		type: 'GET',
-		async: false,
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
@@ -108,7 +97,6 @@ function regenCSV(id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/regenerateCSV/'+id,
 		type: 'GET',
-		async: false,
 		beforeSend: function(){ $('#years-grid').replaceWith($('#loading')); $('#loading').show(); },
 		success: function(data){
 			$('#csvs').bPopup().close();

@@ -34,9 +34,7 @@ $this->menu=array(
 function showUploadedFiles(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/showCMSfiles',
-		type: 'POST',
-		async: false,
-		//dataType: 'json',
+		type: 'GET',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
@@ -60,8 +58,6 @@ function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=<?php echo get_class($model);?>',
 		type: 'POST',
-		async: false,
-		//dataType: 'json',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){

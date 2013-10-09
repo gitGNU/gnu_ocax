@@ -42,7 +42,6 @@ function showRecipients(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/bulkEmail/showRecipients',
 		type: 'GET',
-		async: false,
 		success: function(data){
 			if(data != 0){
 				$("#recipients_body").html(data);

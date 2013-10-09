@@ -42,7 +42,7 @@
 	<div class="row" style="margin-top:10px">
 		<input type="button" onClick="js:submitComment($(this).parents('form:first'));" value="<?php echo __('Publish');?>" />
 		<input type="button" onClick="js:cancelComment();" value="<?php echo __('Cancel');?>" />
-		<img style="vertical-align:middle;display:none" class="loading_gif" src="<?php echo Yii::app()->theme->baseUrl;?>/images/loading.gif" />
+		<img style="vertical-align:middle;display:none" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 <?php $this->endWidget(); ?>
 

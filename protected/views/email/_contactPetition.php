@@ -32,7 +32,7 @@
 	//'action'=>Yii::app()->baseUrl.'/email/create',
 )); ?>
 
-	<div class="title"><?php echo __('Petition to make contact via email')?></div>
+	<div class="title" style="padding-bottom:10px"><?php echo __('Petition to make contact via email')?></div>
 
 	<?php
 		echo $form->hiddenField($model,'enquiry');
@@ -92,7 +92,7 @@
 <div id="contact_petition_sending" class="contact_form_bottom" style="color:orange">
 <?php echo __('Sending email')?>&nbsp;&nbsp;
 <?php echo '<img style="vertical-align:text-middle;"
-			src="'.Yii::app()->theme->baseUrl.'/images/loading.gif" />'?>
+			src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />'?>
 </div>
 <div id="contact_petition_sent" class="contact_form_bottom" style="color:green">
 <?php echo __('Email sent')?>

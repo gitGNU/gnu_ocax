@@ -58,7 +58,6 @@ function chooseBudget(budget_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudgetDetails/'+budget_id,
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		beforeSend: function(){ },
 		success: function(data){

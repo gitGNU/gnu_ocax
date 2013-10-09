@@ -39,7 +39,6 @@ function checkFormat(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/checkCSVFormat',
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>' },
 		//beforeSend: function(){  },
@@ -59,7 +58,6 @@ function checkTotals(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/checkCSVTotals',
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>' },
 		//beforeSend: function(){  },
@@ -82,7 +80,6 @@ function dumpBudgets(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/dumpBudgets',
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		//beforeSend: function(){  },
 		//complete: function(){  },
@@ -101,7 +98,6 @@ function importData(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/importCSVData/<?php echo $model->year;?>',
 		type: 'GET',
-		async: false,
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>'	},
 		beforeSend: function(){ $("#import_button").attr("disabled", "disabled"); $('#loading_importing_csv').show(); },
@@ -176,7 +172,7 @@ echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Bac
 
 echo '<p id="step_5" style="display:none">Step 5. Import into database: <b>'.$yearStr.'</b> ';
 echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" />';
-echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->theme->baseUrl.'/images/loading.gif" />';
+echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />';
 echo '</p>';
 
 $criteria=new CDbCriteria;

@@ -61,11 +61,27 @@ function slideInChild(parent_id,child_id){
 }
 
 function addColorKeyToBudgetDetails(graph_container,budget_id){
-	item = graph_container.find('.legend_item[budget_id='+budget_id+']');
-	swatch = item.parent().prev('td');
+	//item = graph_container.find('.legend_item[budget_id='+budget_id+']');
+	item = graph_container.find('span[budget_id='+budget_id+']');
+	swatch = $(item).parent().prev('td');
 	swatch = swatch.find('.jqplot-table-legend-swatch');
 	concept = graph_container.find('.budget_details').find('th:first');
 	concept.css('border-left', '5px solid '+swatch.css('background-color'));
+	
+	/*
+	<div class="jqplot-table-legend-container" style="position: absolute; border: medium none; margin-bottom: 0px; left: 440px; bottom: 23px;">
+	<table class="jqplot-table-legend" style="">
+	<tbody>
+	<tr class="jqplot-table-legend">
+	<td class="jqplot-table-legend jqplot-table-legend-swatch" style="text-align: center; padding-top: 0px;"></td>
+	<td class="jqplot-table-legend jqplot-table-legend-label" style="padding-top: 0px;">
+	<span class="link legend_item" budget_id="629"></span>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	*/
 }
 
 function goBack(parent_id){
