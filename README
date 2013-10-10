@@ -1,8 +1,10 @@
-oca(x)
-====
-web app for OCAB and similar
+OCAX(x)
 
-Yii version 1.1.13
+This software is BETA.
+We have frozen new features and are ironing out bugs.
+Recommended install is via GIT so you can update easily.
+Please get in touch.
+
 
 Directory structure
 |
@@ -10,12 +12,16 @@ Directory structure
 |
 - protected
 |
-- framework	(get this from http://www.yiiframework.com/)
+- framework	(http://www.yiiframework.com/ (version 1.1.13))
 
 
 Installation
 
-Create database with schema.sql
+Create database
+CREATE DATABASE db_name CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+and tables
+mysql -uuser_name -p db_name < schema.sql
+
 Copy protected/config/main.example.php to protected/config/main.php
 Modify mysql connection parameters in protected/config/main.php
 

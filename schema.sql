@@ -1,5 +1,6 @@
 /*
 	OCA(x) database schematic.
+	http://ocax.net
 	chris@gatopelao.org
  */
 
@@ -238,26 +239,32 @@ CREATE TABLE IF NOT EXISTS reset_password (
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,
   value varchar(255) NOT NULL ,
+  required TINYINT(1) DEFAULT 1,
   description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO config(parameter, value, description) VALUES ('councilName', 'Ajuntament de Espanistán', 'Name of the council');
-INSERT INTO config(parameter, value, description) VALUES ('year', '2013', 'Default Year (this year)');
-INSERT INTO config(parameter, value, description) VALUES ('siglas', 'OCA(x)', 'Observatory\'s initials');
-INSERT INTO config(parameter, value, description) VALUES ('observatoryName', 'Observatori Ciutadà Municipal#de l\'%s', 'Observatory name');
-INSERT INTO config(parameter, value, description) VALUES ('observatoryBlog', '', 'Observatory blog');
-INSERT INTO config(parameter, value, description) VALUES ('telephone', '', 'Contact telephone');
-INSERT INTO config(parameter, value, description) VALUES ('emailContactAddress', 'info@ocax.net', 'Contact email address');
-INSERT INTO config(parameter, value, description) VALUES ('emailNoReply', 'no-reply@ocax.es', 'no-reply email address');
-INSERT INTO config(parameter, value, description) VALUES ('languages', 'es,ca', 'Available languages on this site');
-INSERT INTO config(parameter, description) VALUES ('smtpHost', 'SMTP Server');
-INSERT INTO config(parameter, description) VALUES ('smtpPort', 'SMTP Port');
-INSERT INTO config(parameter, value, description) VALUES ('smtpAuth', '0', 'SMTP Auth (0 or 1)');
-INSERT INTO config(parameter, description) VALUES ('smtpSecure', 'SMTP Secure');
-INSERT INTO config(parameter, description) VALUES ('smtpUsername', 'SMTP Username');
-INSERT INTO config(parameter, description) VALUES ('smtpPassword', 'SMTP Password');
-INSERT INTO config(parameter, description) VALUES ('socialTwitterURL', 'Observatory\'s twitter URL');
-INSERT INTO config(parameter, description) VALUES ('socialFacebookURL', 'Observatory\'s facebook URL');
+INSERT INTO config(parameter, value, required, description) VALUES ('councilName', 'Ajuntament de Espanistan', '1', 'Name of the council');
+INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
+INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
+INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca', '1', 'Available languages on this site');
+INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
+INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName', 'Observatori Ciutadà Municipal#de l\'%s', '1', 'Observatory name');
+INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', 'Observatory\'s initials');
+INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
+INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '1', 'SMTP Server');
+INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '1', 'SMTP Password');
+INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '1', 'SMTP Port');
+INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
+INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '1', 'SMTP Username');
+INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', 'Observatory\'s facebook URL');
+INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', 'Observatory\'s twitter URL');
+INSERT INTO config(parameter, required, description) VALUES ('telephone', '0', 'Contact telephone');
+INSERT INTO config(parameter, value, required, description) VALUES ('year', '2013', '1', 'Default Year (this year)');
+
+
+
+
+
 
 
 

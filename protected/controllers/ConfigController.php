@@ -76,7 +76,7 @@ class ConfigController extends Controller
 
 		if(isset($_POST['Config']))
 		{
-			if( $_POST['Config']['parameter'] == 'telephone' || $_POST['Config']['parameter'] == 'observatoryBlog')
+			if(!$model->required)
 				$model->setScenario('canBeEmpty');
 				
 			$model->attributes=$_POST['Config'];
