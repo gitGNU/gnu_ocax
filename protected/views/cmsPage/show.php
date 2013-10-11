@@ -78,7 +78,7 @@ echo '</div>';
 		if($content->pageURL == $item->pageURL)
 			$itemclass='class="cmsPageMenuItem activeMenuItem"';
 		echo '<div '.$itemclass.'>';
-		echo CHtml::link(CHtml::encode($item->pageTitle),array('p/'.$menu_item->id.'/'.$item->pageURL));
+		echo CHtml::link(CHtml::encode($item->pageTitle),array('p/'.$item->pageURL));
 		echo '</div>';
 
 	}
