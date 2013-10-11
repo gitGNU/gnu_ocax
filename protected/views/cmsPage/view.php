@@ -21,11 +21,6 @@
 /* @var $this CmsPageController */
 /* @var $model CmsPage */
 
-$this->breadcrumbs=array(
-	'Cms Pages'=>array('index'),
-	$model->id,
-);
-
 $this->menu=array(
 	array('label'=>'List CmsPage', 'url'=>array('index')),
 	array('label'=>'Create CmsPage', 'url'=>array('create')),

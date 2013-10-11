@@ -21,11 +21,16 @@
 /* @var $this CmsPageController */
 /* @var $model CmsPage */
 
+$deleteConfirm=__('Delete this page');
+if(count($model->cmsPageContents) > 1)
+	$deleteConfirm .= ' '.__('and translations');
+$deleteConfirm .='?';
+
 $this->menu=array(
-	array('label'=>__('Create CmsPage'), 'url'=>array('create')),
-	array('label'=>__('View CmsPage'), 'url'=>array('view', 'id'=>$model->id,'lang'=>$content->language)),
-	array('label'=>__('Manage CmsPage'), 'url'=>array('admin')),
+	array('label'=>__('View page'), 'url'=>array('view', 'id'=>$model->id,'lang'=>$content->language)),
+	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
+	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
 ?>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update CMS Page'))); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update Page'))); ?>

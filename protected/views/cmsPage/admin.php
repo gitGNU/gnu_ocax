@@ -22,7 +22,7 @@
 /* @var $model CmsPage */
 
 $this->menu=array(
-	array('label'=>__('Create CmsPage'), 'url'=>array('create')),
+	array('label'=>__('Create page'), 'url'=>array('create')),
 	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
