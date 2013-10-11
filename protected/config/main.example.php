@@ -67,9 +67,8 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
 				*/
-				'p/<id:\d+>/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
+				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>', // comment out for Gii

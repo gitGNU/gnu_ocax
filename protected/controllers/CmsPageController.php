@@ -77,6 +77,30 @@ class CmsPageController extends Controller
 		));
 	}
 
+	public function actionShow($pageURL)
+	{
+		$_404=Null;
+		$content=CmsPageContent::model()->findByAttributes(array('pageURL'=>$pageURL));
+		if(!$content)
+			$_404=1;
+		else{
+			$model = $this->loadModel($content->page);	
+			if($model->published == 0 && !Yii::app()->user->isEditor())
+				$_404=1;
+		}
+		if($_404){
+			throw new CHttpException(404,'The requested page does not exist.');
+			return $model;
+		}
+
+		$this->layout='//layouts/column1';		
+		$content = $model->getContentForModel(Yii::app()->language);
+		$this->render('show',array(
+			'model'=>$model,
+			'content'=>$content,
+		));
+	}
+/*
 	public function actionShow($id,$pageURL)
 	{
 		$this->layout='//layouts/column1';
@@ -92,7 +116,7 @@ class CmsPageController extends Controller
 			'content'=>$content,
 		));
 	}
-
+*/
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.

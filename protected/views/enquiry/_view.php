@@ -323,7 +323,7 @@ foreach($replys as $reply){
 			echo '</span>';
 		}else{
 			echo '<span style="float:right;text-align:right;">';
-			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->theme->baseUrl.'/images/paper_clip.png" />'.__('Attachments').':';
+			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->request->baseUrl.'/images/paper_clip.png" />'.__('Attachments').':';
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;">';
 				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a> ';

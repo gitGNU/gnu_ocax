@@ -77,12 +77,8 @@
 	<div id="mainmenu">
 		<?php
 			$items=array(
-				//array('label'=>__('Home'), 'url'=>array('/site/index')),
-				//array('label'=>__('My page'), 'url'=>array('/user/panel'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>__('Budgets'), 'url'=>array('/budget'),'active'=> (strcasecmp(Yii::app()->controller->id, 'budget') === 0)  ? true : false),
 				array('label'=>__('Enquiries'), 'url'=>array('/enquiry'),'active'=> (strcasecmp(Yii::app()->controller->id, 'enquiry') === 0)  ? true : false),
-				//array('label'=>__('Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				//array('label'=>__('Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			);
 			$criteria=new CDbCriteria;
 			$criteria->condition = 'weight = 0 AND published = 1';
@@ -91,7 +87,7 @@
 			foreach($cms_pages as $page){
 				$page_content = $page->getContentForModel(Yii::app()->language);
 				$item = array( array(	'label'=>CHtml::encode($page_content->pageTitle),
-										'url'=>array('/p/'.$page->id.'/'.$page_content->pageURL),
+										'url'=>array('/p/'.$page_content->pageURL),
 										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
 								));
 				array_splice( $items, 0, 0, $item );
