@@ -1,6 +1,5 @@
 
 
-
 .pgrid-cursor-pointer table.items tr td
 {
 	cursor: pointer;
@@ -13,16 +12,17 @@
 
 .pgrid-view table.items
 {
-	background: white;
 	border-collapse: collapse;
 	width: 100%;
-	border: 1px #D0E3EF solid;
 }
 
 .pgrid-view table.items th, .pgrid-view table.items td
 {
 	font-size: 0.9em;
-	border: 2px #f5f1ed solid;
+	border: 1px #676767 solid;
+	border-left: 0px;
+	border-right: 0px;
+	/*border: 1px #676767 solid;*/
 	padding: 0.3em;
 }
 
@@ -69,12 +69,12 @@
 
 .pgrid-view table.items tr.even
 {
-	background: #ded8d1;
+	background: none;;
 }
 
 .pgrid-view table.items tr.odd
 {
-	background: #94c68d;
+	background: none;;
 }
 
 .pgrid-view table.items tr.selected
