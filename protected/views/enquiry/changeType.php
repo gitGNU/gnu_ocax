@@ -139,7 +139,11 @@ if($model->budget){
 	'columns'=>array(
 		'year',
 		'code',
-		'concept',
+		array(
+			'header'=>__('Concept'),
+			'name'=>'concept',
+			'value'=>'Budget::model()->findByPk($data[\'id\'])->getConcept()',
+		),
 		array(
 			'class'=>'CButtonColumn',
 			'buttons' => array(
