@@ -56,18 +56,22 @@ $(document).ready(function() {
 			echo __('Modify enquiry');
 	?>
 	</div>
+	<?php
+		if(!$model->isNewRecord && Yii::app()->user->getUserID() == $model->team_member)
+			$this->renderPartial('_detailsForTeam', array('model'=>$model));
+		else{
+			if($model->budget){
+				echo '<div class="row" style="margin:0px 0px 0px -10px;">';
+				$budget=Budget::model()->findByPk($model->budget);
+				$this->renderPartial('//budget/_enquiryView',array('model'=>$budget,'showMore'=>1));
+				echo '</div>';
+			}
+		}
+	?>
 
 	<?php echo $form->errorSummary($model); ?>
 	<?php echo $form->hiddenField($model,'budget'); ?>
 	<?php echo $form->hiddenField($model,'related_to'); ?>
-
-
-	<?php if($model->budget){
-		echo '<div class="row" style="margin:0px 0px 0px -10px;">';
-		$budget=Budget::model()->findByPk($model->budget);
-		$this->renderPartial('//budget/_enquiryView',array('model'=>$budget,'showMore'=>1));
-		echo '</div>';
-	}?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>

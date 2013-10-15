@@ -86,7 +86,7 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
-		echo '<div class="panel_separator" style="width:100%;">';
+		echo '<div class="panel_separator">';
 		echo '<div id="control_panel"></div>';
 		echo '<div class="clear"></div>';
 		echo '</div>';	

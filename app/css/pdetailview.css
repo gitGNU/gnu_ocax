@@ -30,17 +30,6 @@ table.detail-view td:nth-child(1){
 table.detail-view td:nth-child(2){
     background-color:transparent;
 }
-/*
-table.detail-view tr.odd
-{
-	background:#E5F1F4;
-}
-
-table.detail-view tr.even
-{
-	background:#F8F8F8;
-}
-*/
 
 table.detail-view tr.odd th
 {

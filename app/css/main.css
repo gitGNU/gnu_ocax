@@ -218,31 +218,34 @@ div.search-form
 
 .portlet
 {
-
+	margin-right:-40px;
+	border-left: 4px solid #676767;
+	/*border-bottom: 4px solid #676767;*/
 }
 
 .portlet-decoration
 {
-	padding: 3px 8px;
-	background: #B7D6E7;
-	border-left: 5px solid #6FACCF;
+	/*padding: 3px 8px;*/
+	/*background: #B7D6E7;*/
+
 }
 
 .portlet-title
 {
-	font-size: 12px;
-	font-weight: bold;
-	padding: 0;
+	font-size: 1.2em;
+	/*font-weight: bold;*/
+	padding: 5px;
 	margin: 0;
-	color: #298dcd;
+	color: white;
+	background-color:#676767;
 }
 
 .portlet-content
 {
 	font-size:0.9em;
-	margin: 0 0 15px 0;
-	padding: 5px 8px;
-	background:#EFFDFF;
+	/*margin: 0 0 15px 0;*/
+	/*padding: 5px 8px;*/
+	/*background:#EFFDFF;*/
 }
 
 .portlet-content ul
@@ -251,12 +254,12 @@ div.search-form
 	list-style-position:outside;
 	list-style-type:none;
 	margin: 0;
-	padding: 0;
+	padding: 15px 0 15px 0;
 }
 
 .portlet-content li
 {
-	padding: 2px 0 4px 0px;
+	padding: 2px 0px 2px 0px;
 }
 
 .operations
@@ -273,10 +276,10 @@ div.search-form
 
 .operations li a
 {
-	font: bold 12px Arial;
-	color: #0066A4;
+	font: 12px Arial;
+	color: grey;
 	display: block;
-	padding: 2px 0 2px 8px;
+	padding: 2px 2px 2px 8px;
 	line-height: 15px;
 	text-decoration: none;
 }
@@ -288,7 +291,7 @@ div.search-form
 
 .operations li a:hover
 {
-	background: #80CFFF;
+	background-color:rgb(228, 222, 215);
 }
 
 
@@ -378,6 +381,15 @@ div.search-form
 	background-position: top;
 	width: 100%; 
 	float: right; 
+	padding:10px 0px 0px 0px;
+	margin-top: 20px;
+}
+
+.horizontal_rule {
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;
+	width: 100%;
 	padding:10px 0px 0px 0px;
 	margin-top: 20px;
 }

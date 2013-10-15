@@ -140,47 +140,10 @@ function showBudget(budget_id, element){
 }
 </script>
 
-
- 
-
 <?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
-$providerData = $reformulatedDataprovider->getData();
-
-echo '<style>.highlight_row{background:#FFDEAD;}</style>';
-echo 	'<div style="font-size:1.3em">'.__('The enquiry').' "'.$providerData[0]->title.'" '.__('has been reformulated').
-		' '. (count($providerData)-1) .' '.__('time(s)').'</div>';
-
-$this->widget('PGridView', array(
-	'id'=>'reforumulated-enquiry-grid',
-	'dataProvider'=>$reformulatedDataprovider,
-	'template' => '{items}{pager}',
-	'rowCssClassExpression'=>'($data->id == '.$model->id.')? "highlight_row":"row_id_".$row." ".($row%2?"even":"odd")',
-    'onClick'=>array(
-        'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
-    ),
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
-	'columns'=>array(
-			array(
-				'header'=>__('Enquiry'),
-				'value'=>'$data[\'title\']',
-			),
-			array(
-				'header'=>__('State'),
-				'type' => 'raw',
-				'value'=>'$data->getHumanStates($data[\'state\'])',
-			),
-			array(
-				'header'=>__('Formulated'),
-				'name'=>'created',
-				'value'=>'format_date($data[\'created\'])',
-			),
-			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
-)));
+	$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
+															'model'=>$model,
+															'onClick'=>'/enquiry/view'));
 }?>
 
 <h1><?php echo $model->title?></h1>

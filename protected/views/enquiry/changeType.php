@@ -25,7 +25,6 @@ $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
 	array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
-	//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 
 ?>
@@ -131,6 +130,9 @@ if($model->budget){
 
 <?php
 	$this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'budget-grid',
 	'dataProvider'=>$filterBudgetModel->changeTypeSearch(),
 	'filter'=>$filterBudgetModel,
@@ -144,7 +146,7 @@ if($model->budget){
 				'select' => array(
 					'label'=> __('Choose budget'),
 					'url'=> '"javascript:chooseBudget(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->theme->baseUrl.'/images/tick.png',
+					'imageUrl' => Yii::app()->request->baseUrl.'/images/tick.png',
 					'visible' => 'true',
 				)
 

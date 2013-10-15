@@ -244,7 +244,7 @@ function sendContactForm(form){
 }
 </script>
 
-<?php echo $model->body;?>
+<p><?php echo $model->body;?></p>
 <div style="clear:both"></div>
 
 <?php

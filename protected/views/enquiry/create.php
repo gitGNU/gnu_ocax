@@ -58,6 +58,16 @@ if(!$model->budget){
 <div style="clear:both"></div>
 
 <?php
+if($model->related_to){
+	echo '<div class="horizontal_rule"></div>';
+	echo '<div class="sub_title">'.__('The original enquiry').'</div';
+	$related_enquiry=Enquiry::model()->findByPk($model->related_to);
+	echo $this->renderPartial('_teamView', array('model'=>$related_enquiry));
+}
+?>
+
+<?php
+/*
 	if($model->related_to){
 		$related_enquiry=Enquiry::model()->findByPk($model->related_to);
 		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$related_enquiry->id));
@@ -90,5 +100,6 @@ if(!$model->budget){
 		$this->renderPartial('_view', array('model'=>$related_enquiry,'replys'=>$replys,));
 		echo '</div>';
 	}
+*/
 ?>
 
