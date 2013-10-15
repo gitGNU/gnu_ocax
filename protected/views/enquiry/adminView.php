@@ -101,11 +101,9 @@ function megaDelete(el){
 <?php endif; ?>
 
 
-<div id="mega_delete" style="display:none;width:850px;">
-	<div style="background-color:white;padding:5px;">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-		<div id="mega_delete_content"></div>
-	</div>
+<div id="mega_delete" class="modal" style="display:none;width:850px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="mega_delete_content"></div>
 </div>
 
 

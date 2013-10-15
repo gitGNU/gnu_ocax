@@ -28,12 +28,6 @@
 	cursor:pointer;
 	text-decoration:underline;
 }
-.bClose{
-	cursor: pointer;
-	position: absolute;
-	right: -21px;
-	top: -21px;
-}
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
@@ -124,10 +118,8 @@ function showRecipients(){
 
 </div><!-- form -->
 
-<div id="recipients" style="display:none;width:600px;">
-<div>
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="recipients_body"></div>
-</div>
+<div id="recipients" style="width:600px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="recipients_body"></div>
 </div>
 

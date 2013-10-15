@@ -79,7 +79,7 @@ class EnquiryController extends Controller
 	{
 		$this->layout='//layouts/column1';
 		$model=$this->loadModel($id);
-		$this->pageTitle=CHtml::encode(__('Enquiry').': '.$model->title);
+		$this->pageTitle=__('Enquiry').': '.$model->title;
 
 		$this->render('view',array(
 			'model'=>$model,

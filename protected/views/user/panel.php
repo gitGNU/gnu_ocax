@@ -78,8 +78,6 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 <?php echo __('Change your password');?></p>
 </div>
 
-
-
 <?php
 
 $panel_separator_added=0;
@@ -157,7 +155,7 @@ $noEnquiries=1;
 
 if($enquirys->getData()){
 $noEnquiries=0;
-echo '<div style="font-size:1.5em">'.__('My enquiries').'</div>';
+echo '<div class="sub_title">'.__('My enquiries').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -193,7 +191,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 if($subscribed->getData()){
 $noEnquiries=0;
-echo '<div style="font-size:1.5em">'.__('I am subscribed to these enquirytions').'</div>';
+echo '<div class="sub_title">'.__('I am subscribed to these enquirytions').'</div>';
 echo '<span class="hint">'.__('You will be sent an email when these enquiries are updated').'</span>';
 $this->widget('PGridView', array(
 	'id'=>'subscribed-grid',

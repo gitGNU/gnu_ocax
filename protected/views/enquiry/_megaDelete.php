@@ -22,16 +22,16 @@ Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 ?>
-<div style="margin:-5px;background-color:orange">
-	<h1 style="text-align:center;">!! Delete enquiry !!</h1>
+<div style="margin:-10px;background-color:orange">
+	<h1 style="text-align:center;color:black;padding:15px;">!! Delete enquiry !!</h1>
 </div>
 
 <div id="enquiry_body" style="margin:-5px;margin-top:-15px;">
 	<?php echo $this->renderPartial('//enquiry/_teamView', array('model'=>$model)); ?>
 </div>
 
-<div style="background-color:orange;padding:5px;margin:-5px;">
-	<h1 style="text-align:center;">Are you sure you want to delete it all?</h1>
+<div style="background-color:orange;padding:5px;margin:-10px;margin-top:5px;margin-bottom:-10px;">
+	<h1 style="text-align:center;color:black;padding:15px;">Are you sure you want to delete it all?</h1>
 	<div style="width:100%">
 		<div style="float:left;width:80%;color:black;font-weight:strong;">
 			<ul>
@@ -52,6 +52,7 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	</div>
 	<div style="clear:both"></div>
 </div>
+
 
 
 

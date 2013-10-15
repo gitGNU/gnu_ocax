@@ -146,14 +146,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ));
 ?>
 
-<div id="csvs" style="display:none;width:500px;">
+<div id="csvs" class="modal" style="width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="csvs_content" style="background-color:white;"></div>
+<div id="csvs_content" style="margin:-10px;"></div>
 </div>
 
-<div id="files" style="display:none;width:500px;">
+<div id="files" class="modal" style="width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="background-color:white;"></div>
+<div id="files_content" style="margin:-10px;"></div>
 </div>
 
 <?php if(Yii::app()->user->hasFlash('success')):?>

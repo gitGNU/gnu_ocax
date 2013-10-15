@@ -20,9 +20,7 @@
 
 ?>
 
-<div class="form">
-
-<div class="title">
+<div class="sub_title">
 <?php 
 	if($draft)
 		echo __('Will send to all users at').' '.Config::model()->findByPk('siglas')->value;
@@ -30,7 +28,6 @@
 		echo __('Was sent to these users');
 ?>
 </div>
-
 <?php echo $recipients;?>
 
-</div>
+

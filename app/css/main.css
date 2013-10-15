@@ -701,9 +701,15 @@ div.search-form
 }
 
 /*POPUP Lightbox*/
-.popup_content_j
+.modal 
 {
-	padding:25px;
-	padding-bottom:0px;
-	font-size:110%;
+	display:none;
+	background-color: rgb(245,241,237);
+	padding:10px;
+}
+.bClose{ /* close popup window icon */
+	cursor: pointer;
+	position: absolute;
+	right: -21px;
+	top: -21px;
 }

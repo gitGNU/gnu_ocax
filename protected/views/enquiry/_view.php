@@ -371,18 +371,15 @@ foreach($replys as $reply){
 
 <div id="comment_form" style="display:none"></div>
 
-<div id="budget_popup" style="display:none;width:900px;">
-	<div style="background-color:white;padding:10px;">
+<div id="budget_popup" class="modal" style="width:900px;">
 	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 	<div id="budget_popup_body"></div>
-	</div>
-	<p>&nbsp;</p>
 </div>
 
 <?php if (!Yii::app()->user->isGuest) : ?>
-	<div id="contact_petition" style="display:none;width:700px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-	<div id="contact_petition_content"></div>
+	<div id="contact_petition" class="modal" style="width:700px;">
+		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+		<div id="contact_petition_content" style="margin:-10px"></div>
 	</div>
 <? endif ?>
 
@@ -426,9 +423,9 @@ function deleteFile(file_id){
 	});
 }
 </script>
-<div id="files_popup" style="display:none;width:500px;">
+<div id="files_popup" class="modal" style="width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_popup_content" style="background-color:white;"></div>
+<div id="files_popup_content" style="margin:-10px;"></div>
 </div>
 <? endif ?>
 

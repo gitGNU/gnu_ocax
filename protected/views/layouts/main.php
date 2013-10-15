@@ -49,7 +49,7 @@
 				echo CHtml::link(__('Login'), array('/site/login'));
 			}else{
 				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/logout'));
-				echo CHtml::link(__('Logout'), array('/site/logout'));				
+				echo CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout'));				
 			}
 		?>
 	</div>   
@@ -136,7 +136,10 @@
 	<div style="width: 28%; float: left;  margin: 0px; text-align:center">
 		Una iniciativa de:
 		<br /><br />
-		<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"/>
+		<img style="cursor:pointer"
+			 src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"
+			 onclick="location.href='http://auditoriaciudadana.net';"
+		/>
 	</div>
 	
     <div style="width: 33%; float: left;  margin: 0px;">

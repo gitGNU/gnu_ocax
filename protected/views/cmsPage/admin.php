@@ -23,8 +23,8 @@
 
 $this->menu=array(
 	array('label'=>__('Create page'), 'url'=>array('create')),
-	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
+	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 );
 ?>
 
@@ -112,7 +112,7 @@ function uploadFile(){
     </div>
 <?php endif; ?>
 
-<div id="files" style="display:none;width:500px;">
+<div id="files" class="modal" style="width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="background-color:white;"></div>
+<div id="files_content" style="margin:-10px"></div>
 </div>

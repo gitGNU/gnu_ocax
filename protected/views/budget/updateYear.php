@@ -122,11 +122,9 @@ $this->widget('PGridView', array(
 
 }
 ?>
-<div id="mega_delete" style="display:none;width:850px;">
-	<div style="background-color:white;padding:5px;">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-		<div id="mega_delete_content"></div>
-	</div>
+<div id="mega_delete" class="modal" style="width:850px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="mega_delete_content"></div>
 </div>
 
 <?php /*echo $this->renderPartial('//enquiry/_megaDelete');*/ ?>

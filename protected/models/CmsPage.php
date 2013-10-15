@@ -96,11 +96,19 @@ class CmsPage extends CActiveRecord
 		if(strcasecmp(Yii::app()->controller->id, 'cmsPage')!==0)
 			return 0;
 		$arr = explode('/',Yii::app()->request->getPathInfo());
-		if(isset($arr[1]) && $requestedPage= CmsPage::model()->findByPk($arr[1])){
-			if(	$requestedPage->block == $this->block)
+		
+		if(isset($arr[1]) && $requestedPage = $this->findByURL($arr[1])){
+			if($requestedPage->block == $this->block)
 				return 1;
 		}
 		return 0;
+	}
+
+	public function findByURL($contentURL)
+	{
+		if($pageContent = CmsPageContent::model()->findByAttributes(array('pageURL'=>$contentURL)))
+			return $pageContent->page0;
+		return null;
 	}
 
 
