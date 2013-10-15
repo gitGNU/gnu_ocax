@@ -62,7 +62,11 @@ function featureBudget(budget_id){
 	'filter'=>$model,
 	'columns'=>array(
 		'featured',
-		'concept',
+		array(
+			'header'=>__('Concept'),
+			'name'=>'concept',
+			'value'=>'Budget::model()->findByPk($data[\'id\'])->getConcept()',
+		),
 		'code',
 		'csv_id',
 		array(

@@ -50,7 +50,7 @@ $this->menu=array(
 <?php
 	if($model->text){
 		echo '<h2>'.__('Description').'</h2>';
-		echo $model->description;
+		echo '<p>'.$model->description.'</p>';
 	}else
-		echo '<span style="font-size:1.3em;color:red;">'.__('Description not defined').'</span>';
+		echo '<p style="color:red;">'.__('Description not defined').'</p>';
 ?>

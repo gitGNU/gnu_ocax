@@ -118,7 +118,7 @@ function showRecipients(){
 
 </div><!-- form -->
 
-<div id="recipients" style="width:600px;">
+<div id="recipients" class="modal" style="width:600px;">
 	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 	<div id="recipients_body"></div>
 </div>
