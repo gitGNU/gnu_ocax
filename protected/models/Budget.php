@@ -240,6 +240,20 @@ class Budget extends CActiveRecord
 	{
 		return $this->findByAttributes(array('year'=>$this->year,'parent'=>Null))->initial_provision;
 	}
+	
+	public function getChildBudgets()
+	{
+		if(!$this->budgets)
+			return null;
+			
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('parent = '.$this->id.' and actual_provision != 0');
+		
+		$provider=new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+		return $provider->getData();			
+	}
 
 	public function publicSearch()
 	{

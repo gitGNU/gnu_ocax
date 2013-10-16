@@ -12,7 +12,7 @@ require_once(dirname(__FILE__).'/../includes/utils.php');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'OCA(x)',
-	'theme'=>'ocax',
+	'theme'=>'1',
 	'language' => 'ca',
 
 	'behaviors' => array('ApplicationConfigBehavior'),
@@ -59,15 +59,6 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
-/*
-				'gii'=>'gii',
-				'gii/<controller:\w+>'=>'gii/<controller>',
-				'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
-                '<controller:\w+>/<action:\w+>/<id:\d+>/<title:\w+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				*/
 				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

@@ -154,9 +154,8 @@ CREATE TABLE IF NOT EXISTS emailtext (
 	PRIMARY KEY (state)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola %name%,</p><p>ENQUIRY_PENDING_VALIDATION<br />
-												En breve se asignará a un miembro del equipo</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola team_member,</p><p>This is an internal email<br />ENQUIRY_ASSIGNED a ti.</p><p>%link%</p>');
+INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola %name%,</p><p>ENQUIRY_PENDING_VALIDATION</p>');
+INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola team_member,</p><p>This is an internal email.<br />ENQUIRY_ASSIGNED</p><p>%link%</p>');
 INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>ENQUIRY_REJECTED</p>');
 INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>ENQUIRY_ACCEPTED</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
 INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>ENQUIRY_AWAITING_REPLY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
@@ -202,6 +201,23 @@ CREATE TABLE IF NOT EXISTS bulk_email (
 	FOREIGN KEY (sender) REFERENCES user(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS intro_page (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	weight int( 10 ) NOT NULL,
+	published tinyint( 1 ) NOT NULL DEFAULT '0',
+	PRIMARY KEY (id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS intro_page_content (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	page int(11) NOT NULL,
+	language char(2) NOT NULL,
+	pageTitle varchar( 255 ) DEFAULT NULL ,
+	body TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (page) REFERENCES intro_page(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS cms_page (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	block int( 10 ) NOT NULL,
@@ -243,21 +259,21 @@ CREATE TABLE IF NOT EXISTS config (
   description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO config(parameter, value, required, description) VALUES ('councilName', 'Ajuntament de Espanistan', '1', 'Name of the council');
+INSERT INTO config(parameter, value, required, description) VALUES ('councilName', 'Ayuntamiento de Espanistan', '1', 'Name of the council');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca', '1', 'Available languages on this site');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
-INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName', 'Observatori Ciutadà Municipal#de l\'%s', '1', 'Observatory name');
-INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', 'Observatory\'s initials');
+INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name');
+INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
 INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '1', 'SMTP Server');
 INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '1', 'SMTP Password');
 INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '1', 'SMTP Port');
 INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
 INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '1', 'SMTP Username');
-INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', 'Observatory\'s facebook URL');
-INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', 'Observatory\'s twitter URL');
+INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
+INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('telephone', '0', 'Contact telephone');
 INSERT INTO config(parameter, value, required, description) VALUES ('year', '2013', '1', 'Default Year (this year)');
 

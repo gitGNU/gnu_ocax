@@ -76,7 +76,7 @@ function toggleChildren(id){
 
 function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$parent_budget->id;
+	$criteria->condition = 'parent = '.$parent_budget->id.' AND actual_provision != 0';
 	$criteria->order = 'actual_provision DESC';
 	$child_budgets = Budget::model()->findAll($criteria);
 
