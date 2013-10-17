@@ -143,7 +143,7 @@
 	</div>
 	
     <div style="width: 33%; float: left;  margin: 0px;">
-		Copyright &copy; <?php echo date('Y'); ?> por <a href="http://ocax.net">OCAX</a><br/>
+		Copyright &copy; <?php echo date('Y'); ?> por <a href="http://ocax.net">http://ocax.net</a><br/>
 		AGPLv3 <a href="https://gitorious.org/ocax/">https://gitorious.org/ocax</a><br />
 	</div>
 	

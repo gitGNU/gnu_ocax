@@ -106,6 +106,7 @@ function megaDelete(el){
 <p></p>
 <?php
 if($enquirys->getData()){
+echo '<div class="horizontal_rule" style="margin-top:20px"></div>';
 echo '<span style="font-size:1.5em">'.__('Enquiries made by').' '.$model->fullname.'</span>';
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',

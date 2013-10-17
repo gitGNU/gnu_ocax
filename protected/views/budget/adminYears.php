@@ -72,7 +72,7 @@ function restoreBudgets(file_id){
 }
 </script>
 
-<h1>Manage years</h1>
+<h1><?php echo __('Manage years');?></h1>
 
 <?php
 //$data[\'initial_provision\']
@@ -92,7 +92,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'columns'=>array(
 		'year',
 		array(
-			'header'=>'Published',
+			'header'=>__('Published'),
 			'name'=>'code',
 			'value'=>'$data[\'code\']',
 		),

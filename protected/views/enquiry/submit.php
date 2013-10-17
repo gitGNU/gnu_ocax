@@ -129,7 +129,7 @@ function deleteDoc(){
 	<div class="row">
 		<div style="margin-bottom:5px;font-weight:bold;"><?php echo __('Documentation');?></div>
 		<a href="<?php echo $model->documentation0->getWebPath();?>" target="_new"><?php echo $model->documentation0->name;?></a>
-		<img class="icon" src="<?php echo Yii::app()->theme->baseUrl;?>/images/delete.png" onClick="js:deleteDoc()" />
+		<img class="icon" src="<?php echo Yii::app()->request->baseUrl;?>/images/delete.png" onClick="js:deleteDoc()" />
 	</div>
 	<?php } ?>
 
