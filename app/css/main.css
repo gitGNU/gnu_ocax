@@ -218,9 +218,9 @@ div.search-form
 
 .portlet
 {
+	margin-top:-45px;
 	margin-right:-40px;
-	border-left: 4px solid #676767;
-	/*border-bottom: 4px solid #676767;*/
+	border-left: 3px solid #676767;
 }
 
 .portlet-decoration
@@ -259,7 +259,7 @@ div.search-form
 
 .portlet-content li
 {
-	padding: 2px 0px 2px 0px;
+	padding: 0px;
 }
 
 .operations
@@ -279,7 +279,7 @@ div.search-form
 	font: 12px Arial;
 	color: grey;
 	display: block;
-	padding: 2px 2px 2px 8px;
+	padding: 8px 0px 8px 8px;
 	line-height: 15px;
 	text-decoration: none;
 }
@@ -362,7 +362,10 @@ div.search-form
 	font-size:225%;
 }
 
-
+.enquiryBody{
+	font-size:1.2em;
+	overflow-x:hidden;
+}
 
 /*PAGINA USUARIO*/
 .panel_left {

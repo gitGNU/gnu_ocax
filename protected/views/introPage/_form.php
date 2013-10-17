@@ -97,6 +97,7 @@
 	</div>
 
 	<div class="row">
+		<?php $content->body = preg_replace('#<br\s*?/?>#i', "", $content->body); ?>
 		<?php echo $form->labelEx($content,'body'); ?>
 		<?php echo $form->textArea($content,'body',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($content,'body'); ?>

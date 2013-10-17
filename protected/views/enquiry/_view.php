@@ -244,11 +244,10 @@ function sendContactForm(form){
 }
 </script>
 
-<p><?php echo $model->body;?></p>
+<div class="enquiryBody"><?php echo $model->body;?></div>
 <div style="clear:both"></div>
 
 <?php
-
 echo '<div class="comments">';	// comments on enquiry open
 
 $comments = Comment::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
