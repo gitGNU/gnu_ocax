@@ -38,9 +38,7 @@
 	?>	
 
 	<div class="title"><?php echo $title.' ('.$show_language.')';?></div>
-
 	<?php echo CHtml::errorSummary(array($model, $content)); ?>
-	
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php

@@ -248,11 +248,7 @@ class Budget extends CActiveRecord
 			
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent = '.$this->id.' and actual_provision != 0');
-		
-		$provider=new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-		return $provider->getData();			
+		return $this->findAll($criteria);
 	}
 
 	public function publicSearch()

@@ -18,12 +18,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this IntroPageController */
+/* @var $model IntroPage */
+
+
+$deleteConfirm=__('Delete this page');
+if(count($model->introPageContents) > 1)
+	$deleteConfirm .= ' '.__('and translations');
+$deleteConfirm .='?';
 
 $this->menu=array(
+	array('label'=>__('View page'), 'url'=>array('view', 'id'=>$model->id,'lang'=>$content->language)),
+	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
 ?>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create page'))); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update page'))); ?>

@@ -203,8 +203,11 @@ CREATE TABLE IF NOT EXISTS bulk_email (
 
 CREATE TABLE IF NOT EXISTS intro_page (
 	id int(11) NOT NULL AUTO_INCREMENT,
-	weight int( 10 ) NOT NULL,
-	published tinyint( 1 ) NOT NULL DEFAULT '0',
+	weight TINYINT(2) NOT NULL,
+	toppos TINYINT(3) NOT NULL DEFAULT '50',
+	leftpos TINYINT(3) NOT NULL DEFAULT '50',
+	width INT(4) NOT NULL DEFAULT '300',
+	published tinyint(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -212,8 +215,9 @@ CREATE TABLE IF NOT EXISTS intro_page_content (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	page int(11) NOT NULL,
 	language char(2) NOT NULL,
-	pageTitle varchar( 255 ) DEFAULT NULL ,
-	body TEXT,
+	title varchar( 255 ) NOT NULL,
+	subtitle varchar( 255 ),
+	body TEXT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (page) REFERENCES intro_page(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

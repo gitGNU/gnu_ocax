@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OCAX -- Citizen driven Municipal Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
@@ -18,8 +17,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this IntroPageController */
+/* @var $model IntroPage */
 
 $this->menu=array(
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),

@@ -31,6 +31,9 @@ foreach($files as $image)
 	$images[] = basename($image);
 shuffle($images);
 
+if($page=IntroPage::model()->find(array('condition'=> 'published = 1'))){
+	$content=$page->getContent($lang);
+}
 ?>
 
 <style>
@@ -43,24 +46,6 @@ shuffle($images);
 	width:980px;
 	background: url("<?php echo Yii::app()->theme->baseUrl;?>/wallpaper/<?php echo $images[0];?>") 0 0 no-repeat;
 }
-
-.block {
-	opacity: 0.5;
-	font-size:1.3em;
-	padding:10px;
-	background-color:white;
-}
-.block .title {
-	margin-bottom:15px;
-	line-height: 100%;
-	font-size: 28pt;
-	letter-spacing:-0.5pt;	font-weight:200;	
-}
-.nextPage {
-	font-size: 1.7em;
-	cursor:pointer;
-}
-
 </style>
 
 <script>
@@ -71,11 +56,11 @@ var wallpaperCnt = 0;
 var wallpapers = <?php echo json_encode($images); ?>;
 var pageCache=new Array();
 
-function nextPage(){
+function nextPage(next_id){
 	wallpaperCnt = wallpaperCnt +1;
 	if(wallpaperCnt == wallpapers.length)
 		wallpaperCnt = 0;
-		
+/*		
 	pageCnt = pageCnt +1;
 	if(pageCnt == TOTAL_PAGES)
 		pageCnt = 0;
@@ -84,8 +69,9 @@ function nextPage(){
 		showPage();
 		return;	
 	}
+*/
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/site/getIndexContent/'+pageCnt,
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/introPage/getPage/'+next_id,
 		type: 'GET',
 		//beforeSend: function(){	$('.loading_gif').remove();	},
 		//complete: function(){ $('.loading_gif').remove(); },
@@ -111,8 +97,9 @@ function showPage(){
 </script>
 
 <div id="wallpaper">
-
-<?php echo $this->renderPartial('_index0', array('lang'=>$lang)); ?>
-
+<?php 
+	if($page && $content)
+		echo $this->renderPartial('//introPage/show', array('model'=>$page,'content'=>$content));
+?>
 </div>
 

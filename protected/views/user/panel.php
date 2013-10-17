@@ -105,10 +105,11 @@ if($model->is_team_member){
 if($model->is_editor){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">'.CHtml::link('Site CMS page editor',array('/cmsPage')).'</div>';
-	echo 	'<p>'.__('Edit the general information pages').'<br />'.
-			'<a href="http://ocax.net/?El_software:CMS_editor" target="_new">'.__('more info').'</a>'.	
-			'</p>';
+	echo '<div class="sub_title">CMS editor options</div>';
+	echo '<p>';
+		echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
+		echo CHtml::link(_('Site pages'), array('/cmsPage/admin')).'<br />';
+	echo '</p>';
 	echo '</div>';
 }
 
@@ -127,7 +128,7 @@ if($model->is_admin){
 	changeColumn();
 	echo '<div class="sub_title">Administator\'s options</div>';
 	echo '<div style="float:left">';
-		echo CHtml::link('Users and roles',array('user/admin')).'<br />';	
+		echo CHtml::link('Users and roles',array('user/admin')).'<br />';
 		echo CHtml::link('Email text templates',array('emailtext/admin')).'<br />';
 		echo CHtml::link('Bulk email',array('bulkEmail/admin')).'<br />';
 		echo CHtml::link('Zip file',array('file/databaseDownload')).'<br />';
@@ -136,6 +137,7 @@ if($model->is_admin){
 		echo CHtml::link('Years and budget data',array('budget/adminYears')).'<br />';	
 		echo CHtml::link('Budget descriptions',array('budgetDescription/admin')).'<br />';
 		echo CHtml::link('Global parameters',array('config/admin')).'<br />';
+	echo '</div>';
 	echo '</div>';
 	echo '</div>';
 }

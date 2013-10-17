@@ -18,12 +18,29 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this IntroPageController */
+/* @var $model IntroPage */
+
 
 $this->menu=array(
-	array('label'=>__('Manage pages'), 'url'=>array('admin')),
+	array('label'=>_('Create page'), 'url'=>array('create')),
 );
 ?>
+<h1><?php echo _('Manage Introduction pages');?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create page'))); ?>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+	'id'=>'intro-page-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('update').'/"+$.fn.yiiGridView.getSelection(id);}',
+	'dataProvider'=>$model->search(),
+	'columns'=>array(
+		'weight',
+		array(
+			'header'=>__('Title'),
+			'value'=>'IntroPage::model()->getTitleForModel($data->id)',
+		),
+		'published',
+	),
+)); ?>
