@@ -50,8 +50,6 @@ $(document).ready(function() {
 		if($model->isNewRecord){
 			if($model->related_to)
 				echo ' '.__('New reformulated enquiry');
-			else
-				echo ' '.__('New enquiry');
 		}else
 			echo __('Modify enquiry');
 	?>

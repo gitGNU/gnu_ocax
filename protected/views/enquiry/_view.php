@@ -124,6 +124,8 @@ function submitComment(form){
 					count = parseInt(comment_count.html())+1;
 					comment_count.html(count);
 					show_comments_link.show();
+					if($('#subscribe_checkbox').length>0)
+						$('#subscribe_checkbox').attr('checked', true);
 				}
 				$('#comment_form').prev('.add_comment_link').show();
 		},

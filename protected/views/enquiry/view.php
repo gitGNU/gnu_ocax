@@ -83,7 +83,9 @@ function subscribe(el){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/subscribe',
 		type: 'POST',
 		dataType: 'json',
-		data: { 'enquiry': <?php echo $model->id;?> },
+		data: { 'enquiry': <?php echo $model->id;?>,
+				'subscribe': $(el).is(':checked'),
+			  },
 		//beforeSend: function(){ },
 		//complete: function(){ },
 		success: function(data){
@@ -233,13 +235,15 @@ if($model->budget)
 			$checked = 'checked';
 ?>
 <?php echo __('Keep me informed via email when there are changes')?>
-<input type="checkbox"	onClick="js:subscribe(this);"
-						style="
-						    vertical-align: middle;
-						    position: relative;
-						    bottom: 1px;
-						"
-	<?php echo $checked; ?>
+<input	id="subscribe_checkbox"
+		type="checkbox"
+		onClick="js:subscribe(this);"
+		style="
+		    vertical-align: middle;
+		    position: relative;
+		    bottom: 1px;
+		"
+		<?php echo $checked; ?>
 />
 </div>
 

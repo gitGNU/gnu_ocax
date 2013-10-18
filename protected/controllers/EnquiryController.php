@@ -122,23 +122,29 @@ class EnquiryController extends Controller
 		if(!Yii::app()->request->isAjaxRequest)
 			Yii::app()->end();
 
-		if(isset($_POST['enquiry']))
+		if(isset($_POST['enquiry']) && isset($_POST['subscribe']))
 		{
 			$user = Yii::app()->user->getUserID();
 			$criteria = new CDbCriteria;
 			$criteria->condition = 'enquiry = '.$_POST['enquiry'].' AND user = '.$user;
 			$model=EnquirySubscribe::model()->find($criteria);
-			if($model){
+			
+			if($model && $_POST['subscribe']=='false'){
 				$model->delete();
 				echo '0';
+			}elseif ($model && $_POST['subscribe']=='true'){
+				// do nothing. user probably just made a comment and we automatically subscribed him
+				echo '1';
 			}else{
 				$model=new EnquirySubscribe;
 				$model->enquiry = $_POST['enquiry'];	// should check if enquiry id is valid.
 				$model->user = $user;
 				$model->save();
 				echo '1';
-			}			
+			}
+			Yii::app()->end();		
 		}
+		echo '0';
 	}
 
 	/**

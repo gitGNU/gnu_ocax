@@ -369,12 +369,12 @@ div.search-form
 
 /*PAGINA USUARIO*/
 .panel_left {
-	width: 49%; 
+	width: 60%; 
 	float: left; 
 	padding:10px 0px 0px 0px;
 }
 .panel_right {
-	width: 49%; 
+	width: 38%; 
 	float: right; 
 	padding:10px 0px 0px 0px;
 }

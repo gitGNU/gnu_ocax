@@ -35,12 +35,12 @@ function changeColumn()
 	if($column==0)
 	{
 		echo '<div class="clear"></div>';
-		echo '<div class="panel_left">';
+		echo '<div class="panel_left" style="width:49%">';
 		$column=1;
 	}
 	else
 	{
-		echo '<div class="panel_right">';
+		echo '<div class="panel_right" style="width:49%">';
 		$column=0;
 	}
 }
@@ -57,7 +57,7 @@ function changeColumn()
 }?>
 
 <div class="outer">
-<div class="panel_left" style="width:60%">
+<div class="panel_left">
 <div id="nueva_consulta"></div>
 <div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
@@ -68,7 +68,7 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 ?>
 </p>
 </div>
-<div class="panel_right" style="width:27%">
+<div class="panel_right">
 <div id="datos_usuario"></div>
 <div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>

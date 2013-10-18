@@ -27,10 +27,9 @@ Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
-<div class="form">
-<div class="title"><?php echo __('(Re)generate CSV files to include in zip').' ';?></div>
 
-<div style="margin:-10px;">
+<h1><?php echo __('(Re)generate CSV files to include in zip').' ';?></h1>
+
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
@@ -60,8 +59,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	),
 ));
 ?>
-</div>
 
 <div id="loading" style="display:none;text-align:center;">
 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />
 </div>
+

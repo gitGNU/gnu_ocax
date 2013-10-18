@@ -86,7 +86,7 @@ function megaDelete(el){
 <div class="form">
 <div class="title"><?php echo __('Username').': '.$model->username; ?></div>
 
-<div class="row" style="margin:0px -10px -10px -10px;">
+<div class="row">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
