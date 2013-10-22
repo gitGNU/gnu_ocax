@@ -379,7 +379,7 @@ div.search-form
 
 .enquiryBody{
 	font-size:1.2em;
-	overflow-x:hidden;
+	/* overflow-x:hidden; */
 }
 
 /*PAGINA USUARIO*/
