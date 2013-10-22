@@ -4,6 +4,9 @@ h1, h2, h3, h4, h5, h6 { color:#a1a150; }
 a { color:#a1a150; }
 a:focus, a:hover { color:#676767; }
 
+.link { color:#a1a150; cursor:pointer; text-decoration:underline;}
+.link:focus, .link:hover {color:#676767;}
+
 #page { background-color: #f5f1ed; }
 
 #mainmenu ul li a {	color:#f5f1ed; background-color:#a1a150; }

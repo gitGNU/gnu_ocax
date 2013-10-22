@@ -40,29 +40,7 @@ Yii::app()->clientScript->registerScript('search', "
 
 ?>
 
-<style>
-.button {
-   border-top: 1px solid #96d1f8;
-   background: #A1A150;
-   padding: 13.5px 27px;
-   color: white;
-   font-size: 19px;
-   font-family: Helvetica, Arial, Sans-Serif;
-   text-decoration: none;
-   vertical-align: middle;
-   }
-.button:hover {
-   border-top-color: #28597a;
-   background: #28597a;
-   color: #ccc;
-   }
-.button:active {
-   border-top-color: #1b435e;
-   background: #1b435e;
-   }
-   
-</style>
-
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budget.css" />
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
 

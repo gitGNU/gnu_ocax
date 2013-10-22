@@ -9,6 +9,9 @@
 	<div id="sidebar">
 	<?php
 
+	$validate = array( array('label'=>__('My page'), 'url'=>array('/user/panel')) );
+	$this->menu = array_merge( $this->menu, $validate );
+	
 //http://www.yiiframework.com/doc/blog/1.1/en/portlet.menu
 
 		$this->beginWidget('zii.widgets.CPortlet', array(

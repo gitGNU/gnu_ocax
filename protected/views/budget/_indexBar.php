@@ -24,33 +24,6 @@
 
 ?>
 
-<style>
-.actual_provision_bar{
-	padding: 8px 4px 15px 4px;
-	font-weight:bold;
-	color:#000000;
-	font-size:18px;
-	margin-top:5px;
-	margin-bottom:10px;
-}
-.initial_provision_bar{
-	margin-bottom:20px;
-	padding: 8px 4px 15px 4px;
-	font-weight:bold;
-	color:#000000;
-	font-size:18px;
-	margin-top:5px;
-	margin-bottom:10px;
-
-}
-.key{
-	padding:2px;
-	padding-left:10px;
-	padding-right:60px;
-}
-
-</style>
-
 <script>
 $(function() {
 	$('.budget').bind('click', function() {
@@ -93,8 +66,8 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 				echo '<div style="margin-left:0px">';
 
 			if($budget->budgets){
-			echo '<div style="float:left;">';
-			echo '<img id="toggle_'.$budget->id.'" class="showChildren" src="'.Yii::app()->request->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
+			echo '<div style="float:left;" class="showChildrenIcon">';
+			echo '<img id="toggle_'.$budget->id.'" src="'.Yii::app()->request->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
 			echo '</div>';
 			}
 			//echo '<div class="budget highlightGraphBar" budget_id="'.$budget->id.'" style="float:left;">';
@@ -103,7 +76,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 				//if($budget->id == $globals['queried_budget'])
 				//	$highlight = 'queriedBudget';
 				echo '<div>';
-				echo '<span>'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
+				echo '<span class="barBudgetConcept">'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
 				echo '</div>';
 
 			$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
