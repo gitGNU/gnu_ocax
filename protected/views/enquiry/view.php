@@ -106,11 +106,17 @@ $(function() {
 });
 
 function toggleStatesDiagram(){
+	$('#states_diagram').toggle();
+	
+	//.hide('slide', {direction: 'left'}, 1000);
+	/*
 	if ( $('#states_diagram').is(':visible') )
 		$('#states_diagram').slideUp('fast');
+		
 	else{
 		$('#states_diagram').slideDown('fast');
 	}
+	*/
 }
 
 
@@ -151,13 +157,26 @@ function showBudget(budget_id, element){
 <h1><?php echo $model->title?></h1>
 <hr style="margin-top:-10px;margin-bottom:-5px;" />
 
-<!-- coment out until we have a decent workflow diagram
-<div id="states_diagram" style="display:none;z-index:10;position:absolute;">
-<img src="<?php /*echo Yii::app()->request->baseUrl; */?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
+<div	id="states_diagram" 
+		style="	display:none;
+				cursor:pointer;
+				padding:20px;
+				border: 1px solid grey;
+				z-index:10;
+				position:absolute;
+				background-color:white;
+				margin-left:10px;
+				margin-top:10px"
+		onClick="$(this).toggle();return false;"		
+>
+<img	style="	cursor: pointer;
+				position: absolute;
+				right: -21px;
+				top: -21px;"
+		src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png";
+/>
+<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
 </div>
--->
-
-
 
 <div style="float:right;margin-top:5px;text-align:left;margin-left:10px;padding:0px;width:500px;">
 
@@ -186,11 +205,11 @@ function showBudget(budget_id, element){
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',
-			//'value'=> CHtml::link(
-			//			CHtml::encode($model->getHumanStates($model->state)), '#',
-			//			array('onclick'=>'js:toggleStatesDiagram();')
-			//		),
-			'value'=>$model->getHumanStates($model->state),
+			'value'=> CHtml::link(
+						CHtml::encode($model->getHumanStates($model->state)), '#',
+						array('onclick'=>'js:toggleStatesDiagram();')
+					),
+			//'value'=>$model->getHumanStates($model->state),
 		),
 	),
 ));
