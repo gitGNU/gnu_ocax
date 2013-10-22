@@ -110,7 +110,7 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
-		echo '<div class="panel_separator">';
+		echo '<div class="horizontalRule" style="float:right;padding-top:10px;">';
 		echo '<div id="control_panel"></div>';
 		echo '<div class="clear"></div>';
 		echo '</div>';	
@@ -174,11 +174,9 @@ if($model->is_admin){
 </div>
 
 
-<div class="panel_separator" style="width:100%;">
-<div id="panel_consulta"></div>
+<div class="horizontalRule" style="padding-top:20px;margin-top:20px;float:right;"></div>
+<div id="panelMyEnquiries"></div>
 <div class="clear"></div>
-</div>
-
 <?php
 $noEnquiries=1;
 

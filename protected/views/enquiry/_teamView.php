@@ -32,7 +32,7 @@ if($reformulatedDataprovider = $model->getReformulatedEnquires()){
 	$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
 															'model'=>$model,
 															'onClick'=>'/enquiry/teamView'));
-	echo '<div class="horizontal_rule" style="margin-top:40px"></div>';
+	echo '<div class="horizontalRule" style="margin-top:40px"></div>';
 }
 
 echo '<h1>'.$model->title.'</h1>';

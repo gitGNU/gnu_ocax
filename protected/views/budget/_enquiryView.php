@@ -90,9 +90,12 @@ $attributes=array(
 	);
 
 if(!isset($hideConcept)){
+	$label=$model->getLabel();
+	if(isset($showLinks))
+		$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->request->baseUrl.'/images/info_small.png" />';
 	$row =	array(
 				array(
-					'label'=>$model->getLabel().' <img style="margin-top:2px;float:right;" src="'.Yii::app()->request->baseUrl.'/images/info_small.png" />',
+					'label'=>$label,
 					'type'=>'raw',
 					'value'=> $budget_concept,
 				),	

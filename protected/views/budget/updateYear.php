@@ -97,7 +97,7 @@ function megaDelete(el){
 
 <?php
 if($enquirys->getData()){
-echo '<div class="horizontal_rule" style="margin-top:20px"></div>';
+echo '<div class="horizontalRule" style="margin-top:20px"></div>';
 echo '<div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';
 $this->widget('PGridView', array(
 	'id'=>'enquirys-grid',

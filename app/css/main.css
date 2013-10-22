@@ -294,7 +294,22 @@ div.search-form
 	background-color:rgb(228, 222, 215);
 }
 
+.bigTitle
+{
+	font-size: 600%;
+	line-height: 100%;
+	letter-spacing:-2pt;
+	font-weight:200;
+}
 
+.horizontalRule
+{
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;
+	padding-top:10px;
+	width: 100%; 
+}
 
 
 /*PAGINAS*/
@@ -378,24 +393,6 @@ div.search-form
 	float: right; 
 	padding:10px 0px 0px 0px;
 }
-.panel_separator {
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;
-	width: 100%; 
-	float: right; 
-	padding:10px 0px 0px 0px;
-	margin-top: 20px;
-}
-
-.horizontal_rule {
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;
-	width: 100%;
-	padding:10px 0px 0px 0px;
-	margin-top: 20px;
-}
 
 #nueva_consulta {
 	float:left;
@@ -445,7 +442,7 @@ div.search-form
 }
 
  
-#panel_consulta {
+#panelMyEnquiries {
 	float:left;
 	margin-right: 8px;
 	margin-bottom:10px;
@@ -453,14 +450,14 @@ div.search-form
 	text-indent: -5000px;
 	display:block;
 	width:55px;
-	height:46px;
+	height:55px;
 }
 
 .sub_title{
 	margin-bottom:15px;
 	line-height: 70%;
 	font-size: 22pt;
-	letter-spacing:-0.5pt;	
+	letter-spacing:-0.5pt;
 	font-weight:200;
 } 
  

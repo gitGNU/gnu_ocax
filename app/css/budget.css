@@ -1,11 +1,14 @@
 /*BUDGET*/
 
-#budget_titulo_j
-{
-	font-size: 600%;
-	line-height: 100%;
-	letter-spacing:-2pt;
-	font-weight:200;
+.budgetOptions{
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;	
+	margin-top:0px;
+	margin-bottom:40px;
+	float:right; 
+	width:46%; 
+	padding-top:10px;
 }
 
 
@@ -18,18 +21,7 @@
 	margin-bottom:5px;
 }
 
-.download_options_j{
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;	
-	margin-top:0px;
-	margin-bottom: 30px;
-	float:left; 
-	width:46%; 
-	padding-top:10px;
-}
 
-	
 #budget_year
 {
 	width:55px;
@@ -40,11 +32,12 @@
 
 #download_database
 {
+	margin-top:-5px;
 	width:55px;
-	height:46px;
+	height:55px;
 	float:left;
 	cursor:pointer;
-	margin-right:15px;
+	margin-right:10px;
 }
 #download_database:hover { background-position: -55px 0; }
 	
@@ -57,16 +50,7 @@
 
 
 /* PIE BUDGET */
-.graphbar_options_j{
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;	
-	margin-top:0px;
-	margin-bottom:40px;
-	float:right; 
-	width:46%; 
-	padding-top:10px;
-}
+
 
 #change_to_pie
 {
@@ -103,8 +87,6 @@
 	font-size: 28pt;
 	letter-spacing:-0.5pt;	font-weight:200;
 }
-
-
 .graph_container{
 	margin:0px;
 	padding:0px;
@@ -119,8 +101,7 @@
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
 	background-position: top;
-	padding:7px 0px 20px 0px;
-	margin-top:15px;
+	padding:0px 0px 20px 0px;
 	height:500px;
 	margin-bottom:45px;
 }
@@ -149,9 +130,9 @@
 .graph_bar_group{
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
-	background-position: top;	margin-top:0px;
+	background-position: top;
 	padding:0px;
-	padding-top:20px;
+	padding-top:18px;
 	margin-bottom:45px;
 }
 

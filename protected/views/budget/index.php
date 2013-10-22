@@ -125,7 +125,7 @@ function afterSearch(){
 <div class="left" style="height:140px">
 
 <div>
-	<div id="budget_titulo_j" style=""><?php echo __('Budgets');?></div>
+	<div class="bigTitle" style=""><?php echo __('Budgets');?></div>
 </div>
 
 <div id="budget_search_j"><!-- search-form start -->
@@ -154,22 +154,19 @@ function afterSearch(){
 </div>
 <?php $this->endWidget(); ?>
 
-<?php
-	echo '<div id="no_results" style="display:none;float:right">'.
-		__('No search results').
-		'</div>';
-?>
 
 </div><!-- search-form end-->
-
+<?php
+	echo '<p id="no_results" style="display:none;margin-left:70px;margin-top:-15px">'.
+		__('No search results').
+		'</p>';
+?>
 
 </div>
 <div class="right">
 
 
 <!--  Select year start  -->
-<div class="graphbar_options_j" >
-
 <?php
 if(Yii::app()->user->isAdmin())
 	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
@@ -177,6 +174,7 @@ else
 	$years=$model->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
 
 if(count($years) > 1){
+	echo '<div class="budgetOptions" >';
 	$list=CHtml::listData($years, 'year', function($year) {
 		return $year->getYearString();
 	});
@@ -188,42 +186,40 @@ if(count($years) > 1){
 										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
 								));
 		echo '</div>';
-}
+	echo '</div>';
+}else
+	echo '<div style="height:70px"></div>';
 ?>
-</div>
 <!--  Select year finished  -->
 
-<!--  Change graph type start  -->
-<div style="clear:right">
-<?php
-	echo '<div class="graphbar_options_j">';
-	$change=Yii::app()->request->baseUrl.'/budget?graph_type';
-	echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
-	echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
-	echo 'this is some text';
-	echo '</div>';
-	
-	if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-		echo '<div class="download_options_j">';
-		echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
-		echo __('Download database');
+	<!--  Change graph type start  -->
+	<div style="clear:right">
+	<?php
+		echo '<div class="budgetOptions">';
+		$change=Yii::app()->request->baseUrl.'/budget?graph_type';
+		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
+		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 		echo '</div>';
-	}
-?>
-</div>
-<!--  Change graph type finish  -->
-
+	
+		if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
+			echo '<div class="budgetOptions" style="float:left">';
+			echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
+			echo '<p class="link" style="margin-top:20px;font-weight:bold;" onclick="window.location=\''.$zip->webPath.'\'">'.__('Download database').'</p>';
+			echo '</div>';
+		}
+	?>
+	</div>
+	<!--  Change graph type finish  -->
 </div>
 
 </div>
 <div style="clear:both"></div>
 
 
-
-
 <div>
 <?php
 	echo '<div id="search_results_container" style="display:none">';
+	echo '<div class="horizontalRule"></div>';
 	$this->widget('zii.widgets.CListView', array(
 		'id'=>'search-results',
 		'ajaxUpdate' => true,
@@ -235,6 +231,7 @@ if(count($years) > 1){
 	echo '</div>';
 
 	echo '<div id="the_graphs">';
+	
 	if(!$root_budget){
 		echo '<h1>'. __('No data available').'</h1>';
 	}else{

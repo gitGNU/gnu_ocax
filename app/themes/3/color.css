@@ -18,7 +18,7 @@ a:focus, a:hover { color:#676767; }
 
 
 
-#footer { color:#1F1F1F; background-color:#676767; }
+#footer { color:#1F1F1F; background-color:#827E78; }
 #footer div { color:#a6a6a6; }
 #footer div b {	color:#ffffff; }
 
@@ -28,6 +28,7 @@ div.form .title{ color:#4682B4; }
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
 
+.bigTitle { color: #a1a150; }
 
 /*PAGINA USUARIO*/
 #nueva_consulta {
