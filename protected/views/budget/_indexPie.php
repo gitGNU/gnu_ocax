@@ -117,9 +117,7 @@ function getPie(budget_id, loading_gif){
 				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+data.params.parent_id+
 						'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';			
 			}
-	
-			graph_container.append('<div class="graph_title">'+title+'</div>');
-			
+			graph_container.append('<div class="graph_title"><img style="vertical-align:middle;" src="<?php echo Yii::app()->request->baseUrl;?>/images/info.png" /> '+title+'</div>');
 			graph_container.append(data.params.budget_details);
 			
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
@@ -187,13 +185,13 @@ $(function() {
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_pie_group"></div>');
-			group.append('<span style="font-size:1.5em; "><?php echo CHtml::encode($budget->parent0->getConcept());?></span>');
+			group.append('<span style="font-size:1.5em; "><?php echo $budget->parent0->getConcept();?></span>');
 			group.append(' <img style="vertical-align:middle;display:none;" class="pie_loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
 			title= '<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/<?php echo $budget->id;?>" onclick="js:showBudget(<?php echo $budget->id;?>, this);return false;"><?php echo CHtml::encode($budget->getConcept());?></a>';	
-			graph_container.append('<div class="graph_title">'+title+'</div>');
+			graph_container.append('<div class="graph_title"><img style="vertical-align:middle" src="<?php echo Yii::app()->request->baseUrl;?>/images/info.png" /> '+title+'</div>');
 			graph_container.append(data.params.budget_details);
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);

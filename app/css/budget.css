@@ -98,6 +98,7 @@
 }
 .graph_title{
 	margin-bottom:15px;
+	margin-left:-5px;
 	line-height: 100%;
 	font-size: 28pt;
 	letter-spacing:-0.5pt;	font-weight:200;
@@ -196,7 +197,7 @@
 
 .showChildrenIcon
 {
-	margin-top:5px;
+	margin-top:6px;
 	margin-right:2px;
 	margin-left:2px;
 	cursor:pointer;

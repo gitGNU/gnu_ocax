@@ -180,10 +180,13 @@ function showBudget(budget_id, element){
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',
+			/*
 			'value'=> CHtml::link(
 						CHtml::encode($model->getHumanStates($model->state)), '#',
 						array('onclick'=>'js:toggleStatesDiagram();')
 					),
+			*/
+			'value'=>$model->getHumanStates($model->state),
 		),
 	),
 ));

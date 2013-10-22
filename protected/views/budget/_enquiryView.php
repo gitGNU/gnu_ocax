@@ -92,7 +92,7 @@ $attributes=array(
 if(!isset($hideConcept)){
 	$row =	array(
 				array(
-					'name'=>$model->getLabel(),
+					'label'=>$model->getLabel().' <img style="margin-top:2px;float:right;" src="'.Yii::app()->request->baseUrl.'/images/info_small.png" />',
 					'type'=>'raw',
 					'value'=> $budget_concept,
 				),	
