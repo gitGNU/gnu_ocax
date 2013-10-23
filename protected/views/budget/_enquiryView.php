@@ -74,14 +74,13 @@ if(isset($showLinks)){
 	$budget_concept = $model->getConcept();
 }
 
+$percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
 $attributes=array(
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
-	        'value'=>($model->code)? $model->getYearString().' / '.$model->code:$model->getYearString(),
+	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().' / '.$model->code : $model->getYearString(),
 		),
-		//'code',
-		//array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
-		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'),
+		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'.$percentage),
 		array(
 	        'label'=>__('Euros per person'),
 	        'value'=>format_number($model->actual_provision / $model->getPopulation()).' €',

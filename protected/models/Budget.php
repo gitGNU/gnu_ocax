@@ -175,6 +175,21 @@ class Budget extends CActiveRecord
 		return '';
 	}
 
+	// return the percentage of this budget from total	
+	public function getPercentage()
+	{
+		if($rootBudget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 1))))
+			return percentage($this->actual_provision, $rootBudget->actual_provision);
+		return '--';
+	}
+	
+	public function getCategory()
+	{
+		if($rootBudget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 1))))
+			return $rootBudget->getConcept();
+		return '';
+	}	
+
 	private function getMySqlParams()
 	{
 		$result=array();
