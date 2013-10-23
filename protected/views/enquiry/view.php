@@ -30,22 +30,6 @@ if(!Yii::app()->request->isAjaxRequest){?>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <?php } ?>
 
-<style>           
-.socialIcons {	margin:0px; }
-.socialIcons img { cursor:pointer;  margin-right:10px; }
-#directlink span  { cursor:pointer; }
-#directlink span:hover { color:black; }
-.social_popup {	
-	display :none;
-	position: absolute;
-	padding:7px;
-	z-index: 1;
-	width: 330px;
-	background-color: #98FB98;
-}
-.clear{clear:both;}	
-</style>
-
 <script>
 !function(d,s,id){
 	var js,fjs=d.getElementsByTagName(s)[0];
@@ -240,17 +224,17 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 if($model->budget)
 	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'showEnquiriesMadeLink'=>1, 'enquiry'=>$model));
 ?>
-</div>
 
-
+</div>	<!-- end float right -->
 <div>
+
 <!-- socaial options start -->
-<div class="socialIcons" style="margin-top:10px;margin-bottom:10px;">
+<div style="padding: 10px 0px 10px 0px;">
 
 	<div id="directlink" class="social_popup">
 		<?php
 		$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-		echo '<span onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
+		echo '<span style="cursor:pointer;" onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
 		?>
 	</div>
 
@@ -275,10 +259,10 @@ if($model->budget)
 			/>
 	</div>
 
-	<img social_icon="directlink" src="<?php echo Yii::app()->request->baseUrl;?>/images/link.png" onClick="js:clickSocialIcon(this);"/>
+	<span class="enquiryDirectLink" social_icon="directlink" onClick="js:clickSocialIcon(this);"></span>
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
-		echo '<img social_icon="subscribe" src="'.Yii::app()->request->baseUrl.'/images/mail.png" onClick="js:clickSocialIcon(this);"/>';
+		echo '<span class="enquirySubscribe" social_icon="subscribe" onClick="js:clickSocialIcon(this);"/></span>';
 		echo '<div	class="fb-like"
 					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
 					data-send="false"
@@ -300,6 +284,7 @@ if($model->budget)
 	}?>
 
 </div>
+<br />
 <!-- social options stop -->
 
 <?php

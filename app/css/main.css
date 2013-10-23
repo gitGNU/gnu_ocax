@@ -107,6 +107,11 @@ body
 	padding: 15px 20px 30px 0px;
 }
 
+#nombre_ocax
+{
+	text-decoration:underline;
+}
+
 #mainmenu
 {
 	background-color:transparent;
@@ -312,7 +317,7 @@ div.search-form
 }
 
 
-/*PAGINAS*/
+/*PAGES*/
 /*
 .outer_index_j
 {
@@ -365,7 +370,7 @@ div.search-form
 
 
 
-/*ENQUIRIYS*/
+/*ENQUIRIES*/
 .enquirys b
 {
 	font-weight:bold;
@@ -382,7 +387,7 @@ div.search-form
 	/* overflow-x:hidden; */
 }
 
-/*PAGINA USUARIO*/
+/*USER PANEL*/
 .panel_left {
 	width: 60%; 
 	float: left; 
@@ -392,6 +397,38 @@ div.search-form
 	width: 38%; 
 	float: right; 
 	padding:10px 0px 0px 0px;
+}
+
+.enquiryDirectLink{
+	width:42px;
+	height:42px;
+	float:left;
+	cursor:pointer;
+	margin-top:-5px;
+	margin-right:10px;
+	margin-left:10px;
+}
+.enquiryDirectLink:hover { background-position: -42px 0; }
+
+.enquirySubscribe{
+	width:42px;
+	height:42px;
+	float:left;
+	cursor:pointer;
+	margin-top:-5px;
+	margin-right:10px;
+}
+.enquirySubscribe:hover { background-position: -43px 0; }
+
+.social_popup {
+	font-size:1.1em;
+	display :none;
+	position: absolute;
+	margin-top:-3px;
+	padding:10px 5px 10px 2px;
+	border: 1px solid grey;
+	z-index: 1;
+	background-color: lightgrey;
 }
 
 #nueva_consulta {
@@ -461,6 +498,7 @@ div.search-form
 	font-weight:200;
 } 
  
+/*
 #boxes
 {
 	margin: 0;
@@ -471,14 +509,10 @@ div.search-form
 	font: normal 10pt Arial,Helvetica,sans-serif;
 	background: url(../images/boxes.jpg) no-repeat  fixed #eeeeee;
 }
-
-#nombre_ocax
-{
-	text-decoration:underline;
-}
+*/
 
 
-/*CMS*/
+/* ******* CMS*/
 .activeMenuItem a {text-decoration:none;}
 
 .cms_titulo_j
@@ -533,3 +567,4 @@ div.search-form
 	right: -21px;
 	top: -21px;
 }
+.clear{clear:both;}	

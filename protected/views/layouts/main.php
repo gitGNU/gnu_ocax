@@ -17,7 +17,7 @@
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo Config::model()->findByPk('siglas')->value; ?></title>
 </head>
 
 <body>
@@ -69,10 +69,12 @@
 </div> 
 </div>   
 
-
-
 <div id="header" >
-	<div id="logo"><?php echo Config::model()->getSiteTitle(); ?></div>
+	<div id="logo">
+		<span style="cursor:pointer" onclick="window.location='<?php echo Yii::app()->request->baseUrl;?>';">
+		<?php echo Config::model()->getSiteTitle(); ?>
+		</span>
+	</div>
 
 	<div id="mainmenu">
 		<?php
@@ -103,21 +105,16 @@
 			));
 		?>
 	</div><!-- mainmenu -->
-
-
 </div>
 
 
-
 <div class="container" id="page">
-
 	<?php echo $content; ?>
-
 	<div class="clear"></div>
-
 </div><!-- page -->
-	<div id="footer">
 
+
+<div id="footer">
 	<div style="width: 370px; float: left;">
 		<u><?php echo __('Contact information')?></u><br />
 		<b><?php echo Config::model()->getObservatoryName();?></b><br />
@@ -128,11 +125,10 @@
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';
 		?>
-		
 	</div>
 	
 	<div style="width: 250px; float: left;">
-		Una iniciativa de:
+		<span style="margin-left:15px">Una iniciativa de:</span>
 		<br />
 		<a href="http://auditoriaciudadana.net">
 		<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"/>
@@ -145,10 +141,10 @@
 	</div>
 	
 	<div style="clear:both;"></div>	
-	</div><!-- footer -->
+</div><!-- footer -->
 
 	
-	<div class="poweredBy"><?php echo Yii::powered(); ?></div>
+<div class="poweredBy"><?php echo Yii::powered(); ?></div>
 </div>
 
 </body>
