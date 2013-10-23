@@ -21,8 +21,8 @@
 $totalBudgets = count(Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL'));
 
 $this->menu=array(
-	array('label'=>'Import budgets', 'url'=>array('csv/importCSV/'.$model->year)),
-	array('label'=>'List Years', 'url'=>array('adminYears')),
+	array('label'=>__('Import budgets'), 'url'=>array('csv/importCSV/'.$model->year)),
+	array('label'=>__('List Years'), 'url'=>array('adminYears')),
 );
 
 if($totalBudgets){

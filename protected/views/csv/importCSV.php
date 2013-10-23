@@ -20,6 +20,14 @@
 
 ?>
 
+<?php
+$yearBudget=Budget::model()->findByAttributes(array('parent'=>Null,'year'=>$model->year));
+$this->menu=array(
+	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
+	array('label'=>__('List Years'), 'url'=>array('//budget/adminYears')),
+);
+?>
+
 <style>
 p { font-size:1.3em; }
 .error { margin-left:10px; color:red; }
@@ -116,9 +124,7 @@ function importData(){
 }
 </script>
 
-<?php $yearStr = ($model->year) .' - '. ($model->year + 1);
-echo '<h1>Importar csv into '.$yearStr.'</h1>';
-?>
+<?php echo '<h1>'.__('Import csv into').' '.$model->year.'</h1>';?>
 
 <?php
 if(!$model->csv){
@@ -170,7 +176,7 @@ echo '<input type="button" value="Continue anyway" onClick="js:step3_1_to_4();" 
 echo '<p id="step_4" style="display:none">Step 4. Backup budget database: ';
 echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets();" /></p>';
 
-echo '<p id="step_5" style="display:none">Step 5. Import into database: <b>'.$yearStr.'</b> ';
+echo '<p id="step_5" style="display:none">Step 5. Import into database: <b>'.$model->year.'</b> ';
 echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" />';
 echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />';
 echo '</p>';
@@ -179,7 +185,7 @@ $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = '.$model->year;
 $year=Budget::model()->find($criteria);
 
-echo '<p id="step_6" style="display:none">Return to year '.CHtml::link($yearStr, array('budget/updateYear', 'id'=>$year->id)).'</p>';
+echo '<p id="step_6" style="display:none">Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>
 
