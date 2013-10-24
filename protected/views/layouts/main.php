@@ -71,7 +71,7 @@
 
 <div id="header" >
 	<div id="logo">
-		<span style="cursor:pointer" onclick="window.location='<?php echo Yii::app()->baseUrl;?>';">
+		<span style="cursor:pointer" onclick="window.location='<?php echo Yii::app()->baseUrl;?>/';">
 		<?php echo Config::model()->getSiteTitle(); ?>
 		</span>
 	</div>

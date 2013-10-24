@@ -1,8 +1,9 @@
-notes
 *~
 protected/config/main.php
-assets/*
-!assets/.gitignore
+app/assets/*
+!app/assets/.gitignore
+app/files/*
+!app/files/.gitignore
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db

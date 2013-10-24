@@ -128,7 +128,7 @@ function afterSearch(){
 	<div class="bigTitle" style=""><?php echo __('Budgets');?></div>
 </div>
 
-<div id="budget_search_j"><!-- search-form start -->
+<div id="budgetSearchForm"><!-- search-form start -->
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'id'=>'budget-form',
@@ -137,25 +137,19 @@ function afterSearch(){
 
 	<?php echo $form->hiddenField($model,'year'); ?>
 
-<div>
-
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?> 
-		<?php echo $form->textField($model,'concept',array('size'=>10,'maxlength'=>200)); ?>
-
-		<span style="margin-left:15px;">
+		<?php echo $form->textField($model,'concept',array('size'=>20,'maxlength'=>200)); ?>
+		<span style="margin-left:13px;">
 		<?php echo $form->label($model,'code'); ?> 
-		<?php echo $form->textField($model,'code',array('size'=>2,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'code',array('size'=>6,'maxlength'=>15)); ?>
 		</span>
 		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
 	</div>
 
-
-</div>
 <?php $this->endWidget(); ?>
-
-
 </div><!-- search-form end-->
+
 <?php
 	echo '<p id="no_results" style="display:none;margin-left:70px;margin-top:-15px">'.
 		__('No search results').

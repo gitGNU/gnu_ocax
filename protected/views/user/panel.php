@@ -18,7 +18,6 @@
  */
  
 $padParams='?showControls=false&showChat=false&showLineNumbers=false&useMonospaceFont=false';
- 
 ?>
 <style> iframe{min-width:880px; min-height:500px;} </style>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>

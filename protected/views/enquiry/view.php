@@ -263,6 +263,7 @@ if($model->budget)
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
 		echo '<span class="enquirySubscribe" social_icon="subscribe" onClick="js:clickSocialIcon(this);"/></span>';
+		echo '<span style="margin-left:10px"></span>';
 		echo '<div	class="fb-like"
 					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
 					data-send="false"
@@ -279,7 +280,7 @@ if($model->budget)
 					data-text="'.$model->title.'"
 					data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
 					data-lang="en"
-					style="width:80px">
+					style="width:80px;">
 			</a>';
 	}?>
 

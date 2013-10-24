@@ -63,5 +63,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 </div>
 
-<?php echo __('Note: Delete some backups to save disk space. You only really need the last good copy.');?>
+<p><?php echo __('Note: Delete some backups to save disk space. You only really need the last good copy.');?></p>
 </div>
