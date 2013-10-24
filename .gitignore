@@ -2,8 +2,8 @@
 protected/config/main.php
 app/assets/*
 !app/assets/.gitignore
-app/files/*
-!app/files/.gitignore
+files/*
+!files/.gitignore
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db

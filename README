@@ -18,7 +18,7 @@ Directory structure
 Installation
 
 Create database
-CREATE DATABASE db_name CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE db_name CHARACTER SET utf8  COLLATE utf8_swedish_ci;
 and tables
 mysql -uuser_name -p db_name < schema.sql
 
@@ -27,7 +27,7 @@ Modify mysql connection parameters in protected/config/main.php
 
 File permissions
 chown -R www-data protected/runtime/ protected/data/
-chown www-data app/assets/
+chown www-data app/assets/ app/files/
 
 apt-get install zip
 
