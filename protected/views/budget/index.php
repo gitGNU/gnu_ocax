@@ -139,10 +139,10 @@ function afterSearch(){
 
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?> 
-		<?php echo $form->textField($model,'concept',array('size'=>20,'maxlength'=>200)); ?>
+		<?php echo $form->textField($model,'concept',array('size'=>15,'maxlength'=>200)); ?>
 		<span style="margin-left:13px;">
 		<?php echo $form->label($model,'code'); ?> 
-		<?php echo $form->textField($model,'code',array('size'=>6,'maxlength'=>15)); ?>
+		<?php echo $form->textField($model,'code',array('size'=>4,'maxlength'=>15)); ?>
 		</span>
 		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
 	</div>
