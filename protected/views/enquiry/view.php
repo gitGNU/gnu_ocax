@@ -91,7 +91,7 @@ $(function() {
 
 function toggleStatesDiagram(){
 	$('#states_diagram').toggle();
-	
+	return false;
 	//.hide('slide', {direction: 'left'}, 1000);
 	/*
 	if ( $('#states_diagram').is(':visible') )
@@ -174,7 +174,7 @@ function showBudget(budget_id, element){
 	        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
 						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
 						format_date($model->created).' '.__('by').' '.CHtml::link(
-															CHtml::encode($model->user0->fullname), '#',
+															CHtml::encode($model->user0->fullname), '#!',
 															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
 														),
 		),
@@ -190,8 +190,8 @@ function showBudget(budget_id, element){
 	        'label'=>__('State'),
 			'type' => 'raw',
 			'value'=> CHtml::link(
-						CHtml::encode($model->getHumanStates($model->state)), '#',
-						array('onclick'=>'js:toggleStatesDiagram();')
+						CHtml::encode($model->getHumanStates($model->state)), 'javascript:void(0);',
+						array('onclick'=>'toggleStatesDiagram(); return false;')
 					),
 			//'value'=>$model->getHumanStates($model->state),
 		),

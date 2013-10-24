@@ -386,3 +386,4 @@ class Budget extends CActiveRecord
 		));
 	}
 }
+
