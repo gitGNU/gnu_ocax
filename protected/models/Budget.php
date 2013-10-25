@@ -175,6 +175,36 @@ class Budget extends CActiveRecord
 		return '';
 	}
 
+	// return the percentage of this budget from total
+	public function getPercentage()
+	{
+		if($rootBudget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 1), 'year'=>$this->year)))
+			return percentage($this->actual_provision, $rootBudget->actual_provision);
+		return '--';
+	}
+	
+	public function getCategory()
+	{
+		if($rootBudget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 1))))
+			return $rootBudget->getConcept();
+		return '';
+	}	
+
+	public function getPopulation()
+	{
+		return $this->findByAttributes(array('year'=>$this->year,'parent'=>Null))->initial_provision;
+	}
+	
+	public function getChildBudgets()
+	{
+		if(!$this->budgets)
+			return null;
+			
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('parent = '.$this->id.' and actual_provision != 0');
+		return $this->findAll($criteria);
+	}
+
 	private function getMySqlParams()
 	{
 		$result=array();
@@ -234,11 +264,6 @@ class Budget extends CActiveRecord
 		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->getURI();
 		exec($command, $output, $return_var);
 		echo $return_var;
-	}
-
-	public function getPopulation()
-	{
-		return $this->findByAttributes(array('year'=>$this->year,'parent'=>Null))->initial_provision;
 	}
 
 	public function publicSearch()
@@ -361,3 +386,4 @@ class Budget extends CActiveRecord
 		));
 	}
 }
+

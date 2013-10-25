@@ -85,7 +85,8 @@ function validate(){
 
 
 
-<p></p>
+
+<div class="horizontalRule" style="margin-top:20px"></div>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>

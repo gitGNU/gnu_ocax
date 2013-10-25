@@ -69,9 +69,6 @@ html, body{
 	margin-bottom:-10px;
 }
 
-.link { color:#555555; cursor:pointer; }
-.link:focus, .link:hover {color:#000000; text-decoration:underline;}
-
 .flash_prompt{
 	top: 0px;
 	position:absolute;

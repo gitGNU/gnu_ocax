@@ -32,7 +32,7 @@
 
 	<div class="row">
 		<?php
-			echo $form->textField($model,'body',array('size'=>20,'maxlength'=>255));
+			echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255));
 			echo ' '.CHtml::submitButton(__('Search'));
 		?>
 	</div>

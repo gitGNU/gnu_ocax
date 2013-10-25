@@ -21,8 +21,8 @@
 $totalBudgets = count(Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL'));
 
 $this->menu=array(
-	array('label'=>'Import budgets', 'url'=>array('csv/importCSV/'.$model->year)),
-	array('label'=>'List Years', 'url'=>array('adminYears')),
+	array('label'=>__('Import budgets'), 'url'=>array('csv/importCSV/'.$model->year)),
+	array('label'=>__('List Years'), 'url'=>array('adminYears')),
 );
 
 if($totalBudgets){
@@ -97,7 +97,8 @@ function megaDelete(el){
 
 <?php
 if($enquirys->getData()){
-echo '<p></p><div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';
+echo '<div class="horizontalRule" style="margin-top:20px"></div>';
+echo '<div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';
 $this->widget('PGridView', array(
 	'id'=>'enquirys-grid',
 	'dataProvider'=>$enquirys,

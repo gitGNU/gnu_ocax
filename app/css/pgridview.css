@@ -19,10 +19,9 @@
 .pgrid-view table.items th, .pgrid-view table.items td
 {
 	font-size: 0.9em;
-	border: 1px #676767 solid;
+	border: 1px #827E78 solid;
 	border-left: 0px;
 	border-right: 0px;
-	/*border: 1px #676767 solid;*/
 	padding: 0.3em;
 }
 
@@ -33,13 +32,8 @@
 
 .pgrid-view table.items th
 {
-/*
-	color: white;
-	background: url("../images/pgridview/bg.gif") repeat-x scroll left top white;
-	text-align: center;
-*/
 	color: #FFFFFF;
-	background-color: #676767;
+	background-color: #827E78;
 	text-align: left;
 }
 

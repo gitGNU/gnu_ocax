@@ -19,9 +19,8 @@
  */
 
 $this->menu=array(
-	array('label'=>'List Years', 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
-
 ?>
 
 <?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>'Create year', 'totalBudgets'=>0)); ?>

@@ -50,7 +50,7 @@ function validateFileName(form){
 }
 </script>
 
-<div class="form">
+<div class="form" style="padding:10px">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'file-form',
@@ -58,7 +58,7 @@ function validateFileName(form){
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
-	<div class="title"><?php echo __('Upload file for').' '.$model->model;?></div>
+	<div class="title"><?php echo __('Upload file');?></div>
 
 	<?php echo $form->hiddenField($model,'model'); ?>
 	<?php echo $form->hiddenField($model,'model_id'); ?>

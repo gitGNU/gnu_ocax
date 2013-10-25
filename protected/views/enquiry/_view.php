@@ -124,6 +124,8 @@ function submitComment(form){
 					count = parseInt(comment_count.html())+1;
 					comment_count.html(count);
 					show_comments_link.show();
+					if($('#subscribe_checkbox').length>0)
+						$('#subscribe_checkbox').attr('checked', true);
 				}
 				$('#comment_form').prev('.add_comment_link').show();
 		},
@@ -244,11 +246,10 @@ function sendContactForm(form){
 }
 </script>
 
-<p><?php echo $model->body;?></p>
+<div class="enquiryBody"><?php echo $model->body;?></div>
 <div style="clear:both"></div>
 
 <?php
-
 echo '<div class="comments">';	// comments on enquiry open
 
 $comments = Comment::model()->findAll(array('condition'=>'enquiry =  '.$model->id));

@@ -30,22 +30,6 @@ if(!Yii::app()->request->isAjaxRequest){?>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <?php } ?>
 
-<style>           
-.socialIcons {	margin:0px; }
-.socialIcons img { cursor:pointer;  margin-right:10px; }
-#directlink span  { cursor:pointer; }
-#directlink span:hover { color:black; }
-.social_popup {	
-	display :none;
-	position: absolute;
-	padding:7px;
-	z-index: 1;
-	width: 330px;
-	background-color: #98FB98;
-}
-.clear{clear:both;}	
-</style>
-
 <script>
 !function(d,s,id){
 	var js,fjs=d.getElementsByTagName(s)[0];
@@ -83,7 +67,9 @@ function subscribe(el){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/subscribe',
 		type: 'POST',
 		dataType: 'json',
-		data: { 'enquiry': <?php echo $model->id;?> },
+		data: { 'enquiry': <?php echo $model->id;?>,
+				'subscribe': $(el).is(':checked'),
+			  },
 		//beforeSend: function(){ },
 		//complete: function(){ },
 		success: function(data){
@@ -104,11 +90,17 @@ $(function() {
 });
 
 function toggleStatesDiagram(){
+	$('#states_diagram').toggle();
+	return false;
+	//.hide('slide', {direction: 'left'}, 1000);
+	/*
 	if ( $('#states_diagram').is(':visible') )
 		$('#states_diagram').slideUp('fast');
+		
 	else{
 		$('#states_diagram').slideDown('fast');
 	}
+	*/
 }
 
 
@@ -148,11 +140,30 @@ function showBudget(budget_id, element){
 
 <h1><?php echo $model->title?></h1>
 <hr style="margin-top:-10px;margin-bottom:-5px;" />
-<div id="states_diagram" style="display:none;z-index:10;position:absolute;">
-<img src="<?php echo Yii::app()->request->baseUrl;?>/images/states.png" onClick="js:toggleStatesDiagram();"/>
+
+<div	id="states_diagram" 
+		style="	display:none;
+				cursor:pointer;
+				padding:20px;
+				border: 1px solid grey;
+				z-index:10;
+				position:absolute;
+				background-color:white;
+				margin-left:10px;
+				margin-top:10px"
+		onClick="$(this).toggle();return false;"		
+>
+<img	style="	cursor: pointer;
+				position: absolute;
+				right: -21px;
+				top: -21px;"
+		src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png";
+/>
+<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
 </div>
 
-<div style="margin-top:5px;float:right;text-align:left;margin-left:10px;padding:0px;width:500px;">
+<div style="float:right;margin-top:5px;text-align:left;margin-left:10px;padding:0px;width:500px;">
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
@@ -163,7 +174,7 @@ function showBudget(budget_id, element){
 	        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
 						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
 						format_date($model->created).' '.__('by').' '.CHtml::link(
-															CHtml::encode($model->user0->fullname), '#',
+															CHtml::encode($model->user0->fullname), '#!',
 															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
 														),
 		),
@@ -179,9 +190,10 @@ function showBudget(budget_id, element){
 	        'label'=>__('State'),
 			'type' => 'raw',
 			'value'=> CHtml::link(
-						CHtml::encode($model->getHumanStates($model->state)), '#',
-						array('onclick'=>'js:toggleStatesDiagram();')
+						CHtml::encode($model->getHumanStates($model->state)), 'javascript:void(0);',
+						array('onclick'=>'toggleStatesDiagram(); return false;')
 					),
+			//'value'=>$model->getHumanStates($model->state),
 		),
 	),
 ));
@@ -212,80 +224,86 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 if($model->budget)
 	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'showEnquiriesMadeLink'=>1, 'enquiry'=>$model));
 ?>
-</div>
 
+</div>	<!-- end float right -->
 <div>
-<div class="socialIcons" style="margin-top:10px;margin-bottom:10px;">
 
-<div id="directlink" class="social_popup">
-<?php
-	$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-	echo '<span onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
-?>
+<!-- socaial options start -->
+<div style="padding: 10px 0px 10px 0px;">
+
+	<div id="directlink" class="social_popup">
+		<?php
+		$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
+		echo '<span style="cursor:pointer;" onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
+		?>
+	</div>
+
+	<div id="subscribe" class="social_popup">
+		<?php
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'enquiry = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
+			$checked = '';
+			if( EnquirySubscribe::model()->findAll($criteria) )
+				$checked = 'checked';
+		?>
+		<?php echo __('Keep me informed via email when there are changes')?>
+			<input	id="subscribe_checkbox"
+					type="checkbox"
+					onClick="js:subscribe(this);"
+					style="
+					    vertical-align: middle;
+					    position: relative;
+					    bottom: 1px;
+					"
+					<?php echo $checked; ?>
+			/>
+	</div>
+
+	<span class="enquiryDirectLink" social_icon="directlink" onClick="js:clickSocialIcon(this);"></span>
+	<?php
+	if($model->state >= ENQUIRY_ACCEPTED){
+		echo '<span class="enquirySubscribe" social_icon="subscribe" onClick="js:clickSocialIcon(this);"/></span>';
+		echo '<span style="margin-left:10px"></span>';
+		echo '<div	class="fb-like"
+					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+					data-send="false"
+					data-layout="button_count"
+					data-width="80px"
+					data-show-faces="false"
+					data-font="arial">
+			</div>';
+		echo '<span style="margin-left:10px"></span>';
+		echo '<a	href="https://twitter.com/share"
+					class="twitter-share-button"
+					data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+					data-counturl="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+					data-text="'.$model->title.'"
+					data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
+					data-lang="en"
+					style="width:80px;">
+			</a>';
+	}?>
+
 </div>
-
-<div id="subscribe" class="social_popup">
-<?php
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'enquiry = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
-	$checked = '';
-	if( EnquirySubscribe::model()->findAll($criteria) )
-			$checked = 'checked';
-?>
-<?php echo __('Keep me informed via email when there are changes')?>
-<input type="checkbox"	onClick="js:subscribe(this);"
-						style="
-						    vertical-align: middle;
-						    position: relative;
-						    bottom: 1px;
-						"
-	<?php echo $checked; ?>
-/>
-</div>
-
-<img social_icon="directlink" src="<?php echo Yii::app()->request->baseUrl;?>/images/link.png" onClick="js:clickSocialIcon(this);"/>
-<?php
-if($model->state >= ENQUIRY_ACCEPTED){
-	echo '<img social_icon="subscribe" src="'.Yii::app()->request->baseUrl.'/images/mail.png" onClick="js:clickSocialIcon(this);"/>';
-	echo '<div	class="fb-like"
-				data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-				data-send="false"
-				data-layout="button_count"
-				data-width="80px"
-				data-show-faces="false"
-				data-font="arial">
-		</div>';
-	echo '<span style="margin-left:10px"></span>';
-	echo '<a	href="https://twitter.com/share"
-				class="twitter-share-button"
-				data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-				data-counturl="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-				data-text="'.$model->title.'"
-				data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
-				data-lang="en"
-				style="width:80px">
-		</a>';
-
-}?>
-
-</div>
-
-
+<br />
+<!-- social options stop -->
 
 <?php
 if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->user->getUserID()){
-	echo '<div style="font-style:italic;">Puedes '.CHtml::link('editar la enquiry',array('enquiry/edit','id'=>$model->id)).' y incluso ';
-	echo CHtml::link('borrarla',"#",
+	echo '<div style="font-style:italic;">'.__('You can').' '.CHtml::link(__('edit the enquiry'),array('enquiry/edit','id'=>$model->id)).' '.__('and even').' ';
+	echo CHtml::link(__('delete it'),"#",
                     array(
 						"submit"=>array('delete', 'id'=>$model->id),
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
-						'confirm' => '¿Estás seguro?'));
-	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega. (+ comments and subscriptions).</div>';
+						'confirm' => __('Are you sure?')));
+	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega. (+ comments and subscriptions).';
+	echo '</div>';
 }
 ?>
 
 <?php echo $this->renderPartial('_view', array('model'=>$model)); ?>
 </div>
+
 <div class="clear"></div>
 
 

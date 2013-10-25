@@ -122,6 +122,16 @@ class CommentController extends Controller
 					$enquiry = Enquiry::model()->findByPk($model->reply0->enquiry);
 				else
 					$enquiry = Enquiry::model()->findByPk($model->enquiry);
+					
+				// subscribe commentator to enquiry
+				$criteria = new CDbCriteria;
+				$criteria->condition = 'enquiry = '.$enquiry->id.' AND user = '.$model->user;
+				if(! $subscription=EnquirySubscribe::model()->find($criteria)){
+					$subscription = new EnquirySubscribe;
+					$subscription->user=$model->user;
+					$subscription->enquiry=$enquiry->id;
+					$subscription->save();
+				}
 
 				$criteria = array(
 					'with'=>array('enquirySubscribes'),

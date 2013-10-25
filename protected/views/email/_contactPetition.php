@@ -21,10 +21,9 @@
 /* @var $this EmailController */
 /* @var $model Email */
 /* @var $form CActiveForm */
-
 ?>
 
-<div class="form">
+<div class="form" style="padding:10px">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'email-form',
 	//'enableAjaxValidation'=>true,

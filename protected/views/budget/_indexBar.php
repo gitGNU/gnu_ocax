@@ -24,33 +24,6 @@
 
 ?>
 
-<style>
-.actual_provision_bar{
-	padding: 8px 4px 15px 4px;
-	font-weight:bold;
-	color:#000000;
-	font-size:18px;
-	margin-top:5px;
-	margin-bottom:10px;
-}
-.initial_provision_bar{
-	margin-bottom:20px;
-	padding: 8px 4px 15px 4px;
-	font-weight:bold;
-	color:#000000;
-	font-size:18px;
-	margin-top:5px;
-	margin-bottom:10px;
-
-}
-.key{
-	padding:2px;
-	padding-left:10px;
-	padding-right:60px;
-}
-
-</style>
-
 <script>
 $(function() {
 	$('.budget').bind('click', function() {
@@ -76,7 +49,7 @@ function toggleChildren(id){
 
 function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$parent_budget->id;
+	$criteria->condition = 'parent = '.$parent_budget->id.' AND actual_provision != 0';
 	$criteria->order = 'actual_provision DESC';
 	$child_budgets = Budget::model()->findAll($criteria);
 
@@ -86,40 +59,26 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		if($indent > 0)
 			$budget_indent = 32;
 
-		echo '<div style=" margin-left:'.$budget_indent.'px;margin-top:20px;">';
+		echo '<div class="kk" style="margin-left:'.$budget_indent.'px;margin-top:20px;">';
 			if($budget->budgets)
 				echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
 			else
 				echo '<div style="margin-left:0px">';
 
 			if($budget->budgets){
-			echo '<div style="float:left;">';
-			echo '<img id="toggle_'.$budget->id.'" class="showChildren" src="'.Yii::app()->request->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
+			echo '<div style="float:left;" class="showChildrenIcon">';
+			echo '<img id="toggle_'.$budget->id.'" src="'.Yii::app()->request->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
 			echo '</div>';
 			}
-			//echo '<div class="budget highlightGraphBar" budget_id="'.$budget->id.'" style="float:left;">';
 			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
-				$highlight=null;
-				//if($budget->id == $globals['queried_budget'])
-				//	$highlight = 'queriedBudget';
-				echo '<div>';
-				echo '<span>'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
-				echo '</div>';
-
-			$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
-			//$width=$graph_width*(percentage($budget->actual_provision,$parent_budget->actual_provision) / 100);
-			$width=$graph_width*(percentage($budget->actual_provision,$globals['largest_provision']) / 100);
-			echo '<div class="actual_provision_bar '.$highlight.'" style="width:'.$width.'px;">';
-			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
+				echo '<span class="barBudgetConcept">'.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
+				$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
+				$width=$graph_width*(percentage($budget->actual_provision,$globals['largest_provision']) / 100);
+				echo '<div class="actual_provision_bar" style="width:'.$width.'px;">';
+				echo '<div class="graph_bar_percent">'.$percent.'%</div>';
 			echo '</div>';
 			
 
-	/*		$percent=percentage($budget->initial_provision,$globals['yearly_actual_provision']);
-			$width=$graph_width*(percentage($budget->initial_provision,$parent_budget->actual_provision) / 100);
-			echo '<div class="initial_provision_bar '.$highlight.'" style="width:'.$width.'px;">';
-			echo '<div class="graph_bar_percent">'.$percent.'%</div>';
-			echo '</div>';
-*/
 			echo '</div>';
 		echo '</div>';
 		echo '<div style="clear:both"></div>';
@@ -137,8 +96,8 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 
 <?php
 	$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
-	$graph_width=897;
-	
+	$graph_width=929;
+		
 	echo '<div id="bar_display" style="margin-top:5px;margin-bottom:15px;">';
 	foreach($featured as $featured_budget){
 	

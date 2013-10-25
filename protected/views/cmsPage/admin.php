@@ -79,7 +79,7 @@ function uploadFile(){
 }
 </script>
 
-<h1><?php echo __('Manage Cms Pages')?></h1>
+<h1><?php echo __('Manage pages')?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

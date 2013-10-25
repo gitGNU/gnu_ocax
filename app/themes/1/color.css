@@ -4,6 +4,9 @@ h1, h2, h3, h4, h5, h6 { color:#a1a150; }
 a { color:#a1a150; }
 a:focus, a:hover { color:#676767; }
 
+.link { color:#a1a150; cursor:pointer; text-decoration:underline;}
+.link:focus, .link:hover {color:#676767;}
+
 #page { background-color: #f5f1ed; }
 
 #mainmenu ul li a {	color:#f5f1ed; background-color:#a1a150; }
@@ -16,18 +19,25 @@ a:focus, a:hover { color:#676767; }
 #header { color:#1F1F1F; }
 #header_bar_j { color:#1F1F1F; }
 
-
-
 #footer { color:#1F1F1F; background-color:#676767; }
 #footer div { color:#a6a6a6; }
 #footer div b {	color:#ffffff; }
 
 div.form .title{ color:#a1a150; }
+.bigTitle { color: #a1a150; }
 
 /*ENQUIRIYS*/
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
 
+.enquiryDirectLink {
+	background-color:transparent;
+	background: url("./images/direct_link.png") 0 0 no-repeat;
+}
+.enquirySubscribe {
+	background-color:transparent;
+	background: url("./images/subscribe.png") 0 0 no-repeat;
+}
 
 /*PAGINA USUARIO*/
 #nueva_consulta {
@@ -45,12 +55,10 @@ div.form .title{ color:#a1a150; }
 	background-color:transparent;
 	background: url("./images/control_panel.png") 0 0 no-repeat;
 }
-#panel_consulta {
-	color:#f00;
+#panelMyEnquiries {
 	background-color:transparent;
-	background: url("./images/panel_consulta.png") 0 0 no-repeat;
+	background: url("./images/my_enquiries.png") 0 0 no-repeat;
 }
-
 
 /*CMS Pages*/
 .cms_titulo_j { color:#a1a150; }

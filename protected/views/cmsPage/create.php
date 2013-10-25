@@ -26,4 +26,4 @@ $this->menu=array(
 );
 ?>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create Page'))); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create page'))); ?>

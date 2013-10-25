@@ -26,8 +26,8 @@ $criteria->condition = 'parent IS NULL AND year ='.$model->year;
 $this_year=$model->find($criteria);
 
 $this->menu=array(
-	array('label'=>'Edit year '.$model->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
-	array('label'=>'List Years', 'url'=>array('adminYears')),
+	array('label'=>__('Edit year').' '.$model->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
+	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
 ?>
 
@@ -52,7 +52,7 @@ function featureBudget(budget_id){
 </script>
 
 
-<h1><?php echo __('Featured budgets').' '.($model->year).' - '.($model->year + 1)?></h1>
+<h1><?php echo __('Featured budgets').' '.$model->year;?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),

@@ -17,7 +17,7 @@
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo Config::model()->findByPk('siglas')->value; ?></title>
 </head>
 
 <body>
@@ -69,10 +69,12 @@
 </div> 
 </div>   
 
-
-
 <div id="header" >
-	<div id="logo"><div><?php echo Config::model()->getSiteTitle(); ?></div></div>
+	<div id="logo">
+		<span style="cursor:pointer" onclick="window.location='<?php echo Yii::app()->baseUrl;?>/';">
+		<?php echo Config::model()->getSiteTitle(); ?>
+		</span>
+	</div>
 
 	<div id="mainmenu">
 		<?php
@@ -103,26 +105,19 @@
 			));
 		?>
 	</div><!-- mainmenu -->
-
-
 </div>
 
 
-
 <div class="container" id="page">
-
 	<?php echo $content; ?>
-
 	<div class="clear"></div>
-
 </div><!-- page -->
-	<div id="footer">
 
-	<div style="width:100%; padding: 0px; float: left;">
-	
-	<div style="width: 33%; float: left;  margin: 0px;">
-		<b><?php echo __('Contact information')?></b><br />
-		<?php echo Config::model()->getObservatoryName();?><br />
+
+<div id="footer">
+	<div style="width: 370px; float: left;">
+		<u><?php echo __('Contact information')?></u><br />
+		<b><?php echo Config::model()->getObservatoryName();?></b><br />
 		<?php if($blog = Config::model()->findByPk('observatoryBlog')->value)
 			echo '<a href="'.$blog.'">'.$blog.'</a><br />';
 		?>
@@ -130,29 +125,26 @@
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';
 		?>
-		
 	</div>
 	
-	<div style="width: 28%; float: left;  margin: 0px; text-align:center">
-		Una iniciativa de:
-		<br /><br />
-		<img style="cursor:pointer"
-			 src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"
-			 onclick="location.href='http://auditoriaciudadana.net';"
-		/>
+	<div style="width: 250px; float: left;">
+		<span style="margin-left:15px">Una iniciativa de:</span>
+		<br />
+		<a href="http://auditoriaciudadana.net">
+		<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"/>
+		</a>
 	</div>
 	
-    <div style="width: 33%; float: left;  margin: 0px;">
-		Copyright &copy; <?php echo date('Y'); ?> por <a href="http://ocax.net">OCAX</a><br/>
-		AGPLv3 <a href="https://gitorious.org/ocax/">https://gitorious.org/ocax</a><br />
+    <div style="width: 200px; float: right; padding-left:30px;">
+		Copyright &copy; <?php echo date('Y'); ?> por <br /><a href="http://ocax.net">http://ocax.net</a><br/>
+		AGPLv3 <a href="https://gitorious.org/ocax/"><br />https://gitorious.org/ocax</a><br />
 	</div>
 	
-	</div>
-	<div style="clear:both;"></div>
-	</div><!-- footer -->
+	<div style="clear:both;"></div>	
+</div><!-- footer -->
+
 	
-	
-	<div class="poweredBy"><?php echo Yii::powered(); ?></div>
+<div class="poweredBy"><?php echo Yii::powered(); ?></div>
 </div>
 
 </body>

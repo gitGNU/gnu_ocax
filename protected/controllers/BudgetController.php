@@ -143,7 +143,8 @@ class BudgetController extends Controller
 						'actual_provision'=>(int)$graphThisModel->actual_provision,
 					);
 		$data=array();
-		foreach($graphThisModel->budgets as $budget){
+		$childBudgets=$graphThisModel->getChildBudgets();
+		foreach($childBudgets as $budget){
 			$data[] = array(
 							'<span class="link legend_item" budget_id="'.$budget->id.'">'.$budget->getConcept().'</span>',
 							(int)$budget->actual_provision,

@@ -126,7 +126,6 @@ $this->widget('PGridView', array(
 </div>
 <div class="right">
 <div style="font-size:1.5em"><?php echo __('Formulate a new enquiry')?></div>
-
 <p>
 <?php
 	if(Yii::app()->user->isGuest){
@@ -137,23 +136,11 @@ $this->widget('PGridView', array(
 ;?>
 </p>
 
-<p><b>¿Cuales son los estados de una consulta?</b><br /><br />
+<p style="text-align:center">
+<b><?php echo __('What are the different states of an enquiry?');?></b><br /><br />
+<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
+</p>
 
-1.- Esperando aceptación del Observatorio.<br /><br />
-
-2.- Consulta aceptada por el Observatorio<br /><br />
-
-3.- Consulta rechazada por el Observatorio.<br /><br />
-
-4.- Consulta aceptada por el Observatorio.<br /><br />
-
-5.- Esperando respuesta del Ayuntamiento.<br /><br />
-
-6.- Respuesta del Ayuntamiento pendiente de valorar.<br /><br />
-
-7.- Respuesta del Ayuntamiento satisfactoria.<br /><br />
-
-8.- Respuesta del Ayuntamiento insatisfactoria.</p>
 </div>
 </div>
 

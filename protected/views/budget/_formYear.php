@@ -58,6 +58,11 @@
 			echo $form->textField($model,'initial_provision');
 		?>
 	</div>
+	<div class="row">
+		<?php echo $form->label($model,'code'); ?>
+		<?php echo $form->dropDownList($model, 'code', array('0'=>__('Not published'),'1'=>__('Published')));?>
+		<?php echo $form->error($model,'code'); ?>
+	</div>
 
 
 </div>
@@ -67,11 +72,7 @@
 		<?php echo $totalBudgets.' '.__('defined budgets');?>
 	</div>
 
-	<div class="row" style="margin-top:50px;">
-		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->dropDownList($model, 'code', array('0'=>__('Not published'),'1'=>__('Published')));?>
-		<?php echo $form->error($model,'code'); ?>
-	</div>
+
 
 </div>
 </div>
