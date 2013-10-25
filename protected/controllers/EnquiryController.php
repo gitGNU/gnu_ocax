@@ -131,10 +131,10 @@ class EnquiryController extends Controller
 			
 			if($model && $_POST['subscribe']=='false'){
 				$model->delete();
-				echo '0';
+				echo '-1';
 			}elseif ($model && $_POST['subscribe']=='true'){
 				// do nothing. user probably just made a comment and we automatically subscribed him
-				echo '1';
+				echo '0';
 			}else{
 				$model=new EnquirySubscribe;
 				$model->enquiry = $_POST['enquiry'];	// should check if enquiry id is valid.

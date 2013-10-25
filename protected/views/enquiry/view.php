@@ -56,6 +56,13 @@ if(!Yii::app()->request->isAjaxRequest){?>
 
 
 <script>
+function updateSubscriptionTotal(addMe){
+	if($('#subscriptionTotal').length>0){
+		total=parseInt($('#subscriptionTotal').html());
+		$('#subscriptionTotal').html(total+addMe);
+	}
+}
+
 function subscribe(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		$(el).attr('checked', false);
@@ -74,6 +81,9 @@ function subscribe(el){
 		//complete: function(){ },
 		success: function(data){
 			$('#subscribe').fadeOut();
+			if($('#subscriptionTotal').length>0){
+				updateSubscriptionTotal(data);
+			}
 		},
 		error: function() { alert("error on subscribe"); },
 	});
@@ -162,7 +172,7 @@ function showBudget(budget_id, element){
 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
 </div>
 
-<div style="float:right;margin-top:5px;text-align:left;margin-left:10px;padding:0px;width:500px;">
+<div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
@@ -181,10 +191,6 @@ function showBudget(budget_id, element){
 		array(
 	        'label'=>__('Type'),
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
-		),
-		array(
-	        'label'=>__('Subscribed users'),
-	        'value'=>count($model->subscriptions),
 		),
 		array(
 	        'label'=>__('State'),
@@ -229,7 +235,7 @@ if($model->budget)
 <div>
 
 <!-- socaial options start -->
-<div style="padding: 10px 0px 10px 0px;">
+<div style="padding: 10px 0px 10px 0px; width:400px;">
 
 	<div id="directlink" class="social_popup">
 		<?php
@@ -259,29 +265,36 @@ if($model->budget)
 			/>
 	</div>
 
-	<span class="enquiryDirectLink" social_icon="directlink" onClick="js:clickSocialIcon(this);"></span>
+
 	<?php
+	echo '<span style="float:left;margin-right:10px" class="enquiryDirectLink" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.__('Direct link').'</span>';
+
 	if($model->state >= ENQUIRY_ACCEPTED){
-		echo '<span class="enquirySubscribe" social_icon="subscribe" onClick="js:clickSocialIcon(this);"/></span>';
-		echo '<span style="margin-left:10px"></span>';
-		echo '<div	class="fb-like"
-					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-					data-send="false"
-					data-layout="button_count"
-					data-width="80px"
-					data-show-faces="false"
-					data-font="arial">
-			</div>';
-		echo '<span style="margin-left:10px"></span>';
-		echo '<a	href="https://twitter.com/share"
+		echo '<span style="float:left" class="enquirySubscribe" onClick="js:clickSocialIcon(this);" social_icon="subscribe">'.__('Subscribe').'</span>';
+		echo '<span style="float:left" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+
+		echo '<div style="float:left;margin-left:10px;width:80px;">
+			  <a	href="https://twitter.com/share"
 					class="twitter-share-button"
 					data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
 					data-counturl="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
 					data-text="'.$model->title.'"
 					data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
 					data-lang="en"
-					style="width:80px;">
-			</a>';
+					>
+			</a>
+			</div>';	
+
+		echo '<div style="float:left;margin-left:10px;">
+			  <div	class="fb-like"
+					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+					data-send="false"
+					data-layout="button_count"
+					data-width="80px"
+					data-show-faces="false"
+					data-font="arial">
+			</div>
+			</div>';
 	}?>
 
 </div>

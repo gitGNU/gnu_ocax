@@ -117,6 +117,7 @@ function submitComment(form){
 					},
 		success: function(data){
 				if(data != 0){
+					//alert(data.commentPosted+' :--: '+data.newSubscription);
 					$('#comment_form').parents('.add_comment:first').before(data.html);
 					
 					show_comments_link = $('#comment_form').parents('.comments').find('.show_comments_link');
@@ -126,6 +127,7 @@ function submitComment(form){
 					show_comments_link.show();
 					if($('#subscribe_checkbox').length>0)
 						$('#subscribe_checkbox').attr('checked', true);
+					updateSubscriptionTotal(data.newSubscription);
 				}
 				$('#comment_form').prev('.add_comment_link').show();
 		},

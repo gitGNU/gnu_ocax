@@ -30,15 +30,6 @@ div.form .title{ color:#a1a150; }
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
 
-.enquiryDirectLink {
-	background-color:transparent;
-	background: url("./images/direct_link.png") 0 0 no-repeat;
-}
-.enquirySubscribe {
-	background-color:transparent;
-	background: url("./images/subscribe.png") 0 0 no-repeat;
-}
-
 /*PAGINA USUARIO*/
 #nueva_consulta {
 	color:#f00;
