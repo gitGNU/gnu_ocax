@@ -30,7 +30,8 @@ $this->menu=array(
 
 	$deleteEnquiry = array( array('label'=>__('Delete enquiry'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));
 	array_splice( $this->menu, 1, 0, $deleteEnquiry );
-
+	
+$this->helpURL='http://ocax.net/pad/p/r.UxhhyJZjoU9Du1Yi';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>

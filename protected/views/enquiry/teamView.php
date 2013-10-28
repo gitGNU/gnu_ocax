@@ -51,6 +51,8 @@ if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/create?related='.$model->id))  );
 	array_splice( $this->menu, 0, 0, $reformulate );
 }
+
+$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
 ?>
 
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>

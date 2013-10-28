@@ -26,6 +26,7 @@ $this->menu=array(
 	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
 	array('label'=>__('List Years'), 'url'=>array('//budget/adminYears')),
 );
+$this->helpURL='http://ocax.net/pad/p/r.q4rMt7aGhsjnlV2w';
 ?>
 
 <style>

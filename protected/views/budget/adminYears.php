@@ -28,6 +28,7 @@ if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
 	array_splice( $this->menu, 1, 0, $restore );
 }
+$this->helpURL='http://ocax.net/pad/p/r.LEojRuTIPvGUscJQ';
 ?>
 
 <script>

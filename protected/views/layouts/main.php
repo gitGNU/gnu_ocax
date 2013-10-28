@@ -136,8 +136,8 @@
 	</div>
 	
     <div style="width: 200px; float: right; padding-left:30px;">
-		Copyright &copy; <?php echo date('Y'); ?> por <br /><a href="http://ocax.net">http://ocax.net</a><br/>
-		AGPLv3 <a href="https://gitorious.org/ocax/"><br />https://gitorious.org/ocax</a><br />
+		Copyright &copy; <?php echo date('Y'); ?> por <br /><a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
+		AGPLv3 <a href="https://gitorious.org/ocax/"><br />https://gitorious.org/ocax</a>
 	</div>
 	
 	<div style="clear:both;"></div>	

@@ -24,7 +24,7 @@ class Controller extends CController
 	/**
 	 * help text to display in right column under operations menu
 	 */
-	public $contextHelp='';
+	public $helpURL='';
 
 	/**
 	 * text to display in sidebar

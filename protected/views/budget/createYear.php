@@ -21,6 +21,7 @@
 $this->menu=array(
 	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
+$this->helpURL='http://ocax.net/pad/p/r.LEojRuTIPvGUscJQ';
 ?>
 
 <?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>'Create year', 'totalBudgets'=>0)); ?>
