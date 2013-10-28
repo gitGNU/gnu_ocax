@@ -55,7 +55,8 @@ class BudgetController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'getTotalYearlyBudgets',/*'admin','create',*/'adminYears','deleteYearsBudgets',
 									'createYear','updateYear','featured','feature',/*'update',*/'delete',
-									'dumpBudgets','restoreBudgets'),
+									'dumpBudgets','restoreBudgets',
+									'noDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -268,6 +269,18 @@ class BudgetController extends Controller
 		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,true)));
 	}
 	*/
+	
+	/**
+	 * List budgets without corresponding budgetDescription.
+	 */
+	public function actionNoDescriptions()
+	{
+		$dataProvider=Budget::model()->budgetsWithoutDescription();
+
+		$this->render('noDescriptions',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
 
 	public function actionUpdateYear($id)
 	{

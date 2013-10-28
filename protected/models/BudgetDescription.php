@@ -107,6 +107,11 @@ class BudgetDescription extends CActiveRecord
 		);
 	}
 
+	public function getBudgets()
+	{
+		return Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id));
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

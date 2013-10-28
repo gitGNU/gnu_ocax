@@ -266,6 +266,24 @@ class Budget extends CActiveRecord
 		echo $return_var;
 	}
 
+	public function budgetsWithoutDescription()
+	{
+		$sql =" SELECT b.*
+				FROM budget b
+				WHERE NOT EXISTS (
+					SELECT *
+					FROM budget_description d
+					WHERE b.csv_id = d.csv_id
+					
+				) AND b.parent IS NOT NULL";
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
+
+		return new CSqlDataProvider($sql,array(	'totalItemCount'=>$count,
+												'pagination'=>array('pageSize'=>10),
+											));
+	}
+
 	public function publicSearch()
 	{
 		// Warning: Please modify the following code to remove attributes that

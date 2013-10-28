@@ -72,8 +72,6 @@
 		<?php echo $totalBudgets.' '.__('defined budgets');?>
 	</div>
 
-
-
 </div>
 </div>
 <div class="clear"></div>

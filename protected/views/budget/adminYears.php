@@ -23,6 +23,7 @@
 
 $this->menu=array(
 	array('label'=>__('Create Year'), 'url'=>array('createYear')),
+	array('label'=>__('Budgets without description'), 'url'=>array('noDescriptions')),	
 );
 if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
