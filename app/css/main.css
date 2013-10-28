@@ -439,11 +439,13 @@ span#subscriptionTotal {
 	font-size:1.1em;
 	display :none;
 	position: absolute;
-	margin-top:-3px;
+	margin-top:-5px;
 	padding:10px 5px 10px 2px;
-	border: 1px solid grey;
+	border:1px solid #DEDEDE;
+	border-top:0px;
+	border-bottom:3px solid #CDCDCD;
 	z-index: 1;
-	background-color: lightgrey;
+	background-color: #EDEDED
 }
 
 #nueva_consulta {
