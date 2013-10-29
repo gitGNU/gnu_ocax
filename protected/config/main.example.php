@@ -12,7 +12,7 @@ require_once(dirname(__FILE__).'/../includes/utils.php');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'OCA(x)',
-	'theme'=>'1',
+	'theme'=>'green',
 	'language' => 'ca',
 
 	'behaviors' => array('ApplicationConfigBehavior'),

@@ -94,7 +94,7 @@ if($model->is_team_member){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</div>';
-	echo 	'<p>'.__('Manage the enquiries you are responsable for').'</p>';
+	echo 	'<p><u>Team member</u><br />'.__('Manage the enquiries you are responsable for').'</p>';
 	echo '</div>';
 }
 
@@ -112,7 +112,7 @@ if($model->is_manager){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</div>';
-	echo 	'<p>'.__('Assign enquiries to team members and check status').'</p>';
+	echo 	'<p><u>Team manager</u><br />'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';
 }
 
@@ -121,14 +121,14 @@ if($model->is_admin){
 	changeColumn();
 	echo '<div class="sub_title">Administator\'s options</div>';
 	echo '<div style="float:left">';
-		echo CHtml::link('Users and roles',array('user/admin')).'<br />';
-		echo CHtml::link('Email text templates',array('emailtext/admin')).'<br />';
+		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
 		echo CHtml::link('Bulk email',array('bulkEmail/admin')).'<br />';
 		echo CHtml::link('Zip file',array('file/databaseDownload')).'<br />';
+		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 	echo '</div>';
 	echo '<div style="float:right">';
-		echo CHtml::link('Years and budget data',array('budget/adminYears')).'<br />';	
-		echo CHtml::link('Budget descriptions',array('budgetDescription/admin')).'<br />';
+		echo CHtml::link('Users and roles',array('user/admin')).'<br />';
+		echo CHtml::link('Email text templates',array('emailtext/admin')).'<br />';
 		echo CHtml::link('Global parameters',array('config/admin')).'<br />';
 	echo '</div>';
 	echo '</div>';
