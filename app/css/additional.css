@@ -69,30 +69,3 @@ html, body{
 	margin-bottom:-10px;
 }
 
-.flash_prompt{
-	top: 0px;
-	position:absolute;
-	left: 50%;
-	margin-left: -230px;
-	z-index: 999;
-	width: 460px;
-	height: 80px;
-	background-color: #FFC125;
-	-webkit-border-radius: 0px 0px 20px 20px;
-	border-radius: 0px 0px 20px 20px;
-	text-align:center;
-}
-.flash_success{
-	top: 0px;
-	position:absolute;
-	left: 50%;
-	margin-left: -230px;
-	z-index: 999;
-	width: 460px;
-	height: 80px;
-	background-color: #98FB98;
-	-webkit-border-radius: 0px 0px 20px 20px;
-	border-radius: 0px 0px 20px 20px;
-	text-align:center;
-}
-

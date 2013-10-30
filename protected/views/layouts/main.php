@@ -26,7 +26,7 @@
 
 
 
-<div id="header_bar_j">
+<div id="header_bar">
 <div id="header_bar_container">
 
 	<div class="header_last_block">
@@ -42,7 +42,7 @@
 	?>
 	</div>
     
-    <div class="header_block_j">
+    <div class="header_block">
 		<?php
 			if(Yii::app()->user->isGuest){
 				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/login'));
@@ -54,12 +54,12 @@
 		?>
 	</div>   
     
-    <div class="header_block_j">
+    <div class="header_block">
     <a href="<?php echo Config::model()->findByPk('socialFacebookURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/fb_bar.gif" /></a>
     <a href="<?php echo Config::model()->findByPk('socialTwitterURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/tw_bar.gif" /></a>
 	</div>    
     
-	<div class="header_block_j">	
+	<div class="header_block">	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));

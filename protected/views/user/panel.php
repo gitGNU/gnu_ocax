@@ -52,6 +52,7 @@ function changeColumn()
 <?php if(!$model->is_active){
 	echo '<div class="sub_title">'.__('Welcome').'</div>';
 	$this->renderPartial('_notActiveInfo', array('model'=>$model));
+	echo '<div class="horizontalRule"></div>';
 }?>
 
 <div class="outer">
@@ -120,17 +121,17 @@ if($model->is_admin){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">Administator\'s options</div>';
-	echo '<div style="float:left">';
+	echo '<div style="float:left"><p>';
 		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
 		echo CHtml::link('Bulk email',array('bulkEmail/admin')).'<br />';
 		echo CHtml::link('Zip file',array('file/databaseDownload')).'<br />';
 		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
-	echo '</div>';
-	echo '<div style="float:right">';
+	echo '</p></div>';
+	echo '<div style="float:right"><p>';
 		echo CHtml::link('Users and roles',array('user/admin')).'<br />';
 		echo CHtml::link('Email text templates',array('emailtext/admin')).'<br />';
 		echo CHtml::link('Global parameters',array('config/admin')).'<br />';
-	echo '</div>';
+	echo '</p></div>';
 	echo '</div>';
 	echo '</div>';
 }
@@ -229,32 +230,32 @@ if($noEnquiries){
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
+			$('.flash-success').slideUp('fast');
     	}, 3500);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 
 <?php if(Yii::app()->user->hasFlash('newActivationCodeError')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_prompt').fadeOut('fast');
+			$('.flash-notice').fadeOut('fast');
     	}, 3500);
 		});
 	</script>
-    <div class="flash_prompt">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('newActivationCodeError');?></b></p>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('newActivationCodeError');?>
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('prompt_blockuser')){
 	list($name, $user_id) = explode("|", Yii::app()->user->getFlash('prompt_blockuser'));
-    echo '<div class="flash_prompt">';
-		echo '<p style="margin-top:5px;font-weight:bold;">'.__('Do you want to block').' '.$name.'?</p>';
+    echo '<div class="flash-notice">';
+		echo __('Do you want to block').' '.$name.'?';
 		$url=Yii::app()->request->baseUrl.'/user/block/'.$user_id.'?confirmed=1';
-		echo '<button onclick="js:window.location=\''.$url.'\'">'.__('Yes').'</button>'.'&nbsp;&nbsp;&nbsp;';
-		echo '<button onclick="$(\'.flash_prompt\').slideUp(\'fast\')">'.__('No').'</button>';
+		echo '<button onclick="js:window.location=\''.$url.'\'" style="margin-left:20px;margin-right:20px">'.__('Yes').'</button>';
+		echo '<button onclick="$(\'.flash-notice\').slideUp(\'fast\')">'.__('No').'</button>';
 	echo '</div>';
 } ?>

@@ -29,14 +29,13 @@ $this->helpURL='http://ocax.net/pad/p/r.LEojRuTIPvGUscJQ';
 <?php if(Yii::app()->user->hasFlash('badYear')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
-    	}, 1750);
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
 		});
 	</script>
-    <div class="flash_prompt">
-		<p style="margin-top:25px;">
-		<b>Has intentado crear una partida del año <?php echo Yii::app()->user->getFlash('badYear');?><br />
-		pero el año no exite en la base de datos. Crealo ahora.</b></p>
+    <div class="flash-notice">
+		Has intentado crear una partida del año <?php echo Yii::app()->user->getFlash('badYear');?><br />
+		pero el año no exite en la base de datos. Crealo ahora.
     </div>
 <?php endif; ?>
 

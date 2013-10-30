@@ -132,19 +132,19 @@ $this->widget('PGridView', array(
 <?php /*echo $this->renderPartial('//enquiry/_megaDelete');*/ ?>
 
 <?php if(Yii::app()->user->hasFlash('csv_generated')):?>
-    <div class="flash_success" id="csv_generated_ok">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('csv_generated');?></b></p>
+    <div class="flash-success" id="csv_generated_ok">
+		<?php echo Yii::app()->user->getFlash('csv_generated');?>
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
+			$('.flash-success').slideUp('fast');
     	}, 2000);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 

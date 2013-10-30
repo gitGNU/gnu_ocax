@@ -25,11 +25,9 @@
 if($returnURL == 'enquiry/teamView'){
 	$this->menu=array(
 		array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
-		array('label'=>__('Update state'), 'url'=>array('/enquiry/update', 'id'=>$enquiry->id)),
 		array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
 		array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
 		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
-		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 }
 if($returnURL == 'enquiry/adminView'){
