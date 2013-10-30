@@ -35,6 +35,11 @@ $(document).ready(function() {
 		$('#enquiry-form').find(':textarea:not(:disabled)').prop('disabled',true);
 	}
 });
+function submitForm(){
+	$('.loading_gif').show();
+	$('input[type=button]').prop("disabled",true);
+	document.forms['enquiry-form'].submit();
+}
 </script>
 
 
@@ -101,7 +106,9 @@ $this->widget('ext.tinymce.TinyMce', array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? __('Publish') : __('Update')); ?>
+		<?php $buttonText = $model->isNewRecord ? __('Publish') : __('Update') ?>
+		<input type="button" onclick="submitForm()" value="<?php echo $buttonText; ?>">
+
 		<?php	if (!$model->id)
 					$cancelURL='/user/panel';
 				elseif ($model->team_member == $user_id)	// remember: a team_memebr can edit a enquiry
@@ -110,6 +117,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 					$cancelURL='/enquiry/'.$model->id;
 		?>
 		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<img style="vertical-align:middle;display:none" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 
 <?php $this->endWidget(); ?>
