@@ -242,7 +242,7 @@ if($noEnquiries){
 <?php if(Yii::app()->user->hasFlash('newActivationCodeError')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash-notice').fadeOut('fast');
+			$('.flash-error').slideUp('fast');
     	}, 3500);
 		});
 	</script>
@@ -250,6 +250,7 @@ if($noEnquiries){
 		<?php echo Yii::app()->user->getFlash('newActivationCodeError');?>
     </div>
 <?php endif; ?>
+
 <?php if(Yii::app()->user->hasFlash('prompt_blockuser')){
 	list($name, $user_id) = explode("|", Yii::app()->user->getFlash('prompt_blockuser'));
     echo '<div class="flash-notice">';

@@ -109,3 +109,15 @@ function reject(){
 			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/admin';">No</button>
     </div>
 <?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('notice')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-notice').slideUp('fast');
+    	}, 3000);
+		});
+	</script>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('notice');?>
+    </div>
+<?php endif; ?>

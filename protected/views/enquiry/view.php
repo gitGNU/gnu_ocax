@@ -258,9 +258,8 @@ if($model->budget)
 
 
 	<?php
-	echo '<span style="float:left;margin-right:10px" class="enquiryDirectLink" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.__('Direct link').'</span>';
-
 	if($model->state >= ENQUIRY_ACCEPTED){
+		echo '<span style="float:left;margin-right:10px" class="enquiryDirectLink" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.__('Direct link').'</span>';
 		echo '<span style="float:left" class="enquirySubscribe" onClick="js:clickSocialIcon(this);" social_icon="subscribe">'.__('Subscribe').'</span>';
 		echo '<span style="float:left" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
 
@@ -294,14 +293,15 @@ if($model->budget)
 
 <?php
 if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->user->getUserID()){
-	echo '<div style="font-style:italic;">'.__('You can').' '.CHtml::link(__('edit the enquiry'),array('enquiry/edit','id'=>$model->id)).' '.__('and even').' ';
-	echo CHtml::link(__('delete it'),"#",
+	echo '<div style="font-style:italic;margin-top:-30px;margin-bottom:10px;">'.__('You can').' '.
+		 CHtml::link(__('edit the enquiry'),array('enquiry/edit','id'=>$model->id)).' '.__('and even').' '.
+		 CHtml::link(__('delete it'),"#",
                     array(
 						"submit"=>array('delete', 'id'=>$model->id),
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
-						'confirm' => __('Are you sure?')));
-	echo ' hasta que la '.Config::model()->findByPk('siglas')->value.' reconozca la entrega. (+ comments and subscriptions).';
-	echo '</div>';
+						'confirm' => __('Are you sure?'))).
+		 ' '.__('until it has been accepted by the observatory.').
+		 '</div>';
 }
 ?>
 

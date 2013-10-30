@@ -512,6 +512,7 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
+			$saveMe=1;
 			$model->manager=Yii::app()->user->getUserID();
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
@@ -526,12 +527,18 @@ class EnquiryController extends Controller
 					if($model->state <= ENQUIRY_REJECTED) // maybe enquiry was already accepted and has higher state.
 						$model->state=ENQUIRY_ASSIGNED;
 				}else{
-					$model->assigned=Null;
-					$model->state=ENQUIRY_PENDING_VALIDATION;
+					if($model->state >= ENQUIRY_ASSIGNED){
+						$model->team_member=$team_member;
+						$saveMe=Null;
+						Yii::app()->user->setFlash('notice', __('You must assign a team member'));
+					}else{
+						$model->assigned=Null;
+						$model->state=ENQUIRY_PENDING_VALIDATION;
+					}
 				}
 				$model->modified=date('c');
 			}
-			if($model->save()){
+			if($saveMe && $model->save()){
 				if($model->team_member){
 					if(!EnquirySubscribe::model()->find(array('condition'=>'enquiry='.$model->id. ' AND user='.$model->team_member))){
 						$subscription=new EnquirySubscribe;
@@ -592,8 +599,10 @@ class EnquiryController extends Controller
 			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-					$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			if(!isset($_GET['ajax'])){
+				Yii::app()->user->setFlash('success', __('Enquiry has been deleted'));				
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			}
 		}
 		$this->redirect(array('/site/index'));
 	}
