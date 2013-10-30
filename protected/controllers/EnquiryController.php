@@ -277,12 +277,18 @@ class EnquiryController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$userid= Yii::app()->user->getUserID();
-		if( !($model->team_member == $userid || ($model->state==1 && $model->user == $userid) )){
-			$this->render('/site/index');
+		$userid = Yii::app()->user->getUserID();
+		
+		if(!($userid == $model->user || $userid == $model->team_member)){
+			$this->redirect(array('/site/index'));
+			Yii::app()->end();
+		}		
+		
+		if($model->state >= ENQUIRY_ACCEPTED && $userid != $model->team_member){
+			$this->redirect(array('/site/index'));
 			Yii::app()->end();
 		}
-
+		
 		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 		if(isset($_POST['Enquiry']))
 		{
@@ -295,21 +301,18 @@ class EnquiryController extends Controller
 				$description->body= trim(strip_tags(str_replace("<br />", " ", $model->body)));
 				$description->save();
 								
-				if(Yii::app()->user->getUserID() == $model->team_member){
+				if($userid == $model->team_member){
 					$this->redirect(array('teamView','id'=>$model->id));
 				}else{
 					$this->redirect(array('view','id'=>$model->id));
 				}
 			}
 		}
-/*
-		$menu=Null;
-		if(isset($_GET['menu']) && ($userid == $model->team_member))
-			$menu=$_GET['menu'];
-*/
+		if($model->user == $userid && $model->team_member != $userid)
+			$this->layout='//layouts/column1';
+
 		$this->render('edit',array(
 			'model'=>$model,
-			//'menu'=>$menu,
 		));
 	}
 
