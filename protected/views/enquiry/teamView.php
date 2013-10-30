@@ -59,15 +59,12 @@ $this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash-notice">
-		<?php echo __('Send an email to the');?>
-		<?php echo Yii::app()->user->getFlash('prompt_email');?>
-		<?php echo __('people subscribed to the Enquiry')?>
-		?<br />
+		<?php echo Yii::app()->user->getFlash('prompt_email');?><br />
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
-			<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-			<button onclick="$('.flash-notice').slideUp('fast')">No</button>
+		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
+		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
     </div>
 <?php endif; ?>
 

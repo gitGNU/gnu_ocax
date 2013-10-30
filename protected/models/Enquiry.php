@@ -206,7 +206,8 @@ class Enquiry extends CActiveRecord
 
 	public function promptEmail()
 	{
-		Yii::app()->user->setFlash('prompt_email', count($this->getEmailRecipients()));
+		$str = __('Send an email to the').' '.count($this->getEmailRecipients()).' '.__('people subscribed to the Enquiry').'?';
+		Yii::app()->user->setFlash('prompt_email', $str );
 	}
 
 	public function getReformulatedEnquires()
