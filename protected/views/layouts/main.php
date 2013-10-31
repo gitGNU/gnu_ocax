@@ -113,7 +113,6 @@
 	<div class="clear"></div>
 </div><!-- page -->
 
-
 <div id="footer">
 	<div style="width: 370px; float: left;">
 		<u><?php echo __('Contact information')?></u><br />
@@ -137,15 +136,13 @@
 	
     <div style="width: 200px; float: right; padding-left:30px;">
 		Copyright &copy; <?php echo date('Y'); ?> por <br /><a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
-		AGPLv3 <a href="https://gitorious.org/ocax/"><br />https://gitorious.org/ocax</a>
+		AGPLv3 <a href="https://gitorious.org/ocax/ocax/source/eb095930109c0fac3d81a565169f5ecdb56211a9:"><br />https://gitorious.org/ocax</a>
 	</div>
 	
 	<div style="clear:both;"></div>	
 </div><!-- footer -->
 
-	
 <div class="poweredBy"><?php echo Yii::powered(); ?></div>
 </div>
-
 </body>
 </html>

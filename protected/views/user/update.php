@@ -22,7 +22,7 @@
 
 ?>
 <style>           
-	.outer{width:100%; padding: 0px; float: left;}
+	.outer{width:100%; padding: 0px; float: left; margin-top:10px;}
 	.left{width: 48%; float: left;  margin: 0px;}
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
@@ -36,12 +36,13 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+<span id="datos_usuario" style="margin-top:-15px;cursor:auto;"></span>
 <div class="title"><?php echo __('Change your user information')?></div>
 
 <div class="outer">
 <div class="left">
 
-	<p style="font-size:1.5em"><?php echo __('Your information')?></p>
+	<p style="font-size:1.5em;margin-bottom:10px"><?php echo __('Your information')?></p>
 
 	<?php /*echo $form->errorSummary($model);*/ ?>
 
@@ -80,7 +81,7 @@
 </div>
 <div class="right">
 
-<p style="font-size:1.5em"><?php echo __('Change password');?></p>
+<p style="font-size:1.5em;margin-bottom:10px"><?php echo __('Change password');?></p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'new_password'); ?>

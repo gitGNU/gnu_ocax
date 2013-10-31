@@ -23,18 +23,20 @@
 
 ?>
 
-<h1><?php echo __('Formulate a').' '?>
 <?php
-if($model->budget)
-	echo __('budgetary enquiry');
-else
-	echo __('generic enquiry');
+if($model->budget){
+	echo '<span id="nueva_consulta" style="margin-top:-20px;cursor:auto;"></span>';
+	echo '<h1>'.__('Formulate a').' '.__('budgetary enquiry').'</h1>';
+}else{
+	echo '<span id="nueva_consulta" style="margin-top:-10px;cursor:auto;"></span>';
+	echo '<h1>'.__('Formulate a').' '.__('generic enquiry').'</h1>';
+}
 ?>
 </h1>
 <?php
 if(!$model->budget){
 	echo '<div style="margin-top:-10px;margin-bottom:15px;">';
-	echo __('If you wish to formulate a budgetary enquiry, you must first').' '.CHtml::link('buscar el concepto presupestario',array('/budget')).'</div>';
+	echo __('If you wish to formulate a budgetary enquiry, you must first').' '.CHtml::link(__('find the corresponding budget'),array('/budget')).'</div>';
 
 }
 ?>

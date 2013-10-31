@@ -57,7 +57,7 @@ function changeColumn()
 
 <div class="outer">
 <div class="panel_left">
-<div id="nueva_consulta"></div>
+<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
 <div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
 <p>
@@ -68,7 +68,7 @@ echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
 </p>
 </div>
 <div class="panel_right">
-<div id="datos_usuario"></div>
+<div id="datos_usuario" onclick="location.href='<?php echo $this->createUrl('user/update/');?>'"></div>
 <div class="clear"></div>
 <div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
 <p>
