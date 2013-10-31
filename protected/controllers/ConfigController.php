@@ -86,6 +86,18 @@ class ConfigController extends Controller
 				$model->value = rtrim($model->value, ',');
 				$model->setScenario('language');	
 			}
+			if($model->parameter == 'councilName'){
+				$opts = array('http' => array(
+										'method'  => 'POST',
+										'header'  => 'Content-type: application/x-www-form-urlencoded',
+										'ignore_errors' => '1',
+										'timeout' => 0.5,
+									));
+				$url = Yii::app()->request->hostInfo.Yii::app()->baseUrl;
+				$url = str_replace("/", "|", $url);
+				$context = stream_context_create($opts);
+				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
+			}
 
 			if($model->save())
 				$this->redirect(array('admin'));
