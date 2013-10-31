@@ -59,6 +59,12 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
+				array('api/list', 'pattern'=>'api/<model:\w+>', 'verb'=>'GET'),
+				array('api/view', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'GET'),
+				array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
+				array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
+				array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
+				
 				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
