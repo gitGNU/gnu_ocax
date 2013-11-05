@@ -48,7 +48,7 @@ if($model->state == ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	array_splice( $this->menu, 0, 0, $assess );
 }
 if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
-	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/create?related='.$model->id))  );
+	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/reformulate?related='.$model->id))  );
 	array_splice( $this->menu, 0, 0, $reformulate );
 }
 

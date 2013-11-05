@@ -20,26 +20,18 @@
 
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
+
+
+$this->menu=array(
+	array('label'=>__('View Enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
+	array('label'=>__('Change type'), 'url'=>array('changeType', 'id'=>$model->id)),
+	array('label'=>__('List enquiries'), 'url'=>array('managed')),
+);
+$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
+
+
+echo $this->renderPartial('_form', array('model'=>$model));
+
 ?>
-
-<style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 65%; float: left;  margin: 0px;}
-	.right{width: 33%; float: left; margin: 0px;}
-	.clear{clear:both;}
-</style>
-
-<div class="outer">
-	<div class="left">
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
-	</div>
-
-	<div class="right">
-	<p style="font-size:1.5em"><?php echo __('Enquiry steps')?></p>
-	<?php echo __('ENQUIRIES_STEP_MSG');?>
-	</div>
-</div>
-
-<div style="clear:both"></div>
 
 

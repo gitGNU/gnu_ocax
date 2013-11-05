@@ -1,5 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
+
 <div class="span-19">
 	<div id="content" style="margin:-15px -10px 0 -10px;">
 		<?php
@@ -10,6 +11,7 @@
 		?>
 	</div><!-- content -->
 </div>
+
 <div class="span-5 last">
 	<div id="sidebar">
 	<?php
@@ -20,7 +22,7 @@
 			$help= array( array('label'=>__('Context help'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showHelp("'.$this->helpURL.'");')));
 			array_splice( $this->menu, 0, 0, $help );
 		}
-	
+
 		//http://www.yiiframework.com/doc/blog/1.1/en/portlet.menu
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>__('Options'),

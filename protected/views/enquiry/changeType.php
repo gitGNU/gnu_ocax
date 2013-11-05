@@ -161,7 +161,7 @@ if($model->budget){
 )); ?>
 
 
-<p></p>
+<div class="horizontalRule" style="margin-top:20px">
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
-
+</div>
 

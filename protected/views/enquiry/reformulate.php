@@ -21,18 +21,16 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
+$related_enquiry=Enquiry::model()->findByPk($model->related_to);
+
+$this->menu=array(
+	array('label'=>__('View Enquiry'), 'url'=>array('teamView', 'id'=>$related_enquiry->id)),
+	array('label'=>__('List enquiries'), 'url'=>array('managed')),
+);
+
+$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
 ?>
 
-<?php
-if($model->budget){
-	echo '<span id="nueva_consulta" style="margin-top:-20px;cursor:auto;"></span>';
-	echo '<h1>'.__('Formulate a').' '.__('budgetary enquiry').'</h1>';
-}else{
-	echo '<span id="nueva_consulta" style="margin-top:-10px;cursor:auto;"></span>';
-	echo '<h1>'.__('Formulate a').' '.__('generic enquiry').'</h1>';
-}
-?>
-</h1>
 <?php
 if(!$model->budget){
 	echo '<div style="margin-top:-10px;margin-bottom:15px;">';
@@ -40,30 +38,13 @@ if(!$model->budget){
 
 }
 ?>
-<style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 65%; float: left;  margin: 0px;}
-	.right{width: 33%; float: left; margin: 0px;}
-	.clear{clear:both;}
-</style>
 
-<div class="outer">
-<div class="left">
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<div style="padding:10px">
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 </div>
-
-<div class="right">
-	<p style="font-size:1.5em"><?php echo __('Enquiry steps')?></p>
-	<?php echo __('ENQUIRIES_STEP_MSG');?>
-</div>
-</div>
-<div style="clear:both"></div>
 
 <?php
-if($model->related_to){
-	echo '<div class="horizontalRule"></div>';
-	echo '<div class="sub_title">'.__('The original enquiry').'</div';
-	$related_enquiry=Enquiry::model()->findByPk($model->related_to);
+	echo '<div class="horizontalRule" style="margin-top:30px"></div>';
+	echo '<div class="sub_title">'.__('The original enquiry').'</div>';
 	echo $this->renderPartial('_teamView', array('model'=>$related_enquiry));
-}
 ?>

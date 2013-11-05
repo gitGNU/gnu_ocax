@@ -76,7 +76,7 @@ function megaDelete(el){
 }
 </script>
 
-<?php echo $this->renderPartial('_teamView', array('model'=>$model,'replys'=>$replys)); ?>
+<?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
     <div class="flash-notice">

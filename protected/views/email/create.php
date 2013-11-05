@@ -141,6 +141,6 @@ function toggleRecipients(){
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 <p></p>
-<?php echo $this->renderPartial('//enquiry/_teamView', array('model'=>$enquiry,'replys'=>$replys)); ?>
+<?php echo $this->renderPartial('//enquiry/_teamView', array('model'=>$enquiry)); ?>
 
 

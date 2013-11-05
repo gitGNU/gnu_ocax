@@ -155,7 +155,6 @@ class EmailController extends Controller
 			'model'=>$model,
 			'returnURL'=>$returnURL,
 			'enquiry'=>$enquiry,
-			'replys'=>$replys,	//can I remove this?
 		));
 	}
 

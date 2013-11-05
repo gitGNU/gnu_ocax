@@ -53,7 +53,8 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','managed','validate','changeType','submit','unSubmit','assess'),
+				'actions'=>array('teamView','managed','validate','changeType',
+								 'submit','unSubmit','assess','reformulate'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -110,9 +111,7 @@ class EnquiryController extends Controller
 
 		$model=$this->loadModel($id);
 		if($model){
-			$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
-			// can remove replys ??
-			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model,/*'replys'=>$replys*/),true,true)));
+			echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model),true,true)));
 		}else
 			echo 0;
 	}
@@ -164,14 +163,6 @@ class EnquiryController extends Controller
 			$model->budget=$_GET['budget'];
 			$model->type = 1;
 		}
-		if(isset($_GET['related'])){
-			$model->related_to=$_GET['related'];
-			$related_enquiry=Enquiry::model()->findByPk($model->related_to);
-			if($related_enquiry->budget){
-				$model->budget=$related_enquiry->budget;
-				$model->type = $related_enquiry->type;
-			}
-		}
 
 		if(isset($_POST['Enquiry']))
 		{
@@ -181,12 +172,7 @@ class EnquiryController extends Controller
 			$model->state = ENQUIRY_PENDING_VALIDATION;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
-			if($model->related_to){
-				$related_enquiry=Enquiry::model()->findByPk($model->related_to);
-				$model->team_member=$related_enquiry->team_member;
-				$model->assigned=date('Y-m-d');
-				$model->state=ENQUIRY_ACCEPTED;
-			}
+
 			if($model->save()){
 				$description = new EnquiryText;
 				$description->enquiry=$model->id;
@@ -194,44 +180,23 @@ class EnquiryController extends Controller
 				$description->body=trim(strip_tags(str_replace("<br />", " ", $model->body)));
 				$description->save();
 				
-				if($model->related_to){
-					// subscribe users to this new enquiry
-					foreach($related_enquiry->subscriptions as $old_subscription){
-						$subscription=new EnquirySubscribe;
-						$subscription->user = $old_subscription->user;
-						$subscription->enquiry = $model->id;
-						$subscription->save();					
-					}
-				}else{
-					$subscription=new EnquirySubscribe;
-					$subscription->user = $model->user;
-					$subscription->enquiry = $model->id;
-					$subscription->save();
-
-					if($model->team_member && $model->user!=$model->team_member){
-						$subscription=new EnquirySubscribe;
-						$subscription->user = $model->team_member;
-						$subscription->enquiry = $model->id;
-						$subscription->save();
-					}
-				}
+				$subscription=new EnquirySubscribe;
+				$subscription->user = $model->user;
+				$subscription->enquiry = $model->id;
+				$subscription->save();
 
  				$mailer = new Mailer();
 
 				$mailer->AddAddress($model->user0->email);
 				$recipients=$model->user0->email.',';
 
-				if($model->state==ENQUIRY_PENDING_VALIDATION){
-					$managers=User::model()->findAllByAttributes(array('is_manager'=>'1'));
-					foreach($managers as $manager){
-						$mailer->AddBCC($manager->email);
-						$recipients=$recipients.' '.$manager->email.',';
-					}
+
+				$managers=User::model()->findAllByAttributes(array('is_manager'=>'1'));
+				foreach($managers as $manager){
+					$mailer->AddBCC($manager->email);
+					$recipients=$recipients.' '.$manager->email.',';
 				}
-				if($model->state==ENQUIRY_ACCEPTED){
-					$mailer->AddBCC($model->teamMember->email);
-					$recipients=$recipients.' '.$model->teamMember->email.',';
-				}
+
 				$recipients = substr_replace($recipients ,'',-1);
 
 				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
@@ -265,6 +230,72 @@ class EnquiryController extends Controller
 		));
 	}
 
+	/*
+	 * Only the assigned team_member can reformulate an enquiry
+	*/
+	public function actionReformulate()
+	{
+		$this->pageTitle=CHtml::encode(__('Reformulate enquiry'));
+		$model=new Enquiry;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_GET['related'])){
+			$model->related_to=$_GET['related'];
+			$related_enquiry=Enquiry::model()->findByPk($model->related_to);
+			
+			if(Yii::app()->user->getUserID() != $related_enquiry->team_member)
+				$this->redirect(array('/site/index'));
+				
+			if($related_enquiry->budget){
+				$model->budget=$related_enquiry->budget;
+				$model->type = $related_enquiry->type;
+			}
+		}else
+			$this->redirect(array('/site/index'));
+
+		if(isset($_POST['Enquiry']))
+		{
+			$model->attributes=$_POST['Enquiry'];
+			$model->user = Yii::app()->user->getUserID();
+			$model->created = date('Y-m-d');
+			$model->state = ENQUIRY_ACCEPTED;
+			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
+
+			//$related_enquiry=Enquiry::model()->findByPk($model->related_to);
+			$model->team_member=$related_enquiry->team_member;
+			$model->assigned=date('Y-m-d');
+			$model->modified = date('c');
+			$model->state=ENQUIRY_ACCEPTED;
+
+			if($model->save()){
+				$description = new EnquiryText;
+				$description->enquiry=$model->id;
+				$description->title=$model->title;
+				$description->body=trim(strip_tags(str_replace("<br />", " ", $model->body)));
+				$description->save();
+				
+				// subscribe users to this new enquiry
+				foreach($related_enquiry->subscriptions as $old_subscription){
+					$subscription=new EnquirySubscribe;
+					$subscription->user = $old_subscription->user;
+					$subscription->enquiry = $model->id;
+					$subscription->save();					
+				}
+				
+				Yii::app()->user->setFlash('success', __('New reformulated enquiry created OK'));			
+				$this->redirect(array('teamView','id'=>$model->id));
+			}
+		}
+		$this->render('reformulate',array(
+			'model'=>$model,
+		));	
+	
+	}
+
+
 	/**
 	 * If save is successful, the browser will be redirected to the 'view' page.
 	 * team_memeber edits a $model->body and $model->type.
@@ -289,7 +320,7 @@ class EnquiryController extends Controller
 			Yii::app()->end();
 		}
 		
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -308,12 +339,13 @@ class EnquiryController extends Controller
 				}
 			}
 		}
-		if($model->user == $userid && $model->team_member != $userid)
+		if($model->team_member == $userid)
+			$this->render('teamEdit',array('model'=>$model));
+			
+		elseif($model->user == $userid){
 			$this->layout='//layouts/column1';
-
-		$this->render('edit',array(
-			'model'=>$model,
-		));
+			$this->render('edit',array('model'=>$model));
+		}	
 	}
 
 	/**
@@ -434,11 +466,11 @@ class EnquiryController extends Controller
 	public function actionTeamView($id)
 	{
 		$model=$this->loadModel($id);
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 
 		$this->render('teamView',array(
 			'model'=>$model,
-			'replys'=>$replys,
+			//'replys'=>$replys,
 		));
 	}
 
@@ -566,10 +598,10 @@ class EnquiryController extends Controller
 	public function actionAdminView($id)
 	{
 		$model=$this->loadModel($id);
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 		$this->render('adminView',array(
 			'model'=>$model,
-			'replys'=>$replys,
+			//'replys'=>$replys,
 		));
 	}
 

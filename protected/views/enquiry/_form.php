@@ -78,7 +78,7 @@ function submitForm(){
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255,'style'=>'width:100%')); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
@@ -90,16 +90,25 @@ $this->widget('ext.tinymce.TinyMce', array(
     'model' => $model,
     'attribute' => 'body',
     'compressorRoute' => 'tinyMce/compressor',
+    
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-    'settings' => array(
-    	'entity_encoding' => "raw",
-	),
+	'settings' => array('convert_urls'=>true,
+						'relative_urls'=>false,
+						'remove_script_host'=>false,
+						//'entity_encoding' => "raw",
+						'theme_advanced_resize_horizontal' => 0,
+						'theme_advanced_resize_vertical' => 0,
+						'theme_advanced_resizing_use_cookie' => false,
+						'width'=>'100%'
+						),
+	/*
     'htmlOptions' => array(
-        'rows' => 10,
+        'rows' => 6,
         'cols' => 80,
     ),
+    */
 ));
 ?>
 		<?php echo $form->error($model,'body'); ?>
