@@ -86,7 +86,7 @@ class ConfigController extends Controller
 				$model->value = rtrim($model->value, ',');
 				$model->setScenario('language');	
 			}
-			if($model->parameter == 'councilName'){
+			if(Yii::app()->params['ocaxnetwork']){
 				$opts = array('http' => array(
 										'method'  => 'POST',
 										'header'  => 'Content-type: application/x-www-form-urlencoded',

@@ -46,6 +46,17 @@ class ApiController extends Controller
 		// Get the respective model instance
 		switch($_GET['model'])
 		{
+			case 'version':
+				$path = Yii::app()->basePath.'/data/ocax.version';
+				$handle = @fopen($path, "r");
+				$ocax = rtrim(fgets($handle),"\n");
+				fclose($handle);
+				$result = array(
+						'ocax'=>$ocax,
+						'yii'=>Yii::getVersion(),
+						);
+				$this->_sendResponse(200, CJSON::encode($result));					
+				Yii::app()->end();
 			case 'status':
 				$sql = "SELECT COUNT(*) FROM user";
 				$users = Yii::app()->db->createCommand($sql)->queryScalar();

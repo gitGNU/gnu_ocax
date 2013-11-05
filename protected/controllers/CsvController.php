@@ -17,6 +17,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+// Read this http://www.php.net/manual/en/function.fgetcsv.php
+
 class CsvController extends Controller
 {
 	/**
