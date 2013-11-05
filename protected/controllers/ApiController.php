@@ -18,7 +18,8 @@
  */
 
 
-// http://www.yiiframework.com/wiki/175/how-to-create-a-rest-api/
+// AUTHOR: http://www.yiiframework.com/wiki/175/how-to-create-a-rest-api/
+
 class ApiController extends Controller
 {
 	// Members
@@ -47,12 +48,8 @@ class ApiController extends Controller
 		switch($_GET['model'])
 		{
 			case 'version':
-				$path = Yii::app()->basePath.'/data/ocax.version';
-				$handle = @fopen($path, "r");
-				$ocax = rtrim(fgets($handle),"\n");
-				fclose($handle);
 				$result = array(
-						'ocax'=>$ocax,
+						'ocax'=>getOCAXVersion(),
 						'yii'=>Yii::getVersion(),
 						);
 				$this->_sendResponse(200, CJSON::encode($result));					

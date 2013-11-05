@@ -229,12 +229,14 @@ if($noEnquiries){
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
-		$(function() { setTimeout(function() {
-			$('.flash-success').slideUp('fast');
-    	}, 3500);
+		$(function() { 
+			$(".flash-success").slideDown('fast');		
+			setTimeout(function() {
+				$('.flash-success').slideUp('fast');
+    		}, 3500);
 		});
 	</script>
-    <div class="flash-success">
+    <div class="flash-success" style="display:none">
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
