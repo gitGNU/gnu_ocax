@@ -21,11 +21,6 @@
 /* @var $this ReplyController */
 /* @var $model Reply */
 
-$this->breadcrumbs=array(
-	'Replys'=>array('index'),
-	$model->title,
-);
-
 $this->menu=array(
 	array('label'=>'List Reply', 'url'=>array('index')),
 	array('label'=>'Create Reply', 'url'=>array('create')),

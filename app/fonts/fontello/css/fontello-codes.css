@@ -1,0 +1,5 @@
+
+.icon-mail:before { content: '\e802'; } /* '' */
+.icon-link:before { content: '\e803'; } /* '' */
+.icon-thumbs-up:before { content: '\e800'; } /* '' */
+.icon-thumbs-down:before { content: '\e801'; } /* '' */

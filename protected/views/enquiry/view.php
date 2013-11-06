@@ -30,6 +30,15 @@ if(!Yii::app()->request->isAjaxRequest){?>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
 <?php } ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
+<style>
+i[class^="icon-"]:before, i[class*=" icon-"]:before {
+	margin-top:0px;
+	margin-right:3px;
+	font-size:	17px;
+}
+</style>
+
 <script>
 !function(d,s,id){
 	var js,fjs=d.getElementsByTagName(s)[0];
@@ -259,9 +268,11 @@ if($model->budget)
 
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
-		echo '<span style="float:left;margin-right:10px" class="enquiryDirectLink" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.__('Direct link').'</span>';
-		echo '<span style="float:left" class="enquirySubscribe" onClick="js:clickSocialIcon(this);" social_icon="subscribe">'.__('Subscribe').'</span>';
-		echo '<span style="float:left" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+		echo '<span style="float:left;margin-right:10px" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.
+		'<i class="icon-link"></i>'.__('Direct link').'</span>';
+		echo '<span style="float:left" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="subscribe">'.
+		'<i class="icon-mail"></i>'.__('Subscribe').'</span>';
+		echo '<span style="float:left" class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
 
 		echo '<div style="float:left;margin-left:10px;width:80px;">
 			  <a	href="https://twitter.com/share"

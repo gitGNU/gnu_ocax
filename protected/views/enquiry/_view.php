@@ -27,21 +27,19 @@ if(Yii::app()->request->isAjaxRequest){
 }
 ?>
 
-
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
+<style>
+i[class^="icon-"]:before, i[class*=" icon-"]:before {
+	margin-top:0px;
+	margin-right:3px;
+	font-size:	17px;
+}
+</style>
 <style>
 .comments { margin-top:15px; }
-
 .link { color:#06c; cursor:pointer; }
 .link:focus, .link:hover {color:#09f;}
-
 .voteBlock { float:right;text-align:right; }
-.voteBlock .like { padding:3px; background-color:#7CCD7C; }
-.voteBlock .dislike { padding:3px; background-color:#FF6A6A;}
-
-.votaLike { cursor:pointer; padding:3px; margin-right:5px; background-color:#C1FFC1; margin-right:10px; }
-.votaDislike  { cursor:pointer; padding:3px; margin-right:5px; background-color:#FFAEB9; margin-right:0px; }
-.voteTotal { font-weight: bold }
-
 .clear { clear:both; }
 </style>
 
@@ -293,18 +291,19 @@ foreach($replys as $reply){
 
 	// title bar
 	echo '<div class="title">';
-	echo '<span style="font-size:1.4em;">'.__('Reply').': '.date_format(date_create($reply->created), 'Y-m-d').'</span>';
+	echo '<span class="sub_title">'.__('Reply').': '.format_date($reply->created).'</span>';
 
 	echo '<div class="voteBlock">';
-	echo '<b>'.__('Valorations').'</b> ';
-	echo '<span class="like">'.__('positive').' <span id="voteLikeTotal_'.$reply->id.'" class="voteTotal">';
-	echo Vote::model()->getTotal($reply->id, 1);
-	echo '</span> </span>';
-	echo '<span class="votaLike" onClick="js:vote('.$reply->id.', 1);">'.__('Vote').'</span>';
-	echo '<span class="dislike">'.__('negative').' <span id="voteDislikeTotal_'.$reply->id.'" class="voteTotal">';
-	echo Vote::model()->getTotal($reply->id, 0);
-	echo '</span> </span>';
-	echo '<span class="votaDislike" onClick="js:vote('.$reply->id.', 0);">'.__('Vote').'</span>';
+	echo '<span style="margin-left:30px"></span>';
+	
+	echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$reply->id.', 1);">'.
+		 __('Vote').'<i class="icon-thumbs-up"></i></span>';
+	echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteLikeTotal_'.$reply->id.'">'.Vote::model()->getTotal($reply->id, 1).'</span>';
+	echo '<span style="margin-left:30px"></span>';
+	echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$reply->id.', 0);">'.
+		 __('Vote').'<i class="icon-thumbs-down"></i></span>';
+	echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteDislikeTotal_'.$reply->id.'">'.Vote::model()->getTotal($reply->id, 0).'</span>';	
+	
 	echo '</div><div class="clear"></div>';
 	echo '</div>';
 
@@ -337,7 +336,7 @@ foreach($replys as $reply){
 		echo '<div class="clear"></div></div>';
 	}
 
-	echo '<p>'.$reply->body.'</p>';
+	echo '<p style="padding-top:10px">'.$reply->body.'</p>';
 	
 	echo '<div class="comments">';	//comments on reply open
 	
