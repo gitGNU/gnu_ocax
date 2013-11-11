@@ -28,7 +28,7 @@ $this->menu=array(
 	array('label'=>__('List enquiries'), 'url'=>array('managed')),
 );
 
-$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <?php

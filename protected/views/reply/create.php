@@ -27,7 +27,7 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <div class="form">

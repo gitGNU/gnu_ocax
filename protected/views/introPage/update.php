@@ -32,7 +32,7 @@ $this->menu=array(
 	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.JlJeGjryiRe30kQE';
+$this->inlineHelp=':profiles:cms_editor';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update page'))); ?>

@@ -5,7 +5,7 @@
 	<div id="content" style="margin:-15px -10px 0 -10px;">
 		<?php
 		echo $content;
-		if($this->helpURL){
+		if($this->inlineHelp){
 			$this->widget('InlineHelp');
 		}
 		?>
@@ -18,8 +18,8 @@
 
 		$validate = array( array('label'=>__('My page'), 'url'=>array('/user/panel')) );
 		$this->menu = array_merge( $this->menu, $validate );
-		if($this->helpURL){
-			$help= array( array('label'=>__('Context help'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showHelp("'.$this->helpURL.'");')));
+		if($this->inlineHelp){
+			$help= array( array('label'=>__('Context help'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");')));
 			array_splice( $this->menu, 0, 0, $help );
 		}
 

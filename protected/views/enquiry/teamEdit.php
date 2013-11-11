@@ -27,7 +27,7 @@ $this->menu=array(
 	array('label'=>__('Change type'), 'url'=>array('changeType', 'id'=>$model->id)),
 	array('label'=>__('List enquiries'), 'url'=>array('managed')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
+$this->inlineHelp=':profiles:team_member';
 
 
 echo $this->renderPartial('_form', array('model'=>$model));

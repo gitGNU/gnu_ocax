@@ -68,4 +68,8 @@ function getOCAXVersion(){
 	return $version;
 }
 
+function getInlineHelpURL($path){
+	return 'http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path.'&inlinehelp=1';	
+}
+
 ?>

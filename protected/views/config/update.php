@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('List all parameters'), 'url'=>array('admin')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.11Jel1UqZc6wgJwL';
+$this->inlineHelp=':profiles:admin:global_parameters';
 ?>
 
 <div class="form">

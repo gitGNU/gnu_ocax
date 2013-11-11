@@ -190,9 +190,11 @@ class Budget extends CActiveRecord
 		return '';
 	}	
 
-	public function getPopulation()
+	public function getPopulation($year=Null)
 	{
-		return $this->findByAttributes(array('year'=>$this->year,'parent'=>Null))->initial_provision;
+		if(!$year)
+			$year=$this->year;
+		return $this->findByAttributes(array('year'=>$year,'parent'=>Null))->initial_provision;
 	}
 	
 	public function getChildBudgets()

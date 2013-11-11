@@ -33,7 +33,7 @@ if(!$model->enquirys){
 }
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showEnquiry(enquiry_id){
 	$.ajax({

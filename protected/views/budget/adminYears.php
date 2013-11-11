@@ -29,7 +29,7 @@ if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
 	array_splice( $this->menu, 1, 0, $restore );
 }
-$this->helpURL='http://ocax.net/pad/p/r.LEojRuTIPvGUscJQ';
+
 ?>
 
 <script>
@@ -106,7 +106,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 )));
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <div id="budget_dumps" style="display:none;width:600px;">
 	<div style="background-color:white">

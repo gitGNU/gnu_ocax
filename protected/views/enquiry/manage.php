@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('List all'), 'url'=>array('admin')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.UxhhyJZjoU9Du1Yi';
+$this->inlineHelp=':profiles:team_manager';
 ?>
 
 <style>           

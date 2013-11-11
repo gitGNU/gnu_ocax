@@ -29,7 +29,7 @@ $this->menu=array(
 	array('label'=>__('Edit year').' '.$model->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
 	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.Ofmnfr9vC1y4NHj2';
+$this->inlineHelp=':profiles:admin:budgets';
 ?>
 
 <script>

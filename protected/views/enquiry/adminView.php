@@ -31,10 +31,10 @@ $this->menu=array(
 	$deleteEnquiry = array( array('label'=>__('Delete enquiry'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));
 	array_splice( $this->menu, 1, 0, $deleteEnquiry );
 	
-$this->helpURL='http://ocax.net/pad/p/r.UxhhyJZjoU9Du1Yi';
+$this->inlineHelp=':profiles:team_manager';
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showEnquiry(enquiry_id){
 	$.ajax({

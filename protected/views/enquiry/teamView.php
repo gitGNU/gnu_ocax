@@ -52,7 +52,7 @@ if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	array_splice( $this->menu, 0, 0, $reformulate );
 }
 
-$this->helpURL='http://ocax.net/pad/p/r.ZFepdOJsfbp9pcaG';
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>

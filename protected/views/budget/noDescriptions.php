@@ -25,7 +25,6 @@
 $this->menu=array(
 	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
-$this->helpURL='http://ocax.net/pad/p/r.LEojRuTIPvGUscJQ';
 ?>
 
 <h1><?php echo __('Budgets without description');?></h1>

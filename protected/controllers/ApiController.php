@@ -69,6 +69,7 @@ class ApiController extends Controller
 							'enquiries'=>$enquiries,
 							'enquiries_failed'=>$enquiries_failed,
 							'year'=>$year,
+							'population'=>(string)(int)Budget::model()->getPopulation($year),
 							'budgets'=>$budgets,
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
