@@ -43,7 +43,7 @@ function showHelp(url){
 		});
 }
 </script>
-<div id="help" class="modal" style="width:900px;scrolling:auto">
+<div id="help" class="modal" style="width:900px;scrolling:auto;padding:0px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="helpContent"></div>
 </div>
