@@ -23,7 +23,7 @@
 ?>
 
 <div class="view" id="comment_<?php echo $data->id;?>">
-	<p style="margin-bottom:5px"><b>
+	<p style="margin-bottom:5px;margin-top:-10px"><b>
 	<?php if(! ($data->user0->username == Yii::app()->user->id || $data->user0->is_disabled == 1))
 			echo '<span class="link" onClick="js:getContactForm('.$data->user.');return false;">';
 		else
@@ -36,7 +36,7 @@
 			echo '<img style="cursor:pointer;margin-left:5px;vertical-align:middle" alt="'.__('Delete').'" src="'.Yii::app()->request->baseUrl.'/images/delete.png" onClick="js:deleteComment('.$data->id.')" />';
 	?>
 	</p>
-	<p style="text-align:left">
+	<p style="margin-bottom:-5px;">
 	<?php echo $data->body; ?>
 	</p>
 </div>

@@ -33,7 +33,7 @@ function showHelp(url){
 		$('#help').bPopup({
 			modalClose: false,
 			follow: ([false,false]),
-			//speed: 10,
+			speed: 10,
 			positionStyle: 'absolute',
 			modelColor: '#ae34d5',
 			content:'iframe',

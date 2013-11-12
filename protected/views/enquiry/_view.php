@@ -83,7 +83,7 @@ function getCommentForm(comment_on, id, el){
 		beforeSend: function(){ /*$ ('#right_loading_gif').show(); */ },
 		complete: function(){ /* $('#right_loading_gif').hide(); */ },
 		success: function(data){
-			$('#comment_form').html();
+			//$('#comment_form').html();
 			$('#comment_form').html(data.html);
 			$(el).after($('#comment_form'));
 			$('#comment_form').show();
@@ -96,7 +96,7 @@ function getCommentForm(comment_on, id, el){
 	});
 }
 function cancelComment(){
-	$('#comment_form').html();
+	//$('#comment_form').html();
 	$('#comment_form').slideUp('fast');
 	$('#comment_form').prev('.add_comment_link').show();
 }
@@ -107,15 +107,15 @@ function submitComment(form){
 		dataType: 'json',
 		data: $(form).serialize(),
 		beforeSend: function(){
-						$(form).find('button').attr('disabled', 'disabled');
+						$('#comment_form').find(':input').prop('disabled',true);
 						$(form).find('.loading_gif').show();
 					},
 		complete: function(){
-						$(form).parents('div:first').remove();
+						$('#comment_form').html('');
+						$('#comment_form').hide();			
 					},
 		success: function(data){
 				if(data != 0){
-					//alert(data.commentPosted+' :--: '+data.newSubscription);
 					$('#comment_form').parents('.add_comment:first').before(data.html);
 					
 					show_comments_link = $('#comment_form').parents('.comments').find('.show_comments_link');
@@ -127,6 +127,7 @@ function submitComment(form){
 						$('#subscribe_checkbox').attr('checked', true);
 					updateSubscriptionTotal(data.newSubscription);
 				}
+				//$(form).parents('div:first').remove();
 				$('#comment_form').prev('.add_comment_link').show();
 		},
 		error: function() { alert("error on create comment"); },
@@ -307,7 +308,7 @@ foreach($replys as $reply){
 	echo '</div><div class="clear"></div>';
 	echo '</div>';
 
-	// reformulate and attachments
+	// attachments
 	$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$reply->id));
 	if($attachments || $model->team_member == Yii::app()->user->getUserID()){
 		echo '<div class="attachments">';
@@ -324,18 +325,19 @@ foreach($replys as $reply){
 			}
 			echo '</span>';
 		}else{
-			echo '<span style="float:right;text-align:right;">';
-			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->request->baseUrl.'/images/paper_clip.png" />'.__('Attachments').':';
+			echo '<span style="float:right;text-align:right;white-space: nowrap;">';
+			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->request->baseUrl.'/images/paper_clip.png" />'.__('Attachments').': ';
 			foreach($attachments as $attachment){
-				echo '<span style="white-space: nowrap;margin-left:10px;">';
+				//echo '<span style="white-space: nowrap;margin-left:10px;">';
 				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a> ';
-				echo '</span>';
+				//echo '</span>';
 			}
 			echo '</span>';
 		}
 		echo '<div class="clear"></div></div>';
 	}
 
+	// reply body
 	echo '<p style="padding-top:10px">'.$reply->body.'</p>';
 	
 	echo '<div class="comments">';	//comments on reply open

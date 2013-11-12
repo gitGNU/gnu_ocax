@@ -60,8 +60,7 @@ function showEnquiry(enquiry_id){
 					, follow: ([false,false])
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
-					//, amsl: -100
-
+					, speed: 10
                 });
 			}
 		},
