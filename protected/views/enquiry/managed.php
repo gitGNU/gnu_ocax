@@ -62,7 +62,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div>
 <div class="right">
 	<b><?php echo __('States');?></b>
-	<a href="http://ocax.net/?El_software:Workflow_y_estados" target="_new"><?php echo __('more info');?></a>	
+	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>
 	<br />
 	<?php
 		foreach($model->getHumanStates() as $key=>$value){
@@ -100,3 +100,5 @@ $this->widget('PGridView', array(
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>
+
+
