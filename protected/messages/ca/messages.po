@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-06 12:18+0100\n"
+"PO-Revision-Date: 2013-11-13 12:03+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -130,8 +130,8 @@ msgstr "Enviat OK"
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/bulkEmail/admin.php:68
-#: protected/views/user/panel.php:176
-#: protected/views/user/panel.php:212
+#: protected/views/user/panel.php:179
+#: protected/views/user/panel.php:215
 msgid "State"
 msgstr "Estat"
 
@@ -162,7 +162,7 @@ msgid "Parent"
 msgstr "Pare"
 
 #: protected/models/Budget.php:118
-#: protected/views/budget/noDescriptions.php:51
+#: protected/views/budget/noDescriptions.php:50
 #: protected/views/budget/_enquiryView.php:80
 msgid "Year"
 msgstr "Any"
@@ -170,7 +170,7 @@ msgstr "Any"
 #: protected/models/Budget.php:119
 #: protected/models/BudgetCategory.php:89
 #: protected/models/BudgetDescription.php:124
-#: protected/views/budget/noDescriptions.php:46
+#: protected/views/budget/noDescriptions.php:45
 msgid "Code"
 msgstr "Codi"
 
@@ -192,7 +192,7 @@ msgstr ""
 
 #: protected/models/Budget.php:123
 msgid "Actual provision"
-msgstr ""
+msgstr "Provisió actual"
 
 #: protected/models/Budget.php:124
 msgid "Trimester 1"
@@ -214,7 +214,7 @@ msgstr "Trimestre 4"
 msgid "Weight"
 msgstr "Pes"
 
-#: protected/models/Budget.php:233
+#: protected/models/Budget.php:235
 msgid "Budget table saved on the"
 msgstr "Taula de pressupostos guardada el"
 
@@ -242,7 +242,7 @@ msgstr "Publicat"
 
 #: protected/models/Vote.php:90
 #: protected/models/Comment.php:96
-#: protected/views/enquiry/_view.php:294
+#: protected/views/enquiry/_view.php:295
 msgid "Reply"
 msgstr "Resposta"
 
@@ -252,8 +252,8 @@ msgid "User"
 msgstr "Usuari"
 
 #: protected/models/Vote.php:92
-#: protected/views/enquiry/_view.php:300
-#: protected/views/enquiry/_view.php:304
+#: protected/views/enquiry/_view.php:301
+#: protected/views/enquiry/_view.php:305
 msgid "Vote"
 msgstr "Vota"
 
@@ -347,8 +347,8 @@ msgstr "Assignada a"
 #: protected/views/enquiry/view.php:182
 #: protected/views/enquiry/index.php:112
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/user/panel.php:171
-#: protected/views/user/panel.php:207
+#: protected/views/user/panel.php:174
+#: protected/views/user/panel.php:210
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -390,7 +390,7 @@ msgstr "Recorda'm"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: protected/models/ImportCSV.php:81
+#: protected/models/ImportCSV.php:94
 msgid "generated on the"
 msgstr "generated on the"
 
@@ -495,12 +495,12 @@ msgstr "No hi ha dades disponibles"
 msgid "Manage years"
 msgstr "Gestiona anys"
 
-#: protected/views/budget/noDescriptions.php:31
+#: protected/views/budget/noDescriptions.php:30
 #: protected/views/budget/adminYears.php:26
 msgid "Budgets without description"
 msgstr "Partides sense descripció"
 
-#: protected/views/budget/noDescriptions.php:41
+#: protected/views/budget/noDescriptions.php:40
 #, fuzzy
 msgid "Internal code"
 msgstr "Pressupost amb Internal code"
@@ -541,8 +541,8 @@ msgstr "Euros per persona"
 #: protected/views/budget/_enquiryView.php:131
 #: protected/views/enquiry/index.php:107
 #: protected/views/layouts/main.php:83
-#: protected/views/user/panel.php:166
-#: protected/views/user/panel.php:202
+#: protected/views/user/panel.php:169
+#: protected/views/user/panel.php:205
 #: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr "Consultes"
@@ -596,6 +596,7 @@ msgid "Restore database"
 msgstr "Restore database"
 
 #: protected/views/config/admin.php:25
+#: protected/views/user/panel.php:136
 msgid "Global parameters"
 msgstr "Paràmetres globals"
 
@@ -1077,9 +1078,9 @@ msgid "Delete enquiry"
 msgstr "Delete enquiry"
 
 #: protected/views/enquiry/admin.php:49
-#: protected/views/user/panel.php:115
+#: protected/views/user/panel.php:118
 msgid "Manage enquiries"
-msgstr "Gestiona consultes"
+msgstr "Gestionar consultes"
 
 #: protected/views/enquiry/admin.php:65
 #: protected/views/enquiry/managed.php:64
@@ -1103,8 +1104,8 @@ msgid "Record of sent emails"
 msgstr "Record de correus enviats"
 
 #: protected/views/enquiry/_megaDelete.php:43
-#: protected/views/enquiry/_view.php:262
-#: protected/views/enquiry/_view.php:349
+#: protected/views/enquiry/_view.php:263
+#: protected/views/enquiry/_view.php:351
 msgid "Comments"
 msgstr "Comentaris"
 
@@ -1164,30 +1165,30 @@ msgstr "Si us plau, inicia una sessió per a participar"
 msgid "Before participating, please confirm your email address"
 msgstr "Abans de participar si us plau, confirma la teva adreça de correu electrònic"
 
-#: protected/views/enquiry/_view.php:136
+#: protected/views/enquiry/_view.php:137
 msgid "Are you sure you want to delete it?"
 msgstr "Estàs segur que desitja eliminar-ho?"
 
-#: protected/views/enquiry/_view.php:176
+#: protected/views/enquiry/_view.php:177
 msgid "You have already voted favourably"
 msgstr "Ja has votat favorablement"
 
-#: protected/views/enquiry/_view.php:178
+#: protected/views/enquiry/_view.php:179
 msgid "You have already voted unfavourably"
 msgstr "Ja has votat desfavorablement"
 
-#: protected/views/enquiry/_view.php:266
-#: protected/views/enquiry/_view.php:276
-#: protected/views/enquiry/_view.php:353
-#: protected/views/enquiry/_view.php:363
+#: protected/views/enquiry/_view.php:267
+#: protected/views/enquiry/_view.php:277
+#: protected/views/enquiry/_view.php:355
+#: protected/views/enquiry/_view.php:365
 msgid "Add comment"
 msgstr "Afegeix comentari"
 
-#: protected/views/enquiry/_view.php:316
+#: protected/views/enquiry/_view.php:317
 msgid "Add attachment"
 msgstr "Afegeix adjunt"
 
-#: protected/views/enquiry/_view.php:328
+#: protected/views/enquiry/_view.php:329
 msgid "Attachments"
 msgstr "Adjunts"
 
@@ -1437,63 +1438,83 @@ msgstr "Configura el teu email"
 msgid "Change your password"
 msgstr "Canvia la teva contrasenya"
 
-#: protected/views/user/panel.php:97
+#: protected/views/user/panel.php:100
 msgid "Entrusted enquiries"
 msgstr "Consultes encomanades"
 
-#: protected/views/user/panel.php:98
+#: protected/views/user/panel.php:101
 msgid "Manage the enquiries you are responsable for"
 msgstr "Manage the enquiries you are responsable for"
 
-#: protected/views/user/panel.php:107
+#: protected/views/user/panel.php:108
+msgid "CMS editor options"
+msgstr "Opcions de editor CMS"
+
+#: protected/views/user/panel.php:110
 msgid "Introduction pages"
 msgstr "Pàginas de introducció"
 
-#: protected/views/user/panel.php:108
+#: protected/views/user/panel.php:111
 msgid "Site pages"
 msgstr "Pàgina de lloc"
 
-#: protected/views/user/panel.php:116
+#: protected/views/user/panel.php:119
 msgid "Assign enquiries to team members and check status"
 msgstr "Assign enquiries to team members and check status"
 
-#: protected/views/user/panel.php:125
+#: protected/views/user/panel.php:126
+msgid "Administator's options"
+msgstr "Opcions de administrador"
+
+#: protected/views/user/panel.php:128
 msgid "Years and budgets"
 msgstr "Anys i pressupostos"
 
-#: protected/views/user/panel.php:126
+#: protected/views/user/panel.php:129
 msgid "Newsletters"
 msgstr "Butlletins"
 
-#: protected/views/user/panel.php:128
+#: protected/views/user/panel.php:130
+msgid "Zip file"
+msgstr "Fitxer zip"
+
+#: protected/views/user/panel.php:131
 msgid "Budget descriptions"
 msgstr "Descripcions de partides"
 
-#: protected/views/user/panel.php:153
+#: protected/views/user/panel.php:134
+msgid "Users and roles"
+msgstr "Usuaris i rols"
+
+#: protected/views/user/panel.php:135
+msgid "Email text templates"
+msgstr "Plantilles de correu-e"
+
+#: protected/views/user/panel.php:156
 msgid "My enquiries"
 msgstr "Les meves consultes"
 
-#: protected/views/user/panel.php:189
+#: protected/views/user/panel.php:192
 msgid "I am subscribed to these enquirytions"
 msgstr "Estic escrit a aquestes consultes"
 
-#: protected/views/user/panel.php:190
+#: protected/views/user/panel.php:193
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
 
-#: protected/views/user/panel.php:223
+#: protected/views/user/panel.php:226
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Les consultes que hagis realitzat o a les quals t'hagis subscrit apareixeran aquí"
 
-#: protected/views/user/panel.php:259
+#: protected/views/user/panel.php:262
 msgid "Do you want to block"
 msgstr "Vols bloquejar"
 
-#: protected/views/user/panel.php:261
+#: protected/views/user/panel.php:264
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:262
+#: protected/views/user/panel.php:265
 msgid "No"
 msgstr "No"
 

@@ -100,5 +100,3 @@ $this->widget('PGridView', array(
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>
-
-

@@ -113,4 +113,4 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
     <div class="flash-success">
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
-<?php endif; ?>
+<?php endif; ?

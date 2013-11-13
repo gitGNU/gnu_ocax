@@ -85,6 +85,9 @@ function addPanelSeparator(){
 	if(!$panel_separator_added){
 		echo '<div class="horizontalRule" style="float:right;padding-top:10px;">';
 		echo '<div id="control_panel"></div>';
+		echo '<div class="sub_title" style="float:right">';
+		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_blank">OCAx manual</a>';
+		echo '</div>';
 		echo '<div class="clear"></div>';
 		echo '</div>';	
 		$panel_separator_added=1;
@@ -102,10 +105,10 @@ if($model->is_team_member){
 if($model->is_editor){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">CMS editor options</div>';
+	echo '<div class="sub_title">'.__('CMS editor options').'</div>';
 	echo '<p>';
 		echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
-		echo CHtml::link(_('Site pages'), array('/cmsPage/admin')).'</p>';
+		echo CHtml::link(__('Site pages'), array('/cmsPage/admin')).'</p>';
 	echo '</div>';
 }
 
@@ -120,17 +123,17 @@ if($model->is_manager){
 if($model->is_admin){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">Administator\'s options</div>';
+	echo '<div class="sub_title">'.__('Administator\'s options').'</div>';
 	echo '<div style="float:left"><p>';
 		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
 		echo CHtml::link(__('Newsletters'),array('bulkEmail/admin')).'<br />';
-		echo CHtml::link('Zip file',array('file/databaseDownload')).'<br />';
+		echo CHtml::link(__('Zip file'),array('file/databaseDownload')).'<br />';
 		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 	echo '</p></div>';
 	echo '<div style="float:right"><p>';
-		echo CHtml::link('Users and roles',array('user/admin')).'<br />';
-		echo CHtml::link('Email text templates',array('emailtext/admin')).'<br />';
-		echo CHtml::link('Global parameters',array('config/admin')).'<br />';
+		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
+		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
+		echo CHtml::link(__('Global parameters'),array('config/admin')).'<br />';
 	echo '</p></div>';
 	echo '</div>';
 	echo '</div>';
