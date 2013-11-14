@@ -33,7 +33,7 @@ if(!$model->enquirys){
 }
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showEnquiry(enquiry_id){
 	$.ajax({
@@ -148,11 +148,11 @@ echo '<p style="font-size:1.5em">'.$model->fullname.' '.__('has not made a enqui
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
-    	}, 2000);
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>

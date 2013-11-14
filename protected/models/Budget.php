@@ -190,9 +190,11 @@ class Budget extends CActiveRecord
 		return '';
 	}	
 
-	public function getPopulation()
+	public function getPopulation($year=Null)
 	{
-		return $this->findByAttributes(array('year'=>$this->year,'parent'=>Null))->initial_provision;
+		if(!$year)
+			$year=$this->year;
+		return $this->findByAttributes(array('year'=>$year,'parent'=>Null))->initial_provision;
 	}
 	
 	public function getChildBudgets()
@@ -264,6 +266,24 @@ class Budget extends CActiveRecord
 		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->getURI();
 		exec($command, $output, $return_var);
 		echo $return_var;
+	}
+
+	public function budgetsWithoutDescription()
+	{
+		$sql =" SELECT b.*
+				FROM budget b
+				WHERE NOT EXISTS (
+					SELECT *
+					FROM budget_description d
+					WHERE b.csv_id = d.csv_id
+					
+				) AND b.parent IS NOT NULL";
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
+
+		return new CSqlDataProvider($sql,array(	'totalItemCount'=>$count,
+												'pagination'=>array('pageSize'=>10),
+											));
 	}
 
 	public function publicSearch()

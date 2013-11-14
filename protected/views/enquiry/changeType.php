@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 );
-
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <style>           
@@ -161,7 +161,7 @@ if($model->budget){
 )); ?>
 
 
-<p></p>
+<div class="horizontalRule" style="margin-top:20px">
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
-
+</div>
 

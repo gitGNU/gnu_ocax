@@ -23,6 +23,7 @@
 $this->menu=array(
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':profiles:cms_editor';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create page'))); ?>

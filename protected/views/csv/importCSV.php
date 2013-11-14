@@ -26,6 +26,7 @@ $this->menu=array(
 	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
 	array('label'=>__('List Years'), 'url'=>array('//budget/adminYears')),
 );
+$this->inlineHelp=':csv_format';
 ?>
 
 <style>

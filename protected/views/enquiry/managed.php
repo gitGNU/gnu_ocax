@@ -45,7 +45,7 @@ $('.search-form form').submit(function(){
 <div class="outer">
 <div class="left">
 
-<h1>Enquiries encomendadas a mi</h1>
+<h1><?php echo __('Entrusted enquiries'); ?></h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -62,7 +62,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div>
 <div class="right">
 	<b><?php echo __('States');?></b>
-	<a href="http://ocax.net/?El_software:Workflow_y_estados" target="_new"><?php echo __('more info');?></a>	
+	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>
 	<br />
 	<?php
 		foreach($model->getHumanStates() as $key=>$value){

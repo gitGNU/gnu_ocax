@@ -27,10 +27,7 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
 );
-
-$this->contextHelp='This Reply will be published on the website.<br /><br />After publishing you can:<br /><br />
-					a) attach files and<br />
-					b) send an email to subscribed users informing them of this update.';
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <div class="form">
@@ -82,7 +79,7 @@ $this->contextHelp='This Reply will be published on the website.<br /><br />Afte
 												undo,redo,|,link,unlink",
 			),
 		    'htmlOptions' => array(
-		        'rows' => 20,
+		        'rows' => 6,
 		        'cols' => 80,
 		    ),
 		));

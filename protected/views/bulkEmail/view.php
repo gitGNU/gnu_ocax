@@ -52,7 +52,7 @@ if($model->sent == 0){
 }
 </style>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showRecipients(){
 	$.ajax({
@@ -139,22 +139,22 @@ echo '<img id="loading" src="'.Yii::app()->theme->baseUrl.'/images/small_loading
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
+			$('.flash-success').slideUp('fast');
     	}, 1750);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('error')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_error').fadeOut('fast');
+			$('.flash-error').slideUp('fast');
     	}, 1750);
 		});
 	</script>
-    <div class="flash_error">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('error');?></b></p>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
     </div>
 <?php endif; ?>

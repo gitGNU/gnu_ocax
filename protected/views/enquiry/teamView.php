@@ -48,36 +48,35 @@ if($model->state == ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	array_splice( $this->menu, 0, 0, $assess );
 }
 if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
-	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/create?related='.$model->id))  );
+	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/reformulate?related='.$model->id))  );
 	array_splice( $this->menu, 0, 0, $reformulate );
 }
+
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
-    <div class="flash_prompt">
-        
-		<p style="margin-top:5px;"><?php echo __('Send an email to the');?>
-		<b><?php echo Yii::app()->user->getFlash('prompt_email');?></b>
-		<?php echo __('people subscribed to the Enquiry')?>
-		?</p>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('prompt_email');?><br />
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
-			<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-			<button onclick="$('.flash_prompt').slideUp('fast')">No</button>
+		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
+		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
     </div>
 <?php endif; ?>
+
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
-    	}, 1750);
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 

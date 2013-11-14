@@ -35,6 +35,11 @@ $(document).ready(function() {
 		$('#enquiry-form').find(':textarea:not(:disabled)').prop('disabled',true);
 	}
 });
+function submitForm(){
+	$('.loading_gif').show();
+	$('input[type=button]').prop("disabled",true);
+	document.forms['enquiry-form'].submit();
+}
 </script>
 
 
@@ -73,7 +78,7 @@ $(document).ready(function() {
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255,'style'=>'width:100%')); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
@@ -85,23 +90,34 @@ $this->widget('ext.tinymce.TinyMce', array(
     'model' => $model,
     'attribute' => 'body',
     'compressorRoute' => 'tinyMce/compressor',
+    
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-    'settings' => array(
-    	'entity_encoding' => "raw",
-	),
+	'settings' => array('convert_urls'=>true,
+						'relative_urls'=>false,
+						'remove_script_host'=>false,
+						//'entity_encoding' => "raw",
+						'theme_advanced_resize_horizontal' => 0,
+						'theme_advanced_resize_vertical' => 0,
+						'theme_advanced_resizing_use_cookie' => false,
+						'width'=>'100%'
+						),
+	/*
     'htmlOptions' => array(
-        'rows' => 10,
+        'rows' => 6,
         'cols' => 80,
     ),
+    */
 ));
 ?>
 		<?php echo $form->error($model,'body'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? __('Publish') : __('Update')); ?>
+		<?php $buttonText = $model->isNewRecord ? __('Publish') : __('Update') ?>
+		<input type="button" onclick="submitForm()" value="<?php echo $buttonText; ?>">
+
 		<?php	if (!$model->id)
 					$cancelURL='/user/panel';
 				elseif ($model->team_member == $user_id)	// remember: a team_memebr can edit a enquiry
@@ -110,6 +126,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 					$cancelURL='/enquiry/'.$model->id;
 		?>
 		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<img style="vertical-align:middle;display:none" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 
 <?php $this->endWidget(); ?>

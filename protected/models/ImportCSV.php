@@ -76,6 +76,19 @@ class ImportCSV extends CFormModel
 						'|'.$b->label.'|'.$b->concept.PHP_EOL);
 		}
 		fclose($fh);
+		
+		
+		$content = file_get_contents($tmp_fn);
+		//file_put_contents($tmp_fn, "\xEF\xBB\xBF".  $content);
+		
+
+		$fh = fopen($tmp_fn, 'w');
+        # Now UTF-8 - Add byte order mark 
+        fwrite($fh, pack("CCC",0xef,0xbb,0xbf)); 
+        fwrite($fh,$content); 
+        fclose($fh); 
+
+		
 		if (copy($tmp_fn, $file->getURI())) {
 			unlink($tmp_fn);
 			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('d-m-Y H:i:s').')';

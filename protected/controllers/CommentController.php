@@ -99,7 +99,7 @@ class CommentController extends Controller
 			Yii::app()->end();
 
 		$model=new Comment;
-
+		$commentCreatedNewSubscription=0;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -112,17 +112,11 @@ class CommentController extends Controller
 			$model->created=date('c');
 			if($model->save()){
 
-				echo CJavaScript::jsonEncode(array(
-					'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),
-				));
-
- 				$mailer = new Mailer();
-
 				if($model->enquiry == Null)
 					$enquiry = Enquiry::model()->findByPk($model->reply0->enquiry);
 				else
 					$enquiry = Enquiry::model()->findByPk($model->enquiry);
-					
+
 				// subscribe commentator to enquiry
 				$criteria = new CDbCriteria;
 				$criteria->condition = 'enquiry = '.$enquiry->id.' AND user = '.$model->user;
@@ -131,8 +125,14 @@ class CommentController extends Controller
 					$subscription->user=$model->user;
 					$subscription->enquiry=$enquiry->id;
 					$subscription->save();
-				}
+					$commentCreatedNewSubscription=1;
+				}				
 
+				echo CJavaScript::jsonEncode(array(
+					'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),
+					'newSubscription'=>$commentCreatedNewSubscription,
+				));
+					
 				$criteria = array(
 					'with'=>array('enquirySubscribes'),
 					'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
@@ -140,6 +140,7 @@ class CommentController extends Controller
 				);
 				$subscribedUsers = User::model()->findAll($criteria);
 
+				$mailer = new Mailer();
 				foreach($subscribedUsers as $subscribed)
 					$mailer->AddBCC($subscribed->email);
 

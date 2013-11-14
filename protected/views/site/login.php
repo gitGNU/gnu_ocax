@@ -8,8 +8,8 @@
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
+	.left{width: 43%; float: left;  margin: 0px; padding-left:25px;}
+	.right{width: 53%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
@@ -95,8 +95,8 @@ function requestNewPasswd(){
 <p>
 <a id="passwd_instructions_link" class="link" onClick="js:showPasswdInstructions()"><?php echo __('Follow these instructions');?></a>
 <div id="passwd_instructions" class="form" style="display:none">
-<p id="passwd_text" style="height:20px;"><?php echo __('Enter your email address and we will send you a link');?></p>
-<input id="email" type="text" style="margin-right:10px;" /><button id="email_button" onClick="js:requestNewPasswd();"><?php echo __('Send');?></button>
+<span id="passwd_text"><?php echo __('Enter your email address and we will send you a link');?></span><br />
+<input id="email" type="text" size="35" style="margin-right:10px;" /><button id="email_button" onClick="js:requestNewPasswd();"><?php echo __('Send');?></button>
 <img id="loading" src="<?php echo Yii::app()->request->baseUrl;?>/images/small_loading.gif" style="vertical-align:middle;margin-left:10px;display:none"/>
 </div>
 </p>
@@ -107,12 +107,12 @@ function requestNewPasswd(){
 <?php if(Yii::app()->user->hasFlash('error')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_error').fadeOut('fast');
+			$('.flash-error').slideUp('fast');
     	}, 3500);
 		});
 	</script>
-    <div class="flash_error">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('error');?></b></p>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
     </div>
 <?php endif; ?>
 

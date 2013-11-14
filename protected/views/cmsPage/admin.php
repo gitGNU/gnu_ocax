@@ -26,9 +26,10 @@ $this->menu=array(
 	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 );
+$this->inlineHelp=':profiles:cms_editor';
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <script>
 function showUploadedFiles(){
@@ -103,12 +104,12 @@ function uploadFile(){
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
-    	}, 2750);
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 

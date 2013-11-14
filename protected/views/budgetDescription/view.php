@@ -44,7 +44,6 @@ $this->menu=array(
 		'common',
 	),
 )); ?>
-
 </p>
 
 <?php

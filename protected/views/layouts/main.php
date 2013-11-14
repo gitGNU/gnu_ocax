@@ -26,7 +26,7 @@
 
 
 
-<div id="header_bar_j">
+<div id="header_bar">
 <div id="header_bar_container">
 
 	<div class="header_last_block">
@@ -42,7 +42,7 @@
 	?>
 	</div>
     
-    <div class="header_block_j">
+    <div class="header_block">
 		<?php
 			if(Yii::app()->user->isGuest){
 				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/login'));
@@ -54,12 +54,12 @@
 		?>
 	</div>   
     
-    <div class="header_block_j">
+    <div class="header_block">
     <a href="<?php echo Config::model()->findByPk('socialFacebookURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/fb_bar.gif" /></a>
     <a href="<?php echo Config::model()->findByPk('socialTwitterURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/tw_bar.gif" /></a>
 	</div>    
     
-	<div class="header_block_j">	
+	<div class="header_block">	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
@@ -113,7 +113,6 @@
 	<div class="clear"></div>
 </div><!-- page -->
 
-
 <div id="footer">
 	<div style="width: 370px; float: left;">
 		<u><?php echo __('Contact information')?></u><br />
@@ -127,25 +126,28 @@
 		?>
 	</div>
 	
-	<div style="width: 250px; float: left;">
-		<span style="margin-left:15px">Una iniciativa de:</span>
-		<br />
-		<a href="http://auditoriaciudadana.net">
-		<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd.png"/>
-		</a>
+	<div style="width: 250px; float:left; margin-top:10px;margin-bottom:7px;">
+		<div style="float: left; margin-top:8px;margin-right:20px;">
+			<a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
+			<a href="http://auditoriaciudadana.net">http://auditoriaciudadana.net</a>	
+		</div>
+		<div style="margin-left:40px">
+			<a href="http://auditoriaciudadana.net">
+			<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd_small.png"/>
+			</a>		
+		</div>
 	</div>
 	
     <div style="width: 200px; float: right; padding-left:30px;">
-		Copyright &copy; <?php echo date('Y'); ?> por <br /><a href="http://ocax.net">http://ocax.net</a><br/>
-		AGPLv3 <a href="https://gitorious.org/ocax/"><br />https://gitorious.org/ocax</a><br />
+		AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
+		<a href="http://ocax.net">http://ocax.net</a><br />
+		<a href="https://gitorious.org/ocax/ocax/source/eb095930109c0fac3d81a565169f5ecdb56211a9:">https://gitorious.org/ocax</a>
 	</div>
 	
 	<div style="clear:both;"></div>	
 </div><!-- footer -->
 
-	
 <div class="poweredBy"><?php echo Yii::powered(); ?></div>
 </div>
-
 </body>
 </html>

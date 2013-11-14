@@ -40,14 +40,15 @@ html, body{
 .reply{
 	padding:10px;
 	margin-top:20px;
-	border: 1px solid #C9E0ED;
+	border: 1px solid #cdcbc9;
 }
 .reply > .title{
 	padding:10px;
 	margin-top:-10px;
 	margin-left:-10px;
 	margin-right:-10px;
-	background-color:#CAE1FF;
+	/*background-color:#cdcbc9;*/
+	background-color:rgb(228, 222, 215);
 	margin-bottom:10px;
 }
 
@@ -56,8 +57,7 @@ html, body{
 	margin-top:-10px;
 	margin-left:-10px;
 	margin-right:-10px;
-	background-color:#F0F8FF;
-	margin-bottom:10px;
+	border-bottom: 1px solid rgb(228, 222, 215);
 }
 
 .reply > .bottomBar{
@@ -67,32 +67,5 @@ html, body{
 	margin-right:-10px;
 	background-color:#F0F8FF;
 	margin-bottom:-10px;
-}
-
-.flash_prompt{
-	top: 0px;
-	position:absolute;
-	left: 50%;
-	margin-left: -230px;
-	z-index: 999;
-	width: 460px;
-	height: 80px;
-	background-color: #FFC125;
-	-webkit-border-radius: 0px 0px 20px 20px;
-	border-radius: 0px 0px 20px 20px;
-	text-align:center;
-}
-.flash_success{
-	top: 0px;
-	position:absolute;
-	left: 50%;
-	margin-left: -230px;
-	z-index: 999;
-	width: 460px;
-	height: 80px;
-	background-color: #98FB98;
-	-webkit-border-radius: 0px 0px 20px 20px;
-	border-radius: 0px 0px 20px 20px;
-	text-align:center;
 }
 

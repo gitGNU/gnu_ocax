@@ -22,8 +22,9 @@
 /* @var $model Config */
 
 $this->menu=array(
-	array('label'=>'List all parameters', 'url'=>array('admin')),
+	array('label'=>__('List all parameters'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':profiles:admin:global_parameters';
 ?>
 
 <div class="form">

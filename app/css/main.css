@@ -143,14 +143,22 @@ body
 	text-decoration:none;
 }
 
-
-
-
 div.flash-error, div.flash-notice, div.flash-success
 {
 	padding:.8em;
 	margin-bottom:1em;
+	margin-left: -230px;
 	border:2px solid #ddd;
+	border-top:0px;
+	text-align:center;
+	font-size:1.2em;
+	position:absolute;
+	top: 32px;
+	left: 50%;
+	z-index: 999;
+	width: 460px;
+	-webkit-border-radius: 0px 0px 20px 20px;
+	border-radius: 0px 0px 20px 20px;
 }
 
 div.flash-error
@@ -198,7 +206,7 @@ div.view
 {
 	padding: 10px;
 	margin: 10px 0;
-	border: 1px solid #C9E0ED;
+	border: 1px solid #cdcbc9;
 }
 
 /*
@@ -328,7 +336,7 @@ div.search-form
 
 /*HEADER BAR*/
 
-#header_bar_j
+#header_bar
 {
 	margin: 0;
 	padding: 0;
@@ -336,7 +344,7 @@ div.search-form
 	font-size: 16px;
 }
 
-#header_bar_j img
+#header_bar img
 {
 	vertical-align:middle;
 }
@@ -347,7 +355,7 @@ div.search-form
 	margin:0 auto;
 }
 
-.header_block_j
+.header_block
 {
 	font-weight:800;
 	list-style-type: none;
@@ -399,36 +407,39 @@ div.search-form
 	padding:10px 0px 0px 0px;
 }
 
-.enquiryDirectLink{
-	width:42px;
-	height:42px;
-	float:left;
+span.ocaxButton {
+	border:1px solid #DEDEDE;
+	background-color: #EDEDED;
 	cursor:pointer;
-	margin-top:-5px;
-	margin-right:10px;
-	margin-left:10px;
+	padding: 0px 4px 0px 4px;
+    height: 18px;
+	font-size:0.9em;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
-/*.enquiryDirectLink:hover { background-position: -42px 0; }*/
+span.ocaxButton:hover { border:1px solid #BDBDBD; }
 
-.enquirySubscribe{
-	width:42px;
-	height:42px;
-	float:left;
-	cursor:pointer;
-	margin-top:-5px;
-	margin-right:10px;
+span.ocaxButtonCount {
+
+    height: 18px;
+	border:1px solid #DEDEDE;
+	background-color: white;
+	padding: 0px 4px 0px 4px;
+	margin-left:2px;
 }
-/*.enquirySubscribe:hover { background-position: -43px 0; } */
 
 .social_popup {
 	font-size:1.1em;
 	display :none;
 	position: absolute;
-	margin-top:-3px;
+	margin-top:-5px;
 	padding:10px 5px 10px 2px;
-	border: 1px solid grey;
+	border:1px solid #DEDEDE;
+	border-top:0px;
+	border-bottom:3px solid #CDCDCD;
 	z-index: 1;
-	background-color: lightgrey;
+	background-color: #EDEDED
 }
 
 #nueva_consulta {
@@ -439,13 +450,13 @@ div.search-form
 	text-indent: -5000px;
 	display:block;
 	width:55px;
-	height:46px;
+	height:51px;
+	cursor:pointer;
 }
 #nueva_consulta:hover {
 	background-position: -55px 0;
 	background-color: none;
 }
- 
 
 #datos_usuario {
 	float:left;
@@ -456,6 +467,7 @@ div.search-form
 	display:block;
 	width:46px;
 	height:46px;
+	cursor:pointer;
 }
 #datos_usuario:hover {
 	background-position: -46px 0;
@@ -560,6 +572,7 @@ div.search-form
 	display:none;
 	background-color: rgb(245,241,237);
 	padding:10px;
+	margin-top:30px;	/* did this for new bPopup version 0.9.4 */
 }
 .bClose{ /* close popup window icon */
 	cursor: pointer;

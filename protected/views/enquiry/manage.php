@@ -26,6 +26,7 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('List all'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':profiles:team_manager';
 ?>
 
 <style>           
@@ -99,12 +100,36 @@ function reject(){
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
-    <div class="flash_prompt">
-		<p style="margin-top:5px;">Enviar un correo a las <b><?php echo Yii::app()->user->getFlash('prompt_email');?></b> personas suscritas a esta enquiry?</p>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('prompt_email');?><br />
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=manager';
 		?>
-			<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/admin';">No</button>
+		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
+		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
+    </div>
+<?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
+		});
+	</script>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('notice')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-notice').slideUp('fast');
+    	}, 3000);
+		});
+	</script>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('notice');?>
     </div>
 <?php endif; ?>

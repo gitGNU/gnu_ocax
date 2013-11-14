@@ -20,9 +20,12 @@
 
 /* @var $this EmailtextController */
 /* @var $model Emailtext */
+
+$this->inlineHelp='::profiles:admin';
+
 ?>
 
-<h1><?php echo __('Manage default email texts');?></h1>
+<h1><?php echo __('Email text templates');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

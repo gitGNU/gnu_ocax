@@ -1,9 +1,8 @@
-OCAX(x)
+OCAX(x) version 1.0.1
 
 This software is BETA.
 We have frozen new features and are ironing out bugs.
-Recommended install is via GIT so you can update easily.
-Please get in touch.
+
 
 
 Directory structure
@@ -12,22 +11,41 @@ Directory structure
 |
 - protected
 |
-- framework	(http://www.yiiframework.com/ (version 1.1.13))
+- framework	(http://www.yiiframework.com/ (tested with 1.1.14))
 
 
 Installation
 
-Create database
+1. Database
+* Create database and user
 CREATE DATABASE db_name CHARACTER SET utf8  COLLATE utf8_swedish_ci;
-and tables
-mysql -uuser_name -p db_name < schema.sql
+CREATE USER 'user_name'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON db_name. * TO 'user_name'@'localhost';
 
-Copy protected/config/main.example.php to protected/config/main.php
-Modify mysql connection parameters in protected/config/main.php
+* Import table structure
+$ mysql -uuser_name -p db_name < schema.sql
 
-File permissions
-chown -R www-data protected/runtime/ protected/data/
-chown www-data app/assets/ app/files/
+* If your OCM is in Spain, import data common to all Spanish OCMs
+$ wget http://ocax.net/download/spain_budget_description.sql
+$ mysql -uuser_name -p db_name < spain_budget_description.sql
 
-apt-get install zip
+2. Create config file
+$ cp protected/config/main.example.php protected/config/main.php
+and modify mysql connection parameters in protected/config/main.php
+
+3. File permissions
+# chown -R www-data protected/runtime/ protected/data/
+# chown -R www-data app/assets/ app/files/
+
+4. Apache config
+If you cannot edit the apache server config, you'll need a .htaccess file
+$ cp app/htaccess app/.htaccess
+
+5. Other software
+Your web server needs to create the Database download zip file.
+# apt-get install zip
+
+That's it. You should be able to browse to your site now.
+
+6. See Post Installation instructions here http://ocax.net/en:install
 

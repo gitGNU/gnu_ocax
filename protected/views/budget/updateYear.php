@@ -37,9 +37,10 @@ if($totalBudgets){
 								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
 	array_splice( $this->menu, 1, 0, $deleteYear );
 }
+$this->inlineHelp=':profiles:admin:budgets';
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function deleteBudgets(){
 	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
@@ -131,19 +132,19 @@ $this->widget('PGridView', array(
 <?php /*echo $this->renderPartial('//enquiry/_megaDelete');*/ ?>
 
 <?php if(Yii::app()->user->hasFlash('csv_generated')):?>
-    <div class="flash_success" id="csv_generated_ok">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('csv_generated');?></b></p>
+    <div class="flash-success" id="csv_generated_ok">
+		<?php echo Yii::app()->user->getFlash('csv_generated');?>
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
+			$('.flash-success').slideUp('fast');
     	}, 2000);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 

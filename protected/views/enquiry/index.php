@@ -31,7 +31,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
@@ -58,9 +58,9 @@ function showEnquiry(enquiry_id){
 				$('#enquiry').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
+					, speed: 10
                 });
 			}
 		},

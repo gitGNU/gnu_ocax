@@ -102,8 +102,6 @@ class EmailtextController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$this->layout='//layouts/column1';
-
 		$model=new Emailtext('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Emailtext']))

@@ -30,10 +30,11 @@ $this->menu=array(
 
 	$deleteEnquiry = array( array('label'=>__('Delete enquiry'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));
 	array_splice( $this->menu, 1, 0, $deleteEnquiry );
-
+	
+$this->inlineHelp=':profiles:team_manager';
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.8.0.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showEnquiry(enquiry_id){
 	$.ajax({
@@ -75,28 +76,28 @@ function megaDelete(el){
 }
 </script>
 
-<?php echo $this->renderPartial('_teamView', array('model'=>$model,'replys'=>$replys)); ?>
+<?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>
-    <div class="flash_prompt">
-        
-		<p style="margin-top:5px;">Enviar un correo a las <b><?php echo Yii::app()->user->getFlash('prompt_email');?></b> personas suscritas a esta enquiry?</p>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('prompt_email');?><br />
 		<?php 
-		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
+		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=manager';
 		?>
 			<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-			<button onclick="$('.flash_prompt').slideUp('fast')">No</button>
+			<button onclick="$('.flash-notice').slideUp('fast')">No</button>
     </div>
 <?php endif; ?>
+
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
 		$(function() { setTimeout(function() {
-			$('.flash_success').fadeOut('fast');
-    	}, 1750);
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
 		});
 	</script>
-    <div class="flash_success">
-		<p style="margin-top:25px;"><b><?php echo Yii::app()->user->getFlash('success');?></b></p>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 

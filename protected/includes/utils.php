@@ -60,4 +60,17 @@ function format_date($date, $hours=Null){
 		return $date->format('d-m-Y');
 }
 
+function getOCAXVersion(){
+	$path = Yii::app()->basePath.'/data/ocax.version';
+	$handle = @fopen($path, "r");
+	$version = rtrim(fgets($handle),"\n");
+	fclose($handle);
+	return $version;
+}
+
+function getInlineHelpURL($path){
+	return 'http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
+	return 'http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path.'&inlinehelp=1';
+}
+
 ?>

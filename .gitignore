@@ -1,5 +1,6 @@
 *~
 protected/config/main.php
+app/.htaccess
 app/assets/*
 !app/assets/.gitignore
 files/*

@@ -25,6 +25,7 @@
 $this->menu=array(
 	array('label'=>_('Create page'), 'url'=>array('create')),
 );
+$this->inlineHelp=':profiles:cms_editor';
 ?>
 <h1><?php echo _('Manage Introduction pages');?></h1>
 
