@@ -65,13 +65,6 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 
 
 <script>
-function updateSubscriptionTotal(addMe){
-	if($('#subscriptionTotal').length>0){
-		total=parseInt($('#subscriptionTotal').html());
-		$('#subscriptionTotal').html(total+addMe);
-	}
-}
-
 function subscribe(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		$(el).attr('checked', false);

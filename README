@@ -1,9 +1,8 @@
-OCAX(x)
+OCAX(x) version 1.0.1
 
 This software is BETA.
 We have frozen new features and are ironing out bugs.
-Recommended install is via GIT so you can update easily.
-Please get in touch.
+
 
 
 Directory structure
@@ -12,7 +11,7 @@ Directory structure
 |
 - protected
 |
-- framework	(http://www.yiiframework.com/)
+- framework	(http://www.yiiframework.com/ (tested with 1.1.14))
 
 
 Installation
@@ -26,9 +25,9 @@ GRANT ALL PRIVILEGES ON db_name. * TO 'user_name'@'localhost';
 * Import table structure
 $ mysql -uuser_name -p db_name < schema.sql
 
-* Import some data common to all OCMs
-$ wget http://ocax.net/budget_description.sql
-$ mysql -uuser_name -p db_name < budget_description.sql
+* If your OCM is in Spain, import data common to all Spanish OCMs
+$ wget http://ocax.net/download/spain_budget_description.sql
+$ mysql -uuser_name -p db_name < spain_budget_description.sql
 
 2. Create config file
 $ cp protected/config/main.example.php protected/config/main.php
@@ -43,4 +42,10 @@ If you cannot edit the apache server config, you'll need a .htaccess file
 $ cp app/htaccess app/.htaccess
 
 5. Other software
+Your web server needs to create the Database download zip file.
 # apt-get install zip
+
+That's it. You should be able to browse to your site now.
+
+6. See Post Installation instructions here http://ocax.net/en:install
+

@@ -568,11 +568,13 @@ class EnquiryController extends Controller
 				}
 			}
 			if($saveMe && $model->save()){
-				if(!EnquirySubscribe::model()->find(array('condition'=>'enquiry='.$model->id. ' AND user='.$model->team_member))){
-					$subscription=new EnquirySubscribe;
-					$subscription->user = $model->team_member;
-					$subscription->enquiry = $model->id;
-					$subscription->save();
+				if($model->team_member){
+					if(!EnquirySubscribe::model()->find(array('condition'=>'enquiry='.$model->id. ' AND user='.$model->team_member))){
+						$subscription=new EnquirySubscribe;
+						$subscription->user = $model->team_member;
+						$subscription->enquiry = $model->id;
+						$subscription->save();
+					}
 				}
 				if($model->state == ENQUIRY_ASSIGNED || $model->state == ENQUIRY_REJECTED)
 					$model->promptEmail();

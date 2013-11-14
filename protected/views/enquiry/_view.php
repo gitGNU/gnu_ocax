@@ -70,6 +70,12 @@ function toggleComments(comments_block_id){
 	else
 		$('#'+comments_block_id).slideDown('fast');
 }
+function updateSubscriptionTotal(addMe){
+	if($('#subscriptionTotal').length>0){
+		total=parseInt($('#subscriptionTotal').html());
+		$('#subscriptionTotal').html(total+addMe);
+	}
+}
 function getCommentForm(comment_on, id, el){
 	if(!isUser())
 		return;
@@ -127,7 +133,6 @@ function submitComment(form){
 						$('#subscribe_checkbox').attr('checked', true);
 					updateSubscriptionTotal(data.newSubscription);
 				}
-				//$(form).parents('div:first').remove();
 				$('#comment_form').prev('.add_comment_link').show();
 		},
 		error: function() { alert("error on create comment"); },
