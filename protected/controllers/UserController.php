@@ -77,10 +77,7 @@ class UserController extends Controller
 			'criteria'=>array(
 				'condition'=>"user=$id",
 			),
-			'pagination'=>array(
-				'pageSize'=>20,
-			),
-			'sort'=>array('defaultOrder'=>'modified DESC'),
+			'sort'=>array('defaultOrder'=>'modified ASC'),
 		));
 
 		$userid=Yii::app()->user->getUserID();
@@ -93,7 +90,7 @@ class UserController extends Controller
 								( t.team_member != '.$userid.' || t.team_member IS NULL )',
 				'together'=>true,
 			),
-			'sort'=>array('defaultOrder'=>'modified DESC'),
+			'sort'=>array('defaultOrder'=>'modified ASC'),
 		));
 
 		$this->render('panel',array(
@@ -113,7 +110,7 @@ class UserController extends Controller
 		$enquirys=new CActiveDataProvider('Enquiry', array(
 			'criteria'=>array(
 				'condition'=>"user=$id",
-				'order'=>'created DESC',
+				'order'=>'created ASC',
 			),
 			'pagination'=>array(
 				'pageSize'=>20,

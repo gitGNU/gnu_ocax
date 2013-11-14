@@ -39,16 +39,18 @@ function showHelp(url){
 			content:'iframe',
 			iframeAttr:'width=900px scrolling=auto',
 			contentContainer:'#helpContent',
-			loadUrl:url
+			loadUrl:url,
+			/*loadCallback: function(){ $('.loading_help').hide(); },*/
 		});
 }
 </script>
 <div id="help" class="modal" style="width:900px;scrolling:auto;padding:0px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="helpContent"></div>
+<div id="helpContent">
+<?php /*echo '<img class="loading_help" src="'.Yii::app()->request->baseUrl.'/images/big_loading.gif" />'; */ ?>
+</div>
 </div>
 <!-- help widget stop -->
-	<?php
-
+<?php
     }
 }

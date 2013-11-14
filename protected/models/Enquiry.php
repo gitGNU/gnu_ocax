@@ -196,17 +196,15 @@ class Enquiry extends CActiveRecord
 				'together'=>true,
 			);
 		}
-		/*
-		if($this->state == ENQUIRY_ASSIGNED)
-			$criteria['condition'] .= ' AND enquirySubscribes.user != '.$this->user;
-		*/
 		return User::model()->findAll($criteria);
 	}
 
-
 	public function promptEmail()
 	{
-		$str = __('Send an email to the').' '.count($this->getEmailRecipients()).' '.__('people subscribed to the Enquiry').'?';
+		if($this->state == ENQUIRY_ASSIGNED)
+			$str = __('Send an email to the').' '.__('team member').'?';
+		else
+			$str = __('Send an email to the').' '.count($this->getEmailRecipients()).' '.__('people subscribed to the Enquiry').'?';
 		Yii::app()->user->setFlash('prompt_email', $str );
 	}
 

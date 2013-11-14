@@ -45,7 +45,7 @@ $('.search-form form').submit(function(){
 <div class="outer">
 <div class="left">
 
-<h1>Enquiries encomendadas a mi</h1>
+<h1><?php echo __('Entrusted enquiries'); ?></h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

@@ -320,7 +320,6 @@ class EnquiryController extends Controller
 			Yii::app()->end();
 		}
 		
-		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -466,11 +465,8 @@ class EnquiryController extends Controller
 	public function actionTeamView($id)
 	{
 		$model=$this->loadModel($id);
-		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
-
 		$this->render('teamView',array(
 			'model'=>$model,
-			//'replys'=>$replys,
 		));
 	}
 
@@ -494,7 +490,6 @@ class EnquiryController extends Controller
 		}
 		$this->render('assess',array(
 			'model'=>$model,
-			//'replys'=>$replys,
 		));
 	}
 
@@ -551,40 +546,40 @@ class EnquiryController extends Controller
 			$model->manager=Yii::app()->user->getUserID();
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
+
 			if($model->state == 'rejected'){
 				$model->state = ENQUIRY_REJECTED;
 				$model->assigned = Null;
 				$model->team_member = Null;
 			}
+			elseif(!$model->team_member && $team_member == $model->team_member){
+				Yii::app()->user->setFlash('notice', __('You must assign a team member'));
+				$saveMe=Null;
+			}
 			elseif($team_member != $model->team_member){
 				if($model->team_member){
 					$model->assigned=date('Y-m-d');
+					$model->modified=date('c');
 					if($model->state <= ENQUIRY_REJECTED) // maybe enquiry was already accepted and has higher state.
 						$model->state=ENQUIRY_ASSIGNED;
 				}else{
-					if($model->state >= ENQUIRY_ASSIGNED){
-						$model->team_member=$team_member;
-						$saveMe=Null;
-						Yii::app()->user->setFlash('notice', __('You must assign a team member'));
-					}else{
-						$model->assigned=Null;
-						$model->state=ENQUIRY_PENDING_VALIDATION;
-					}
+					Yii::app()->user->setFlash('notice', __('You must assign a team member'));
+					$saveMe=Null;
 				}
-				$model->modified=date('c');
 			}
 			if($saveMe && $model->save()){
-				if($model->team_member){
-					if(!EnquirySubscribe::model()->find(array('condition'=>'enquiry='.$model->id. ' AND user='.$model->team_member))){
-						$subscription=new EnquirySubscribe;
-						$subscription->user = $model->team_member;
-						$subscription->enquiry = $model->id;
-						$subscription->save();
-					}
+				if(!EnquirySubscribe::model()->find(array('condition'=>'enquiry='.$model->id. ' AND user='.$model->team_member))){
+					$subscription=new EnquirySubscribe;
+					$subscription->user = $model->team_member;
+					$subscription->enquiry = $model->id;
+					$subscription->save();
 				}
 				if($model->state == ENQUIRY_ASSIGNED || $model->state == ENQUIRY_REJECTED)
 					$model->promptEmail();
-			}
+				else
+					Yii::app()->user->setFlash('success', __('New team member assigned'));
+			}else
+				$model=$this->loadModel($id);	// render an unchanged model.
 		}
 
 		$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
@@ -598,10 +593,8 @@ class EnquiryController extends Controller
 	public function actionAdminView($id)
 	{
 		$model=$this->loadModel($id);
-		//$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 		$this->render('adminView',array(
 			'model'=>$model,
-			//'replys'=>$replys,
 		));
 	}
 
