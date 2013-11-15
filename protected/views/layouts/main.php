@@ -141,7 +141,7 @@
     <div style="width: 200px; float: right; padding-left:30px;">
 		AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
 		<a href="http://ocax.net">http://ocax.net</a><br />
-		<a href="https://gitorious.org/ocax/ocax/source/eb095930109c0fac3d81a565169f5ecdb56211a9:">https://gitorious.org/ocax</a>
+		<a href="https://gitorious.org/ocax/ocax/">https://gitorious.org/ocax</a>
 	</div>
 	
 	<div style="clear:both;"></div>	

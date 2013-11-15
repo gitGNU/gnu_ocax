@@ -61,7 +61,7 @@ function nextPage(id){
 </script>
 <?php
 echo '<div id="goBack">';
-echo CHtml::link('<< '.__('CMS editor'),array(	'introPage/update',
+echo CHtml::link('<< '.__('Editor'),array(	'introPage/update',
 												'id'=>$model->id,
 												'lang'=>$content->language,
 										));

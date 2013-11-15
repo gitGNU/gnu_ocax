@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-13 11:58+0100\n"
+"PO-Revision-Date: 2013-11-15 11:40+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1432,11 +1432,11 @@ msgstr "Cambia tu contraseña"
 
 #: protected/views/user/panel.php:100
 msgid "Entrusted enquiries"
-msgstr "Consultes encomanadas"
+msgstr "Consultas encomendadas"
 
 #: protected/views/user/panel.php:101
 msgid "Manage the enquiries you are responsable for"
-msgstr "Manage the enquiries you are responsable for"
+msgstr "Responde a las consultas encargadas"
 
 #: protected/views/user/panel.php:108
 msgid "CMS editor options"
@@ -1452,7 +1452,7 @@ msgstr "Páginas del sitio"
 
 #: protected/views/user/panel.php:119
 msgid "Assign enquiries to team members and check status"
-msgstr "Assign enquiries to team members and check status"
+msgstr "Encarga consultas a otros compañeros"
 
 #: protected/views/user/panel.php:126
 msgid "Administator's options"

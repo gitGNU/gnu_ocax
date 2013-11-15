@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-13 12:03+0100\n"
+"PO-Revision-Date: 2013-11-15 11:36+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1444,7 +1444,7 @@ msgstr "Consultes encomanades"
 
 #: protected/views/user/panel.php:101
 msgid "Manage the enquiries you are responsable for"
-msgstr "Manage the enquiries you are responsable for"
+msgstr "Respon a les consultes encarregades"
 
 #: protected/views/user/panel.php:108
 msgid "CMS editor options"
@@ -1460,7 +1460,7 @@ msgstr "Pàgina de lloc"
 
 #: protected/views/user/panel.php:119
 msgid "Assign enquiries to team members and check status"
-msgstr "Assign enquiries to team members and check status"
+msgstr "Encarrega consultes a altres companys"
 
 #: protected/views/user/panel.php:126
 msgid "Administator's options"
