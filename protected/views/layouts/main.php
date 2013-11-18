@@ -126,7 +126,7 @@
 		?>
 	</div>
 	
-	<div style="width: 250px; float:left; margin-top:10px;margin-bottom:7px;">
+	<div style="width: 300px; float:left; margin-top:10px;margin-bottom:7px;">
 		<div style="float: left; margin-top:8px;margin-right:20px;">
 			<a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
 			<a href="http://auditoriaciudadana.net">http://auditoriaciudadana.net</a>	

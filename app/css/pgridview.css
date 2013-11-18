@@ -63,12 +63,12 @@
 
 .pgrid-view table.items tr.even
 {
-	background: none;;
+	background: none;
 }
 
 .pgrid-view table.items tr.odd
 {
-	background: none;;
+	background: none;
 }
 
 .pgrid-view table.items tr.selected

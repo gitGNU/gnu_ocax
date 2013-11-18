@@ -1,0 +1,11 @@
+1.0.2
+
+Database changes
+----------------
+We changed two feilds in the database table intro_page from TINYINT(3) to INT(3)
+You need to do this.
+
+mysql> ALTER TABLE intro_page MODIFY toppos INT(3);
+mysql> ALTER TABLE intro_page MODIFY leftpos INT(3);
+
+

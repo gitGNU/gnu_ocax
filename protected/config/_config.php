@@ -70,6 +70,13 @@ return array(
 
 			),
 		),
+		'widgetFactory'=>array(
+			'widgets'=>array(
+				'CLinkPager'=>array(
+					'cssFile'=>(strlen(dirname($_SERVER['SCRIPT_NAME']))>1 ? dirname($_SERVER['SCRIPT_NAME']) : '' ) . '/css/pager.css',
+				),
+			),
+		),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
