@@ -122,7 +122,7 @@ function showBudget(budget_id, element){
 				$('#budget_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });

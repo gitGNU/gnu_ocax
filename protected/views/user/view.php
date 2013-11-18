@@ -49,7 +49,7 @@ function showEnquiry(enquiry_id){
 				$('#mega_delete').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });

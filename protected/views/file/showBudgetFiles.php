@@ -26,10 +26,10 @@ Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
-<div style="padding:10px">
+<div>
 <div class="sub_title"><?php echo __('Restore all budgets from a backup');?></div>
 
-<?php echo '<div style="font-size:1.2em;margin-bottom:5px;">'.__('These copies are made right before a CSV file is imported').'</div>';?>
+<?php echo '<div style="font-size:1.2em;margin-bottom:15px;">'.__('These copies are made right before a CSV file is imported').'</div>';?>
 
 <div style="margin:-10px">
 <?php
