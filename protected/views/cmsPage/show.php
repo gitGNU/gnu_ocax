@@ -58,10 +58,10 @@ echo '</div>';
 
 
 <div class="outer">
-	<div class="cms_titulo_j"><?php echo CHtml::encode($content->pageTitle); ?></div>
+	<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 
 <div class="left">
-	<div class="cms_content_j"><?php echo $content->body; ?></div>
+	<div class="cms_content"><?php echo $content->body; ?></div>
 </div>
 
 <div id="cmsinfo"></div>

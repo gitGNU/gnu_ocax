@@ -39,7 +39,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(
 		array(
-			'header'=>'web path',
+			'header'=>'link URL',
 			'name'=>'path',
 			'type'=>'raw',
 			'value'=>'$data->getWebPath()',

@@ -507,24 +507,10 @@ span.ocaxButtonCount {
 	font-weight:200;
 } 
  
-/*
-#boxes
-{
-	margin: 0;
-	padding: 0;
-	color: #555;
-	width:300px;
-	height:200px;
-	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: url(../images/boxes.jpg) no-repeat  fixed #eeeeee;
-}
-*/
-
-
 /* ******* CMS*/
 .activeMenuItem a {text-decoration:none;}
 
-.cms_titulo_j
+.cms_titulo
 {
 	font-size: 410%;
 	line-height: 100%;
@@ -533,11 +519,11 @@ span.ocaxButtonCount {
 	margin-bottom:45px;
 }
 
-.cms_content_j 
+.cms_content
 {
 	font-size: 18px;
 	line-height: 170%;
-	font-weight:200;
+	/*font-weight:200;*/
 	margin-right:50px;
 }
 
