@@ -17,14 +17,12 @@
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
 
-	<title><?php echo Config::model()->findByPk('siglas')->value; ?></title>
+	<title><?php echo (($this->pageTitle) ? $this->pageTitle : Config::model()->findByPk('siglas')->value); ?></title>
+	
 </head>
 
 <body>
-
 <div  style="position:relative">
-
-
 
 <div id="header_bar">
 <div id="header_bar_container">

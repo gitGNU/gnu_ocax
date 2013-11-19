@@ -19,8 +19,7 @@
 
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name;
-//$this->layout='//column1';
+$this->pageTitle=Config::model()->getObservatoryName();
 
 $files=array();
 $images=array();

@@ -3,7 +3,7 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-
+$this->pageTitle=Config::model()->findByPk('siglas')->value . ' - '.__('Login');
 ?>
 
 <style>           

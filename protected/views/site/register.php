@@ -1,8 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Register';
-$this->breadcrumbs=array(
- 'Register',
-);
+$this->pageTitle=Config::model()->findByPk('siglas')->value . ' - '.__('Register');
 ?>
 
 <script>

@@ -123,16 +123,15 @@ class IntroPage extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('weight > '.$this->weight.' and published = 1');
 		$criteria->order = 'weight ASC';
-
-		$pages = $this->findAll($criteria);
-		if($pages)
+		if($pages = $this->findAll($criteria))
 			return $pages[0];
-			
-		if($page = $this->findByAttributes(array('published'=>1)))
+
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('id != '.$this->id.' and published = 1');
+		if($page = $this->find($criteria))
 			return $page;
 		
 		return Null;
-	
 	}
 
 	/**
