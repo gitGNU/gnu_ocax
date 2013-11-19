@@ -19,46 +19,20 @@
 
 /* @var $this IntroPageController */
 /* @var $model IntroPage */
-?>
 
-<?php
-//get next introPage
-$nextPage=null;
-
-$criteria=new CDbCriteria;
-$criteria->addCondition('weight > '.$model->weight.' and published = 1');
-$criteria->order = 'weight ASC';
-
-$pages = $model->findAll($criteria);
-if($pages)
-	$nextPage=$pages[0];
+$nextPage=$model->getNextPage();
 ?>
 
 <style>
-.block {
-	opacity: 0.5;
-	font-size:1.3em;
-	padding:10px;
-	background-color:white;
-	position:absolute;
+.introPageBlock {
 	top:<?php echo $model->toppos;?>px;
 	left:<?php echo $model->leftpos;?>px;
 	width:<?php echo $model->width;?>px;
 }
-.block .title {
-	margin-bottom:15px;
-	line-height: 100%;
-	font-size: 28pt;
-	letter-spacing:-0.5pt;	font-weight:200;	
-}
-.nextIntroPage {
-	width:100%;
-	text-align:right;
-}
 </style>
 
-<div class="block">
-	<div class="title"><?php echo $content->title; ?></div>
+<div class="introPageBlock">
+	<div class="introTitle"><?php echo $content->title; ?></div>
 	<div class="sub_title"><?php echo $content->subtitle ?></div>
 	<p class="text"><?php echo $content->body; ?></p>
 	<?php
