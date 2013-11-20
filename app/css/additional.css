@@ -1,13 +1,6 @@
 /* --------------------- COLOR --------------------- */
 
 
-/* force a vertical scroll bar */
-html, body{
-	height: 100%;
-	margin: 0 0 1px;
-	padding: 0;
-}
-
 .enquiry{
 	padding: 10px;
 	margin: 0;
@@ -37,35 +30,5 @@ html, body{
 	background-color:#CAE1FF;
 }
 
-.reply{
-	padding:10px;
-	margin-top:20px;
-	border: 1px solid #cdcbc9;
-}
-.reply > .title{
-	padding:10px;
-	margin-top:-10px;
-	margin-left:-10px;
-	margin-right:-10px;
-	/*background-color:#cdcbc9;*/
-	background-color:rgb(228, 222, 215);
-	margin-bottom:10px;
-}
 
-.reply > .attachments{
-	padding:5px;
-	margin-top:-10px;
-	margin-left:-10px;
-	margin-right:-10px;
-	border-bottom: 1px solid rgb(228, 222, 215);
-}
-
-.reply > .bottomBar{
-	padding:5px;
-	margin-top:10px;
-	margin-left:-10px;
-	margin-right:-10px;
-	background-color:#F0F8FF;
-	margin-bottom:-10px;
-}
 

@@ -1,4 +1,9 @@
-
+html {
+	/* force a vertical scroll bar */
+	height: 100%;
+	margin: 0 0 1px;
+	padding: 0;
+}
 
 h1, h2, h3, h4, h5, h6 {font-weight:normal}
 
@@ -32,9 +37,10 @@ h1 {
 
 body
 {
-	margin: 0;
+	height: 100%;
+	margin: 0 0 1px;
+	padding: 0;	
 	background: url("../images/back.png") repeat-x scroll 0 0;
-	padding: 0;
 	font-size: 10pt;
 	font-family: SansPro,Arial,Helvetica,sans-serif;
 }
@@ -376,17 +382,19 @@ div.search-form
 }
 
 /*ENQUIRIES*/
+/*
 .enquirys b
 {
 	font-weight:bold;
 	font-size:115%;
 }
-
+*/
+/*
 .enquirys_titular
 {
 	font-size:225%;
 }
-
+*/
 .enquiryBody{
 	font-size:1.2em;
 	/* overflow-x:hidden; */
@@ -431,10 +439,10 @@ span.ocaxButtonCount {
 	display :none;
 	position: absolute;
 	margin-top:-5px;
-	padding:10px 5px 10px 2px;
+	padding:10px 5px 10px 5px;
 	border:1px solid #DEDEDE;
-	border-top:0px;
-	border-bottom:3px solid #CDCDCD;
+	border-top:3px solid rgb(228, 222, 215);
+	border-bottom:3px solid rgb(228, 222, 215);
 	z-index: 1;
 	background-color: #EDEDED
 }
@@ -516,15 +524,15 @@ span.ocaxButtonCount {
 	line-height: 100%;
 	letter-spacing:-0.5pt;
 	font-weight:200;
-	margin-bottom:45px;
+	margin-bottom:20px;
 }
 
 .cms_content
 {
 	font-size: 18px;
 	line-height: 170%;
-	/*font-weight:200;*/
 	margin-right:50px;
+	color:#000;
 }
 
 #cmsPageMenu
@@ -540,10 +548,8 @@ span.ocaxButtonCount {
 
 #cmsinfo {
 	float:left;
-	margin: -45px 8px 10px 0px;
+	margin: -10px 8px 10px 0px;
 	outline: none;
-	text-indent: -5000px;
-	display:block;
 	width:46px;
 	height:46px;
 }
@@ -585,5 +591,32 @@ span.ocaxButtonCount {
 	margin-bottom:-10px;
 }
 
+/* reply */
+.reply{
+	padding:10px;
+	margin-top:20px;
+	border: 1px solid #cdcbc9;
+}
+.reply > .title{
+	padding:10px;
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:rgb(228, 222, 215);
+	margin-bottom:10px;
+}
 
+.reply > .attachments{
+	padding:0px 10px 0px 10px;
+
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+
+	background-color:rgb(228, 222, 215);
+	border-bottom: 1px solid rgb(228, 222, 215);
+	font-size:16px;
+}
+
+.link { cursor:pointer; text-decoration:underline; font-size:16px; }
 .clear{clear:both;}	

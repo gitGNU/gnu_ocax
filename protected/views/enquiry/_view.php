@@ -37,8 +37,6 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 </style>
 <style>
 .comments { margin-top:15px; }
-.link { color:#06c; cursor:pointer; }
-.link:focus, .link:hover {color:#09f;}
 .voteBlock { float:right;text-align:right; }
 .clear { clear:both; }
 </style>
@@ -293,7 +291,7 @@ echo '</div>';	// comments on enquiry close
 $replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 
 foreach($replys as $reply){
-	echo '<div class="reply">';	//open reply
+	echo '<div class="reply" style="background:white">';	//open reply
 
 	// title bar
 	echo '<div class="title">';
@@ -324,7 +322,7 @@ foreach($replys as $reply){
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
 				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a>';
-				echo '	<img style="cursor:pointer;vertical-align:text-top;"
+				echo '	<img style="cursor:pointer;vertical-align:middle;"
 						src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				echo '</span>';
 			}
@@ -343,7 +341,7 @@ foreach($replys as $reply){
 	}
 
 	// reply body
-	echo '<p style="padding-top:10px">'.$reply->body.'</p>';
+	echo '<p style="padding-top:10px;">'.$reply->body.'</p>';
 	
 	echo '<div class="comments">';	//comments on reply open
 	

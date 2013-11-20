@@ -4,7 +4,7 @@ h1, h2, h3, h4, h5, h6 { color:#62b5cf; }
 a { color:#62b5cf; }
 a:focus, a:hover { color:#676767; }
 
-.link { color:#62b5cf; cursor:pointer; text-decoration:underline;}
+.link { color:#62b5cf;}
 .link:focus, .link:hover {color:#676767;}
 
 #page { background-color: #f5f1ed; }
@@ -52,9 +52,9 @@ div.form .title{ color:#62b5cf; }
 }
 
 /*CMS Pages*/
-.cms_titulo_j { color:#62b5cf; }
+.cms_titulo { color:#62b5cf; }
 .activeMenuItem a { color: #676767; }
-.cms_content_j { color:#000; }
+
 #cmsinfo {
 	color:#f00;
 	background-color:transparent;
@@ -75,7 +75,3 @@ div.form .title{ color:#62b5cf; }
 .actual_provision_bar{ background-color:#62b5cf; }
 .initial_provision_bar{ background-color:#778f3d; }
 
-
-/*POPUP Lightbox*/
-.popup_content_j { background-color: #e4ded7; }
-/* #popup_content_j { background-color:#e4ded7; } */

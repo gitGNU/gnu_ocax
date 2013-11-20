@@ -22,10 +22,10 @@
 /* @var $model Comment */
 /* @var $form CActiveForm */
 ?>
-
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 <div>
-<b><?php echo $fullname;?></b> <?php echo __('comments')?> ..</br />
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comment-form',
 	'action'=>'',
@@ -36,6 +36,7 @@
 	<?php echo $form->hiddenField($model,'reply');?>
 
 	<div class="row">
+		<span style="font-size:1.1em"><?php echo $fullname;?> <?php echo __('comments')?> ..</span><br />
 		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>80)); ?>
 	</div>
 

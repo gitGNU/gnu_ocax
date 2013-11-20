@@ -56,10 +56,8 @@ echo '</div>';
 	
 </style>
 
-
+<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 <div class="outer">
-	<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
-
 <div class="left">
 	<div class="cms_content"><?php echo $content->body; ?></div>
 </div>

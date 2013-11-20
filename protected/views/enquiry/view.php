@@ -92,12 +92,12 @@ function subscribe(el){
 }
 function clickSocialIcon(el){
 	if( $(el).attr('social_icon') ){
-		$('#'+$(el).attr('social_icon')).slideDown('fast');
+		$('#'+$(el).attr('social_icon')).show();
 	}
 }
 $(function() {
 	$('.social_popup').mouseleave(function() {
-		$('.social_popup').slideUp('fast');
+		$('.social_popup').fadeOut('fast');
 	});
 });
 
@@ -141,8 +141,7 @@ function showBudget(budget_id, element){
 															'onClick'=>'/enquiry/view'));
 }?>
 
-<h1><?php echo $model->title?></h1>
-<hr style="margin-top:-10px;margin-bottom:-5px;" />
+<h1 style="margin-bottom:-2px;"><?php echo $model->title?></h1>
 
 <div	id="states_diagram" 
 		style="	display:none;
@@ -166,7 +165,6 @@ function showBudget(budget_id, element){
 </div>
 
 <div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
-
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
@@ -228,7 +226,7 @@ if($model->budget)
 <div>
 
 <!-- socaial options start -->
-<div style="padding: 10px 0px 10px 0px; width:400px;">
+<div style="padding: 10px 00px 10px 0px; width:400px;margin-top:5px;">
 
 	<div id="directlink" class="social_popup">
 		<?php
