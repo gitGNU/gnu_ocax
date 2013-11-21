@@ -382,22 +382,13 @@ div.search-form
 }
 
 /*ENQUIRIES*/
-/*
-.enquirys b
-{
-	font-weight:bold;
-	font-size:115%;
-}
-*/
-/*
-.enquirys_titular
-{
-	font-size:225%;
-}
-*/
 .enquiryBody{
 	font-size:1.2em;
 	/* overflow-x:hidden; */
+}
+.enquiryBody p
+{
+	font-size: 1em;
 }
 
 /*USER PANEL*/
@@ -530,9 +521,10 @@ span.ocaxButtonCount {
 .cms_content
 {
 	font-size: 18px;
-	line-height: 170%;
-	margin-right:50px;
-	color:#000;
+}
+.cms_content p
+{
+	font-size: 1em;
 }
 
 #cmsPageMenu
@@ -601,7 +593,12 @@ span.ocaxButtonCount {
 	padding:10px;
 	margin-top:-10px;
 	margin-left:-10px;
-	margin-rightchments{
+	margin-right:-10px;
+	background-color:rgb(228, 222, 215);
+	margin-bottom:10px;
+}
+
+.reply > .attachments{
 	padding:0px 10px 0px 10px;
 
 	margin-top:-10px;
