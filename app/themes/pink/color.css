@@ -16,9 +16,6 @@ a:focus, a:hover { color:#676767; }
 #logo { color:#a6a29e; }
 #nombre_ocax { color: #ea6fa3; }
 
-#header { color:#1F1F1F; }
-#header_bar_j { color:#1F1F1F; }
-
 #footer { color:#1F1F1F; background-color:#676767; }
 #footer div { color:#a6a6a6; }
 #footer div b {	color:#ffffff; }
@@ -54,12 +51,6 @@ div.form .title{ color:#ea6fa3; }
 /*CMS Pages*/
 .cms_titulo { color:#ea6fa3; }
 .activeMenuItem a { color: #676767; }
-
-#cmsinfo {
-	color:#f00;
-	background-color:transparent;
-	background: url("./images/cmsinfo.png") 0 0 no-repeat;
-}
 
 /*Budgets*/
 #budget_titulo_j { color: #ea6fa3; }

@@ -58,10 +58,9 @@ body
 
 #header
 {
+	color:#1F1F1F;
 	margin: 0;
 	padding: 0;
-	/*width:950px;
-	margin:0 auto;*/
 }
 
 #header div
@@ -348,6 +347,7 @@ div.search-form
 	padding: 0;
 	height:34px;
 	font-size: 16px;
+	/*color:#1F1F1F;*/
 }
 
 #header_bar img
@@ -532,20 +532,11 @@ span.ocaxButtonCount {
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
 	background-position: top;
-	width: 27%; 
-	float: right; 
+	/*width: 27%; */
+	/*float: right; */
 	padding:10px 0px 0px 0px;
 }
-
-
-#cmsinfo {
-	float:left;
-	margin: -10px 8px 10px 0px;
-	outline: none;
-	width:46px;
-	height:46px;
-}
-
+.cmsPageMenuItem { font-size:1.6em; }
 
 /*POPUP Lightbox*/
 .modal 
