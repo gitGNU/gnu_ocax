@@ -101,14 +101,9 @@ $this->widget('ext.tinymce.TinyMce', array(
 						'theme_advanced_resize_horizontal' => 0,
 						'theme_advanced_resize_vertical' => 0,
 						'theme_advanced_resizing_use_cookie' => false,
-						'width'=>'100%'
+						'width'=>'100%',
+						'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
 						),
-	/*
-    'htmlOptions' => array(
-        'rows' => 6,
-        'cols' => 80,
-    ),
-    */
 ));
 ?>
 		<?php echo $form->error($model,'body'); ?>

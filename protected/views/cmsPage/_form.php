@@ -96,9 +96,10 @@ $this->widget('ext.tinymce.TinyMce', array(
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 	'settings' => array(
-		'theme_advanced_buttons1' => "	bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
-										justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
+		'theme_advanced_buttons1' => "	bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
+										justifyright,|,bullist,numlist,|,outdent,indent,|,
 										undo,redo,|,link,unlink,|,code",
+		'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
 	),
     'htmlOptions' => array(
         'rows' => 6,

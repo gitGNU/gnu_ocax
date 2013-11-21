@@ -50,7 +50,7 @@ function reject(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title"><?php echo __('Manage enquiry');?></div>
+	<div class="title"><?php echo __('Assign enquiry');?></div>
 
 <div class="outer">
 <div class="left">

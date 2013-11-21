@@ -58,7 +58,7 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 <script></script>
 
 <?php
-	echo '<div style="font-size:1.6em">'.$model->getTitle().'</div>';
+	echo '<h1>'.$model->getTitle().'</h1>';
 
 	echo '<div>';
 		echo '<div style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right;">';

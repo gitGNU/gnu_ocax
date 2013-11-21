@@ -251,6 +251,7 @@ function sendContactForm(form){
 </script>
 
 <div class="enquiryBody"><?php echo $model->body;?></div>
+
 <div style="clear:both"></div>
 
 <?php
