@@ -46,10 +46,4 @@ else
 	<p class="text"><?php echo $content->body; ?></p>
 	<?php
 	if($nextPage){
-		echo '<div class="nextIntroPage" onClick="js:nextPage('.$nextPage->id.')">';
-		echo '<span style="cursor:pointer">'.$model->getTitleForModel($nextPage->id,$content->language).'</span>';
-		echo '</div>';
-	}
-	?>
-</div>
-
+		echo '<div class="n
