@@ -28,6 +28,8 @@ $nextPage=$model->getNextPage();
 	top:<?php echo $model->toppos;?>px;
 	left:<?php echo $model->leftpos;?>px;
 	width:<?php echo $model->width;?>px;
+	color:#<?php echo $model->color;?>;
+	background:<?php echo $model->hex2rgba($model->bgcolor, ($model->opacity * 0.1));?>;
 }
 </style>
 

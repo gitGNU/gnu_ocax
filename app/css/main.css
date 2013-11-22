@@ -555,10 +555,8 @@ span.ocaxButtonCount {
 
 /* intro page */
 .introPageBlock {
-	opacity: 0.5;
 	font-size:1.3em;
 	padding:10px;
-	background-color:white;
 	position:absolute;
 }
 .introPageBlock .introTitle {

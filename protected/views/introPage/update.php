@@ -30,6 +30,7 @@ $deleteConfirm .='?';
 $this->menu=array(
 	array('label'=>__('View page'), 'url'=>array('view', 'id'=>$model->id,'lang'=>$content->language)),
 	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
+	array('label'=>__('Create page'), 'url'=>array('create')),
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':profiles:cms_editor';

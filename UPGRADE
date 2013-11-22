@@ -7,5 +7,8 @@ You need to do this.
 
 mysql> ALTER TABLE intro_page MODIFY toppos INT(3);
 mysql> ALTER TABLE intro_page MODIFY leftpos INT(3);
+mysql> ALTER TABLE intro_page ADD color varchar(6) NOT NULL DEFAULT '333333' AFTER leftpos;
+mysql> ALTER TABLE intro_page ADD bgcolor varchar(6) NOT NULL DEFAULT 'FFFFFF' AFTER color;
+mysql> ALTER TABLE intro_page ADD opacity TINYINT(1) NOT NULL DEFAULT '5' AFTER background;
 
 
