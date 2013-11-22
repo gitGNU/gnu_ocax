@@ -21,10 +21,6 @@
 /* @var $model IntroPage */
 
 $nextPage=$model->getNextPage();
-if($model->opacity > 5)
-	$title_opacity_diff = -1;
-else
-	$title_opacity_diff = 1;
 ?>
 
 <style>
@@ -35,15 +31,17 @@ else
 	color:#<?php echo $model->color;?>;
 	background:<?php echo $model->hex2rgba($model->bgcolor, ($model->opacity * 0.1));?>;
 }
-.introTitle {
-	background:<?php echo $model->hex2rgba($model->bgcolor, (($model->opacity+$title_opacity_diff) * 0.1));?>;
-}
 </style>
 
 <div class="introPageBlock">
-	<div class="introTitle"><?php echo $content->title; ?></div>
+	<div class="introTitle"><b><?php echo $content->title; ?></b></div>
 	<div class="sub_title"><?php echo $content->subtitle ?></div>
 	<p class="text"><?php echo $content->body; ?></p>
 	<?php
 	if($nextPage){
-		echo '<div class="n
+		echo '<div class="nextIntroPage" onClick="js:nextPage('.$nextPage->id.')">';
+		echo '<span style="cursor:pointer">'.$model->getTitleForModel($nextPage->id,$content->language).'</span>';
+		echo '</div>';
+	}
+	?>
+</div>
