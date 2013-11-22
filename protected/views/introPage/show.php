@@ -21,6 +21,10 @@
 /* @var $model IntroPage */
 
 $nextPage=$model->getNextPage();
+if($model->opacity > 5)
+	$title_opacity_diff = -1;
+else
+	$title_opacity_diff = 1;
 ?>
 
 <style>
@@ -30,6 +34,9 @@ $nextPage=$model->getNextPage();
 	width:<?php echo $model->width;?>px;
 	color:#<?php echo $model->color;?>;
 	background:<?php echo $model->hex2rgba($model->bgcolor, ($model->opacity * 0.1));?>;
+}
+.introTitle {
+	background:<?php echo $model->hex2rgba($model->bgcolor, (($model->opacity+$title_opacity_diff) * 0.1));?>;
 }
 </style>
 
