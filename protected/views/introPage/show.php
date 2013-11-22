@@ -31,10 +31,13 @@ $nextPage=$model->getNextPage();
 	color:#<?php echo $model->color;?>;
 	background:<?php echo $model->hex2rgba($model->bgcolor, ($model->opacity * 0.1));?>;
 }
+.introTitle {
+	background:<?php echo $model->hex2rgba($model->bgcolor, 0.1);?>;
+}
 </style>
 
 <div class="introPageBlock">
-	<div class="introTitle"><b><?php echo $content->title; ?></b></div>
+	<div class="introTitle"><?php echo $content->title; ?></div>
 	<div class="sub_title"><?php echo $content->subtitle ?></div>
 	<p class="text"><?php echo $content->body; ?></p>
 	<?php
