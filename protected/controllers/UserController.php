@@ -192,7 +192,7 @@ class UserController extends Controller
 	
 					$block->user=$userid;
 					$block->blocked_user=$blocked_user->id;
-					//$block->save();	// remember to reactivate this when julio has finished with style
+					$block->save();
 				}
 				Yii::app()->user->setFlash('success', $blocked_user->fullname.' '.__('is blocked'));
 			}else{

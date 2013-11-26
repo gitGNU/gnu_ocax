@@ -292,7 +292,7 @@ echo '</div>';	// comments on enquiry close
 $replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 
 foreach($replys as $reply){
-	echo '<div class="reply" style="background:white">';	//open reply
+	echo '<div class="reply">';	//open reply
 
 	// title bar
 	echo '<div class="title">';

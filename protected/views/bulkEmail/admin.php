@@ -24,6 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Create bulk email'), 'url'=>array('create')),
 );
+$this->inlineHelp=':profiles:admin:newsletters';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

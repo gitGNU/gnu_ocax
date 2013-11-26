@@ -579,6 +579,7 @@ span.ocaxButtonCount {
 	padding:10px;
 	margin-top:20px;
 	border: 1px solid #cdcbc9;
+	background:white
 }
 .reply > .title{
 	padding:10px;
@@ -599,6 +600,32 @@ span.ocaxButtonCount {
 	background-color:rgb(228, 222, 215);
 	border-bottom: 1px solid rgb(228, 222, 215);
 	font-size:16px;
+}
+
+/* email */
+.email{
+	padding:10px;
+	margin-top:20px;
+	border: 1px solid #cdcbc9;
+	background:white
+}
+.email > .title{
+	padding:10px;
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:rgb(228, 222, 215);
+	border-bottom: 1px solid #cdcbc9;
+	margin-bottom:10px;
+}
+
+.email > .details{
+	padding:0px 10px 0px 10px;
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:rgb(228, 222, 215);
+	border-bottom: 1px solid #cdcbc9;
 }
 
 .link { cursor:pointer; text-decoration:underline; font-size:16px; }
