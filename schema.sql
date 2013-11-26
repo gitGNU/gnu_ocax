@@ -270,6 +270,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('councilName
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca', '1', 'Available languages on this site');
+INSERT INTO config(parameter, value, required, description) VALUES ('membership', '0', '1', 'Does your Observatory encourage membership? (0 or 1)');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name');
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");

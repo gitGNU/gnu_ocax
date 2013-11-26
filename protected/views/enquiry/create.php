@@ -23,6 +23,13 @@
 
 ?>
 
+<style>           
+	.outer{width:100%; padding: 0px; float: left;}
+	.left{width: 65%; float: left;  margin: 0px;}
+	.right{width: 33%; float: left; margin: 0px;}
+	.clear{clear:both;}
+</style>
+
 <?php
 if($model->budget){
 	echo '<span id="nueva_consulta" style="margin-top:-20px;cursor:auto;"></span>';
@@ -35,17 +42,12 @@ if($model->budget){
 </h1>
 <?php
 if(!$model->budget){
-	echo '<div style="margin-top:-10px;margin-bottom:15px;">';
-	echo __('If you wish to formulate a budgetary enquiry, you must first').' '.CHtml::link(__('find the corresponding budget'),array('/budget')).'</div>';
-
+	echo '<div style="margin-top:-10px;margin-bottom:15px;">'.
+			__('If you wish to formulate a budgetary enquiry, you must first find the corresponding').' '.
+			CHtml::link(__('Budget'),array('/budget')).
+		 '</div>';
 }
 ?>
-<style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 65%; float: left;  margin: 0px;}
-	.right{width: 33%; float: left; margin: 0px;}
-	.clear{clear:both;}
-</style>
 
 <div class="outer">
 <div class="left">
@@ -53,7 +55,7 @@ if(!$model->budget){
 </div>
 
 <div class="right">
-	<p style="font-size:1.5em"><?php echo __('Enquiry steps')?></p>
+	<div class="sub_title" style="margin-top:40px;margin-bottom:30px;"><?php echo __('Enquiry steps')?></div>
 	<?php echo __('ENQUIRIES_STEP_MSG');?>
 </div>
 </div>

@@ -20,14 +20,25 @@
 /* @var $this UserController */
 /* @var $model User */
 
+$languages = getLanguagesArray();
+$solicit_membership = Config::model()->findByPk('membership')->value;
 ?>
-<style>           
-	.outer{width:100%; padding: 0px; float: left; margin-top:10px;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
-	.clear{clear:both;}
-	
-</style>
+<?php if($languages || $solicit_membership) { ?>
+	<style>           
+		.outer{width:100%; padding: 0px; float: left; margin-top:10px;}
+		.left{width: 32%; float: left;  margin: 0px; margin-left:20px;}
+		.middle{width: 32%; float: left;  margin: 0px; margin-left:40px;}
+		.right{width: 22%; float: left; margin: 0px;}
+		.clear{clear:both;}
+	</style>
+<?php } else { ?>
+	<style>           
+		.outer{width:100%; padding: 0px; float: left; margin-top:10px;}
+		.left{width: 50%; float: left;  margin: 0px; margin-left:20px; }
+		.middle{width: 45%; float: left;  margin: 0px;}
+		.clear{clear:both;}
+	</style>
+<?php } ?>
 
 <div class="form">
 
@@ -42,7 +53,7 @@
 <div class="outer">
 <div class="left">
 
-	<p style="font-size:1.5em;margin-bottom:10px"><?php echo __('Your information')?></p>
+	<p class="sub_title"><?php echo __('Your information')?></p>
 
 	<?php /*echo $form->errorSummary($model);*/ ?>
 
@@ -58,30 +69,10 @@
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
-	<?php
-		if($listData = getLanguagesArray()){
-			echo '<div class="row">';
-			echo $form->labelEx($model,'language');
-			echo '<div class="hint">'.__('Your preferred language').'</div>';
-			echo $form->dropDownList($model, 'language', $listData );
-			echo '</div>';
-		}	
-	?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_socio'); ?>
-		¿eres socio? <?php echo $form->checkBox($model,'is_socio', array('checked'=>$model->is_socio)); ?>
-		¿<a href="#" onClick="js:$('#socio_implica').slideDown('fast');">que implica esto</a>?
-		<p id="socio_implica" style="display:none">		
-		Ser socio sólo implica apoyar todas y cada una de las enquirys ciudadanas. Es más "simbólico" que práctico legal. Me explico, todas las enquirys/instancias que se envíen en el Ayuntamiento llevan la firma y el NIF del Observatorio Ciudadano, si el Obsevatorio en cuestión tiene 2000 socios, de forma simbólica implica que hay 2000 firmas ciudadanas detrás. De todas formas, legalmente una instancia "vale lo mismo" y tiene el mismo valor si está firmada por 1 o 1000 personas.
-		</p>
-
-	</div>
 
 </div>
-<div class="right">
-
-<p style="font-size:1.5em;margin-bottom:10px"><?php echo __('Change password');?></p>
+<div class="middle">
+<p class="sub_title"><?php echo __('Change password');?></p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'new_password'); ?>
@@ -94,12 +85,40 @@
 		<?php echo $form->passwordField($model,'password_repeat',array('autocomplete'=>'off')); ?>
 		<?php echo $form->error($model,'password_repeat'); ?>
 	</div>
-
 </div>
+
+<?php if($languages || $solicit_membership) { ?>
+<div class="right">
+<p class="sub_title" class="sub_title"><?php echo __('Details');?></p>
+	<?php
+		if($languages){
+			echo '<div class="row">';
+			echo $form->labelEx($model,'language');
+			echo '<div class="hint">'.__('Your preferred language').'</div>';
+			echo $form->dropDownList($model, 'language', $languages );
+			echo '</div>';
+		}	
+	?>
+	
+	<?php if($solicit_membership){ ?>
+	<div class="row">
+		<label><?php echo __('Yes, I want to be a member').' '.$form->checkBox($model,'is_socio', array('checked'=>$model->is_socio));?></label>
+		<a href="#" onClick="js:$('#membership_means').slideDown('fast');"><?php echo __('What does this mean?');?></a>
+	</div>
+	<?php } ?>
+</div>
+<?php } ?>
+
 </div>
 <div class="clear"></div>
 
-	<div class="row buttons" style="text-align:center">
+	<?php if($solicit_membership){ ?>
+	<div id="membership_means" style="display:none" class="horizontalRule">
+	<p><?php echo  __('MEMBERSHIP_MSG'); ?></p>
+	</div>
+	<?php } ?>
+
+	<div class="row buttons" style="text-align:center;padding-top:20px;">
 		<?php echo CHtml::submitButton(__('Save')); ?>
 		<input type="button" onclick="window.location='<?php echo Yii::app()->request->baseUrl;?>/user/panel'" value="<?php echo __('Cancel')?>" />
 	</div>

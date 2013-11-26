@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_en\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-10-08 18:34+0100\n"
+"PO-Revision-Date: 2013-11-26 12:41+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,10 +18,8 @@ msgstr ""
 
 #: protected/models/Email.php:99
 #: protected/models/Enquiry.php:181
-#: protected/views/enquiry/view.php:211
-#: protected/views/enquiry/edit.php:55
-#: protected/views/enquiry/_teamView.php:51
-#: protected/views/enquiry/create.php:74
+#: protected/views/enquiry/view.php:183
+#: protected/views/enquiry/_detailsForTeam.php:39
 msgid "Type"
 msgstr ""
 
@@ -37,6 +35,7 @@ msgstr ""
 
 #: protected/models/Email.php:102
 #: protected/models/Enquiry.php:183
+#: protected/views/introPage/admin.php:42
 msgid "Title"
 msgstr ""
 
@@ -45,7 +44,7 @@ msgid "Sender"
 msgstr ""
 
 #: protected/models/Email.php:104
-#: protected/views/bulkEmail/_form.php:79
+#: protected/views/bulkEmail/_form.php:72
 msgid "Sent as"
 msgstr ""
 
@@ -57,9 +56,8 @@ msgstr ""
 #: protected/models/Reply.php:99
 #: protected/models/Comment.php:95
 #: protected/views/budget/view.php:118
-#: protected/views/enquiry/view.php:172
-#: protected/views/enquiry/_teamView.php:105
-#: protected/controllers/EnquiryController.php:82
+#: protected/views/enquiry/_reformulated.php:44
+#: protected/controllers/EnquiryController.php:83
 msgid "Enquiry"
 msgstr ""
 
@@ -73,7 +71,7 @@ msgstr ""
 #: protected/models/RegisterForm.php:86
 #: protected/models/User.php:124
 #: protected/models/LoginForm.php:58
-#: protected/views/user/view.php:97
+#: protected/views/user/view.php:87
 msgid "Username"
 msgstr ""
 
@@ -95,7 +93,7 @@ msgstr ""
 
 #: protected/models/RegisterForm.php:90
 #: protected/models/User.php:130
-#: protected/views/layouts/main.php:133
+#: protected/views/layouts/main.php:121
 msgid "Email"
 msgstr ""
 
@@ -126,22 +124,19 @@ msgstr ""
 #: protected/models/BulkEmail.php:107
 #: protected/models/Enquiry.php:182
 #: protected/models/Emailtext.php:111
-#: protected/views/emailtext/admin.php:43
-#: protected/views/enquiry/view.php:176
-#: protected/views/enquiry/view.php:219
-#: protected/views/enquiry/edit.php:60
-#: protected/views/enquiry/index.php:118
-#: protected/views/enquiry/_teamView.php:39
-#: protected/views/enquiry/_teamView.php:109
-#: protected/views/enquiry/create.php:78
+#: protected/views/emailtext/admin.php:46
+#: protected/views/enquiry/view.php:187
+#: protected/views/enquiry/index.php:113
+#: protected/views/enquiry/_reformulated.php:48
+#: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/bulkEmail/admin.php:68
-#: protected/views/user/panel.php:183
-#: protected/views/user/panel.php:219
+#: protected/views/user/panel.php:179
+#: protected/views/user/panel.php:215
 msgid "State"
 msgstr ""
 
 #: protected/models/BulkEmail.php:111
-#: protected/views/bulkEmail/view.php:95
+#: protected/views/bulkEmail/view.php:88
 msgid "Subject"
 msgstr ""
 
@@ -150,7 +145,7 @@ msgid "New password"
 msgstr ""
 
 #: protected/models/User.php:131
-#: protected/models/BudgetDescription.php:118
+#: protected/models/BudgetDescription.php:123
 msgid "Language"
 msgstr ""
 
@@ -167,23 +162,27 @@ msgid "Parent"
 msgstr ""
 
 #: protected/models/Budget.php:118
-#: protected/views/budget/_enquiryView.php:79
+#: protected/views/budget/noDescriptions.php:50
+#: protected/views/budget/_enquiryView.php:80
 msgid "Year"
 msgstr ""
 
 #: protected/models/Budget.php:119
 #: protected/models/BudgetCategory.php:89
-#: protected/models/BudgetDescription.php:119
+#: protected/models/BudgetDescription.php:124
+#: protected/views/budget/noDescriptions.php:45
 msgid "Code"
 msgstr ""
 
 #: protected/models/Budget.php:120
-#: protected/models/BudgetDescription.php:120
+#: protected/models/BudgetDescription.php:125
 msgid "Label"
 msgstr ""
 
 #: protected/models/Budget.php:121
-#: protected/models/BudgetDescription.php:121
+#: protected/models/BudgetDescription.php:126
+#: protected/views/budget/featured.php:67
+#: protected/views/enquiry/changeType.php:143
 msgid "Concept"
 msgstr ""
 
@@ -215,13 +214,47 @@ msgstr ""
 msgid "Weight"
 msgstr ""
 
-#: protected/models/Budget.php:203
+#: protected/models/Budget.php:235
 msgid "Budget table saved on the"
+msgstr ""
+
+#: protected/models/IntroPage.php:105
+msgid "Order"
+msgstr ""
+
+#: protected/models/IntroPage.php:106
+msgid "Top"
+msgstr ""
+
+#: protected/models/IntroPage.php:107
+msgid "Left"
+msgstr ""
+
+#: protected/models/IntroPage.php:108
+msgid "Font color"
+msgstr ""
+
+#: protected/models/IntroPage.php:109
+msgid "Background color"
+msgstr ""
+
+#: protected/models/IntroPage.php:110
+msgid "Opacity"
+msgstr ""
+
+#: protected/models/IntroPage.php:111
+msgid "Width"
+msgstr ""
+
+#: protected/models/IntroPage.php:112
+#: protected/views/budget/_formYear.php:63
+#: protected/views/budget/adminYears.php:97
+msgid "Published"
 msgstr ""
 
 #: protected/models/Vote.php:90
 #: protected/models/Comment.php:96
-#: protected/views/enquiry/_view.php:300
+#: protected/views/enquiry/_view.php:299
 msgid "Reply"
 msgstr ""
 
@@ -231,8 +264,8 @@ msgid "User"
 msgstr ""
 
 #: protected/models/Vote.php:92
-#: protected/views/enquiry/_view.php:307
-#: protected/views/enquiry/_view.php:311
+#: protected/views/enquiry/_view.php:305
+#: protected/views/enquiry/_view.php:309
 msgid "Vote"
 msgstr ""
 
@@ -242,8 +275,8 @@ msgstr ""
 
 #: protected/models/BudgetCategory.php:90
 #: protected/models/Config.php:99
-#: protected/models/BudgetDescription.php:122
-#: protected/views/budgetDescription/view.php:52
+#: protected/models/BudgetDescription.php:127
+#: protected/views/budgetDescription/view.php:51
 msgid "Description"
 msgstr ""
 
@@ -311,24 +344,23 @@ msgid "Related to"
 msgstr ""
 
 #: protected/models/Enquiry.php:173
-#: protected/views/enquiry/_teamView.php:43
+#: protected/views/enquiry/_detailsForTeam.php:31
 msgid "Formulated by"
 msgstr ""
 
 #: protected/models/Enquiry.php:174
-#: protected/views/enquiry/_teamView.php:47
 #: protected/views/enquiry/admin.php:91
+#: protected/views/enquiry/_detailsForTeam.php:35
 msgid "Assigned to"
 msgstr ""
 
 #: protected/models/Enquiry.php:176
 #: protected/views/budget/view.php:123
-#: protected/views/enquiry/view.php:181
-#: protected/views/enquiry/view.php:201
-#: protected/views/enquiry/index.php:113
-#: protected/views/enquiry/_teamView.php:114
-#: protected/views/user/panel.php:178
-#: protected/views/user/panel.php:214
+#: protected/views/enquiry/view.php:173
+#: protected/views/enquiry/index.php:108
+#: protected/views/enquiry/_reformulated.php:53
+#: protected/views/user/panel.php:174
+#: protected/views/user/panel.php:210
 msgid "Formulated"
 msgstr ""
 
@@ -337,21 +369,34 @@ msgid "Assigned"
 msgstr ""
 
 #: protected/models/Enquiry.php:178
-#: protected/views/enquiry/view.php:233
-#: protected/views/enquiry/_teamView.php:74
+#: protected/views/enquiry/view.php:202
+#: protected/views/enquiry/_detailsForTeam.php:62
 msgid "Submitted"
 msgstr ""
 
 #: protected/models/Enquiry.php:179
-#: protected/views/enquiry/view.php:230
-#: protected/views/enquiry/_teamView.php:67
+#: protected/views/enquiry/view.php:199
+#: protected/views/enquiry/_detailsForTeam.php:55
 msgid "Registry number"
 msgstr ""
 
 #: protected/models/Enquiry.php:180
-#: protected/views/enquiry/submit.php:130
-#: protected/views/enquiry/view.php:241
+#: protected/views/enquiry/submit.php:131
+#: protected/views/enquiry/view.php:210
 msgid "Documentation"
+msgstr ""
+
+#: protected/models/Enquiry.php:205
+#: protected/models/Enquiry.php:207
+msgid "Send an email to the"
+msgstr ""
+
+#: protected/models/Enquiry.php:205
+msgid "team member"
+msgstr ""
+
+#: protected/models/Enquiry.php:207
+msgid "people subscribed to the Enquiry"
 msgstr ""
 
 #: protected/models/LoginForm.php:57
@@ -362,7 +407,7 @@ msgstr ""
 msgid "CSV file"
 msgstr ""
 
-#: protected/models/ImportCSV.php:81
+#: protected/models/ImportCSV.php:94
 msgid "generated on the"
 msgstr ""
 
@@ -370,11 +415,11 @@ msgstr ""
 msgid "Internal_code/Language combination already exists."
 msgstr ""
 
-#: protected/models/BudgetDescription.php:124
+#: protected/models/BudgetDescription.php:129
 msgid "Common"
 msgstr ""
 
-#: protected/models/BudgetDescription.php:125
+#: protected/models/BudgetDescription.php:130
 msgid "Modified"
 msgstr ""
 
@@ -403,6 +448,15 @@ msgstr ""
 msgid "%s enquiries have already been made about this budget"
 msgstr ""
 
+#: protected/views/budget/updateYear.php:24
+msgid "Import budgets"
+msgstr ""
+
+#: protected/views/budget/updateYear.php:25
+#: protected/views/csv/importCSV.php:27
+msgid "List Years"
+msgstr ""
+
 #: protected/views/budget/updateYear.php:29
 #: protected/views/budget/featured.php:56
 msgid "Featured budgets"
@@ -412,47 +466,63 @@ msgstr ""
 msgid "Delete year"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:100
+#: protected/views/budget/updateYear.php:96
+#: protected/views/budget/featured.php:29
 msgid "Edit year"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:105
+#: protected/views/budget/updateYear.php:102
 msgid "Budgetary enquiries for"
 msgstr ""
 
-#: protected/views/budget/index.php:150
-#: protected/views/layouts/main.php:82
-#: protected/views/user/panel.php:67
-#: protected/controllers/BudgetController.php:413
+#: protected/views/budget/index.php:128
+#: protected/views/layouts/main.php:80
+#: protected/views/user/panel.php:66
+#: protected/controllers/BudgetController.php:433
 msgid "Budgets"
 msgstr ""
 
-#: protected/views/budget/index.php:172
-#: protected/views/enquiry/_searchPublic.php:36
+#: protected/views/budget/index.php:147
+#: protected/views/enquiry/_searchPublic.php:34
 #: protected/views/user/_search.php:78
 msgid "Search"
 msgstr ""
 
-#: protected/views/budget/index.php:181
+#: protected/views/budget/index.php:155
 msgid "No search results"
 msgstr ""
 
-#: protected/views/budget/index.php:207
+#: protected/views/budget/index.php:177
 msgid "Available years"
 msgstr ""
 
-#: protected/views/budget/index.php:231
+#: protected/views/budget/index.php:201
 msgid "Download database"
 msgstr ""
 
-#: protected/views/budget/index.php:261
+#: protected/views/budget/index.php:230
 msgid "No data available"
 msgstr ""
 
+#: protected/views/budget/noDescriptions.php:26
+#: protected/views/budget/createYear.php:22
+#: protected/views/budget/featured.php:30
+#: protected/views/budget/adminYears.php:77
+msgid "Manage years"
+msgstr ""
+
+#: protected/views/budget/noDescriptions.php:30
+#: protected/views/budget/adminYears.php:26
+msgid "Budgets without description"
+msgstr ""
+
+#: protected/views/budget/noDescriptions.php:40
+msgid "Internal code"
+msgstr ""
+
 #: protected/views/budget/_enquiryView.php:47
-#: protected/views/enquiry/_form.php:54
-#: protected/views/user/panel.php:63
-#: protected/controllers/EnquiryController.php:151
+#: protected/views/user/panel.php:62
+#: protected/controllers/EnquiryController.php:156
 msgid "New enquiry"
 msgstr ""
 
@@ -470,21 +540,25 @@ msgstr ""
 msgid "enquiries made"
 msgstr ""
 
-#: protected/views/budget/_enquiryView.php:79
+#: protected/views/budget/_enquiryView.php:77
+msgid "of total"
+msgstr ""
+
+#: protected/views/budget/_enquiryView.php:80
 msgid "Year / Code"
 msgstr ""
 
-#: protected/views/budget/_enquiryView.php:86
+#: protected/views/budget/_enquiryView.php:85
 msgid "Euros per person"
 msgstr ""
 
-#: protected/views/budget/_enquiryView.php:104
-#: protected/views/budget/_enquiryView.php:129
-#: protected/views/enquiry/index.php:108
-#: protected/views/layouts/main.php:83
-#: protected/views/user/panel.php:173
-#: protected/views/user/panel.php:209
-#: protected/controllers/EnquiryController.php:95
+#: protected/views/budget/_enquiryView.php:106
+#: protected/views/budget/_enquiryView.php:131
+#: protected/views/enquiry/index.php:103
+#: protected/views/layouts/main.php:81
+#: protected/views/user/panel.php:169
+#: protected/views/user/panel.php:205
+#: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr ""
 
@@ -493,7 +567,7 @@ msgid "Only 4 digits"
 msgstr ""
 
 #: protected/views/budget/_formYear.php:54
-#: protected/views/budget/adminYears.php:101
+#: protected/views/budget/adminYears.php:102
 msgid "Population"
 msgstr ""
 
@@ -501,32 +575,30 @@ msgstr ""
 msgid "Population this year"
 msgstr ""
 
-#: protected/views/budget/_formYear.php:67
-msgid "defined budgets"
-msgstr ""
-
-#: protected/views/budget/_formYear.php:72
+#: protected/views/budget/_formYear.php:63
 msgid "Not published"
 msgstr ""
 
 #: protected/views/budget/_formYear.php:72
-msgid "Published"
+msgid "defined budgets"
 msgstr ""
 
-#: protected/views/budget/_formYear.php:81
-#: protected/views/cmsPage/_form.php:142
+#: protected/views/budget/_formYear.php:80
+#: protected/views/cmsPage/_form.php:141
+#: protected/views/introPage/_form.php:153
 msgid "Create"
 msgstr ""
 
-#: protected/views/budget/_formYear.php:81
-#: protected/views/cmsPage/_form.php:142
-#: protected/views/enquiry/changeType.php:106
+#: protected/views/budget/_formYear.php:80
+#: protected/views/cmsPage/_form.php:141
+#: protected/views/enquiry/changeType.php:104
+#: protected/views/introPage/_form.php:153
 #: protected/views/user/updateRoles.php:109
-#: protected/views/user/update.php:102
+#: protected/views/user/update.php:122
 msgid "Save"
 msgstr ""
 
-#: protected/views/budget/featured.php:73
+#: protected/views/budget/featured.php:77
 msgid "Feature budget"
 msgstr ""
 
@@ -534,71 +606,75 @@ msgstr ""
 msgid "Create Year"
 msgstr ""
 
-#: protected/views/budget/adminYears.php:28
+#: protected/views/budget/adminYears.php:29
 msgid "Restore database"
 msgstr ""
 
-#: protected/views/budget/_interactive.php:61
-msgid "hacer una enquiry"
-msgstr ""
-
 #: protected/views/config/admin.php:25
+#: protected/views/user/panel.php:136
 msgid "Global parameters"
 msgstr ""
 
-#: protected/views/config/admin.php:27
-#: protected/views/enquiry/admin.php:66
-#: protected/views/enquiry/managed.php:65
-#: protected/views/user/panel.php:102
-#: protected/views/user/panel.php:112
-#: protected/views/user/panel.php:122
-msgid "more info"
+#: protected/views/config/update.php:25
+msgid "List all parameters"
 msgstr ""
 
-#: protected/views/site/register.php:44
-#: protected/views/site/register.php:88
+#: protected/views/site/register.php:2
+#: protected/views/site/register.php:41
+#: protected/views/site/register.php:85
 msgid "Register"
 msgstr ""
 
-#: protected/views/site/register.php:83
+#: protected/views/site/register.php:80
 msgid "Please enter the letters as they are shown in the image above"
 msgstr ""
 
-#: protected/views/site/register.php:96
+#: protected/views/site/register.php:92
 msgid "REGISTER_MSG"
 msgstr "<p>As a user you can make public enquiries to your council and share them with other citizens in your municipality.</p><p>As we become more citizens fighting together for transparency, the closer we will come to making political and managemental decisions ourselves.</p>"
+
+#: protected/views/site/register.php:96
+#: protected/views/user/update.php:117
+msgid "MEMBERSHIP_MSG"
+msgstr "As a user, you can also select this option to become a member. As your Observatory has more and more members you can, as a collective, make greater pressure on your Council. Think that every enquiry made to your council will have the implicit signature of all the members."
+
+#: protected/views/site/register.php:98
+#: protected/views/user/update.php:105
+msgid "Yes, I want to be a member"
+msgstr ""
+
+#: protected/views/site/login.php:6
+#: protected/views/site/login.php:58
+#: protected/views/site/login.php:79
+#: protected/views/layouts/main.php:47
+msgid "Login"
+msgstr ""
 
 #: protected/views/site/login.php:23
 msgid "Please enter your email address"
 msgstr ""
 
-#: protected/views/site/login.php:59
-#: protected/views/site/login.php:80
-#: protected/views/layouts/main.php:49
-msgid "Login"
-msgstr ""
-
-#: protected/views/site/login.php:89
+#: protected/views/site/login.php:88
 msgid "Still haven't got an account?"
 msgstr ""
 
-#: protected/views/site/login.php:91
+#: protected/views/site/login.php:90
 msgid "Sign up"
 msgstr ""
 
-#: protected/views/site/login.php:94
+#: protected/views/site/login.php:93
 msgid "Forgotten your password?"
 msgstr ""
 
-#: protected/views/site/login.php:97
+#: protected/views/site/login.php:96
 msgid "Follow these instructions"
 msgstr ""
 
-#: protected/views/site/login.php:99
+#: protected/views/site/login.php:98
 msgid "Enter your email address and we will send you a link"
 msgstr ""
 
-#: protected/views/site/login.php:100
+#: protected/views/site/login.php:99
 msgid "Send"
 msgstr ""
 
@@ -610,22 +686,22 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: protected/views/comment/_form.php:28
+#: protected/views/comment/_form.php:39
 msgid "comments"
 msgstr ""
 
-#: protected/views/comment/_form.php:43
-#: protected/views/enquiry/_form.php:102
-#: protected/views/reply/create.php:94
+#: protected/views/comment/_form.php:44
+#: protected/views/enquiry/_form.php:113
+#: protected/views/reply/create.php:91
 msgid "Publish"
 msgstr ""
 
-#: protected/views/comment/_form.php:44
-#: protected/views/enquiry/changeType.php:109
-#: protected/views/enquiry/_form.php:110
-#: protected/views/user/update.php:103
-#: protected/views/reply/create.php:97
-#: protected/views/email/_contactPetition.php:75
+#: protected/views/comment/_form.php:45
+#: protected/views/enquiry/changeType.php:107
+#: protected/views/enquiry/_form.php:123
+#: protected/views/user/update.php:123
+#: protected/views/reply/create.php:94
+#: protected/views/email/_contactPetition.php:74
 msgid "Cancel"
 msgstr ""
 
@@ -634,52 +710,77 @@ msgid "CMS editor"
 msgstr ""
 
 #: protected/views/cmsPage/admin.php:25
-#: protected/views/cmsPage/update.php:25
-msgid "Create CmsPage"
+#: protected/views/cmsPage/create.php:30
+#: protected/views/introPage/admin.php:26
+#: protected/views/introPage/update.php:33
+#: protected/views/introPage/create.php:29
+msgid "Create page"
 msgstr ""
 
 #: protected/views/cmsPage/admin.php:26
-msgid "Show uploaded files"
-msgstr ""
-
-#: protected/views/cmsPage/admin.php:27
+#: protected/views/file/_form.php:61
 msgid "Upload file"
 msgstr ""
 
-#: protected/views/cmsPage/admin.php:86
-msgid "Manage Cms Pages"
+#: protected/views/cmsPage/admin.php:27
+msgid "Show uploaded files"
 msgstr ""
 
-#: protected/views/cmsPage/admin.php:98
+#: protected/views/cmsPage/admin.php:83
+#: protected/views/cmsPage/update.php:32
+#: protected/views/cmsPage/create.php:25
+#: protected/views/introPage/update.php:34
+#: protected/views/introPage/create.php:24
+msgid "Manage pages"
+msgstr ""
+
+#: protected/views/cmsPage/admin.php:95
 msgid "Page name"
 msgstr ""
 
-#: protected/views/cmsPage/update.php:26
-msgid "View CmsPage"
+#: protected/views/cmsPage/update.php:24
+#: protected/views/introPage/update.php:25
+msgid "Delete this page"
 msgstr ""
 
-#: protected/views/cmsPage/update.php:27
-#: protected/views/cmsPage/create.php:25
-msgid "Manage CmsPage"
+#: protected/views/cmsPage/update.php:26
+#: protected/views/introPage/update.php:27
+msgid "and translations"
+msgstr ""
+
+#: protected/views/cmsPage/update.php:30
+#: protected/views/introPage/update.php:31
+msgid "View page"
 msgstr ""
 
 #: protected/views/cmsPage/update.php:31
-msgid "Update CMS Page"
+#: protected/views/introPage/update.php:32
+msgid "Delete page"
 msgstr ""
 
-#: protected/views/cmsPage/create.php:29
-msgid "Create CMS Page"
+#: protected/views/cmsPage/update.php:37
+#: protected/views/introPage/update.php:39
+msgid "Update page"
 msgstr ""
 
-#: protected/views/cmsPage/_form.php:50
+#: protected/views/cmsPage/_form.php:48
+#: protected/views/introPage/_form.php:124
 msgid "Translations"
+msgstr ""
+
+#: protected/views/csv/importCSV.php:26
+msgid "Edit"
+msgstr ""
+
+#: protected/views/csv/importCSV.php:128
+msgid "Import csv into"
 msgstr ""
 
 #: protected/views/csv/regenCSV.php:31
 msgid "(Re)generate CSV files to include in zip"
 msgstr ""
 
-#: protected/views/csv/regenCSV.php:53
+#: protected/views/csv/regenCSV.php:52
 msgid "Include budgets"
 msgstr ""
 
@@ -691,11 +792,15 @@ msgstr ""
 msgid "These copies are made right before a CSV file is imported"
 msgstr ""
 
-#: protected/views/file/showBudgetFiles.php:55
+#: protected/views/file/showBudgetFiles.php:35
+msgid "READ ME"
+msgstr ""
+
+#: protected/views/file/showBudgetFiles.php:57
 msgid "Restore budgets"
 msgstr ""
 
-#: protected/views/file/showBudgetFiles.php:68
+#: protected/views/file/showBudgetFiles.php:70
 msgid "Note: Delete some backups to save disk space. You only really need the last good copy."
 msgstr ""
 
@@ -715,32 +820,33 @@ msgstr ""
 msgid "Download zip file"
 msgstr ""
 
-#: protected/views/file/adminDatabaseDownload.php:124
+#: protected/views/file/adminDatabaseDownload.php:113
 msgid "Prepare file"
 msgstr ""
 
-#: protected/views/file/adminDatabaseDownload.php:132
-msgid "Files ready to include in zip"
+#: protected/views/file/adminDatabaseDownload.php:121
+msgid "Files queued and ready to include in zip"
 msgstr ""
 
-#: protected/views/file/adminDatabaseDownload.php:143
+#: protected/views/file/adminDatabaseDownload.php:132
 msgid "Files to include"
 msgstr ""
 
-#: protected/views/file/_form.php:62
-msgid "Upload file for"
+#: protected/views/file/showCMSfiles.php:29
+msgid "Uploaded files"
 msgstr ""
 
-#: protected/views/file/_form.php:69
+#: protected/views/file/_form.php:68
 msgid "Name used for the link"
 msgstr ""
 
-#: protected/views/file/_form.php:78
+#: protected/views/file/_form.php:77
 msgid "Upload"
 msgstr ""
 
-#: protected/views/emailtext/admin.php:25
-msgid "Manage default email texts"
+#: protected/views/emailtext/admin.php:28
+#: protected/views/user/panel.php:135
+msgid "Email text templates"
 msgstr ""
 
 #: protected/views/enquiry/submit.php:25
@@ -756,93 +862,99 @@ msgid "View enquiry"
 msgstr ""
 
 #: protected/views/enquiry/submit.php:26
-#: protected/views/enquiry/edit.php:28
 #: protected/views/enquiry/assess.php:27
 #: protected/views/enquiry/teamView.php:26
+#: protected/views/enquiry/teamEdit.php:28
 #: protected/views/enquiry/changeType.php:27
+#: protected/views/enquiry/reformulate.php:28
 #: protected/views/reply/create.php:28
 #: protected/views/email/index.php:27
 #: protected/views/email/index.php:35
-#: protected/views/email/create.php:31
+#: protected/views/email/create.php:30
 msgid "List enquiries"
 msgstr ""
 
-#: protected/views/enquiry/submit.php:53
+#: protected/views/enquiry/submit.php:54
 #: protected/views/enquiry/teamView.php:29
 msgid "Submit enquiry"
 msgstr ""
 
-#: protected/views/enquiry/submit.php:55
+#: protected/views/enquiry/submit.php:56
 #: protected/views/enquiry/teamView.php:43
 msgid "Correct submission"
 msgstr ""
 
-#: protected/views/enquiry/submit.php:64
+#: protected/views/enquiry/submit.php:65
 msgid "Date the Enquiry was submitted to the Administration"
 msgstr ""
 
-#: protected/views/enquiry/submit.php:91
+#: protected/views/enquiry/submit.php:92
 msgid "Is this information correct?"
 msgstr ""
 
-#: protected/views/enquiry/submit.php:92
+#: protected/views/enquiry/submit.php:93
 msgid "Submit"
 msgstr ""
 
-#: protected/views/enquiry/submit.php:94
+#: protected/views/enquiry/submit.php:95
 msgid "Add document"
 msgstr ""
 
-#: protected/views/enquiry/view.php:153
-#: protected/views/enquiry/_teamView.php:91
-msgid "The enquiry"
-msgstr ""
-
-#: protected/views/enquiry/view.php:153
-#: protected/views/enquiry/_teamView.php:91
-msgid "has been reformulated"
-msgstr ""
-
-#: protected/views/enquiry/view.php:154
-#: protected/views/enquiry/_teamView.php:92
-msgid "time(s)"
-msgstr ""
-
-#: protected/views/enquiry/view.php:204
-#: protected/views/enquiry/view.php:205
+#: protected/views/enquiry/view.php:176
+#: protected/views/enquiry/view.php:177
 msgid "by"
 msgstr ""
 
-#: protected/views/enquiry/view.php:212
-#: protected/views/enquiry/_teamView.php:52
+#: protected/views/enquiry/view.php:184
+#: protected/views/enquiry/_detailsForTeam.php:40
 msgid "reformulated"
 msgstr ""
 
-#: protected/views/enquiry/view.php:215
-#: protected/views/enquiry/_teamView.php:55
-msgid "Subscribed users"
-msgstr ""
-
-#: protected/views/enquiry/view.php:275
+#: protected/views/enquiry/view.php:246
 msgid "Keep me informed via email when there are changes"
 msgstr ""
 
-#: protected/views/enquiry/edit.php:26
-msgid "View Enquiry"
+#: protected/views/enquiry/view.php:263
+msgid "Direct link"
 msgstr ""
 
-#: protected/views/enquiry/edit.php:27
-#: protected/views/enquiry/changeType.php:84
-#: protected/views/enquiry/changeType.php:96
-msgid "Change type"
+#: protected/views/enquiry/view.php:265
+msgid "Subscribe"
 msgstr ""
 
-#: protected/views/enquiry/edit.php:48
-#: protected/views/enquiry/edit.php:52
-#: protected/views/enquiry/_teamView.php:44
-#: protected/views/enquiry/_teamView.php:48
-msgid "on the"
+#: protected/views/enquiry/view.php:298
+msgid "You can"
 msgstr ""
+
+#: protected/views/enquiry/view.php:299
+msgid "edit the enquiry"
+msgstr ""
+
+#: protected/views/enquiry/view.php:299
+msgid "and even"
+msgstr ""
+
+#: protected/views/enquiry/view.php:300
+msgid "delete it"
+msgstr ""
+
+#: protected/views/enquiry/view.php:304
+msgid "Are you sure?"
+msgstr ""
+
+#: protected/views/enquiry/view.php:305
+msgid "until it has been accepted by the observatory."
+msgstr ""
+
+#: protected/views/enquiry/edit.php:38
+#: protected/views/enquiry/create.php:58
+msgid "Enquiry steps"
+msgstr ""
+
+#: protected/views/enquiry/edit.php:39
+#: protected/views/enquiry/create.php:59
+msgid "ENQUIRIES_STEP_MSG"
+msgstr "<p>1. Make the enquiry</p><p>2. We'll hand it into the Council</p><p>3. Share the enquiry and spread the word</p><p>4. We'll publish the Council's reply and let you know</p><p>5. Evaluate the reply</p>"
 
 #: protected/views/enquiry/manage.php:26
 #: protected/views/enquiry/assess.php:26
@@ -850,7 +962,7 @@ msgstr ""
 #: protected/views/enquiry/adminView.php:27
 #: protected/views/enquiry/validate.php:26
 #: protected/views/reply/create.php:27
-#: protected/views/email/create.php:30
+#: protected/views/email/create.php:29
 msgid "Sent emails"
 msgstr ""
 
@@ -860,69 +972,72 @@ msgstr ""
 msgid "List all"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:52
+#: protected/views/enquiry/manage.php:53
 #: protected/views/enquiry/adminView.php:26
-#: protected/views/email/index.php:34
-msgid "Manage enquiry"
+msgid "Assign enquiry"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:62
+#: protected/views/enquiry/manage.php:63
 msgid "Team member responsable for this Enquiry"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:65
+#: protected/views/enquiry/manage.php:66
 msgid "Not assigned"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:73
+#: protected/views/enquiry/manage.php:74
 msgid "Assign"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:75
+#: protected/views/enquiry/manage.php:76
 msgid "Change team member"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:83
+#: protected/views/enquiry/manage.php:84
 #: protected/views/enquiry/validate.php:74
 msgid "Reject the Enquiry"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:84
+#: protected/views/enquiry/manage.php:85
 #: protected/views/enquiry/validate.php:75
 msgid "The enquiry is inappropriate"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:86
+#: protected/views/enquiry/manage.php:87
 #: protected/views/enquiry/validate.php:77
 msgid "Reject"
 msgstr ""
 
-#: protected/views/enquiry/index.php:78
+#: protected/views/enquiry/index.php:76
 msgid "Enquiries made to date"
 msgstr ""
 
-#: protected/views/enquiry/index.php:79
+#: protected/views/enquiry/index.php:77
 msgid "This is a list of enquiries made by citizens like you."
 msgstr ""
 
-#: protected/views/enquiry/index.php:129
+#: protected/views/enquiry/index.php:127
 msgid "Formulate a new enquiry"
 msgstr ""
 
-#: protected/views/enquiry/index.php:134
+#: protected/views/enquiry/index.php:128
 msgid "Remember you must first"
 msgstr ""
 
-#: protected/views/enquiry/index.php:135
+#: protected/views/enquiry/index.php:129
 msgid "login"
 msgstr ""
 
-#: protected/views/enquiry/index.php:135
+#: protected/views/enquiry/index.php:129
 msgid "or"
 msgstr ""
 
-#: protected/views/enquiry/index.php:136
+#: protected/views/enquiry/index.php:130
 msgid "create an account"
+msgstr ""
+
+#: protected/views/enquiry/index.php:136
+msgid "What are the different states of an enquiry?"
 msgstr ""
 
 #: protected/views/enquiry/assess.php:57
@@ -938,17 +1053,29 @@ msgstr ""
 msgid "The general consensus is that the reply is not satisfactory"
 msgstr ""
 
-#: protected/views/enquiry/_teamView.php:66
-msgid "missing"
+#: protected/views/enquiry/_teamView.php:29
+msgid "The Enquiry"
 msgstr ""
 
-#: protected/views/enquiry/_teamView.php:124
-msgid "The Enquiry"
+#: protected/views/enquiry/_reformulated.php:26
+msgid "The enquiry"
+msgstr ""
+
+#: protected/views/enquiry/_reformulated.php:26
+msgid "has been reformulated"
+msgstr ""
+
+#: protected/views/enquiry/_reformulated.php:28
+msgid "time"
+msgstr ""
+
+#: protected/views/enquiry/_reformulated.php:30
+msgid "times"
 msgstr ""
 
 #: protected/views/enquiry/teamView.php:33
 #: protected/views/enquiry/changeType.php:26
-#: protected/views/email/create.php:29
+#: protected/views/email/create.php:28
 msgid "Edit enquiry"
 msgstr ""
 
@@ -957,20 +1084,13 @@ msgid "Accept / Reject"
 msgstr ""
 
 #: protected/views/enquiry/teamView.php:41
-#: protected/views/reply/create.php:44
+#: protected/views/reply/create.php:41
 msgid "Add reply"
 msgstr ""
 
 #: protected/views/enquiry/teamView.php:51
+#: protected/controllers/EnquiryController.php:238
 msgid "Reformulate enquiry"
-msgstr ""
-
-#: protected/views/enquiry/teamView.php:61
-msgid "Send an email to the"
-msgstr ""
-
-#: protected/views/enquiry/teamView.php:63
-msgid "people subscribed to the Enquiry"
 msgstr ""
 
 #: protected/views/enquiry/adminView.php:31
@@ -978,13 +1098,18 @@ msgid "Delete enquiry"
 msgstr ""
 
 #: protected/views/enquiry/admin.php:49
-#: protected/views/user/panel.php:120
+#: protected/views/user/panel.php:118
 msgid "Manage enquiries"
 msgstr ""
 
 #: protected/views/enquiry/admin.php:65
 #: protected/views/enquiry/managed.php:64
 msgid "States"
+msgstr ""
+
+#: protected/views/enquiry/admin.php:66
+#: protected/views/enquiry/managed.php:65
+msgid "more info"
 msgstr ""
 
 #: protected/views/enquiry/_megaDelete.php:39
@@ -1004,8 +1129,8 @@ msgid "Record of sent emails"
 msgstr ""
 
 #: protected/views/enquiry/_megaDelete.php:43
-#: protected/views/enquiry/_view.php:268
-#: protected/views/enquiry/_view.php:354
+#: protected/views/enquiry/_view.php:267
+#: protected/views/enquiry/_view.php:355
 msgid "Comments"
 msgstr ""
 
@@ -1015,6 +1140,35 @@ msgstr ""
 
 #: protected/views/enquiry/_megaDelete.php:45
 msgid "User email subscriptions"
+msgstr ""
+
+#: protected/views/enquiry/managed.php:48
+#: protected/views/user/panel.php:100
+msgid "Entrusted enquiries"
+msgstr ""
+
+#: protected/views/enquiry/teamEdit.php:26
+#: protected/views/enquiry/reformulate.php:27
+msgid "View Enquiry"
+msgstr ""
+
+#: protected/views/enquiry/teamEdit.php:27
+#: protected/views/enquiry/changeType.php:82
+#: protected/views/enquiry/changeType.php:94
+msgid "Change type"
+msgstr ""
+
+#: protected/views/enquiry/_detailsForTeam.php:32
+#: protected/views/enquiry/_detailsForTeam.php:36
+msgid "on the"
+msgstr ""
+
+#: protected/views/enquiry/_detailsForTeam.php:43
+msgid "Subscribed users"
+msgstr ""
+
+#: protected/views/enquiry/_detailsForTeam.php:54
+msgid "missing"
 msgstr ""
 
 #: protected/views/enquiry/validate.php:57
@@ -1033,43 +1187,31 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:52
+#: protected/views/enquiry/_view.php:48
 msgid "Please login to participate"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:65
+#: protected/views/enquiry/_view.php:61
 msgid "Before participating, please confirm your email address"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:136
+#: protected/views/enquiry/_view.php:140
 msgid "Are you sure you want to delete it?"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:178
+#: protected/views/enquiry/_view.php:180
 msgid "You have already voted favourably"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:180
+#: protected/views/enquiry/_view.php:182
 msgid "You have already voted unfavourably"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:272
-#: protected/views/enquiry/_view.php:282
-#: protected/views/enquiry/_view.php:358
-#: protected/views/enquiry/_view.php:368
+#: protected/views/enquiry/_view.php:271
+#: protected/views/enquiry/_view.php:281
+#: protected/views/enquiry/_view.php:359
+#: protected/views/enquiry/_view.php:369
 msgid "Add comment"
-msgstr ""
-
-#: protected/views/enquiry/_view.php:303
-msgid "Valorations"
-msgstr ""
-
-#: protected/views/enquiry/_view.php:304
-msgid "positive"
-msgstr ""
-
-#: protected/views/enquiry/_view.php:308
-msgid "negative"
 msgstr ""
 
 #: protected/views/enquiry/_view.php:321
@@ -1080,77 +1222,109 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: protected/views/enquiry/create.php:26
+#: protected/views/enquiry/create.php:36
+#: protected/views/enquiry/create.php:39
 msgid "Formulate a"
 msgstr ""
 
-#: protected/views/enquiry/create.php:29
+#: protected/views/enquiry/create.php:36
 msgid "budgetary enquiry"
 msgstr ""
 
-#: protected/views/enquiry/create.php:31
+#: protected/views/enquiry/create.php:39
 msgid "generic enquiry"
 msgstr ""
 
-#: protected/views/enquiry/create.php:37
-msgid "If you wish to formulate a budgetary enquiry, you must first"
+#: protected/views/enquiry/create.php:46
+msgid "If you wish to formulate a budgetary enquiry, you must first find the corresponding"
 msgstr ""
 
-#: protected/views/enquiry/create.php:54
-msgid "Enquiry steps"
+#: protected/views/enquiry/create.php:47
+#: protected/controllers/BudgetController.php:84
+msgid "Budget"
 msgstr ""
 
-#: protected/views/enquiry/create.php:55
-msgid "ENQUIRIES_STEP_MSG"
-msgstr "<p>1. Make the enquiry</p><p>2. We'll hand it into the Council</p><p>3. Share the enquiry and spread the word</p><p>4. We'll publish the Council's reply and let you know</p><p>5. Evaluate the reply</p>"
-
-#: protected/views/enquiry/create.php:66
+#: protected/views/enquiry/create.php:67
+#: protected/views/enquiry/reformulate.php:48
 msgid "The original enquiry"
 msgstr ""
 
-#: protected/views/enquiry/changeType.php:52
+#: protected/views/enquiry/changeType.php:51
 msgid "Select a budget from the grid below"
 msgstr ""
 
-#: protected/views/enquiry/changeType.php:146
+#: protected/views/enquiry/changeType.php:151
 msgid "Choose budget"
 msgstr ""
 
-#: protected/views/enquiry/_form.php:52
+#: protected/views/enquiry/_form.php:57
 msgid "New reformulated enquiry"
 msgstr ""
 
-#: protected/views/enquiry/_form.php:56
-#: protected/controllers/EnquiryController.php:268
+#: protected/views/enquiry/_form.php:59
+#: protected/controllers/EnquiryController.php:305
 msgid "Modify enquiry"
 msgstr ""
 
-#: protected/views/enquiry/_form.php:102
-#: protected/views/reply/create.php:94
+#: protected/views/enquiry/_form.php:113
+#: protected/views/reply/create.php:91
 msgid "Update"
 msgstr ""
 
-#: protected/views/layouts/column2.php:15
-msgid "Options"
+#: protected/views/enquiry/reformulate.php:37
+msgid "If you wish to formulate a budgetary enquiry, you must first"
 msgstr ""
 
-#: protected/views/layouts/main.php:52
-msgid "Logout"
+#: protected/views/enquiry/reformulate.php:37
+msgid "find the corresponding budget"
 msgstr ""
 
-#: protected/views/layouts/main.php:65
-msgid "Home"
+#: protected/views/introPage/view.php:59
+msgid "You are in edit mode"
 msgstr ""
 
-#: protected/views/layouts/main.php:100
+#: protected/views/introPage/view.php:64
+msgid "Editor"
+msgstr ""
+
+#: protected/views/introPage/admin.php:30
+msgid "Manage Introduction pages"
+msgstr ""
+
+#: protected/views/introPage/_form.php:73
+msgid "Text box attributes"
+msgstr ""
+
+#: protected/views/introPage/_form.php:118
+msgid "Text box content"
+msgstr ""
+
+#: protected/views/layouts/column2.php:19
+#: protected/views/layouts/main.php:96
 msgid "My page"
 msgstr ""
 
-#: protected/views/layouts/main.php:128
+#: protected/views/layouts/column2.php:22
+msgid "Context help"
+msgstr ""
+
+#: protected/views/layouts/column2.php:28
+msgid "Options"
+msgstr ""
+
+#: protected/views/layouts/main.php:50
+msgid "Logout"
+msgstr ""
+
+#: protected/views/layouts/main.php:63
+msgid "Home"
+msgstr ""
+
+#: protected/views/layouts/main.php:116
 msgid "Contact information"
 msgstr ""
 
-#: protected/views/layouts/main.php:135
+#: protected/views/layouts/main.php:123
 msgid "Telephone"
 msgstr ""
 
@@ -1175,24 +1349,24 @@ msgstr ""
 msgid "Are you sure you want to delete this item?"
 msgstr ""
 
-#: protected/views/bulkEmail/view.php:117
-#: protected/views/bulkEmail/_form.php:85
+#: protected/views/bulkEmail/view.php:110
+#: protected/views/bulkEmail/_form.php:78
 msgid "BCC Recipients"
 msgstr ""
 
-#: protected/views/bulkEmail/view.php:125
+#: protected/views/bulkEmail/view.php:118
 msgid "Edit draft"
 msgstr ""
 
-#: protected/views/bulkEmail/view.php:126
+#: protected/views/bulkEmail/view.php:119
 msgid "Send now"
 msgstr ""
 
-#: protected/views/bulkEmail/showRecipients.php:28
+#: protected/views/bulkEmail/showRecipients.php:26
 msgid "Will send to all users at"
 msgstr ""
 
-#: protected/views/bulkEmail/showRecipients.php:30
+#: protected/views/bulkEmail/showRecipients.php:28
 msgid "Was sent to these users"
 msgstr ""
 
@@ -1204,11 +1378,11 @@ msgstr ""
 msgid "View bulk email"
 msgstr ""
 
-#: protected/views/bulkEmail/_form.php:72
+#: protected/views/bulkEmail/_form.php:65
 msgid "Send bulk email"
 msgstr ""
 
-#: protected/views/bulkEmail/_form.php:121
+#: protected/views/bulkEmail/_form.php:114
 msgid "Preview"
 msgstr ""
 
@@ -1239,7 +1413,7 @@ msgstr ""
 msgid "Budget description"
 msgstr ""
 
-#: protected/views/budgetDescription/view.php:55
+#: protected/views/budgetDescription/view.php:54
 msgid "Description not defined"
 msgstr ""
 
@@ -1255,7 +1429,7 @@ msgstr ""
 msgid "Select a language"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:87
+#: protected/views/budgetDescription/_form.php:88
 msgid "Common to all councils"
 msgstr ""
 
@@ -1271,11 +1445,11 @@ msgstr ""
 msgid "Delete user"
 msgstr ""
 
-#: protected/views/user/view.php:118
+#: protected/views/user/view.php:110
 msgid "Enquiries made by"
 msgstr ""
 
-#: protected/views/user/view.php:148
+#: protected/views/user/view.php:140
 msgid "has not made a enquiry"
 msgstr ""
 
@@ -1288,71 +1462,102 @@ msgstr "<p>To begin making enquiries and subscribing to other users' enquiries, 
 msgid "click here"
 msgstr ""
 
-#: protected/views/user/panel.php:55
+#: protected/views/user/panel.php:53
 msgid "Welcome"
 msgstr ""
 
-#: protected/views/user/panel.php:66
+#: protected/views/user/panel.php:65
 msgid "ENQUIRY_NEW_MSG"
 msgstr "Ask your council what you'd like to know, make an open enquiry here. To make a budgetary enquiry, go to the %s tab and do it from there."
 
-#: protected/views/user/panel.php:74
+#: protected/views/user/panel.php:73
 msgid "My user information"
 msgstr ""
 
-#: protected/views/user/panel.php:76
+#: protected/views/user/panel.php:75
 msgid "Change your profile"
 msgstr ""
 
-#: protected/views/user/panel.php:77
+#: protected/views/user/panel.php:76
 msgid "Configure your email"
 msgstr ""
 
-#: protected/views/user/panel.php:78
+#: protected/views/user/panel.php:77
 msgid "Change your password"
 msgstr ""
 
-#: protected/views/user/panel.php:100
-msgid "Entrusted enquiries"
-msgstr ""
-
 #: protected/views/user/panel.php:101
+#: protected/views/user/updateRoles.php:79
 msgid "Manage the enquiries you are responsable for"
 msgstr ""
 
-#: protected/views/user/panel.php:111
-msgid "Edit the general information pages"
+#: protected/views/user/panel.php:108
+msgid "CMS editor options"
 msgstr ""
 
-#: protected/views/user/panel.php:121
+#: protected/views/user/panel.php:110
+msgid "Introduction pages"
+msgstr ""
+
+#: protected/views/user/panel.php:111
+msgid "Site pages"
+msgstr ""
+
+#: protected/views/user/panel.php:119
+#: protected/views/user/updateRoles.php:95
 msgid "Assign enquiries to team members and check status"
 msgstr ""
 
-#: protected/views/user/panel.php:160
+#: protected/views/user/panel.php:126
+msgid "Administator's options"
+msgstr ""
+
+#: protected/views/user/panel.php:128
+msgid "Years and budgets"
+msgstr ""
+
+#: protected/views/user/panel.php:129
+msgid "Newsletters"
+msgstr ""
+
+#: protected/views/user/panel.php:130
+msgid "Zip file"
+msgstr ""
+
+#: protected/views/user/panel.php:131
+msgid "Budget descriptions"
+msgstr ""
+
+#: protected/views/user/panel.php:134
+#: protected/views/user/admin.php:37
+msgid "Users and roles"
+msgstr ""
+
+#: protected/views/user/panel.php:156
 msgid "My enquiries"
 msgstr ""
 
-#: protected/views/user/panel.php:196
+#: protected/views/user/panel.php:192
 msgid "I am subscribed to these enquirytions"
 msgstr ""
 
-#: protected/views/user/panel.php:197
+#: protected/views/user/panel.php:193
 msgid "You will be sent an email when these enquiries are updated"
 msgstr ""
 
-#: protected/views/user/panel.php:230
+#: protected/views/user/panel.php:226
 msgid "Enquiries of your interest will be displayed here"
 msgstr ""
 
-#: protected/views/user/panel.php:263
+#: protected/views/user/panel.php:262
 msgid "Do you want to block"
 msgstr ""
 
-#: protected/views/user/panel.php:265
+#: protected/views/user/panel.php:264
 msgid "Yes"
 msgstr ""
 
-#: protected/views/user/panel.php:266
+#: protected/views/user/panel.php:265
 msgid "No"
 msgstr ""
 
@@ -1368,90 +1573,98 @@ msgstr ""
 msgid "Change roles"
 msgstr ""
 
-#: protected/views/user/update.php:39
+#: protected/views/user/update.php:51
 msgid "Change your user information"
 msgstr ""
 
-#: protected/views/user/update.php:44
+#: protected/views/user/update.php:56
 msgid "Your information"
 msgstr ""
 
-#: protected/views/user/update.php:64
-msgid "Your preferred language"
-msgstr ""
-
-#: protected/views/user/update.php:83
+#: protected/views/user/update.php:75
 msgid "Change password"
 msgstr ""
 
-#: protected/views/reply/create.php:50
+#: protected/views/user/update.php:92
+msgid "Details"
+msgstr ""
+
+#: protected/views/user/update.php:97
+msgid "Your preferred language"
+msgstr ""
+
+#: protected/views/user/update.php:106
+msgid "What does this mean?"
+msgstr ""
+
+#: protected/views/reply/create.php:47
 msgid "Date the Administration replied"
+msgstr ""
+
+#: protected/views/email/index.php:34
+msgid "Manage enquiry"
 msgstr ""
 
 #: protected/views/email/index.php:41
 msgid "Emails originated from the enquiry"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:35
+#: protected/views/email/_contactPetition.php:34
 msgid "Petition to make contact via email"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:47
-#: protected/controllers/SiteController.php:126
-#: protected/controllers/SiteController.php:299
+#: protected/views/email/_contactPetition.php:46
+#: protected/controllers/SiteController.php:121
+#: protected/controllers/SiteController.php:294
 msgid "Hello"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:49
+#: protected/views/email/_contactPetition.php:48
 #, php-format
 msgid "a user like you at the %s"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:50
+#: protected/views/email/_contactPetition.php:49
 msgid "would like to contact you privately via email"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:51
+#: protected/views/email/_contactPetition.php:50
 msgid "However, we do not share users' email addresses"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:52
+#: protected/views/email/_contactPetition.php:51
 msgid "If you wish, you may make contact yourself with"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:53
+#: protected/views/email/_contactPetition.php:52
 msgid "If you think this user is spamming you, you can block future petitions at this link"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:55
-#: protected/controllers/CommentController.php:142
-#: protected/controllers/SiteController.php:303
+#: protected/views/email/_contactPetition.php:54
+#: protected/controllers/CommentController.php:153
+#: protected/controllers/SiteController.php:298
 msgid "Kind regards"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:65
+#: protected/views/email/_contactPetition.php:64
 msgid "says"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:66
+#: protected/views/email/_contactPetition.php:65
 msgid "Optionally, you may attach text to this email"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:74
-#: protected/views/email/create.php:72
+#: protected/views/email/_contactPetition.php:73
+#: protected/views/email/create.php:70
 msgid "Send email"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:93
+#: protected/views/email/_contactPetition.php:92
 msgid "Sending email"
 msgstr ""
 
-#: protected/views/email/_contactPetition.php:98
+#: protected/views/email/_contactPetition.php:97
 msgid "Email sent"
-msgstr ""
-
-#: protected/views/email/create.php:28
-msgid "Update state"
 msgstr ""
 
 #: protected/controllers/EmailController.php:131
@@ -1461,29 +1674,29 @@ msgstr ""
 
 #: protected/controllers/EmailController.php:133
 #: protected/controllers/BulkEmailController.php:164
-#: protected/controllers/SiteController.php:133
-#: protected/controllers/SiteController.php:158
+#: protected/controllers/SiteController.php:128
+#: protected/controllers/SiteController.php:153
 msgid "Error while sending email"
 msgstr ""
 
-#: protected/controllers/EmailController.php:177
+#: protected/controllers/EmailController.php:176
 msgid "has blocked you"
 msgstr ""
 
-#: protected/controllers/EmailController.php:189
+#: protected/controllers/EmailController.php:188
 #, php-format
 msgid "Private email request from a user at the %s"
 msgstr ""
 
-#: protected/controllers/EmailController.php:203
+#: protected/controllers/EmailController.php:202
 msgid "Email not sent"
 msgstr ""
 
-#: protected/controllers/UserController.php:173
+#: protected/controllers/UserController.php:170
 msgid "Changes saved Ok"
 msgstr ""
 
-#: protected/controllers/UserController.php:200
+#: protected/controllers/UserController.php:197
 msgid "is blocked"
 msgstr ""
 
@@ -1499,102 +1712,112 @@ msgstr ""
 msgid "Error: zip file not created"
 msgstr ""
 
-#: protected/controllers/CommentController.php:137
+#: protected/controllers/CommentController.php:148
 msgid "New comment at"
 msgstr ""
 
-#: protected/controllers/CommentController.php:139
+#: protected/controllers/CommentController.php:150
 msgid "A new comment has been added to the enquiry"
 msgstr ""
 
-#: protected/controllers/SiteController.php:107
+#: protected/controllers/SiteController.php:102
 msgid "Please click the link below to activate your account"
 msgstr ""
 
-#: protected/controllers/SiteController.php:125
+#: protected/controllers/SiteController.php:120
 msgid "Activate your account"
 msgstr ""
 
-#: protected/controllers/SiteController.php:128
-#: protected/controllers/SiteController.php:153
+#: protected/controllers/SiteController.php:123
+#: protected/controllers/SiteController.php:148
 msgid "Thank you"
 msgstr ""
 
-#: protected/controllers/SiteController.php:131
-#: protected/controllers/SiteController.php:156
+#: protected/controllers/SiteController.php:126
+#: protected/controllers/SiteController.php:151
 msgid "We sent you an email"
 msgstr ""
 
-#: protected/controllers/SiteController.php:148
-#: protected/controllers/SiteController.php:150
+#: protected/controllers/SiteController.php:143
+#: protected/controllers/SiteController.php:145
 msgid "Welcome to the"
 msgstr ""
 
-#: protected/controllers/SiteController.php:151
+#: protected/controllers/SiteController.php:146
 msgid "NEW_USER_EMAIL_MSG"
 msgstr "You user has been created.<br />You can noe make enquiries, subscribe to other citizens' enquiries, and help evalue our council's replies."
 
-#: protected/controllers/SiteController.php:218
+#: protected/controllers/SiteController.php:213
 msgid "Your account is active"
 msgstr ""
 
-#: protected/controllers/SiteController.php:282
+#: protected/controllers/SiteController.php:277
 msgid "Invalid email address"
 msgstr ""
 
-#: protected/controllers/SiteController.php:297
+#: protected/controllers/SiteController.php:292
 msgid "New password request"
 msgstr ""
 
-#: protected/controllers/SiteController.php:300
+#: protected/controllers/SiteController.php:295
 msgid "has received a request to reset your password"
 msgstr ""
 
-#: protected/controllers/SiteController.php:301
+#: protected/controllers/SiteController.php:296
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr ""
 
-#: protected/controllers/SiteController.php:302
+#: protected/controllers/SiteController.php:297
 msgid "To reset your password, follow this link"
 msgstr ""
 
-#: protected/controllers/SiteController.php:307
+#: protected/controllers/SiteController.php:302
 msgid "We've just sent you an email"
 msgstr ""
 
-#: protected/controllers/SiteController.php:311
+#: protected/controllers/SiteController.php:306
 msgid "Sorry, we cannot find you on our database"
 msgstr ""
 
-#: protected/controllers/SiteController.php:327
+#: protected/controllers/SiteController.php:322
 msgid "The password recovery link has expired"
 msgstr ""
 
-#: protected/controllers/SiteController.php:335
+#: protected/controllers/SiteController.php:330
 msgid "Please change your password now"
 msgstr ""
 
-#: protected/controllers/EnquiryController.php:248
+#: protected/controllers/EnquiryController.php:219
 msgid "We have sent you an email"
 msgstr ""
 
-#: protected/controllers/EnquiryController.php:252
+#: protected/controllers/EnquiryController.php:223
 msgid "Your enquiry has been registered correctly"
 msgstr ""
 
-#: protected/controllers/EnquiryController.php:610
+#: protected/controllers/EnquiryController.php:288
+msgid "New reformulated enquiry created OK"
+msgstr ""
+
+#: protected/controllers/EnquiryController.php:556
+#: protected/controllers/EnquiryController.php:566
+msgid "You must assign a team member"
+msgstr ""
+
+#: protected/controllers/EnquiryController.php:582
+msgid "New team member assigned"
+msgstr ""
+
+#: protected/controllers/EnquiryController.php:633
+#: protected/controllers/EnquiryController.php:655
 msgid "Enquiry has been deleted"
 msgstr ""
 
-#: protected/controllers/BudgetController.php:83
-msgid "Budget"
-msgstr ""
-
-#: protected/controllers/BudgetController.php:398
+#: protected/controllers/BudgetController.php:418
 msgid "Year deleted"
 msgstr ""
 
-#: protected/controllers/BudgetController.php:460
+#: protected/controllers/BudgetController.php:480
 msgid "Database restored correctly"
 msgstr ""
 

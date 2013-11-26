@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-20 13:20+0100\n"
+"PO-Revision-Date: 2013-11-26 12:16+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -188,7 +188,7 @@ msgstr "Concepte"
 
 #: protected/models/Budget.php:122
 msgid "Initial provision"
-msgstr ""
+msgstr "Provisió inicial"
 
 #: protected/models/Budget.php:123
 msgid "Actual provision"
@@ -218,23 +218,35 @@ msgstr "Pes"
 msgid "Budget table saved on the"
 msgstr "Taula de pressupostos guardada el"
 
-#: protected/models/IntroPage.php:90
+#: protected/models/IntroPage.php:105
 msgid "Order"
 msgstr "Ordre"
 
-#: protected/models/IntroPage.php:91
+#: protected/models/IntroPage.php:106
 msgid "Top"
 msgstr ""
 
-#: protected/models/IntroPage.php:92
+#: protected/models/IntroPage.php:107
 msgid "Left"
 msgstr ""
 
-#: protected/models/IntroPage.php:93
-msgid "Width"
-msgstr ""
+#: protected/models/IntroPage.php:108
+msgid "Font color"
+msgstr "Color de font"
 
-#: protected/models/IntroPage.php:94
+#: protected/models/IntroPage.php:109
+msgid "Background color"
+msgstr "Color de fons"
+
+#: protected/models/IntroPage.php:110
+msgid "Opacity"
+msgstr "Opacitat"
+
+#: protected/models/IntroPage.php:111
+msgid "Width"
+msgstr "Amplària"
+
+#: protected/models/IntroPage.php:112
 #: protected/views/budget/_formYear.php:63
 #: protected/views/budget/adminYears.php:97
 msgid "Published"
@@ -242,7 +254,7 @@ msgstr "Publicat"
 
 #: protected/models/Vote.php:90
 #: protected/models/Comment.php:96
-#: protected/views/enquiry/_view.php:298
+#: protected/views/enquiry/_view.php:299
 msgid "Reply"
 msgstr "Resposta"
 
@@ -252,8 +264,8 @@ msgid "User"
 msgstr "Usuari"
 
 #: protected/models/Vote.php:92
-#: protected/views/enquiry/_view.php:304
-#: protected/views/enquiry/_view.php:308
+#: protected/views/enquiry/_view.php:305
+#: protected/views/enquiry/_view.php:309
 msgid "Vote"
 msgstr "Vota"
 
@@ -574,17 +586,17 @@ msgid "defined budgets"
 msgstr "Partides definides"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:140
-#: protected/views/introPage/_form.php:107
+#: protected/views/cmsPage/_form.php:141
+#: protected/views/introPage/_form.php:153
 msgid "Create"
 msgstr "Create"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:140
+#: protected/views/cmsPage/_form.php:141
 #: protected/views/enquiry/changeType.php:104
-#: protected/views/introPage/_form.php:107
+#: protected/views/introPage/_form.php:153
 #: protected/views/user/updateRoles.php:109
-#: protected/views/user/update.php:103
+#: protected/views/user/update.php:122
 msgid "Save"
 msgstr "Desa"
 
@@ -619,9 +631,19 @@ msgstr "Registrar-se"
 msgid "Please enter the letters as they are shown in the image above"
 msgstr "Copia les lletres tal com surten en la imatge a dalt"
 
-#: protected/views/site/register.php:93
+#: protected/views/site/register.php:92
 msgid "REGISTER_MSG"
 msgstr "<p>Ser usuari et permetrà realitzar consultes al teu ajuntament de manera  pública i directa, així com compartir-les amb altres ciutadans del teu municipi.</p><p> Quants més ciutadans siguem els que lluitem units per la  transparència, més a prop estarem d'aconseguir que les decisions en  política i gestió del nostre municipi siguin preses des de la  ciutadania.</p>"
+
+#: protected/views/site/register.php:96
+#: protected/views/user/update.php:117
+msgid "MEMBERSHIP_MSG"
+msgstr "Pots marcar en aquest espai fer-te soci a més d'usuari. Com més socis tingui el teu OCM més pressió podreu realitzar al vostre Ajuntament. Pensa que cada consulta que feu arribar a l'Ajuntament tindrà la firma implícita de tots els socis, a més de l'usuari que hagi realitzat."
+
+#: protected/views/site/register.php:98
+#: protected/views/user/update.php:105
+msgid "Yes, I want to be a member"
+msgstr "Sí, vull ser un soci"
 
 #: protected/views/site/login.php:6
 #: protected/views/site/login.php:58
@@ -671,15 +693,15 @@ msgid "comments"
 msgstr "comenta"
 
 #: protected/views/comment/_form.php:44
-#: protected/views/enquiry/_form.php:118
+#: protected/views/enquiry/_form.php:113
 #: protected/views/reply/create.php:91
 msgid "Publish"
 msgstr "Publicar"
 
 #: protected/views/comment/_form.php:45
 #: protected/views/enquiry/changeType.php:107
-#: protected/views/enquiry/_form.php:128
-#: protected/views/user/update.php:104
+#: protected/views/enquiry/_form.php:123
+#: protected/views/user/update.php:123
 #: protected/views/reply/create.php:94
 #: protected/views/email/_contactPetition.php:74
 msgid "Cancel"
@@ -692,6 +714,7 @@ msgstr "CMS editor"
 #: protected/views/cmsPage/admin.php:25
 #: protected/views/cmsPage/create.php:30
 #: protected/views/introPage/admin.php:26
+#: protected/views/introPage/update.php:33
 #: protected/views/introPage/create.php:29
 msgid "Create page"
 msgstr "Crear pàgina"
@@ -708,7 +731,7 @@ msgstr "Mostra els fitxers ja pujats"
 #: protected/views/cmsPage/admin.php:83
 #: protected/views/cmsPage/update.php:32
 #: protected/views/cmsPage/create.php:25
-#: protected/views/introPage/update.php:33
+#: protected/views/introPage/update.php:34
 #: protected/views/introPage/create.php:24
 msgid "Manage pages"
 msgstr "Gestionar pàgines"
@@ -738,12 +761,12 @@ msgid "Delete page"
 msgstr "Esborrar pàgina"
 
 #: protected/views/cmsPage/update.php:37
-#: protected/views/introPage/update.php:38
+#: protected/views/introPage/update.php:39
 msgid "Update page"
 msgstr "Actualitzar pàgina"
 
 #: protected/views/cmsPage/_form.php:48
-#: protected/views/introPage/_form.php:48
+#: protected/views/introPage/_form.php:124
 msgid "Translations"
 msgstr "Traduccions"
 
@@ -768,15 +791,19 @@ msgstr "Partides definides"
 msgid "Restore all budgets from a backup"
 msgstr "Restaurar tots els pressupostos des d'una còpia"
 
-#: protected/views/file/showBudgetFiles.php:32
+#: protected/views/file/showBudgetFiles.php:34
 msgid "These copies are made right before a CSV file is imported"
 msgstr "Les còpies es fan just abans d'importar fitxers CSV"
 
-#: protected/views/file/showBudgetFiles.php:53
+#: protected/views/file/showBudgetFiles.php:35
+msgid "READ ME"
+msgstr "LLEGEIX EM"
+
+#: protected/views/file/showBudgetFiles.php:57
 msgid "Restore budgets"
 msgstr "Restaurar pressuposts"
 
-#: protected/views/file/showBudgetFiles.php:66
+#: protected/views/file/showBudgetFiles.php:70
 msgid "Note: Delete some backups to save disk space. You only really need the last good copy."
 msgstr "Nota: Esborrar alguns backups per estalviar espai de disc. En realitat solament necessites l'última còpia bona"
 
@@ -796,15 +823,15 @@ msgstr "Add csv to data"
 msgid "Download zip file"
 msgstr "Download zip file"
 
-#: protected/views/file/adminDatabaseDownload.php:112
+#: protected/views/file/adminDatabaseDownload.php:113
 msgid "Prepare file"
 msgstr "Prepari fitxer"
 
-#: protected/views/file/adminDatabaseDownload.php:120
-msgid "Files ready to include in zip"
-msgstr "Fitxers llests per incloure en el zip"
+#: protected/views/file/adminDatabaseDownload.php:121
+msgid "Files queued and ready to include in zip"
+msgstr "Fitxers en cua i llests per incloure en el zip"
 
-#: protected/views/file/adminDatabaseDownload.php:131
+#: protected/views/file/adminDatabaseDownload.php:132
 msgid "Files to include"
 msgstr "Files to include"
 
@@ -1108,8 +1135,8 @@ msgid "Record of sent emails"
 msgstr "Record de correus enviats"
 
 #: protected/views/enquiry/_megaDelete.php:43
-#: protected/views/enquiry/_view.php:266
-#: protected/views/enquiry/_view.php:354
+#: protected/views/enquiry/_view.php:267
+#: protected/views/enquiry/_view.php:355
 msgid "Comments"
 msgstr "Comentaris"
 
@@ -1186,18 +1213,18 @@ msgstr "Ja has votat favorablement"
 msgid "You have already voted unfavourably"
 msgstr "Ja has votat desfavorablement"
 
-#: protected/views/enquiry/_view.php:270
-#: protected/views/enquiry/_view.php:280
-#: protected/views/enquiry/_view.php:358
-#: protected/views/enquiry/_view.php:368
+#: protected/views/enquiry/_view.php:271
+#: protected/views/enquiry/_view.php:281
+#: protected/views/enquiry/_view.php:359
+#: protected/views/enquiry/_view.php:369
 msgid "Add comment"
 msgstr "Afegeix comentari"
 
-#: protected/views/enquiry/_view.php:320
+#: protected/views/enquiry/_view.php:321
 msgid "Add attachment"
 msgstr "Afegeix adjunt"
 
-#: protected/views/enquiry/_view.php:332
+#: protected/views/enquiry/_view.php:333
 msgid "Attachments"
 msgstr "Adjunts"
 
@@ -1215,14 +1242,13 @@ msgid "generic enquiry"
 msgstr "consulta genèrica"
 
 #: protected/views/enquiry/create.php:39
-#: protected/views/enquiry/reformulate.php:37
-msgid "If you wish to formulate a budgetary enquiry, you must first"
-msgstr "If you wish to formulate a budgetary enquiry, you must first"
+msgid "If you wish to formulate a budgetary enquiry, you must first find the corresponding"
+msgstr "Si vols formular una consulta pressupostària, primer hauràs de seleccionar la partida concreta a la pestanya"
 
 #: protected/views/enquiry/create.php:39
-#: protected/views/enquiry/reformulate.php:37
-msgid "find the corresponding budget"
-msgstr ""
+#: protected/controllers/BudgetController.php:84
+msgid "Budget"
+msgstr "Pressuposto"
 
 #: protected/views/enquiry/create.php:65
 #: protected/views/enquiry/reformulate.php:48
@@ -1246,10 +1272,18 @@ msgstr "Nova consulta reformulada"
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: protected/views/enquiry/_form.php:118
+#: protected/views/enquiry/_form.php:113
 #: protected/views/reply/create.php:91
 msgid "Update"
 msgstr "Actualitza"
+
+#: protected/views/enquiry/reformulate.php:37
+msgid "If you wish to formulate a budgetary enquiry, you must first"
+msgstr "If you wish to formulate a budgetary enquiry, you must first"
+
+#: protected/views/enquiry/reformulate.php:37
+msgid "find the corresponding budget"
+msgstr ""
 
 #: protected/views/introPage/view.php:59
 msgid "You are in edit mode"
@@ -1263,6 +1297,14 @@ msgstr "Editor"
 #, fuzzy
 msgid "Manage Introduction pages"
 msgstr "Gestionar pàgines"
+
+#: protected/views/introPage/_form.php:73
+msgid "Text box attributes"
+msgstr ""
+
+#: protected/views/introPage/_form.php:118
+msgid "Text box content"
+msgstr ""
 
 #: protected/views/layouts/column2.php:19
 #: protected/views/layouts/main.php:96
@@ -1538,21 +1580,29 @@ msgstr "Gestiona Usuaris"
 msgid "Change roles"
 msgstr "Canviar rols"
 
-#: protected/views/user/update.php:40
+#: protected/views/user/update.php:51
 msgid "Change your user information"
 msgstr "Canviar les teves dades d'usuari"
 
-#: protected/views/user/update.php:45
+#: protected/views/user/update.php:56
 msgid "Your information"
 msgstr "Les teves dades"
 
-#: protected/views/user/update.php:65
+#: protected/views/user/update.php:75
+msgid "Change password"
+msgstr "Canviar la contrasenya"
+
+#: protected/views/user/update.php:92
+msgid "Details"
+msgstr "Detalls"
+
+#: protected/views/user/update.php:97
 msgid "Your preferred language"
 msgstr "Preferència d'idioma"
 
-#: protected/views/user/update.php:84
-msgid "Change password"
-msgstr "Canviar la contrasenya"
+#: protected/views/user/update.php:106
+msgid "What does this mean?"
+msgstr "Que significa això?"
 
 #: protected/views/reply/create.php:47
 msgid "Date the Administration replied"
@@ -1770,10 +1820,6 @@ msgstr "Nou team member assignat"
 #: protected/controllers/EnquiryController.php:655
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
-
-#: protected/controllers/BudgetController.php:84
-msgid "Budget"
-msgstr "Pressuposto"
 
 #: protected/controllers/BudgetController.php:418
 msgid "Year deleted"
