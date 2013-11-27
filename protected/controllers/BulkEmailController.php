@@ -115,7 +115,8 @@ class BulkEmailController extends Controller
 			$model->created = date('c');
 			$model->sent=0;
 			$model->sender=Yii::app()->user->getUserID();
-
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

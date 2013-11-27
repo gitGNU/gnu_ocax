@@ -607,8 +607,12 @@ span.ocaxButtonCount {
 	padding:10px;
 	margin-top:20px;
 	border: 1px solid #cdcbc9;
-	background:white
+	background:white;
+	font-size:1.2em;
 }
+
+.email p {	font-size: 1em; }
+
 .email > .title{
 	padding:10px;
 	margin-top:-10px;

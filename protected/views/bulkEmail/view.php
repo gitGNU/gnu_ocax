@@ -85,13 +85,14 @@ function send(){
 
 <div class="email">
 	<div class="title">
-	<div class="sub_title"><?php echo __('Subject');?>: <?php echo CHtml::encode($model->subject);?></div>
+	<span class="sub_title"><?php echo CHtml::encode($model->subject);?></span>
 	</div>
 
 <div class="details outer">	
 <div class="form">
 
 <div class="left">
+	<p style="margin-bottom:5px">
 	<b><?php echo CHtml::encode($model->getAttributeLabel('created'));?>:</b>
 	<?php echo CHtml::encode($model->created); ?><br />
 
@@ -105,8 +106,11 @@ function send(){
 	<b><?php echo CHtml::encode($model->getAttributeLabel('sent_as')); ?>:</b>
 	<?php echo CHtml::encode($model->sent_as); ?><br />
 
-
-	<b><?php echo $total_recipients.' '.__('BCC Recipients');?></b>: <span id="recipients_link" onClick="js:showRecipients();">Show</span>
+	<b><?php echo $total_recipients.' '.__('BCC Recipients');?></b>:
+	<span id="recipients_link" onClick="js:showRecipients();">
+	<?php echo __('Show');?>
+	</span>
+	</p>
 </div>
 
 <div class="right" style="margin-top:15px">
