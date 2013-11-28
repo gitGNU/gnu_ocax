@@ -36,18 +36,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'team_member'); ?>
 		<?php echo $form->textField($model,'team_member'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'assigned'); ?>
-		<?php echo $form->textField($model,'assigned'); ?>
 	</div>
 
 	<div class="row">
@@ -58,11 +48,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'type'); ?>
 		<?php echo $form->dropDownList($model, 'type', array(""=>"Sin filtrar") + $model->getHumanTypes());?>
-	</div>
-
-	<div class="row">
-		<?php /* echo $form->label($model,'capitulo'); */?>
-		<?php /* echo $form->textField($model,'capitulo'); */?>
 	</div>
 
 	<div class="row">
@@ -81,7 +66,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton(__('Search')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

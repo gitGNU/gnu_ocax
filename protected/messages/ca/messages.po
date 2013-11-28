@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-27 13:11+0100\n"
+"PO-Revision-Date: 2013-11-27 13:33+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -129,7 +129,7 @@ msgstr "Enviat OK"
 #: protected/views/enquiry/index.php:113
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
-#: protected/views/bulkEmail/admin.php:69
+#: protected/views/bulkEmail/admin.php:64
 #: protected/views/user/panel.php:187
 #: protected/views/user/panel.php:223
 msgid "State"
@@ -348,7 +348,7 @@ msgid "Formulated by"
 msgstr "Formulada por"
 
 #: protected/models/Enquiry.php:174
-#: protected/views/enquiry/admin.php:91
+#: protected/views/enquiry/admin.php:86
 #: protected/views/enquiry/_detailsForTeam.php:35
 msgid "Assigned to"
 msgstr "Assignada a"
@@ -484,6 +484,8 @@ msgstr "Pressupostos"
 
 #: protected/views/budget/index.php:147
 #: protected/views/enquiry/_searchPublic.php:34
+#: protected/views/enquiry/_search.php:69
+#: protected/views/bulkEmail/_search.php:44
 #: protected/views/user/_search.php:78
 msgid "Search"
 msgstr "Cerca"
@@ -1107,12 +1109,17 @@ msgstr "Delete enquiry"
 msgid "Manage enquiries"
 msgstr "Gestionar consultes"
 
-#: protected/views/enquiry/admin.php:65
+#: protected/views/enquiry/admin.php:51
+#: protected/views/bulkEmail/admin.php:45
+msgid "Advanced Search"
+msgstr "Cerca avançada"
+
+#: protected/views/enquiry/admin.php:60
 #: protected/views/enquiry/managed.php:64
 msgid "States"
 msgstr "Estats"
 
-#: protected/views/enquiry/admin.php:66
+#: protected/views/enquiry/admin.php:61
 #: protected/views/enquiry/managed.php:65
 msgid "more info"
 msgstr "més info"
@@ -1361,6 +1368,7 @@ msgid "BCC Recipients"
 msgstr "BCC Destinataris ocults"
 
 #: protected/views/bulkEmail/view.php:111
+#: protected/views/bulkEmail/_form.php:79
 msgid "Show"
 msgstr "Mostrar"
 
@@ -1392,7 +1400,7 @@ msgstr "Veure butlletí"
 msgid "Send bulk email"
 msgstr "Enviar butlletí"
 
-#: protected/views/bulkEmail/_form.php:115
+#: protected/views/bulkEmail/_form.php:117
 msgid "Preview"
 msgstr "Vista preliminar"
 
