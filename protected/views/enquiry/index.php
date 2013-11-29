@@ -134,8 +134,9 @@ $this->widget('PGridView', array(
 
 <p style="text-align:center;margin-top:30px">
 <?php echo __('What are the different states of an enquiry?');?>
-<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
 </p>
+
+<?php $this->renderPartial('workflow',array('model'=>$model));?>
 
 </div>
 </div>

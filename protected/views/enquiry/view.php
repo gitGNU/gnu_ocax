@@ -152,7 +152,8 @@ function showBudget(budget_id, element){
 				position:absolute;
 				background-color:white;
 				margin-left:10px;
-				margin-top:10px"
+				margin-top:10px;
+				width:350px"
 		onClick="$(this).toggle();return false;"		
 >
 <img	style="	cursor: pointer;
@@ -161,7 +162,8 @@ function showBudget(budget_id, element){
 				top: -21px;"
 		src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png";
 />
-<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
+<?php $this->renderPartial('workflow',array('model'=>$model));?>
+
 </div>
 
 <div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
