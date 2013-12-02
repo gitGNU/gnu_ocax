@@ -98,7 +98,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 	'settings' => array(
 						'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
 													justifyright,|,bullist,numlist,|,outdent,indent,|,
-													undo,redo,|,link,unlink,|,code",
+													undo,redo,|,link,unlink,|,image,|,code",
 						'convert_urls'=>true,
 						'relative_urls'=>false,
 						'remove_script_host'=>false,

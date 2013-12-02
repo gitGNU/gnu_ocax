@@ -140,7 +140,7 @@ if($model->is_admin){
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
 		echo CHtml::link(__('Global parameters'),array('config/admin')).'<br />';
-
+		echo CHtml::link(__('Backup'),array('backup/create')).'<br />';
  
 	echo '</p></div>';
 	echo '</div>';
@@ -251,6 +251,14 @@ if($noEnquiries){
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
+
+
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
+    </div>
+<?php endif; ?>
+
 
 <?php if(Yii::app()->user->hasFlash('newActivationCodeError')):?>
 	<script>

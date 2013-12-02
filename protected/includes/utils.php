@@ -72,4 +72,19 @@ function getInlineHelpURL($path){
 	return 'http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
 }
 
+function getMySqlParams()
+{
+	$result=array();
+	$connectionString = Yii::app()->db->connectionString;
+	// this expects $connectionString to be 'mysql:host=host;dbname=name'
+	$connectionString = preg_replace('/^mysql:/', '', $connectionString);
+	$params = explode(';', $connectionString);
+	list($param, $result['host']) = explode('=', $params[0]);
+	list($param, $result['dbname']) = explode('=', $params[1]);
+	$result['user'] = Yii::app()->db->username;
+	$result['pass'] = Yii::app()->db->password;
+	return $result;
+}
+
+
 ?>

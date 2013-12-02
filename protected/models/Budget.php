@@ -207,20 +207,6 @@ class Budget extends CActiveRecord
 		return $this->findAll($criteria);
 	}
 
-	private function getMySqlParams()
-	{
-		$result=array();
-		$connectionString = Yii::app()->db->connectionString;
-		// this expects $connectionString to be 'mysql:host=host;dbname=name'
-		$connectionString = preg_replace('/^mysql:/', '', $connectionString);
-		$params = explode(';', $connectionString);
-		list($param, $result['host']) = explode('=', $params[0]);
-		list($param, $result['dbname']) = explode('=', $params[1]);
-		$result['user'] = Yii::app()->db->username;
-		$result['pass'] = Yii::app()->db->password;
-		return $result;
-	}
-
 	/**
 	 * Dump the budget table
 	 */
@@ -237,7 +223,7 @@ class Budget extends CActiveRecord
 		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
 			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
 
-		$params = $this->getMySqlParams();
+		$params = getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
 		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->getURI();
@@ -260,7 +246,7 @@ class Budget extends CActiveRecord
 	{
 		$file = File::model()->findByPk($file_id);
 
-		$params = $this->getMySqlParams();
+		$params = getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
 		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->getURI();
