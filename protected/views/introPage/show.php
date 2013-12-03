@@ -43,7 +43,7 @@ $nextPage=$model->getNextPage();
 	<?php
 	if($nextPage){
 		echo '<div class="nextIntroPage" onClick="js:nextPage('.$nextPage->id.')">';
-		echo '<span style="cursor:pointer">'.$model->getTitleForModel($nextPage->id,$content->language).'</span>';
+		echo '<span style="cursor:pointer;text-decoration:underline">'.$model->getTitleForModel($nextPage->id,$content->language).'</span>';
 		echo '</div>';
 	}
 	?>

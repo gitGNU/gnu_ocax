@@ -25,7 +25,7 @@ class Backup
 	public function dump()
 	{
 		$baseDir = dirname(Yii::getPathOfAlias('application'));
-		$backupDir = $baseDir.'/protected/runtime/';
+		$backupDir = Yii::app()->basePath.'/runtime/';
 		$filesDir = $baseDir.'/app/files';
 		$error = Null;
 		
@@ -35,23 +35,24 @@ class Backup
 			unlink($f);
 		}
 		
-		$zip = $this->Zip($filesDir, $backupDir.$backupFileName);
+		$zip = new ZipArchive();
+		if (!$zip->open($backupDir.$backupFileName, ZIPARCHIVE::CREATE)) {
+			$error = __('Cannot create zip file');
+		}
+		if(!$error)
+			$this->Zip($filesDir, $zip);
 		
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'.sql';
-		if(!$error && $error_msg = $this->dumpDatabase($dump_file))
+		if(!$error && $error_msg = $this->dumpDatabase($dump_file)){
 			$error = __('Cannot dump database');
-
-		if(!$error){
-			$zip = new ZipArchive;
-			if ($zip->open($backupDir.$backupFileName) === TRUE) {
-				$zip->addFile($dump_file, 'database.sql');
-				$zip->close();
-			}
+			$zip->close();
 		}
+		$zip->addFile($dump_file, 'database.sql');
+		$zip->addFile($baseDir.'/RESTORE','RESTORE');
+		$zip->addFile(Yii::app()->basePath.'/data/ocax.version','VERSION');
+		$zip->close();
 
-		
 		return array($backupDir, $backupFileName, $error);
-		
 	}
 
 	public function dumpDatabase($filePath)
@@ -71,20 +72,17 @@ class Backup
 		}
 	}
 
-
 	// http://stackoverflow.com/questions/1334613/how-to-recursively-zip-a-directory-in-php/1334949#1334949
-	function Zip($source, $destination)
+	private function Zip($source, $zip)
 	{
-		$zip = new ZipArchive();
-		if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
-			return false;
-		}
-
-		$source = str_replace('\\', '/', realpath($source));
-
+		//$source = str_replace('\\', '/', realpath($source));
+		//$source = realpath($source);
 		if (is_dir($source) === true){
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+			$zip->addEmptyDir(str_replace($source . '/', '', 'filesss' . '/'));
 
+			$source='/';
+			
 			foreach ($files as $file){
 				$file = str_replace('\\', '/', $file);
 
@@ -105,8 +103,6 @@ class Backup
 		else if (is_file($source) === true){
 			$zip->addFromString(basename($source), file_get_contents($source));
 		}
-
-		return $zip->close();
 	}
 
 }

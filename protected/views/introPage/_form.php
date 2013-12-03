@@ -75,18 +75,21 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'toppos'); ?>
+		<span class="hint"><?php echo __('Distance between top of photo and top of box');?></span><br />
 		<?php echo $form->textField($model,'toppos'); ?>
 		<?php echo $form->error($model,'toppos'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'leftpos'); ?>
+		<span class="hint"><?php echo __('Distance from lefthand side of photo to box');?></span><br />
 		<?php echo $form->textField($model,'leftpos'); ?>
 		<?php echo $form->error($model,'leftpos'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'width'); ?>
+		<span class="hint"><?php echo __('Width of the box');?></span><br />
 		<?php echo $form->textField($model,'width'); ?>
 		<?php echo $form->error($model,'width'); ?>
 	</div>
@@ -95,18 +98,21 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'color'); ?>
+		<span class="hint"><?php echo __('Leave empty to recover default values');?></span><br />
 		<?php echo '# '.$form->textField($model,'color'); ?>
 		<?php echo $form->error($model,'color'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'bgcolor'); ?>
+		<span class="hint"><?php echo __('Leave empty to recover default values');?></span><br />
 		<?php echo '# '.$form->textField($model,'bgcolor'); ?>
 		<?php echo $form->error($model,'bgcolor'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'opacity'); ?>
+		<span class="hint"><?php echo __('Box transparentcy').' (0 - 10)';?></span><br />
 		<?php echo $form->textField($model,'opacity'); ?>
 		<?php echo $form->error($model,'opacity'); ?>
 	</div>

@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS intro_page (
 	toppos INT(3) NOT NULL DEFAULT '50',
 	leftpos INT(3) NOT NULL DEFAULT '50',
 	color varchar(6) NOT NULL DEFAULT '222222',
-	bgcolor varchar(6) NOT NULL DEFAULT 'cccccc',
+	bgcolor varchar(6) NOT NULL DEFAULT 'FFFFFF',
 	opacity TINYINT(1) NOT NULL DEFAULT '5',
 	width INT(4) NOT NULL DEFAULT '600',
 	published tinyint(1) NOT NULL DEFAULT '0',

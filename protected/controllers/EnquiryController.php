@@ -465,9 +465,12 @@ class EnquiryController extends Controller
 	public function actionTeamView($id)
 	{
 		$model=$this->loadModel($id);
-		$this->render('teamView',array(
-			'model'=>$model,
-		));
+		if( $model->team_member == Yii::app()->user->getUserID()){
+			$this->render('teamView',array('model'=>$model));
+		}
+		else{
+			$this->redirect(array('view','id'=>$model->id));
+		}
 	}
 
 	/**
