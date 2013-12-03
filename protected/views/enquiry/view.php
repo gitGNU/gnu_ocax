@@ -296,7 +296,7 @@ if($model->budget)
 <!-- social options stop -->
 
 <?php
-if($model->state < ENQUIRY_ACCEPTED && $model->user == Yii::app()->user->getUserID()){
+if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->user->getUserID()){
 	echo '<div style="font-style:italic;margin-top:-30px;margin-bottom:10px;">'.__('You can').' '.
 		 CHtml::link(__('edit the enquiry'),array('enquiry/edit','id'=>$model->id)).' '.__('and even').' '.
 		 CHtml::link(__('delete it'),"#",

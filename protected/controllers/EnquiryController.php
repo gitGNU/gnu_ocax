@@ -169,6 +169,7 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
+			$model->modified = date('c');
 			$model->state = ENQUIRY_PENDING_VALIDATION;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
@@ -315,8 +316,8 @@ class EnquiryController extends Controller
 			Yii::app()->end();
 		}		
 		
-		if($model->state >= ENQUIRY_ACCEPTED && $userid != $model->team_member){
-			$this->redirect(array('/site/index'));
+		if($model->state > ENQUIRY_PENDING_VALIDATION && $userid != $model->team_member){
+			$this->redirect(array('/user/panel'));
 			Yii::app()->end();
 		}
 		
@@ -628,7 +629,7 @@ class EnquiryController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$user=Yii::app()->user->getUserID();
-		if($model->state==1 && ($model->user == $user || Yii::app()->user->isManager()) ){
+		if($model->state==ENQUIRY_PENDING_VALIDATION && ($model->user == $user || Yii::app()->user->isManager()) ){
 			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

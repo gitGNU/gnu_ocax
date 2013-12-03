@@ -24,14 +24,14 @@
 ?>
 
 <style>
-.workflowText { position:absolute; font-size:0.95em; line-height:95%; width:150px; }
+.workflowText { position:absolute; font-size:0.95em; line-height:95%; width:150px;}
 </style>
 <div style="background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow.png'); height:415px; position:relative;">
 <div class="workflowText" style="top:25px;left:120px;"><?php echo $model->getHumanStates(1);?></div>
-<div class="workflowText" style="top:105px;left:0px;width:125px;"><?php echo $model->getHumanStates(4);?></div>
-<div class="workflowText" style="top:105px;left:235px;width:125px;"><?php echo $model->getHumanStates(3);?></div>
+<div class="workflowText" style="top:107px;left:0px;width:140px;"><?php echo $model->getHumanStates(4);?></div>
+<div class="workflowText" style="top:107px;left:218px;width:145px;"><?php echo $model->getHumanStates(3);?></div>
 <div class="workflowText" style="top:190px;left:120px;"><?php echo $model->getHumanStates(5);?></div>
 <div class="workflowText" style="top:275px;left:120px;"><?php echo $model->getHumanStates(6);?></div>
-<div class="workflowText" style="top:355px;left:0px;width:125px;"><?php echo $model->getHumanStates(8);?></div>
-<div class="workflowText" style="top:355px;left:235px;width:125px;"><?php echo $model->getHumanStates(7);?></div>
+<div class="workflowText" style="top:355px;left:0px;width:140px;"><?php echo $model->getHumanStates(8);?></div>
+<div class="workflowText" style="top:355px;left:218px;width:145px;"><?php echo $model->getHumanStates(7);?></div>
 </div>

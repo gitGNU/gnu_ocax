@@ -555,7 +555,7 @@ span.ocaxButtonCount {
 
 /* intro page */
 .introPageBlock {
-	font-size:1.2em;
+	/*font-size:1.1em;*/
 	padding:10px;
 	position:absolute;
 }
@@ -571,6 +571,8 @@ span.ocaxButtonCount {
 .nextIntroPage {
 	width:100%;
 	text-align:right;
+}
+.nextIntroPage p {
 	margin-bottom:-10px;
 }
 

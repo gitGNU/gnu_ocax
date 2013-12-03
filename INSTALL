@@ -4,14 +4,15 @@ This software is BETA.
 We have frozen new features and are ironing out bugs.
 
 
+Directory structure.
+You need to replicate this structure on you web server.
 
-Directory structure
 |
 - app
 |
 - protected
 |
-- framework	(http://www.yiiframework.com/ (tested with 1.1.14))
+- framework	(YII, http://www.yiiframework.com/ (tested with 1.1.14))
 
 
 Installation

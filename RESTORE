@@ -23,7 +23,7 @@ Restore
 Look at the VERSION file and download that _same_ version from http://ocax.net/download
 
 2- Install (read INSTALL to refresh your memory).
-   1. install the directory (framework/protected/app)
+   1. install the directory structure (framework/protected/app)
    2. configure protected/config/main.php
    3. replace app/files with the 'files' folder you extracted from the zip file
    4. Check file permissions.

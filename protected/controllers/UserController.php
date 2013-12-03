@@ -77,7 +77,7 @@ class UserController extends Controller
 			'criteria'=>array(
 				'condition'=>"user=$id",
 			),
-			'sort'=>array('defaultOrder'=>'modified ASC'),
+			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 
 		$userid=Yii::app()->user->getUserID();
@@ -89,8 +89,9 @@ class UserController extends Controller
 								t.user != '.$userid.' AND
 								( t.team_member != '.$userid.' || t.team_member IS NULL )',
 				'together'=>true,
+				//'order'=>'t.id DESC',
 			),
-			'sort'=>array('defaultOrder'=>'modified ASC'),
+			'sort'=>array('defaultOrder'=>'t.modified DESC'),
 		));
 
 		// check for OCAx updates once a week

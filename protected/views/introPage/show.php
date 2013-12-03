@@ -39,11 +39,11 @@ $nextPage=$model->getNextPage();
 <div class="introPageBlock">
 	<div class="introTitle"><?php echo $content->title; ?></div>
 	<div class="sub_title"><?php echo $content->subtitle ?></div>
-	<p class="text"><?php echo $content->body; ?></p>
+	<p><?php echo $content->body; ?></p>
 	<?php
 	if($nextPage){
 		echo '<div class="nextIntroPage" onClick="js:nextPage('.$nextPage->id.')">';
-		echo '<span style="cursor:pointer;text-decoration:underline">'.$model->getTitleForModel($nextPage->id,$content->language).'</span>';
+		echo '<p style="cursor:pointer;text-decoration:underline">'.$model->getTitleForModel($nextPage->id,$content->language).'</p>';
 		echo '</div>';
 	}
 	?>
