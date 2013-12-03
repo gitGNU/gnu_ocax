@@ -71,7 +71,7 @@ class Backup
 			return $return_var;
 		}
 	}
-
+	
 	// http://stackoverflow.com/questions/1334613/how-to-recursively-zip-a-directory-in-php/1334949#1334949
 	private function Zip($source, $zip)
 	{
@@ -79,30 +79,24 @@ class Backup
 		//$source = realpath($source);
 		if (is_dir($source) === true){
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
-			$zip->addEmptyDir(str_replace($source . '/', '', 'filesss' . '/'));
-
-			$source='/';
+			$zip->addEmptyDir('files/');
 			
 			foreach ($files as $file){
 				$file = str_replace('\\', '/', $file);
-
 				// Ignore "." and ".." folders
 				if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
 					continue;
 
 				$file = realpath($file);
 
-				if (is_dir($file) === true){
-					$zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
-				}
-				else if (is_file($file) === true){
-					$zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
-				}
+				if (is_dir($file) === true)
+					$zip->addEmptyDir(str_replace($source . '/', 'files/', $file . '/'));
+				else if (is_file($file) === true)
+					$zip->addFromString(str_replace($source . '/', 'files/', $file), file_get_contents($file));
 			}
 		}
-		else if (is_file($source) === true){
+		else if (is_file($source) === true)
 			$zip->addFromString(basename($source), file_get_contents($source));
-		}
 	}
 
 }
