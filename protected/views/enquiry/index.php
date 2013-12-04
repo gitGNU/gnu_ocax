@@ -132,11 +132,13 @@ $this->widget('PGridView', array(
 	//}
 ?>
 
-<p style="text-align:center;margin-top:30px">
+<p style="text-align:center;margin-top:30px;">
 <?php echo __('What are the different states of an enquiry?');?>
 </p>
 
+<div style="margin-left:8px;">
 <?php $this->renderPartial('workflow',array('model'=>$model));?>
+</div>
 
 </div>
 </div>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-27 13:33+0100\n"
+"PO-Revision-Date: 2013-12-04 08:40+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -945,7 +945,7 @@ msgstr "¿Estás seguro?"
 
 #: protected/views/enquiry/view.php:305
 msgid "until it has been accepted by the observatory."
-msgstr ""
+msgstr "hasta que haya sido aceptado por el observatorio."
 
 #: protected/views/enquiry/edit.php:38
 #: protected/views/enquiry/create.php:58

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-27 13:33+0100\n"
+"PO-Revision-Date: 2013-12-04 08:41+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -933,9 +933,8 @@ msgid "You can"
 msgstr "Pots"
 
 #: protected/views/enquiry/view.php:299
-#, fuzzy
 msgid "edit the enquiry"
-msgstr "Edita consulta"
+msgstr "editar la consulta"
 
 #: protected/views/enquiry/view.php:299
 msgid "and even"
@@ -951,7 +950,7 @@ msgstr "Estàs segur?"
 
 #: protected/views/enquiry/view.php:305
 msgid "until it has been accepted by the observatory."
-msgstr ""
+msgstr "fins que hagi estat acceptat per l'observatori."
 
 #: protected/views/enquiry/edit.php:38
 #: protected/views/enquiry/create.php:58
