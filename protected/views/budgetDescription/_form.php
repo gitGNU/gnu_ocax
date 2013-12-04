@@ -51,7 +51,8 @@
 			echo $form->error($model,'language');
 			echo '</div>';
 		}else{
-			$model->language='ca';
+			$languages=explode(',', Config::model()->findByPk('languages')->value);
+			$model->language=$languages[0];
 			echo $form->hiddenField($model,'language');
 		}	
 	?>

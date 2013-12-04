@@ -76,7 +76,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_team_member'); ?>
 		<?php echo $form->checkBox($model,'is_team_member', array('checked'=>$model->is_team_member)); ?>
-		Responde a las enquirys encargadas.
+		<?php echo __('Manage the enquiries you are responsable for').'.';?>
 	</div>
 	</div>
 
@@ -92,7 +92,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_manager'); ?> 
 		<?php echo $form->checkBox($model,'is_manager', array('checked'=>$model->is_manager)); ?>
-		Encarga enquirys a otros compañeros.
+		<?php echo __('Assign enquiries to team members and check status').'.';?>
 	</div>
 	</div>
 

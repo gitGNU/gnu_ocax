@@ -45,7 +45,7 @@ function showBudgetDumps(){
 				$('#budget_dumps').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -108,11 +108,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
-<div id="budget_dumps" style="display:none;width:600px;">
-	<div style="background-color:white">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-		<div id="budget_dumps_content"></div>
-	</div>
+<div id="budget_dumps" class="modal" style="600px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="budget_dumps_content"></div>
 </div>
 
 <?php if(Yii::app()->user->hasFlash('success')):?>

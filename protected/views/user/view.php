@@ -49,7 +49,7 @@ function showEnquiry(enquiry_id){
 				$('#mega_delete').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -84,13 +84,14 @@ function megaDelete(el){
 </script>
 
 <div class="form">
-<div class="title"><?php echo __('Username').': '.$model->username; ?></div>
+<div class="title"><?php echo __('User details'); ?></div>
 
 <div class="row">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>array(
+		'username',
 		'fullname',
 		'email',
 		'joined',
@@ -123,13 +124,13 @@ $this->widget('PGridView', array(
 	),
 	'columns'=>array(
 			array(
-				'header'=>'Enquirys',
+				'header'=>__('Enquiries'),
 				'name'=>'title',
 				'value'=>'$data[\'title\']',
 			),
 			'created',
 			array(
-				'header'=>'Estat',
+				'header'=>__('State'),
 				'name'=>'state',
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',

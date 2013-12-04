@@ -37,8 +37,6 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 </style>
 <style>
 .comments { margin-top:15px; }
-.link { color:#06c; cursor:pointer; }
-.link:focus, .link:hover {color:#09f;}
 .voteBlock { float:right;text-align:right; }
 .clear { clear:both; }
 </style>
@@ -207,7 +205,7 @@ function getContactForm(recipient_id){
 				$('#contact_petition').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -253,6 +251,7 @@ function sendContactForm(form){
 </script>
 
 <div class="enquiryBody"><?php echo $model->body;?></div>
+
 <div style="clear:both"></div>
 
 <?php
@@ -324,7 +323,7 @@ foreach($replys as $reply){
 			foreach($attachments as $attachment){
 				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
 				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a>';
-				echo '	<img style="cursor:pointer;vertical-align:text-top;"
+				echo '	<img style="cursor:pointer;vertical-align:middle;"
 						src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				echo '</span>';
 			}
@@ -343,7 +342,7 @@ foreach($replys as $reply){
 	}
 
 	// reply body
-	echo '<p style="padding-top:10px">'.$reply->body.'</p>';
+	echo '<p style="padding-top:10px;">'.$reply->body.'</p>';
 	
 	echo '<div class="comments">';	//comments on reply open
 	
@@ -405,7 +404,7 @@ function uploadFile(model,model_id){
 				$('#files_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });

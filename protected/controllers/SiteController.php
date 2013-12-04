@@ -158,6 +158,8 @@ class SiteController extends Controller
 
 	public function actionRegister()
 	{
+		if(!Yii::app()->user->isGuest)
+			$this->redirect(array('/user/panel'));
  
 		$model=new RegisterForm;
 		$newUser = new User;
@@ -224,6 +226,9 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		if(!Yii::app()->user->isGuest)
+			$this->redirect(array('/user/panel'));
+		
 		$model=new LoginForm;
 
 		// if it is ajax validation request

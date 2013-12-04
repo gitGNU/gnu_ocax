@@ -124,6 +124,12 @@ if($model->is_admin){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.__('Administator\'s options').'</div>';
+	if($upgrade){
+		$url = getInlineHelpURL(':upgrade');
+		echo '<p>'.__('New version available').'. '.__('Upgrade now').' '.
+			 '<a href="'.$url.'" target="_upgrade">OCAx '.$upgrade.'</a>'.
+			 '</p>';
+	}
 	echo '<div style="float:left"><p>';
 		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
 		echo CHtml::link(__('Newsletters'),array('bulkEmail/admin')).'<br />';
@@ -134,6 +140,8 @@ if($model->is_admin){
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
 		echo CHtml::link(__('Global parameters'),array('config/admin')).'<br />';
+		echo CHtml::link(__('Backup'),array('backup/create')).'<br />';
+ 
 	echo '</p></div>';
 	echo '</div>';
 	echo '</div>';
@@ -243,6 +251,14 @@ if($noEnquiries){
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
+
+
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
+    </div>
+<?php endif; ?>
+
 
 <?php if(Yii::app()->user->hasFlash('newActivationCodeError')):?>
 	<script>

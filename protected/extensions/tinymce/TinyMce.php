@@ -72,7 +72,10 @@ class TinyMce extends CInputWidget
 */
         //'theme_advanced_buttons4' => "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
 
-		'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink",
+	'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink",
+
+	//chris. stop pasting most styles into editor
+	'valid_styles' => array('*' => 'text-decoration,text-align,display,margin-left,margin-right'),
 
         'theme_advanced_toolbar_location' => "top",
         'theme_advanced_toolbar_align' => "left",

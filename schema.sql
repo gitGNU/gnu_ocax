@@ -204,8 +204,11 @@ CREATE TABLE IF NOT EXISTS bulk_email (
 CREATE TABLE IF NOT EXISTS intro_page (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	weight TINYINT(2) NOT NULL,
-	toppos TINYINT(3) NOT NULL DEFAULT '50',
-	leftpos TINYINT(3) NOT NULL DEFAULT '50',
+	toppos INT(3) NOT NULL DEFAULT '50',
+	leftpos INT(3) NOT NULL DEFAULT '50',
+	color varchar(6) NOT NULL DEFAULT '222222',
+	bgcolor varchar(6) NOT NULL DEFAULT 'FFFFFF',
+	opacity TINYINT(1) NOT NULL DEFAULT '8',
 	width INT(4) NOT NULL DEFAULT '600',
 	published tinyint(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (id)
@@ -267,6 +270,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('councilName
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca', '1', 'Available languages on this site');
+INSERT INTO config(parameter, value, required, description) VALUES ('membership', '0', '1', 'Does your Observatory encourage membership? (0 or 1)');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name');
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");

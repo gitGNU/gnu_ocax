@@ -23,13 +23,13 @@
 ?>
 
 <div class="view" id="comment_<?php echo $data->id;?>">
-	<p style="margin-bottom:5px;margin-top:-10px"><b>
+	<p style="margin-bottom:5px;margin-top:-10px">
 	<?php if(! ($data->user0->username == Yii::app()->user->id || $data->user0->is_disabled == 1))
 			echo '<span class="link" onClick="js:getContactForm('.$data->user.');return false;">';
 		else
 			echo '<span>';
 	?>
-	<?php echo CHtml::encode($data->user0->fullname); ?></span></b>
+	<?php echo CHtml::encode($data->user0->fullname); ?></span>
 
 	<?php echo __('comments on the').' '.format_date($data->created,1);
 		if($data->user == Yii::app()->user->getUserID())

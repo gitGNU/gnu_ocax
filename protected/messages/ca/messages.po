@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-13 12:03+0100\n"
+"PO-Revision-Date: 2013-12-04 08:41+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: protected/models/Email.php:99
 #: protected/models/Enquiry.php:181
-#: protected/views/enquiry/view.php:192
+#: protected/views/enquiry/view.php:183
 #: protected/views/enquiry/_detailsForTeam.php:39
 msgid "Type"
 msgstr "Tipus"
@@ -93,7 +93,7 @@ msgstr "Contrasenya repetida"
 
 #: protected/models/RegisterForm.php:90
 #: protected/models/User.php:130
-#: protected/views/layouts/main.php:123
+#: protected/views/layouts/main.php:120
 msgid "Email"
 msgstr "Correu electrònic"
 
@@ -124,19 +124,18 @@ msgstr "Enviat OK"
 #: protected/models/BulkEmail.php:107
 #: protected/models/Enquiry.php:182
 #: protected/models/Emailtext.php:111
-#: protected/views/emailtext/admin.php:43
-#: protected/views/enquiry/view.php:196
-#: protected/views/enquiry/index.php:117
+#: protected/views/emailtext/admin.php:46
+#: protected/views/enquiry/view.php:187
+#: protected/views/enquiry/index.php:113
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
-#: protected/views/bulkEmail/admin.php:68
-#: protected/views/user/panel.php:179
-#: protected/views/user/panel.php:215
+#: protected/views/bulkEmail/admin.php:64
+#: protected/views/user/panel.php:187
+#: protected/views/user/panel.php:223
 msgid "State"
 msgstr "Estat"
 
 #: protected/models/BulkEmail.php:111
-#: protected/views/bulkEmail/view.php:88
 msgid "Subject"
 msgstr "Assumpte"
 
@@ -188,7 +187,7 @@ msgstr "Concepte"
 
 #: protected/models/Budget.php:122
 msgid "Initial provision"
-msgstr ""
+msgstr "Provisió inicial"
 
 #: protected/models/Budget.php:123
 msgid "Actual provision"
@@ -218,23 +217,35 @@ msgstr "Pes"
 msgid "Budget table saved on the"
 msgstr "Taula de pressupostos guardada el"
 
-#: protected/models/IntroPage.php:72
+#: protected/models/IntroPage.php:105
 msgid "Order"
 msgstr "Ordre"
 
-#: protected/models/IntroPage.php:73
+#: protected/models/IntroPage.php:106
 msgid "Top"
 msgstr ""
 
-#: protected/models/IntroPage.php:74
+#: protected/models/IntroPage.php:107
 msgid "Left"
 msgstr ""
 
-#: protected/models/IntroPage.php:75
-msgid "Width"
-msgstr ""
+#: protected/models/IntroPage.php:108
+msgid "Font color"
+msgstr "Color de font"
 
-#: protected/models/IntroPage.php:76
+#: protected/models/IntroPage.php:109
+msgid "Background color"
+msgstr "Color de fons"
+
+#: protected/models/IntroPage.php:110
+msgid "Opacity"
+msgstr "Opacitat"
+
+#: protected/models/IntroPage.php:111
+msgid "Width"
+msgstr "Amplària"
+
+#: protected/models/IntroPage.php:112
 #: protected/views/budget/_formYear.php:63
 #: protected/views/budget/adminYears.php:97
 msgid "Published"
@@ -242,7 +253,7 @@ msgstr "Publicat"
 
 #: protected/models/Vote.php:90
 #: protected/models/Comment.php:96
-#: protected/views/enquiry/_view.php:295
+#: protected/views/enquiry/_view.php:299
 msgid "Reply"
 msgstr "Resposta"
 
@@ -252,8 +263,8 @@ msgid "User"
 msgstr "Usuari"
 
 #: protected/models/Vote.php:92
-#: protected/views/enquiry/_view.php:301
 #: protected/views/enquiry/_view.php:305
+#: protected/views/enquiry/_view.php:309
 msgid "Vote"
 msgstr "Vota"
 
@@ -337,18 +348,18 @@ msgid "Formulated by"
 msgstr "Formulada por"
 
 #: protected/models/Enquiry.php:174
-#: protected/views/enquiry/admin.php:91
+#: protected/views/enquiry/admin.php:86
 #: protected/views/enquiry/_detailsForTeam.php:35
 msgid "Assigned to"
 msgstr "Assignada a"
 
 #: protected/models/Enquiry.php:176
 #: protected/views/budget/view.php:123
-#: protected/views/enquiry/view.php:182
-#: protected/views/enquiry/index.php:112
+#: protected/views/enquiry/view.php:173
+#: protected/views/enquiry/index.php:108
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/user/panel.php:174
-#: protected/views/user/panel.php:210
+#: protected/views/user/panel.php:182
+#: protected/views/user/panel.php:218
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -357,28 +368,33 @@ msgid "Assigned"
 msgstr "Assignada"
 
 #: protected/models/Enquiry.php:178
-#: protected/views/enquiry/view.php:211
+#: protected/views/enquiry/view.php:202
 #: protected/views/enquiry/_detailsForTeam.php:62
 msgid "Submitted"
 msgstr "Lliurada"
 
 #: protected/models/Enquiry.php:179
-#: protected/views/enquiry/view.php:208
+#: protected/views/enquiry/view.php:199
 #: protected/views/enquiry/_detailsForTeam.php:55
 msgid "Registry number"
 msgstr "Nº de registre"
 
 #: protected/models/Enquiry.php:180
 #: protected/views/enquiry/submit.php:131
-#: protected/views/enquiry/view.php:219
+#: protected/views/enquiry/view.php:210
 msgid "Documentation"
 msgstr "Documentació"
 
-#: protected/models/Enquiry.php:209
+#: protected/models/Enquiry.php:205
+#: protected/models/Enquiry.php:207
 msgid "Send an email to the"
 msgstr "Enviar un correu al"
 
-#: protected/models/Enquiry.php:209
+#: protected/models/Enquiry.php:205
+msgid "team member"
+msgstr ""
+
+#: protected/models/Enquiry.php:207
 msgid "people subscribed to the Enquiry"
 msgstr "persones subscrites a la consulta"
 
@@ -460,14 +476,16 @@ msgid "Budgetary enquiries for"
 msgstr "Consultes pressupostàries del"
 
 #: protected/views/budget/index.php:128
-#: protected/views/layouts/main.php:82
+#: protected/views/layouts/main.php:79
 #: protected/views/user/panel.php:66
 #: protected/controllers/BudgetController.php:433
 msgid "Budgets"
 msgstr "Pressupostos"
 
 #: protected/views/budget/index.php:147
-#: protected/views/enquiry/_searchPublic.php:36
+#: protected/views/enquiry/_searchPublic.php:34
+#: protected/views/enquiry/_search.php:69
+#: protected/views/bulkEmail/_search.php:44
 #: protected/views/user/_search.php:78
 msgid "Search"
 msgstr "Cerca"
@@ -539,10 +557,10 @@ msgstr "Euros per persona"
 
 #: protected/views/budget/_enquiryView.php:106
 #: protected/views/budget/_enquiryView.php:131
-#: protected/views/enquiry/index.php:107
-#: protected/views/layouts/main.php:83
-#: protected/views/user/panel.php:169
-#: protected/views/user/panel.php:205
+#: protected/views/enquiry/index.php:103
+#: protected/views/layouts/main.php:80
+#: protected/views/user/panel.php:177
+#: protected/views/user/panel.php:213
 #: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr "Consultes"
@@ -569,17 +587,17 @@ msgid "defined budgets"
 msgstr "Partides definides"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:140
-#: protected/views/introPage/_form.php:107
+#: protected/views/cmsPage/_form.php:141
+#: protected/views/introPage/_form.php:153
 msgid "Create"
 msgstr "Create"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:140
+#: protected/views/cmsPage/_form.php:141
 #: protected/views/enquiry/changeType.php:104
-#: protected/views/introPage/_form.php:107
+#: protected/views/introPage/_form.php:153
 #: protected/views/user/updateRoles.php:109
-#: protected/views/user/update.php:103
+#: protected/views/user/update.php:122
 msgid "Save"
 msgstr "Desa"
 
@@ -596,42 +614,48 @@ msgid "Restore database"
 msgstr "Restore database"
 
 #: protected/views/config/admin.php:25
-#: protected/views/user/panel.php:136
+#: protected/views/user/panel.php:142
 msgid "Global parameters"
 msgstr "Paràmetres globals"
-
-#: protected/views/config/admin.php:27
-#: protected/views/enquiry/admin.php:66
-#: protected/views/enquiry/managed.php:65
-msgid "more info"
-msgstr "més info"
 
 #: protected/views/config/update.php:25
 msgid "List all parameters"
 msgstr "Llistar tots els paràmetres"
 
-#: protected/views/site/register.php:44
-#: protected/views/site/register.php:88
+#: protected/views/site/register.php:2
+#: protected/views/site/register.php:41
+#: protected/views/site/register.php:85
 msgid "Register"
 msgstr "Registrar-se"
 
-#: protected/views/site/register.php:83
+#: protected/views/site/register.php:80
 msgid "Please enter the letters as they are shown in the image above"
 msgstr "Copia les lletres tal com surten en la imatge a dalt"
 
-#: protected/views/site/register.php:96
+#: protected/views/site/register.php:92
 msgid "REGISTER_MSG"
 msgstr "<p>Ser usuari et permetrà realitzar consultes al teu ajuntament de manera  pública i directa, així com compartir-les amb altres ciutadans del teu municipi.</p><p> Quants més ciutadans siguem els que lluitem units per la  transparència, més a prop estarem d'aconseguir que les decisions en  política i gestió del nostre municipi siguin preses des de la  ciutadania.</p>"
+
+#: protected/views/site/register.php:96
+#: protected/views/user/update.php:117
+msgid "MEMBERSHIP_MSG"
+msgstr "Pots marcar en aquest espai fer-te soci a més d'usuari. Com més socis tingui el teu OCM més pressió podreu realitzar al vostre Ajuntament. Pensa que cada consulta que feu arribar a l'Ajuntament tindrà la firma implícita de tots els socis, a més de l'usuari que hagi realitzat."
+
+#: protected/views/site/register.php:98
+#: protected/views/user/update.php:105
+msgid "Yes, I want to be a member"
+msgstr "Sí, vull ser un soci"
+
+#: protected/views/site/login.php:6
+#: protected/views/site/login.php:58
+#: protected/views/site/login.php:79
+#: protected/views/layouts/main.php:46
+msgid "Login"
+msgstr "Inicia sessió"
 
 #: protected/views/site/login.php:23
 msgid "Please enter your email address"
 msgstr "Si us plau, introdueix el teu correu electrònic"
-
-#: protected/views/site/login.php:58
-#: protected/views/site/login.php:79
-#: protected/views/layouts/main.php:49
-msgid "Login"
-msgstr "Inicia sessió"
 
 #: protected/views/site/login.php:88
 msgid "Still haven't got an account?"
@@ -665,33 +689,33 @@ msgstr "comenta el día"
 msgid "Delete"
 msgstr "Elimina"
 
-#: protected/views/comment/_form.php:28
+#: protected/views/comment/_form.php:39
 msgid "comments"
 msgstr "comenta"
 
-#: protected/views/comment/_form.php:43
-#: protected/views/enquiry/_form.php:118
+#: protected/views/comment/_form.php:44
+#: protected/views/enquiry/_form.php:113
 #: protected/views/reply/create.php:91
 msgid "Publish"
 msgstr "Publicar"
 
-#: protected/views/comment/_form.php:44
+#: protected/views/comment/_form.php:45
 #: protected/views/enquiry/changeType.php:107
-#: protected/views/enquiry/_form.php:128
-#: protected/views/user/update.php:104
+#: protected/views/enquiry/_form.php:123
+#: protected/views/user/update.php:123
 #: protected/views/reply/create.php:94
 #: protected/views/email/_contactPetition.php:74
 msgid "Cancel"
 msgstr "Cancel·la"
 
 #: protected/views/cmsPage/show.php:40
-#: protected/views/introPage/view.php:64
 msgid "CMS editor"
 msgstr "CMS editor"
 
 #: protected/views/cmsPage/admin.php:25
 #: protected/views/cmsPage/create.php:30
 #: protected/views/introPage/admin.php:26
+#: protected/views/introPage/update.php:33
 #: protected/views/introPage/create.php:29
 msgid "Create page"
 msgstr "Crear pàgina"
@@ -708,7 +732,7 @@ msgstr "Mostra els fitxers ja pujats"
 #: protected/views/cmsPage/admin.php:83
 #: protected/views/cmsPage/update.php:32
 #: protected/views/cmsPage/create.php:25
-#: protected/views/introPage/update.php:33
+#: protected/views/introPage/update.php:34
 #: protected/views/introPage/create.php:24
 msgid "Manage pages"
 msgstr "Gestionar pàgines"
@@ -738,12 +762,12 @@ msgid "Delete page"
 msgstr "Esborrar pàgina"
 
 #: protected/views/cmsPage/update.php:37
-#: protected/views/introPage/update.php:38
+#: protected/views/introPage/update.php:39
 msgid "Update page"
 msgstr "Actualitzar pàgina"
 
 #: protected/views/cmsPage/_form.php:48
-#: protected/views/introPage/_form.php:48
+#: protected/views/introPage/_form.php:124
 msgid "Translations"
 msgstr "Traduccions"
 
@@ -768,15 +792,19 @@ msgstr "Partides definides"
 msgid "Restore all budgets from a backup"
 msgstr "Restaurar tots els pressupostos des d'una còpia"
 
-#: protected/views/file/showBudgetFiles.php:32
+#: protected/views/file/showBudgetFiles.php:34
 msgid "These copies are made right before a CSV file is imported"
 msgstr "Les còpies es fan just abans d'importar fitxers CSV"
 
-#: protected/views/file/showBudgetFiles.php:53
+#: protected/views/file/showBudgetFiles.php:35
+msgid "READ ME"
+msgstr "LLEGEIX EM"
+
+#: protected/views/file/showBudgetFiles.php:57
 msgid "Restore budgets"
 msgstr "Restaurar pressuposts"
 
-#: protected/views/file/showBudgetFiles.php:66
+#: protected/views/file/showBudgetFiles.php:70
 msgid "Note: Delete some backups to save disk space. You only really need the last good copy."
 msgstr "Nota: Esborrar alguns backups per estalviar espai de disc. En realitat solament necessites l'última còpia bona"
 
@@ -796,15 +824,15 @@ msgstr "Add csv to data"
 msgid "Download zip file"
 msgstr "Download zip file"
 
-#: protected/views/file/adminDatabaseDownload.php:112
+#: protected/views/file/adminDatabaseDownload.php:113
 msgid "Prepare file"
 msgstr "Prepari fitxer"
 
-#: protected/views/file/adminDatabaseDownload.php:120
-msgid "Files ready to include in zip"
-msgstr "Fitxers llests per incloure en el zip"
+#: protected/views/file/adminDatabaseDownload.php:121
+msgid "Files queued and ready to include in zip"
+msgstr "Fitxers en cua i llests per incloure en el zip"
 
-#: protected/views/file/adminDatabaseDownload.php:131
+#: protected/views/file/adminDatabaseDownload.php:132
 msgid "Files to include"
 msgstr "Files to include"
 
@@ -821,10 +849,10 @@ msgstr "Nom que s'usarà per a l'enllaç"
 msgid "Upload"
 msgstr "Pujar"
 
-#: protected/views/emailtext/admin.php:25
-#, fuzzy
-msgid "Manage default email texts"
-msgstr "Llistar correus"
+#: protected/views/emailtext/admin.php:28
+#: protected/views/user/panel.php:141
+msgid "Email text templates"
+msgstr "Plantilles de correu-e"
 
 #: protected/views/enquiry/submit.php:25
 #: protected/views/enquiry/manage.php:25
@@ -878,60 +906,59 @@ msgstr "Lliurada"
 msgid "Add document"
 msgstr "Afegir document"
 
-#: protected/views/enquiry/view.php:185
-#: protected/views/enquiry/view.php:186
+#: protected/views/enquiry/view.php:176
+#: protected/views/enquiry/view.php:177
 msgid "by"
 msgstr "per"
 
-#: protected/views/enquiry/view.php:193
+#: protected/views/enquiry/view.php:184
 #: protected/views/enquiry/_detailsForTeam.php:40
 msgid "reformulated"
 msgstr "reformulada"
 
-#: protected/views/enquiry/view.php:255
+#: protected/views/enquiry/view.php:246
 msgid "Keep me informed via email when there are changes"
 msgstr "Mantingues-me informat per correu quan hagin canvis"
 
-#: protected/views/enquiry/view.php:272
+#: protected/views/enquiry/view.php:263
 msgid "Direct link"
 msgstr "Enllaç"
 
-#: protected/views/enquiry/view.php:274
+#: protected/views/enquiry/view.php:265
 msgid "Subscribe"
 msgstr "Subscrits"
 
-#: protected/views/enquiry/view.php:307
+#: protected/views/enquiry/view.php:298
 msgid "You can"
 msgstr "Pots"
 
-#: protected/views/enquiry/view.php:308
-#, fuzzy
+#: protected/views/enquiry/view.php:299
 msgid "edit the enquiry"
-msgstr "Edita consulta"
+msgstr "editar la consulta"
 
-#: protected/views/enquiry/view.php:308
+#: protected/views/enquiry/view.php:299
 msgid "and even"
 msgstr "i fins i tot"
 
-#: protected/views/enquiry/view.php:309
+#: protected/views/enquiry/view.php:300
 msgid "delete it"
 msgstr "esborrar-ho"
 
-#: protected/views/enquiry/view.php:313
+#: protected/views/enquiry/view.php:304
 msgid "Are you sure?"
 msgstr "Estàs segur?"
 
-#: protected/views/enquiry/view.php:314
+#: protected/views/enquiry/view.php:305
 msgid "until it has been accepted by the observatory."
-msgstr ""
+msgstr "fins que hagi estat acceptat per l'observatori."
 
 #: protected/views/enquiry/edit.php:38
-#: protected/views/enquiry/create.php:56
+#: protected/views/enquiry/create.php:58
 msgid "Enquiry steps"
 msgstr "Passos d'una consulta"
 
 #: protected/views/enquiry/edit.php:39
-#: protected/views/enquiry/create.php:57
+#: protected/views/enquiry/create.php:59
 msgid "ENQUIRIES_STEP_MSG"
 msgstr "<p>1. Fes la teva consulta</p><p>2. Nosaltres l'enviem a l'Ajuntament</p><p>3. Comparteix, difón la consulta</p><p>4. Publicarem la resposta de l'Ajuntament i t'avisarem</p><p>5. Valora la resposta</p>"
 
@@ -953,9 +980,8 @@ msgstr "List all"
 
 #: protected/views/enquiry/manage.php:53
 #: protected/views/enquiry/adminView.php:26
-#: protected/views/email/index.php:34
-msgid "Manage enquiry"
-msgstr "Manage enquiry"
+msgid "Assign enquiry"
+msgstr "Assignar consulta"
 
 #: protected/views/enquiry/manage.php:63
 msgid "Team member responsable for this Enquiry"
@@ -988,35 +1014,35 @@ msgstr "The enquiry is inappropriate"
 msgid "Reject"
 msgstr "Rebutja"
 
-#: protected/views/enquiry/index.php:77
+#: protected/views/enquiry/index.php:76
 msgid "Enquiries made to date"
 msgstr "Consultes fetes fins a avui"
 
-#: protected/views/enquiry/index.php:78
+#: protected/views/enquiry/index.php:77
 msgid "This is a list of enquiries made by citizens like you."
 msgstr "Llista de consultes realitzades per ciutadan@s com tu"
 
-#: protected/views/enquiry/index.php:128
+#: protected/views/enquiry/index.php:127
 msgid "Formulate a new enquiry"
 msgstr "Formula una consulta nova"
 
-#: protected/views/enquiry/index.php:132
+#: protected/views/enquiry/index.php:128
 msgid "Remember you must first"
 msgstr "Recorda que primer has de"
 
-#: protected/views/enquiry/index.php:133
+#: protected/views/enquiry/index.php:129
 msgid "login"
 msgstr "iniciar una sessió"
 
-#: protected/views/enquiry/index.php:133
+#: protected/views/enquiry/index.php:129
 msgid "or"
 msgstr " o"
 
-#: protected/views/enquiry/index.php:134
+#: protected/views/enquiry/index.php:130
 msgid "create an account"
 msgstr "crear un compte"
 
-#: protected/views/enquiry/index.php:140
+#: protected/views/enquiry/index.php:136
 msgid "What are the different states of an enquiry?"
 msgstr "Quins són els estats d'una consulta?"
 
@@ -1033,7 +1059,7 @@ msgstr ""
 msgid "The general consensus is that the reply is not satisfactory"
 msgstr ""
 
-#: protected/views/enquiry/_teamView.php:44
+#: protected/views/enquiry/_teamView.php:29
 msgid "The Enquiry"
 msgstr "La Consulta"
 
@@ -1082,10 +1108,20 @@ msgstr "Delete enquiry"
 msgid "Manage enquiries"
 msgstr "Gestionar consultes"
 
-#: protected/views/enquiry/admin.php:65
+#: protected/views/enquiry/admin.php:51
+#: protected/views/bulkEmail/admin.php:45
+msgid "Advanced Search"
+msgstr "Cerca avançada"
+
+#: protected/views/enquiry/admin.php:60
 #: protected/views/enquiry/managed.php:64
 msgid "States"
 msgstr "Estats"
+
+#: protected/views/enquiry/admin.php:61
+#: protected/views/enquiry/managed.php:65
+msgid "more info"
+msgstr "més info"
 
 #: protected/views/enquiry/_megaDelete.php:39
 msgid "Reformulated enquires"
@@ -1104,8 +1140,8 @@ msgid "Record of sent emails"
 msgstr "Record de correus enviats"
 
 #: protected/views/enquiry/_megaDelete.php:43
-#: protected/views/enquiry/_view.php:263
-#: protected/views/enquiry/_view.php:351
+#: protected/views/enquiry/_view.php:267
+#: protected/views/enquiry/_view.php:355
 msgid "Comments"
 msgstr "Comentaris"
 
@@ -1116,6 +1152,11 @@ msgstr "Vots"
 #: protected/views/enquiry/_megaDelete.php:45
 msgid "User email subscriptions"
 msgstr "Subscripcions per email"
+
+#: protected/views/enquiry/managed.php:48
+#: protected/views/user/panel.php:100
+msgid "Entrusted enquiries"
+msgstr "Consultes encomanades"
 
 #: protected/views/enquiry/teamEdit.php:26
 #: protected/views/enquiry/reformulate.php:27
@@ -1157,65 +1198,64 @@ msgstr "Acceptes aquesta consulta com a vàlida"
 msgid "Accept"
 msgstr "Accepta"
 
-#: protected/views/enquiry/_view.php:50
+#: protected/views/enquiry/_view.php:48
 msgid "Please login to participate"
 msgstr "Si us plau, inicia una sessió per a participar"
 
-#: protected/views/enquiry/_view.php:63
+#: protected/views/enquiry/_view.php:61
 msgid "Before participating, please confirm your email address"
 msgstr "Abans de participar si us plau, confirma la teva adreça de correu electrònic"
 
-#: protected/views/enquiry/_view.php:137
+#: protected/views/enquiry/_view.php:140
 msgid "Are you sure you want to delete it?"
 msgstr "Estàs segur que desitja eliminar-ho?"
 
-#: protected/views/enquiry/_view.php:177
+#: protected/views/enquiry/_view.php:180
 msgid "You have already voted favourably"
 msgstr "Ja has votat favorablement"
 
-#: protected/views/enquiry/_view.php:179
+#: protected/views/enquiry/_view.php:182
 msgid "You have already voted unfavourably"
 msgstr "Ja has votat desfavorablement"
 
-#: protected/views/enquiry/_view.php:267
-#: protected/views/enquiry/_view.php:277
-#: protected/views/enquiry/_view.php:355
-#: protected/views/enquiry/_view.php:365
+#: protected/views/enquiry/_view.php:271
+#: protected/views/enquiry/_view.php:281
+#: protected/views/enquiry/_view.php:359
+#: protected/views/enquiry/_view.php:369
 msgid "Add comment"
 msgstr "Afegeix comentari"
 
-#: protected/views/enquiry/_view.php:317
+#: protected/views/enquiry/_view.php:321
 msgid "Add attachment"
 msgstr "Afegeix adjunt"
 
-#: protected/views/enquiry/_view.php:329
+#: protected/views/enquiry/_view.php:333
 msgid "Attachments"
 msgstr "Adjunts"
 
-#: protected/views/enquiry/create.php:29
-#: protected/views/enquiry/create.php:32
+#: protected/views/enquiry/create.php:36
+#: protected/views/enquiry/create.php:39
 msgid "Formulate a"
 msgstr "Formular una"
 
-#: protected/views/enquiry/create.php:29
+#: protected/views/enquiry/create.php:36
 msgid "budgetary enquiry"
 msgstr "consulta pressupostària"
 
-#: protected/views/enquiry/create.php:32
+#: protected/views/enquiry/create.php:39
 msgid "generic enquiry"
 msgstr "consulta genèrica"
 
-#: protected/views/enquiry/create.php:39
-#: protected/views/enquiry/reformulate.php:37
-msgid "If you wish to formulate a budgetary enquiry, you must first"
-msgstr "If you wish to formulate a budgetary enquiry, you must first"
+#: protected/views/enquiry/create.php:46
+msgid "If you wish to formulate a budgetary enquiry, you must first find the corresponding"
+msgstr "Si vols formular una consulta pressupostària, primer hauràs de seleccionar la partida concreta a la pestanya"
 
-#: protected/views/enquiry/create.php:39
-#: protected/views/enquiry/reformulate.php:37
-msgid "find the corresponding budget"
-msgstr ""
+#: protected/views/enquiry/create.php:47
+#: protected/controllers/BudgetController.php:84
+msgid "Budget"
+msgstr "Pressuposto"
 
-#: protected/views/enquiry/create.php:65
+#: protected/views/enquiry/create.php:67
 #: protected/views/enquiry/reformulate.php:48
 msgid "The original enquiry"
 msgstr "La consulta original"
@@ -1237,22 +1277,42 @@ msgstr "Nova consulta reformulada"
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: protected/views/enquiry/_form.php:118
+#: protected/views/enquiry/_form.php:113
 #: protected/views/reply/create.php:91
 msgid "Update"
 msgstr "Actualitza"
 
+#: protected/views/enquiry/reformulate.php:37
+msgid "If you wish to formulate a budgetary enquiry, you must first"
+msgstr "If you wish to formulate a budgetary enquiry, you must first"
+
+#: protected/views/enquiry/reformulate.php:37
+msgid "find the corresponding budget"
+msgstr ""
+
 #: protected/views/introPage/view.php:59
 msgid "You are in edit mode"
 msgstr ""
+
+#: protected/views/introPage/view.php:64
+msgid "Editor"
+msgstr "Editor"
 
 #: protected/views/introPage/admin.php:30
 #, fuzzy
 msgid "Manage Introduction pages"
 msgstr "Gestionar pàgines"
 
+#: protected/views/introPage/_form.php:73
+msgid "Text box attributes"
+msgstr "Atributs de la caixa de text"
+
+#: protected/views/introPage/_form.php:118
+msgid "Text box content"
+msgstr "Contingut de la caixa de text"
+
 #: protected/views/layouts/column2.php:19
-#: protected/views/layouts/main.php:98
+#: protected/views/layouts/main.php:95
 msgid "My page"
 msgstr "La meva pàgina"
 
@@ -1264,19 +1324,19 @@ msgstr "Ajuda contextual"
 msgid "Options"
 msgstr "Opcions"
 
-#: protected/views/layouts/main.php:52
+#: protected/views/layouts/main.php:49
 msgid "Logout"
 msgstr "Logout"
 
-#: protected/views/layouts/main.php:65
+#: protected/views/layouts/main.php:62
 msgid "Home"
 msgstr "Inici"
 
-#: protected/views/layouts/main.php:118
+#: protected/views/layouts/main.php:115
 msgid "Contact information"
 msgstr "Dades de contacte"
 
-#: protected/views/layouts/main.php:125
+#: protected/views/layouts/main.php:122
 msgid "Telephone"
 msgstr "Telèfon"
 
@@ -1301,16 +1361,21 @@ msgstr "Esborrar esborrany"
 msgid "Are you sure you want to delete this item?"
 msgstr "Estàs segur que vols esborrar aquest ítem?"
 
-#: protected/views/bulkEmail/view.php:110
+#: protected/views/bulkEmail/view.php:109
 #: protected/views/bulkEmail/_form.php:78
 msgid "BCC Recipients"
 msgstr "BCC Destinataris ocults"
 
-#: protected/views/bulkEmail/view.php:118
+#: protected/views/bulkEmail/view.php:111
+#: protected/views/bulkEmail/_form.php:79
+msgid "Show"
+msgstr "Mostrar"
+
+#: protected/views/bulkEmail/view.php:120
 msgid "Edit draft"
 msgstr "Editar esborrany"
 
-#: protected/views/bulkEmail/view.php:119
+#: protected/views/bulkEmail/view.php:121
 msgid "Send now"
 msgstr "Enviar ara"
 
@@ -1322,7 +1387,7 @@ msgstr "S'enviarà a tots els usuaris de"
 msgid "Was sent to these users"
 msgstr "Es va enviar a aquests usuaris"
 
-#: protected/views/bulkEmail/admin.php:42
+#: protected/views/bulkEmail/admin.php:43
 msgid "Manage Bulk Emails"
 msgstr "Gestionar butlletins"
 
@@ -1334,7 +1399,7 @@ msgstr "Veure butlletí"
 msgid "Send bulk email"
 msgstr "Enviar butlletí"
 
-#: protected/views/bulkEmail/_form.php:114
+#: protected/views/bulkEmail/_form.php:117
 msgid "Preview"
 msgstr "Vista preliminar"
 
@@ -1381,7 +1446,7 @@ msgstr "View description"
 msgid "Select a language"
 msgstr "Idioma"
 
-#: protected/views/budgetDescription/_form.php:87
+#: protected/views/budgetDescription/_form.php:88
 msgid "Common to all councils"
 msgstr "Comú a tots els ajuntaments"
 
@@ -1438,13 +1503,10 @@ msgstr "Configura el teu email"
 msgid "Change your password"
 msgstr "Canvia la teva contrasenya"
 
-#: protected/views/user/panel.php:100
-msgid "Entrusted enquiries"
-msgstr "Consultes encomanades"
-
 #: protected/views/user/panel.php:101
+#: protected/views/user/updateRoles.php:79
 msgid "Manage the enquiries you are responsable for"
-msgstr "Manage the enquiries you are responsable for"
+msgstr "Respon a les consultes encarregades"
 
 #: protected/views/user/panel.php:108
 msgid "CMS editor options"
@@ -1459,62 +1521,68 @@ msgid "Site pages"
 msgstr "Pàgina de lloc"
 
 #: protected/views/user/panel.php:119
+#: protected/views/user/updateRoles.php:95
 msgid "Assign enquiries to team members and check status"
-msgstr "Assign enquiries to team members and check status"
+msgstr "Encarrega consultes a altres companys"
 
 #: protected/views/user/panel.php:126
 msgid "Administator's options"
 msgstr "Opcions de administrador"
 
-#: protected/views/user/panel.php:128
+#: protected/views/user/panel.php:129
+msgid "New version available"
+msgstr "Nova versió disponible"
+
+#: protected/views/user/panel.php:129
+msgid "Upgrade now"
+msgstr "Actualitzar ara"
+
+#: protected/views/user/panel.php:134
 msgid "Years and budgets"
 msgstr "Anys i pressupostos"
 
-#: protected/views/user/panel.php:129
+#: protected/views/user/panel.php:135
 msgid "Newsletters"
 msgstr "Butlletins"
 
-#: protected/views/user/panel.php:130
+#: protected/views/user/panel.php:136
 msgid "Zip file"
 msgstr "Fitxer zip"
 
-#: protected/views/user/panel.php:131
+#: protected/views/user/panel.php:137
 msgid "Budget descriptions"
 msgstr "Descripcions de partides"
 
-#: protected/views/user/panel.php:134
+#: protected/views/user/panel.php:140
+#: protected/views/user/admin.php:37
 msgid "Users and roles"
 msgstr "Usuaris i rols"
 
-#: protected/views/user/panel.php:135
-msgid "Email text templates"
-msgstr "Plantilles de correu-e"
-
-#: protected/views/user/panel.php:156
+#: protected/views/user/panel.php:164
 msgid "My enquiries"
 msgstr "Les meves consultes"
 
-#: protected/views/user/panel.php:192
+#: protected/views/user/panel.php:200
 msgid "I am subscribed to these enquirytions"
 msgstr "Estic escrit a aquestes consultes"
 
-#: protected/views/user/panel.php:193
+#: protected/views/user/panel.php:201
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
 
-#: protected/views/user/panel.php:226
+#: protected/views/user/panel.php:234
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Les consultes que hagis realitzat o a les quals t'hagis subscrit apareixeran aquí"
 
-#: protected/views/user/panel.php:262
+#: protected/views/user/panel.php:270
 msgid "Do you want to block"
 msgstr "Vols bloquejar"
 
-#: protected/views/user/panel.php:264
+#: protected/views/user/panel.php:272
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:265
+#: protected/views/user/panel.php:273
 msgid "No"
 msgstr "No"
 
@@ -1530,25 +1598,37 @@ msgstr "Gestiona Usuaris"
 msgid "Change roles"
 msgstr "Canviar rols"
 
-#: protected/views/user/update.php:40
+#: protected/views/user/update.php:51
 msgid "Change your user information"
 msgstr "Canviar les teves dades d'usuari"
 
-#: protected/views/user/update.php:45
+#: protected/views/user/update.php:56
 msgid "Your information"
 msgstr "Les teves dades"
 
-#: protected/views/user/update.php:65
+#: protected/views/user/update.php:75
+msgid "Change password"
+msgstr "Canviar la contrasenya"
+
+#: protected/views/user/update.php:92
+msgid "Details"
+msgstr "Detalls"
+
+#: protected/views/user/update.php:97
 msgid "Your preferred language"
 msgstr "Preferència d'idioma"
 
-#: protected/views/user/update.php:84
-msgid "Change password"
-msgstr "Canviar la contrasenya"
+#: protected/views/user/update.php:106
+msgid "What does this mean?"
+msgstr "Que significa això?"
 
 #: protected/views/reply/create.php:47
 msgid "Date the Administration replied"
 msgstr "Data l'administració ha respost"
+
+#: protected/views/email/index.php:34
+msgid "Manage enquiry"
+msgstr "Manage enquiry"
 
 #: protected/views/email/index.php:41
 msgid "Emails originated from the enquiry"
@@ -1613,12 +1693,12 @@ msgid "Email sent"
 msgstr "Correu electrònic enviat"
 
 #: protected/controllers/EmailController.php:131
-#: protected/controllers/BulkEmailController.php:161
+#: protected/controllers/BulkEmailController.php:162
 msgid "Email sent OK"
 msgstr "Email sent OK"
 
 #: protected/controllers/EmailController.php:133
-#: protected/controllers/BulkEmailController.php:164
+#: protected/controllers/BulkEmailController.php:165
 #: protected/controllers/SiteController.php:128
 #: protected/controllers/SiteController.php:153
 msgid "Error while sending email"
@@ -1637,11 +1717,11 @@ msgstr "Petició de contacte privat per email d'un usuari de l'%s"
 msgid "Email not sent"
 msgstr "Email not sent"
 
-#: protected/controllers/UserController.php:173
+#: protected/controllers/UserController.php:207
 msgid "Changes saved Ok"
 msgstr "S'han guardat els canvis correctament"
 
-#: protected/controllers/UserController.php:200
+#: protected/controllers/UserController.php:234
 msgid "is blocked"
 msgstr "està bloquejat"
 
@@ -1745,19 +1825,19 @@ msgstr "S'ha registrat la teva consulta correctament"
 msgid "New reformulated enquiry created OK"
 msgstr "Nova consulta reformulada"
 
-#: protected/controllers/EnquiryController.php:568
-#, fuzzy
+#: protected/controllers/EnquiryController.php:556
+#: protected/controllers/EnquiryController.php:566
 msgid "You must assign a team member"
-msgstr "Consulta assignada a team member"
+msgstr "Has d'assignar un team member"
 
-#: protected/controllers/EnquiryController.php:638
-#: protected/controllers/EnquiryController.php:660
+#: protected/controllers/EnquiryController.php:582
+msgid "New team member assigned"
+msgstr "Nou team member assignat"
+
+#: protected/controllers/EnquiryController.php:633
+#: protected/controllers/EnquiryController.php:655
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
-
-#: protected/controllers/BudgetController.php:84
-msgid "Budget"
-msgstr "Pressuposto"
 
 #: protected/controllers/BudgetController.php:418
 msgid "Year deleted"

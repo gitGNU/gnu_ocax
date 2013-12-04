@@ -23,7 +23,7 @@
 
 
 $this->menu=array(
-	array('label'=>_('Create page'), 'url'=>array('create')),
+	array('label'=>__('Create page'), 'url'=>array('create')),
 );
 $this->inlineHelp=':profiles:cms_editor';
 ?>

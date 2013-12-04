@@ -92,12 +92,12 @@ function subscribe(el){
 }
 function clickSocialIcon(el){
 	if( $(el).attr('social_icon') ){
-		$('#'+$(el).attr('social_icon')).slideDown('fast');
+		$('#'+$(el).attr('social_icon')).show();
 	}
 }
 $(function() {
 	$('.social_popup').mouseleave(function() {
-		$('.social_popup').slideUp('fast');
+		$('.social_popup').fadeOut('fast');
 	});
 });
 
@@ -122,7 +122,7 @@ function showBudget(budget_id, element){
 				$('#budget_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -141,8 +141,7 @@ function showBudget(budget_id, element){
 															'onClick'=>'/enquiry/view'));
 }?>
 
-<h1><?php echo $model->title?></h1>
-<hr style="margin-top:-10px;margin-bottom:-5px;" />
+<h1 style="margin-bottom:-2px;"><?php echo $model->title?></h1>
 
 <div	id="states_diagram" 
 		style="	display:none;
@@ -153,7 +152,8 @@ function showBudget(budget_id, element){
 				position:absolute;
 				background-color:white;
 				margin-left:10px;
-				margin-top:10px"
+				margin-top:10px;
+				width:350px"
 		onClick="$(this).toggle();return false;"		
 >
 <img	style="	cursor: pointer;
@@ -162,11 +162,11 @@ function showBudget(budget_id, element){
 				top: -21px;"
 		src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png";
 />
-<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
+<?php $this->renderPartial('workflow',array('model'=>$model));?>
+
 </div>
 
 <div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
-
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
@@ -228,7 +228,7 @@ if($model->budget)
 <div>
 
 <!-- socaial options start -->
-<div style="padding: 10px 0px 10px 0px; width:400px;">
+<div style="padding: 10px 00px 10px 0px; width:400px;margin-top:5px;">
 
 	<div id="directlink" class="social_popup">
 		<?php
@@ -296,7 +296,7 @@ if($model->budget)
 <!-- social options stop -->
 
 <?php
-if($model->state < ENQUIRY_ACCEPTED && $model->user == Yii::app()->user->getUserID()){
+if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->user->getUserID()){
 	echo '<div style="font-style:italic;margin-top:-30px;margin-bottom:10px;">'.__('You can').' '.
 		 CHtml::link(__('edit the enquiry'),array('enquiry/edit','id'=>$model->id)).' '.__('and even').' '.
 		 CHtml::link(__('delete it'),"#",

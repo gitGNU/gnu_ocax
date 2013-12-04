@@ -23,14 +23,12 @@
 /* @var $form CActiveForm */
 ?>
 
-<div>
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
+	<div style="margin-left:-10px">
 		<?php
 			echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255));
 			echo ' '.CHtml::submitButton(__('Search'));
@@ -38,5 +36,3 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

@@ -11,20 +11,17 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/additional.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/color.css" />
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
 
-	<title><?php echo Config::model()->findByPk('siglas')->value; ?></title>
+	<title><?php echo (($this->pageTitle) ? $this->pageTitle : Config::model()->findByPk('siglas')->value); ?></title>
+	
 </head>
 
 <body>
-
 <div  style="position:relative">
-
-
 
 <div id="header_bar">
 <div id="header_bar_container">
@@ -126,7 +123,7 @@
 		?>
 	</div>
 	
-	<div style="width: 250px; float:left; margin-top:10px;margin-bottom:7px;">
+	<div style="width: 300px; float:left; margin-top:10px;margin-bottom:7px;">
 		<div style="float: left; margin-top:8px;margin-right:20px;">
 			<a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
 			<a href="http://auditoriaciudadana.net">http://auditoriaciudadana.net</a>	
@@ -141,7 +138,7 @@
     <div style="width: 200px; float: right; padding-left:30px;">
 		AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
 		<a href="http://ocax.net">http://ocax.net</a><br />
-		<a href="https://gitorious.org/ocax/ocax/source/eb095930109c0fac3d81a565169f5ecdb56211a9:">https://gitorious.org/ocax</a>
+		<a href="https://gitorious.org/ocax/ocax/">https://gitorious.org/ocax</a>
 	</div>
 	
 	<div style="clear:both;"></div>	

@@ -50,7 +50,7 @@ function reject(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title"><?php echo __('Manage enquiry');?></div>
+	<div class="title"><?php echo __('Assign enquiry');?></div>
 
 <div class="outer">
 <div class="left">
@@ -81,7 +81,7 @@ function reject(){
 <div class="right">
 	<?php if($model->state < ENQUIRY_AWAITING_REPLY){ // not too late to reject enquiry ?>
 	<div class="row buttons">
-		<b><?php echo __('Reject the Enquiry');?></b>
+		<label><?php echo __('Reject the Enquiry');?></label>
 		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>
 		<p style="margin-bottom:37px"></p>
 		<?php echo CHtml::button(__('Reject'),array('onclick'=>'reject()')); ?>

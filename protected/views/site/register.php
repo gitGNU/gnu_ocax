@@ -1,8 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Register';
-$this->breadcrumbs=array(
- 'Register',
-);
+$this->pageTitle=Config::model()->findByPk('siglas')->value . ' - '.__('Register');
 ?>
 
 <script>
@@ -92,27 +89,17 @@ $("input[type='checkbox']").each(function(){
 
 </div>
 <div class="right">
-
 <?php echo __('REGISTER_MSG'); ?>
 
-<div style="border:solid 1px;">
+<?php if(Config::model()->findByPk('membership')->value){ ?>
+<div class="horizontalRule"></div>
+<p><?php echo __('MEMBERSHIP_MSG'); ?></p>
 <p>
-Ser socio sólo implica apoyar todas y cada una de las enquirys ciudadanas.
-Es más "simbólico" que práctico legal. Me explico, todas las enquirys/instancias que
-se envíen en el Ayuntamiento llevan la firma y el NIF del Observatorio Ciudadano,
-si el Obsevatorio en cuestión tiene 2000 socios, de forma simbólica implica que hay 2000 firmas ciudadanas detrás.
-De todas formas, legalmente una instancia "vale lo mismo" y tiene el mismo valor si está firmada por 1 o 1000 personas.
+<?php echo __('Yes, I want to be a member').' '.$form->checkBox($model,'is_socio'); ?>
 </p>
-<p>
-Yes, I want to be a socio. <?php echo $form->checkBox($model,'is_socio'); ?>
-</p>
-</div>
-
+<?php }else $model->is_socio = 0; ?>
 
 </div>
-
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-
-
 </div>

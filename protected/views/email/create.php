@@ -32,12 +32,8 @@ if($returnURL == 'enquiry/teamView'){
 }
 if($returnURL == 'enquiry/adminView'){
 	$this->menu=array(
-		//array('label'=>'View Enquiry', 'url'=>array('/enquiry/adminView', 'id'=>$enquiry->id)),
-		//array('label'=>'Actualizar estat', 'url'=>array('/enquiry/update', 'id'=>$enquiry->id)),
-		//array('label'=>'Editar Enquiry', 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
 		array('label'=>'Emails sent', 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'manager')),
 		array('label'=>'List enquirys', 'url'=>array('/enquiry/admin')),
-		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 );
 }
 ?>
@@ -56,6 +52,11 @@ function toggleRecipients(){
 	else
 		$('#recipients_link').html('Hide');
 	$('#recipients').toggle();
+}
+function submitForm(){
+	$('.loading_gif').show();
+	$('input[type=button]').prop("disabled",true);
+	document.forms['email-form'].submit();
 }
 </script>
 
@@ -133,9 +134,9 @@ function toggleRecipients(){
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Enviar' : 'Save'); ?>
+		<input type="button" onclick="submitForm()" value="<?php echo $model->isNewRecord ? __('Send') : __('Save'); ?>">
 		<input type="button" value="Cancel" onclick='js:window.location="<?php echo Yii::app()->baseUrl.'/'.$returnURL.'/'.$enquiry->id;?>";' />
-
+		<img style="vertical-align:middle;display:none" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 
 <?php $this->endWidget(); ?>

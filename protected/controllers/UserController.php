@@ -77,7 +77,7 @@ class UserController extends Controller
 			'criteria'=>array(
 				'condition'=>"user=$id",
 			),
-			'sort'=>array('defaultOrder'=>'modified ASC'),
+			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 
 		$userid=Yii::app()->user->getUserID();
@@ -89,14 +89,52 @@ class UserController extends Controller
 								t.user != '.$userid.' AND
 								( t.team_member != '.$userid.' || t.team_member IS NULL )',
 				'together'=>true,
+				//'order'=>'t.id DESC',
 			),
-			'sort'=>array('defaultOrder'=>'modified ASC'),
+			'sort'=>array('defaultOrder'=>'t.modified DESC'),
 		));
+
+		// check for OCAx updates once a week
+		$upgrade = Null;
+		if(Yii::app()->user->isAdmin()){
+			$latest_version_file = Yii::app()->basePath.'/runtime/latest.ocax.version';
+			if (file_exists($latest_version_file)) {
+				$date = new DateTime();
+	
+				if( $date->getTimestamp() - filemtime($latest_version_file) > 604800 ){ //604800 a week
+					$context = stream_context_create(array(
+						'http' => array(
+						'header' => 'Content-type: application/x-www-form-urlencoded',
+						'method' => 'GET',
+						'timeout' => 5
+					)));
+					if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
+						$new_version = json_decode($result);
+						if(isset($new_version->ocax))
+							file_put_contents($latest_version_file, $new_version->ocax);
+					}
+				}
+			}else
+				copy(Yii::app()->basePath.'/data/ocax.version', Yii::app()->basePath.'/runtime/latest.ocax.version');
+
+			$installed_version = getOCAXVersion();
+			$installed_version = str_replace('.','',$installed_version );
+			$installed_version = str_pad($installed_version, 10 , '0');			
+			
+			$latest_version = file_get_contents($latest_version_file);
+			$latest_version = str_replace('.','',$latest_version );
+			$latest_version = str_pad($latest_version, 10 , '0');
+			
+			if($latest_version > $installed_version)
+				$upgrade = file_get_contents($latest_version_file);
+		}
+
 
 		$this->render('panel',array(
 			'model'=>$this->loadModel($user->id),
 			'enquirys'=>$enquirys,
 			'subscribed'=>$subscribed,
+			'upgrade'=>$upgrade,
 		));
 	}
 
@@ -192,7 +230,7 @@ class UserController extends Controller
 	
 					$block->user=$userid;
 					$block->blocked_user=$blocked_user->id;
-					//$block->save();	// remember to reactivate this when julio has finished with style
+					$block->save();
 				}
 				Yii::app()->user->setFlash('success', $blocked_user->fullname.' '.__('is blocked'));
 			}else{

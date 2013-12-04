@@ -1,0 +1,16 @@
+1.0.2
+
+Database changes
+----------------
+We changed two feilds in the database table intro_page from TINYINT(3) to INT(3)
+You need to do this.
+
+ALTER TABLE intro_page MODIFY toppos INT(3);
+ALTER TABLE intro_page MODIFY leftpos INT(3);
+ALTER TABLE intro_page ADD color varchar(6) NOT NULL DEFAULT '222222' AFTER leftpos;
+ALTER TABLE intro_page ADD bgcolor varchar(6) NOT NULL DEFAULT 'FFFFFF' AFTER color;
+ALTER TABLE intro_page ADD opacity TINYINT(1) NOT NULL DEFAULT '8' AFTER bgcolor;
+
+There is a new GLobal parameter.
+
+INSERT INTO config(parameter, value, required, description) VALUES ('membership', '0', '1', 'Does your Observatory encourage membership? (0 or 1)');

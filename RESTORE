@@ -1,0 +1,33 @@
+HOWTO RESTORE
+
+If you have a copy of the database and files, you can restore your OCAx installation.
+These copies can be created (and safe guarded) by the OCAx Admin.
+________________
+Zip file content
+
+The name of zip file contains the time when the copy was made.
+backup-day-month-year-hour-minute-second.zip
+
+The zip file contains these files.
+
+RESTORE This file
+VERSION The OCAx version when the copy was made
+database.sql The database
+
+The zip file also contains the directory 'files'.
+
+________________
+Restore
+
+1- Download OCAx.
+Look at the VERSION file and download that _same_ version from http://ocax.net/download
+
+2- Install (read INSTALL to refresh your memory).
+   1. install the directory structure (framework/protected/app)
+   2. configure protected/config/main.php
+   3. replace app/files with the 'files' folder you extracted from the zip file
+   4. Check file permissions.
+
+3- Import database.sql into the new database you have created.
+
+4- That's all. Good luck!

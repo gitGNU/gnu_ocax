@@ -37,7 +37,7 @@ if($model->sent == 0){
 																		));
 	array_splice( $this->menu, 0, 0, $delete );
 }
-
+$this->inlineHelp=':profiles:admin:newsletters';
 ?>
 
 <style>           
@@ -64,7 +64,7 @@ function showRecipients(){
 				$('#recipients').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -83,16 +83,16 @@ function send(){
 
 </script>
 
-<div class="form">
+<div class="email">
 	<div class="title">
-		<b><?php echo __('Subject');?></b>: <?php echo CHtml::encode($model->subject);?>
+	<span class="sub_title"><?php echo CHtml::encode($model->subject);?></span>
 	</div>
 
-<div class="outer">
+<div class="details outer">	
+<div class="form">
+
 <div class="left">
-
-	<p style="margin-bottom:30px">
-
+	<p style="margin-bottom:5px">
 	<b><?php echo CHtml::encode($model->getAttributeLabel('created'));?>:</b>
 	<?php echo CHtml::encode($model->created); ?><br />
 
@@ -106,13 +106,15 @@ function send(){
 	<b><?php echo CHtml::encode($model->getAttributeLabel('sent_as')); ?>:</b>
 	<?php echo CHtml::encode($model->sent_as); ?><br />
 
-
-	<b><?php echo $total_recipients.' '.__('BCC Recipients');?></b>: <span id="recipients_link" onClick="js:showRecipients();">Show</span>
+	<b><?php echo $total_recipients.' '.__('BCC Recipients');?></b>:
+	<span id="recipients_link" onClick="js:showRecipients();">
+	<?php echo __('Show');?>
+	</span>
 	</p>
-
-
 </div>
+
 <div class="right" style="margin-top:15px">
+
 <?php if($model->sent == 0){
 
 echo CHtml::button(__('Edit draft'), array('onclick'=>'js:document.location.href="'.Yii::app()->request->baseUrl.'/bulkEmail/update/'.$model->id.'"'));
@@ -122,11 +124,12 @@ echo '<img id="loading" src="'.Yii::app()->theme->baseUrl.'/images/small_loading
 }?>
 </div>
 </div>
+</div>
+
 <div class="clear"></div>
 
-	<div style="background-color:white;margin:-10px;padding:10px;">
-		<?php echo $model->body; ?><br />
-	</div>
+<p><?php echo $model->body; ?></p>
+
 
 </div>
 
@@ -140,7 +143,7 @@ echo '<img id="loading" src="'.Yii::app()->theme->baseUrl.'/images/small_loading
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash-success').slideUp('fast');
-    	}, 1750);
+    	}, 2000);
 		});
 	</script>
     <div class="flash-success">
@@ -151,7 +154,7 @@ echo '<img id="loading" src="'.Yii::app()->theme->baseUrl.'/images/small_loading
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash-error').slideUp('fast');
-    	}, 1750);
+    	}, 2000);
 		});
 	</script>
     <div class="flash-error">

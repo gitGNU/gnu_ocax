@@ -73,19 +73,15 @@ function showEnquiry(enquiry_id){
 
 <div class="outer">
 <div class="left">
-<p>
-<span style="font-size:1.5em"><?php echo __('Enquiries made to date');?></span></br>
-<?php echo __('This is a list of enquiries made by citizens like you.');?>
-</p>
-<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
-	<p>
+<h1><?php echo __('Enquiries made to date');?></h1>
+<p><?php echo __('This is a list of enquiries made by citizens like you.');?></p>
 
+<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
 	<div class="search-form">
 		<?php $this->renderPartial('_searchPublic',array(
 			'model'=>$model,
 		)); ?>
 	</div><!-- search-form -->
-	</p>
 <?php } ?>
 
 <?php
@@ -125,21 +121,24 @@ $this->widget('PGridView', array(
 
 </div>
 <div class="right">
-<div style="font-size:1.5em"><?php echo __('Formulate a new enquiry')?></div>
-<p>
+
 <?php
-	if(Yii::app()->user->isGuest){
-		echo 	__('Remember you must first').' '.
-				'<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
-				'<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>';
-	}
-;?>
+	//if(Yii::app()->user->isGuest){
+		echo '<h1>'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</h1>';
+		echo '<p style="line-height:90%">'.__('Remember you must first').' '.
+			 '<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
+			 '<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
+			 '</p>';
+	//}
+?>
+
+<p style="text-align:center;margin-top:30px;">
+<?php echo __('What are the different states of an enquiry?');?>
 </p>
 
-<p style="text-align:center">
-<b><?php echo __('What are the different states of an enquiry?');?></b><br /><br />
-<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/workflow-<?php echo Yii::app()->user->getState('applicationLanguage');?>.png"/>
-</p>
+<div style="margin-left:8px;">
+<?php $this->renderPartial('workflow',array('model'=>$model));?>
+</div>
 
 </div>
 </div>

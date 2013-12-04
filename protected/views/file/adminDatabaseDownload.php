@@ -30,6 +30,7 @@ if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))
 	$download = array( array('label'=>__('Download zip file'), 'url'=>$csv_file->getWebPath()));
 	array_splice( $this->menu, 3, 0, $download );
 }
+$this->inlineHelp=':profiles:admin:zip';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -44,7 +45,7 @@ function uploadFile(){
 				$('#files').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -82,7 +83,7 @@ function showYears(){
 				$('#csvs').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -117,7 +118,7 @@ $dataProvider = new CActiveDataProvider('File', array(
 						'order'=>'path ASC',
 				),
 ));
-echo '<div style="font-size:1.3em">'.__('Files ready to include in zip').'</div>';
+echo '<div style="font-size:1.3em">'.__('Files queued and ready to include in zip').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',

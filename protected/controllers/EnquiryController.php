@@ -169,9 +169,10 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
+			$model->modified = date('c');
 			$model->state = ENQUIRY_PENDING_VALIDATION;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
-			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 
 			if($model->save()){
 				$description = new EnquiryText;
@@ -262,7 +263,7 @@ class EnquiryController extends Controller
 			$model->created = date('Y-m-d');
 			$model->state = ENQUIRY_ACCEPTED;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
-			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 
 			//$related_enquiry=Enquiry::model()->findByPk($model->related_to);
 			$model->team_member=$related_enquiry->team_member;
@@ -315,8 +316,8 @@ class EnquiryController extends Controller
 			Yii::app()->end();
 		}		
 		
-		if($model->state >= ENQUIRY_ACCEPTED && $userid != $model->team_member){
-			$this->redirect(array('/site/index'));
+		if($model->state > ENQUIRY_PENDING_VALIDATION && $userid != $model->team_member){
+			$this->redirect(array('/user/panel'));
 			Yii::app()->end();
 		}
 		
@@ -324,7 +325,7 @@ class EnquiryController extends Controller
 		{
 			$model->attributes=$_POST['Enquiry'];
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
-			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, style, class, id'));
+			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 			if($model->save()){
 				$description=EnquiryText::model()->findByPk($model->id);
 				$description->title=$model->title;
@@ -465,9 +466,12 @@ class EnquiryController extends Controller
 	public function actionTeamView($id)
 	{
 		$model=$this->loadModel($id);
-		$this->render('teamView',array(
-			'model'=>$model,
-		));
+		if( $model->team_member == Yii::app()->user->getUserID()){
+			$this->render('teamView',array('model'=>$model));
+		}
+		else{
+			$this->redirect(array('view','id'=>$model->id));
+		}
 	}
 
 	/**
@@ -625,7 +629,7 @@ class EnquiryController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$user=Yii::app()->user->getUserID();
-		if($model->state==1 && ($model->user == $user || Yii::app()->user->isManager()) ){
+		if($model->state==ENQUIRY_PENDING_VALIDATION && ($model->user == $user || Yii::app()->user->isManager()) ){
 			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

@@ -42,7 +42,7 @@ function showRecipients(){
 				$('#recipients').bPopup({
                     modalClose: false
 					, follow: ([false,false])
-					, fadeSpeed: 10
+					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
@@ -75,7 +75,9 @@ function showRecipients(){
 
 	<div class="row">
 		<p>
-		<b><?php echo $total_recipients.' '.__('BCC Recipients');?></b>: <span id="recipients_link" onClick="js:showRecipients();">Show</span>
+		<b><?php echo $total_recipients.' '.__('BCC Recipients');?></b>: <span id="recipients_link" onClick="js:showRecipients();">
+		<?php echo __('Show');?>
+		</span>
 		</p>
 	</div>
 
@@ -99,12 +101,13 @@ function showRecipients(){
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 			'settings' => array('convert_urls'=>true,
 								'relative_urls'=>false,
-								'remove_script_host'=>false
+								'remove_script_host'=>false,
+								'theme_advanced_resize_horizontal' => 0,
+								'theme_advanced_resize_vertical' => 0,
+								'theme_advanced_resizing_use_cookie' => false,
+								'width'=>'100%',
+								'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
 								),
-		    'htmlOptions' => array(
-		        'rows' => 6,
-		        'cols' => 80,
-		    ),
 		));
 		?>
 		<?php echo $form->error($model,'body'); ?>

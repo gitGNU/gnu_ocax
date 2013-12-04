@@ -22,13 +22,12 @@
 /* @var $data Email */
 ?>
 
-<div class="view">
-	<div style="padding:10px;margin:-10px;background-color:#CAE1FF;margin-bottom:10px;font-size:1.3em;">
-		<b>Subject</b>
-		<?php echo CHtml::encode($data->title); ?>
+<div class="email">
+	<div class="title">
+		<span class="sub_title"><?php echo CHtml::encode($data->title); ?></span>
 	</div>
 
-	<div style="padding:10px;margin:-10px;background-color:#F0F8FF;margin-bottom:15px;">
+	<div class="details">
 	<p style="margin-bottom:10px">
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
 	<?php echo CHtml::encode($data->created); ?>

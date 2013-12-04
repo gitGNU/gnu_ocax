@@ -51,21 +51,18 @@ echo '</div>';
 	.outer{width:100%; padding: 0px;}
 	.left{width: 73%; float: left;  margin: 0px;}
 	.right{width: 25%; float: right; margin: 0px;}
-
-	.cmsPageMenuItem { font-size:1.6em; }
-	
 </style>
 
-
+<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 <div class="outer">
-	<div class="cms_titulo_j"><?php echo CHtml::encode($content->pageTitle); ?></div>
-
 <div class="left">
-	<div class="cms_content_j"><?php echo $content->body; ?></div>
+	<div class="cms_content"><?php echo $content->body; ?></div>
 </div>
 
-<div id="cmsinfo"></div>
-<div id="cmsPageMenu" class="right">
+<div class="right">
+<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cmsinfo.png" style="margin-bottom:5px"/>
+<div id="cmsPageMenu">
+
 <?php
 	$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block, 'published'=>1), array('order'=>'weight'));
 	foreach ($items as $menu_item) {
@@ -83,6 +80,7 @@ echo '</div>';
 
 	}
 ?>
+</div>
 </div>
 </div>
 
