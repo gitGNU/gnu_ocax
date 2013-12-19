@@ -283,7 +283,7 @@ INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '1'
 INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('telephone', '0', 'Contact telephone');
-INSERT INTO config(parameter, value, required, description) VALUES ('year', '2013', '1', 'Default Year (this year)');
+INSERT INTO config(parameter, value, required, description) VALUES ('year', '2014', '1', 'Default Year (this year)');
 
 
 

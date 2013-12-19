@@ -49,13 +49,21 @@
 				echo CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout'));				
 			}
 		?>
-	</div>   
-    
-    <div class="header_block">
-    <a href="<?php echo Config::model()->findByPk('socialFacebookURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/fb_bar.gif" /></a>
-    <a href="<?php echo Config::model()->findByPk('socialTwitterURL')->value;?>"><img src="<?php echo Yii::app()->theme->baseUrl;?>/images/tw_bar.gif" /></a>
-	</div>    
-    
+	</div>
+
+	<?php
+	$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
+	$twURL = Config::model()->findByPk('socialTwitterURL')->value;
+
+	if($fbURL || $twURL){
+		echo '<div class="header_block">';
+		if($fbURL)
+			echo '<a href="'.$fbURL.'" style="margin-top:3px"><img src="'.Yii::app()->theme->baseUrl.'/images/fb_bar.gif" /></a> ';
+		if($twURL)
+			echo '<a href="'.$twURL.'" style="margin-top:3px"><img src="'.Yii::app()->theme->baseUrl.'/images/tw_bar.gif" /></a>';
+		echo '</div>';
+	} ?>    
+
 	<div class="header_block">	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
