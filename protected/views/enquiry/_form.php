@@ -72,7 +72,6 @@ function submitForm(){
 		}
 	?>
 
-	<?php echo $form->errorSummary($model); ?>
 	<?php echo $form->hiddenField($model,'budget'); ?>
 	<?php echo $form->hiddenField($model,'related_to'); ?>
 

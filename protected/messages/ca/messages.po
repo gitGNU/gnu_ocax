@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-12-04 08:41+0100\n"
+"PO-Revision-Date: 2013-12-19 10:55+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-SearchPath-2: protected/controllers\n"
 
 #: protected/models/Email.php:99
-#: protected/models/Enquiry.php:181
-#: protected/views/enquiry/view.php:183
+#: protected/models/Enquiry.php:189
+#: protected/views/enquiry/view.php:188
 #: protected/views/enquiry/_detailsForTeam.php:39
 msgid "Type"
 msgstr "Tipus"
@@ -34,7 +34,7 @@ msgid "Sent"
 msgstr "Enviat"
 
 #: protected/models/Email.php:102
-#: protected/models/Enquiry.php:183
+#: protected/models/Enquiry.php:191
 #: protected/views/introPage/admin.php:42
 msgid "Title"
 msgstr "Títol"
@@ -63,7 +63,7 @@ msgstr "Consulta"
 
 #: protected/models/Email.php:107
 #: protected/models/BulkEmail.php:112
-#: protected/models/Enquiry.php:184
+#: protected/models/Enquiry.php:192
 #: protected/models/Emailtext.php:112
 msgid "Body"
 msgstr "Cos"
@@ -71,7 +71,6 @@ msgstr "Cos"
 #: protected/models/RegisterForm.php:86
 #: protected/models/User.php:124
 #: protected/models/LoginForm.php:58
-#: protected/views/user/view.php:87
 msgid "Username"
 msgstr "Nom d'usuari"
 
@@ -122,14 +121,15 @@ msgid "Sent OK"
 msgstr "Enviat OK"
 
 #: protected/models/BulkEmail.php:107
-#: protected/models/Enquiry.php:182
+#: protected/models/Enquiry.php:190
 #: protected/models/Emailtext.php:111
 #: protected/views/emailtext/admin.php:46
-#: protected/views/enquiry/view.php:187
+#: protected/views/enquiry/view.php:192
 #: protected/views/enquiry/index.php:113
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/bulkEmail/admin.php:64
+#: protected/views/user/view.php:133
 #: protected/views/user/panel.php:187
 #: protected/views/user/panel.php:223
 msgid "State"
@@ -213,7 +213,7 @@ msgstr "Trimestre 4"
 msgid "Weight"
 msgstr "Pes"
 
-#: protected/models/Budget.php:235
+#: protected/models/Budget.php:221
 msgid "Budget table saved on the"
 msgstr "Taula de pressupostos guardada el"
 
@@ -338,24 +338,28 @@ msgstr "Resposta considerada satisfactòria"
 msgid "Reply considered insatisfactory"
 msgstr "Resposta considerada no satisfactòria"
 
-#: protected/models/Enquiry.php:172
+#: protected/models/Enquiry.php:147
+msgid "The title cannot include the question."
+msgstr "El títol no pot ser una pregunta."
+
+#: protected/models/Enquiry.php:180
 msgid "Related to"
 msgstr "Relacionada amb"
 
-#: protected/models/Enquiry.php:173
+#: protected/models/Enquiry.php:181
 #: protected/views/enquiry/_detailsForTeam.php:31
 msgid "Formulated by"
 msgstr "Formulada por"
 
-#: protected/models/Enquiry.php:174
+#: protected/models/Enquiry.php:182
 #: protected/views/enquiry/admin.php:86
 #: protected/views/enquiry/_detailsForTeam.php:35
 msgid "Assigned to"
 msgstr "Assignada a"
 
-#: protected/models/Enquiry.php:176
+#: protected/models/Enquiry.php:184
 #: protected/views/budget/view.php:123
-#: protected/views/enquiry/view.php:173
+#: protected/views/enquiry/view.php:178
 #: protected/views/enquiry/index.php:108
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/user/panel.php:182
@@ -363,40 +367,48 @@ msgstr "Assignada a"
 msgid "Formulated"
 msgstr "Formulada"
 
-#: protected/models/Enquiry.php:177
+#: protected/models/Enquiry.php:185
 msgid "Assigned"
 msgstr "Assignada"
 
-#: protected/models/Enquiry.php:178
-#: protected/views/enquiry/view.php:202
+#: protected/models/Enquiry.php:186
+#: protected/views/enquiry/view.php:207
 #: protected/views/enquiry/_detailsForTeam.php:62
 msgid "Submitted"
 msgstr "Lliurada"
 
-#: protected/models/Enquiry.php:179
-#: protected/views/enquiry/view.php:199
+#: protected/models/Enquiry.php:187
+#: protected/views/enquiry/view.php:204
 #: protected/views/enquiry/_detailsForTeam.php:55
 msgid "Registry number"
 msgstr "Nº de registre"
 
-#: protected/models/Enquiry.php:180
+#: protected/models/Enquiry.php:188
 #: protected/views/enquiry/submit.php:131
-#: protected/views/enquiry/view.php:210
+#: protected/views/enquiry/view.php:215
 msgid "Documentation"
 msgstr "Documentació"
 
-#: protected/models/Enquiry.php:205
-#: protected/models/Enquiry.php:207
+#: protected/models/Enquiry.php:213
+#: protected/models/Enquiry.php:215
 msgid "Send an email to the"
 msgstr "Enviar un correu al"
 
-#: protected/models/Enquiry.php:205
+#: protected/models/Enquiry.php:213
 msgid "team member"
 msgstr ""
 
-#: protected/models/Enquiry.php:207
+#: protected/models/Enquiry.php:215
 msgid "people subscribed to the Enquiry"
 msgstr "persones subscrites a la consulta"
+
+#: protected/models/Backup.php:40
+msgid "Cannot create zip file"
+msgstr "No es pot crear fitxer zip"
+
+#: protected/models/Backup.php:47
+msgid "Cannot dump database"
+msgstr "Cannot dump database"
 
 #: protected/models/LoginForm.php:57
 msgid "Remember me"
@@ -448,9 +460,8 @@ msgid "%s enquiries have already been made about this budget"
 msgstr "Ja hi ha %s consultes fetes sobre aquesta partida pressupostària"
 
 #: protected/views/budget/updateYear.php:24
-#, fuzzy
 msgid "Import budgets"
-msgstr "Restaurar pressuposts"
+msgstr "Importar pressuposts"
 
 #: protected/views/budget/updateYear.php:25
 #: protected/views/csv/importCSV.php:27
@@ -559,6 +570,7 @@ msgstr "Euros per persona"
 #: protected/views/budget/_enquiryView.php:131
 #: protected/views/enquiry/index.php:103
 #: protected/views/layouts/main.php:80
+#: protected/views/user/view.php:127
 #: protected/views/user/panel.php:177
 #: protected/views/user/panel.php:213
 #: protected/controllers/EnquiryController.php:96
@@ -587,17 +599,18 @@ msgid "defined budgets"
 msgstr "Partides definides"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:141
-#: protected/views/introPage/_form.php:153
+#: protected/views/cmsPage/_form.php:144
+#: protected/views/introPage/_form.php:159
 msgid "Create"
 msgstr "Create"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:141
+#: protected/views/cmsPage/_form.php:144
 #: protected/views/enquiry/changeType.php:104
-#: protected/views/introPage/_form.php:153
+#: protected/views/introPage/_form.php:159
 #: protected/views/user/updateRoles.php:109
 #: protected/views/user/update.php:122
+#: protected/views/email/create.php:137
 msgid "Save"
 msgstr "Desa"
 
@@ -678,6 +691,7 @@ msgid "Enter your email address and we will send you a link"
 msgstr "Introdueix la teva adreça de correu electrònic i t'enviarem un enllaç"
 
 #: protected/views/site/login.php:99
+#: protected/views/email/create.php:137
 msgid "Send"
 msgstr "Enviar"
 
@@ -694,14 +708,14 @@ msgid "comments"
 msgstr "comenta"
 
 #: protected/views/comment/_form.php:44
-#: protected/views/enquiry/_form.php:113
+#: protected/views/enquiry/_form.php:112
 #: protected/views/reply/create.php:91
 msgid "Publish"
 msgstr "Publicar"
 
 #: protected/views/comment/_form.php:45
 #: protected/views/enquiry/changeType.php:107
-#: protected/views/enquiry/_form.php:123
+#: protected/views/enquiry/_form.php:122
 #: protected/views/user/update.php:123
 #: protected/views/reply/create.php:94
 #: protected/views/email/_contactPetition.php:74
@@ -767,7 +781,7 @@ msgid "Update page"
 msgstr "Actualitzar pàgina"
 
 #: protected/views/cmsPage/_form.php:48
-#: protected/views/introPage/_form.php:124
+#: protected/views/introPage/_form.php:130
 msgid "Translations"
 msgstr "Traduccions"
 
@@ -906,49 +920,49 @@ msgstr "Lliurada"
 msgid "Add document"
 msgstr "Afegir document"
 
-#: protected/views/enquiry/view.php:176
-#: protected/views/enquiry/view.php:177
+#: protected/views/enquiry/view.php:181
+#: protected/views/enquiry/view.php:182
 msgid "by"
 msgstr "per"
 
-#: protected/views/enquiry/view.php:184
+#: protected/views/enquiry/view.php:189
 #: protected/views/enquiry/_detailsForTeam.php:40
 msgid "reformulated"
 msgstr "reformulada"
 
-#: protected/views/enquiry/view.php:246
+#: protected/views/enquiry/view.php:251
 msgid "Keep me informed via email when there are changes"
 msgstr "Mantingues-me informat per correu quan hagin canvis"
 
-#: protected/views/enquiry/view.php:263
+#: protected/views/enquiry/view.php:268
 msgid "Direct link"
 msgstr "Enllaç"
 
-#: protected/views/enquiry/view.php:265
+#: protected/views/enquiry/view.php:270
 msgid "Subscribe"
 msgstr "Subscrits"
 
-#: protected/views/enquiry/view.php:298
+#: protected/views/enquiry/view.php:303
 msgid "You can"
 msgstr "Pots"
 
-#: protected/views/enquiry/view.php:299
+#: protected/views/enquiry/view.php:304
 msgid "edit the enquiry"
 msgstr "editar la consulta"
 
-#: protected/views/enquiry/view.php:299
+#: protected/views/enquiry/view.php:304
 msgid "and even"
 msgstr "i fins i tot"
 
-#: protected/views/enquiry/view.php:300
+#: protected/views/enquiry/view.php:305
 msgid "delete it"
 msgstr "esborrar-ho"
 
-#: protected/views/enquiry/view.php:304
+#: protected/views/enquiry/view.php:309
 msgid "Are you sure?"
 msgstr "Estàs segur?"
 
-#: protected/views/enquiry/view.php:305
+#: protected/views/enquiry/view.php:310
 msgid "until it has been accepted by the observatory."
 msgstr "fins que hagi estat acceptat per l'observatori."
 
@@ -1095,7 +1109,7 @@ msgid "Add reply"
 msgstr "Afegir resposta"
 
 #: protected/views/enquiry/teamView.php:51
-#: protected/controllers/EnquiryController.php:238
+#: protected/controllers/EnquiryController.php:239
 msgid "Reformulate enquiry"
 msgstr "Reformular consulta"
 
@@ -1273,11 +1287,11 @@ msgid "New reformulated enquiry"
 msgstr "Nova consulta reformulada"
 
 #: protected/views/enquiry/_form.php:59
-#: protected/controllers/EnquiryController.php:305
+#: protected/controllers/EnquiryController.php:306
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: protected/views/enquiry/_form.php:113
+#: protected/views/enquiry/_form.php:112
 #: protected/views/reply/create.php:91
 msgid "Update"
 msgstr "Actualitza"
@@ -1307,7 +1321,28 @@ msgstr "Gestionar pàgines"
 msgid "Text box attributes"
 msgstr "Atributs de la caixa de text"
 
-#: protected/views/introPage/_form.php:118
+#: protected/views/introPage/_form.php:78
+msgid "Distance between top of photo and top of box"
+msgstr ""
+
+#: protected/views/introPage/_form.php:85
+msgid "Distance from lefthand side of photo to box"
+msgstr ""
+
+#: protected/views/introPage/_form.php:92
+msgid "Width of the box"
+msgstr ""
+
+#: protected/views/introPage/_form.php:101
+#: protected/views/introPage/_form.php:108
+msgid "Leave empty to recover default values"
+msgstr ""
+
+#: protected/views/introPage/_form.php:115
+msgid "Box transparentcy"
+msgstr ""
+
+#: protected/views/introPage/_form.php:124
 msgid "Text box content"
 msgstr "Contingut de la caixa de text"
 
@@ -1462,11 +1497,15 @@ msgstr "Llistar tots els usuaris"
 msgid "Delete user"
 msgstr "Suprimir usuari"
 
-#: protected/views/user/view.php:110
+#: protected/views/user/view.php:87
+msgid "User details"
+msgstr "Detalls d'usuari"
+
+#: protected/views/user/view.php:111
 msgid "Enquiries made by"
 msgstr "Consultes fetes per"
 
-#: protected/views/user/view.php:140
+#: protected/views/user/view.php:141
 msgid "has not made a enquiry"
 msgstr "no ha fet cap consulta"
 
@@ -1558,6 +1597,10 @@ msgstr "Descripcions de partides"
 msgid "Users and roles"
 msgstr "Usuaris i rols"
 
+#: protected/views/user/panel.php:143
+msgid "Backup"
+msgstr ""
+
 #: protected/views/user/panel.php:164
 msgid "My enquiries"
 msgstr "Les meves consultes"
@@ -1574,15 +1617,15 @@ msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitz
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Les consultes que hagis realitzat o a les quals t'hagis subscrit apareixeran aquí"
 
-#: protected/views/user/panel.php:270
+#: protected/views/user/panel.php:278
 msgid "Do you want to block"
 msgstr "Vols bloquejar"
 
-#: protected/views/user/panel.php:272
+#: protected/views/user/panel.php:280
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:273
+#: protected/views/user/panel.php:281
 msgid "No"
 msgstr "No"
 
@@ -1640,7 +1683,7 @@ msgstr "Petition to make contact via email"
 
 #: protected/views/email/_contactPetition.php:46
 #: protected/controllers/SiteController.php:121
-#: protected/controllers/SiteController.php:294
+#: protected/controllers/SiteController.php:299
 msgid "Hello"
 msgstr "Hola"
 
@@ -1667,7 +1710,7 @@ msgstr "Si penses que aquest usuari t'està enviant correu brossa, pots bloqueja
 
 #: protected/views/email/_contactPetition.php:54
 #: protected/controllers/CommentController.php:153
-#: protected/controllers/SiteController.php:298
+#: protected/controllers/SiteController.php:303
 msgid "Kind regards"
 msgstr "Cordials salutacions"
 
@@ -1680,7 +1723,7 @@ msgid "Optionally, you may attach text to this email"
 msgstr "Si desitges, pots adjuntar un text a aquest correu"
 
 #: protected/views/email/_contactPetition.php:73
-#: protected/views/email/create.php:70
+#: protected/views/email/create.php:71
 msgid "Send email"
 msgstr "Envia correu"
 
@@ -1717,11 +1760,11 @@ msgstr "Petició de contacte privat per email d'un usuari de l'%s"
 msgid "Email not sent"
 msgstr "Email not sent"
 
-#: protected/controllers/UserController.php:207
+#: protected/controllers/UserController.php:208
 msgid "Changes saved Ok"
 msgstr "S'han guardat els canvis correctament"
 
-#: protected/controllers/UserController.php:234
+#: protected/controllers/UserController.php:235
 msgid "is blocked"
 msgstr "està bloquejat"
 
@@ -1772,70 +1815,70 @@ msgstr "Benvingut a l'"
 msgid "NEW_USER_EMAIL_MSG"
 msgstr "Acabem de donar d'alta el teu usuari.<br />Des d'aquest moment ja pots realitzar consultes, subscriure't a consultes d'altres ciutadans, així com valorar  les respostes del nostre Ajuntament."
 
-#: protected/controllers/SiteController.php:213
+#: protected/controllers/SiteController.php:215
 msgid "Your account is active"
 msgstr "S'ha activat el teu compte"
 
-#: protected/controllers/SiteController.php:277
+#: protected/controllers/SiteController.php:282
 msgid "Invalid email address"
 msgstr "Adreça de correu invàlida"
 
-#: protected/controllers/SiteController.php:292
+#: protected/controllers/SiteController.php:297
 msgid "New password request"
 msgstr "Petició de nova contrasenya"
 
-#: protected/controllers/SiteController.php:295
+#: protected/controllers/SiteController.php:300
 msgid "has received a request to reset your password"
 msgstr "ha rebut una petició de restableix la teva contrasenya"
 
-#: protected/controllers/SiteController.php:296
+#: protected/controllers/SiteController.php:301
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr "Si no has oblidat la teva contrasenya per favor, ignora aquest correu"
 
-#: protected/controllers/SiteController.php:297
+#: protected/controllers/SiteController.php:302
 msgid "To reset your password, follow this link"
 msgstr "Per restablir la teva contrasenya, segueix aquest enllaç"
 
-#: protected/controllers/SiteController.php:302
+#: protected/controllers/SiteController.php:307
 msgid "We've just sent you an email"
 msgstr "T'hem enviat un correu electrònic"
 
-#: protected/controllers/SiteController.php:306
+#: protected/controllers/SiteController.php:311
 msgid "Sorry, we cannot find you on our database"
 msgstr "Disculpa, no et trobem en la base de dades"
 
-#: protected/controllers/SiteController.php:322
+#: protected/controllers/SiteController.php:327
 msgid "The password recovery link has expired"
 msgstr "L'enllaç per recuperar la teva contrasenya s'ha caducat"
 
-#: protected/controllers/SiteController.php:330
+#: protected/controllers/SiteController.php:335
 msgid "Please change your password now"
 msgstr "Per favor, canvia la teva contrasenya ara"
 
-#: protected/controllers/EnquiryController.php:219
+#: protected/controllers/EnquiryController.php:220
 msgid "We have sent you an email"
 msgstr "T'hem enviat un correu electrònic"
 
-#: protected/controllers/EnquiryController.php:223
+#: protected/controllers/EnquiryController.php:224
 msgid "Your enquiry has been registered correctly"
 msgstr "S'ha registrat la teva consulta correctament"
 
-#: protected/controllers/EnquiryController.php:288
+#: protected/controllers/EnquiryController.php:289
 #, fuzzy
 msgid "New reformulated enquiry created OK"
 msgstr "Nova consulta reformulada"
 
-#: protected/controllers/EnquiryController.php:556
-#: protected/controllers/EnquiryController.php:566
+#: protected/controllers/EnquiryController.php:560
+#: protected/controllers/EnquiryController.php:570
 msgid "You must assign a team member"
 msgstr "Has d'assignar un team member"
 
-#: protected/controllers/EnquiryController.php:582
+#: protected/controllers/EnquiryController.php:586
 msgid "New team member assigned"
 msgstr "Nou team member assignat"
 
-#: protected/controllers/EnquiryController.php:633
-#: protected/controllers/EnquiryController.php:655
+#: protected/controllers/EnquiryController.php:637
+#: protected/controllers/EnquiryController.php:659
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
