@@ -49,11 +49,11 @@ class BudgetController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('getBudgetDetails'/*'create','update'*/),
+				'actions'=>array('getBudgetDetails'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'getTotalYearlyBudgets',/*'admin','create',*/'adminYears','deleteYearsBudgets',
+				'actions'=>array(	'getTotalYearlyBudgets','adminYears','deleteYearsBudgets',
 									'createYear','updateYear','featured','feature',/*'update',*/'delete',
 									'dumpBudgets','restoreBudgets',
 									'noDescriptions'),

@@ -131,6 +131,7 @@ class Enquiry extends CActiveRecord
 			array('user, created, title, body', 'required'),
 			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
 			array('related_to, user, team_member, manager, budget, type, state, documentation', 'numerical', 'integerOnly'=>true),
+			array('title', 'validTitle'),
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
 			array('assigned, submitted, body', 'safe'),
@@ -138,6 +139,13 @@ class Enquiry extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('id, related_to, user, username, team_member, manager, created, assigned, type, capitulo, state, title, body', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function validTitle($attribute,$params)
+	{
+		if (strpos($this->title,'?') !== false) {
+			$this->addError($attribute, __('The title cannot include the question.'));
+		}
 	}
 
 	/**

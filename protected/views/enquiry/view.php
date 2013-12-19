@@ -37,6 +37,8 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 	margin-right:3px;
 	font-size:	17px;
 }
+#enquiryDetails tr:first-child td{border:none;}
+#enquiryDetails tr:first-child th{border:none;}
 </style>
 
 <script>
@@ -168,6 +170,7 @@ function showBudget(budget_id, element){
 
 <div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
 <?php $this->widget('zii.widgets.CDetailView', array(
+	'id' => 'enquiryDetails',
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>array(

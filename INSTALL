@@ -27,15 +27,15 @@ GRANT ALL PRIVILEGES ON db_name. * TO 'user_name'@'localhost';
 $ mysql -uuser_name -p db_name < schema.sql
 
 * If your OCM is in Spain, import data common to all Spanish OCMs
-$ wget http://ocax.net/download/spain_budget_description.sql
-$ mysql -uuser_name -p db_name < spain_budget_description.sql
+$ wget http://ocax.net/download/budgetdescriptions/spain_budget_descriptions.sql
+$ mysql -uuser_name -p db_name < spain_budget_descriptions.sql
 
 2. Create config file
 $ cp protected/config/main.example.php protected/config/main.php
 and modify mysql connection parameters in protected/config/main.php
 
 3. File permissions
-# chown -R www-data protected/runtime/ protected/data/
+# chown -R www-data protected/runtime/
 # chown -R www-data app/assets/ app/files/
 
 4. Apache config
