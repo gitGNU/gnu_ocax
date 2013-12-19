@@ -1,3 +1,8 @@
+1.0.3
+1. Save your app/files folder.
+2. Overwrite app/ and protected/
+3. Restore app/files
+
 1.0.2
 
 Database changes
