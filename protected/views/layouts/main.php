@@ -119,9 +119,9 @@
 </div><!-- page -->
 
 <div id="footer">
-	<div style="width: 600px; float: left; margin: 10px 0 10px 0;">
-		<u><?php echo __('Contact information')?></u><br />
+	<div style="width: 600px; float: left; margin:10px 0 10px 0;">
 		<b><?php echo Config::model()->getObservatoryName();?></b><br />
+		<u><?php echo __('Contact information')?></u><br />
 		<?php if($blog = Config::model()->findByPk('observatoryBlog')->value)
 			echo '<a href="'.$blog.'">'.$blog.'</a><br />';
 		?>
@@ -131,13 +131,13 @@
 		?>
 	</div>
 	
-	<div style="width: 250px; float:right; margin: 10px 0 10px 0;">
+	<div style="width: 250px; float:right; margin:10px 0 10px 0;">
 		<div style="float: left;">
 			AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
 			<a href="http://ocax.net">http://ocax.net</a><br />
 			<a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
 		</div>
-		<div style="float:right;margin-left:40px">
+		<div style="float:right;margin-left:20px">
 			<a href="http://auditoriaciudadana.net">
 			<img src="<?php echo Yii::app()->request->baseUrl;?>/images/logopacd_small.png"/>
 			</a>		

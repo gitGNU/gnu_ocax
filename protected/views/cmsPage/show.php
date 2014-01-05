@@ -23,11 +23,11 @@ $this->setPageTitle($content->pageTitle);
 
 <?php if(isset($noLanguageLinks)){ ?>
 <style>
-#goBack{
+#cmsOptions{
 	font-size:1.5em;
-	margin:-25px;
-	margin-bottom:30px;
-	padding-left:20px;
+	margin: -35px -30px 0 -20px;
+	padding: 10px 0 10px 0;
+	background-color:white;
 }
 </style>
 <script>
@@ -36,12 +36,19 @@ $(function() {
 });
 </script>
 <?php
-echo '<div id="goBack">';
-echo CHtml::link('<< '.__('CMS editor'),array(	'cmsPage/update',
-												'id'=>$model->id,
-												'lang'=>$content->language,
-										));
+echo '<div id="cmsOptions">';
+	echo '<div style="width:50%; float: left; text-align: center;">';
+	echo CHtml::link('<< '.__('Edit page'),array(	'cmsPage/update',
+													'id'=>$model->id,
+													'lang'=>$content->language,
+											));
+	echo '</div>';
+	echo '<div style="width:50%; float: left; text-align: center;">';
+	echo CHtml::link(__('Manage pages'),array('cmsPage/admin'));
+	echo '</div>';
+echo '<div style="clear:both;"></div>';
 echo '</div>';
+
 } ?>
 
 

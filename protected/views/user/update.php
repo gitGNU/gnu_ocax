@@ -131,7 +131,7 @@ $solicit_membership = Config::model()->findByPk('membership')->value;
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash-success').slideUp('fast');
-    	}, 3500);
+    	}, 5000);
 		});
 	</script>
     <div class="flash-success">

@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS budget (
   PRIMARY KEY (id),
   FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
-INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2013', 0, 'root budget', 10000, 0);
+INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2014', 0, 'root budget', 10000, 0);
 
 CREATE TABLE IF NOT EXISTS budget_description (
   id varchar(34) NOT NULL,

@@ -244,7 +244,7 @@ if($noEnquiries){
 			$(".flash-success").slideDown('fast');		
 			setTimeout(function() {
 				$('.flash-success').slideUp('fast');
-    		}, 3500);
+    		}, 4500);
 		});
 	</script>
     <div class="flash-success" style="display:none">
@@ -264,7 +264,7 @@ if($noEnquiries){
 	<script>
 		$(function() { setTimeout(function() {
 			$('.flash-error').slideUp('fast');
-    	}, 3500);
+    	}, 4500);
 		});
 	</script>
     <div class="flash-error">
