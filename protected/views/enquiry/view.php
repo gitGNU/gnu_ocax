@@ -70,7 +70,7 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 function subscribe(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		$(el).attr('checked', false);
-		alert('Please login to subscribe');
+		alert("<?php echo __('Please login to subscribe')?>");
 		$('#subscribe').hide();
 		return;
 	}

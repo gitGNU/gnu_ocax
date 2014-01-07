@@ -34,11 +34,17 @@ shuffle($images);
 ?>
 
 <style>
-#goBack{
+#pageOptions{
 	font-size:1.5em;
-	margin:-25px;
-	margin-bottom:50px;
-	padding-left:20px;
+	margin: -35px -30px 35px -20px;
+	padding: 10px 0 10px 0;
+	background-color:white;
+}
+#pageOptions a{
+	padding: 12px 20px 12px 20px;
+}
+#pageOptions a:hover{
+	background-color:#f5f1ed;
 }
 #wallpaper {
 	position:relative;
@@ -60,11 +66,17 @@ function nextPage(id){
 }
 </script>
 <?php
-echo '<div id="goBack">';
-echo CHtml::link('<< '.__('Editor'),array(	'introPage/update',
-												'id'=>$model->id,
-												'lang'=>$content->language,
-										));
+echo '<div id="pageOptions">';
+	echo '<div style="width:50%; float: left; text-align: center;">';
+	echo CHtml::link(__('Edit page'),array('introPage/update',
+										'id'=>$model->id,
+										'lang'=>$content->language,
+									));
+	echo '</div>';
+	echo '<div style="width:50%; float: left; text-align: center;">';
+	echo CHtml::link(__('Manage pages'),array('introPage/admin'));
+	echo '</div>';
+echo '<div style="clear:both;"></div>';
 echo '</div>';
 ?>
 

@@ -59,7 +59,7 @@ function featureBudget(budget_id){
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'budget-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->featuredSearch(),
 	'filter'=>$model,
 	'columns'=>array(
 		'featured',

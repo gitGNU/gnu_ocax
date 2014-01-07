@@ -336,7 +336,7 @@ class BudgetController extends Controller
 
 	public function actionFeatured($id)
 	{
-		$model=new Budget('search');
+		$model=new Budget('featuredSearch');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($id))
 			$model->year=$id;

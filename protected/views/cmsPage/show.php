@@ -29,6 +29,12 @@ $this->setPageTitle($content->pageTitle);
 	padding: 10px 0 10px 0;
 	background-color:white;
 }
+#cmsOptions a{
+	padding: 12px 20px 12px 20px;
+}
+#cmsOptions a:hover{
+	background-color:#f5f1ed;
+}
 </style>
 <script>
 $(function() {
@@ -38,7 +44,7 @@ $(function() {
 <?php
 echo '<div id="cmsOptions">';
 	echo '<div style="width:50%; float: left; text-align: center;">';
-	echo CHtml::link('<< '.__('Edit page'),array(	'cmsPage/update',
+	echo CHtml::link(__('Edit page'),array(	'cmsPage/update',
 													'id'=>$model->id,
 													'lang'=>$content->language,
 											));

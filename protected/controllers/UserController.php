@@ -95,7 +95,7 @@ class UserController extends Controller
 			if (file_exists($latest_version_file)) {
 				$date = new DateTime();
 	
-				if( $date->getTimestamp() - filemtime($latest_version_file) > 604800 ){ //604800 a week
+				if( $date->getTimestamp() - filemtime($latest_version_file) > 86400 ){ //604800 a week
 					$context = stream_context_create(array(
 						'http' => array(
 						'header' => 'Content-type: application/x-www-form-urlencoded',

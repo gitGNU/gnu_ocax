@@ -22,7 +22,11 @@
 /* @var $model Budget */
 Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
-$featured=$model->findAllByAttributes(array('year'=>$model->year, 'featured'=>1));
+$criteria=new CDbCriteria;
+$criteria->addCondition('featured = 1');
+$criteria->addCondition('year = '.$model->year);
+$criteria->order = 'csv_id ASC';
+$featured=$model->findAll($criteria);
 ?>
 
 

@@ -363,6 +363,29 @@ class Budget extends CActiveRecord
 		));
 	}
 
+
+	public function featuredSearch()
+	{
+		$criteria=new CDbCriteria;
+
+		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
+
+		$criteria->addCondition('parent is not null');	// dont show year budget
+		$criteria->addCondition('CHAR_LENGTH(csv_id) > 1');
+
+		$criteria->compare('featured', $this->featured);
+		$criteria->compare('code', $this->code);
+		$criteria->compare('concept', $this->concept, true);
+		$criteria->compare('csv_id', $this->csv_id, true);
+		$criteria->compare('year',$this->year);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'csv_id ASC'),
+		));
+	}
+
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
