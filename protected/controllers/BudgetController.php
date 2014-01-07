@@ -180,8 +180,11 @@ class BudgetController extends Controller
 	{
 		$model=$this->loadModel($id);
 		if($model){
-			$budgets = $model->findAllByAttributes(array('csv_id'=>$model->csv_id),array('order'=>'year DESC'));
-			echo CJavaScript::jsonEncode($this->renderPartial('_compareYears',array('model'=>$model,'budgets'=>$budgets),true,true));
+			echo CJavaScript::jsonEncode($this->renderPartial(	'_compareYears',
+																array(	'model'=>$model,
+																		'budgets'=>$model->getAllBudgetsWithCSV_ID()),
+																		true,true)
+															);
 		}else
 			echo 0;
 	}

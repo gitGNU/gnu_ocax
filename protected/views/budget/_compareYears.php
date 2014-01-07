@@ -19,7 +19,10 @@
 
 $attributes = array();
 
-$showBudgetDetails='<span class="link" style="float:right;font-size:0.9em" onclick="js:showBudgetDetails()">'.$model->year.' '.__('details').'</span>';
+$words = __('Details for %s');
+$words = str_replace('%s', $model->year, $words);
+
+$showBudgetDetails='<span class="link" style="float:right;font-size:0.9em" onclick="js:showBudgetDetails()">'.$words.'</span>';
 $row =	array(
        		'label'=>__('Anual comparison'),
 			'type'=>'raw',

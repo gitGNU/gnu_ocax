@@ -78,10 +78,8 @@ if(isset($showLinks)){
 // compare years
 $compareYears = '';
 if(isset($showComparison)){
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'csv_id = "'.$model->csv_id.'" AND id != '.$model->id;
-	if(count(Budget::model()->findAll($criteria) > 0))
-		$compareYears = '<span class="link" style="float:right;font-size:0.9em" onclick="js:showAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
+	if(count($model->getAllBudgetsWithCSV_ID() > 1))
+		$compareYears = '<span class="link" style="float:right;font-size:0.9em" onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
 }
 	
 

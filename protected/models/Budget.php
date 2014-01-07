@@ -339,6 +339,22 @@ class Budget extends CActiveRecord
 											));
 	}
 
+	public function getAllBudgetsWithCSV_ID()
+	{
+		$criteria=new CDbCriteria;
+
+		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
+
+		foreach($root_budgets as $budget){
+			if($budget->code == 0)	// this year not published
+				$criteria->addCondition('year != '.$budget->year);
+		}
+
+		$criteria->addCondition('csv_id = "'.$this->csv_id.'"');
+		$criteria->order = 'year DESC';
+		return $this->findAll($criteria);	
+	}
+
 
 	public function changeTypeSearch()
 	{

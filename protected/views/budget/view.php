@@ -56,8 +56,11 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 
 ?>
 <script>
-function showAnualComparative(budget_id){
-
+function getAnualComparative(budget_id){
+	if($('#budget_comparative').html() != ''){
+		_showAnualComparative();
+		return;
+	}
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getAnualComparison/'+budget_id,
 		type: 'GET',
@@ -70,15 +73,18 @@ function showAnualComparative(budget_id){
 			$('#budget_comparative').show();
 		},
 		error: function() {
-			alert("Error on GetAnualComparison");
+			alert("Error on getAnualComparison");
 		}
 	});
+}
+function _showAnualComparative(){
+	$('#budget_details').hide();
+	$('#budget_comparative').show();
 }
 function showBudgetDetails(){
 	$('#budget_comparative').hide();
 	$('#budget_details').show();
 }
-
 </script>
 
 <?php
