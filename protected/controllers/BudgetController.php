@@ -45,7 +45,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getPieData','getBudgetDetailsForBar','getBudget'),
+				'actions'=>array('index','view','getPieData','getBudgetDetailsForBar','getBudget','getAnualComparison'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -175,6 +175,16 @@ class BudgetController extends Controller
 		}else
 			echo 0;
 	} 
+
+	public function actionGetAnualComparison($id)
+	{
+		$model=$this->loadModel($id);
+		if($model){
+			$budgets = $model->findAllByAttributes(array('csv_id'=>$model->csv_id),array('order'=>'year DESC'));
+			echo CJavaScript::jsonEncode($this->renderPartial('_compareYears',array('model'=>$model,'budgets'=>$budgets),true,true));
+		}else
+			echo 0;
+	}
 
 	/**
 	 * Creates a new model.
@@ -510,4 +520,3 @@ class BudgetController extends Controller
 		}
 	}
 }
-                                                                                                                                                                                                                                                                                                                                                                                 
