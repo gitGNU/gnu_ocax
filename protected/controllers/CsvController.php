@@ -48,7 +48,7 @@ class CsvController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
+				'actions'=>array('importCSV','uploadCSV','checkEncoding','checkCSVFormat',
 				'checkCSVTotals','importCSVData','download','showYears','regenerateCSV',
 				'importDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
@@ -98,6 +98,28 @@ class CsvController extends Controller
 		}
 		$this->render('importCSV', array('model'=>$model));
 	}
+
+	// convert csv to UTF-8
+	public function actionCheckEncoding()
+	{
+		if(!isset($_GET['csv_file'])){
+			$error[]='File path not defined.';
+			echo CJavaScript::jsonEncode(array('error'=>$error));
+			Yii::app()->end();
+		}
+		$model = new ImportCSV;
+		$content = file_get_contents($model->path.$_GET['csv_file']);
+
+		$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
+		
+		if($original_encoding != 'UTF-8'){
+			$content = iconv($original_encoding, 'UTF-8', $content);	
+			file_put_contents($model->path.$_GET['csv_file'], $content);
+			echo 'Converted '.$original_encoding.' to UTF-8';
+		}else
+			echo 'File seems to be UTF-8';
+	}
+
 
 	public function actionCheckCSVFormat()
 	{
@@ -397,7 +419,7 @@ class CsvController extends Controller
 					$budget->common = 1;
 										
 					//$budget->validate();
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										
+					
 					if(!$budget->save()){
 						echo CHtml::errorSummary($budget);
 						Yii::app()->end();
