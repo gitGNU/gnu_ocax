@@ -55,21 +55,49 @@ $dataProvider=new CActiveDataProvider('Enquiry', array(
 ));
 
 ?>
-<script></script>
+<script>
+function showAnualComparative(budget_id){
+
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getAnualComparison/'+budget_id,
+		type: 'GET',
+		dataType: 'json',
+		beforeSend: function(){ /*$('.pie_loading_gif').hide(); $(loading_gif).show();*/ },
+		complete: function() { /*$('.pie_loading_gif').hide();*/ },
+		success: function(data){
+			$('#budget_comparative').html(data);
+			$('#budget_details').hide();
+			$('#budget_comparative').show();
+		},
+		error: function() {
+			alert("Error on GetAnualComparison");
+		}
+	});
+}
+function showBudgetDetails(){
+	$('#budget_comparative').hide();
+	$('#budget_details').show();
+}
+
+</script>
 
 <?php
 	echo '<h1>'.$model->getTitle().'</h1>';
 
 	echo '<div>';
-		echo '<div style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right;">';
+		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right">';
+		echo '<div id="budget_details">';
 		$this->renderPartial('_enquiryView',array(	'model'=>$model,
 													'showCreateEnquiry'=>1,
 													'showLinks'=>1,
 													'noConcept'=>1,
 													'showMore'=>1,
 													'hideConcept'=>1,
+													'showComparison'=>1,
 												),false,true);
-	echo '</div>';	
+		echo '</div>';
+		echo '<div id="budget_comparative" style="display:none"></div>';
+		echo '</div>';
 	
 	echo '<p  style="margin-top:15px;">';
 	if($description = $model->getDescription()){

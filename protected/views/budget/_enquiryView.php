@@ -23,6 +23,7 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 }
 
+
 if(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager())
 	$enquiry_count = count($model->enquirys);
 else{
@@ -74,11 +75,22 @@ if(isset($showLinks)){
 	$budget_concept = $model->getConcept();
 }
 
+// compare years
+$compareYears = '';
+if(isset($showComparison)){
+	$criteria = new CDbCriteria;
+	$criteria->condition = 'csv_id = "'.$model->csv_id.'" AND id != '.$model->id;
+	if(count(Budget::model()->findAll($criteria) > 0))
+		$compareYears = '<span class="link" style="float:right;font-size:0.9em" onclick="js:showAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
+}
+	
+
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
 $attributes=array(
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
-	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().' / '.$model->code : $model->getYearString(),
+	        'type'=>'raw',
+	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().' / '.$model->code.$compareYears : $model->getYearString().$compareYears,
 		),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'.$percentage),
 		array(
