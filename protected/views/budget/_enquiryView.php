@@ -78,10 +78,10 @@ if(isset($showLinks)){
 // compare years
 $compareYears = '';
 if(isset($showComparison)){
-	if(count($model->getAllBudgetsWithCSV_ID() > 1))
-		$compareYears = '<span class="link" style="float:right;font-size:0.9em" onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
+	if(count($model->getAllBudgetsWithCSV_ID()) > 1)
+		$compareYears = '<span class="link" style="float:right;font-size:1em" onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
 }
-	
+
 
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
 $attributes=array(

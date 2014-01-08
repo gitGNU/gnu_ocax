@@ -103,7 +103,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 
 	$graph_width=929;
 		
-	echo '<div id="bar_display" style="margin-top:5px;margin-bottom:15px;">';
+	echo '<div id="bar_display" style="margin: 5px 0 15px 0px">';
 	foreach($featured as $featured_budget){
 	
 		$criteria = new CDbCriteria;

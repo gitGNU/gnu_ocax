@@ -1,10 +1,19 @@
 Before upgrading, read INSTALL to refresh your memory.
 
+1. Save your app/files folder
+2. Save your protected/config/main.php file
+3. Overwrite app/ and protected/ with new version
+4. Restore app/files and protected/config/main.php
+
+
+1.0.4
+Nothing special to do. Follow steps 1-4 above.
 
 1.0.3
-1. Save your app/files folder.
+1. Save your app/files folder
+2. Save protected/config/main.php
 2. Overwrite app/ and protected/
-3. Restore app/files
+3. Restore app/files and protected/config/main.php
 
 
 1.0.2

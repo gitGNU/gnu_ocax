@@ -343,11 +343,11 @@ class Budget extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 
-		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
+		$root_budgets=$this->findAllByAttributes(array('parent'=>Null, 'code'=>0));	// code means published
 
 		foreach($root_budgets as $budget){
-			if($budget->code == 0)	// this year not published
-				$criteria->addCondition('year != '.$budget->year);
+			//if($budget->code == 0)	// this year not published
+			$criteria->addCondition('year != '.$budget->year);
 		}
 
 		$criteria->addCondition('csv_id = "'.$this->csv_id.'"');

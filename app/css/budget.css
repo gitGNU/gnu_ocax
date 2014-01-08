@@ -5,7 +5,7 @@
 	background-repeat: repeat-x;
 	background-position: top;	
 	margin-top:0px;
-	margin-bottom:40px;
+	margin-bottom:25px;
 	float:right; 
 	width:46%; 
 	padding-top:10px;
@@ -132,8 +132,9 @@
 	background-repeat: repeat-x;
 	background-position: top;
 	padding:0px;
-	padding-top:18px;
+	padding-top:15px;
 	margin-bottom:45px;
+	margin-top:-5px;
 }
 
 .graph_bar_container{
