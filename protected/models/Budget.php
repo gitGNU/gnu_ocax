@@ -141,10 +141,10 @@ class Budget extends CActiveRecord
 		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
 			return $description->label;
 
-		if($this->label)
+		if(!$this->label)
 			return $this->label;
-			
-		return '';
+
+		return __('Budget');
 	}
 
 	public function getConcept()
