@@ -83,6 +83,7 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
+		
 		echo '<div class="horizontalRule" style="float:right;padding-top:10px;">';
 		echo '<div id="control_panel"></div>';
 		echo '<div class="sub_title" style="float:right">';
@@ -91,6 +92,11 @@ function addPanelSeparator(){
 		echo '<div class="clear"></div>';
 		echo '</div>';	
 		$panel_separator_added=1;
+
+		changeColumn();
+		echo '<div class="sub_title">'.CHtml::link(__('Document archive'),array('file/adminArchive')).'</div>';
+		echo 	'<p>'.__('Archive of the observatory\'s documents for referencing now and in the future.').'</p>';
+		echo '</div>';
 	}
 }
 

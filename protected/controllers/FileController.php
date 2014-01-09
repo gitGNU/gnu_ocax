@@ -53,6 +53,10 @@ class FileController extends Controller
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
+				'actions'=>array('adminArchive'),
+				'expression'=>"Yii::app()->user->isAdmin() || Yii::app()->user->isTeamMember() || Yii::app()->user->isTeamManager()",
+			),
+			array('allow',
 				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -102,6 +106,7 @@ class FileController extends Controller
 		{
 			$model->attributes=$_POST['File'];
 			$model->file=CUploadedFile::getInstance($model,'file');
+			
 			if($model->file){
 				$path=$this->getPath($model->model,$model->model_id);
 				$model->path='/files/'.$path;
@@ -141,6 +146,11 @@ class FileController extends Controller
 
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
+
+				}elseif($model->model == 'archive'){
+					if($file_saved)
+						Yii::app()->user->setFlash('success', $model->getURI().__('File uploaded correctly'));
+					$this->redirect(array('file/adminArchive'));
 
 				}else
 					$this->redirect(array('site/index'));
@@ -244,6 +254,21 @@ class FileController extends Controller
 	{
 		echo $this->renderPartial('showBudgetFiles',array(),false,true);
 	}
+	
+	public function actionAdminArchive()
+	{
+		$model=new File('search');
+		$model->unsetAttributes();  // clear any default values
+
+		if(isset($_GET['File']))
+			$model->attributes=$_GET['File'];
+			
+		$model->model='archive';
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}	
 
 	/**
 	 * Manages all models.

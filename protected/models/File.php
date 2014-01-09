@@ -122,7 +122,7 @@ class File extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('model',$this->model,true);
+		$criteria->compare('model',$this->model);
 		$criteria->compare('model_id',$this->model_id);
 
 		return new CActiveDataProvider($this, array(

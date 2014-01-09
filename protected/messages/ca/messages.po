@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-09 14:37+0100\n"
+"PO-Revision-Date: 2014-01-09 18:15+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -101,6 +101,7 @@ msgid "Name"
 msgstr "Nom"
 
 #: protected/models/File.php:105
+#: protected/views/file/admin.php:69
 msgid "Path"
 msgstr "Camí"
 
@@ -130,8 +131,8 @@ msgstr "Enviat OK"
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/bulkEmail/admin.php:64
 #: protected/views/user/view.php:133
-#: protected/views/user/panel.php:187
-#: protected/views/user/panel.php:223
+#: protected/views/user/panel.php:193
+#: protected/views/user/panel.php:229
 msgid "State"
 msgstr "Estat"
 
@@ -213,6 +214,12 @@ msgstr "Trimestre 4"
 #: protected/models/Budget.php:128
 msgid "Weight"
 msgstr "Pes"
+
+#: protected/models/Budget.php:147
+#: protected/views/enquiry/create.php:47
+#: protected/controllers/BudgetController.php:84
+msgid "Budget"
+msgstr "Pressupost"
 
 #: protected/models/Budget.php:222
 msgid "Budget table saved on the"
@@ -363,8 +370,8 @@ msgstr "Assignada a"
 #: protected/views/enquiry/view.php:178
 #: protected/views/enquiry/index.php:108
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/user/panel.php:182
-#: protected/views/user/panel.php:218
+#: protected/views/user/panel.php:188
+#: protected/views/user/panel.php:224
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -585,8 +592,8 @@ msgstr "Euros per persona"
 #: protected/views/enquiry/index.php:103
 #: protected/views/layouts/main.php:88
 #: protected/views/user/view.php:127
-#: protected/views/user/panel.php:177
-#: protected/views/user/panel.php:213
+#: protected/views/user/panel.php:183
+#: protected/views/user/panel.php:219
 #: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr "Consultes"
@@ -641,7 +648,7 @@ msgid "Restore database"
 msgstr "Restore database"
 
 #: protected/views/config/admin.php:25
-#: protected/views/user/panel.php:142
+#: protected/views/user/panel.php:148
 msgid "Global parameters"
 msgstr "Paràmetres globals"
 
@@ -760,6 +767,7 @@ msgid "Create page"
 msgstr "Crear pàgina"
 
 #: protected/views/cmsPage/admin.php:26
+#: protected/views/file/admin.php:25
 #: protected/views/file/_form.php:61
 msgid "Upload file"
 msgstr "Puja fitxer"
@@ -818,6 +826,11 @@ msgstr ""
 #, fuzzy
 msgid "Include budgets"
 msgstr "Partides definides"
+
+#: protected/views/file/admin.php:58
+#: protected/views/user/panel.php:97
+msgid "Document archive"
+msgstr "Arxiu de documents"
 
 #: protected/views/file/showBudgetFiles.php:30
 msgid "Restore all budgets from a backup"
@@ -881,7 +894,7 @@ msgid "Upload"
 msgstr "Pujar"
 
 #: protected/views/emailtext/admin.php:28
-#: protected/views/user/panel.php:141
+#: protected/views/user/panel.php:147
 msgid "Email text templates"
 msgstr "Plantilles de correu-e"
 
@@ -1139,7 +1152,7 @@ msgid "Delete enquiry"
 msgstr "Delete enquiry"
 
 #: protected/views/enquiry/admin.php:49
-#: protected/views/user/panel.php:118
+#: protected/views/user/panel.php:124
 msgid "Manage enquiries"
 msgstr "Gestionar consultes"
 
@@ -1189,7 +1202,7 @@ msgid "User email subscriptions"
 msgstr "Subscripcions per email"
 
 #: protected/views/enquiry/managed.php:48
-#: protected/views/user/panel.php:100
+#: protected/views/user/panel.php:106
 msgid "Entrusted enquiries"
 msgstr "Consultes encomanades"
 
@@ -1284,11 +1297,6 @@ msgstr "consulta genèrica"
 #: protected/views/enquiry/create.php:46
 msgid "If you wish to formulate a budgetary enquiry, you must first find the corresponding"
 msgstr "Si vols formular una consulta pressupostària, primer hauràs de seleccionar la partida concreta a la pestanya"
-
-#: protected/views/enquiry/create.php:47
-#: protected/controllers/BudgetController.php:84
-msgid "Budget"
-msgstr "Pressupost"
 
 #: protected/views/enquiry/create.php:67
 #: protected/views/enquiry/reformulate.php:48
@@ -1559,90 +1567,94 @@ msgstr "Configura el teu email"
 msgid "Change your password"
 msgstr "Canvia la teva contrasenya"
 
-#: protected/views/user/panel.php:101
+#: protected/views/user/panel.php:98
+msgid "Archive of the observatory's documents for referencing now and in the future."
+msgstr "Arxiu dels documents de l'Observatori per consultar ara i en el futur."
+
+#: protected/views/user/panel.php:107
 #: protected/views/user/updateRoles.php:79
 msgid "Manage the enquiries you are responsable for"
 msgstr "Respon a les consultes encarregades"
 
-#: protected/views/user/panel.php:108
+#: protected/views/user/panel.php:114
 msgid "CMS editor options"
 msgstr "Opcions de editor CMS"
 
-#: protected/views/user/panel.php:110
+#: protected/views/user/panel.php:116
 msgid "Introduction pages"
 msgstr "Pàginas de introducció"
 
-#: protected/views/user/panel.php:111
+#: protected/views/user/panel.php:117
 msgid "Site pages"
 msgstr "Pàgina de lloc"
 
-#: protected/views/user/panel.php:119
+#: protected/views/user/panel.php:125
 #: protected/views/user/updateRoles.php:95
 msgid "Assign enquiries to team members and check status"
 msgstr "Encarrega consultes a altres companys"
 
-#: protected/views/user/panel.php:126
+#: protected/views/user/panel.php:132
 msgid "Administator's options"
 msgstr "Opcions de administrador"
 
-#: protected/views/user/panel.php:129
+#: protected/views/user/panel.php:135
 msgid "New version available"
 msgstr "Nova versió disponible"
 
-#: protected/views/user/panel.php:129
+#: protected/views/user/panel.php:135
 msgid "Upgrade now"
 msgstr "Actualitzar ara"
 
-#: protected/views/user/panel.php:134
+#: protected/views/user/panel.php:140
 msgid "Years and budgets"
 msgstr "Anys i pressupostos"
 
-#: protected/views/user/panel.php:135
+#: protected/views/user/panel.php:141
 msgid "Newsletters"
 msgstr "Butlletins"
 
-#: protected/views/user/panel.php:136
+#: protected/views/user/panel.php:142
 msgid "Zip file"
 msgstr "Fitxer zip"
 
-#: protected/views/user/panel.php:137
+#: protected/views/user/panel.php:143
 msgid "Budget descriptions"
 msgstr "Descripcions de partides"
 
-#: protected/views/user/panel.php:140
+#: protected/views/user/panel.php:146
 #: protected/views/user/admin.php:37
 msgid "Users and roles"
 msgstr "Usuaris i rols"
 
-#: protected/views/user/panel.php:143
+#: protected/views/user/panel.php:149
 msgid "Backup"
 msgstr ""
 
-#: protected/views/user/panel.php:164
+#: protected/views/user/panel.php:170
 msgid "My enquiries"
 msgstr "Les meves consultes"
 
-#: protected/views/user/panel.php:200
+#: protected/views/user/panel.php:206
 msgid "I am subscribed to these enquirytions"
 msgstr "Estic escrit a aquestes consultes"
 
-#: protected/views/user/panel.php:201
+#: protected/views/user/panel.php:207
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
 
-#: protected/views/user/panel.php:234
+#: protected/views/user/panel.php:240
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Les consultes que hagis realitzat o a les quals t'hagis subscrit apareixeran aquí"
 
-#: protected/views/user/panel.php:278
+#: protected/views/user/panel.php:284
 msgid "Do you want to block"
 msgstr "Vols bloquejar"
 
-#: protected/views/user/panel.php:280
+#: protected/views/user/panel.php:286
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:281
+#: protected/views/user/panel.php:287
 msgid "No"
 msgstr "No"
 
@@ -1785,15 +1797,16 @@ msgstr "S'han guardat els canvis correctament"
 msgid "is blocked"
 msgstr "està bloquejat"
 
-#: protected/controllers/FileController.php:124
+#: protected/controllers/FileController.php:125
+#: protected/controllers/FileController.php:148
 msgid "File uploaded correctly"
 msgstr "File uploaded correctly"
 
-#: protected/controllers/FileController.php:209
+#: protected/controllers/FileController.php:215
 msgid "Zip file updated"
 msgstr "Fitxer zip actualitzat"
 
-#: protected/controllers/FileController.php:211
+#: protected/controllers/FileController.php:217
 msgid "Error: zip file not created"
 msgstr "Error: no s'ha generat el fitxer zip"
 
