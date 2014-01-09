@@ -189,7 +189,8 @@ $(function() {
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_pie_group"></div>');
-			group.append('<span style="font-size:1.5em; "><?php echo $budget->parent0->getConcept();?></span>');
+			//group.append('<span style="font-size:1.5em; "><?php echo $budget->parent0->getConcept();?></span>');
+			group.append('<span style="font-size:1.5em; "><?php echo $budget->getCategory();?></span>');
 			group.append(' <img style="vertical-align:middle;display:none;" class="pie_loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');

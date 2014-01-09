@@ -123,7 +123,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		);
 	
 		echo '<div class="graph_bar_group">';
-		
+			
 		echo '<a  class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';
 		echo CHtml::encode($featured_budget->getConcept()).'</a>';
 		echo '<div class="graph_bar_container">';

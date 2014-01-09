@@ -138,12 +138,13 @@ class Budget extends CActiveRecord
 
 	public function getLabel()
 	{
-		$label='';
-		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
-			if($description->label)
-				$label = $description->label;
-		}
-		return $label;
+		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
+			return $description->label;
+
+		if($this->label)
+			return $this->label;
+			
+		return '';
 	}
 
 	public function getConcept()
@@ -185,9 +186,9 @@ class Budget extends CActiveRecord
 	
 	public function getCategory()
 	{
-		if($rootBudget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 1))))
-			return $rootBudget->getConcept();
-		return '';
+		if($budget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 3))))
+			return $budget->getConcept();
+		return '<span style="color:red">getCategory('.$this->csv_id.')</span>';
 	}	
 
 	public function getPopulation($year=Null)

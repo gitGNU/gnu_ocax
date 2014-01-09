@@ -88,7 +88,7 @@ $attributes=array(
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
 	        'type'=>'raw',
-	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().' / '.$model->code.$compareYears : $model->getYearString().$compareYears,
+	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears : $model->getYearString().$compareYears,
 		),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'.$percentage),
 		array(

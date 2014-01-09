@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-07 18:28+0100\n"
+"PO-Revision-Date: 2014-01-09 12:07+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -163,7 +163,7 @@ msgstr "Pare"
 #: protected/models/Budget.php:118
 #: protected/views/budget/_compareYears.php:35
 #: protected/views/budget/noDescriptions.php:50
-#: protected/views/budget/_enquiryView.php:91
+#: protected/views/budget/_enquiryView.php:89
 msgid "Year"
 msgstr "Any"
 
@@ -214,7 +214,7 @@ msgstr "Trimestre 4"
 msgid "Weight"
 msgstr "Pes"
 
-#: protected/models/Budget.php:221
+#: protected/models/Budget.php:222
 msgid "Budget table saved on the"
 msgstr "Taula de pressupostos guardada el"
 
@@ -499,7 +499,7 @@ msgstr "Consultes pressupostàries del"
 #: protected/views/budget/index.php:128
 #: protected/views/layouts/main.php:87
 #: protected/views/user/panel.php:66
-#: protected/controllers/BudgetController.php:443
+#: protected/controllers/BudgetController.php:446
 msgid "Budgets"
 msgstr "Pressupostos"
 
@@ -520,8 +520,8 @@ msgid "Available years"
 msgstr "Anys disponibles"
 
 #: protected/views/budget/index.php:201
-msgid "Download database"
-msgstr "Baixar base de dades"
+msgid "Download files"
+msgstr "Baixar Arxius"
 
 #: protected/views/budget/index.php:230
 msgid "No data available"
@@ -564,24 +564,24 @@ msgstr "1 consulta feta"
 msgid "enquiries made"
 msgstr "consultes fetes"
 
-#: protected/views/budget/_enquiryView.php:84
+#: protected/views/budget/_enquiryView.php:82
 msgid "Compare years"
 msgstr "Comparar anys"
 
-#: protected/views/budget/_enquiryView.php:88
+#: protected/views/budget/_enquiryView.php:86
 msgid "of total"
 msgstr "del total"
 
-#: protected/views/budget/_enquiryView.php:91
+#: protected/views/budget/_enquiryView.php:89
 msgid "Year / Code"
 msgstr "Any / codi"
 
-#: protected/views/budget/_enquiryView.php:97
+#: protected/views/budget/_enquiryView.php:95
 msgid "Euros per person"
 msgstr "Euros per persona"
 
-#: protected/views/budget/_enquiryView.php:118
-#: protected/views/budget/_enquiryView.php:143
+#: protected/views/budget/_enquiryView.php:116
+#: protected/views/budget/_enquiryView.php:141
 #: protected/views/enquiry/index.php:103
 #: protected/views/layouts/main.php:88
 #: protected/views/user/view.php:127
@@ -1899,11 +1899,11 @@ msgstr "Nou team member assignat"
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
-#: protected/controllers/BudgetController.php:428
+#: protected/controllers/BudgetController.php:431
 msgid "Year deleted"
 msgstr "Any esborrat"
 
-#: protected/controllers/BudgetController.php:490
+#: protected/controllers/BudgetController.php:493
 msgid "Database restored correctly"
 msgstr "Database restored correctly"
 
