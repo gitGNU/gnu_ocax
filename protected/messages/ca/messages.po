@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-09 12:07+0100\n"
+"PO-Revision-Date: 2014-01-09 14:37+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1288,7 +1288,7 @@ msgstr "Si vols formular una consulta pressupostària, primer hauràs de selecci
 #: protected/views/enquiry/create.php:47
 #: protected/controllers/BudgetController.php:84
 msgid "Budget"
-msgstr "Pressuposto"
+msgstr "Pressupost"
 
 #: protected/views/enquiry/create.php:67
 #: protected/views/enquiry/reformulate.php:48
