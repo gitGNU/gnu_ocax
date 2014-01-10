@@ -287,3 +287,4 @@ if($noEnquiries){
 		echo '<button onclick="$(\'.flash-notice\').slideUp(\'fast\')">'.__('No').'</button>';
 	echo '</div>';
 } ?>
+     
