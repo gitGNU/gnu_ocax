@@ -66,6 +66,13 @@
 
 	<div class="header_block">	
 	<?php
+		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/archive'));
+		echo CHtml::link(__('Archive'), array('/archive'));
+	?>
+	</div>
+
+	<div class="header_block">	
+	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
 	?>
