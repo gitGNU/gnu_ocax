@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-09 18:16+0100\n"
+"PO-Revision-Date: 2014-01-09 19:05+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -488,7 +488,7 @@ msgstr "Listar años"
 #: protected/views/budget/updateYear.php:29
 #: protected/views/budget/featured.php:56
 msgid "Featured budgets"
-msgstr ""
+msgstr "Partidas destacadas"
 
 #: protected/views/budget/updateYear.php:36
 msgid "Delete year"

@@ -149,7 +149,7 @@ class FileController extends Controller
 
 				}elseif($model->model == 'archive'){
 					if($file_saved)
-						Yii::app()->user->setFlash('success', $model->getURI().__('File uploaded correctly'));
+						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
 					$this->redirect(array('file/adminArchive'));
 
 				}else
