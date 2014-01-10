@@ -18,12 +18,12 @@
 class Archive extends CActiveRecord
 {
 	
-	public $archiveDir;
+	public $baseDir;
 	public $file;
 
 	public function init()
 	{
-		$this->archiveDir = dirname(Yii::getPathOfAlias('application')).'/app/files/archive';
+		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app';
 	}
 	
 	/**
@@ -87,6 +87,23 @@ class Archive extends CActiveRecord
 			'description' => __('Description'),
 			'created' => __('Created'),
 		);
+	}
+
+	protected function beforeDelete()
+	{
+		if(file_exists($this->getURI()))
+			unlink($this->getURI());
+		return parent::beforeDelete();
+	}
+
+	public function getURI()
+	{
+		return $this->baseDir.$this->path;
+	}
+	
+	public function getWebPath()
+	{
+		return Yii::app()->request->baseUrl.$this->path;
 	}
 
 	/**

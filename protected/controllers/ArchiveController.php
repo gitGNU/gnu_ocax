@@ -24,7 +24,7 @@ class ArchiveController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -46,7 +46,7 @@ class ArchiveController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -63,26 +63,29 @@ class ArchiveController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+	/*
 	public function actionView($id)
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
-
+	*/
+	
 	public function actionValidateFile()
 	{
 		$model=new Archive;
 		// doing validation like this because I think I can't do it with ajax in a modal window
 		if(isset($_GET['file_name']))
 		{
-			$file_name = File::model()->normalize($_GET['file_name']);
-			$path=$model->archiveDir.'/'.$file_name;			
+			//$file_name = File::model()->normalize($_GET['file_name']);
+			$file_name = $_GET['file_name'];
+			$path = $model->baseDir.'/files/archive/'.$file_name;
 
 			if(!$file_name)
 				echo 'File required.';
-			elseif (!preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z]{3,4}$/', $file_name))
-    	        echo '"'.$file_name.'" Only characters a-z A-Z and 0-9 are allowed. ej: file.pdf';
+			//elseif (!preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z]{3,4}$/', $file_name))
+    	    //    echo '"'.$file_name.'" Only characters a-z A-Z and 0-9 are allowed. ej: file.pdf';
 			elseif(file_exists($path))
     	        echo '"'.$file_name.'" File already uploaded';
 			else
@@ -101,24 +104,29 @@ class ArchiveController extends Controller
 	{
 		$model=new Archive;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Archive']))
 		{
-			$model->attributes=$_POST['Archive'];
-			$model->file=CUploadedFile::getInstance($model,'file');
+			$model->attributes = $_POST['Archive'];
+			$model->file = CUploadedFile::getInstance($model,'file');
+			$model->name = $model->file->name;
+			$model->path = '/files/archive/'.$model->file->name;
+			$model->created = date('Y-m-d');
+			$model->author = Yii::app()->user->getUserID();
 			
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+			$saved = 0;
+			if($model->file->saveAs($model->baseDir.$model->path))
+				$saved = $model->save();
 
+			if($saved)
+				Yii::app()->user->setFlash('success', __('File uploaded correctly'));
+			else
+				Yii::app()->user->setFlash('error', __('File uploaded failed'));
+			
+
+			
+			$this->redirect(array('archive/index'));
+		}
 		echo $this->renderPartial('create',array('model'=>$model),false,true);
-/*
-		$this->render('create',array(
-			'model'=>$model,
-		));
-*/
 	}
 
 	/**
@@ -126,6 +134,7 @@ class ArchiveController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
+	/*
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
@@ -144,6 +153,7 @@ class ArchiveController extends Controller
 			'model'=>$model,
 		));
 	}
+	*/
 
 	/**
 	 * Deletes a particular model.
@@ -164,7 +174,6 @@ class ArchiveController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->layout='//layouts/column1';
 		$dataProvider=new CActiveDataProvider('Archive');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -174,6 +183,7 @@ class ArchiveController extends Controller
 	/**
 	 * Manages all models.
 	 */
+	/*
 	public function actionAdmin()
 	{
 		$model=new Archive('search');
@@ -185,6 +195,7 @@ class ArchiveController extends Controller
 			'model'=>$model,
 		));
 	}
+	*/
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -205,6 +216,7 @@ class ArchiveController extends Controller
 	 * Performs the AJAX validation.
 	 * @param Archive $model the model to be validated
 	 */
+	/*
 	protected function performAjaxValidation($model)
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='archive-form')
@@ -213,4 +225,5 @@ class ArchiveController extends Controller
 			Yii::app()->end();
 		}
 	}
+	*/
 }

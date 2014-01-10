@@ -147,11 +147,6 @@ class FileController extends Controller
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
 
-				}elseif($model->model == 'archive'){
-					if($file_saved)
-						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
-					$this->redirect(array('file/adminArchive'));
-
 				}else
 					$this->redirect(array('site/index'));
 			}

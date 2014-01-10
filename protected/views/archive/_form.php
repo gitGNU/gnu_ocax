@@ -27,13 +27,15 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 ?>
 <script>
-function validate(form){
+function validate(){
 	$('.errorMessage').html('');
 	errors=0;
+	/*
 	if($('#Archive_name').val() == ''){
 		$('#name_error').html("<?php echo __('Name required');?>");
 		errors=1;
 	}
+	*/
 	if($('#Archive_description').val() == ''){
 		$('#description_error').html("<?php echo __('Description required');?>");
 		errors=1;
@@ -41,7 +43,6 @@ function validate(form){
 	if(errors)
 		return;
 		
-	alert('m');
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/validateFile',
 		type: 'GET',
@@ -49,9 +50,10 @@ function validate(form){
 		//beforeSend: function() {},
 		success: function(data){
 			if(data == 1){
+				alert('valid');
 				$('#archive-form').hide();
 				$('#loading').show(); 
-				$(form).submit();
+				$('#archive-form').submit();
 			}else
 				$("#file_error").html(data);
 		},
@@ -73,10 +75,12 @@ function validate(form){
 	<div class="title"><?php echo __('Upload file');?></div>
 
 	<?php
+	/*
 		echo $form->label($model, 'name');
 		echo '<div class="hint">'.__('Name used for the link').'</div>';
 		echo '<div class="errorMessage" id="name_error"></div>';
 		echo $form->textField($model, 'name');
+	*/
 	?>
 
 	<?php
@@ -93,7 +97,7 @@ function validate(form){
 	?>
 
 	<div class="row buttons">
-		<input type="button" value="<?php echo __('Upload')?>" onClick="js:validate($('#file-form'));" />
+		<input type="button" value="<?php echo __('Upload')?>" onClick="js:validate();" />
 	</div>
 
 <?php $this->endWidget(); ?>

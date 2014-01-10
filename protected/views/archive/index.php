@@ -69,7 +69,42 @@ if($userCanCreate){
 </div>
 <div style="clear:both"></div>
 
+
+<style>
+.archive {
+	position: relative;
+	text-decoration:none;
+	border:1px solid red;
+	min-width:250px;
+	margin:15px;
+	padding:3px 10px 0px 10px;
+	float:left;
+}
+.archive .created {
+	position: absolute;
+	top: -10px;
+	background-color: white;
+
+}
+.archive .name {
+	font-size: 1.3em;	
+}
+.archive .description {
+	background-color:white;
+	padding: 5px;
+	margin: 0 -10px 0 -10px;
+}
+.archive .delete {
+	text-align:center;
+	background-color:red;
+	color:white;
+	margin: 0 -10px 0 -10px;
+}
+</style>
+
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
+	'viewData'=>array('userCanDelete'=>$userCanCreate),
 	'itemView'=>'_view',
 )); ?>
+<div style="clear:both"></div>
