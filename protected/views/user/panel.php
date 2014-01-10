@@ -92,11 +92,6 @@ function addPanelSeparator(){
 		echo '<div class="clear"></div>';
 		echo '</div>';	
 		$panel_separator_added=1;
-
-		changeColumn();
-		echo '<div class="sub_title">'.CHtml::link(__('Document archive'),array('file/adminArchive')).'</div>';
-		echo 	'<p>'.__('Archive of the observatory\'s documents for referencing now and in the future.').'</p>';
-		echo '</div>';
 	}
 }
 
@@ -287,4 +282,3 @@ if($noEnquiries){
 		echo '<button onclick="$(\'.flash-notice\').slideUp(\'fast\')">'.__('No').'</button>';
 	echo '</div>';
 } ?>
-     

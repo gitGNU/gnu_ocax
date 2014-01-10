@@ -53,11 +53,7 @@ class FileController extends Controller
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
-				'actions'=>array('adminArchive'),
-				'expression'=>"Yii::app()->user->isAdmin() || Yii::app()->user->isTeamMember() || Yii::app()->user->isTeamManager()",
-			),
-			array('allow',
-				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile'),
+				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 
