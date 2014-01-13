@@ -47,6 +47,8 @@ function getLanguagesArray($available=Null){
 				$listData['gl'] = 'Gallego';
 			if($language == 'en')
 				$listData['en'] = 'English';
+			if($language == 'fr')
+				$listData['fr'] = 'Français';
 		}
 	}
 	return $listData;
