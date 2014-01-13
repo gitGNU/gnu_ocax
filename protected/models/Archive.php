@@ -130,8 +130,8 @@ class Archive extends CActiveRecord
 	}
 
 	public function getExtension($file_name){
-		
-		return pathinfo($file_name, PATHINFO_EXTENSION);
+
+		return  substr(pathinfo($file_name, PATHINFO_EXTENSION), 0, 3);
 		
 		
 	// this doesn't work but should!!
