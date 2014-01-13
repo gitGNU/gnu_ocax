@@ -30,12 +30,7 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 function validate(){
 	$('.errorMessage').html('');
 	errors=0;
-	/*
-	if($('#Archive_name').val() == ''){
-		$('#name_error').html("<?php echo __('Name required');?>");
-		errors=1;
-	}
-	*/
+
 	if($('#Archive_description').val() == ''){
 		$('#description_error').html("<?php echo __('Description required');?>");
 		errors=1;
@@ -50,7 +45,6 @@ function validate(){
 		//beforeSend: function() {},
 		success: function(data){
 			if(data == 1){
-				alert('valid');
 				$('#archive-form').hide();
 				$('#loading').show(); 
 				$('#archive-form').submit();
@@ -73,15 +67,6 @@ function validate(){
 )); ?>
 
 	<div class="title"><?php echo __('Upload file');?></div>
-
-	<?php
-	/*
-		echo $form->label($model, 'name');
-		echo '<div class="hint">'.__('Name used for the link').'</div>';
-		echo '<div class="errorMessage" id="name_error"></div>';
-		echo $form->textField($model, 'name');
-	*/
-	?>
 
 	<?php
 		echo $form->label($model, 'file');	

@@ -51,6 +51,20 @@ function uploadFile(){
 		}
 	});
 }
+function deleteArchive(archive_id){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
+		type: 'POST',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			$.fn.yiiListView.update("archive_list",{});
+		},
+		error: function() {
+			alert("Error on get archive/delete");
+		}
+	});
+}
 </script>
 <div id="files" class="modal" style="width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
@@ -59,52 +73,85 @@ function uploadFile(){
 <?php } ?>
 
 
-<div>
+<div style="margin-top:-20px;">
 <?php
-echo '<h1 style="float:left">'.__('Archives').'</h1>';
+echo '<span class="bigTitle">'.__('Archive').'</span>';
 if($userCanCreate){
 	echo '<span class="link" style="float:right" onClick="js:uploadFile()">'.__('Upload a file').'</span>';
 }
 ?>
 </div>
-<div style="clear:both"></div>
+<div class="horizontalRule" style="clear:both;margin-bottom:20px;"></div>
+
 
 
 <style>
 .archive {
 	position: relative;
-	text-decoration:none;
-	border:1px solid red;
+	border:1px solid rgb(228, 222, 215);
+	background-color: rgb(228, 222, 215);
 	min-width:250px;
-	margin:15px;
-	padding:3px 10px 0px 10px;
+	margin: 15px 15px 45px 15px;
 	float:left;
+}
+.archive a {
+	color:grey;
+	text-decoration:none;
 }
 .archive .created {
 	position: absolute;
-	top: -10px;
-	background-color: white;
-
-}
-.archive .name {
-	font-size: 1.3em;	
-}
-.archive .description {
-	background-color:white;
-	padding: 5px;
-	margin: 0 -10px 0 -10px;
+	border:1px solid rgb(228, 222, 215);
+	padding: 0 5px 0 5px;
+	height: 18px;
+	width: 62px;
+	top: -20px;
+	left: -1px;
+	color:grey;
+	background-color: rgb(228, 222, 215);
 }
 .archive .delete {
-	text-align:center;
-	background-color:red;
+	position: absolute;
+	padding: 0 5px 0 5px;
+	height: 20px;
+	top: -20px;
+	left: 80px;
+	cursor: pointer;
+	background-color:#DC143C;
 	color:white;
-	margin: 0 -10px 0 -10px;
+}
+.archive .name {
+	padding: 3px 3px 0 3px;
+	font-size: 1.2em;	
+}
+.archive .mime {
+	float:right;
+	margin: 5px 0 0 0;
+}
+
+.archive .description {
+	max-width: 250px;
+	background-color: white;
+	margin-top: 3px;
+	padding: 5px;
 }
 </style>
 
+<div style="margin-left:30px">
 <?php $this->widget('zii.widgets.CListView', array(
+	'id'=>'archive_list',
+	'template'=>'{items}<div style="clear:both"></div>{pager}',
 	'dataProvider'=>$dataProvider,
 	'viewData'=>array('userCanDelete'=>$userCanCreate),
 	'itemView'=>'_view',
 )); ?>
 <div style="clear:both"></div>
+</div>
+
+
+<?php if($userCanCreate){
+	if(Yii::app()->user->hasFlash('error')){
+		echo '<div class="flash-error">';
+			echo Yii::app()->user->getFlash('error');
+		echo '</div>';
+	}
+} ?>

@@ -109,20 +109,21 @@ class ArchiveController extends Controller
 			$model->attributes = $_POST['Archive'];
 			$model->file = CUploadedFile::getInstance($model,'file');
 			$model->name = $model->file->name;
+			
 			$model->path = '/files/archive/'.$model->file->name;
 			$model->created = date('Y-m-d');
 			$model->author = Yii::app()->user->getUserID();
 			
 			$saved = 0;
-			if($model->file->saveAs($model->baseDir.$model->path))
+			if($model->file->saveAs($model->baseDir.$model->path)){
+				$model->mimeType = $model->getExtension($model->baseDir.$model->path);
 				$saved = $model->save();
+			}
 
 			if($saved)
 				Yii::app()->user->setFlash('success', __('File uploaded correctly'));
 			else
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
-			
-
 			
 			$this->redirect(array('archive/index'));
 		}
@@ -162,11 +163,14 @@ class ArchiveController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+		echo $id;
+
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+
 	}
 
 	/**
@@ -174,7 +178,15 @@ class ArchiveController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Archive');
+	$dataProvider=new CActiveDataProvider('Archive', array(
+													'criteria' => array(
+														'order'  => 'created DESC',
+													),
+													'pagination' => array(
+														'pageSize'   => 10,
+													),
+										));
+		//$dataProvider=new CActiveDataProvider('Archive');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -227,3 +239,4 @@ class ArchiveController extends Controller
 	}
 	*/
 }
+

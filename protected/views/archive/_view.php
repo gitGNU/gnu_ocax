@@ -22,25 +22,21 @@
 ?>
 
 
-<a class="archive" href="<?php echo $data->getWebPath();?>">
-
+<div class="archive" >
 	<?php
-		echo '<span class="created">'.CHtml::encode($data->created).'</span>';
-		echo '<span class="name">'.CHtml::encode($data->name).'</span>';
-		echo '<br />';
 
+		echo '<span class="created">'.format_date($data->created).'</span>';
+		if($userCanDelete)
+			echo '<span class="delete" onClick="js:deleteArchive('.$data->id.')">'.__('Delete').'</span>';
 
+		echo '<a href="'.$data->getWebPath().'">';
+		echo '<span class="name" style="float:left">'.CHtml::encode($data->name).'</span>';
+		echo '<img class="mime" src="'.Yii::app()->baseUrl.'/images/mimetypes/'.$data->mimeType.'.png"/>';
+
+		echo '<div style="clear:both"></div>';
 		echo '<div class="description">'.CHtml::encode($data->description).'</div>';
 
-	
+		echo '</a>';
+
 	?>
-
-
-
-	<?php
-		if($userCanDelete)
-			echo '<div class="delete">'.__('delete').'</div>';
-			
-?>
-</a>
-
+</div>
