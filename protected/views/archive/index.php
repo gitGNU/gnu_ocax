@@ -52,6 +52,9 @@ function uploadFile(){
 	});
 }
 function deleteArchive(archive_id){
+	if(confirm("<?php echo __('Delete this archive?');?>") == false)
+		return;
+
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
 		type: 'POST',
