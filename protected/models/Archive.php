@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $name
  * @property string $path
- * @property string $mimeType
+ * @property string $extension
  * @property integer $author
  * @property string $description
  * @property string $created
@@ -55,10 +55,10 @@ class Archive extends CActiveRecord
 			array('name, path, author, description, created', 'required'),
 			array('author', 'numerical', 'integerOnly'=>true),
 			array('name, path', 'length', 'max'=>255),
-			array('mimeType', 'length', 'max'=>5),
+			array('extension', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, path, mimeType, author, description, created', 'safe', 'on'=>'search'),
+			array('id, name, path, extension, author, description, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,7 +73,7 @@ class Archive extends CActiveRecord
 			'author0' => array(self::BELONGS_TO, 'User', 'author'),
 		);
 	}
-
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -82,7 +82,7 @@ class Archive extends CActiveRecord
 		return array(
 			'name' => __('Name'),
 			'path' => __('Path'),
-			'mimeType' => 'Mime-Type',
+			'extension' => 'Extension',
 			'author' => __('Author'),
 			'description' => __('Description'),
 			'created' => __('Created'),
@@ -119,7 +119,7 @@ class Archive extends CActiveRecord
 
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('mimeType',$this->mimeType,true);
+		$criteria->compare('extension',$this->extension,true);
 		$criteria->compare('author',$this->author);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('created',$this->created,true);
@@ -130,8 +130,7 @@ class Archive extends CActiveRecord
 	}
 
 	public function getExtension($file_name){
-
-		return  substr(pathinfo($file_name, PATHINFO_EXTENSION), 0, 3);
+		return pathinfo($file_name, PATHINFO_EXTENSION);
 		
 		
 	// this doesn't work but should!!

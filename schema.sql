@@ -252,7 +252,7 @@ CREATE TABLE IF NOT EXISTS archive (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(255) NOT NULL,
   path varchar(255) NOT NULL,
-  mimeType varchar(5) NULL,
+  extension varchar(5) NULL,
   author int(11) NOT NULL,
   description TEXT NOT NULL,
   created date NOT NULL,

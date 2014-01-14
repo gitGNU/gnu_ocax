@@ -24,6 +24,8 @@
 $userCanCreate = Yii::app()->user->canCreateArchive();
 ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/archive.css" />
+
 <?php if($userCanCreate){ ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
@@ -80,64 +82,14 @@ function deleteArchive(archive_id){
 <?php
 echo '<span class="bigTitle">'.__('Archive').'</span>';
 if($userCanCreate){
-	echo '<span class="link" style="float:right" onClick="js:uploadFile()">'.__('Upload a file').'</span>';
+	echo '<div style="float:right">';
+	echo '<a class="link" href="'.getInlineHelpURL(':archive').'" target="_new">'.__('About the Archive').'</a><br />';
+	echo '<span class="link" onClick="js:uploadFile()">'.__('Upload a file').'</span>';
+	echo '</div>';
 }
 ?>
 </div>
 <div class="horizontalRule" style="clear:both;margin-bottom:20px;"></div>
-
-
-
-<style>
-.archive {
-	position: relative;
-	border:1px solid rgb(228, 222, 215);
-	background-color: rgb(228, 222, 215);
-	min-width:250px;
-	margin: 15px 15px 45px 15px;
-	float:left;
-}
-.archive a {
-	color:grey;
-	text-decoration:none;
-}
-.archive .created {
-	position: absolute;
-	border:1px solid rgb(228, 222, 215);
-	padding: 0 5px 0 5px;
-	height: 18px;
-	width: 62px;
-	top: -20px;
-	left: -1px;
-	color:grey;
-	background-color: rgb(228, 222, 215);
-}
-.archive .delete {
-	position: absolute;
-	padding: 0 5px 0 5px;
-	height: 20px;
-	top: -20px;
-	left: 80px;
-	cursor: pointer;
-	background-color:#DC143C;
-	color:white;
-}
-.archive .name {
-	padding: 3px 3px 0 3px;
-	font-size: 1.2em;	
-}
-.archive .mime {
-	float:right;
-	margin: 5px 0 0 0;
-}
-
-.archive .description {
-	max-width: 250px;
-	background-color: white;
-	margin-top: 3px;
-	padding: 5px;
-}
-</style>
 
 <div style="margin-left:30px">
 <?php $this->widget('zii.widgets.CListView', array(
@@ -152,6 +104,19 @@ if($userCanCreate){
 
 
 <?php if($userCanCreate){
+	if(Yii::app()->user->hasFlash('success')){
+		echo '<script>';
+			echo '$(function() {'.
+					'$(".flash-success").slideDown("fast");'.
+					'setTimeout(function() {'.
+						'$(".flash-success").slideUp("fast");'.
+	    			'}, 4500);'.
+				'});';
+		echo '</script>';
+	    echo '<div class="flash-success" style="display:none">';
+			echo Yii::app()->user->getFlash('success');
+	    echo '</div>';
+	}	
 	if(Yii::app()->user->hasFlash('error')){
 		echo '<div class="flash-error">';
 			echo Yii::app()->user->getFlash('error');

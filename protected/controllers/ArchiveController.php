@@ -108,15 +108,18 @@ class ArchiveController extends Controller
 		{
 			$model->attributes = $_POST['Archive'];
 			$model->file = CUploadedFile::getInstance($model,'file');
-			$model->name = $model->file->name;
 			
+			$model->name = $model->file->name;
 			$model->path = '/files/archive/'.$model->file->name;
 			$model->created = date('Y-m-d');
 			$model->author = Yii::app()->user->getUserID();
 			
 			$saved = 0;
 			if($model->file->saveAs($model->baseDir.$model->path)){
-				$model->mimeType = $model->getExtension($model->baseDir.$model->path);
+				$model->extension = $model->getExtension($model->baseDir.$model->path);
+				if($model->extension){	// remove extension from name
+					$model->name = substr($model->name , 0, (-1 * strlen($model->extension))-1 );
+				}
 				$saved = $model->save();
 			}
 

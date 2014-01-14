@@ -31,7 +31,7 @@
 
 		echo '<a href="'.$data->getWebPath().'">';
 		echo '<span class="name" style="float:left">'.CHtml::encode($data->name).'</span>';
-		echo '<img class="mime" src="'.Yii::app()->baseUrl.'/images/mimetypes/'.$data->mimeType.'.png"/>';
+		echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.$data->extension.'.png"/>';
 
 		echo '<div style="clear:both"></div>';
 		echo '<div class="description">'.CHtml::encode($data->description).'</div>';
