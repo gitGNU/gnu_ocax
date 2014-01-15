@@ -143,11 +143,6 @@ class FileController extends Controller
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
 
-				}elseif($model->model == 'archive'){
-					if($file_saved)
-						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
-					$this->redirect(array('file/adminArchive'));
-
 				}else
 					$this->redirect(array('site/index'));
 			}
@@ -201,14 +196,28 @@ class FileController extends Controller
 
 		exec($command, $output, $return_var);
 		if(!$return_var){
+			$archive=Null;
 			if($old_zip){
-				unlink($old_zip->getURI());
+				$archive = Archive::model()->findByAttributes(array('path'=>$old_zip->path));
+				if(file_exists($old_zip->getURI()))
+					unlink($old_zip->getURI());
 				// siglas may have changed
 				$old_zip->path=$file->path;
 				$old_zip->name=$file->name;
 
 				$file = $old_zip;
 			}
+			if(!$archive)	// this is the first time zip has been created
+				$archive = new Archive;
+
+			$archive->name = $file->name;
+			$archive->path = $file->path;
+			$archive->description = __('MSG_ZIP_DESCRIPTION');
+			$archive->mimeType = 'zip';
+			$archive->created = date('Y-m-d');
+			$archive->author = Yii::app()->user->getUserID();
+			$archive->save();
+			
 			copy('/tmp/'.$zip_name, $file->getURI());
 			unlink('/tmp/'.$zip_name);		
 			$file->save();

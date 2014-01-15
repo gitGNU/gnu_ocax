@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-09 19:05+0100\n"
+"PO-Revision-Date: 2014-01-15 10:13+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,7 @@ msgstr "Tipo"
 
 #: protected/models/Email.php:100
 #: protected/models/BulkEmail.php:106
+#: protected/models/Archive.php:89
 msgid "Created"
 msgstr "Creada"
 
@@ -92,15 +93,17 @@ msgstr "Contraseña repetida"
 
 #: protected/models/RegisterForm.php:90
 #: protected/models/User.php:130
-#: protected/views/layouts/main.php:128
+#: protected/views/layouts/main.php:135
 msgid "Email"
 msgstr "Correo electrónico"
 
 #: protected/models/File.php:104
+#: protected/models/Archive.php:84
 msgid "Name"
 msgstr "Nombre"
 
 #: protected/models/File.php:105
+#: protected/models/Archive.php:85
 #: protected/views/file/admin.php:69
 msgid "Path"
 msgstr "Ruta"
@@ -131,8 +134,8 @@ msgstr "Enviado OK"
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/bulkEmail/admin.php:64
 #: protected/views/user/view.php:133
-#: protected/views/user/panel.php:193
-#: protected/views/user/panel.php:229
+#: protected/views/user/panel.php:188
+#: protected/views/user/panel.php:224
 msgid "State"
 msgstr "Estado"
 
@@ -282,6 +285,7 @@ msgstr "Comentario"
 
 #: protected/models/BudgetCategory.php:90
 #: protected/models/Config.php:99
+#: protected/models/Archive.php:88
 #: protected/models/BudgetDescription.php:127
 #: protected/views/budgetDescription/view.php:51
 msgid "Description"
@@ -298,6 +302,14 @@ msgstr "Parámetro"
 #: protected/models/Config.php:98
 msgid "Value"
 msgstr "Valor"
+
+#: protected/models/Archive.php:83
+msgid "File"
+msgstr "Fichero"
+
+#: protected/models/Archive.php:87
+msgid "Author"
+msgstr ""
 
 #: protected/models/Enquiry.php:61
 msgid "Generic"
@@ -370,8 +382,8 @@ msgstr "Asignada a"
 #: protected/views/enquiry/view.php:178
 #: protected/views/enquiry/index.php:108
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/user/panel.php:188
-#: protected/views/user/panel.php:224
+#: protected/views/user/panel.php:183
+#: protected/views/user/panel.php:219
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -504,7 +516,7 @@ msgid "Budgetary enquiries for"
 msgstr "Consultas presupuestarias del"
 
 #: protected/views/budget/index.php:128
-#: protected/views/layouts/main.php:87
+#: protected/views/layouts/main.php:94
 #: protected/views/user/panel.php:66
 #: protected/controllers/BudgetController.php:446
 msgid "Budgets"
@@ -527,8 +539,8 @@ msgid "Available years"
 msgstr "Años disponibles"
 
 #: protected/views/budget/index.php:201
-msgid "Download files"
-msgstr "Bajar Archivos"
+msgid "Download data"
+msgstr "Bajar Datos"
 
 #: protected/views/budget/index.php:230
 msgid "No data available"
@@ -589,10 +601,10 @@ msgstr "Euros por persona"
 #: protected/views/budget/_enquiryView.php:116
 #: protected/views/budget/_enquiryView.php:141
 #: protected/views/enquiry/index.php:103
-#: protected/views/layouts/main.php:88
+#: protected/views/layouts/main.php:95
 #: protected/views/user/view.php:127
-#: protected/views/user/panel.php:183
-#: protected/views/user/panel.php:219
+#: protected/views/user/panel.php:178
+#: protected/views/user/panel.php:214
 #: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr "Consultas"
@@ -647,7 +659,7 @@ msgid "Restore database"
 msgstr "Restore database"
 
 #: protected/views/config/admin.php:25
-#: protected/views/user/panel.php:148
+#: protected/views/user/panel.php:143
 msgid "Global parameters"
 msgstr "Parámetros globales"
 
@@ -720,6 +732,7 @@ msgid "comments on the"
 msgstr "comenta el día"
 
 #: protected/views/comment/_view.php:36
+#: protected/views/archive/_view.php:30
 msgid "Delete"
 msgstr "Borrar"
 
@@ -768,6 +781,7 @@ msgstr "Crear página"
 #: protected/views/cmsPage/admin.php:26
 #: protected/views/file/admin.php:25
 #: protected/views/file/_form.php:61
+#: protected/views/archive/_form.php:69
 msgid "Upload file"
 msgstr "Subir fichero"
 
@@ -826,7 +840,6 @@ msgid "Include budgets"
 msgstr "Incluir partida"
 
 #: protected/views/file/admin.php:58
-#: protected/views/user/panel.php:97
 msgid "Document archive"
 msgstr "Archivo de documentos"
 
@@ -887,11 +900,12 @@ msgid "Name used for the link"
 msgstr "Nombre que se usará para el enlace"
 
 #: protected/views/file/_form.php:77
+#: protected/views/archive/_form.php:85
 msgid "Upload"
 msgstr "Subir"
 
 #: protected/views/emailtext/admin.php:28
-#: protected/views/user/panel.php:147
+#: protected/views/user/panel.php:142
 msgid "Email text templates"
 msgstr "Plantillas de correo-e"
 
@@ -1148,7 +1162,7 @@ msgid "Delete enquiry"
 msgstr "Delete enquiry"
 
 #: protected/views/enquiry/admin.php:49
-#: protected/views/user/panel.php:124
+#: protected/views/user/panel.php:119
 msgid "Manage enquiries"
 msgstr "Gestionar consultas"
 
@@ -1198,7 +1212,7 @@ msgid "User email subscriptions"
 msgstr "Subscripciones por email"
 
 #: protected/views/enquiry/managed.php:48
-#: protected/views/user/panel.php:106
+#: protected/views/user/panel.php:101
 msgid "Entrusted enquiries"
 msgstr "Consultas encomendadas"
 
@@ -1367,7 +1381,7 @@ msgid "Text box content"
 msgstr "Contenido de la caja de texto"
 
 #: protected/views/layouts/column2.php:19
-#: protected/views/layouts/main.php:103
+#: protected/views/layouts/main.php:110
 msgid "My page"
 msgstr "Mi página"
 
@@ -1384,14 +1398,19 @@ msgid "Logout"
 msgstr "Logout"
 
 #: protected/views/layouts/main.php:70
+#: protected/views/archive/index.php:83
+msgid "Archive"
+msgstr "Archivo"
+
+#: protected/views/layouts/main.php:77
 msgid "Home"
 msgstr "Inicio"
 
-#: protected/views/layouts/main.php:124
+#: protected/views/layouts/main.php:131
 msgid "Contact information"
 msgstr "Datos de contacto"
 
-#: protected/views/layouts/main.php:130
+#: protected/views/layouts/main.php:137
 msgid "Telephone"
 msgstr "Teléfono"
 
@@ -1562,94 +1581,90 @@ msgstr "Configura tu email"
 msgid "Change your password"
 msgstr "Cambia tu contraseña"
 
-#: protected/views/user/panel.php:98
-msgid "Archive of the observatory's documents for referencing now and in the future."
-msgstr "Archivo de los documentos del Observatorio para consultar ahora y en el futuro."
-
-#: protected/views/user/panel.php:107
+#: protected/views/user/panel.php:102
 #: protected/views/user/updateRoles.php:79
 msgid "Manage the enquiries you are responsable for"
 msgstr "Responde a las consultas encargadas"
 
-#: protected/views/user/panel.php:114
+#: protected/views/user/panel.php:109
 msgid "CMS editor options"
 msgstr "Opciones de editor CMS"
 
-#: protected/views/user/panel.php:116
+#: protected/views/user/panel.php:111
 msgid "Introduction pages"
 msgstr "Páginas de Introducción"
 
-#: protected/views/user/panel.php:117
+#: protected/views/user/panel.php:112
 msgid "Site pages"
 msgstr "Páginas del sitio"
 
-#: protected/views/user/panel.php:125
+#: protected/views/user/panel.php:120
 #: protected/views/user/updateRoles.php:95
 msgid "Assign enquiries to team members and check status"
 msgstr "Encarga consultas a otros compañeros"
 
-#: protected/views/user/panel.php:132
+#: protected/views/user/panel.php:127
 msgid "Administator's options"
 msgstr "Opciones de administrador"
 
-#: protected/views/user/panel.php:135
+#: protected/views/user/panel.php:130
 msgid "New version available"
 msgstr "Nueva versión disponible"
 
-#: protected/views/user/panel.php:135
+#: protected/views/user/panel.php:130
 msgid "Upgrade now"
 msgstr "Actualizar ahora"
 
-#: protected/views/user/panel.php:140
+#: protected/views/user/panel.php:135
 msgid "Years and budgets"
 msgstr "Años y presupuestos"
 
-#: protected/views/user/panel.php:141
+#: protected/views/user/panel.php:136
 msgid "Newsletters"
 msgstr "Boletines"
 
-#: protected/views/user/panel.php:142
+#: protected/views/user/panel.php:137
 msgid "Zip file"
 msgstr "Fichero zip"
 
-#: protected/views/user/panel.php:143
+#: protected/views/user/panel.php:138
 msgid "Budget descriptions"
 msgstr "Descripciones de partidas"
 
-#: protected/views/user/panel.php:146
+#: protected/views/user/panel.php:141
 #: protected/views/user/admin.php:37
 msgid "Users and roles"
 msgstr "Usuarios y roles"
 
-#: protected/views/user/panel.php:149
+#: protected/views/user/panel.php:144
 msgid "Backup"
 msgstr ""
 
-#: protected/views/user/panel.php:170
+#: protected/views/user/panel.php:165
 msgid "My enquiries"
 msgstr "Mis consultas"
 
-#: protected/views/user/panel.php:206
+#: protected/views/user/panel.php:201
 msgid "I am subscribed to these enquirytions"
 msgstr "Estoy subscrito a estas consultas"
 
-#: protected/views/user/panel.php:207
+#: protected/views/user/panel.php:202
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se te enviará un correo electrónico cuando estas consultas se actualicen"
 
-#: protected/views/user/panel.php:240
+#: protected/views/user/panel.php:235
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Las consultas que hayas realizado o a las que te hayas suscrito aparecerán aquí"
 
-#: protected/views/user/panel.php:284
+#: protected/views/user/panel.php:279
 msgid "Do you want to block"
 msgstr "¿Quieres bloquear"
 
-#: protected/views/user/panel.php:286
+#: protected/views/user/panel.php:281
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:287
+#: protected/views/user/panel.php:282
 msgid "No"
 msgstr "No"
 
@@ -1688,6 +1703,26 @@ msgstr "Tu idioma preferido"
 #: protected/views/user/update.php:106
 msgid "What does this mean?"
 msgstr "¿Que significa esto?"
+
+#: protected/views/archive/index.php:57
+msgid "Delete this archive?"
+msgstr "¿Borrar este archivo?"
+
+#: protected/views/archive/index.php:86
+msgid "About the Archive"
+msgstr "Sobre el Archivo"
+
+#: protected/views/archive/index.php:87
+msgid "Upload a file"
+msgstr "Subir un fichero"
+
+#: protected/views/archive/_form.php:35
+msgid "Description required"
+msgstr "Falta incluir una descripción"
+
+#: protected/views/archive/_form.php:79
+msgid "A description of this file"
+msgstr "Una descripción de este fichero"
 
 #: protected/views/reply/create.php:47
 msgid "Date the Administration replied"
@@ -1792,16 +1827,20 @@ msgstr "Se han guardado los cambios correctamente"
 msgid "is blocked"
 msgstr "está bloqueado"
 
-#: protected/controllers/FileController.php:125
-#: protected/controllers/FileController.php:148
+#: protected/controllers/FileController.php:129
+#: protected/controllers/ArchiveController.php:127
 msgid "File uploaded correctly"
 msgstr "File uploaded correctly"
 
-#: protected/controllers/FileController.php:215
+#: protected/controllers/FileController.php:219
+msgid "MSG_ZIP_DESCRIPTION"
+msgstr "Un fichero ZIP que contiene los datos de los presupuestos en formato CSV, y documentación sobre cómo usarlos."
+
+#: protected/controllers/FileController.php:228
 msgid "Zip file updated"
 msgstr "Fichero zip actualizado"
 
-#: protected/controllers/FileController.php:217
+#: protected/controllers/FileController.php:230
 msgid "Error: zip file not created"
 msgstr "Error: no se ha generado el fichero zip"
 
@@ -1879,6 +1918,11 @@ msgstr "El enlace para recuperar tu contraseña se ha caducado"
 #: protected/controllers/SiteController.php:335
 msgid "Please change your password now"
 msgstr "Por favor, cambia tu contraseña ahora"
+
+#: protected/controllers/ArchiveController.php:129
+#, fuzzy
+msgid "File uploaded failed"
+msgstr "Mostrar los ficheros ya subidos"
 
 #: protected/controllers/EnquiryController.php:220
 msgid "We have sent you an email"

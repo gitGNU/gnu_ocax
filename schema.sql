@@ -248,6 +248,19 @@ CREATE TABLE IF NOT EXISTS cms_page_content (
 	FOREIGN KEY (page) REFERENCES cms_page(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS archive (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  path varchar(255) NOT NULL,
+  extension varchar(5) NULL,
+  author int(11) NOT NULL,
+  description TEXT NOT NULL,
+  created date NOT NULL,
+  FOREIGN KEY (author) REFERENCES user(id),
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+
 CREATE TABLE IF NOT EXISTS reset_password (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,

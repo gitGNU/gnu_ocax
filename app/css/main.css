@@ -312,11 +312,18 @@ div.search-form
 	background-color:rgb(228, 222, 215);
 }
 
-.bigTitle
+.veryBigTitle
 {
 	font-size: 600%;
 	line-height: 100%;
 	letter-spacing:-2pt;
+	font-weight:200;
+}
+
+.bigTitle
+{
+	font-size: 410%;
+	line-height: 90%;
 	font-weight:200;
 }
 

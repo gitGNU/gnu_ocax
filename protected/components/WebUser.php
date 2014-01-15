@@ -44,6 +44,21 @@ class WebUser extends CWebUser {
 
 
   // access it by Yii::app()->user->isAdmin()
+  function canCreateArchive(){
+	if(Yii::app()->user->isGuest)
+		return 0;
+    $user = $this->loadUser(Yii::app()->user->id);
+    if($user->is_team_member)
+    	return 1;
+    if($user->is_editor)
+    	return 1;
+    if($user->is_manager)
+    	return 1;
+    if($user->is_admin)
+    	return 1; 	
+	return 0;
+  }
+  
   function isTeamMember(){
 	if(Yii::app()->user->isGuest)
 		return 0;
