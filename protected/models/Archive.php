@@ -80,6 +80,7 @@ class Archive extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'file' => __('File'),
 			'name' => __('Name'),
 			'path' => __('Path'),
 			'extension' => 'Extension',

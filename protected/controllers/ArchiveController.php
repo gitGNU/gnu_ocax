@@ -183,10 +183,10 @@ class ArchiveController extends Controller
 	{
 	$dataProvider=new CActiveDataProvider('Archive', array(
 													'criteria' => array(
-														'order'  => 'created DESC',
+														'order' => 'created DESC',
 													),
 													'pagination' => array(
-														'pageSize'   => 10,
+														'pageSize' => 12,
 													),
 										));
 		//$dataProvider=new CActiveDataProvider('Archive');
