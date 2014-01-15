@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-15 10:14+0100\n"
+"PO-Revision-Date: 2014-01-15 11:55+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -226,7 +226,7 @@ msgstr "Pressupost"
 
 #: protected/models/Budget.php:222
 msgid "Budget table saved on the"
-msgstr "Taula de pressupostos guardada el"
+msgstr "Taula de pressuposts guardada el"
 
 #: protected/models/IntroPage.php:105
 msgid "Order"
@@ -520,7 +520,7 @@ msgstr "Consultes pressupostàries del"
 #: protected/views/user/panel.php:66
 #: protected/controllers/BudgetController.php:446
 msgid "Budgets"
-msgstr "Pressupostos"
+msgstr "Pressuposts"
 
 #: protected/views/budget/index.php:147
 #: protected/views/enquiry/_searchPublic.php:34
@@ -847,7 +847,7 @@ msgstr "Arxiu de documents"
 
 #: protected/views/file/showBudgetFiles.php:30
 msgid "Restore all budgets from a backup"
-msgstr "Restaurar tots els pressupostos des d'una còpia"
+msgstr "Restaurar tots els pressuposts des d'una còpia"
 
 #: protected/views/file/showBudgetFiles.php:34
 msgid "These copies are made right before a CSV file is imported"
@@ -1622,7 +1622,7 @@ msgstr "Actualitzar ara"
 
 #: protected/views/user/panel.php:135
 msgid "Years and budgets"
-msgstr "Anys i pressupostos"
+msgstr "Anys i pressuposts"
 
 #: protected/views/user/panel.php:136
 msgid "Newsletters"
@@ -1839,7 +1839,7 @@ msgstr "File uploaded correctly"
 
 #: protected/controllers/FileController.php:219
 msgid "MSG_ZIP_DESCRIPTION"
-msgstr "Un fitxer ZIP que conté les dades dels pressupostos en format CSV, i documentació sobre com usar-los."
+msgstr "Un fitxer ZIP que conté les dades dels pressuposts en format CSV i documentació sobre com usar-los."
 
 #: protected/controllers/FileController.php:228
 msgid "Zip file updated"
