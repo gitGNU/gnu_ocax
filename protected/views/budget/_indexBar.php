@@ -50,7 +50,7 @@ function toggleChildren(id){
 function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$parent_budget->id.' AND actual_provision != 0';
-	$criteria->order = 'actual_provision DESC';
+	$criteria->order = 'code ASC';
 	$child_budgets = Budget::model()->findAll($criteria);
 
 	foreach($child_budgets as $budget){
@@ -117,7 +117,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		$graph_percentage=percentage($largest_provision, $featured_budget->actual_provision);
 	
 		$globals=array(	'yearly_initial_provision' => $featured_budget->initial_provision,
-						'yearly_actual_provision' => $featured_budget->actu
+						'yearly_actual_provision' => $featured_budget->actual_provision,
 						'largest_provision'=> $largest_provision,
 						'queried_budget' => $featured_budget->id,
 		);
