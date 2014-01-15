@@ -117,7 +117,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		$graph_percentage=percentage($largest_provision, $featured_budget->actual_provision);
 	
 		$globals=array(	'yearly_initial_provision' => $featured_budget->initial_provision,
-						'yearly_actual_provision' => $featured_budget->actual_provision,
+						'yearly_actual_provision' => $featured_budget->actu
 						'largest_provision'=> $largest_provision,
 						'queried_budget' => $featured_budget->id,
 		);
