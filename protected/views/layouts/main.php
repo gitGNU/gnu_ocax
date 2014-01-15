@@ -104,7 +104,7 @@
 										'url'=>array('/p/'.$page_content->pageURL),
 										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
 								));
-				array_splice( $items, 0, 0, $item );
+				array_spliceice( $items, 0, 0, $item );
 			}
 			if(!Yii::app()->user->isGuest){
 				$item = array( array(	'label'=>__('My page'),

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-14 11:36+0100\n"
+"PO-Revision-Date: 2014-01-15 10:13+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1400,7 +1400,7 @@ msgstr "Logout"
 #: protected/views/layouts/main.php:70
 #: protected/views/archive/index.php:83
 msgid "Archive"
-msgstr ""
+msgstr "Archivo"
 
 #: protected/views/layouts/main.php:77
 msgid "Home"
