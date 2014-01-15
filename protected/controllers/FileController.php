@@ -213,7 +213,7 @@ class FileController extends Controller
 			$archive->name = $file->name;
 			$archive->path = $file->path;
 			$archive->description = __('MSG_ZIP_DESCRIPTION');
-			$archive->mimeType = 'zip';
+			$archive->extension = 'zip';
 			$archive->created = date('Y-m-d');
 			$archive->author = Yii::app()->user->getUserID();
 			$archive->save();
