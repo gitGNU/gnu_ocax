@@ -49,6 +49,9 @@ function getLanguagesArray($available=Null){
 				$listData['en'] = 'English';
 			if($language == 'fr')
 				$listData['fr'] = 'Français';
+			if($language == 'it')
+				$listData['it'] = 'Italiano';				
+				
 		}
 	}
 	return $listData;
