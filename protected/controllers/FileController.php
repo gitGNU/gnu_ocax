@@ -50,13 +50,12 @@ class FileController extends Controller
 			),
 			array('allow',
 				'actions'=>array(/*'view',*/'create','validateFileName',/*'update','admin',*/'delete'),
-				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember()",
+				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember() || Yii::app()->user->isAdmin()",
 			),
 			array('allow',
 				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
-
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -212,7 +211,12 @@ class FileController extends Controller
 
 			$archive->name = $file->name;
 			$archive->path = $file->path;
+			
+			$language = Yii::app()->language;
+			Yii::app()->language = getDefaultLanguage();
 			$archive->description = __('MSG_ZIP_DESCRIPTION');
+			Yii::app()->language = $language;			
+
 			$archive->extension = 'zip';
 			$archive->created = date('Y-m-d');
 			$archive->author = Yii::app()->user->getUserID();

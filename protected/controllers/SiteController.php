@@ -170,7 +170,8 @@ class SiteController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
- 
+
+ 		$model->is_socio = 0;	// maybe admin doesn't encourage membership. 0 = default
 		if(isset($_POST['RegisterForm']))
 		{
 			$model->attributes=$_POST['RegisterForm'];

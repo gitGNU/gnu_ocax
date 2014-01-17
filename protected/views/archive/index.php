@@ -92,13 +92,21 @@ if($userCanCreate){
 <div class="horizontalRule" style="clear:both;margin-bottom:20px;"></div>
 
 <div style="margin-left:30px">
-<?php $this->widget('zii.widgets.CListView', array(
+<?php
+$user_id = Null;
+$is_admin = Null;
+if(!Yii::app()->user->isGuest){
+	$user_id = Yii::app()->user->getUserID();
+	$is_admin = Yii::app()->user->isAdmin();
+}
+$this->widget('zii.widgets.CListView', array(
 	'id'=>'archive_list',
 	'template'=>'{items}<div style="clear:both"></div>{pager}',
 	'dataProvider'=>$dataProvider,
-	'viewData'=>array('userCanDelete'=>$userCanCreate),
+	'viewData'=>array('user_id'=>$user_id,'is_admin'=>$is_admin),
 	'itemView'=>'_view',
-)); ?>
+));
+?>
 <div style="clear:both"></div>
 </div>
 

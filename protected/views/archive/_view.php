@@ -26,7 +26,7 @@
 	<?php
 
 		echo '<span class="created">'.format_date($data->created).'</span>';
-		if($userCanDelete)
+		if($data->author == $user_id || $is_admin)
 			echo '<span class="delete" onClick="js:deleteArchive('.$data->id.')">'.__('Delete').'</span>';
 
 		echo '<a href="'.$data->getWebPath().'">';

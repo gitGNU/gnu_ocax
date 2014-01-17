@@ -54,6 +54,11 @@ function getLanguagesArray($available=Null){
 	return $listData;
 }
 
+function getDefaultLanguage(){
+	$languages=explode(',', Config::model()->findByPk('languages')->value);
+	return $languages[0];
+}
+
 function format_date($date, $hours=Null){
 	$date = new DateTime($date);
 	if($hours)

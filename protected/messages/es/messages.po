@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-15 10:13+0100\n"
+"PO-Revision-Date: 2014-01-17 11:53+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1834,7 +1834,7 @@ msgstr "File uploaded correctly"
 
 #: protected/controllers/FileController.php:219
 msgid "MSG_ZIP_DESCRIPTION"
-msgstr "Un fichero ZIP que contiene los datos de los presupuestos en formato CSV, y documentación sobre cómo usarlos."
+msgstr "Un fichero ZIP que contiene los datos de los presupuestos en formato CSV y documentación relacionada."
 
 #: protected/controllers/FileController.php:228
 msgid "Zip file updated"

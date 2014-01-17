@@ -32,6 +32,8 @@ if(!$user->is_active)
 $(document).ready(function() {
 	if(1 != <?php echo $user->is_active;?>){
 		$('#enquiry-form').find(':input:not(:disabled)').prop('disabled',true);
+		$('#enquiry-form').find('textarea').width('100%');
+		$('#enquiry-form').find('textarea').height(300);
 		$('#enquiry-form').find(':textarea:not(:disabled)').prop('disabled',true);
 	}
 });

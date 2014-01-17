@@ -1,9 +1,28 @@
 Before upgrading, read INSTALL to refresh your memory.
 
-1. Save your app/files folder
-2. Save your protected/config/main.php file
-3. Overwrite app/ and protected/ with new version
-4. Restore app/files and protected/config/main.php
+1. Make a backup and save it somewhere just in case.
+2. Save your app/files folder
+3. Save your protected/config/main.php file
+4. Overwrite app/ and protected/ with new version
+5. You possibly need to restore app/files and protected/config/main.php
+6. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
+
+
+1.0.5
+Follow steps 1-6 above.
+Create a new table in the database
+
+CREATE TABLE IF NOT EXISTS archive (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  path varchar(255) NOT NULL,
+  extension varchar(5) NULL,
+  author int(11) NOT NULL,
+  description TEXT NOT NULL,
+  created date NOT NULL,
+  FOREIGN KEY (author) REFERENCES user(id),
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 
 1.0.4
