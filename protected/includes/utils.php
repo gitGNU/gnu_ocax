@@ -50,7 +50,9 @@ function getLanguagesArray($available=Null){
 			if($language == 'fr')
 				$listData['fr'] = 'Français';
 			if($language == 'it')
-				$listData['it'] = 'Italiano';				
+				$listData['it'] = 'Italiano';
+			if($language == 'pt')
+				$listData['pt'] = 'Português';
 				
 		}
 	}
