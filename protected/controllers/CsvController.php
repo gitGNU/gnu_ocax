@@ -110,12 +110,15 @@ class CsvController extends Controller
 		$model = new ImportCSV;
 		$content = file_get_contents($model->path.$_GET['csv_file']);
 
-		$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
-		
+		//$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
+		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);		
 		if($original_encoding != 'UTF-8'){
-			$content = iconv($original_encoding, 'UTF-8', $content);	
-			file_put_contents($model->path.$_GET['csv_file'], $content);
-			echo 'Converted '.$original_encoding.' to UTF-8';
+			$error[]='This CSV file has not been saved in UTF-8';
+			echo CJavaScript::jsonEncode(array('error'=>$error));
+			
+			//$content = iconv($original_encoding, 'UTF-8', $content);	
+			//file_put_contents($model->path.$_GET['csv_file'], $content);
+			//echo 'Converted '.$original_encoding.' to UTF-8';
 		}else
 			echo 'File seems to be UTF-8';
 	}
