@@ -376,7 +376,7 @@ div.search-form
 	margin:0 auto;
 }
 
-.header_block
+#header_bar_container > div
 {
 	font-weight:800;
 	list-style-type: none;
@@ -387,7 +387,7 @@ div.search-form
 	float:right;
 }
 
-.header_last_block
+#header_bar_container > div:first-of-type
 {
 	font-weight:800;
 	list-style-type: none;

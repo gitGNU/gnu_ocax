@@ -26,20 +26,18 @@
 <div id="header_bar">
 <div id="header_bar_container">
 
-	<div class="header_last_block">
-   		<?php
+	<?php
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		if(isset($languages[1])){
-			echo '<span style="float:right; position:relative">';
+			echo '<div><span style="float:right; position:relative">';
 			foreach($languages as $lang){
 				echo '<a class="language_link" href="'.Yii::app()->request->baseUrl.'/site/language?lang='.$lang.'">'.$lang.'</a> ';
 			}
-			echo '</span>';
+			echo '</span></div>';
 		}
 	?>
-	</div>
     
-    <div class="header_block">
+    <div>
 		<?php
 			if(Yii::app()->user->isGuest){
 				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/login'));
@@ -56,7 +54,7 @@
 	$twURL = Config::model()->findByPk('socialTwitterURL')->value;
 
 	if($fbURL || $twURL){
-		echo '<div class="header_block">';
+		echo '<div>';
 		if($fbURL)
 			echo '<a href="'.$fbURL.'" style="margin-top:3px"><img src="'.Yii::app()->theme->baseUrl.'/images/fb_bar.gif" /></a> ';
 		if($twURL)
@@ -64,14 +62,14 @@
 		echo '</div>';
 	} ?>    
 
-	<div class="header_block">	
+	<div>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
 		echo CHtml::link(__('Archive'), array('/archive'));
 	?>
 	</div>
 
-	<div class="header_block">	
+	<div>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
