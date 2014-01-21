@@ -172,7 +172,7 @@ if(count($years) > 1){
 	$list=CHtml::listData($years, 'year', function($year) {
 		return $year->getYearString();
 	});
-		echo '<div style="margin-right:15px" id="budget_year" ></div>';	// cambia por icono de 'años disponibles'
+		echo '<div style="margin-right:15px" id="budget_year" ></div>';
 		echo '<div style="float:left">';
 		echo __('Available years').'<br />';
 		echo CHtml::dropDownList('budget', $model->year, $list,
@@ -229,10 +229,19 @@ if(count($years) > 1){
 	if(!$root_budget){
 		echo '<h1>'. __('No data available').'</h1>';
 	}else{
+		if(!Yii::app()->user->isAdmin() && !$model->isPublished())
+			$featured = array();
+		else{
+			$criteria=new CDbCriteria;
+			$criteria->addCondition('featured = 1');
+			$criteria->addCondition('year = '.$model->year);
+			$criteria->order = 'code ASC';
+			$featured=$model->findAll($criteria);
+		}
 		if($graph_type == 'bar')
-			$this->renderPartial('_indexBar',array('model'=>$model));
+			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));
 		else
-			$this->renderPartial('_indexPie',array('model'=>$model));
+			$this->renderPartial('_indexPie',array('model'=>$model,'featured'=>$featured));
 	}
 	echo '</div>';
 ?>

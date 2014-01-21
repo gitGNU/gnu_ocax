@@ -95,12 +95,6 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 ?>
 
 <?php
-	$criteria=new CDbCriteria;
-	$criteria->addCondition('featured = 1');
-	$criteria->addCondition('year = '.$model->year);
-	$criteria->order = 'csv_id ASC';
-	$featured=$model->findAll($criteria);
-
 	$graph_width=929;
 		
 	echo '<div id="bar_display" style="margin: 5px 0 15px 0px">';

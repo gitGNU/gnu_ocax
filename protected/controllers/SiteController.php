@@ -47,8 +47,11 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 
-		$this->render('index', array('lang'=>Yii::app()->user->getState('applicationLanguage')));
-
+		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
+			$this->changeLanguage($_GET['lang']);
+			$this->redirect(array('/'));
+		}else
+			$this->render('index', array('lang'=>Yii::app()->user->getState('applicationLanguage')));
 	}
 	
 	/**
@@ -261,15 +264,20 @@ class SiteController extends Controller
 		$this->render('login',array('model'=>$model));
 	}
 
+	private function changeLanguage($lang)
+	{
+		$available_langs = Yii::app()->coreMessages->basePath;
+		if(is_dir($available_langs.'/'.$lang)){
+			$cookie = new CHttpCookie('lang', $lang);
+			$cookie->expire = time()+60*60*24*180; 
+			Yii::app()->request->cookies['lang'] = $cookie;
+		}		
+	}
+
 	public function actionLanguage()
 	{
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
-			$available_langs = Yii::app()->coreMessages->basePath;
-			if(is_dir($available_langs.'/'.$_GET['lang'])){
-				$cookie = new CHttpCookie('lang', $_GET['lang']);
-				$cookie->expire = time()+60*60*24*180; 
-				Yii::app()->request->cookies['lang'] = $cookie;
-			}
+			$this->changeLanguage($_GET['lang']);
 		}
 		Yii::app()->request->redirect(CHttpRequest::getUrlReferrer());
 	}
