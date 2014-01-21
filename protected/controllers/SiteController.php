@@ -49,7 +49,7 @@ class SiteController extends Controller
 
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
 			$this->changeLanguage($_GET['lang']);
-			$this->redirect(array('/'));
+			$this->redirect(array('index'));
 		}else
 			$this->render('index', array('lang'=>Yii::app()->user->getState('applicationLanguage')));
 	}
