@@ -20,13 +20,8 @@
 
 /* @var $this BudgetController */
 /* @var $model Budget */
-Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
-$criteria=new CDbCriteria;
-$criteria->addCondition('featured = 1');
-$criteria->addCondition('year = '.$model->year);
-$criteria->order = 'csv_id ASC';
-$featured=$model->findAll($criteria);
+Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 ?>
 
 

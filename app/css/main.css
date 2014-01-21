@@ -214,6 +214,14 @@ div.view
 	border: 1px solid #cdcbc9;
 }
 
+
+div.comment
+{
+	padding: 10px;
+	margin-top: 20px;
+	border: 1px dotted #cdcbc9;
+	border-top: 2px solid #cdcbc9;
+}
 /*
 div.breadcrumbs
 {

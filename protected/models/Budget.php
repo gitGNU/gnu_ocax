@@ -207,6 +207,11 @@ class Budget extends CActiveRecord
 		$criteria->addCondition('parent = '.$this->id.' and actual_provision != 0');
 		return $this->findAll($criteria);
 	}
+	
+	public function isPublished()
+	{
+		return $this->find(array('condition'=>'parent IS NULL AND code = 1 AND year = '.$this->year));
+	}
 
 	/**
 	 * Dump the budget table
