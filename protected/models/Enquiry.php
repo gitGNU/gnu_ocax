@@ -137,7 +137,7 @@ class Enquiry extends CActiveRecord
 			array('assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, related_to, user, username, team_member, manager, created, assigned, type, capitulo, state, title, body', 'safe', 'on'=>'search'),
+			array('related_to, user, username, team_member, manager, created, assigned, type, state, title, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -331,7 +331,6 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('user',$this->user);
 		$criteria->compare('related_to',$this->related_to);
 
-		$criteria->compare('manager',$this->manager);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('assigned',$this->assigned,true);
 		$criteria->compare('type',$this->type);
@@ -356,17 +355,18 @@ class Enquiry extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('teamMember');
+		$criteria->with=array('user0');
 
-		$criteria->compare('user',$this->user);
+		//$criteria->compare('user',$this->user);
 		$criteria->compare('related_to',$this->related_to);
 
 		//http://www.yiiframework.com/forum/index.php/topic/8148-cgridview-filter-with-relations/
-		$criteria->compare('teamMember.username', $this->username, true);
+		$criteria->compare('user0.username', $this->username, true);
 
+		$criteria->compare('team_member',$this->team_member);
 		$criteria->compare('manager',$this->manager);
 		$criteria->compare('created',$this->created,true);
-		$criteria->compare('assigned',$this->assigned,true);
+		$criteria->compare('assigned',$this->assigned);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);

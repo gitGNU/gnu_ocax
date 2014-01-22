@@ -34,7 +34,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
-		<?php echo $form->textField($model,'user'); ?>
+		<?php echo $form->textField($model,'username'); ?>
 	</div>
 
 	<div class="row">
@@ -64,13 +64,12 @@
 	</div>
 
 	<div class="row">
-		<?php $team_managers = user::model()->findAll(array("condition"=>"is_manager =  1","order"=>"username")); ?>
+		<?php $managers = user::model()->findAll(array("condition"=>"is_manager =  1","order"=>"username")); ?>
 		<?php echo $form->label($model,'manager'); ?>
 		<?php echo $form->dropDownList($model,	'manager',
-												CHtml::listData($team_managers,'id', 'fullname'),
+												CHtml::listData($managers,'id', 'fullname'),
 												array('prompt'=>__('Not filtered'))); ?>
 	</div>
-
 
 </div>
 <div style="clear:both"></div>

@@ -51,9 +51,9 @@ $('.search-form form').submit(function(){
 
 </div>
 <div class="right">
-	<b><?php echo __('States');?></b>
+	<p style="margin-bottom:5px;"><?php echo __('States');?>
 	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>	
-	<br />
+	</p>
 	<?php
 		foreach($model->getHumanStates() as $key=>$value){
 			echo $key.'&nbsp&nbsp'.$value.'<br />';
@@ -72,7 +72,7 @@ $('.search-form form').submit(function(){
 	'selectableRows'=>1,
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/adminView').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->adminSearch(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		'title',
 		'created',
