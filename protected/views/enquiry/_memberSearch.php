@@ -34,7 +34,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
-		<?php echo $form->textField($model,'user'); ?>
+		<?php echo $form->textField($model,'username'); ?>
 	</div>
 
 	<div class="row">

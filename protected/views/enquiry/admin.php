@@ -79,7 +79,7 @@ $('.search-form form').submit(function(){
 		array(
 			'header'=>__('Assigned to'),
 			'name'=>'username',
-			'value'=>'($data->teamMember) ? $data->teamMember->username : ""',
+			'value'=>'($data->teamMember) ? $data->teamMember->fullname : ""',
 		),
 		'state',
 /*

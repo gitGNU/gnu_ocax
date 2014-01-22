@@ -326,19 +326,19 @@ class Enquiry extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->with=array('user0');
+		$criteria->compare('user0.username', $this->username, true);
+		
 		$criteria->compare('team_member',Yii::app()->user->getUserID());
-
-		$criteria->compare('user',$this->user);
-		$criteria->compare('related_to',$this->related_to);
-
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('assigned',$this->assigned,true);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);
-
+		//$criteria->compare('related_to',$this->related_to);
+		//$criteria->compare('created',$this->created,true);
+		//$criteria->compare('assigned',$this->assigned,true);
+		//$criteria->compare('budget',$this->budget);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'created DESC'),
@@ -355,24 +355,21 @@ class Enquiry extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		//http://www.yiiframework.com/forum/index.php/topic/8148-cgridview-filter-with-relations/
 		$criteria->with=array('user0');
 
-		//$criteria->compare('user',$this->user);
-		$criteria->compare('related_to',$this->related_to);
-
-		//http://www.yiiframework.com/forum/index.php/topic/8148-cgridview-filter-with-relations/
 		$criteria->compare('user0.username', $this->username, true);
-
 		$criteria->compare('team_member',$this->team_member);
 		$criteria->compare('manager',$this->manager);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('assigned',$this->assigned);
+		//$criteria->compare('assigned',$this->assigned);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);
-
+		//$criteria->compare('related_to',$this->related_to);
+		//$criteria->compare('created',$this->created,true);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'created DESC'),
