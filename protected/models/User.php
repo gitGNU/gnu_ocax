@@ -126,16 +126,15 @@ class User extends CActiveRecord
 			'password' => __('Password'),
 			'new_password' => __('New password'),
 			'password_repeat' => __('Repeat password'),
-			'salt' => 'Salt',
 			'email' => __('Email'),
 			'language' => __('Language'),
 			'joined' => __('Joined'),
-			'is_active' => 'Active',
+			'is_active' => __('Active'),
 			'is_socio' => __('Is partner'),
-			'is_team_member' => 'Is Team Member',
-			'is_editor' => 'Is Editor',
-			'is_manager' => 'Is Manager',
-			'is_admin' => 'Is Admin',
+			'is_team_member' => 'Team Member',
+			'is_editor' => 'CMS Editor',
+			'is_manager' => 'Team Manager',
+			'is_admin' => 'Admin',
 		);
 	}
 

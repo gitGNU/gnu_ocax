@@ -235,7 +235,7 @@ if(count($years) > 1){
 			$criteria=new CDbCriteria;
 			$criteria->addCondition('featured = 1');
 			$criteria->addCondition('year = '.$model->year);
-			$criteria->order = 'code ASC';
+			$criteria->order = 'csv_id ASC';
 			$featured=$model->findAll($criteria);
 		}
 		if($graph_type == 'bar')

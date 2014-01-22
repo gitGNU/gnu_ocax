@@ -180,7 +180,7 @@ class Enquiry extends CActiveRecord
 			'related_to' => __('Related to'),
 			'user' => __('Formulated by'),
 			'team_member' => __('Assigned to'),
-			'manager' => 'Manager',
+			'manager' => __('Manager'),
 			'created' => __('Formulated'),
 			'assigned' => __('Assigned'),
 			'submitted'=>__('Submitted'),

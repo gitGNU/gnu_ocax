@@ -23,26 +23,18 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
+<div class="wide form" style="width:100%">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+<div style="float:left;width:35%">
 
 	<div class="row">
 		<?php echo $form->label($model,'csv_id'); ?>
 		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'language'); ?>
-		<?php echo $form->textField($model,'language',array('size'=>2,'maxlength'=>2)); ?>
 	</div>
 
 	<div class="row">
@@ -51,24 +43,30 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'language'); ?>
+		<?php echo $form->textField($model,'language',array('size'=>2,'maxlength'=>2)); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton(__('Search')); ?>
+	</div>
+
+</div>
+<div style="float:right;width:65%">
+
+	<div class="row">
 		<?php echo $form->label($model,'concept'); ?>
-		<?php echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'concept',array('size'=>40,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'text',array('rows'=>5, 'cols'=>35)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'text'); ?>
-		<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+</div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
+<div style="clear:both"></div>

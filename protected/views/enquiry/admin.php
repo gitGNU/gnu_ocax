@@ -22,10 +22,6 @@
 /* @var $model Enquiry */
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
 $('.search-form form').submit(function(){
 	$.fn.yiiGridView.update('enquiry-grid', {
 		data: $(this).serialize()
@@ -35,11 +31,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 63%; float: left;  margin: 0px;}
-	.right{width: 33%; float: left; margin: 0px;}
+	.left{width: 69%; float: left;  margin: 0px;}
+	.right{width: 30%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
@@ -48,9 +43,8 @@ $('.search-form form').submit(function(){
 
 <h1><?php echo __('Manage enquiries');?></h1>
 
-<?php echo CHtml::link(__('Advanced Search'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
+<div class="search-form">
+<?php $this->renderPartial('_managerSearch',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->

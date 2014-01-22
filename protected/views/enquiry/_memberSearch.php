@@ -23,12 +23,14 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
+<div class="wide form" style="width:100%">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
+
+<div style="float:left;width:49%">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
@@ -36,35 +38,31 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'team_member'); ?>
-		<?php echo $form->textField($model,'team_member'); ?>
+		<?php echo $form->label($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>20,'maxlength'=>255)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'manager'); ?>
-		<?php echo $form->textField($model,'manager'); ?>
-	</div>
+</div>
+<div style="float:right;width:49%">
 
 	<div class="row">
 		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->dropDownList($model, 'type', array(""=>"Sin filtrar") + $model->getHumanTypes());?>
+		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'body'); ?>
+		<?php echo $form->textField($model,'body',array('size'=>20,'maxlength'=>255)); ?>
+	</div>
+
+</div>
+<div style="clear:both"></div>
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
-		<?php echo $form->dropDownList($model, 'state', array(""=>"Sin filtrar") + $model->getHumanStates());?>
+		<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>30,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255)); ?>
-	</div>
-
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton(__('Search')); ?>
 	</div>
@@ -72,3 +70,4 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
+

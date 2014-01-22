@@ -148,8 +148,8 @@ class BudgetDescription extends CActiveRecord
 		$criteria->compare('language',$this->language,true);
 		$criteria->compare('code',$this->code);
 		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('description',$this->description,true);
-		//$criteria->compare('text',$this->text,true);
+		//$criteria->compare('description',$this->description,true);
+		$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

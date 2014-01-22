@@ -22,12 +22,19 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
+<style>
+.outer{ width: 100% }
+
+</style>
+
+<div class="wide form" style="width:100%">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
+
+<div style="float:left;width:50%">
 
 	<div class="row">
 		<?php echo $form->label($model,'username'); ?>
@@ -36,12 +43,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'fullname'); ?>
-		<?php echo $form->textField($model,'fullname',array('size'=>60,'maxlength'=>64)); ?>
+		<?php echo $form->textField($model,'fullname',array('size'=>32,'maxlength'=>64)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->textField($model,'email',array('size'=>32,'maxlength'=>128)); ?>
 	</div>
 
 	<div class="row">
@@ -49,35 +56,51 @@
 		<?php echo $form->textField($model,'joined'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'is_active'); ?>
-		<?php echo $form->textField($model,'is_active'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'is_socio'); ?>
-		<?php echo $form->textField($model,'is_socio'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'is_team_member'); ?>
-		<?php echo $form->textField($model,'is_team_member'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'is_editor'); ?>
-		<?php echo $form->textField($model,'is_editor'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'is_manager'); ?>
-		<?php echo $form->textField($model,'is_manager'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton(__('Search')); ?>
 	</div>
 
+</div>
+<div style="float:right;width:24%">
+
+	<div class="row">
+		<?php echo $form->label($model,'is_team_member'); ?>
+		<?php echo $form->textField($model,'is_team_member',array('size'=>5)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'is_manager'); ?>
+		<?php echo $form->textField($model,'is_manager',array('size'=>5)); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'is_admin'); ?>
+		<?php echo $form->textField($model,'is_admin',array('size'=>5)); ?>
+	</div>
+
+</div>
+<div style="float:right;width:24%">
+
+	<div class="row">
+		<?php echo $form->label($model,'is_active'); ?>
+		<?php echo $form->textField($model,'is_active',array('size'=>5)); ?>
+	</div>
+
+	<?php if(Config::model()->findByPk('membership')->value){ ?>
+	<div class="row">
+		<?php echo $form->label($model,'is_socio'); ?>
+		<?php echo $form->textField($model,'is_socio',array('size'=>5)); ?>
+	</div>
+	<?php } ?>
+
+	<div class="row">
+		<?php echo $form->label($model,'is_editor'); ?>
+		<?php echo $form->textField($model,'is_editor',array('size'=>5)); ?>
+	</div>
+	
+</div>
+
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
+<div style="clear:both"></div>

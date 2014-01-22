@@ -119,7 +119,7 @@ function send(){
 
 echo CHtml::button(__('Edit draft'), array('onclick'=>'js:document.location.href="'.Yii::app()->request->baseUrl.'/bulkEmail/update/'.$model->id.'"'));
 echo CHtml::button(__('Send now'), array('onclick'=>'js:send();','style'=>'margin-left:100px;'));
-echo '<img id="loading" src="'.Yii::app()->theme->baseUrl.'/images/small_loading.gif" style="vertical-align:middle;margin-left:15px;display:none"/>';
+echo '<img id="loading" src="'.Yii::app()->request->baseUrl.'/images/small_loading.gif" style="vertical-align:middle;margin-left:15px;display:none"/>';
 
 }?>
 </div>
