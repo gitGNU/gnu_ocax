@@ -38,16 +38,16 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>20,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'type'); ?>
+		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
 	</div>
-
+	
 </div>
 <div style="float:right;width:49%">
 
 	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+		<?php echo $form->label($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>20,'maxlength'=>255)); ?>
 	</div>
 	
 	<div class="row">

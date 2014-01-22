@@ -146,10 +146,15 @@ class CsvController extends Controller
 				list($id, $parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 				$id = trim($id);
 				$parent_id=trim($parent_id);
-				if (in_array($id, $ids)) {
+				if(trim($concept) == '')
+					$error[]='<br />Register '. ($line_num) .': Concept missing';
+				if(in_array($id, $ids)) {
 					$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
 				}
-				if ($parent_id != "" && !in_array($parent_id, $ids)) {
+				if($parent_id == "" && strlen($id) > 1)
+					$error[]='<br />Register '. ($line_num) .': Internal parent code missing';
+					
+				if($parent_id != "" && !in_array($parent_id, $ids)) {
 					$error[]='<br />Register '. ($line_num) .': Internal parent code "'.$parent_id.'" does not exist';
 				}
 				$ids[]=$id;
