@@ -48,7 +48,7 @@ class Backup
 			$zip->close();
 		}
 		$zip->addFile($dump_file, 'database.sql');
-		$zip->addFile($baseDir.'/RESTORE','RESTORE');
+		$zip->addFile(Yii::app()->basePath.'/data/RESTORE','RESTORE');
 		$zip->addFile(Yii::app()->basePath.'/data/ocax.version','VERSION');
 		$zip->close();
 

@@ -1,9 +1,10 @@
-1.0.5
+1.1.0
 New feature. The Archive. http://ocax.net/en:archive (please read UPGRADE)
 Featured budgets now display a sensible concept.
 Portuguese language added.
 Fixed up search forms on different admin grids.
-Other smaller changes and fixes.
+Added more tests to csv import.
+Lots of other smaller changes and fixes.
 
 1.0.4
 Introduced budget comparisons between years.

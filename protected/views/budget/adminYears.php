@@ -57,6 +57,8 @@ function showBudgetDumps(){
 	});
 }
 function restoreBudgets(file_id){
+	if(confirm('<?php echo __('Restore budgets');?>?') == false)
+		return;
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/restoreBudgets/'+file_id,
 		type: 'POST',

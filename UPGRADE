@@ -8,7 +8,7 @@ Before upgrading, read INSTALL to refresh your memory.
 6. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
 
 
-1.0.5
+1.1.0
 Follow steps 1-6 above.
 Create a new table in the database
 
