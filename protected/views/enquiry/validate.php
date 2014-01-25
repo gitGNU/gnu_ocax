@@ -22,17 +22,16 @@
 /* @var $model Enquiry */
 
 $this->menu=array(
-	array('label'=>__('View enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
+	//array('label'=>__('View enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>__('List all'), 'url'=>array('managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('managed')),
 );
+$this->inlineHelp=':profiles:team_member';
 ?>
 
 <style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
-	.clear{clear:both;}
+	#yourOptions { font-size: 1.2em }
+	#yourOptions li { margin-bottom: 20px; }
 </style>
 
 <script>
@@ -55,38 +54,28 @@ function validate(){
 	<?php echo $form->hiddenField($model, 'state');?>
 
 	<div class="title"><?php echo __('Validate enquiry');?></div>
-
-<div class="outer">
-
-	<?php echo $form->errorSummary($model); ?>
-
-<div class="left">
-	<div class="row buttons">
-		<b><?php echo __('Accept the Enquiry');?></b>
-		<div class="hint"><?php echo __('You accept this enquiry as valid');?></div>
-		<p style="margin-bottom:37px"></p>
+	<p><?php echo __('You have three options').':'?></p>
+	<ol id="yourOptions">
+		<?php
+			$text = __('Tell %s you do not want to take responsibility of this enquiry');
+			$text = str_replace('%s', $model->manager0->fullname, $text);
+		?>
+		<li><?php echo $text.'.';?></li>
+		<li>
+		<?php echo __('Accept the Enquiry').'. '.__('You accept this enquiry as valid').'.';?>
 		<?php echo CHtml::button(__('Accept'),array('onclick'=>'js:validate();')); ?>
-	</div>
-
-</div>
-<div class="right">
-	<div class="row buttons">
-		<b><?php echo __('Reject the Enquiry');?></b>
-		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>
-		<p style="margin-bottom:37px"></p>
-		<?php echo CHtml::button(__('Reject'),array('onclick'=>'js:reject();')); ?>
-	</div>
-</div>
-</div>
-<div class="clear"></div>
+		</li>
+		<li>
+		<?php echo __('Reject the Enquiry').'. '.__('The enquiry is inappropriate').'.';?>
+		<?php echo CHtml::button(Config::model()->findByPk('siglas')->value.' '.__('Reject'),array('onclick'=>'js:reject();')); ?>
+		</li>
+	</ol>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
+<p></p>
 
-
-
-<div class="horizontalRule" style="margin-top:20px"></div>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>
 
 <?php if(Yii::app()->user->hasFlash('prompt_email')):?>

@@ -18,6 +18,16 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+/**
+ * Localization
+ * Wrapper function for Yii::t()
+ */
+//http://www.yiiframework.com/forum/index.php/topic/14542-gettext-and-yii/page__p__147482#entry147482
+function __($string, $params = array(), $category = "") {
+        return Yii::t($category, $string, $params);
+}
+
 function percentage($val1, $val2){
 	if($val2 == 0)
 		return 100;

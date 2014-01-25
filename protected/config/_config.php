@@ -3,7 +3,7 @@
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
-require_once(dirname(__FILE__).'/../includes/localization.php');
+
 require_once(dirname(__FILE__).'/../includes/utils.php');
 
 
@@ -26,13 +26,14 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
+		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'password',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1','192.168.172.48','192.168.172.49'),
 		),
-
+		*/
 	),
 
 	// application components

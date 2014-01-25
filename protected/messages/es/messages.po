@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-22 11:58+0100\n"
+"PO-Revision-Date: 2014-01-25 11:44+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -263,7 +263,7 @@ msgstr "Anchura"
 
 #: protected/models/IntroPage.php:112
 #: protected/views/budget/_formYear.php:63
-#: protected/views/budget/adminYears.php:97
+#: protected/views/budget/adminYears.php:99
 msgid "Published"
 msgstr "Publicada"
 
@@ -561,7 +561,7 @@ msgstr "No hay datos disponibles"
 #: protected/views/budget/noDescriptions.php:26
 #: protected/views/budget/createYear.php:22
 #: protected/views/budget/featured.php:30
-#: protected/views/budget/adminYears.php:77
+#: protected/views/budget/adminYears.php:79
 msgid "Manage years"
 msgstr "Gestionar años"
 
@@ -626,7 +626,7 @@ msgid "Only 4 digits"
 msgstr "Solo 4 dígitos"
 
 #: protected/views/budget/_formYear.php:54
-#: protected/views/budget/adminYears.php:102
+#: protected/views/budget/adminYears.php:104
 msgid "Population"
 msgstr "Población"
 
@@ -669,6 +669,11 @@ msgstr "Crear Año"
 #: protected/views/budget/adminYears.php:29
 msgid "Restore database"
 msgstr "Restore database"
+
+#: protected/views/budget/adminYears.php:60
+#: protected/views/file/showBudgetFiles.php:57
+msgid "Restore budgets"
+msgstr "Restaurar presupuestos"
 
 #: protected/views/config/admin.php:25
 #: protected/views/user/panel.php:143
@@ -867,10 +872,6 @@ msgstr "Las copias se hacen justo antes de importar ficheros CSV"
 msgid "READ ME"
 msgstr "LEE ME"
 
-#: protected/views/file/showBudgetFiles.php:57
-msgid "Restore budgets"
-msgstr "Restaurar presupuestos"
-
 #: protected/views/file/showBudgetFiles.php:70
 msgid "Note: Delete some backups to save disk space. You only really need the last good copy."
 msgstr "Nota: Borra algunos backups para ahorrar espacio de disco. En realidad solo necesitas la última copia buena"
@@ -924,7 +925,6 @@ msgstr "Plantillas de correo-e"
 #: protected/views/enquiry/submit.php:25
 #: protected/views/enquiry/manage.php:25
 #: protected/views/enquiry/assess.php:25
-#: protected/views/enquiry/validate.php:25
 #: protected/views/enquiry/changeType.php:25
 #: protected/views/reply/create.php:26
 #: protected/views/email/index.php:26
@@ -937,6 +937,7 @@ msgstr "Ver consulta"
 #: protected/views/enquiry/assess.php:27
 #: protected/views/enquiry/teamView.php:26
 #: protected/views/enquiry/teamEdit.php:28
+#: protected/views/enquiry/validate.php:27
 #: protected/views/enquiry/changeType.php:27
 #: protected/views/enquiry/reformulate.php:28
 #: protected/views/reply/create.php:28
@@ -1032,7 +1033,7 @@ msgstr "Pasos de una consulta"
 msgid "ENQUIRIES_STEP_MSG"
 msgstr "<p>1. Haz tu consulta</p><p>2. Nosotros lo enviamos al Ayuntamiento</p><p>3. Comparte, difunde la consulta. </p><p>4. Publicaremos la respuesta del Ayuntamiento y te avisaremos.</p><p>5. Valora la respuesta.</p>"
 
-#: protected/views/enquiry/_memberSearch.php:50
+#: protected/views/enquiry/_memberSearch.php:42
 #: protected/views/enquiry/_memberSearch.php:63
 #: protected/views/enquiry/_managerSearch.php:55
 #: protected/views/enquiry/_managerSearch.php:63
@@ -1053,7 +1054,6 @@ msgstr "Correos enviados"
 
 #: protected/views/enquiry/manage.php:27
 #: protected/views/enquiry/adminView.php:28
-#: protected/views/enquiry/validate.php:27
 msgid "List all"
 msgstr "Listar todo"
 
@@ -1079,17 +1079,17 @@ msgid "Change team member"
 msgstr "Cambiar team member"
 
 #: protected/views/enquiry/manage.php:84
-#: protected/views/enquiry/validate.php:74
+#: protected/views/enquiry/validate.php:69
 msgid "Reject the Enquiry"
 msgstr "Rechaza la consulta"
 
 #: protected/views/enquiry/manage.php:85
-#: protected/views/enquiry/validate.php:75
+#: protected/views/enquiry/validate.php:69
 msgid "The enquiry is inappropriate"
 msgstr "The enquiry is inappropriate"
 
 #: protected/views/enquiry/manage.php:87
-#: protected/views/enquiry/validate.php:77
+#: protected/views/enquiry/validate.php:70
 msgid "Reject"
 msgstr "Rechaza"
 
@@ -1256,19 +1256,28 @@ msgstr "Usuarios subscritos"
 msgid "missing"
 msgstr "falta"
 
-#: protected/views/enquiry/validate.php:57
+#: protected/views/enquiry/validate.php:56
 msgid "Validate enquiry"
 msgstr "Validar consulta"
+
+#: protected/views/enquiry/validate.php:57
+msgid "You have three options"
+msgstr "Tienes tres opciones"
+
+#: protected/views/enquiry/validate.php:60
+#, php-format
+msgid "Tell %s you do not want to take responsibility of this enquiry"
+msgstr "Dile a %s que no quieres responsabilizarte de esta consulta"
 
 #: protected/views/enquiry/validate.php:65
 msgid "Accept the Enquiry"
 msgstr "Acceptar la consulta"
 
-#: protected/views/enquiry/validate.php:66
+#: protected/views/enquiry/validate.php:65
 msgid "You accept this enquiry as valid"
 msgstr "Acceptes aquesta consulta com a vàlida"
 
-#: protected/views/enquiry/validate.php:68
+#: protected/views/enquiry/validate.php:66
 msgid "Accept"
 msgstr "Accepta"
 
@@ -1700,7 +1709,7 @@ msgstr "Gestiona Usuarios"
 msgid "Change roles"
 msgstr "Cambiar roles"
 
-#: protected/views/user/update.php:51
+#: protected/views/user/update.php:44
 msgid "Change your user information"
 msgstr "Cambiar tus datos de usuario"
 
@@ -1956,17 +1965,17 @@ msgstr "Se ha registrado tu consulta correctamente"
 msgid "New reformulated enquiry created OK"
 msgstr "Nueva consulta reformulada correctamente"
 
-#: protected/controllers/EnquiryController.php:560
-#: protected/controllers/EnquiryController.php:570
+#: protected/controllers/EnquiryController.php:563
+#: protected/controllers/EnquiryController.php:573
 msgid "You must assign a team member"
 msgstr "Debes asignar un team member"
 
-#: protected/controllers/EnquiryController.php:586
+#: protected/controllers/EnquiryController.php:589
 msgid "New team member assigned"
 msgstr "Nuevo team member assignado"
 
-#: protected/controllers/EnquiryController.php:637
-#: protected/controllers/EnquiryController.php:659
+#: protected/controllers/EnquiryController.php:640
+#: protected/controllers/EnquiryController.php:662
 msgid "Enquiry has been deleted"
 msgstr "Se ha borrado la consulta"
 

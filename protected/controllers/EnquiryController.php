@@ -467,7 +467,10 @@ class EnquiryController extends Controller
 	{
 		$model=$this->loadModel($id);
 		if( $model->team_member == Yii::app()->user->getUserID()){
-			$this->render('teamView',array('model'=>$model));
+			if($model->state == ENQUIRY_ASSIGNED)
+				$this->redirect(array('validate','id'=>$model->id));
+			else
+				$this->render('teamView',array('model'=>$model));
 		}
 		else{
 			$this->redirect(array('view','id'=>$model->id));

@@ -32,13 +32,8 @@ class ApplicationConfigBehavior extends CBehavior
 			if ($lang = User::model()->findByPk(Yii::app()->user->getUserID())->language)
 				$this->owner->user->setState('applicationLanguage', $lang);
 		}
-		
-		elseif($languages = Config::model()->findByPk('languages')->value){
-			$languages = explode(',', $languages);
-			$this->owner->user->setState('applicationLanguage', $languages[0]);	
-		}	
-		else 
-			$this->owner->user->setState('applicationLanguage', 'ca');
+		else
+			$this->owner->user->setState('applicationLanguage', getDefaultLanguage());	
 
 		$this->owner->language=$this->owner->user->getState('applicationLanguage');
 		

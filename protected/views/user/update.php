@@ -40,15 +40,15 @@ $solicit_membership = Config::model()->findByPk('membership')->value;
 	</style>
 <?php } ?>
 
+<span id="datos_usuario" style="margin-top:-15px;cursor:auto;"></span>
+<h1><?php echo __('Change your user information')?></h1>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
-<span id="datos_usuario" style="margin-top:-15px;cursor:auto;"></span>
-<div class="title"><?php echo __('Change your user information')?></div>
 
 <div class="outer">
 <div class="left">
