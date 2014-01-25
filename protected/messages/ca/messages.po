@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-25 11:44+0100\n"
+"PO-Revision-Date: 2014-01-25 12:05+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -686,32 +686,32 @@ msgid "List all parameters"
 msgstr "Llistar tots els paràmetres"
 
 #: protected/views/site/register.php:2
-#: protected/views/site/register.php:41
-#: protected/views/site/register.php:85
+#: protected/views/site/register.php:27
+#: protected/views/site/register.php:82
 msgid "Register"
 msgstr "Registrar-se"
 
-#: protected/views/site/register.php:80
+#: protected/views/site/register.php:77
 msgid "Please enter the letters as they are shown in the image above"
 msgstr "Copia les lletres tal com surten en la imatge a dalt"
 
-#: protected/views/site/register.php:92
+#: protected/views/site/register.php:89
 msgid "REGISTER_MSG"
 msgstr "<p>Ser usuari et permetrà realitzar consultes al teu ajuntament de manera  pública i directa, així com compartir-les amb altres ciutadans del teu municipi.</p><p> Quants més ciutadans siguem els que lluitem units per la  transparència, més a prop estarem d'aconseguir que les decisions en  política i gestió del nostre municipi siguin preses des de la  ciutadania.</p>"
 
-#: protected/views/site/register.php:96
+#: protected/views/site/register.php:93
 #: protected/views/user/update.php:117
 msgid "MEMBERSHIP_MSG"
 msgstr "Pots marcar en aquest espai fer-te soci a més d'usuari. Com més socis tingui el teu OCM més pressió podreu realitzar al vostre Ajuntament. Pensa que cada consulta que feu arribar a l'Ajuntament tindrà la firma implícita de tots els socis, a més de l'usuari que hagi realitzat."
 
-#: protected/views/site/register.php:98
+#: protected/views/site/register.php:95
 #: protected/views/user/update.php:105
 msgid "Yes, I want to be a member"
 msgstr "Sí, vull ser un soci"
 
 #: protected/views/site/login.php:6
-#: protected/views/site/login.php:58
-#: protected/views/site/login.php:79
+#: protected/views/site/login.php:48
+#: protected/views/site/login.php:78
 #: protected/views/layouts/main.php:44
 msgid "Login"
 msgstr "Inicia sessió"
@@ -720,27 +720,27 @@ msgstr "Inicia sessió"
 msgid "Please enter your email address"
 msgstr "Si us plau, introdueix el teu correu electrònic"
 
-#: protected/views/site/login.php:88
+#: protected/views/site/login.php:87
 msgid "Still haven't got an account?"
 msgstr "Encara no tens el teu compte?"
 
-#: protected/views/site/login.php:90
+#: protected/views/site/login.php:89
 msgid "Sign up"
 msgstr "Apunta't"
 
-#: protected/views/site/login.php:93
+#: protected/views/site/login.php:92
 msgid "Forgotten your password?"
 msgstr "Has oblidat la teva contrasenya?"
 
-#: protected/views/site/login.php:96
+#: protected/views/site/login.php:95
 msgid "Follow these instructions"
 msgstr "Segueix aquestes instruccions "
 
-#: protected/views/site/login.php:98
+#: protected/views/site/login.php:97
 msgid "Enter your email address and we will send you a link"
 msgstr "Introdueix la teva adreça de correu electrònic i t'enviarem un enllaç"
 
-#: protected/views/site/login.php:99
+#: protected/views/site/login.php:98
 #: protected/views/email/create.php:137
 msgid "Send"
 msgstr "Enviar"
@@ -939,6 +939,7 @@ msgstr "Veure consulta"
 #: protected/views/enquiry/submit.php:26
 #: protected/views/enquiry/assess.php:27
 #: protected/views/enquiry/teamView.php:26
+#: protected/views/enquiry/adminView.php:28
 #: protected/views/enquiry/teamEdit.php:28
 #: protected/views/enquiry/validate.php:27
 #: protected/views/enquiry/changeType.php:27
@@ -1057,7 +1058,6 @@ msgid "Sent emails"
 msgstr "Correu enviats"
 
 #: protected/views/enquiry/manage.php:27
-#: protected/views/enquiry/adminView.php:28
 msgid "List all"
 msgstr "List all"
 
@@ -1265,8 +1265,8 @@ msgid "Validate enquiry"
 msgstr "Validar consulta"
 
 #: protected/views/enquiry/validate.php:57
-msgid "You have three options"
-msgstr "Tens tres opcions"
+msgid "Please study the enquiry below before deciding on an option"
+msgstr "Estudia la consulta més a baix abans de decidir per una opció"
 
 #: protected/views/enquiry/validate.php:60
 #, php-format

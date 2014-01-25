@@ -54,7 +54,7 @@ function validate(){
 	<?php echo $form->hiddenField($model, 'state');?>
 
 	<div class="title"><?php echo __('Validate enquiry');?></div>
-	<p><?php echo __('You have three options').':'?></p>
+	<p style="font-style:italic"><?php echo __('Please study the enquiry below before deciding on an option').'.'?></p>
 	<ol id="yourOptions">
 		<?php
 			$text = __('Tell %s you do not want to take responsibility of this enquiry');

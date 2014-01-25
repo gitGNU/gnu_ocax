@@ -45,7 +45,8 @@ function requestNewPasswd(){
 
 <div class="outer">
 <div class="left">
-
+<h1><?php echo __('Login')?></h1>
+	
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
@@ -54,8 +55,6 @@ function requestNewPasswd(){
 		'validateOnSubmit'=>true,
 	),
 )); ?>
-
-	<div class="title"><?php echo __('Login')?></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>

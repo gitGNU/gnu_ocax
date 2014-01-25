@@ -25,7 +25,7 @@ $this->menu=array(
 	//array('label'=>'Ver enquiry', 'url'=>array('/enquiry/adminView', 'id'=>$model->id)),
 	array('label'=>__('Assign enquiry'), 'url'=>array('manage', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
-	array('label'=>__('List all'), 'url'=>array('admin')),
+	array('label'=>__('List enquiries'), 'url'=>array('admin')),
 );
 
 	$deleteEnquiry = array( array('label'=>__('Delete enquiry'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showEnquiry('.$model->id.')')));

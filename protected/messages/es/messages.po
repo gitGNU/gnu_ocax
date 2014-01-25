@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-25 11:44+0100\n"
+"PO-Revision-Date: 2014-01-25 12:05+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -685,32 +685,32 @@ msgid "List all parameters"
 msgstr "Listar parámetros"
 
 #: protected/views/site/register.php:2
-#: protected/views/site/register.php:41
-#: protected/views/site/register.php:85
+#: protected/views/site/register.php:27
+#: protected/views/site/register.php:82
 msgid "Register"
 msgstr "Registrarse"
 
-#: protected/views/site/register.php:80
+#: protected/views/site/register.php:77
 msgid "Please enter the letters as they are shown in the image above"
 msgstr "Copia las letras tal como salen en la imagen arriba"
 
-#: protected/views/site/register.php:92
+#: protected/views/site/register.php:89
 msgid "REGISTER_MSG"
 msgstr "<p>Ser usuario te permitirá realizar consultas a tu ayuntamiento de manera pública y directa, así como compartirlas con otros ciudadanos de tu municipio.</p><p> Cuantos más ciudadanos seamos los que luchemos unidos por la transparencia, más cerca estaremos de conseguir que las decisiones en política y gestión de nuestro municipio sean tomadas desde la ciudadanía.</p>"
 
-#: protected/views/site/register.php:96
+#: protected/views/site/register.php:93
 #: protected/views/user/update.php:117
 msgid "MEMBERSHIP_MSG"
 msgstr "Puedes marcar en este espacio hacerte socia a demás de usuario. Cuantos más socios tenga tu OCM más presión podréis realizar a vuestro Ayuntamiento. Piensa que cada consulta que hagáis llegar al Ayuntamiento tendrá la firma implícita de todos los socios, a demás del usuario que la haya realizado."
 
-#: protected/views/site/register.php:98
+#: protected/views/site/register.php:95
 #: protected/views/user/update.php:105
 msgid "Yes, I want to be a member"
 msgstr "Sí, quiero ser un socio"
 
 #: protected/views/site/login.php:6
-#: protected/views/site/login.php:58
-#: protected/views/site/login.php:79
+#: protected/views/site/login.php:48
+#: protected/views/site/login.php:78
 #: protected/views/layouts/main.php:44
 msgid "Login"
 msgstr "Inicia sesión"
@@ -719,27 +719,27 @@ msgstr "Inicia sesión"
 msgid "Please enter your email address"
 msgstr "Por favor, introduce tu correo electrónico"
 
-#: protected/views/site/login.php:88
+#: protected/views/site/login.php:87
 msgid "Still haven't got an account?"
 msgstr "¿Aún no tienes una cuenta?"
 
-#: protected/views/site/login.php:90
+#: protected/views/site/login.php:89
 msgid "Sign up"
 msgstr "Apúntate"
 
-#: protected/views/site/login.php:93
+#: protected/views/site/login.php:92
 msgid "Forgotten your password?"
 msgstr "¿Has olvidado tu contraseña?"
 
-#: protected/views/site/login.php:96
+#: protected/views/site/login.php:95
 msgid "Follow these instructions"
 msgstr "Sigue estas instrucciones "
 
-#: protected/views/site/login.php:98
+#: protected/views/site/login.php:97
 msgid "Enter your email address and we will send you a link"
 msgstr "Introduce tu dirección de correo electrónico y te enviaremos un enlace"
 
-#: protected/views/site/login.php:99
+#: protected/views/site/login.php:98
 #: protected/views/email/create.php:137
 msgid "Send"
 msgstr "Enviar"
@@ -936,6 +936,7 @@ msgstr "Ver consulta"
 #: protected/views/enquiry/submit.php:26
 #: protected/views/enquiry/assess.php:27
 #: protected/views/enquiry/teamView.php:26
+#: protected/views/enquiry/adminView.php:28
 #: protected/views/enquiry/teamEdit.php:28
 #: protected/views/enquiry/validate.php:27
 #: protected/views/enquiry/changeType.php:27
@@ -1053,7 +1054,6 @@ msgid "Sent emails"
 msgstr "Correos enviados"
 
 #: protected/views/enquiry/manage.php:27
-#: protected/views/enquiry/adminView.php:28
 msgid "List all"
 msgstr "Listar todo"
 
@@ -1261,8 +1261,8 @@ msgid "Validate enquiry"
 msgstr "Validar consulta"
 
 #: protected/views/enquiry/validate.php:57
-msgid "You have three options"
-msgstr "Tienes tres opciones"
+msgid "Please study the enquiry below before deciding on an option"
+msgstr "Estudia la consulta más abajo antes de decidir por una opción"
 
 #: protected/views/enquiry/validate.php:60
 #, php-format

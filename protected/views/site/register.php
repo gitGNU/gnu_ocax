@@ -24,6 +24,7 @@ $("input[type='checkbox']").each(function(){
 </style>
 
 <div class="outer">
+<h1><?php echo __('Register');?></h1>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -35,10 +36,6 @@ $("input[type='checkbox']").each(function(){
 )); ?>
 
 <div class="left">
-
-
- 
-<div class="title"><?php echo __('Register');?></div>
 
 <div class="row">
  <?php echo $form->labelEx($model,'username'); ?>
