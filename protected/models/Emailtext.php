@@ -73,18 +73,20 @@ class Emailtext extends CActiveRecord
 	public function getBody($enquiry=Null)
 	{
 		if($enquiry){
-			$bad='hello';
-			$enquiry_link = Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id));
+			if($enquiry->state == ENQUIRY_ASSIGNED)	// send a link to the assigned team_member
+				$enquiry_link = Yii::app()->createAbsoluteUrl('enquiry/teamView', array('id' => $enquiry->id));
+			else
+				$enquiry_link = Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id));
 			$enquiry_link = '<a href="'.$enquiry_link.'">'.$enquiry_link.'</a>';
 		}else
 			$enquiry_link = '<a href="/link/to/the/enquiry">/link/to/the/enquiry</a>';
 
 		$body = str_replace('%link%', $enquiry_link, $this->body);
 		if( strpos($body, '%name%') !== false ){
-			if($enquiry && $enquiry->state==0)
+			if($enquiry && $enquiry->state==ENQUIRY_PENDING_VALIDATION)
 				$body = str_replace('%name%', $enquiry->user0->fullname, $body);
-			elseif($this->state == 0)
-				$body = str_replace('%name%', '&lt;User\'s fullname will go here&gt;', $body);
+			elseif($this->state == ENQUIRY_PENDING_VALIDATION)
+				$body = str_replace('%name%', '&lt;'.__('User fullname will go here').'&gt;', $body);
 			else
 				$body = str_replace('%name%', '', $body);
 		}

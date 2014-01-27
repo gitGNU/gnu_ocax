@@ -27,8 +27,9 @@ $this->menu=array(
 );
 ?>
 
+<h1>Text for state "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</h1>
 <div class="enquiry">
-<div class="title">Text for state "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</div>
+
 
 
 <?php echo $model->getBody();?>
