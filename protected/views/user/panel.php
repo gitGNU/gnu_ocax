@@ -192,6 +192,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			),
 )));
 }
+echo '<p></p>';
 ?>
 
 <?php
@@ -228,6 +229,7 @@ $this->widget('PGridView', array(
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
+echo '<p></p>';
 }
 
 if($noEnquiries){

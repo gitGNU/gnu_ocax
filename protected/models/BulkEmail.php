@@ -124,17 +124,17 @@ class BulkEmail extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('sent',$this->sent);
-		$criteria->compare('sender',$this->sender);
-		$criteria->compare('sent_as',$this->sent_as,true);
+		//$criteria->compare('sender',$this->sender);
+		//$criteria->compare('sent_as',$this->sent_as,true);
 		$criteria->compare('recipients',$this->recipients,true);
 		$criteria->compare('subject',$this->subject,true);
 		$criteria->compare('body',$this->body,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'created DESC'),
 		));
 	}
 }

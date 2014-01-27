@@ -75,12 +75,14 @@ function submitForm(){
 
 	<div class="row">
 		<?php
-
 		$sender=User::model()->findByPk($model->sender);
 		$senderList=array(	0=>Config::model()->findByPk('emailNoReply')->value,
 							$sender->id=>$sender->email);
+		if($enquiry->state == ENQUIRY_ASSIGNED)
+			$senderList=array_reverse($senderList);
 		$model->sender=0;
 		?>
+		
 		<?php echo $form->labelEx($model,'sender'); ?>
 		<?php echo $form->dropDownList($model, 'sender', $senderList );?>
 		<?php echo $form->error($model,'sender'); ?>
@@ -88,7 +90,6 @@ function submitForm(){
 
 
 	<div class="row">
-		<?php /*echo $form->labelEx($model,'recipients');*/ ?>
 		<?php
 			$subscribedUsers = $enquiry->getEmailRecipients();
 			$model->recipients='';
