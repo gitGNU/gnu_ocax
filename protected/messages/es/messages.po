@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-27 13:09+0100\n"
+"PO-Revision-Date: 2014-01-27 14:09+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -856,9 +856,8 @@ msgid "Update page"
 msgstr "Actualizar página"
 
 #: protected/views/cmsPage/_form.php:81
-#, fuzzy
 msgid "Content"
-msgstr "Concepto"
+msgstr "Contenido"
 
 #: protected/views/csv/importCSV.php:26
 msgid "Edit"
@@ -1515,6 +1514,8 @@ msgid "Manage Bulk Emails"
 msgstr "Gestiona boletines"
 
 #: protected/views/bulkEmail/admin.php:45
+#: protected/views/budgetDescription/admin.php:46
+#: protected/views/user/admin.php:39
 msgid "Advanced Search"
 msgstr "Búsqueda avanzada"
 

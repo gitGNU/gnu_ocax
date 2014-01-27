@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_it\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-27 12:09+0100\n"
+"PO-Revision-Date: 2014-01-27 14:08+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,7 @@ msgstr "Richiesta"
 
 #: protected/models/Email.php:107
 #: protected/models/BulkEmail.php:112
+#: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:192
 #: protected/models/Emailtext.php:112
 msgid "Body"
@@ -113,6 +114,22 @@ msgstr "Tracciato"
 msgid "Date of reply"
 msgstr "Data di risposta"
 
+#: protected/models/CmsPage.php:88
+msgid "Block"
+msgstr ""
+
+#: protected/models/CmsPage.php:89
+#: protected/models/Budget.php:128
+msgid "Weight"
+msgstr "Peso"
+
+#: protected/models/CmsPage.php:90
+#: protected/models/IntroPage.php:112
+#: protected/views/budget/_formYear.php:63
+#: protected/views/budget/adminYears.php:99
+msgid "Published"
+msgstr "Pubblicato"
+
 #: protected/models/BulkEmail.php:60
 msgid "Draft"
 msgstr "Bozza"
@@ -149,6 +166,7 @@ msgid "New password"
 msgstr "Nuova password"
 
 #: protected/models/User.php:130
+#: protected/models/CmsPageContent.php:104
 #: protected/models/BudgetDescription.php:123
 msgid "Language"
 msgstr "Lingua"
@@ -219,10 +237,6 @@ msgstr "Trimestre 3"
 msgid "Trimester 4"
 msgstr "Trimestre 4"
 
-#: protected/models/Budget.php:128
-msgid "Weight"
-msgstr "Peso"
-
 #: protected/models/Budget.php:147
 #: protected/views/enquiry/create.php:47
 #: protected/controllers/BudgetController.php:84
@@ -261,12 +275,6 @@ msgstr "Opacitá"
 msgid "Width"
 msgstr "Larghezza"
 
-#: protected/models/IntroPage.php:112
-#: protected/views/budget/_formYear.php:63
-#: protected/views/budget/adminYears.php:99
-msgid "Published"
-msgstr "Pubblicato"
-
 #: protected/models/Vote.php:90
 #: protected/models/Comment.php:96
 #: protected/views/enquiry/_view.php:299
@@ -287,6 +295,20 @@ msgstr "Voto"
 #: protected/models/Comment.php:99
 msgid "Comment"
 msgstr "Commento"
+
+#: protected/models/CmsPageContent.php:103
+#, fuzzy
+msgid "Page"
+msgstr "Nome della pagina"
+
+#: protected/models/CmsPageContent.php:105
+msgid "Page URL"
+msgstr ""
+
+#: protected/models/CmsPageContent.php:106
+#, fuzzy
+msgid "Page Title"
+msgstr "Títolo"
 
 #: protected/models/BudgetCategory.php:90
 #: protected/models/Config.php:99
@@ -642,13 +664,13 @@ msgid "defined budgets"
 msgstr "budget definiti"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:144
+#: protected/views/cmsPage/_form.php:152
 #: protected/views/introPage/_form.php:159
 msgid "Create"
 msgstr "Crea"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:144
+#: protected/views/cmsPage/_form.php:152
 #: protected/views/enquiry/changeType.php:104
 #: protected/views/introPage/_form.php:159
 #: protected/views/user/updateRoles.php:109
@@ -834,10 +856,9 @@ msgstr "Elimina pagina"
 msgid "Update page"
 msgstr "Aggiorna pagina"
 
-#: protected/views/cmsPage/_form.php:48
-#: protected/views/introPage/_form.php:130
-msgid "Translations"
-msgstr "Traduzioni"
+#: protected/views/cmsPage/_form.php:81
+msgid "Content"
+msgstr "Contenuto"
 
 #: protected/views/csv/importCSV.php:26
 msgid "Edit"
@@ -1294,11 +1315,11 @@ msgstr "Procedere all'eliminazione?"
 
 #: protected/views/enquiry/_view.php:180
 msgid "You have already voted favourably"
-msgstr "Si e' giá votato favorevolmente"
+msgstr "Si e giá votato favorevolmente"
 
 #: protected/views/enquiry/_view.php:182
 msgid "You have already voted unfavourably"
-msgstr "Si e' giá votato sfavorevolmente"
+msgstr "Si e giá votato sfavorevolmente"
 
 #: protected/views/enquiry/_view.php:271
 #: protected/views/enquiry/_view.php:281
@@ -1404,6 +1425,10 @@ msgstr "Trasparenza della casella"
 msgid "Text box content"
 msgstr "Contenuto della casella di testo"
 
+#: protected/views/introPage/_form.php:130
+msgid "Translations"
+msgstr "Traduzioni"
+
 #: protected/views/layouts/column2.php:19
 #: protected/views/layouts/main.php:108
 msgid "My page"
@@ -1490,6 +1515,8 @@ msgid "Manage Bulk Emails"
 msgstr "Gestisci le mailing circolari"
 
 #: protected/views/bulkEmail/admin.php:45
+#: protected/views/budgetDescription/admin.php:46
+#: protected/views/user/admin.php:39
 msgid "Advanced Search"
 msgstr "Ricerca Avanzata"
 

@@ -36,7 +36,7 @@ $('.search-form form').submit(function(){
 
 <h1><?php echo __('Users and roles');?></h1>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(__('Advanced Search'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
