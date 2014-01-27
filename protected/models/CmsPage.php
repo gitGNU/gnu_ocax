@@ -85,9 +85,9 @@ class CmsPage extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'block' => 'Block',
-			'weight' => 'Weight',
-			'published' => 'Published',
+			'block' => __('Block'),
+			'weight' => __('Weight'),
+			'published' => __('Published'),
 		);
 	}
 

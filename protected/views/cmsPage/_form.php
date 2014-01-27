@@ -23,6 +23,10 @@
 /* @var $form CActiveForm */
 ?>
 
+<style>
+.wideItem {float:left; padding-right:80px;}
+</style>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -37,15 +41,14 @@
 			$show_language='';
 	?>	
 
-	<div class="title"><?php echo $title.' ('.$show_language.')';?></div>
+	<div class="title"><?php echo $title;?></div>
 	<?php echo CHtml::errorSummary(array($model, $content)); ?>
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php
 		if(!$model->isNewRecord  && $listData = getLanguagesArray()){
-			echo '<div class="row">';
+			echo '<div class="row wideItem">';
 			echo $form->labelEx($content,'language');
-			echo '<div class="hint">'.__('Translations').'</div>';
+			//echo '<div class="hint">'.__('Translations').'</div>';
 			echo $form->dropDownList($content, 'language', $listData,
 									array('onchange'=>	'location.href="'.Yii::app()->request->baseUrl.
 														'/cmsPage/update/'.$model->id.'?lang="+this.options[this.selectedIndex].value'
@@ -55,22 +58,27 @@
 	?>
 
 
-	<div class="row">
+	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'block'); ?>
-		<?php echo $form->textField($model,'block'); ?>
+		<?php echo $form->textField($model,'block',array('size'=>5)); ?>
 		<?php echo $form->error($model,'block'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'weight'); ?>
-		<?php echo $form->textField($model,'weight'); ?>
+		<?php echo $form->textField($model,'weight',array('size'=>5)); ?>
 		<?php echo $form->error($model,'weight'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'published'); ?>
 		<?php echo $form->checkBox($model,'published', array('checked'=>$model->published)); ?>
 	</div>
+
+	<div style="clear:both"></div>
+
+	<div class="horizontalRule"></div>
+	<div class="sub_title"><?php echo __('Content').' '.$show_language;?></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($content,'pageURL'); ?>

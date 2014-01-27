@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-25 12:05+0100\n"
+"PO-Revision-Date: 2014-01-27 13:09+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,7 @@ msgstr "Consulta"
 
 #: protected/models/Email.php:107
 #: protected/models/BulkEmail.php:112
+#: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:192
 #: protected/models/Emailtext.php:112
 msgid "Body"
@@ -113,6 +114,22 @@ msgstr "Ruta"
 msgid "Date of reply"
 msgstr "Fecha de respuesta"
 
+#: protected/models/CmsPage.php:88
+msgid "Block"
+msgstr "Bloque"
+
+#: protected/models/CmsPage.php:89
+#: protected/models/Budget.php:128
+msgid "Weight"
+msgstr "Pes"
+
+#: protected/models/CmsPage.php:90
+#: protected/models/IntroPage.php:112
+#: protected/views/budget/_formYear.php:63
+#: protected/views/budget/adminYears.php:99
+msgid "Published"
+msgstr "Publicada"
+
 #: protected/models/BulkEmail.php:60
 msgid "Draft"
 msgstr "Borrador"
@@ -136,7 +153,7 @@ msgstr "Enviado OK"
 #: protected/views/bulkEmail/admin.php:64
 #: protected/views/user/view.php:133
 #: protected/views/user/panel.php:188
-#: protected/views/user/panel.php:224
+#: protected/views/user/panel.php:225
 msgid "State"
 msgstr "Estado"
 
@@ -149,6 +166,7 @@ msgid "New password"
 msgstr "Contraseña nueva"
 
 #: protected/models/User.php:130
+#: protected/models/CmsPageContent.php:104
 #: protected/models/BudgetDescription.php:123
 msgid "Language"
 msgstr "Idioma"
@@ -219,10 +237,6 @@ msgstr "Trimestre 3"
 msgid "Trimester 4"
 msgstr "Trimestre 4"
 
-#: protected/models/Budget.php:128
-msgid "Weight"
-msgstr "Pes"
-
 #: protected/models/Budget.php:147
 #: protected/views/enquiry/create.php:47
 #: protected/controllers/BudgetController.php:84
@@ -261,12 +275,6 @@ msgstr "Opacidad"
 msgid "Width"
 msgstr "Anchura"
 
-#: protected/models/IntroPage.php:112
-#: protected/views/budget/_formYear.php:63
-#: protected/views/budget/adminYears.php:99
-msgid "Published"
-msgstr "Publicada"
-
 #: protected/models/Vote.php:90
 #: protected/models/Comment.php:96
 #: protected/views/enquiry/_view.php:299
@@ -287,6 +295,18 @@ msgstr "Vota"
 #: protected/models/Comment.php:99
 msgid "Comment"
 msgstr "Comentario"
+
+#: protected/models/CmsPageContent.php:103
+msgid "Page"
+msgstr "Página"
+
+#: protected/models/CmsPageContent.php:105
+msgid "Page URL"
+msgstr "URL de la página"
+
+#: protected/models/CmsPageContent.php:106
+msgid "Page Title"
+msgstr "Título de la página"
 
 #: protected/models/BudgetCategory.php:90
 #: protected/models/Config.php:99
@@ -393,7 +413,7 @@ msgstr "Gestionar años"
 #: protected/views/enquiry/index.php:108
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/user/panel.php:183
-#: protected/views/user/panel.php:219
+#: protected/views/user/panel.php:220
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -616,7 +636,7 @@ msgstr "Euros por persona"
 #: protected/views/layouts/main.php:93
 #: protected/views/user/view.php:127
 #: protected/views/user/panel.php:178
-#: protected/views/user/panel.php:214
+#: protected/views/user/panel.php:215
 #: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr "Consultas"
@@ -643,18 +663,18 @@ msgid "defined budgets"
 msgstr "Partidas definidas"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:144
+#: protected/views/cmsPage/_form.php:152
 #: protected/views/introPage/_form.php:159
 msgid "Create"
 msgstr "Crear"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:144
+#: protected/views/cmsPage/_form.php:152
 #: protected/views/enquiry/changeType.php:104
 #: protected/views/introPage/_form.php:159
 #: protected/views/user/updateRoles.php:109
 #: protected/views/user/update.php:122
-#: protected/views/email/create.php:137
+#: protected/views/email/create.php:138
 msgid "Save"
 msgstr "Guardar"
 
@@ -740,7 +760,7 @@ msgid "Enter your email address and we will send you a link"
 msgstr "Introduce tu dirección de correo electrónico y te enviaremos un enlace"
 
 #: protected/views/site/login.php:98
-#: protected/views/email/create.php:137
+#: protected/views/email/create.php:138
 msgid "Send"
 msgstr "Enviar"
 
@@ -835,10 +855,10 @@ msgstr "Borrar página"
 msgid "Update page"
 msgstr "Actualizar página"
 
-#: protected/views/cmsPage/_form.php:48
-#: protected/views/introPage/_form.php:130
-msgid "Translations"
-msgstr "Traducciones"
+#: protected/views/cmsPage/_form.php:81
+#, fuzzy
+msgid "Content"
+msgstr "Concepto"
 
 #: protected/views/csv/importCSV.php:26
 msgid "Edit"
@@ -1405,6 +1425,10 @@ msgstr ""
 msgid "Text box content"
 msgstr "Contenido de la caja de texto"
 
+#: protected/views/introPage/_form.php:130
+msgid "Translations"
+msgstr "Traducciones"
+
 #: protected/views/layouts/column2.php:19
 #: protected/views/layouts/main.php:108
 msgid "My page"
@@ -1673,27 +1697,27 @@ msgstr ""
 msgid "My enquiries"
 msgstr "Mis consultas"
 
-#: protected/views/user/panel.php:201
+#: protected/views/user/panel.php:202
 msgid "I am subscribed to these enquirytions"
 msgstr "Estoy subscrito a estas consultas"
 
-#: protected/views/user/panel.php:202
+#: protected/views/user/panel.php:203
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se te enviará un correo electrónico cuando estas consultas se actualicen"
 
-#: protected/views/user/panel.php:235
+#: protected/views/user/panel.php:237
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Las consultas que hayas realizado o a las que te hayas suscrito aparecerán aquí"
 
-#: protected/views/user/panel.php:279
+#: protected/views/user/panel.php:281
 msgid "Do you want to block"
 msgstr "¿Quieres bloquear"
 
-#: protected/views/user/panel.php:281
+#: protected/views/user/panel.php:283
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:282
+#: protected/views/user/panel.php:284
 msgid "No"
 msgstr "No"
 

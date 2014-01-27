@@ -100,12 +100,11 @@ class CmsPageContent extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'page' => 'Page',
-			'language' => 'Language',
-			'pageURL' => 'Page URL',
-			'pageTitle' => 'Page Title',
-			'body' => 'Body',
+			'page' => __('Page'),
+			'language' => __('Language'),
+			'pageURL' => __('Page URL'),
+			'pageTitle' => __('Page Title'),
+			'body' => __('Body'),
 			'heading' => 'Heading',
 			'metaTitle' => 'Meta Title',
 			'metaDescription' => 'Meta Description',

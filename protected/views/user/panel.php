@@ -191,8 +191,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'value'=>'$data->getHumanStates($data[\'state\'])',
 			),
 )));
-}
 echo '<p></p>';
+}
 ?>
 
 <?php
