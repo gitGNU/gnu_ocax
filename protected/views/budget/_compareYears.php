@@ -31,10 +31,11 @@ $row =	array(
 $attributes[]=$row;
 
 foreach($budgets as $budget){
+	$percentage = '<span style="float:right">'.$budget->getPercentage().'% '.__('of total').'</span>';
 	$row =	array(
 	       		'label'=>__('Year').' '.$budget->year,
 				'type'=>'raw',
-				'value'=>format_number($budget->actual_provision).' €',
+				'value'=>format_number($budget->actual_provision).$percentage,
 			);
 	$attributes[]=$row;
 }
@@ -44,7 +45,5 @@ $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>$attributes,
 ));
-
-
 
 ?>

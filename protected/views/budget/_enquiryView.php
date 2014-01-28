@@ -90,10 +90,10 @@ $attributes=array(
 	        'type'=>'raw',
 	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears : $model->getYearString().$compareYears,
 		),
-		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' €'.$percentage),
+		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' '.$percentage),
 		array(
 	        'label'=>__('Euros per person'),
-	        'value'=>format_number($model->actual_provision / $model->getPopulation()).' €',
+	        'value'=>format_number($model->actual_provision / $model->getPopulation()),
 		),
 
 	);
@@ -132,11 +132,11 @@ if(isset($showMore)){
 	
 	'data'=>$model,
 	'attributes'=>array(
-					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision).' €'),
-					array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1).' €'),
-					array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2).' €'),
-					array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3).' €'),
-					array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4).' €'),
+					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
+					array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1)),
+					array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2)),
+					array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3)),
+					array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4)),
 					array(
 	        			'label'=>__('Enquiries'),
 						'type'=>'raw',

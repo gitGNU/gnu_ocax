@@ -38,7 +38,8 @@ function percentage($val1, $val2){
 }
 
 function format_number($number){
-	return number_format(CHtml::encode($number), 2, ',', '.');
+	$number = number_format(CHtml::encode($number), 2, ',', '.');
+	return str_replace('n', $number, Config::model()->findByPk('currencySymbol')->value);
 }
 
 function getLanguagesArray($available=Null){

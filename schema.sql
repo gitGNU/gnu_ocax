@@ -280,6 +280,7 @@ CREATE TABLE IF NOT EXISTS config (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO config(parameter, value, required, description) VALUES ('councilName', 'Ayuntamiento de Espanistan', '1', 'Name of the council');
+INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca,en', '1', 'Available languages on this site');

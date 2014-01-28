@@ -58,6 +58,7 @@ class Config extends CActiveRecord
 			array('parameter, description', 'required'),
 			array('value', 'length', 'max'=>255),
 			array('value','validateLanguage', 'on'=>'language'),
+			array('value','validateCurrenyCollocation', 'on'=>'currenyCollocation'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('parameter, value, description', 'safe', 'on'=>'search'),
@@ -76,6 +77,13 @@ class Config extends CActiveRecord
 		}		
 	}
 
+	public function validateCurrenyCollocation($attribute,$params)
+	{
+		$this->$attribute = trim($this->$attribute);
+		if(stristr($this->$attribute, 'n') === FALSE) {
+			$this->addError($attribute, __("Character 'n' is missing."));
+		}
+	}
 
 	/**
 	 * @return array relational rules.

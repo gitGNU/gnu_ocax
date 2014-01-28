@@ -71,7 +71,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 			echo '</div>';
 			}
 			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
-				echo '<span class="barBudgetConcept">'.$budget->code.'. '.$budget->getConcept().' '.format_number($budget->actual_provision).' €</span> ';
+				echo '<span class="barBudgetConcept">'.$budget->code.'. '.$budget->getConcept().' '.format_number($budget->actual_provision).'</span> ';
 				$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
 				$width=$graph_width*(percentage($budget->actual_provision,$globals['largest_provision']) / 100);
 				echo '<div class="actual_provision_bar" style="width:'.$width.'px;">';
@@ -120,7 +120,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 				
 		echo '<a  class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';
 		echo CHtml::encode($featured_budget->getConcept()).'</a>';
-		echo '<span class="graph_title" style="margin-left:30px;">'.format_number($featured_budget->actual_provision).' €</span>';
+		echo '<span class="graph_title" style="margin-left:30px;">'.format_number($featured_budget->actual_provision).'</span>';
 		echo '<div class="graph_bar_container">';
 			echoChildBudgets($featured_budget, 0, $graph_width, $globals);
 		echo '</div>';
