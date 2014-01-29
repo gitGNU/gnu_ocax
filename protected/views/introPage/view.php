@@ -36,7 +36,7 @@ shuffle($images);
 <style>
 #pageOptions{
 	font-size:1.5em;
-	margin: -35px -30px 35px -20px;
+	margin: -30px -25px 30px -25px;
 	padding: 10px 0 10px 0;
 	background-color:white;
 }
@@ -48,8 +48,8 @@ shuffle($images);
 }
 #wallpaper {
 	position:relative;
-	margin-left:-20px;	
-	margin-top:-35px;
+	margin-left:-25px;	
+	margin-top:-30px;
 	margin-bottom:-10px;
 	height:728px;
 	width:980px;

@@ -38,8 +38,8 @@ if($page=IntroPage::model()->find(array('condition'=> 'published = 1'))){
 <style>
 #wallpaper {
 	position:relative;
-	margin-left:-20px;	
-	margin-top:-35px;
+	margin-left:-25px;	
+	margin-top:-30px;
 	margin-bottom:-10px;
 	height:728px;
 	width:980px;

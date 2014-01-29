@@ -34,12 +34,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'csv_id'); ?>
-		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->textField($model,'csv_id',array('size'=>15,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->textField($model,'code',array('size'=>15,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row">

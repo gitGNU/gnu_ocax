@@ -147,10 +147,8 @@ if($model->is_admin){
 	echo '</div>';
 	echo '</div>';
 }
-
 ?>
 
-</div>
 
 <?php $this->widget('InlineHelp'); ?>
 

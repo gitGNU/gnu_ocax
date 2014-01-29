@@ -8,7 +8,7 @@ html {
 h1, h2, h3, h4, h5, h6 {font-weight:normal}
 
 h1 {
-	line-height: 70%;
+	line-height: 90%;
 	font-size: 22pt;
 	letter-spacing:-0.5pt;	
 	font-weight:200;
@@ -22,7 +22,7 @@ h1 {
 
 @font-face {
 	font-family: SansPro;
-	src: url("../fonts/SansPro-ExtraLight.woff");
+	src: url("../fonts/SansPro-Light.woff");
 	font-weight: 200;
 }
 
@@ -72,7 +72,7 @@ body
 
 #content
 {
-    padding: 10px;
+    padding: 5px 5px 10px 15px;
 }
 
 #sidebar
@@ -335,6 +335,14 @@ div.search-form
 	font-weight:200;
 }
 
+.sub_title{
+	margin-bottom:15px;
+	line-height: 70%;
+	font-size: 22pt;
+	letter-spacing:-0.5pt;
+	font-weight:200;
+} 
+
 .horizontalRule
 {
 	background-image:url('../images/bar.gif');
@@ -512,14 +520,6 @@ span.ocaxButtonCount {
 	width:55px;
 	height:55px;
 }
-
-.sub_title{
-	margin-bottom:15px;
-	line-height: 70%;
-	font-size: 22pt;
-	letter-spacing:-0.5pt;
-	font-weight:200;
-} 
  
 /* ******* CMS*/
 .activeMenuItem a {text-decoration:none;}
