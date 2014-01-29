@@ -128,18 +128,16 @@ class ImportCSV extends CFormModel
 		if($existing_file = File::model()->findByAttributes(array('path'=>$file->path)))
 			$file = $existing_file;
 
-		$header = 'internal code|internal parent code|code|initial provision|actual provision|trimester 1|trimester 2|trimester 3|trimester 4|label|concept'.PHP_EOL;
-
 		$tmp_fn = '/tmp/csv-' . mt_rand(10000,99999);
 		$fh = fopen($tmp_fn, 'w');
-		fwrite($fh, $header);
+		fwrite($fh, $this->getHeader());
 
 		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, csv_parent_id, code, label, concept, initial_provision, actual_provision,
 													trimester_1, trimester_2, trimester_3, trimester_4
 													FROM budget
 													WHERE year = '.$year.' AND parent IS NOT NULL');
 		foreach($budgets as $b){
-			fwrite($fh, $b->csv_id.'|'.$b->csv_parent_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
+			fwrite($fh, $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
 						'|'.$b->trimester_1.'|'.$b->trimester_2.'|'.$b->trimester_3.'|'.$b->trimester_4.
 						'|'.$b->label.'|'.$b->concept.PHP_EOL);
 		}
