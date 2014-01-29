@@ -50,6 +50,74 @@ class ImportCSV extends CFormModel
 			'csv' => __('CSV file'),
 		);
 	}
+	
+	public function getHeader()
+	{	
+		return 'internal code|code|initial provision|actual provision|trimester 1|trimester 2|trimester 3|trimester 4|label|concept'.PHP_EOL;
+	}
+
+	public function getParentCode($internal_code)
+	{	
+		if($isChild = strrpos($internal_code, "-"))
+			return substr($internal_code, 0, $isChild);
+		else
+			return Null;
+	}
+
+	public function register2array($register)
+	{	
+		list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $register);
+		return array(
+				'csv_id'=>$id,
+				'code'=>$code,
+				'initial_prov'=>$initial_prov,
+				'actual_prov'=>$actual_prov,
+				't1'=>$t1,
+				't2'=>$t2,
+				't3'=>$t3,
+				't4'=>$t4,
+				'label'=>$label,
+				'concept'=>trim($concept),
+				);
+	}
+
+	public function createEmptyBudgetArray()
+	{
+		return array(
+					'internal_code'=>Null,
+					'code'=>Null,
+					'initial_prov' => Null,
+					'actual_prov' => Null,
+					't1' => Null,
+					't2' => Null,
+					't3' => Null,
+					't4' => Null,
+					'label' => Null,
+					'concept' => Null,
+				);
+	}
+	
+	public function array2register($b)
+	{
+		return 	$b['csv_id'].'|'.$b['code'].'|'.$b['initial_prov'].'|'.$b['actual_prov'].
+				'|'.$b['t1'].'|'.$b['t2'].'|'.$b['t3'].'|'.$b['t4'].
+				'|'.$b['label'].'|'.$b['concept'];
+	}
+
+	public function csv2array($csv)
+	{
+		$result= array();
+		$lines = file($csv);
+		
+		foreach ($lines as $line_num => $line) {
+			if($line_num==0)
+				continue;
+			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
+			$result[$csv_id]=$line;
+			
+		}
+		return $result;
+	}
 
 	public function createCSV($year)
 	{
