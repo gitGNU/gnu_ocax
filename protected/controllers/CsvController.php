@@ -483,7 +483,6 @@ class CsvController extends Controller
 
 				$new_budget->trimester_3 = trim(str_replace('€', '', $t3));
 				$new_budget->trimester_3 = trim(str_replace(',', '', $new_budget->trimester_3));
-				if(eplace(',', '', $new_budget->trimester_3));
 				if(!$new_budget->trimester_3)
 					$new_budget->trimester_3 = 0;
 
