@@ -134,15 +134,17 @@ class CsvController extends Controller
 			$correct_field_delimiter=0;
 			$ids = array();
 			foreach ($lines as $line_num => $line) {
-				if($line_num==0)
-					continue;
-				if(!$correct_field_delimiter){
-					if (strlen(strstr($line,'|'))>0)
-						$correct_field_delimiter=1;
-					else{
+				if($line_num==0){
+					$delimiterCnt = substr_count($line, '|');
+					if ($delimiterCnt == 0){
 						$error[]='Delimiter | not found in file.';
 						break;
 					}
+					if ($delimiterCnt != 9){
+						$error[]=($delimiterCnt+1).' columns found. Expecting 10';
+						break;
+					}
+					continue;
 				}
 				list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 				$id = trim($id);
