@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-27 14:10+0100\n"
+"PO-Revision-Date: 2014-01-30 08:46+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -685,7 +685,7 @@ msgstr ""
 
 #: protected/views/budget/adminYears.php:25
 msgid "Create Year"
-msgstr "Create Year"
+msgstr "Crear any"
 
 #: protected/views/budget/adminYears.php:29
 msgid "Restore database"

@@ -7,14 +7,6 @@ html {
 
 h1, h2, h3, h4, h5, h6 {font-weight:normal}
 
-h1 {
-	line-height: 90%;
-	font-size: 22pt;
-	letter-spacing:-0.5pt;	
-	font-weight:200;
-	margin-bottom:15px;
-}
-
 @font-face {
 	font-family: SansPro;
 	src: url("../fonts/SansPro-Regular.woff");
@@ -28,8 +20,22 @@ h1 {
 
 @font-face {
 	font-family: SansPro;
+	src: url("../fonts/SansPro-ExtraLight.woff");
+	font-weight: 100;
+}
+
+@font-face {
+	font-family: SansPro;
 	src: url("../fonts/SansPro-Semibold.woff");
 	font-weight: bold;
+}
+
+h1 {
+	line-height: 90%;
+	font-size: 22pt;
+	letter-spacing:-0.5pt;	
+	font-weight:200;
+	margin-bottom:15px;
 }
 
 
@@ -108,7 +114,7 @@ body
 	font-size: 410%;
 	line-height: 90%;
 	letter-spacing:-0.5pt;
-	font-weight:200;
+	font-weight:100;
 	padding: 15px 20px 30px 0px;
 }
 
@@ -325,14 +331,14 @@ div.search-form
 	font-size: 600%;
 	line-height: 100%;
 	letter-spacing:-2pt;
-	font-weight:200;
+	font-weight:100;
 }
 
 .bigTitle
 {
 	font-size: 410%;
 	line-height: 90%;
-	font-weight:200;
+	font-weight:100;
 }
 
 .sub_title{
@@ -529,7 +535,7 @@ span.ocaxButtonCount {
 	font-size: 410%;
 	line-height: 100%;
 	letter-spacing:-0.5pt;
-	font-weight:200;
+	font-weight:100;
 	margin-bottom:20px;
 }
 
