@@ -29,7 +29,7 @@
 			echo '<span class="delete" onClick="js:deleteArchive('.$data->id.')">'.__('Delete').'</span>';
 
 		echo '<a href="'.$data->getWebPath().'">';
-		echo '<div style="padding-left:3px">';
+		echo '<div style="padding-left:3px;overflow:hidden;">';
 		echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.$data->extension.'.png"/>';
 		echo '<span class="name">'.CHtml::encode($data->name).'</span>';
 		echo '</div>';
