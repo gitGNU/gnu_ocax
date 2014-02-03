@@ -45,7 +45,7 @@ class FileController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('showCMSfiles'),
+				'actions'=>array('showCMSfiles','wallpaper'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('allow',
@@ -137,7 +137,9 @@ class FileController extends Controller
 						$enquiry->save();
 					}
 					$this->redirect(array('enquiry/submit','id'=>$model->model_id));
-					
+
+				}elseif($model->model == 'wallpaper'){
+					$this->redirect(array('file/wallpaper'));				
 
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
@@ -262,6 +264,10 @@ class FileController extends Controller
 	public function actionShowBudgetFiles()
 	{
 		echo $this->renderPartial('showBudgetFiles',array(),false,true);
+	}
+	public function actionWallpaper()
+	{
+		echo $this->render('wallpaper');
 	}
 	
 	public function actionAdminArchive()

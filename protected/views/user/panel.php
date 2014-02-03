@@ -107,9 +107,13 @@ if($model->is_editor){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.__('CMS editor options').'</div>';
-	echo '<p>';
+	echo '<div style="float:left"><p>';
 		echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
-		echo CHtml::link(__('Site pages'), array('/cmsPage/admin')).'</p>';
+		echo CHtml::link(__('Site pages'), array('/cmsPage/admin'));
+	echo '</p></div>';
+	echo '<div style="margin-left:50px;float:left"><p>';
+		echo CHtml::link(__('Wallpaper'), array('/file/wallpaper'));
+	echo '</p></div>';
 	echo '</div>';
 }
 
