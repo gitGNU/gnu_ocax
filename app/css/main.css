@@ -78,7 +78,7 @@ body
 
 #content
 {
-    padding: 0px 5px 10px 15px;
+    padding: 5px 5px 10px 15px;
 }
 
 #sidebar
@@ -314,11 +314,7 @@ div.search-form
 	padding: 8px 0px 8px 8px;
 	line-height: 15px;
 	text-decoration: none;
-}
 
-.operations li a:visited
-{
-	color: #0066A4;
 }
 
 .operations li a:hover
@@ -565,6 +561,7 @@ span.ocaxButtonCount {
 	display:none;
 	background-color: rgb(245,241,237);
 	padding:10px;
+	margin-left:-20px;
 	margin-top:30px;	/* did this for new bPopup version 0.9.4 */
 }
 .bClose{ /* close popup window icon */
@@ -591,7 +588,10 @@ span.ocaxButtonCount {
 }
 .nextIntroPage {
 	width:100%;
-	text-align:right;gin-bottom:-10px;
+	text-align:right;
+}
+.nextIntroPage p {
+	margin-bottom:-10px;
 }
 
 /* reply */
