@@ -48,7 +48,7 @@ class CsvController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
-				'addMissingValues','addMissingTotals','addMissingDescriptions','checkCSVTotals','importCSVData',
+				'addMissingValues'/*,'addMissingTotals','addMissingDescriptions',*/'checkCSVTotals','importCSVData',
 				'download','showYears','regenerateCSV','importDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -204,7 +204,7 @@ class CsvController extends Controller
 											'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']
 											));		
 	}
-
+/*
 	public function actionAddMissingDescriptions()
 	{
 		if(!isset($_GET['csv_file'])){
@@ -216,7 +216,7 @@ class CsvController extends Controller
 		$updated = $model->addMissingConcepts();
 		echo CJavaScript::jsonEncode(array('updated'=>$updated,'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']));
 	}
-
+*/
 	public function actionCheckCSVTotals()
 	{
 		if(!isset($_GET['csv_file'])){

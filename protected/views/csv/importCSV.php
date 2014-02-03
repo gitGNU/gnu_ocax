@@ -116,7 +116,7 @@ function checkTotals(el,next_step){
 		error: function() { alert("error on checkTotals"); },
 	});
 }
-
+/*
 function checkMissingConcepts(el, next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingDescriptions',
@@ -142,6 +142,7 @@ function checkMissingConcepts(el, next_step){
 		error: function() { alert("error on checkMissingConcepts"); },
 	});
 }
+*/
 function dumpBudgets(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/dumpBudgets',
@@ -232,14 +233,14 @@ echo '<p id="step_41" style="display:none">';
 echo '<input type="button" value="Try again" onClick="js:location.href=\''.Yii::app()->request->baseUrl.'/csv/importCSV/'.$model->year.'\';" /> ';
 echo '<input type="button" value="Continue anyway" onClick="js:step41_to_5();" /></p>';
 
-echo '<p id="step_5" style="display:none">Step 5. Check for missing Concepts ';
-echo '<input type="button" value="Check" onClick="js:checkMissingConcepts(this,6);" /></p>';
+//echo '<p id="step_5" style="display:none">Step 5. Check for missing Concepts ';
+//echo '<input type="button" value="Check" onClick="js:checkMissingConcepts(this,6);" /></p>';
 
-echo '<p id="step_6" style="display:none">Step 6. Backup budget database: ';
-echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets(this,7);" /></p>';
+echo '<p id="step_5" style="display:none">Step 5. Backup budget database: ';
+echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets(this,6);" /></p>';
 
-echo '<p id="step_7" style="display:none">Step 7. Import into database: <b>'.$model->year.'</b> ';
-echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData(this,8);" />';
+echo '<p id="step_6" style="display:none">Step 6. Import into database: <b>'.$model->year.'</b> ';
+echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData(this,7);" />';
 echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />';
 echo '</p>';
 
@@ -247,7 +248,7 @@ $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = '.$model->year;
 $year=Budget::model()->find($criteria);
 
-echo '<p id="step_8" style="display:none">Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
+echo '<p id="step_7" style="display:none">Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>
 
