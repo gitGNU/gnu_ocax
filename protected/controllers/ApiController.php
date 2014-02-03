@@ -40,7 +40,7 @@ class ApiController extends Controller
 	{
 		return array();
 	}
- 
+
 	// Actions
 	public function actionList()
 	{
@@ -54,23 +54,30 @@ class ApiController extends Controller
 						);
 				$this->_sendResponse(200, CJSON::encode($result));					
 				Yii::app()->end();
+			case 'profile':
+				$result = array(
+							'language'=>Config::model()->findByPk('languages')->value,
+							'currenySymbol'=>Config::model()->getCurrencySymbol(),
+							);
+				$this->_sendResponse(200, CJSON::encode($result));
+				Yii::app()->end();
 			case 'status':
-				$sql = "SELECT COUNT(*) FROM user";
-				$users = Yii::app()->db->createCommand($sql)->queryScalar();
+				//$sql = "SELECT COUNT(*) FROM user";
+				//$users = Yii::app()->db->createCommand($sql)->queryScalar();
 				$sql = "SELECT COUNT(*) FROM enquiry";
 				$enquiries = Yii::app()->db->createCommand($sql)->queryScalar();
 				$sql = "SELECT COUNT(*) FROM enquiry WHERE state = ".ENQUIRY_REPLY_INSATISFACTORY;
 				$enquiries_failed = Yii::app()->db->createCommand($sql)->queryScalar();		
 				$year = Config::model()->findByPk('year')->value;
-				$sql = "SELECT COUNT(*) FROM budget WHERE year = '$year'";
-				$budgets = Yii::app()->db->createCommand($sql)->queryScalar();
+				$sql = "SELECT actual_provision FROM budget WHERE year = '$year' AND csv_id = 'I-E'";
+				$budget = Yii::app()->db->createCommand($sql)->queryScalar();
 				$result = array(
-							'users'=>$users,
+				//			'users'=>$users,
 							'enquiries'=>$enquiries,
 							'enquiries_failed'=>$enquiries_failed,
 							'year'=>$year,
 							'population'=>(string)(int)Budget::model()->getPopulation($year),
-							'budgets'=>$budgets,
+							'budget'=>$budget,
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
