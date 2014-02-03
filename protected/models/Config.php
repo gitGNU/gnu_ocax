@@ -120,12 +120,6 @@ class Config extends CActiveRecord
 		return str_replace('#', ' ', $title);
 	}
 
-	public function getCurrencySymbol()
-	{
-		$symbol = str_replace('n', '', $this->findByPk('currencySymbol')->value);
-		return trim($symbol);
-	}
-
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

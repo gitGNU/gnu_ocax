@@ -57,7 +57,7 @@ class ApiController extends Controller
 			case 'profile':
 				$result = array(
 							'language'=>Config::model()->findByPk('languages')->value,
-							'currenySymbol'=>Config::model()->getCurrencySymbol(),
+							'currenySymbol'=>Config::model()->findByPk('currencySymbol')->value),
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
