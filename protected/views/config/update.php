@@ -34,25 +34,13 @@ $this->inlineHelp=':profiles:admin:global_parameters';
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title">Change value of '<?php echo $model->parameter; ?>'</div>
+	<div class="title"><?php echo __('Change global parameter'); ?></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'parameter'); ?>
-		<?php echo $form->hiddenField($model,'parameter'); ?>
-		<input type="text" value="<?php echo $model->parameter;?>" size="60" disabled />
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value'); ?>
-		<?php echo $form->textField($model,'value',array('size'=>60,'maxlength'=>255)); ?>
+	<p class="row" style="margin:30px 0px 30px 0px">
+		<?php echo $model->description.'<br />'; ?>
+		<?php echo $form->textField($model,'value',array('size'=>40,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'value'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->hiddenField($model,'description'); ?>
-		<input type="text" value="<?php echo $model->description;?>" size="60" disabled />
-	</div>
+	</p>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Save'); ?>
