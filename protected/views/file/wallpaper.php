@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
-$this->inlineHelp=':wallpaper';
+$this->inlineHelp=':profiles:cms_editor';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -63,11 +63,6 @@ $dataProvider = new CActiveDataProvider('File', array(
 						'order'=>'path ASC',
 				),
 ));
-
-if(count($dataProvider->getData()) == 0)
-	echo 'zero';
-
-
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',

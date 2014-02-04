@@ -39,7 +39,7 @@ var pie_properties = {
 		},
     	highlighter: {
     	    show: true,
-			formatString: '%s<br /><span style="display:none">%s%s</span>%s €',
+			formatString: '%s<br /><span style="display:none">%s%s</span>%s',
     	    tooltipLocation:'ne', 
     	    useAxesFormatters:false,
     	},
