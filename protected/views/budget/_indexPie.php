@@ -30,10 +30,6 @@ Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 	font-size:1.4em;
 	display:none;
 }
-.loader_gif div {
- 	float:left;
- 	margin-right:5px;
-}
 .loader_gif img {
 	margin-top:5px;
 }
@@ -185,7 +181,7 @@ $(function() {
 			header=$('<div></div>');
 			header.append('<div style="font-size:1.5em; float:left"><?php echo $budget->getCategory();?></div>');
 			loader=$('<div class="loader_gif"></div>');
-			loader.append('<div><?php echo __('Loading data');?><div>');
+			//loader.append('<div><?php echo __('Loading data');?><div>');
 			loader.append('<img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>');
 			header.append(loader);
 			header.append('<div style="clear:both"></div>');

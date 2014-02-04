@@ -30,9 +30,6 @@
 	float:right;
 	display:none;
 }
-.loader_gif div {
- 	float:right;
-}
 .loader_gif img {
 	margin-top:5px;
  	margin-left:5px;
@@ -146,7 +143,6 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 ?>
 
 <div id="bar_loader_gif" class="loader_gif">
-<div><?php echo __('Loading data');?><div>
 <img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>
 <div style="clear:both"></div>
 </div>
