@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-30 08:46+0100\n"
+"PO-Revision-Date: 2014-02-04 17:50+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Consulta"
 #: protected/models/BulkEmail.php:112
 #: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:192
-#: protected/models/Emailtext.php:112
+#: protected/models/Emailtext.php:114
 msgid "Body"
 msgstr "Cos"
 
@@ -106,6 +106,7 @@ msgstr "Nom"
 
 #: protected/models/File.php:105
 #: protected/models/Archive.php:85
+#: protected/views/file/wallpaper.php:74
 #: protected/views/file/admin.php:69
 msgid "Path"
 msgstr "Camí"
@@ -144,7 +145,7 @@ msgstr "Enviat OK"
 
 #: protected/models/BulkEmail.php:107
 #: protected/models/Enquiry.php:190
-#: protected/models/Emailtext.php:111
+#: protected/models/Emailtext.php:113
 #: protected/views/emailtext/admin.php:46
 #: protected/views/enquiry/view.php:192
 #: protected/views/enquiry/index.php:113
@@ -152,8 +153,8 @@ msgstr "Enviat OK"
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/bulkEmail/admin.php:64
 #: protected/views/user/view.php:133
-#: protected/views/user/panel.php:188
-#: protected/views/user/panel.php:225
+#: protected/views/user/panel.php:190
+#: protected/views/user/panel.php:227
 msgid "State"
 msgstr "Estat"
 
@@ -188,7 +189,7 @@ msgid "Parent"
 msgstr "Pare"
 
 #: protected/models/Budget.php:118
-#: protected/views/budget/_compareYears.php:35
+#: protected/views/budget/_compareYears.php:36
 #: protected/views/budget/noDescriptions.php:50
 #: protected/views/budget/_enquiryView.php:89
 msgid "Year"
@@ -309,22 +310,26 @@ msgid "Page Title"
 msgstr "Títol de la pàgina"
 
 #: protected/models/BudgetCategory.php:90
-#: protected/models/Config.php:99
+#: protected/models/Config.php:107
 #: protected/models/Archive.php:88
 #: protected/models/BudgetDescription.php:127
 #: protected/views/budgetDescription/view.php:51
 msgid "Description"
 msgstr "Descripció"
 
-#: protected/models/Config.php:74
+#: protected/models/Config.php:75
 msgid "is not a valid language."
 msgstr "no és un idioma vàlida"
 
-#: protected/models/Config.php:97
+#: protected/models/Config.php:84
+msgid "Character 'n' is missing."
+msgstr ""
+
+#: protected/models/Config.php:105
 msgid "Parameter"
 msgstr "Paràmetre"
 
-#: protected/models/Config.php:98
+#: protected/models/Config.php:106
 msgid "Value"
 msgstr "Valor"
 
@@ -412,8 +417,8 @@ msgstr "Gestiona anys"
 #: protected/views/enquiry/view.php:178
 #: protected/views/enquiry/index.php:108
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/user/panel.php:183
-#: protected/views/user/panel.php:220
+#: protected/views/user/panel.php:185
+#: protected/views/user/panel.php:222
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -464,6 +469,10 @@ msgstr "Cannot dump database"
 msgid "Remember me"
 msgstr "Recorda'm"
 
+#: protected/models/Emailtext.php:89
+msgid "User fullname will go here"
+msgstr ""
+
 #: protected/models/ImportCSV.php:50
 msgid "CSV file"
 msgstr "Fitxer CSV"
@@ -509,6 +518,11 @@ msgstr "Ja hi ha una consulta feta sobre aquesta partida pressupostària"
 msgid "%s enquiries have already been made about this budget"
 msgstr "Ja hi ha %s consultes fetes sobre aquesta partida pressupostària"
 
+#: protected/views/budget/_indexBar.php:149
+#: protected/views/budget/_indexPie.php:188
+msgid "Loading data"
+msgstr "Carregant dades"
+
 #: protected/views/budget/_compareYears.php:22
 #, php-format
 msgid "Details for %s"
@@ -517,6 +531,11 @@ msgstr "Detalls del %s"
 #: protected/views/budget/_compareYears.php:27
 msgid "Anual comparison"
 msgstr "Comparativa anual"
+
+#: protected/views/budget/_compareYears.php:34
+#: protected/views/budget/_enquiryView.php:86
+msgid "of total"
+msgstr "del total"
 
 #: protected/views/budget/updateYear.php:24
 msgid "Import budgets"
@@ -545,14 +564,14 @@ msgstr "Editar any"
 msgid "Budgetary enquiries for"
 msgstr "Consultes pressupostàries del"
 
-#: protected/views/budget/index.php:128
+#: protected/views/budget/index.php:134
 #: protected/views/layouts/main.php:92
 #: protected/views/user/panel.php:66
 #: protected/controllers/BudgetController.php:446
 msgid "Budgets"
 msgstr "Pressupostos"
 
-#: protected/views/budget/index.php:147
+#: protected/views/budget/index.php:153
 #: protected/views/enquiry/_memberSearch.php:67
 #: protected/views/enquiry/_searchPublic.php:34
 #: protected/views/enquiry/_managerSearch.php:83
@@ -562,19 +581,19 @@ msgstr "Pressupostos"
 msgid "Search"
 msgstr "Cerca"
 
-#: protected/views/budget/index.php:155
+#: protected/views/budget/index.php:161
 msgid "No search results"
 msgstr "No va haver-hi coincidències"
 
-#: protected/views/budget/index.php:177
+#: protected/views/budget/index.php:183
 msgid "Available years"
 msgstr "Anys disponibles"
 
-#: protected/views/budget/index.php:201
+#: protected/views/budget/index.php:207
 msgid "Download data"
 msgstr "Baixar Dades"
 
-#: protected/views/budget/index.php:230
+#: protected/views/budget/index.php:236
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
 
@@ -594,6 +613,11 @@ msgstr "Partides sense descripció"
 #, fuzzy
 msgid "Internal code"
 msgstr "Pressupost amb Internal code"
+
+#: protected/views/budget/createYear.php:27
+#: protected/views/budget/adminYears.php:25
+msgid "Create Year"
+msgstr "Crear any"
 
 #: protected/views/budget/_enquiryView.php:48
 #: protected/views/user/panel.php:62
@@ -619,10 +643,6 @@ msgstr "consultes fetes"
 msgid "Compare years"
 msgstr "Comparar anys"
 
-#: protected/views/budget/_enquiryView.php:86
-msgid "of total"
-msgstr "del total"
-
 #: protected/views/budget/_enquiryView.php:89
 msgid "Year / Code"
 msgstr "Any / codi"
@@ -636,8 +656,8 @@ msgstr "Euros per persona"
 #: protected/views/enquiry/index.php:103
 #: protected/views/layouts/main.php:93
 #: protected/views/user/view.php:127
-#: protected/views/user/panel.php:178
-#: protected/views/user/panel.php:215
+#: protected/views/user/panel.php:180
+#: protected/views/user/panel.php:217
 #: protected/controllers/EnquiryController.php:96
 msgid "Enquiries"
 msgstr "Consultes"
@@ -683,10 +703,6 @@ msgstr "Desa"
 msgid "Feature budget"
 msgstr ""
 
-#: protected/views/budget/adminYears.php:25
-msgid "Create Year"
-msgstr "Crear any"
-
 #: protected/views/budget/adminYears.php:29
 msgid "Restore database"
 msgstr "Restore database"
@@ -697,13 +713,17 @@ msgid "Restore budgets"
 msgstr "Restaurar pressupostos"
 
 #: protected/views/config/admin.php:25
-#: protected/views/user/panel.php:143
+#: protected/views/user/panel.php:147
 msgid "Global parameters"
 msgstr "Paràmetres globals"
 
 #: protected/views/config/update.php:25
 msgid "List all parameters"
 msgstr "Llistar tots els paràmetres"
+
+#: protected/views/config/update.php:37
+msgid "Change global parameter"
+msgstr "Canviar paràmetre global"
 
 #: protected/views/site/register.php:2
 #: protected/views/site/register.php:27
@@ -770,7 +790,7 @@ msgid "comments on the"
 msgstr "comenta el día"
 
 #: protected/views/comment/_view.php:36
-#: protected/views/archive/_view.php:30
+#: protected/views/archive/_view.php:29
 msgid "Delete"
 msgstr "Elimina"
 
@@ -817,6 +837,7 @@ msgid "Create page"
 msgstr "Crear pàgina"
 
 #: protected/views/cmsPage/admin.php:26
+#: protected/views/file/wallpaper.php:25
 #: protected/views/file/admin.php:25
 #: protected/views/file/_form.php:61
 #: protected/views/archive/_form.php:69
@@ -876,6 +897,11 @@ msgstr ""
 #, fuzzy
 msgid "Include budgets"
 msgstr "Partides definides"
+
+#: protected/views/file/wallpaper.php:58
+#, fuzzy
+msgid "Manage wallpaper"
+msgstr "Gestionar pàgines"
 
 #: protected/views/file/admin.php:58
 msgid "Document archive"
@@ -940,7 +966,7 @@ msgid "Upload"
 msgstr "Pujar"
 
 #: protected/views/emailtext/admin.php:28
-#: protected/views/user/panel.php:142
+#: protected/views/user/panel.php:146
 msgid "Email text templates"
 msgstr "Plantilles de correu-e"
 
@@ -1206,7 +1232,7 @@ msgid "Delete enquiry"
 msgstr "Delete enquiry"
 
 #: protected/views/enquiry/admin.php:44
-#: protected/views/user/panel.php:119
+#: protected/views/user/panel.php:123
 msgid "Manage enquiries"
 msgstr "Gestionar consultes"
 
@@ -1519,6 +1545,8 @@ msgid "Manage Bulk Emails"
 msgstr "Gestionar butlletins"
 
 #: protected/views/bulkEmail/admin.php:45
+#: protected/views/budgetDescription/admin.php:46
+#: protected/views/user/admin.php:39
 msgid "Advanced Search"
 msgstr "Cerca avançada"
 
@@ -1655,73 +1683,77 @@ msgstr "Pàginas de introducció"
 msgid "Site pages"
 msgstr "Pàgina de lloc"
 
-#: protected/views/user/panel.php:120
+#: protected/views/user/panel.php:115
+msgid "Wallpaper"
+msgstr ""
+
+#: protected/views/user/panel.php:124
 #: protected/views/user/updateRoles.php:95
 msgid "Assign enquiries to team members and check status"
 msgstr "Encarrega consultes a altres companys"
 
-#: protected/views/user/panel.php:127
+#: protected/views/user/panel.php:131
 msgid "Administator's options"
 msgstr "Opcions de administrador"
 
-#: protected/views/user/panel.php:130
+#: protected/views/user/panel.php:134
 msgid "New version available"
 msgstr "Nova versió disponible"
 
-#: protected/views/user/panel.php:130
+#: protected/views/user/panel.php:134
 msgid "Upgrade now"
 msgstr "Actualitzar ara"
 
-#: protected/views/user/panel.php:135
+#: protected/views/user/panel.php:139
 msgid "Years and budgets"
 msgstr "Anys i pressupostos"
 
-#: protected/views/user/panel.php:136
+#: protected/views/user/panel.php:140
 msgid "Newsletters"
 msgstr "Butlletins"
 
-#: protected/views/user/panel.php:137
+#: protected/views/user/panel.php:141
 msgid "Zip file"
 msgstr "Fitxer zip"
 
-#: protected/views/user/panel.php:138
+#: protected/views/user/panel.php:142
 msgid "Budget descriptions"
 msgstr "Descripcions de partides"
 
-#: protected/views/user/panel.php:141
+#: protected/views/user/panel.php:145
 #: protected/views/user/admin.php:37
 msgid "Users and roles"
 msgstr "Usuaris i rols"
 
-#: protected/views/user/panel.php:144
+#: protected/views/user/panel.php:148
 msgid "Backup"
 msgstr ""
 
-#: protected/views/user/panel.php:165
+#: protected/views/user/panel.php:167
 msgid "My enquiries"
 msgstr "Les meves consultes"
 
-#: protected/views/user/panel.php:202
+#: protected/views/user/panel.php:204
 msgid "I am subscribed to these enquirytions"
 msgstr "Estic escrit a aquestes consultes"
 
-#: protected/views/user/panel.php:203
+#: protected/views/user/panel.php:205
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
 
-#: protected/views/user/panel.php:237
+#: protected/views/user/panel.php:239
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Les consultes que hagis realitzat o a les quals t'hagis subscrit apareixeran aquí"
 
-#: protected/views/user/panel.php:281
+#: protected/views/user/panel.php:283
 msgid "Do you want to block"
 msgstr "Vols bloquejar"
 
-#: protected/views/user/panel.php:283
+#: protected/views/user/panel.php:285
 msgid "Yes"
 msgstr "Sí"
 
-#: protected/views/user/panel.php:284
+#: protected/views/user/panel.php:286
 msgid "No"
 msgstr "No"
 
@@ -1889,15 +1921,15 @@ msgstr "està bloquejat"
 msgid "File uploaded correctly"
 msgstr "File uploaded correctly"
 
-#: protected/controllers/FileController.php:217
+#: protected/controllers/FileController.php:219
 msgid "MSG_ZIP_DESCRIPTION"
 msgstr "Un fitxer ZIP que conté les dades dels pressupostos en format CSV i documentació relacionada."
 
-#: protected/controllers/FileController.php:228
+#: protected/controllers/FileController.php:230
 msgid "Zip file updated"
 msgstr "Fitxer zip actualitzat"
 
-#: protected/controllers/FileController.php:230
+#: protected/controllers/FileController.php:232
 msgid "Error: zip file not created"
 msgstr "Error: no s'ha generat el fitxer zip"
 

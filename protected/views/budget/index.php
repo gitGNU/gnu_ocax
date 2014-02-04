@@ -82,7 +82,7 @@ function showBudget(budget_id, element){
 							loader.show();
 						}
 					},
-		complete: function(){ /*$('.loader_gif').hide();*/ },
+		complete: function(){ $('.loader_gif').hide(); },
 		success: function(data){
 			if(data != 0){
 				budgetCache[budget_id]=data;
