@@ -24,6 +24,21 @@
 
 ?>
 
+<style>
+.loader_gif {
+	margin-left:20px;
+	float:right;
+	display:none;
+}
+.loader_gif div {
+ 	float:right;
+}
+.loader_gif img {
+	margin-top:5px;
+ 	margin-left:5px;
+}
+</style>
+
 <script>
 $(function() {
 	$('.budget').bind('click', function() {
@@ -116,7 +131,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 						'queried_budget' => $featured_budget->id,
 		);
 	
-		echo '<div class="graph_bar_group">';
+		echo '<div class="graph_bar_group graph_group">';
 				
 		echo '<a  class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';
 		echo CHtml::encode($featured_budget->getConcept()).'</a>';
@@ -129,3 +144,9 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	}
 	echo '</div>';
 ?>
+
+<div id="bar_loader_gif" class="loader_gif">
+<div><?php echo __('Loading data');?><div>
+<img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>
+<div style="clear:both"></div>
+</div>

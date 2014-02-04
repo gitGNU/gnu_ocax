@@ -24,7 +24,20 @@
 Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 ?>
 
-
+<style>
+.loader_gif {
+	float:right;
+	font-size:1.4em;
+	display:none;
+}
+.loader_gif div {
+ 	float:left;
+ 	margin-right:5px;
+}
+.loader_gif img {
+	margin-top:5px;
+}
+</style>
 
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/jquery.jqplot.min.js"></script>
@@ -37,7 +50,7 @@ Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 function slideInChild(parent_id,child_id){
 	graph_container=$('#'+child_id);
 	graph_container.hide();
-	$('.pie_loading_gif').hide();
+	$('.loader_gif').hide();
 	group=$("#"+parent_id).parents('.graph_pie_group');
 
 	if(graph_container.attr('is_parent') == 0){		
@@ -87,8 +100,8 @@ function getPie(budget_id, loading_gif){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
 		type: 'GET',
 		dataType: 'json',
-		beforeSend: function(){ $('.pie_loading_gif').hide(); $(loading_gif).show(); },
-		complete: function() { $('.pie_loading_gif').hide(); },
+		beforeSend: function(){ $('.loader_gif').hide(); $(loading_gif).show(); },
+		complete: function() { $('.loader_gif').hide(); },
 		success: function(data){
 			graph_container=$('<div id="'+budget_id+'" class="graph_container"></div>');
 			graph_container.attr('parent_id',data.params.parent_id);
@@ -140,7 +153,7 @@ function createPie(div_id, data){
 		$('#'+div_id).bind('jqplotDataClick', 
 			function (ev, seriesIndex, pointIndex, data) {
 				 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-				getPie(data[2], $(this).parents('.graph_pie_group').find('.pie_loading_gif'));
+				getPie(data[2], $(this).parents('.graph_pie_group').find('.loader_gif'));
 				return false;
 			}
 		);
@@ -154,7 +167,7 @@ $(function() {
 
 	$('#pie_display').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
-		getPie(budget_id, $(this).parents('.graph_pie_group').find('.pie_loading_gif'));
+		getPie(budget_id, $(this).parents('.graph_pie_group').find('.loader_gif'));
 		return false;
 	});
 
@@ -168,10 +181,15 @@ $(function() {
 		foreach($featured as $budget){ ?>
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
-			group=$('<div class="graph_pie_group"></div>');
-			//group.append('<span style="font-size:1.5em; "><?php echo $budget->parent0->getConcept();?></span>');
-			group.append('<span style="font-size:1.5em; "><?php echo $budget->getCategory();?></span>');
-			group.append(' <img style="vertical-align:middle;display:none;" class="pie_loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
+			group=$('<div class="graph_pie_group graph_group"></div>');
+			header=$('<div></div>');
+			header.append('<div style="font-size:1.5em; float:left"><?php echo $budget->getCategory();?></div>');
+			loader=$('<div class="loader_gif"></div>');
+			loader.append('<div><?php echo __('Loading data');?><div>');
+			loader.append('<img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>');
+			header.append(loader);
+			header.append('<div style="clear:both"></div>');
+			group.append(header);
 			$('#pie_display').append(group);
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);

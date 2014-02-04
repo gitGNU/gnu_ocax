@@ -73,10 +73,16 @@ function showBudget(budget_id, element){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		beforeSend: function(){
-						$('.loading_gif').remove();
-						$(element).after('<img style="vertical-align:top;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
+						if('bar' == '<?php echo $graph_type;?>'){
+							$('#bar_loader_gif').appendTo(element);
+							$('#bar_loader_gif').show();
+						}else{
+							$('.loader_gif').hide();
+							loader = $(element).closest('.graph_group').find('.loader_gif');
+							loader.show();
+						}
 					},
-		complete: function(){ $('.loading_gif').remove(); },
+		complete: function(){ /*$('.loader_gif').hide();*/ },
 		success: function(data){
 			if(data != 0){
 				budgetCache[budget_id]=data;
@@ -252,4 +258,13 @@ if(count($years) > 1){
 		<div id="budget_popup_body"></div>
 </div>
 
+<style>
+.loading {
+	background-color:transparent;
+	opacity: .6;
+}
+</style>
+
+<div id="preloader" class="loading">
+</div>
 
