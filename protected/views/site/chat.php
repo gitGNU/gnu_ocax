@@ -42,7 +42,7 @@
 					//     -> fetch info from server (NOTE: does only work with openfire server)
 					//   ['test@conference.example.com']
 					//     -> array of rooms to join after connecting
-					autojoin: ['csv@rooms.gatopelao.org','hangout@rooms.gatopelao.org'],
+					autojoin: ['csv@rooms.gatopelao.org','ocax@rooms.gatopelao.org'],
 				},
 				view: {
 					resources: '<?php echo Yii::app()->request->baseUrl; ?>/candy-1.6.0/res/',

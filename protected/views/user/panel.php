@@ -56,27 +56,27 @@ function changeColumn()
 }?>
 
 <div class="outer">
-	<div class="panel_left">
+<div class="panel_left">
 	<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
 	<div class="clear"></div>
 	<div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
-		<p>
-		<?php
-			$str = __('ENQUIRY_NEW_MSG');
-			echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
-		?>
-		</p>
-	</div>
-	<div class="panel_right">
-		<div id="datos_usuario" onclick="location.href='<?php echo $this->createUrl('user/update/');?>'"></div>
-		<div class="clear"></div>
-		<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
-			<p>
-				<?php echo __('Change your profile');?><br />
-				<?php echo __('Configure your email');?><br />
-				<?php echo __('Change your password');?>
-			</p>
-		</div>
+	<p>
+	<?php
+		$str = __('ENQUIRY_NEW_MSG');
+		echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
+	?>
+	</p>
+</div>
+<div class="panel_right">
+	<div id="datos_usuario" onclick="location.href='<?php echo $this->createUrl('user/update/');?>'"></div>
+	<div class="clear"></div>
+	<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
+	<p>
+		<?php echo __('Change your profile');?><br />
+		<?php echo __('Configure your email');?><br />
+		<?php echo __('Change your password');?>
+	</p>
+</div>
 
 <?php
 
@@ -91,7 +91,10 @@ function addPanelSeparator(){
 		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
-		echo CHtml::link('support',array('site/chat'),array('target'=>'_chat'));
+		echo '<a href="http://ocax.net/cgi-bin/mailman/listinfo/lista" target="_list">mailing list</a>';
+		echo '</div>';
+		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
+		echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
 		echo '</div>';
 		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
 		echo '<a href="http://ocax.net/network" target="_network">network</a>';
