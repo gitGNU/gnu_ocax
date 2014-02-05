@@ -19,7 +19,6 @@
 
 
 // Read this http://www.php.net/manual/en/function.fgetcsv.php
-
 class CsvController extends Controller
 {
 	/**
@@ -48,9 +47,9 @@ class CsvController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('importCSV','uploadCSV','checkEncoding','checkCSVFormat',
-				'checkCSVTotals','importCSVData','download','showYears','regenerateCSV',
-				'importDescriptions'),
+				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
+				'addMissingValues','checkCSVTotals','importCSVData',
+				'download','showYears','regenerateCSV','importDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -67,6 +66,7 @@ class CsvController extends Controller
 		));
 		echo $this->renderPartial('regenCSV',array('dataProvider'=>$dataProvider),false,true);
 	}
+
 	public function actionRegenerateCSV($id)
 	{
 		if(ImportCSV::createCSV($id))
@@ -91,118 +91,169 @@ class CsvController extends Controller
 			$model->attributes=$_POST['ImportCSV'];
 
 			$model->csv=CUploadedFile::getInstance($model,'csv');
+			$filename = $model->year.'-'.Yii::app()->user->id.'.csv';
 
-			$model->csv->saveAs($model->path.$model->year.'-internal.csv');
-			$model->csv = $model->year.'-internal.csv';
+			$model->csv->saveAs($model->path.$filename);
+			$model->csv = $filename;
 			$model->step = 2;
 		}
 		$this->render('importCSV', array('model'=>$model));
 	}
 
-	// convert csv to UTF-8
-	public function actionCheckEncoding()
-	{
-		if(!isset($_GET['csv_file'])){
-			$error[]='File path not defined.';
-			echo CJavaScript::jsonEncode(array('error'=>$error));
-			Yii::app()->end();
-		}
-		$model = new ImportCSV;
-		$content = file_get_contents($model->path.$_GET['csv_file']);
-
-		//$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
-		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);		
-		if($original_encoding != 'UTF-8'){
-			$error[]='This CSV file has not been saved in UTF-8';
-			echo CJavaScript::jsonEncode(array('error'=>$error));
-			
-			//$content = iconv($original_encoding, 'UTF-8', $content);	
-			//file_put_contents($model->path.$_GET['csv_file'], $content);
-			//echo 'Converted '.$original_encoding.' to UTF-8';
-		}else
-			echo 'File seems to be UTF-8';
-	}
-
 
 	public function actionCheckCSVFormat()
 	{
+		if(!isset($_GET['csv_file'])){
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));	
+			Yii::app()->end();
+		}
 		$error=array();
-		if(isset($_GET['csv_file'])){
-			$model = new ImportCSV;
-			$lines = file($model->path.$_GET['csv_file']);
-			$correct_field_delimiter=0;
-			$ids = array();
-			foreach ($lines as $line_num => $line) {
-				if($line_num==0)
-					continue;
-				if(!$correct_field_delimiter){
-					if (strlen(strstr($line,'|'))>0)
-						$correct_field_delimiter=1;
-					else{
-						$error[]='Delimiter | not found in file.';
-						break;
-					}
+
+		$model = new ImportCSV;
+		$model->csv = $model->path.$_GET['csv_file'];
+		
+		/* Test encoding */
+		if(!$model->checkEncoding()){
+			echo CJavaScript::jsonEncode(array('error'=>'This file has not been saved as UTF-8'));
+			Yii::app()->end();
+		}
+		
+		$correct_field_delimiter=0;
+		$ids = array();
+		$lines = file($model->csv);
+		foreach ($lines as $line_num => $line) {
+			if($line_num==0){
+				$delimiterCnt = substr_count($line, '|');
+				if ($delimiterCnt == 0){
+					$error[]='Delimiter | not found in file.';
+					break;
 				}
-				list($id, $parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
-				$id = trim($id);
-				$parent_id=trim($parent_id);
-				if(trim($concept) == '')
-					$error[]='<br />Register '. ($line_num) .': Concept missing';
-				if(in_array($id, $ids)) {
-					$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
+				if ($delimiterCnt != 9){
+					$error[]=($delimiterCnt+1).' columns found. Expecting 10';
+					break;
 				}
-				if($parent_id == "" && strlen($id) > 1)
-					$error[]='<br />Register '. ($line_num) .': Internal parent code missing';
-					
-				if($parent_id != "" && !in_array($parent_id, $ids)) {
-					$error[]='<br />Register '. ($line_num) .': Internal parent code "'.$parent_id.'" does not exist';
-				}
-				$ids[]=$id;
+				continue;
 			}
-		}else
-			$error[]='File path not defined.';
+			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
+			$id = trim($id);
+			if(in_array($id, $ids)) {
+				$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
+			}
+			if(!is_numeric(trim($initial_prov))){
+				$error[]='<br />Register '. ($line_num) .': Initial provision is not numeric';
+			}
+			if(!is_numeric(trim($actual_prov))){
+				$error[]='<br />Register '. ($line_num) .': Actual provision is not numeric';
+			}
+			if(!is_numeric(trim($t1))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 1 is not numeric';
+			}
+			if(!is_numeric(trim($t2))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 2 is not numeric';
+			}
+			if(!is_numeric(trim($t3))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 3 is not numeric';
+			}
+			if(!is_numeric(trim($t4))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 4 is not numeric';
+			}
+			$ids[]=$id;
+
+		}
+		if(!$error){
+			$model->orderCSV();	
+		}
 		if($error)
 			echo CJavaScript::jsonEncode(array('error'=>$error));
 		else
-			//echo CJavaScript::jsonEncode(array('ids'=>$ids));
 			echo count($lines) - 1;
 	}
 
-	public function actionCheckCSVTotals()
+	public function actionaddMissingValues()
 	{
-		$error=array();
-		if(isset($_GET['csv_file'])){
-			$model = new ImportCSV;
-			$lines = file($model->path.$_GET['csv_file']);
-			$ids = array();
-			foreach ($lines as $line_num => $line) {
-				if($line_num==0)
-					continue;
-				list($id, $parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
-				$id = trim($id);
-				$parent_id=trim($parent_id);
-				$ids[$id]=array();
-
-				$initial_prov = str_replace('€', '', $initial_prov);
-				$initial_prov = (float)trim(str_replace(',', '', $initial_prov));
-				$actual_prov = str_replace('€', '', $actual_prov);
-				$actual_prov = (float)trim(str_replace(',', '', $actual_prov));
-
-				$ids[$id]['internal_code']=$id;
-				$ids[$id]['initial_total']=$initial_prov;
-				$ids[$id]['actual_total']=$actual_prov;
-				$ids[$id]['children']=array();
-				if(array_key_exists($parent_id, $ids)){
-					$ids[$parent_id]['children'][$id]=array();
-					$ids[$parent_id]['children'][$id]['id']=$id;
-					$ids[$parent_id]['children'][$id]['initial_prov']=$initial_prov;
-					$ids[$parent_id]['children'][$id]['actual_prov']=$actual_prov;
-				}
-			}
-		}else{
+		if(!isset($_GET['csv_file'])){
 			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
 			Yii::app()->end();
 		}
+		$model = new ImportCSV;
+		$model->csv = $model->path.$_GET['csv_file'];
+		
+		$msg=Null;
+		$newRegisterCnt = $model->addMissignRegisters();
+		
+		if($newRegisterCnt > 0){
+			$msg='<span class="warn">'.$newRegisterCnt.' new registers added.</span>';
+			$model->addMissingConcepts();
+		}	
+		if($new_totals = $model->addMissingTotals()){
+			if($newRegisterCnt)
+				$new_totals = $new_totals - (6 * $newRegisterCnt); // 6 because the are 6 number columns in csv
+			if($new_totals)
+				$msg = $msg.'<span class="warn"> '.$new_totals.' missing totals added</span>';
+		}
+		$new_concepts = 0;
+		if($new_concepts = $model->addMissingConcepts())
+			$msg = $msg.'<span class="warn"> '.$new_concepts.' codes/concepts added.</span>';
+			
+		if(!$msg)
+			$msg='No missing values';
+			
+		echo CJavaScript::jsonEncode(array(	'updated'=>$newRegisterCnt,
+											'new_concepts'=>$new_concepts,
+											'msg'=>$msg,
+											'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']
+											));		
+	}
+/*
+	public function actionAddMissingDescriptions()
+	{
+		if(!isset($_GET['csv_file'])){
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));	
+			Yii::app()->end();
+		}
+		$model = new ImportCSV;
+		$model->csv = $model->path.$_GET['csv_file'];
+		$updated = $model->addMissingConcepts();
+		echo CJavaScript::jsonEncode(array('updated'=>$updated,'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']));
+	}
+*/
+	public function actionCheckCSVTotals()
+	{
+		if(!isset($_GET['csv_file'])){
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));	
+			Yii::app()->end();
+		}
+		$model = new ImportCSV;
+		$model->csv = $model->path.$_GET['csv_file'];
+		$registers = $model->csv2array();
+		
+		$lines = file($model->csv);
+		$ids = array();
+		foreach ($lines as $line_num => $line) {
+			if($line_num==0)
+				continue;
+			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
+			$id = trim($id);
+			$parent_id=$model->getParentCode($id);
+			$ids[$id]=array();
+
+			$initial_prov = str_replace('€', '', $initial_prov);
+			$initial_prov = (float)trim(str_replace(',', '', $initial_prov));
+			$actual_prov = str_replace('€', '', $actual_prov);
+			$actual_prov = (float)trim(str_replace(',', '', $actual_prov));
+
+			$ids[$id]['internal_code']=$id;
+			$ids[$id]['initial_total']=$initial_prov;
+			$ids[$id]['actual_total']=$actual_prov;
+			$ids[$id]['children']=array();
+			if(array_key_exists($parent_id, $ids)){
+				$ids[$parent_id]['children'][$id]=array();
+				$ids[$parent_id]['children'][$id]['id']=$id;
+				$ids[$parent_id]['children'][$id]['initial_prov']=$initial_prov;
+				$ids[$parent_id]['children'][$id]['actual_prov']=$actual_prov;
+			}
+		}
+
 		//check initial totals
 		$initialSummary='';
 		foreach($ids as $id){
@@ -279,103 +330,100 @@ class CsvController extends Controller
 
 	public function actionImportCSVData($id)
 	{
-		if(! $id ){
+		if(!$id){
 			echo CJavaScript::jsonEncode(array('error'=>'Year not selected'));
 			Yii::app()->end();
+		}
+		if(!isset($_GET['csv_file'])){
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
+			Yii::app()->end();			
 		}
 		$criteria=new CDbCriteria;
 		$criteria->condition='parent IS NULL AND year='.$id;
 		$yearly_budget=Budget::model()->find($criteria);
 		if(!$yearly_budget){
-			echo CJavaScript::jsonEncode(array('error'=>'Selected year does not exist in database.'));
+			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$id.' does not exist in database.'));
 			Yii::app()->end();
 		}
 		$error=Null;
 		$new_budgets = 0;
 		$updated_budgets = 0;
-		if(isset($_GET['csv_file'])){
-			$model = new ImportCSV;
-			$lines = file($model->path.$_GET['csv_file']);
-			foreach ($lines as $line_num => $line) {
-				if($line_num==0)
-					continue;
-				list($csv_id, $csv_parent_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 
-				$new_budget=new Budget;
-				$new_budget->csv_id = trim($csv_id);
-				$new_budget->csv_parent_id = trim($csv_parent_id);
-				$new_budget->year = $yearly_budget->year;
-				$new_budget->code = trim($code);
-				$new_budget->label = trim($label);
-				$new_budget->concept = trim($concept);
+		$model = new ImportCSV;
+		$model->csv = $model->path.$_GET['csv_file'];
+		$lines = file($model->csv);
+		foreach ($lines as $line_num => $line) {
+			if($line_num==0)
+				continue;
+			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 
-				$new_budget->initial_provision = trim(str_replace('€', '', $initial_prov));
-				$new_budget->initial_provision = trim(str_replace(',', '', $new_budget->initial_provision));
-				if(!$new_budget->initial_provision)
-					$new_budget->initial_provision = 0;
+			$new_budget=new Budget;
+			$new_budget->csv_id = trim($csv_id);
+			$new_budget->csv_parent_id = $model->getParentCode($csv_id);
+			$new_budget->year = $yearly_budget->year;
+			$new_budget->code = trim($code);
+			$new_budget->label = trim($label);
+			$new_budget->concept = trim($concept);
 
-				$new_budget->actual_provision = trim(str_replace('€', '', $actual_prov));
-				$new_budget->actual_provision = trim(str_replace(',', '', $new_budget->actual_provision));
-				if(!$new_budget->actual_provision)
-					$new_budget->actual_provision = 0;
+			$new_budget->initial_provision = trim($initial_prov);
+			if(!$new_budget->initial_provision)
+				$new_budget->initial_provision = 0;
 
-				$new_budget->trimester_1 = trim(str_replace('€', '', $t1));
-				$new_budget->trimester_1 = trim(str_replace(',', '', $new_budget->trimester_1));
-				if(!$new_budget->trimester_1)
-					$new_budget->trimester_1 = 0;
+			$new_budget->actual_provision = trim($actual_prov);
+			if(!$new_budget->actual_provision)
+				$new_budget->actual_provision = 0;
 
-				$new_budget->trimester_2 = trim(str_replace('€', '', $t2));
-				$new_budget->trimester_2 = trim(str_replace(',', '', $new_budget->trimester_2));
-				if(!$new_budget->trimester_2)
-					$new_budget->trimester_2 = 0;
+			$new_budget->trimester_1 = trim($t1);
+			if(!$new_budget->trimester_1)
+				$new_budget->trimester_1 = 0;
 
-				$new_budget->trimester_3 = trim(str_replace('€', '', $t3));
-				$new_budget->trimester_3 = trim(str_replace(',', '', $new_budget->trimester_3));
-				if(!$new_budget->trimester_3)
-					$new_budget->trimester_3 = 0;
+			$new_budget->trimester_2 = trim($t2);
+			if(!$new_budget->trimester_2)
+				$new_budget->trimester_2 = 0;
 
-				$new_budget->trimester_4 = trim(str_replace('€', '', $t4));
-				$new_budget->trimester_4 = trim(str_replace(',', '', $new_budget->trimester_4));
-				if(!$new_budget->trimester_4)
-					$new_budget->trimester_4 = 0;
+			$new_budget->trimester_3 = trim($t3);
+			if(!$new_budget->trimester_3)
+				$new_budget->trimester_3 = 0;
 
-				$criteria=new CDbCriteria;
-				$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
-				$parent=Budget::model()->find($criteria);
-				if($parent)
-					$new_budget->parent = $parent->id;
-				else
-					$new_budget->parent = $yearly_budget->id;
-				$new_budget->featured=0;
+			$new_budget->trimester_4 = trim($t4);
+			if(!$new_budget->trimester_4)
+				$new_budget->trimester_4 = 0;
 
-				$criteria=new CDbCriteria;
-				$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
-				$budget=Budget::model()->find($criteria);
-				if(!$budget){
+			$criteria=new CDbCriteria;
+			$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
+			$parent=Budget::model()->find($criteria);
+			if($parent)
+				$new_budget->parent = $parent->id;
+			else
+				$new_budget->parent = $yearly_budget->id;
+			$new_budget->featured=0;
 
-					//$new_budget->validate();
-					//echo CHtml::errorSummary($new_budget);
-					//Yii::app()->end();
+			$criteria=new CDbCriteria;
+			$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
+			$budget=Budget::model()->find($criteria);
+			if(!$budget){
 
-					$new_budget->save();
-					$new_budgets = $new_budgets+1;
-					continue;
-				}
-				$new_budget->featured=$budget->featured;
-				$differences = $budget->compare($new_budget);
-				if(count($differences) == 1)	// only difference is the id
-					continue;
+				//$new_budget->validate();
+				//echo CHtml::errorSummary($new_budget);
+				//Yii::app()->end();
 
-				foreach($differences as $attribute=>$values){
-					if($attribute == 'id')
-						continue;
-					$budget->owner->$attribute=$values['new'];
-				}
-				$budget->save();
-				$updated_budgets = $updated_budgets+1;
+				$new_budget->save();
+				$new_budgets = $new_budgets+1;
+				continue;
 			}
-		}else
-			$error = 'File path not defined.';
+			$new_budget->featured=$budget->featured;
+			$differences = $budget->compare($new_budget);
+			if(count($differences) == 1)	// only difference is the id
+				continue;
+
+			foreach($differences as $attribute=>$values){
+				if($attribute == 'id')
+					continue;
+				$budget->owner->$attribute=$values['new'];
+			}
+			$budget->save();
+			$updated_budgets = $updated_budgets+1;
+		}
 		if($error)
 			echo CJavaScript::jsonEncode(array('error'=>$error));
 		else
@@ -385,7 +433,8 @@ class CsvController extends Controller
 
 	public function actionDownload($id)
 	{
-		if(list($file, $budgets) = ImportCSV::createCSV($id)){
+		$model = new ImportCSV;
+		if(list($file, $budgets) = $model->createCSV($id)){
 			$download='<a href="'.$file->getWebPath().'">'.$file->getWebPath().'</a>';
 			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported.<br />'.$download);
 

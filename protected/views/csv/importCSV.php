@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,6 +26,11 @@ $this->menu=array(
 	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
 	array('label'=>__('List Years'), 'url'=>array('//budget/adminYears')),
 );
+if($model->csv){
+	$importAgain = array( array('label'=>__('Upload CSV again'), 'url'=>array('csv/importCSV/'.$model->year)), );
+	array_splice( $this->menu, 0, 0, $importAgain );
+}
+
 $this->inlineHelp=':csv_format';
 ?>
 
@@ -40,31 +45,11 @@ p { font-size:1.3em; }
 function changeYear(el){
 	$('#ImportCSV_year').val( $(el).val() );
 }
-function step4_1_to_5(){
-	$('#step_4_1').hide();
+function step41_to_5(){
+	$('#step_41').hide();
 	$('#step_5').show();
 }
-function checkEncoding(){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/checkEncoding',
-		type: 'GET',
-		//dataType: 'json',
-		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
-		success: function(data){
-					if(data.error){
-						$('#check_encoding_button').replaceWith('<span class="error">'+data.error+'</span>');
-					}else{
-						$('#check_encoding_button').replaceWith('<span class="success">'+data+'</span>');
-						$('#step_3').show();
-					}
-		},
-		error: function() { alert("error on checkEncoding"); },
-	});
-}
-
-function checkFormat(){
+function checkFormat(el, next){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/checkCSVFormat',
 		type: 'GET',
@@ -74,16 +59,41 @@ function checkFormat(){
 		//complete: function(){  },
 		success: function(data){
 					if(data.error){
-						$('#check_format_button').replaceWith('<span class="error">'+data.error+'</span>');
+						$(el).replaceWith('<span class="error">'+data.error+'</span>');
 					}else{
-						$('#check_format_button').replaceWith('<span class="success">'+data+' registers seem ok</span>');
-						$('#step_4').show();
+						$(el).replaceWith('<span class="success">'+data+' registers seem ok</span>');
+						$('#step_'+next).show();
 					}
 		},
 		error: function() { alert("error on checkFormat"); },
 	});
 }
-function checkTotals(){
+
+function addMissingValues(el, next){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingValues',
+		type: 'GET',
+		dataType: 'json',
+		data: { 'csv_file': '<?php echo $model->csv;?>' },
+		//beforeSend: function(){  },
+		//complete: function(){  },
+		success: function(data){
+					if(data.error){
+						$(el).replaceWith('<span class="error">'+data.error+'</span>');
+					}else{
+						if(data.updated > 0 || data.new_concepts > 0 ){
+							download = '<br /><span class="success">Download updated CSV</span> <a href="'+data.file+'">'+data.file+'</a>';
+						}else{
+							download = '';
+							$('#step_'+next).show();
+						}
+						$(el).replaceWith('<span class="success">'+data.msg+'</span> '+download);
+					}
+		},
+		error: function() { alert("error on checkHierarchy"); },
+	});
+}
+function checkTotals(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/checkCSVTotals',
 		type: 'GET',
@@ -95,17 +105,45 @@ function checkTotals(){
 					if(data.error){
 						alert(data.error);
 					}else if(data.totals){
-						$('#check_totals_button').replaceWith('<span class="warn">Some totals do not match'+data.totals+'</span>');
-						$('#step_4_1').show();
+						$(el).replaceWith('<span class="warn">Some totals do not match'+data.totals+'</span>');
+						next_step = $(el).attr('step');
+						$('#step_'+next_step).show();
 					}else{
-						$('#check_totals_button').replaceWith('<span class="success">'+data+' registers seem ok</span>');
-						$('#step_5').show();
+						$(el).replaceWith('<span class="success">'+data+' registers seem ok</span>');
+						$('#step_'+next_step).show();
 					}
 		},
 		error: function() { alert("error on checkTotals"); },
 	});
 }
-function dumpBudgets(){
+/*
+function checkMissingConcepts(el, next_step){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingDescriptions',
+		type: 'GET',
+		dataType: 'json',
+		data: { 'csv_file': '<?php echo $model->csv;?>' },
+		//beforeSend: function(){  },
+		//complete: function(){  },
+		success: function(data){
+					if(data.error){
+						$(el).replaceWith('<span class="error">'+data.error+'</span>');
+					}else{
+						if(data.updated == 0){
+							$(el).replaceWith('<span class="success">All concepts are defined</span>');
+							$('#step_'+next_step).show();
+						}else{
+							download = '<a href="'+data.file+'">'+data.file+'</a>';
+							$(el).replaceWith(	'<span class="warn">Made '+data.updated+' changes.</span><br />'+
+												'<span class="success">Download updated CSV</span> '+download);
+						}
+					}
+		},
+		error: function() { alert("error on checkMissingConcepts"); },
+	});
+}
+*/
+function dumpBudgets(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/dumpBudgets',
 		type: 'GET',
@@ -114,16 +152,16 @@ function dumpBudgets(){
 		//complete: function(){  },
 		success: function(data){
 					if(data == 1){
-						$('#dump_button').replaceWith('<span class="error">Failed to back up Budgets. See your Admin.</span>');
+						$(el).replaceWith('<span class="error">Failed to back up Budgets. See your Admin.</span>');
 					}else{
-						$('#dump_button').replaceWith('<span class="success">All budgets backed up ok.</span>');
-						$('#step_6').show();
+						$(el).replaceWith('<span class="success">All budgets backed up ok.</span>');
+						$('#step_'+next_step).show();
 					}
 		},
 		error: function() { alert("error on dump Budgets"); },
 	});
 }
-function importData(){
+function importData(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/importCSVData/<?php echo $model->year;?>',
 		type: 'GET',
@@ -133,11 +171,11 @@ function importData(){
 		complete: function(){ $('#loading_importing_csv').hide(); },
 		success: function(data){
 					if(data.error)
-						$('#import_button').replaceWith('<span class="error">'+data.error+'</span>');
+						$(el).replaceWith('<span class="error">'+data.error+'</span>');
 					else{
 						msg = '<span class="success">New registers: '+data.new_budgets+', Updated registers: '+data.updated_budgets+'</span>';
-						$('#import_button').replaceWith(msg);
-						$('#step_7').show();
+						$(el).replaceWith(msg);
+						$('#step_'+next_step).show();
 					}
 		},
 		error: function() { alert("error on importData"); },
@@ -177,29 +215,32 @@ $form = $this->beginWidget(
 $this->endWidget();
 
 }else{
-	echo '<p>Step 1. <span class="success">File up loaded correctly</span></p>';
+	echo '<p>Step 1. <span class="success">File uploaded correctly</span></p>';
 }
 
 if($model->step == 2){
-	echo '<p id="step_2">Step 2. Check file for UTF-8 encoding ';
-	echo '<input id="check_encoding_button" type="button" value="Check" onClick="js:checkEncoding();" /></p>';
+	echo '<p id="step_2">Step 2. Check CSV format ';
+	echo '<input id="check_csv_button" type="button" value="Check" onClick="js:checkFormat(this,3);" /></p>';
 }
 
-echo '<p id="step_3" style="display:none">Step 3. Check file format ';
-echo '<input id="check_format_button" type="button" value="Check" onClick="js:checkFormat();" /></p>';
+echo '<p id="step_3" style="display:none">Step 3. Check for missing values ';
+echo '<input type="button" value="Check" onClick="js:addMissingValues(this,4);" /></p>';
 
-echo '<p id="step_4" style="display:none">Step 4. Check totals ';
-echo '<input id="check_totals_button" type="button" value="Check" onClick="js:checkTotals();" /></p>';
+echo '<p id="step_4" style="display:none">Step 4. Check totals  ';
+echo '<input type="button" step="41" value="Calculate" onClick="js:checkTotals(this,5);" /></p>';
 
-echo '<p id="step_4_1" style="display:none">';
+echo '<p id="step_41" style="display:none">';
 echo '<input type="button" value="Try again" onClick="js:location.href=\''.Yii::app()->request->baseUrl.'/csv/importCSV/'.$model->year.'\';" /> ';
-echo '<input type="button" value="Continue anyway" onClick="js:step4_1_to_5();" /></p>';
+echo '<input type="button" value="Continue anyway" onClick="js:step41_to_5();" /></p>';
+
+//echo '<p id="step_5" style="display:none">Step 5. Check for missing Concepts ';
+//echo '<input type="button" value="Check" onClick="js:checkMissingConcepts(this,6);" /></p>';
 
 echo '<p id="step_5" style="display:none">Step 5. Backup budget database: ';
-echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets();" /></p>';
+echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets(this,6);" /></p>';
 
 echo '<p id="step_6" style="display:none">Step 6. Import into database: <b>'.$model->year.'</b> ';
-echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData();" />';
+echo '<input id="import_button" type="button" style="margin-left:15px;" value="Import" onClick="js:importData(this,7);" />';
 echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />';
 echo '</p>';
 
