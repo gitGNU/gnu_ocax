@@ -84,13 +84,16 @@ function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
 		
-		echo '<div class="horizontalRule" style="float:right;padding-top:10px;">';
+		echo '<div class="horizontalRule" style="float:right;padding-top:10px;"></div>';
 		echo '<div id="control_panel"></div>';
 		echo '<div class="sub_title" style="float:right">';
-		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_blank">OCAx manual</a>';
+		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
 		echo CHtml::link('support',array('site/chat'),array('target'=>'_chat'));
+		echo '</div>';
+		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
+		echo '<a href="http://ocax.net/network" target="_network">network</a>';
 		echo '</div>';
 		echo '<div class="clear"></div>';
 		echo '</div>';	
