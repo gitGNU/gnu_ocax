@@ -212,6 +212,11 @@ class Budget extends CActiveRecord
 	{
 		return $this->find(array('condition'=>'parent IS NULL AND code = 1 AND year = '.$this->year));
 	}
+	
+	public function getPublicYears()
+	{
+		return $this->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
+	}
 
 	/**
 	 * Dump the budget table

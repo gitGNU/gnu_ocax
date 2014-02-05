@@ -54,6 +54,7 @@ class ApiController extends Controller
 						);
 				$this->_sendResponse(200, CJSON::encode($result));					
 				Yii::app()->end();
+			
 			case 'profile':
 				$result = array(
 							'language'=>Config::model()->findByPk('languages')->value,
@@ -61,26 +62,31 @@ class ApiController extends Controller
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
+			
 			case 'status':
-				//$sql = "SELECT COUNT(*) FROM user";
-				//$users = Yii::app()->db->createCommand($sql)->queryScalar();
-				$sql = "SELECT COUNT(*) FROM enquiry";
-				$enquiries = Yii::app()->db->createCommand($sql)->queryScalar();
-				$sql = "SELECT COUNT(*) FROM enquiry WHERE state = ".ENQUIRY_REPLY_INSATISFACTORY;
-				$enquiries_failed = Yii::app()->db->createCommand($sql)->queryScalar();		
-				$year = Config::model()->findByPk('year')->value;
-				$sql = "SELECT actual_provision FROM budget WHERE year = '$year' AND csv_id = 'I-E'";
-				$budget = Yii::app()->db->createCommand($sql)->queryScalar();
-				$result = array(
-				//			'users'=>$users,
-							'enquiries'=>$enquiries,
-							'enquiries_failed'=>$enquiries_failed,
-							'year'=>$year,
-							'population'=>(string)(int)Budget::model()->getPopulation($year),
-							'budget'=>$budget,
-							);
+				$result = array();
+				$years = Budget::model()->getPublicYears();
+				
+				foreach($years as $year){
+					$sql = "SELECT actual_provision FROM budget WHERE year = '".$year->year."' AND csv_id = 'I-E'";
+					$budget = Yii::app()->db->createCommand($sql)->queryScalar();
+					
+					$sql = "SELECT COUNT(*) FROM enquiry WHERE YEAR(created) = ".$year->year;
+					$enquiries = Yii::app()->db->createCommand($sql)->queryScalar();
+					
+					$sql = "SELECT COUNT(*) FROM enquiry WHERE YEAR(created) = '".$year->year."' AND state = ".ENQUIRY_REPLY_INSATISFACTORY;
+					$enquiries_failed = Yii::app()->db->createCommand($sql)->queryScalar();
+					
+					$result[$year->year]=array(
+						'population'=>(string)(int)Budget::model()->getPopulation($year->year),
+						'budget'=>$budget,
+						'enquiries'=>$enquiries,
+						'enquiries_failed'=>$enquiries_failed,
+					);
+				}
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
+
 			default:
 				// Model not implemented error
 				$this->_sendResponse(501, sprintf(
