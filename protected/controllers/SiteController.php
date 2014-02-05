@@ -68,6 +68,15 @@ class SiteController extends Controller
 		}
 	}
 
+	public function actionChat()
+	{
+		if(!Yii::app()->user->isPrivileged())
+			$this->redirect(array('index'));
+		else	
+			$this->renderPartial('chat');
+		
+	}
+
 	/**
 	 * Displays the contact page
 	 */
@@ -255,9 +264,6 @@ class SiteController extends Controller
 					Yii::app()->request->cookies['lang'] = $cookie;
 				}
 				if(Yii::app()->user->returnUrl != Yii::app()->getHomeUrl())
-					Yii::app()->request->redirect(Yii::app()->user->returnUrl);
-				else
-					$this->redirect(arrayYii::app()->user->returnUrl != Yii::app()->getHomeUrl())
 					Yii::app()->request->redirect(Yii::app()->user->returnUrl);
 				else
 					$this->redirect(array('user/panel'));
