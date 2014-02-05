@@ -257,6 +257,9 @@ class SiteController extends Controller
 				if(Yii::app()->user->returnUrl != Yii::app()->getHomeUrl())
 					Yii::app()->request->redirect(Yii::app()->user->returnUrl);
 				else
+					$this->redirect(arrayYii::app()->user->returnUrl != Yii::app()->getHomeUrl())
+					Yii::app()->request->redirect(Yii::app()->user->returnUrl);
+				else
 					$this->redirect(array('user/panel'));
 			}
 		}

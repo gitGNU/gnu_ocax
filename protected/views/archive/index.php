@@ -21,7 +21,7 @@
 /* @var $this ArchiveController */
 /* @var $dataProvider CActiveDataProvider */
 
-$userCanCreate = Yii::app()->user->canCreateArchive();
+$userCanCreate = Yii::app()->user->isPrivileged();
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/archive.css" />

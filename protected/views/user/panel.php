@@ -89,6 +89,9 @@ function addPanelSeparator(){
 		echo '<div class="sub_title" style="float:right">';
 		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_blank">OCAx manual</a>';
 		echo '</div>';
+		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
+		echo CHtml::link('support',array('site/chat'),array('target'=>'_chat'));
+		echo '</div>';
 		echo '<div class="clear"></div>';
 		echo '</div>';	
 		$panel_separator_added=1;

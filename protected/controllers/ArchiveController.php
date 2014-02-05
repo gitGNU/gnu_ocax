@@ -51,7 +51,7 @@ class ArchiveController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('validateFile','create','delete'),
-				'expression'=>"Yii::app()->user->canCreateArchive()",
+				'expression'=>"Yii::app()->user->isPrivileged()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -189,7 +189,6 @@ class ArchiveController extends Controller
 														'pageSize' => 12,
 													),
 										));
-		//$dataProvider=new CActiveDataProvider('Archive');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
