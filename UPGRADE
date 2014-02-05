@@ -9,8 +9,14 @@ Before upgrading, read INSTALL to refresh your memory.
 
 
 1.1.1
+Follow steps 1-6 above.
+
 We've got a new Global Parameter.
 INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
+
+Made database field for csv internal code longer
+ALTER TABLE budget MODIFY `csv_id` varchar(100) DEFAULT NULL;
+ALTER TABLE budget MODIFY `csv_parent_id` varchar(100) DEFAULT NULL;
 
 
 1.1.0

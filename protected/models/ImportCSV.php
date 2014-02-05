@@ -141,7 +141,8 @@ class ImportCSV extends CFormModel
 		$fh = fopen($this->csv, 'w');
 		fwrite($fh, $this->getHeader());
 		foreach($ordered as $line){
-			$line = str_replace(' |','|',$line);	// remove trailing white;
+			$line = preg_replace("/\s*[|]\s*/", "|", $line);
+			$line = trim($line).PHP_EOL;
 			fwrite($fh, $line);
 		}
 		fclose($fh);
