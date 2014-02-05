@@ -69,7 +69,8 @@ class CsvController extends Controller
 
 	public function actionRegenerateCSV($id)
 	{
-		if(ImportCSV::createCSV($id))
+		$model = new ImportCSV;
+		if($model->createCSV($id))
 			echo 1;
 		else
 			echo 0;
