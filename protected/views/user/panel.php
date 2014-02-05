@@ -56,26 +56,27 @@ function changeColumn()
 }?>
 
 <div class="outer">
-<div class="panel_left">
-<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
-<div class="clear"></div>
-<div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
-<p>
-<?php
-$str = __('ENQUIRY_NEW_MSG');
-echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
-?>
-</p>
-</div>
-<div class="panel_right">
-<div id="datos_usuario" onclick="location.href='<?php echo $this->createUrl('user/update/');?>'"></div>
-<div class="clear"></div>
-<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
-<p>
-<?php echo __('Change your profile');?><br />
-<?php echo __('Configure your email');?><br />
-<?php echo __('Change your password');?></p>
-</div>
+	<div class="panel_left">
+	<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
+	<div class="clear"></div>
+	<div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
+		<p>
+		<?php
+			$str = __('ENQUIRY_NEW_MSG');
+			echo str_replace('%s', CHtml::link(__('Budgets'),array('/budget')), $str);
+		?>
+		</p>
+	</div>
+	<div class="panel_right">
+		<div id="datos_usuario" onclick="location.href='<?php echo $this->createUrl('user/update/');?>'"></div>
+		<div class="clear"></div>
+		<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
+			<p>
+				<?php echo __('Change your profile');?><br />
+				<?php echo __('Configure your email');?><br />
+				<?php echo __('Change your password');?>
+			</p>
+		</div>
 
 <?php
 
@@ -159,8 +160,7 @@ if($model->is_admin){
 }
 ?>
 
-
-<?php $this->widget('InlineHelp'); ?>
+<?php /*$this->widget('InlineHelp');*/ ?>
 
 <div class="horizontalRule" style="padding-top:20px;margin-top:20px;float:right;"></div>
 <div id="panelMyEnquiries"></div>
@@ -247,6 +247,10 @@ if($noEnquiries){
 }
 
 ?>
+
+
+</div>
+</div>
 
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
