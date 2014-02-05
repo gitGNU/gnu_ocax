@@ -48,7 +48,7 @@ class CsvController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
-				'addMissingValues'/*,'addMissingTotals','addMissingDescriptions',*/'checkCSVTotals','importCSVData',
+				'addMissingValues','checkCSVTotals','importCSVData',
 				'download','showYears','regenerateCSV','importDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
