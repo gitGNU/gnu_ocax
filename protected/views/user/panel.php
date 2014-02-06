@@ -91,7 +91,7 @@ function addPanelSeparator(){
 		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
-		echo '<a href="http://ocax.net/cgi-bin/mailman/listinfo/lista" target="_list">mailing list</a>';
+		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">mailing list</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="float:right;margin-right:50px;">';
 		echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
