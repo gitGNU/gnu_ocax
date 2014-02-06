@@ -40,7 +40,12 @@ class WebUser extends CWebUser {
 	return intval($user->id);
   }
  
-
+  function getFullname(){
+	if(Yii::app()->user->isGuest)
+		return '';
+    $user = $this->loadUser(Yii::app()->user->id);
+	return $user->fullname;
+  }
 
 
   // access it by Yii::app()->user->isAdmin()
