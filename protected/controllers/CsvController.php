@@ -182,9 +182,10 @@ class CsvController extends Controller
 		$msg=Null;
 		$newRegisterCnt = $model->addMissignRegisters();
 		
+		$new_concepts = 0;
 		if($newRegisterCnt > 0){
 			$msg='<span class="warn">'.$newRegisterCnt.' new registers added.</span>';
-			$model->addMissingConcepts();
+			$new_concepts = $model->addMissingConcepts();
 		}	
 		if($new_totals = $model->addMissingTotals()){
 			if($newRegisterCnt)
@@ -192,8 +193,8 @@ class CsvController extends Controller
 			if($new_totals)
 				$msg = $msg.'<span class="warn"> '.$new_totals.' missing totals added</span>';
 		}
-		$new_concepts = 0;
-		if($new_concepts = $model->addMissingConcepts())
+		$new_concepts += $model->addMissingConcepts();
+		if($new_concepts)
 			$msg = $msg.'<span class="warn"> '.$new_concepts.' codes/concepts added.</span>';
 			
 		if(!$msg)

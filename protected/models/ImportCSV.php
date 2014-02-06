@@ -271,21 +271,34 @@ class ImportCSV extends CFormModel
 		foreach($registers as $internal_code => $register){
 			$budgets[$internal_code] = $this->register2array($register);
 
-			if(!($budgets[$internal_code]['code'] && $budgets[$internal_code]['concept'])){
+			if(($budgets[$internal_code]['code'] === '') || ($budgets[$internal_code]['concept'] === '')){
+				//echo '<p>'.$internal_code.' -'.$budgets[$internal_code]['code'].'- '.$budgets[$internal_code]['concept'].'<br />';
 				if($description = BudgetDescription::model()->findByPk($lang.$internal_code)){
-					if(!$budgets[$internal_code]['code'] && strlen($budgets[$internal_code]['csv_id']) > 3){
+					if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
+						echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 1st<br />';
 						$budgets[$internal_code]['code'] = $description->code;
-						$updated += 1;
+						if($budgets[$internal_code]['code'] !== '')
+							$updated++;
 					}
 					if(!$budgets[$internal_code]['concept']){
 						$budgets[$internal_code]['concept'] = $description->concept;
-						$updated += 1;	
+						if($budgets[$internal_code]['concept'] !== '')
+							$updated++;	
 					}
-				}else
-					if(!$budgets[$internal_code]['concept']){
-						$budgets[$internal_code]['concept'] = 'UNKNOWN';
-						$updated += 1;
-					}
+				}
+				if($budgets[$internal_code]['concept'] === ''){
+					$budgets[$internal_code]['concept'] = 'UNKNOWN';
+					$updated++;
+				}
+				if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
+					//echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 2nd<br />';
+					if($isChild = strrpos($internal_code, "-"))			
+						$budgets[$internal_code]['code'] = substr($internal_code, $isChild+1);
+					else
+						$budgets[$internal_code]['code'] = 'UNKNOWN';
+					$updated++;
+				}
+				//echo $internal_code.' -'.$budgets[$internal_code]['code'].'- '.$budgets[$internal_code]['concept'].'</p>';
 			}
 		}
 		if($updated){
