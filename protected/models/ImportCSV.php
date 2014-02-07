@@ -322,25 +322,26 @@ class ImportCSV extends CFormModel
 		if($existing_file = File::model()->findByAttributes(array('path'=>$file->path)))
 			$file = $existing_file;
 
-		$tmp_fn = '/tmp/csv-' . mt_rand(10000,99999);
-		$fh = fopen($tmp_fn, 'w');
-		fwrite($fh, $this->getHeader());
-
 		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, code, label, concept, initial_provision, actual_provision,
 													trimester_1, trimester_2, trimester_3, trimester_4
 													FROM budget
 													WHERE year = '.$year.' AND parent IS NOT NULL');
-		foreach($budgets as $b){
-			fwrite($fh, $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
+		$csv = array();
+		foreach($budgets as $b)
+			$csv[$b->csv_id] = $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
 						'|'.$b->trimester_1.'|'.$b->trimester_2.'|'.$b->trimester_3.'|'.$b->trimester_4.
-						'|'.$b->label.'|'.$b->concept.PHP_EOL);
-		}
-		fclose($fh);
+						'|'.$b->label.'|'.$b->concept.PHP_EOL;
 		
+		ksort($csv);
+		$tmp_fn = '/tmp/csv-' . mt_rand(10000,99999);
+		$fh = fopen($tmp_fn, 'w');
+		fwrite($fh, $this->getHeader());
+		foreach($csv as $line)
+			fwrite($fh, $line);
+		fclose($fh);
 		
 		$content = file_get_contents($tmp_fn);
 		//file_put_contents($tmp_fn, "\xEF\xBB\xBF".  $content);
-		
 
 		$fh = fopen($tmp_fn, 'w');
         # Now UTF-8 - Add byte order mark 
@@ -348,7 +349,6 @@ class ImportCSV extends CFormModel
         fwrite($fh,$content); 
         fclose($fh); 
 
-		
 		if (copy($tmp_fn, $file->getURI())) {
 			unlink($tmp_fn);
 			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('d-m-Y H:i:s').')';
@@ -357,5 +357,4 @@ class ImportCSV extends CFormModel
 		}else
 			return Null;
 	}
-
 }

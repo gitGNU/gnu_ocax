@@ -24,6 +24,8 @@
 
 ?>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax.js"></script>
+
 <style>
 .loader_gif {
 	margin-left:20px;
@@ -41,6 +43,8 @@ $(function() {
 	$('.budget').bind('click', function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
 	});
+	theme_color = rgb2hex($('.actual_provision_bar').first().css("background-color"));
+	$('.executed_bar').css("background-color",lightenDarkenColor(theme_color,-20));
 });
 
 function toggleChildren(id){
@@ -48,17 +52,13 @@ function toggleChildren(id){
 		$('#budget_children_'+id).slideUp('fast');
 		$('#toggle_'+id).attr('src','<?php echo Yii::app()->request->baseUrl;?>/images/plus_icon.png');
 	}else{
-		//$('.budget_details').hide();		
 		$('#budget_children_'+id).slideDown('fast');
 		$('#toggle_'+id).attr('src','<?php echo Yii::app()->request->baseUrl;?>/images/minus_icon.png');
 	}
 }
 </script>
 
-
-
 <?php
-
 function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$parent_budget->id.' AND actual_provision != 0';
@@ -71,7 +71,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		if($indent > 0)
 			$budget_indent = 32;
 
-		echo '<div class="kk" style="margin-left:'.$budget_indent.'px;margin-top:20px;">';
+		echo '<div style="margin-left:'.$budget_indent.'px;margin-top:20px;">';
 			if($budget->budgets)
 				echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
 			else
@@ -83,14 +83,34 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 			echo '</div>';
 			}
 			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
-				echo '<span class="barBudgetConcept">'.$budget->code.'. '.$budget->getConcept().' '.format_number($budget->actual_provision).'</span> ';
-				$percent=percentage($budget->actual_provision,$globals['yearly_actual_provision']);
-				$width=$graph_width*(percentage($budget->actual_provision,$globals['largest_provision']) / 100);
+				echo '<span class="barBudgetConcept">'.$budget->code.'. '
+						.$budget->getConcept().' '.format_number($budget->actual_provision)
+						//.', root actual '.$globals['root_actual_provision']	
+						//.', executed '.format_number($budget->getExecuted())
+						//.', root executed '.$globals['root_executed']				
+						.'</span> ';
+						
+/*					
+				echo '<p>';
+				foreach($globals['largest_provisions'] as $key => $value)
+					echo $key.' '.$value.'<br />';
+				echo '</p>';
+*/
+				
+				$percent=percentage($budget->actual_provision,$globals['root_actual_provision']);
+				$width = $graph_width*(percentage($budget->actual_provision,$globals['largest_provision']) / 100);
 				echo '<div class="actual_provision_bar" style="width:'.$width.'px;">';
 				echo '<div class="graph_bar_percent">'.$percent.'%</div>';
-			echo '</div>';
-			
-
+				echo '</div>';
+				
+				if($executed=$budget->getExecuted()){
+					$percent=percentage($executed, $globals['root_actual_provision']);
+					$width = $graph_width*(percentage($executed, $globals['largest_provision']) / 100);
+					echo '<div class="executed_bar" style="width:'.$width.'px;">';
+					echo '<div class="graph_bar_percent">'.$percent.'%</div>';
+					echo '</div>';
+				}
+				
 			echo '</div>';
 		echo '</div>';
 		echo '<div style="clear:both"></div>';
@@ -115,15 +135,27 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'parent = '.$featured_budget->id;
 	
-		$largest_provision=0;
+		$largest_provisions = array('actual'=>0, 'executed'=>0);
 		foreach(Budget::model()->findAll($criteria) as $budget){
-			if($budget->actual_provision > $largest_provision)
-				$largest_provision = $budget->actual_provision;
+			if($budget->actual_provision > $largest_provisions['actual'])
+				$largest_provisions['actual'] = $budget->actual_provision;
+				
+			if($budget->getExecuted() > $largest_provisions['executed'])
+				$largest_provisions['executed'] = $budget->getExecuted();
 		}
-		$graph_percentage=percentage($largest_provision, $featured_budget->actual_provision);
+		arsort($largest_provisions);
+		reset($largest_provisions);
+		
+		//foreach($largest_provisions as $key => $value)
+		//	echo '<p>'.$key.' '.$value.'</p>';
+		
+		$largest_provision = current($largest_provisions);
+		$largest_provision = max($largest_provisions);
+		//echo 'largest_provision -'.$largest_provision.'-';
 	
-		$globals=array(	'yearly_initial_provision' => $featured_budget->initial_provision,
-						'yearly_actual_provision' => $featured_budget->actual_provision,
+		$globals=array(	'root_executed' => $featured_budget->getExecuted(),
+						'root_actual_provision' => $featured_budget->actual_provision,
+						'largest_provisions'=> $largest_provisions,
 						'largest_provision'=> $largest_provision,
 						'queried_budget' => $featured_budget->id,
 		);

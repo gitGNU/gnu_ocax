@@ -185,6 +185,11 @@ class Budget extends CActiveRecord
 		return '--';
 	}
 	
+	public function getExecuted()
+	{
+		return $this->trimester_1 + $this->trimester_2 + $this->trimester_3 + $this->trimester_4;
+	}	
+
 	public function getCategory()
 	{
 		if($budget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 3))))
