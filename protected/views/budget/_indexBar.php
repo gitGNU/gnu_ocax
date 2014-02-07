@@ -24,8 +24,6 @@
 
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax.js"></script>
-
 <style>
 .loader_gif {
 	margin-left:20px;
@@ -38,13 +36,14 @@
 }
 </style>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax.js"></script>
 <script>
 $(function() {
 	$('.budget').bind('click', function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
 	});
 	theme_color = rgb2hex($('.actual_provision_bar').first().css("background-color"));
-	$('.executed_bar').css("background-color",lightenDarkenColor(theme_color,-20));
+	$('.executed_bar').css("background-color",lightenDarkenColor(theme_color,-15));
 });
 
 function toggleChildren(id){
@@ -145,18 +144,15 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		}
 		arsort($largest_provisions);
 		reset($largest_provisions);
-		
+		//$largest_provision = max($largest_provisions);
+				
 		//foreach($largest_provisions as $key => $value)
 		//	echo '<p>'.$key.' '.$value.'</p>';
-		
-		$largest_provision = current($largest_provisions);
-		$largest_provision = max($largest_provisions);
 		//echo 'largest_provision -'.$largest_provision.'-';
 	
 		$globals=array(	'root_executed' => $featured_budget->getExecuted(),
 						'root_actual_provision' => $featured_budget->actual_provision,
-						'largest_provisions'=> $largest_provisions,
-						'largest_provision'=> $largest_provision,
+						'largest_provision'=> max($largest_provisions),
 						'queried_budget' => $featured_budget->id,
 		);
 	
