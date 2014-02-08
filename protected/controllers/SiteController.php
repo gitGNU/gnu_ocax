@@ -74,7 +74,14 @@ class SiteController extends Controller
 			$this->redirect(array('index'));
 		else	
 			$this->renderPartial('chat');
-		
+	}
+
+	public function actionCandy()
+	{
+		if(!Yii::app()->user->isPrivileged())
+			$this->redirect(array('index'));
+		else	
+			$this->renderPartial('candy');
 	}
 
 	/**

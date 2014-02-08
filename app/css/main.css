@@ -389,7 +389,6 @@ div.search-form
 #header_bar_container > div
 {
 	font-weight:800;
-	list-style-type: none;
 	background: url(../images/separador.png) no-repeat scroll right transparent;
 	margin-right:17px;
 	padding-right:17px;
@@ -399,8 +398,6 @@ div.search-form
 
 #header_bar_container > div:first-of-type
 {
-	font-weight:800;
-	list-style-type: none;
 	background: none;
 	height:30px;
 	float:right;

@@ -56,9 +56,9 @@
 	if($fbURL || $twURL){
 		echo '<div>';
 		if($fbURL)
-			echo '<a href="'.$fbURL.'" style="margin-top:3px"><img src="'.Yii::app()->theme->baseUrl.'/images/fb_bar.gif" /></a> ';
+			echo '<a style="margin:4px;float:right" href="'.$fbURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/fb_bar.gif"/></a> ';
 		if($twURL)
-			echo '<a href="'.$twURL.'" style="margin-top:3px"><img src="'.Yii::app()->theme->baseUrl.'/images/tw_bar.gif" /></a>';
+			echo '<a style="margin:4px;float:right" href="'.$twURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/tw_bar.gif"/></a> ';
 		echo '</div>';
 	} ?>    
 

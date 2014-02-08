@@ -64,7 +64,8 @@ function getLanguagesArray($available=Null){
 				$listData['it'] = 'Italiano';
 			if($language == 'pt')
 				$listData['pt'] = 'Português';
-				
+			if($language == 'el')
+				$listData['el'] = 'ελληνικά';
 		}
 	}
 	return $listData;
