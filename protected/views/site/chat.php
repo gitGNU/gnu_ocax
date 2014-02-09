@@ -2,48 +2,35 @@
 /* @var $this SiteController */
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
 
-<meta charset="utf-8">
-<title>OCAx chat</title>
-	
 <style>
-iframe {
-    display: block;
-    border: 0;
+html, body { height: 100%; width: 100%; margin: 0; background-color:#575757; padding:0px}
+
+@font-face {
+	font-family: SansPro;
+	src: url("<?php echo Yii::app()->request->baseUrl;?>/fonts/SansPro-Regular.woff");
+	font-weight: 100;
 }
-.fluidMedia {
-    position: relative;
-    padding-bottom: 56.25%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-}
-.fluidMedia iframe {
-    position: absolute;
-    top: 0; 
-    left: 0;
-    width: 80%;
-    height: 60%;
-    margin: 0 auto;
-}
+
+#header { font-family: SansPro; color: #C4C4C4; font-size: 18pt; font-weight:100; margin: 0px}
+#ocaxChat { height: 90%; width: 90%; margin: 0 auto; margin-top: 10px; color: white; }
+#candyFrame { height: 100%; width: 100%; border: 0px}
 </style>
 
-
-
-</head>
-<body style="background-color:darkgrey">
-
-<div class="fluidMedia">
-	<iframe src="candy" frameborder="0" scrolling="no" />
+<body>
+    
+<div id="ocaxChat">
+	<span id="header">OCAx Community support center (aka chat rooms)</span>
+	<iframe id='candyFrame' src="candy" />
 </div>
-
 
 </body>
 </html>
-
 
 
 

@@ -46,6 +46,7 @@
 			Candy.Core.connect('gatopelao.org', null, '<?php echo Yii::app()->user->getFullname();?>')
 		});
 	</script>
+	<style> body {height:100%;} </style>
 </head>
 <body>
 	<div id="candy"></div>
