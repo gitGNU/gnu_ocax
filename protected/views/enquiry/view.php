@@ -273,10 +273,10 @@ if($model->budget)
 		echo '<div style="float:left;margin-left:10px;width:80px;">
 			  <a	href="https://twitter.com/share"
 					class="twitter-share-button"
-					data-url="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-					data-counturl="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-					data-text="'.$model->title.'"
-					data-hashtags="'.Config::model()->findByPk('siglas')->value.'"
+					data-url="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
+					data-counturl="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
+					data-text="'.trim($model->title).'"
+					data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
 					data-lang="en"
 					>
 			</a>

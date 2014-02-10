@@ -175,7 +175,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		echo '<div class="key swatch_actual"></div><div class="key_label">'.__('Actual').'</div><br />';
 		echo '<div class="key swatch_executed key_executed"></div><div class="key_label key_executed">'.__('Executed').'</div>';
 		echo '</div>';
-		echo '<div style="clear:both">';
+		echo '<div style="clear:both"></div>';
 		echo '<div class="graph_bar_container">';
 			echoChildBudgets($featured_budget, 0, $graph_width, $globals);
 		echo '</div>';
@@ -189,3 +189,4 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 <img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>
 <div style="clear:both"></div>
 </div>
+
