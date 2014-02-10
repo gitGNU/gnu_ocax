@@ -34,6 +34,8 @@
 	margin-top:5px;
  	margin-left:5px;
 }
+.key { width: 15px; height: 15px; margin-right: 10px; float:left; }
+.key_label { float:left; margin-top:-3px; }
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax.js"></script>
@@ -43,7 +45,13 @@ $(function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
 	});
 	theme_color = rgb2hex($('.actual_provision_bar').first().css("background-color"));
-	$('.executed_bar').css("background-color",lightenDarkenColor(theme_color,-15));
+	$('.swatch_actual').css("background-color",theme_color);
+	if($('.executed_bar').length != 0){
+		lightened_color = lightenDarkenColor(theme_color,-15);
+		$('.executed_bar').css("background-color",lightened_color);
+		$('.swatch_executed').css("background-color",lightened_color);
+	}else
+		$('.key_executed').hide();
 });
 
 function toggleChildren(id){
@@ -157,10 +165,17 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		);
 	
 		echo '<div class="graph_bar_group graph_group">';
-				
-		echo '<a  class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';
+		
+		echo '<div style="float:left; margin: -5px 0 15px 0;">';
+		echo '<a class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';
 		echo CHtml::encode($featured_budget->getConcept()).'</a>';
 		echo '<span class="graph_title" style="margin-left:30px;">'.format_number($featured_budget->actual_provision).'</span>';
+		echo '</div>';
+		echo '<div style="float:right;margin-top:-5px;margin-right:10px;">';
+		echo '<div class="key swatch_actual"></div><div class="key_label">'.__('Actual').'</div><br />';
+		echo '<div class="key swatch_executed key_executed"></div><div class="key_label key_executed">'.__('Executed').'</div>';
+		echo '</div>';
+		echo '<div style="clear:both">';
 		echo '<div class="graph_bar_container">';
 			echoChildBudgets($featured_budget, 0, $graph_width, $globals);
 		echo '</div>';

@@ -25,7 +25,7 @@ $this->setPageTitle($content->pageTitle);
 <style>
 #cmsOptions{
 	font-size:1.5em;
-	margin: -35px -30px 0 -20px;
+	margin: -30px -25px 30px -25px;
 	padding: 10px 0 10px 0;
 	background-color:white;
 }
