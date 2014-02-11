@@ -41,7 +41,6 @@ $this->menu=array(
 		'code',
 		'label',
 		'concept',
-		'common',
 	),
 )); ?>
 </p>

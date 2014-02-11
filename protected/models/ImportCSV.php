@@ -273,9 +273,9 @@ class ImportCSV extends CFormModel
 
 			if(($budgets[$internal_code]['code'] === '') || ($budgets[$internal_code]['concept'] === '')){
 				//echo '<p>'.$internal_code.' -'.$budgets[$internal_code]['code'].'- '.$budgets[$internal_code]['concept'].'<br />';
-				if($description = BudgetDescription::model()->findByPk($lang.$internal_code)){
+				if($description = BudgetDescCommon::model()->findByPk($lang.$internal_code)){
 					if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
-						echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 1st<br />';
+						//echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 1st<br />';
 						$budgets[$internal_code]['code'] = $description->code;
 						if($budgets[$internal_code]['code'] !== '')
 							$updated++;

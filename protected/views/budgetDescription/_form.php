@@ -38,7 +38,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'csv_id'); ?>
-		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
 
@@ -59,7 +59,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'code'); ?>
-		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>32)); ?>
 		<?php echo $form->error($model,'code'); ?>
 	</div>
 
@@ -81,12 +81,6 @@
 		<?php echo $form->labelEx($model,'label'); ?>
 		<?php echo $form->textField($model,'label',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'label'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'common'); ?>
-		<div class="hint"><?php echo __('Common to all councils');?></div>
-		<?php echo $form->checkBox($model,'common', array('checked'=>$model->common)); ?>
 	</div>
 
 	<div class="row">

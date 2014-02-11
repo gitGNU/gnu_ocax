@@ -90,7 +90,7 @@ function addMissingValues(el, next){
 						$(el).replaceWith('<span class="success">'+data.msg+'</span> '+download);
 					}
 		},
-		error: function() { alert("error on checkHierarchy"); },
+		error: function() { alert("error on checkMissingValues"); },
 	});
 }
 function checkTotals(el,next_step){

@@ -61,7 +61,7 @@ class BudgetDescriptionController extends Controller
 	// this is to convert the id field into a varchar.
 	public function actionNewID()
 	{
-		$rows = BudgetDescription::model()->findAll();
+		$rows = BudgetDescLocal::model()->findAll();
 		foreach($rows as $row)
 			$row->save();
 	}
@@ -83,23 +83,24 @@ class BudgetDescriptionController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new BudgetDescription;
+		$model=new BudgetDescLocal;
 		$model->setScenario('create');
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BudgetDescription']))
+		if(isset($_POST['BudgetDescLocal']))
 		{
-			$model->attributes=$_POST['BudgetDescription'];
+			$model->attributes=$_POST['BudgetDescLocal'];
 			$model->text = str_replace("<br />", " ", $model->description);
 			$model->text = trim(strip_tags($model->text));
 			$model->csv_id = strtoupper($model->csv_id);
 			$model->language = strtolower($model->language);
 			$model->modified = date('c');
 			if($model->save())
-				$this->redirect(Yii::app()->createUrl('budgetDescription/view/'.$model->id));
+				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
 		}
+		
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -118,14 +119,14 @@ class BudgetDescriptionController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BudgetDescription']))
+		if(isset($_POST['BudgetDescLocal']))
 		{
-			$model->attributes=$_POST['BudgetDescription'];
+			$model->attributes=$_POST['BudgetDescLocal'];
 			$model->text = str_replace("<br />", " ", $model->description);
 			$model->text = trim(strip_tags($model->text));
 			$model->modified = date('c');
 			if($model->save())
-				$this->redirect(Yii::app()->createUrl('budgetDescription/view/'.$model->id));
+				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
 		}
 
 		$this->render('update',array(
@@ -152,7 +153,7 @@ class BudgetDescriptionController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('BudgetDescription');
+		$dataProvider=new CActiveDataProvider('BudgetDescLocal');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -163,10 +164,10 @@ class BudgetDescriptionController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new BudgetDescription('search');
+		$model=new BudgetDescLocal('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['BudgetDescription']))
-			$model->attributes=$_GET['BudgetDescription'];
+		if(isset($_GET['BudgetDescLocal']))
+			$model->attributes=$_GET['BudgetDescLocal'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -177,12 +178,12 @@ class BudgetDescriptionController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return BudgetDescription the loaded model
+	 * @return BudgetDescLocal the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=BudgetDescription::model()->findByPk($id);
+		$model=BudgetDescLocal::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

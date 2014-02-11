@@ -25,6 +25,7 @@
 $this->menu=array(
 	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
+$this->inlineHelp=':budget_descriptions';
 ?>
 
 <h1><?php echo __('Budgets without description');?></h1>
@@ -32,6 +33,7 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'budget-grid',
 	'dataProvider'=>$dataProvider,
 	//'filter'=>$data,

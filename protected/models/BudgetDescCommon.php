@@ -19,11 +19,10 @@
  */
 
 /**
- * This is the model class for table "budget_description".
+ * This is the model class for table "budget_desc_common".
  *
- * The followings are the available columns in table 'budget_description':
+ * The followings are the available columns in table 'budget_desc_common':
  * @property integer $id
- * @property string $new_id
  * @property string $csv_id
  * @property string $language
  * @property string $code
@@ -31,13 +30,10 @@
  * @property string $concept
  * @property string $description
  * @property string $text
- * @property integer $common
  * @property string $modified
  */
-class BudgetDescription extends CActiveRecord
+class BudgetDescCommon extends CActiveRecord
 {
-	
-	public $combination;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -54,7 +50,7 @@ class BudgetDescription extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'budget_description';
+		return 'budget_desc_common';
 	}
 
 	/**
@@ -65,36 +61,19 @@ class BudgetDescription extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('csv_id, language, concept', 'required'),
-			array('common', 'numerical', 'integerOnly'=>true),
-			array('csv_id, code', 'length', 'max'=>32),
+			array('id, csv_id, language, concept', 'required'),
+			array('id', 'length', 'max'=>110),
+			array('csv_id', 'length', 'max'=>100),
+			array('code', 'length', 'max'=>32),
 			array('label', 'length', 'max'=>32),
 			array('language', 'length', 'max'=>2),
-			array('combination', 'validCombination', 'on'=>'create'),
-			array('id', 'unique', 'className' => 'BudgetDescription', 'on'=>'create'),
 			array('concept', 'length', 'max'=>255),
-			array('description, text, new_id', 'safe'),
+			array('description, text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('csv_id, language, code, concept, description, text', 'safe', 'on'=>'search'),
+			array('csv_id, language, code, concept, text', 'safe', 'on'=>'search'),
 		);
 	}
-
-	protected function beforeSave()
-	{
-		if(!$this->id)
-			$this->id = $this->language.$this->csv_id;
-		return parent::beforeSave();
-	}
-
-
-	public function validCombination($attribute,$params)
-	{
-			if($this->findByAttributes(array('csv_id'=>$this->csv_id,'language'=>$this->language))){
-				$this->addError($attribute, __('Internal_code/Language combination already exists.'));
-			}
-	}
-
 
 	/**
 	 * @return array relational rules.
@@ -126,7 +105,6 @@ class BudgetDescription extends CActiveRecord
 			'concept' => __('Concept'),
 			'description' => __('Description'),
 			'text' => 'Text',
-			'common' => __('Common'),
 			'modified' => __('Modified'),
 		);
 	}
@@ -136,6 +114,7 @@ class BudgetDescription extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -143,12 +122,10 @@ class BudgetDescription extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		//$criteria->compare('id',$this->id);
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('language',$this->language,true);
 		$criteria->compare('code',$this->code);
 		$criteria->compare('concept',$this->concept,true);
-		//$criteria->compare('description',$this->description,true);
 		$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(
@@ -156,4 +133,6 @@ class BudgetDescription extends CActiveRecord
 			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));
 	}
+*/
+
 }

@@ -31,10 +31,22 @@
 
 $model=Budget::model();
 
+if($data['local_concept'])
+	$concept=$data['local_concept'];
+else
+	$concept=$data['common_concept'];
+if($data['local_text'])
+	$text=$data['local_text'];
+else
+	$text=$data['common_text'];
+
 echo '<span class="highlight_text"><b>';
 if($data['code'])
 	echo $data['code'].': ';
-echo CHtml::encode($data['desc_concept']).'</b>
+
+echo CHtml::encode($concept).'</b>
+
+
 </span>
 <br />';
 //echo 'Score: '.CHtml::encode($data['score']).'<br />';
@@ -48,6 +60,6 @@ echo number_format(CHtml::encode($data['initial_provision']), 2, ',', '.').' €
 echo '<span class="label">'.CHtml::encode($model->getAttributeLabel('actual_provision')).':</span> ';
 echo number_format(CHtml::encode($data['actual_provision']), 2, ',', '.').' €<br />';
 
-echo '<span class="highlight_text">'.CHtml::encode($data['text']).'</span>';
+echo '<span class="highlight_text">'.CHtml::encode($text).'</span>';
 ?>
 </p>

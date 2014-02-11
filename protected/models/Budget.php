@@ -136,10 +136,12 @@ class Budget extends CActiveRecord
 		//return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
 	}
 
-
 	public function getLabel()
 	{
-		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
+		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
+			return $description->label;
+			
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
 			return $description->label;
 
 		if(!$this->label)
@@ -150,7 +152,10 @@ class Budget extends CActiveRecord
 
 	public function getConcept()
 	{
-		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
+		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
+			return $description->concept;
+			
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language)))
 			return $description->concept;
 
 		return $this->concept;
@@ -158,19 +163,33 @@ class Budget extends CActiveRecord
 
 	public function getTitle()
 	{
-		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
-			$label='';
+		$label='';
+		$concept='';
+		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
 			if($description->label)
 				$label = $description->label.': ';
-				
-			return $label.$description->concept;
+			if($description->concept)
+				$concept = $description->concept;
+			if($label && $concept)
+				return $label.$concept;
+		}
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
+			if(!$label && $description->label)
+				$label = $description->label.': ';
+			if(!$concept && $description->concept)
+				$concept = $description->concept;				
+			return $label.$concept;
 		}
 		return $this->concept;
 	}
 
 	public function getDescription()
 	{
-		if($description = BudgetDescription::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
+		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
+			if($description->description)
+				return $description->description;
+		}
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>Yii::app()->language))){
 			if($description->description)
 				return $description->description;
 		}
@@ -273,14 +292,23 @@ class Budget extends CActiveRecord
 
 	public function budgetsWithoutDescription()
 	{
-		$sql =" SELECT b.*
-				FROM budget b
-				WHERE NOT EXISTS (
-					SELECT *
-					FROM budget_description d
-					WHERE b.csv_id = d.csv_id
-					
-				) AND b.parent IS NOT NULL";
+		$sql =" SELECT b.csv_id AS csv_id,
+				b.id AS id,
+				b.year AS year,
+				b.code AS code
+				FROM budget AS b
+				LEFT JOIN (
+					SELECT dc.csv_id AS common_csv_id, dl.csv_id AS local_csv_id
+					from budget_desc_common dc
+					LEFT OUTER JOIN budget_desc_local dl ON dc.csv_id = dl.csv_id
+					UNION
+					SELECT dc.csv_id AS common_csv_id, dl.csv_id AS local_csv_id
+					from budget_desc_common dc
+					RIGHT OUTER JOIN budget_desc_local dl ON dc.csv_id = dl.csv_id
+				) AS description ON b.csv_id = description.common_csv_id OR b.csv_id = description.local_csv_id
+				WHERE description.common_csv_id IS NULL AND description.local_csv_id IS NULL AND parent IS NOT NULL
+				ORDER BY b.csv_id";
+
 		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
 		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
 
@@ -291,11 +319,9 @@ class Budget extends CActiveRecord
 
 	public function publicSearch()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent is null and year = '.$this->year);
+		
 		$yearly_budget=$this->find($criteria);
 		if(!$yearly_budget)
 			return new CActiveDataProvider($this,array('data'=>array()));
@@ -306,21 +332,47 @@ class Budget extends CActiveRecord
 		if(!$this->code && !$this->concept)
 			return new CActiveDataProvider($this,array('data'=>array()));
 
-
+		$lang = Yii::app()->language;
+		
 		if($this->code){
-			$sql = "SELECT `budget`.*,
-						`budget_description`.`concept` AS `desc_concept`,
-						`budget_description`.`text`
-
-				FROM `budget_description`
-
-				INNER JOIN `budget` ON (`budget`.`csv_id` = `budget_description`.`csv_id`)
-
+			$sql = "SELECT	`b`.`csv_id` AS `csv_id`,
+				`b`.`id` AS `id`,
+				`b`.`year` AS `year`,
+				`b`.`code` AS `code`,
+				`b`.`initial_provision` AS `initial_provision`,
+				`b`.`actual_provision` AS `actual_provision`,
+				`description`.`common_text` AS `common_text`,
+				`description`.`common_concept` AS `common_concept`,
+				`description`.`local_text` AS `local_text`,
+				`description`.`local_concept` AS `local_concept`
+				FROM `budget` AS `b`
+				LEFT JOIN (
+					SELECT	`dc`.`csv_id` AS `common_csv_id`,
+							`dc`.`language` AS `common_language`,
+							`dc`.`concept` AS `common_concept`,
+							`dc`.`text` AS `common_text`,
+							`dl`.`csv_id` AS `local_csv_id`,
+							`dl`.`language` AS `local_language`,
+							`dl`.`concept` AS `local_concept`,
+							`dl`.`text` AS `local_text`
+					from `budget_desc_common` `dc`
+					LEFT OUTER JOIN `budget_desc_local` `dl` ON `dc`.`csv_id` = `dl`.`csv_id` AND `dc`.`language` = `dl`.`language`
+					UNION
+					SELECT	`dc`.`csv_id` AS `common_csv_id`,
+							`dc`.`language` AS `common_language`,
+							`dc`.`concept` AS `common_concept`,
+							`dc`.`text` AS `common_text`,
+							`dl`.`csv_id` AS `local_csv_id`,
+							`dl`.`language` AS `local_language`,
+							`dl`.`concept` AS `local_concept`,
+							`dl`.`text` AS `local_text`
+					FROM budget_desc_common dc
+					RIGHT OUTER JOIN `budget_desc_local` `dl` ON `dc`.`csv_id` = `dl`.`csv_id` AND `dc`.`language` = `dl`.`language`
+				) AS `description` ON `b`.`csv_id` = `description`.`common_csv_id` OR `b`.`csv_id` = `description`.`local_csv_id`
 				WHERE
-					`budget`.`year` = $this->year
-					AND `budget`.`code` = $this->code
-					AND `budget`.`parent` is not null
-					AND `budget_description`.`language` = \"".Yii::app()->language."\"";
+					`year` = '".$this->year."' AND `code` = '".$this->code."'
+					AND (`description`.`common_language` = '$lang' OR description.local_language = '$lang')
+					AND `b`.`parent` IS NOT NULL";
 
 			
 			$cnt = "SELECT COUNT(*) FROM ($sql) subq";
@@ -332,21 +384,75 @@ class Budget extends CActiveRecord
 		}
 
         $text = $this->concept;
-
+		/*
 		$sql = "SELECT `budget`.*,
-						`budget_description`.`concept` AS `desc_concept`,
-						`budget_description`.`text`,
-						MATCH (`budget_description`.`concept`, `budget_description`.`text`) AGAINST (\"$text\") AS score
+						`budget_desc_common`.`concept` AS `desc_concept`,
+						`budget_desc_common`.`text`,
+						MATCH (`budget_desc_common`.`concept`, `budget_desc_common`.`text`) AGAINST (\"$text\") AS score
 
-				FROM `budget_description`
+				FROM `budget_desc_common`
 
-				INNER JOIN `budget` ON (`budget`.`csv_id` = `budget_description`.`csv_id`)
+				INNER JOIN `budget` ON (`budget`.`csv_id` = `budget_desc_common`.`csv_id`)
 
 				WHERE
-					MATCH (`budget_description`.`concept`, `budget_description`.`text`) AGAINST (\"$text\")
+					MATCH (`budget_desc_common`.`concept`, `budget_desc_common`.`text`) AGAINST (\"$text\")
 					AND `budget`.`year` = $this->year
-					AND `budget_description`.`language` = \"".Yii::app()->language."\"
+					AND `budget_desc_common`.`language` = \"".Yii::app()->language."\"
 				ORDER BY score DESC";
+		*/
+
+		$sql = "SELECT	`b`.`csv_id` AS `csv_id`,
+				`b`.`id` AS `id`,
+				`b`.`year` AS `year`,
+				`b`.`code` AS `code`,
+				`b`.`initial_provision` AS `initial_provision`,
+				`b`.`actual_provision` AS `actual_provision`,
+				`description`.`common_text` AS `common_text`,
+				`description`.`common_concept` AS `common_concept`,
+				`description`.`local_text` AS `local_text`,
+				`description`.`local_concept` AS `local_concept`,				
+				`description`.common_score AS common_score,
+				`description`.local_score AS local_score
+
+				FROM `budget` AS `b`
+				
+				LEFT JOIN (
+					SELECT	`dc`.`csv_id` AS `common_csv_id`,
+							`dc`.`language` AS `common_language`,
+							`dc`.`concept` AS `common_concept`,
+							`dc`.`text` AS `common_text`,
+							MATCH (`dc`.`concept`, `dc`.`text`) AGAINST ('$text') AS common_score,
+							MATCH (`dl`.`concept`, `dl`.`text`) AGAINST ('$text') AS local_score,
+							`dl`.`csv_id` AS `local_csv_id`,
+							`dl`.`language` AS `local_language`,
+							`dl`.`concept` AS `local_concept`,
+							`dl`.`text` AS `local_text`
+					from `budget_desc_common` `dc`
+					LEFT OUTER JOIN `budget_desc_local` `dl` ON 
+									`dc`.`csv_id` = `dl`.`csv_id` AND `dc`.`language` = `dl`.`language`
+					UNION
+					SELECT	`dc`.`csv_id` AS `common_csv_id`,
+							`dc`.`language` AS `common_language`,
+							`dc`.`concept` AS `common_concept`,
+							`dc`.`text` AS `common_text`,
+							MATCH (`dc`.`concept`, `dc`.`text`) AGAINST ('$text') AS common_score,
+							MATCH (`dl`.`concept`, `dl`.`text`) AGAINST ('$text') AS local_score,
+							`dl`.`csv_id` AS `local_csv_id`,
+							`dl`.`language` AS `local_language`,
+							`dl`.`concept` AS `local_concept`,
+							`dl`.`text` AS `local_text`
+					FROM budget_desc_common dc
+					RIGHT OUTER JOIN `budget_desc_local` `dl` ON `dc`.`csv_id` = `dl`.`csv_id` AND `dc`.`language` = `dl`.`language`
+				) AS `description` ON 
+						`b`.`csv_id` = `description`.`common_csv_id` OR
+						`b`.`csv_id` = `description`.`local_csv_id`
+
+				WHERE
+					`year` = '".$this->year."' AND
+					(`description`.`common_language` = '$lang' OR description.local_language = '$lang') AND
+					(common_score > 0 OR local_score > 0)
+				ORDER BY local_score DESC";
+
 
 		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
 		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
@@ -423,6 +529,7 @@ class Budget extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -431,7 +538,7 @@ class Budget extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent is not null');	// dont show year budget
 
-		$criteria->compare('id',$this->id);
+		//$criteria->compare('id',$this->id);
 		$criteria->compare('parent',$this->parent);
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('csv_parent_id',$this->csv_parent_id,true);
@@ -441,11 +548,12 @@ class Budget extends CActiveRecord
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('initial_provision',$this->initial_provision);
 		$criteria->compare('featured',$this->featured);
-		$criteria->compare('weight',$this->weight);
+		//$criteria->compare('weight',$this->weight);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+*/
 }
 

@@ -18,7 +18,7 @@ html, body { height: 100%; width: 100%; margin: 0; background-color:#575757; pad
 }
 
 #header { font-family: SansPro; color: #C4C4C4; font-size: 18pt; font-weight:100; margin: 0px}
-#ocaxChat { height: 90%; width: 90%; margin: 0 auto; margin-top: 10px; color: white; }
+#ocaxChat { height: 90%; width: 90%; margin: 0 auto; color: white; }
 #candyFrame { height: 100%; width: 100%; border: 0px}
 </style>
 

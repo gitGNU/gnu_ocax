@@ -11,7 +11,29 @@ Before upgrading, read INSTALL to refresh your memory.
 1.1.2
 Follow steps 1-6 above.
 
+RENAME TABLE budget_description TO budget_desc_common;
+ALTER TABLE budget_desc_common DROP common;
+ALTER TABLE budget_desc_common MODIFY `id` varchar(110) DEFAULT NULL;
+ALTER TABLE budget_desc_common MODIFY `csv_id` varchar(100) DEFAULT NULL;
+ALTER TABLE budget_desc_common MODIFY `code` varchar(32) DEFAULT NULL;
+
+CREATE TABLE IF NOT EXISTS budget_desc_local (
+  id varchar(110) NOT NULL,
+  csv_id varchar(100) NOT NULL,
+  language char(2) NOT NULL,
+  code varchar(20) NULL,
+  label varchar(32) NULL,
+  concept varchar( 255 ) NOT NULL,
+  description MEDIUMTEXT,
+  text MEDIUMTEXT,	/* description without tags */
+  modified DATETIME NULL,
+  FULLTEXT (concept, text),
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET = utf8;
+
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
+
+
 
 1.1.1
 Follow steps 1-6 above.
