@@ -25,6 +25,7 @@
 $this->menu=array(
 	array('label'=>__('Create description'), 'url'=>array('create')),
 );
+$this->inlineHelp=':budget_descriptions';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

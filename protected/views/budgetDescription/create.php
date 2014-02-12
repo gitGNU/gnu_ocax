@@ -24,6 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':budget_descriptions';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'title'=>__('Create description'))); ?>

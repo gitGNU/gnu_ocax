@@ -542,3 +542,4 @@ class Budget extends CActiveRecord
 */
 }
 
+        

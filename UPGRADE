@@ -13,12 +13,12 @@ Follow steps 1-6 above.
 
 RENAME TABLE budget_description TO budget_desc_common;
 ALTER TABLE budget_desc_common DROP common;
-ALTER TABLE budget_desc_common MODIFY `id` varchar(110) DEFAULT NULL;
+ALTER TABLE budget_desc_common MODIFY `id` varchar(105) DEFAULT NULL;
 ALTER TABLE budget_desc_common MODIFY `csv_id` varchar(100) DEFAULT NULL;
 ALTER TABLE budget_desc_common MODIFY `code` varchar(32) DEFAULT NULL;
 
 CREATE TABLE IF NOT EXISTS budget_desc_local (
-  id varchar(110) NOT NULL,
+  id varchar(105) NOT NULL,
   csv_id varchar(100) NOT NULL,
   language char(2) NOT NULL,
   code varchar(20) NULL,
