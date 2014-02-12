@@ -79,6 +79,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'label'); ?>
+		<div class="hint"><?php echo __('Examples are Concept, Subconcept, Article, etc');?></div>
 		<?php echo $form->textField($model,'label',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'label'); ?>
 	</div>

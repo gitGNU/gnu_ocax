@@ -31,14 +31,16 @@
 
 $model=Budget::model();
 
-if($data['local_concept'])
+if($data['local_score'] && $data['local_concept'])
 	$concept=$data['local_concept'];
 else
 	$concept=$data['common_concept'];
-if($data['local_text'])
+	
+if($data['local_score'] && $data['local_text'])
 	$text=$data['local_text'];
 else
 	$text=$data['common_text'];
+
 
 echo '<span class="highlight_text"><b>';
 if($data['code'])
@@ -47,8 +49,10 @@ if($data['code'])
 echo CHtml::encode($concept).'</b>
 
 
-</span>
-<br />';
+</span><br />';
+
+//echo 'Score_common: '.CHtml::encode($data['common_score']).'<br />';
+//echo 'Score_local: '.CHtml::encode($data['local_score']).'<br />';
 //echo 'Score: '.CHtml::encode($data['score']).'<br />';
 
 $url = Yii::app()->createAbsoluteUrl('budget/view', array('id'=>$data['id']));
