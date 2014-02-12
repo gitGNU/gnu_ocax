@@ -309,7 +309,7 @@ class Budget extends CActiveRecord
 					RIGHT OUTER JOIN budget_desc_local dl ON dc.csv_id = dl.csv_id
 				) AS description ON b.csv_id = description.common_csv_id OR b.csv_id = description.local_csv_id
 				WHERE description.common_csv_id IS NULL AND description.local_csv_id IS NULL AND parent IS NOT NULL
-				ORDER BY b.csv_id";
+				ORDER BY b.csv_id, b.year";
 
 		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
 		$count = Yii::app()->db->createCommand($cnt)->queryScalar();
@@ -463,7 +463,6 @@ class Budget extends CActiveRecord
 		return $this->findAll($criteria);	
 	}
 
-
 	public function changeTypeSearch()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -486,7 +485,6 @@ class Budget extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
 
 	public function featuredSearch()
 	{
@@ -542,4 +540,3 @@ class Budget extends CActiveRecord
 */
 }
 
-        
