@@ -25,7 +25,11 @@ $this->widget('zii.widgets.CDetailView', array(
 	'attributes'=>array(
 		array(
 	        'label'=>__('State'),
-	        'value'=>$model->getHumanStates($model->state),
+	        'value'=>$model->getHumanStates($model->state,$model->addressed_to),
+		),
+		array(
+	        'label'=>__('Addressed to'),
+	        'value'=>$model->getHumanAddressedTo($model->addressed_to),
 		),
 		array(
 	        'label'=>__('Formulated by'),
@@ -46,7 +50,7 @@ $this->widget('zii.widgets.CDetailView', array(
 	),
 ));
 
-if($model->state >= ENQUIRY_AWAITING_REPLY){
+if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
 	$document=', Doc: ';
 	if($model->documentation)
 		$document .='<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';

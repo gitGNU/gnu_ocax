@@ -21,17 +21,20 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 /* @var $form CActiveForm */
+
+if(!isset($addressed_to))
+	$addressed_to = ADMINISTRATION;
 ?>
 
 <style>
 .workflowText { position:absolute; font-size:0.95em; line-height:95%; width:150px;}
 </style>
 <div style="background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow.png'); height:415px; position:relative;">
-<div class="workflowText" style="top:25px;left:120px;"><?php echo $model->getHumanStates(1);?></div>
-<div class="workflowText" style="top:107px;left:0px;width:140px;"><?php echo $model->getHumanStates(4);?></div>
-<div class="workflowText" style="top:107px;left:218px;width:145px;"><?php echo $model->getHumanStates(3);?></div>
-<div class="workflowText" style="top:190px;left:120px;"><?php echo $model->getHumanStates(5);?></div>
-<div class="workflowText" style="top:275px;left:120px;"><?php echo $model->getHumanStates(6);?></div>
-<div class="workflowText" style="top:355px;left:0px;width:140px;"><?php echo $model->getHumanStates(8);?></div>
-<div class="workflowText" style="top:355px;left:218px;width:145px;"><?php echo $model->getHumanStates(7);?></div>
+<div class="workflowText" style="top:25px;left:120px;"><?php echo $model->getHumanStates(ENQUIRY_PENDING_VALIDATION);?></div>
+<div class="workflowText" style="top:107px;left:0px;width:140px;"><?php echo $model->getHumanStates(ENQUIRY_ACCEPTED);?></div>
+<div class="workflowText" style="top:107px;left:218px;width:145px;"><?php echo $model->getHumanStates(ENQUIRY_REJECTED);?></div>
+<div class="workflowText" style="top:190px;left:120px;" id="addressed_to"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,$addressed_to);?></div>
+<div class="workflowText" style="top:275px;left:120px;"><?php echo $model->getHumanStates(ENQUIRY_REPLY_PENDING_ASSESSMENT);?></div>
+<div class="workflowText" style="top:355px;left:0px;width:140px;"><?php echo $model->getHumanStates(ENQUIRY_REPLY_INSATISFACTORY);?></div>
+<div class="workflowText" style="top:355px;left:218px;width:145px;"><?php echo $model->getHumanStates(ENQUIRY_REPLY_SATISFACTORY);?></div>
 </div>

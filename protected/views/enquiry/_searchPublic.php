@@ -24,14 +24,26 @@
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'search_enquiries',
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
-
-	<div style="margin-left:-10px">
+	<div style="margin-left:-10px" class="row">
 		<?php
 			echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255));
-			echo ' '.CHtml::submitButton(__('Search'));
+			echo ' '.CHtml::submitButton(__('Search')).'<br />';
+			echo '<p style="margin-top:15px; margin-bottom:-10px">';
+			echo '<span style="float:left">'.__('Enquiries addressed to').'</span>';
+			echo '<span style="float:left">';
+			echo $form->radioButtonList($model,'addressed_to',
+										$model->getHumanAddressedTo(),
+										array(	'labelOptions'=>array('style'=>'display:inline'),
+												'separator'=>'<br />',
+												//'onchange'=>'js:$("#search_enquiries").submit();return false;',
+												'onchange'=>'js:toggleAddressedTo(this); return false;',
+											)
+									);
+			echo '</span></p><div style="clear:both;margin-bottom:-5px;"></div>';
 		?>
 	</div>
 

@@ -41,6 +41,15 @@ $('.search-form form').submit(function(){
 </style>
 
 <script>
+function toggleAddressedTo(el){
+	if($(el).val() == 0){
+		$('#addressed_to').html($('#addressed_to_administration').html());
+	}else{
+		$('#addressed_to').html($('#addressed_to_observatory').html());
+	}
+	$("#search_enquiries").submit();
+}
+
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
@@ -113,7 +122,7 @@ $this->widget('PGridView', array(
 				'header'=>__('State'),
 				'name'=>'state',
 				'type' => 'raw',
-				'value'=>'$data->getHumanStates($data[\'state\'])',
+				'value'=>'$data->getHumanStates($data[\'state\'],$data[\'addressed_to\'])'
 			),
 			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
@@ -150,4 +159,5 @@ $this->widget('PGridView', array(
 <div id="enquiry_body"></div>
 </div>
 
-
+<div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
+<div id="addressed_to_observatory" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,OBSERVATORY);?></div>

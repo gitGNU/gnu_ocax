@@ -33,6 +33,7 @@
  * @property string $registry_number
  * @property integer $documentation
  * @property integer $type
+ * @property integer $addressed_to
  * @property integer $budget
  * @property integer $state
  * @property string $title
@@ -62,7 +63,7 @@ class Enquiry extends CActiveRecord
 				1=>__('Budgetary'),
 		);
 
-		if($type == Null){
+		if($type === Null){
 			$types=array();
 			foreach($humanTypeValues as $key=>$value)
 				$types[$key]=__($value);
@@ -71,14 +72,30 @@ class Enquiry extends CActiveRecord
 		return __($humanTypeValues[$type]);
 	}
 
-	public static function getHumanStates($state=Null)
+	public function getHumanAddressedTo($address=Null)
+	{
+		$humanAddressValues=array(
+				0=>Config::model()->findByPk('councilName')->value,
+				1=>__('The observatory'),
+		);
+
+		if($address === Null){
+			$addresses=array();
+			foreach($humanAddressValues as $key=>$value)
+				$addresses[$key]=__($value);
+			return $addresses;
+		}
+		return __($humanAddressValues[$address]);
+	}
+	
+	public static function getHumanStates($state=Null, $addressed_to=ADMINISTRATION)
 	{
 		$humanStateValues=array(
 				ENQUIRY_PENDING_VALIDATION		=>__('Pending validation by the %s'),
 				ENQUIRY_ASSIGNED				=>__('Enquiry assigned to team member'),
 				ENQUIRY_REJECTED				=>__('Enquiry rejected by the %s'),
 				ENQUIRY_ACCEPTED				=>__('Enquiry accepted by the %s'),
-				ENQUIRY_AWAITING_REPLY			=>__('Awaiting reply from the Administration'),
+				ENQUIRY_AWAITING_REPLY			=>__('Awaiting reply from %s'),
 				ENQUIRY_REPLY_PENDING_ASSESSMENT=>__('Reply pending assessment'),
 				ENQUIRY_REPLY_SATISFACTORY		=>__('Reply considered satisfactory'),
 				ENQUIRY_REPLY_INSATISFACTORY	=>__('Reply considered insatisfactory'),
@@ -89,14 +106,27 @@ class Enquiry extends CActiveRecord
 				$state=ENQUIRY_PENDING_VALIDATION;
 			$value=$humanStateValues[$state];
 			if( strpos($value, '%s') !== false)
-				$value = str_replace("%s", Config::model()->findByPk('siglas')->value, $value);
+				if($state == ENQUIRY_AWAITING_REPLY){
+					if($addressed_to == OBSERVATORY)
+						$value = str_replace("%s", __('the observatory'), $value);
+					else
+						$value = str_replace("%s", __('the administration'), $value);
+				}else
+					$value = str_replace("%s", Config::model()->findByPk('siglas')->value, $value);
 			return $value;
 		}
 		$siglas=Config::model()->findByPk('siglas')->value;
 		$states = array();
 		foreach($humanStateValues as $key=>$value){
-			if( strpos($value, '%s') !== false)
-				$value = str_replace('%s', $siglas, $value);
+			if( strpos($value, '%s') !== false){
+				if($key == ENQUIRY_AWAITING_REPLY){
+					if($addressed_to == OBSERVATORY)
+						$value = str_replace("%s", __('the observatory'), $value);
+					else
+						$value = str_replace("%s", __('the administration'), $value);
+				}else
+					$value = str_replace('%s', $siglas, $value);
+			}
 			$states[$key]=$value;
 		}
 		return $states;
@@ -128,7 +158,7 @@ class Enquiry extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user, created, title, body', 'required'),
+			array('user, created, title, body, addressed_to', 'required'),
 			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
 			array('related_to, user, team_member, manager, budget, type, state, documentation', 'numerical', 'integerOnly'=>true),
 			array('title', 'validTitle'),
@@ -187,12 +217,13 @@ class Enquiry extends CActiveRecord
 			'registry_number'=>__('Registry number'),
 			'documentation'=>__('Documentation'),
 			'type' => __('Type'),
+			'addressed_to' => __('Addressed to'),
 			'state' => __('State'),
 			'title' => __('Title'),
 			'body' => __('Body'),
 		);
 	}
-
+	
 	public function getEmailRecipients()
 	{
 		if($this->state == ENQUIRY_ASSIGNED){ 	// internal email to team_member
@@ -308,6 +339,7 @@ class Enquiry extends CActiveRecord
 		//$criteria->compare('type',$this->type);
 		//$criteria->compare('state',$this->state);
 		//$criteria->compare('title',$search_text);
+		$criteria->compare('addressed_to',$this->addressed_to, true);
 		$criteria->compare('body',$search_text,true);
 
 		return new CActiveDataProvider($this, array(

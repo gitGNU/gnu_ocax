@@ -28,6 +28,7 @@ if(!$user->is_active)
 	$this->renderPartial('//user/_notActiveInfo', array('model'=>$user));
 ?>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 $(document).ready(function() {
 	if(1 != <?php echo $user->is_active;?>){
@@ -37,6 +38,21 @@ $(document).ready(function() {
 		$('#enquiry-form').find(':textarea:not(:disabled)').prop('disabled',true);
 	}
 });
+function showChangedAddressedToMSG(el){
+	if($(el).val() == 1){	// want to address to the observatory
+		$('#addressed_to_msg').bPopup({
+			modalClose: false
+			, follow: ([false,false])
+			, positionStyle: 'absolute'
+			, modelColor: '#ae34d5'
+			, speed: 10
+		});
+	}
+}
+function closeChangedAddressedToMSG(choice){
+	$('#addressed_to_msg').bPopup().close();
+	$('#Enquiry_addressed_to_' + choice).prop('checked',true);
+}
 function submitForm(){
 	$('.loading_gif').show();
 	$('input[type=button]').prop("disabled",true);
@@ -109,9 +125,25 @@ $this->widget('ext.tinymce.TinyMce', array(
 ?>
 		<?php echo $form->error($model,'body'); ?>
 	</div>
-
+	
+	<div class="row">
+	<?php
+			echo '<p style="margin-bottom:-5px">';
+			echo '<span style="float:left;margin-right:5px;">'.__('You address this enquiry to').'</span> ';
+			echo '<span style="float:left">';
+			echo $form->radioButtonList($model,'addressed_to',
+										$model->getHumanAddressedTo(),
+										array(	'labelOptions'=>array('style'=>'display:inline'),
+												'separator'=>'<br />',
+												'onchange'=>'js:showChangedAddressedToMSG(this);return false;',
+											)
+									);
+			echo '</span></p><div style="clear:both;margin-bottom:-5px;"></div>';
+	?>
+	</div>
+	
 	<div class="row buttons">
-		<?php $buttonText = $model->isNewRecord ? __('Publish') : __('Update') ?>
+		<?php $buttonText = $model->isNewRecord ? __('Send') : __('Update') ?>
 		<input type="button" onclick="submitForm()" value="<?php echo $buttonText; ?>">
 
 		<?php	if (!$model->id)
@@ -121,7 +153,10 @@ $this->widget('ext.tinymce.TinyMce', array(
 				else
 					$cancelURL='/enquiry/'.$model->id;
 		?>
-		<input type="button" value="<?php echo __('Cancel')?>" onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
+		<input	type="button"
+				style="margin-left:15px;"
+				value="<?php echo __('Cancel')?>"
+				onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?><?php echo $cancelURL?>';" />
 		<img style="vertical-align:middle;display:none" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 
@@ -129,4 +164,14 @@ $this->widget('ext.tinymce.TinyMce', array(
 
 </div><!-- form -->
 
+<div id="addressed_to_msg" class="modal" style="width:450px;">
+<h1><?php echo __('A reminder');?></h1>
+<p><?php echo __('ADDRESSED_TO_MSG');?></p>
+<p style="margin-bottom:10px"><?php echo __('Who do you want to address the enquiry to?');?></p>
+<div style="text-align:center">
+<input type="button" value="<?php echo $model->getHumanAddressedTo(ADMINISTRATION);?>" onclick="js:closeChangedAddressedToMSG(0)" />
+&nbsp;&nbsp;&nbsp;
+<input type="button" value="<?php echo $model->getHumanAddressedTo(OBSERVATORY);?>" onclick="js:closeChangedAddressedToMSG(1)" />
+</div>
+</div>
 

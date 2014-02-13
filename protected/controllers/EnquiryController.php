@@ -96,6 +96,7 @@ class EnquiryController extends Controller
 		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('councilName')->value;
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->addressed_to = 0;
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
 
@@ -170,6 +171,7 @@ class EnquiryController extends Controller
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
 			$model->modified = date('c');
+			$model->addressed_to = 0;
 			$model->state = ENQUIRY_PENDING_VALIDATION;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
@@ -527,6 +529,10 @@ class EnquiryController extends Controller
 		{
 			$model->attributes=$_POST['Enquiry'];
 			$model->modified = date('c');
+
+			if($model->state == ENQUIRY_ACCEPTED && $model->addressed_to == OBSERVATORY)	
+				$model->state = ENQUIRY_AWAITING_REPLY;	// skip the 'submit to administration' step.
+				
 			if($model->save()){
 				$model->promptEmail();
 				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){

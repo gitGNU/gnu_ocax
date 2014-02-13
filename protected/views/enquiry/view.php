@@ -192,15 +192,14 @@ function showBudget(budget_id, element){
 	        'label'=>__('State'),
 			'type' => 'raw',
 			'value'=> CHtml::link(
-						CHtml::encode($model->getHumanStates($model->state)), 'javascript:void(0);',
+						CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)), 'javascript:void(0);',
 						array('onclick'=>'toggleStatesDiagram(); return false;')
 					),
-			//'value'=>$model->getHumanStates($model->state),
 		),
 	),
 ));
 
-if($model->state >= ENQUIRY_AWAITING_REPLY){
+if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
 	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
 	$attributes=array(
 					array(

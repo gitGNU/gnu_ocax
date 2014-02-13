@@ -19,5 +19,8 @@ define ('ENQUIRY_REPLY_PENDING_ASSESSMENT', 6);
 define ('ENQUIRY_REPLY_SATISFACTORY', 7);
 define ('ENQUIRY_REPLY_INSATISFACTORY', 8);
 
+define ('ADMINISTRATION', 0);
+define ('OBSERVATORY', 1);
+
 require_once($yii);
 Yii::createWebApplication($config)->run();
