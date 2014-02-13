@@ -288,10 +288,13 @@ class BudgetController extends Controller
 	 */
 	public function actionNoDescriptions()
 	{
-		$dataProvider=Budget::model()->budgetsWithoutDescription();
+		$model=new Budget('budgetsWithoutDescription');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Budget']))
+			$model->attributes=$_GET['Budget'];
 
 		$this->render('noDescriptions',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 

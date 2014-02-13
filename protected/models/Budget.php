@@ -294,7 +294,12 @@ class Budget extends CActiveRecord
 
 	public function budgetsWithoutDescription()
 	{
-		$sql =" SELECT b.csv_id AS csv_id,
+		($this->csv_id)? $csv_id='AND b.csv_id = "'.$this->csv_id.'"' : $csv_id='';
+		($this->code)? $code='AND b.code = "'.$this->code.'"' : $code='';
+		($this->year)? $year='AND b.year = "'.$this->year.'"' : $year='';
+		
+		$sql =" SELECT
+				b.csv_id AS csv_id,
 				b.id AS id,
 				b.year AS year,
 				b.code AS code
@@ -309,6 +314,7 @@ class Budget extends CActiveRecord
 					RIGHT OUTER JOIN budget_desc_local dl ON dc.csv_id = dl.csv_id
 				) AS description ON b.csv_id = description.common_csv_id OR b.csv_id = description.local_csv_id
 				WHERE description.common_csv_id IS NULL AND description.local_csv_id IS NULL AND parent IS NOT NULL
+				$code $year $csv_id 
 				ORDER BY b.csv_id, b.year";
 
 		$cnt = "SELECT COUNT(*) FROM ($sql) subq";

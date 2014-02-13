@@ -88,6 +88,13 @@ class BudgetDescriptionController extends Controller
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		
+		if(isset($_GET['budget'])){
+			$budget=Budget::model()->findByPk($_GET['budget']);
+			$model->csv_id = $budget->csv_id;
+			$model->concept = $budget->concept;
+			$model->label = $budget->label;
+		}
 
 		if(isset($_POST['BudgetDescLocal']))
 		{

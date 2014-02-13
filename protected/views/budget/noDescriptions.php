@@ -21,31 +21,33 @@
 /* @var $this BudgetDescriptionController */
 /* @var $model BudgetDescription */
 
-
 $this->menu=array(
 	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage descriptions'), 'url'=>array('budgetDescription/admin')),
 );
 $this->inlineHelp=':budget_descriptions';
 ?>
 
 <h1><?php echo __('Budgets without description');?></h1>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+	
+
+	$this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'budget-grid',
-	'dataProvider'=>$dataProvider,
-	//'filter'=>$data,
+	'dataProvider'=>$model->budgetsWithoutDescription(),
+	'filter'=>$model,
 	'columns'=>array(
+        'csv_id',
+        'code',
+        'year',
+        /*
 		array(
 			'header'=>__('Internal code'),
 			'value'=>'$data[\'csv_id\']',
-			'type'=>'raw',
-        ),
-		array(
-			'name'=>__('Code'),
-			'value'=>'$data[\'code\']',
 			'type'=>'raw',
         ),
         array(
@@ -53,18 +55,21 @@ $this->inlineHelp=':budget_descriptions';
 			'value'=>'$data[\'year\']',
 			'type'=>'raw',
         ),
-/*
+		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{create}',
 			'buttons'=>array(
-				'view' => array(
-					'url'=>'Yii::app()->createUrl("budgetDescription/view/".$data->id)',
+				'create' => array(
+					'url'=>'Yii::app()->createUrl("budgetDescription/create", array("budget"=>$data[\'id\']))',
+					'imageUrl' => Yii::app()->request->baseUrl.'/images/insert_icon.png',
 				),
 			),
 		),
-*/
+
 	),
-)); ?>
+));
+?>
 
 
 
