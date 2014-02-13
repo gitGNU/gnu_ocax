@@ -301,6 +301,4 @@ if($noEnquiries){
 		echo __('Do you want to block').' '.$name.'?';
 		$url=Yii::app()->request->baseUrl.'/user/block/'.$user_id.'?confirmed=1';
 		echo '<button onclick="js:window.location=\''.$url.'\'" style="margin-left:20px;margin-right:20px">'.__('Yes').'</button>';
-		echo '<button onclick="$(\'.flash-notice\').slideUp(\'fast\')">'.__('No').'</button>';
-	echo '</div>';
-} ?>
+		echo '<button onclick="$(\'.flash-notice\').sli

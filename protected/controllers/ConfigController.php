@@ -76,10 +76,13 @@ class ConfigController extends Controller
 			if($model->parameter == 'languages'){
 				$model->value = str_replace(' ','',$model->value);
 				$model->value = rtrim($model->value, ',');
-				$model->setScenario('language');	
+				$model->setScenario('language');
 			}
 			if($model->parameter == 'currencySymbol')
-				$model->setScenario('currenyCollocation');	
+				$model->setScenario('currenyCollocation');
+				
+			if($model->parameter == 'socialTwitterUsername')
+				$model->value = ltrim($model->value, '@');
 
 			if(Yii::app()->params['ocaxnetwork']){
 				$opts = array('http' => array(

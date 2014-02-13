@@ -58,7 +58,6 @@ class ImportCSV extends CFormModel
 
 	public function getParentCode($internal_code)
 	{	
-		//echo '--'.$internal_code.'--<br />';
 		if($isChild = strrpos($internal_code, "-"))
 			return substr($internal_code, 0, $isChild);
 		else
