@@ -294,7 +294,7 @@ class Budget extends CActiveRecord
 
 	public function budgetsWithoutDescription()
 	{
-		($this->csv_id)? $csv_id='AND b.csv_id = "'.$this->csv_id.'"' : $csv_id='';
+		($this->csv_id)? $csv_id='AND b.csv_id LIKE "%'.$this->csv_id.'%"' : $csv_id='';
 		($this->code)? $code='AND b.code = "'.$this->code.'"' : $code='';
 		($this->year)? $year='AND b.year = "'.$this->year.'"' : $year='';
 		
@@ -339,7 +339,7 @@ class Budget extends CActiveRecord
 		}
 		if(!$this->code && !$this->concept)
 			return new CActiveDataProvider($this,array('data'=>array()));
-
+			
 		$lang = Yii::app()->language;
 		if($this->code){
 			$sql = "SELECT	`b`.`csv_id` AS `csv_id`,
@@ -351,7 +351,11 @@ class Budget extends CActiveRecord
 				`description`.`common_text` AS `common_text`,
 				`description`.`common_concept` AS `common_concept`,
 				`description`.`local_text` AS `local_text`,
-				`description`.`local_concept` AS `local_concept`
+				`description`.`local_concept` AS `local_concept`,				
+				`b`.`year` AS `common_score`,
+				`b`.`year` AS `local_score`,
+				`b`.`year` AS score
+				
 				FROM `budget` AS `b`
 				LEFT JOIN (
 					SELECT	`dc`.`csv_id` AS `common_csv_id`,
@@ -362,7 +366,7 @@ class Budget extends CActiveRecord
 							`dl`.`language` AS `local_language`,
 							`dl`.`concept` AS `local_concept`,
 							`dl`.`text` AS `local_text`
-					from `budget_desc_common` `dc`
+					FROM `budget_desc_common` `dc`
 					LEFT OUTER JOIN `budget_desc_local` `dl` ON `dc`.`csv_id` = `dl`.`csv_id` AND `dc`.`language` = `dl`.`language`
 					UNION
 					SELECT	`dc`.`csv_id` AS `common_csv_id`,
@@ -389,6 +393,7 @@ class Budget extends CActiveRecord
 													'pagination'=>array('pageSize'=>10),
 												));
 		}
+
         $text = $this->concept;
 		$sql = "SELECT	`b`.`csv_id` AS `csv_id`,
 				`b`.`id` AS `id`,
@@ -427,7 +432,6 @@ class Budget extends CActiveRecord
 							`dc`.`text` AS `common_text`,
 							MATCH (`dl`.`concept`, `dl`.`text`) AGAINST ('$text') AS local_score,
 							MATCH (`dc`.`concept`, `dc`.`text`) AGAINST ('$text') AS common_score,
-							
 							`dl`.`csv_id` AS `local_csv_id`,
 							`dl`.`language` AS `local_language`,
 							`dl`.`concept` AS `local_concept`,

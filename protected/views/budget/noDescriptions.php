@@ -22,7 +22,6 @@
 /* @var $model BudgetDescription */
 
 $this->menu=array(
-	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 	array('label'=>__('Manage descriptions'), 'url'=>array('budgetDescription/admin')),
 );
 $this->inlineHelp=':budget_descriptions';
