@@ -31,8 +31,13 @@ $this->inlineHelp=':profiles:team_manager';
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
+	.left{	width: 38%; float: left;
+			margin: 0px; margin-left:30px; padding:5px; padding-left:15px;
+			border:2px solid rgb(228, 222, 215);}
+	.right{	width: 38%; float:left;
+			margin: 0px; margin-right:40px; padding:5px; padding-left:15px;
+			border:2px solid rgb(228, 222, 215);
+		  }
 	.clear{clear:both;}
 </style>
 
@@ -68,7 +73,16 @@ function reject(){
 		<?php echo $form->error($model,'team_member'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="row">
+	<?php echo $form->labelEx($model,'addressed_to'); ?>
+	<div class="hint"><?php echo __('Who is this enquiry addressed to?'); ?></div>
+	<?php echo $form->radioButtonList($model,'addressed_to',
+										$model->getHumanAddressedTo(),
+										array('labelOptions'=>array('style'=>'display:inline'))
+									);?>
+	</div>
+	
+	<div class="row buttons" style="margin-top:20px;">
 		<?php
 			if(!$model->team_member)
 				echo CHtml::submitButton(__('Assign'));

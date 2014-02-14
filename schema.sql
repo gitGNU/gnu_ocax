@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS enquiry (
   registry_number varchar( 32 ),	/* number assigned by the council to the enquiry when submitted */
   documentation int(11),	/* the doc. scanned with stamp from the council on submission */
   type TINYINT(1) DEFAULT 0, /* generic=0, budgetary=1 */
+  addressed_to TINYINT(1) DEFAULT 0 NOT NULL,	/* addressed to the administration=0, addressed to the Observatory=1 */
   budget int(11), /* budget (null is a generic enquiry) */
   state int(11) DEFAULT 1,
   title varchar( 255 ) NOT NULL,
