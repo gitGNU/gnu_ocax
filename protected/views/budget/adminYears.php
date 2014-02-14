@@ -29,7 +29,7 @@ if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));
 	array_splice( $this->menu, 1, 0, $restore );
 }
-
+$this->inlineHelp=':profiles:admin:budgets';
 ?>
 
 <script>

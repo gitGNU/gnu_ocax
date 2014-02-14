@@ -164,7 +164,7 @@ class Enquiry extends CActiveRecord
 			array('title', 'validTitle'),
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
-			array('assigned, submitted, body', 'safe'),
+			array('addressed_to, assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('related_to, user, username, team_member, manager, created, assigned, type, state, title, body', 'safe', 'on'=>'search'),

@@ -156,7 +156,6 @@ class EnquiryController extends Controller
 		$this->layout='//layouts/column1';
 		$this->pageTitle=CHtml::encode(__('New enquiry'));
 		$model=new Enquiry;
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -164,6 +163,7 @@ class EnquiryController extends Controller
 			$model->budget=$_GET['budget'];
 			$model->type = 1;
 		}
+		$model->addressed_to = ADMINISTRATION;
 
 		if(isset($_POST['Enquiry']))
 		{
@@ -171,7 +171,6 @@ class EnquiryController extends Controller
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
 			$model->modified = date('c');
-			$model->addressed_to = 0;
 			$model->state = ENQUIRY_PENDING_VALIDATION;
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
@@ -593,8 +592,8 @@ class EnquiryController extends Controller
 					$model->promptEmail();
 				else
 					Yii::app()->user->setFlash('success', __('New team member assigned'));
-			}else
-				$model=$this->loadModel($id);	// render an unchanged model.
+			}//else
+			//	$model=$this->loadModel($id);	// render an unchanged model.
 		}
 
 		$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));

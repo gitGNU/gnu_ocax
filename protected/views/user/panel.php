@@ -90,22 +90,19 @@ function addPanelSeparator(){
 		echo '<div class="horizontalRule" style="float:right;padding-top:10px;"></div>';
 		echo '<div id="control_panel"></div>';
 		
-
-		
+		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
+		echo '<a href="http://ocax.net/network" target="_network">network</a>';
+		echo '</div>';	
+		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
+		echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
+		echo '</div>';
+		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
+		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">mailing list</a>';
+		echo '</div>';
 		echo '<div class="sub_title" style="float:right;font-size: 16pt;">';
 		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
 		echo '</div>';
-		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-right:50px;">';
-		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">mailing list</a>';
-		echo '</div>';
-		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-right:50px;">';
-		echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
-		echo '</div>';
-		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-right:50px;">';
-		echo '<a href="http://ocax.net/network" target="_network">network</a>';
-		//echo '</div>';
-		//echo '<div class="clear"></div>';
-		echo '</div>';	
+
 		$panel_separator_added=1;
 	}
 }
