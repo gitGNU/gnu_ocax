@@ -603,7 +603,6 @@ class EnquiryController extends Controller
 		));
 	}
 
-
 	public function actionAdminView($id)
 	{
 		$model=$this->loadModel($id);

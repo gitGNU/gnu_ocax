@@ -33,15 +33,22 @@ $('.search-form form').submit(function(){
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 69%; float: left;  margin: 0px;}
-	.right{width: 30%; float: left; margin: 0px;}
+	.left{width: 69%; float: left;}
+	.right{width: 30%; float: right; text-align:right;}
 	.clear{clear:both;}
 </style>
 
 <div class="outer">
 <div class="left">
-
 <h1><?php echo __('Manage enquiries');?></h1>
+</div>
+<div class="right">
+	<p style="margin-bottom:5px;"><?php echo __('States');?>
+	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>	
+	</p>
+</div></div>
+<div class="clear"></div>
+
 
 <div class="search-form">
 <?php $this->renderPartial('_managerSearch',array(
@@ -49,19 +56,7 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-</div>
-<div class="right">
-	<p style="margin-bottom:5px;"><?php echo __('States');?>
-	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>	
-	</p>
-	<?php
-		foreach($model->getHumanStates() as $key=>$value){
-			echo $key.'&nbsp&nbsp'.$value.'<br />';
-		}
-	?>
-</div>
-</div>
-<div class="clear"></div>
+
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -81,14 +76,12 @@ $('.search-form form').submit(function(){
 			'name'=>'username',
 			'value'=>'($data->teamMember) ? $data->teamMember->fullname : ""',
 		),
-		'state',
-/*
 		array(
 			'name'=>'state',
 			'type'=>'raw',
-			'value'=>'Enquiry::getHumanStates($data->state)',
+			//'value'=>'Enquiry::getHumanStates($data->state)',
+            'value'=>function($data,$row){return $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);},
 		),
-*/
 	),
 )); ?>
 

@@ -48,10 +48,7 @@ function reject(){
 }
 </script>
 
-
-
 <div class="form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'enquiry-form',
 	'enableAjaxValidation'=>false,
@@ -109,8 +106,6 @@ function reject(){
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-
-
 
 <p></p>
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>

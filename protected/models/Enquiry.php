@@ -95,24 +95,23 @@ class Enquiry extends CActiveRecord
 				ENQUIRY_ASSIGNED				=>__('Enquiry assigned to team member'),
 				ENQUIRY_REJECTED				=>__('Enquiry rejected by the %s'),
 				ENQUIRY_ACCEPTED				=>__('Enquiry accepted by the %s'),
-				ENQUIRY_AWAITING_REPLY			=>__('Awaiting reply from %s'),
+				ENQUIRY_AWAITING_REPLY			=>'',
 				ENQUIRY_REPLY_PENDING_ASSESSMENT=>__('Reply pending assessment'),
 				ENQUIRY_REPLY_SATISFACTORY		=>__('Reply considered satisfactory'),
 				ENQUIRY_REPLY_INSATISFACTORY	=>__('Reply considered insatisfactory'),
 		);
+		if($addressed_to)
+			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the observatory');
+		else
+			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the administration');
 
 		if($state!==Null){
 			if(!(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager()) && $state==ENQUIRY_ASSIGNED)
 				$state=ENQUIRY_PENDING_VALIDATION;
 			$value=$humanStateValues[$state];
-			if( strpos($value, '%s') !== false)
-				if($state == ENQUIRY_AWAITING_REPLY){
-					if($addressed_to == OBSERVATORY)
-						$value = str_replace("%s", __('the observatory'), $value);
-					else
-						$value = str_replace("%s", __('the administration'), $value);
-				}else
-					$value = str_replace("%s", Config::model()->findByPk('siglas')->value, $value);
+			if( strpos($value, '%s') !== false){
+				$value = str_replace("%s", Config::model()->findByPk('siglas')->value, $value);
+			}
 			return $value;
 		}
 		$siglas=Config::model()->findByPk('siglas')->value;
@@ -363,6 +362,7 @@ class Enquiry extends CActiveRecord
 		
 		$criteria->compare('team_member',Yii::app()->user->getUserID());
 		$criteria->compare('type',$this->type);
+		$criteria->compare('addressed_to',$this->addressed_to);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);
@@ -395,6 +395,7 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('manager',$this->manager);
 		//$criteria->compare('assigned',$this->assigned);
 		$criteria->compare('type',$this->type);
+		$criteria->compare('addressed_to',$this->addressed_to);
 		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);

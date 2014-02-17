@@ -30,20 +30,12 @@
 	'method'=>'get',
 )); ?>
 
-<div style="float:left;width:49%">
+<div style="float:left;width:30%">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
 		<?php echo $form->textField($model,'username'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
-	</div>
-	
-</div>
-<div style="float:right;width:49%">
 
 	<div class="row">
 		<?php echo $form->label($model,'title'); ?>
@@ -55,14 +47,27 @@
 		<?php echo $form->textField($model,'body',array('size'=>20,'maxlength'=>255)); ?>
 	</div>
 
+	
 </div>
-<div style="clear:both"></div>
+<div style="float:right;width:65%">
+
+	<div class="row">
+		<?php echo $form->label($model,'type'); ?>
+		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'addressed_to'); ?>
+		<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
 		<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
 	</div>
-	
+</div>
+<div style="clear:both"></div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton(__('Search')); ?>
 	</div>

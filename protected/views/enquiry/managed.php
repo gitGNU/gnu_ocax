@@ -33,36 +33,27 @@ $('.search-form form').submit(function(){
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 69%; float: left;  margin: 0px;}
-	.right{width: 30%; float: left; margin: 0px;}
+	.left{width: 69%; float: left;}
+	.right{width: 30%; float: right; text-align:right;}
 	.clear{clear:both;}
 </style>
 
 <div class="outer">
 <div class="left">
-
-<h1><?php echo __('Entrusted enquiries'); ?></h1>
-
+<h1><?php echo __('Entrusted enquiries');?></h1>
+</div>
+<div class="right">
+	<p style="margin-bottom:5px;"><?php echo __('States');?>
+	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>	
+	</p>
+</div></div>
+<div class="clear"></div>
 
 <div class="search-form">
 <?php $this->renderPartial('_memberSearch',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
-</div>
-<div class="right">
-	<p style="margin-bottom:5px;"><?php echo __('States');?>
-	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>
-	</p>
-	<?php
-		foreach($model->getHumanStates() as $key=>$value){
-			echo $key.'&nbsp&nbsp'.$value.'<br />';
-		}
-	?>
-</div>
-</div>
-<div class="clear" style="margin-bottom:15px"></div>
 
 <?php
 $this->widget('PGridView', array(
@@ -81,7 +72,11 @@ $this->widget('PGridView', array(
 				'value'=>'$data->title',
 			),
 			'assigned',
-			'state',
+			array(
+				'name'=>'state',
+				'type'=>'raw',
+    	        'value'=>function($data,$row){return $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);},
+			),
 			/*
 			'type',
 			'title',
@@ -90,5 +85,4 @@ $this->widget('PGridView', array(
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 ?>
-
 

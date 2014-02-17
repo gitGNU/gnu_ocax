@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-02-14 13:47+0100\n"
+"PO-Revision-Date: 2014-02-17 09:47+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: protected/controllers\n"
 
 #: protected/models/Email.php:99
-#: protected/models/Enquiry.php:219
+#: protected/models/Enquiry.php:220
 #: protected/views/enquiry/view.php:188
 #: protected/views/enquiry/_detailsForTeam.php:43
 msgid "Type"
@@ -35,7 +35,7 @@ msgid "Sent"
 msgstr "Enviat"
 
 #: protected/models/Email.php:102
-#: protected/models/Enquiry.php:222
+#: protected/models/Enquiry.php:223
 #: protected/views/introPage/admin.php:42
 msgid "Title"
 msgstr "Títol"
@@ -66,7 +66,7 @@ msgstr "Consulta"
 #: protected/models/Email.php:107
 #: protected/models/BulkEmail.php:112
 #: protected/models/CmsPageContent.php:107
-#: protected/models/Enquiry.php:223
+#: protected/models/Enquiry.php:224
 #: protected/models/Emailtext.php:114
 msgid "Body"
 msgstr "Cos"
@@ -186,7 +186,7 @@ msgid "Sent OK"
 msgstr "Enviat OK"
 
 #: protected/models/BulkEmail.php:107
-#: protected/models/Enquiry.php:221
+#: protected/models/Enquiry.php:222
 #: protected/models/Emailtext.php:113
 #: protected/views/emailtext/admin.php:46
 #: protected/views/enquiry/view.php:192
@@ -363,7 +363,7 @@ msgstr "Pressupostària"
 
 #: protected/models/Enquiry.php:79
 msgid "The observatory"
-msgstr ""
+msgstr "El observatori"
 
 #: protected/models/Enquiry.php:94
 #, php-format
@@ -384,11 +384,6 @@ msgstr "Consulta rebutjada per l'%s"
 msgid "Enquiry accepted by the %s"
 msgstr "Consulta acceptada per l'%s"
 
-#: protected/models/Enquiry.php:98
-#, php-format
-msgid "Awaiting reply from %s"
-msgstr "Esperant resposta de %s"
-
 #: protected/models/Enquiry.php:99
 msgid "Reply pending assessment"
 msgstr "Resposta tot esperant valoració"
@@ -405,41 +400,47 @@ msgstr "Resposta considerada satisfactòria"
 msgid "Reply considered insatisfactory"
 msgstr "Resposta considerada no satisfactòria"
 
-#: protected/models/Enquiry.php:111
-#: protected/models/Enquiry.php:124
+#: protected/models/Enquiry.php:104
+msgid "Awaiting reply from the observatory"
+msgstr "Esperant resposta del observatori"
+
+#: protected/models/Enquiry.php:106
+msgid "Awaiting reply from the administration"
+msgstr "Esperant resposta de l'administració"
+
+#: protected/models/Enquiry.php:125
 msgid "the observatory"
 msgstr ""
 
-#: protected/models/Enquiry.php:113
-#: protected/models/Enquiry.php:126
+#: protected/models/Enquiry.php:127
 msgid "the administration"
 msgstr "l'administració"
 
-#: protected/models/Enquiry.php:177
+#: protected/models/Enquiry.php:178
 msgid "The title cannot include the question."
 msgstr "El títol no pot ser una pregunta."
 
-#: protected/models/Enquiry.php:210
+#: protected/models/Enquiry.php:211
 msgid "Related to"
 msgstr "Relacionada amb"
 
-#: protected/models/Enquiry.php:211
+#: protected/models/Enquiry.php:212
 #: protected/views/enquiry/_detailsForTeam.php:35
 msgid "Formulated by"
 msgstr "Formulada por"
 
-#: protected/models/Enquiry.php:212
+#: protected/models/Enquiry.php:213
 #: protected/views/enquiry/admin.php:80
 #: protected/views/enquiry/_detailsForTeam.php:39
 msgid "Assigned to"
 msgstr "Assignada a"
 
-#: protected/models/Enquiry.php:213
+#: protected/models/Enquiry.php:214
 #, fuzzy
 msgid "Manager"
 msgstr "Gestiona anys"
 
-#: protected/models/Enquiry.php:214
+#: protected/models/Enquiry.php:215
 #: protected/views/budget/view.php:157
 #: protected/views/enquiry/view.php:178
 #: protected/views/enquiry/index.php:117
@@ -449,43 +450,43 @@ msgstr "Gestiona anys"
 msgid "Formulated"
 msgstr "Formulada"
 
-#: protected/models/Enquiry.php:215
+#: protected/models/Enquiry.php:216
 msgid "Assigned"
 msgstr "Assignada"
 
-#: protected/models/Enquiry.php:216
+#: protected/models/Enquiry.php:217
 #: protected/views/enquiry/view.php:206
 #: protected/views/enquiry/_detailsForTeam.php:66
 msgid "Submitted"
 msgstr "Lliurada"
 
-#: protected/models/Enquiry.php:217
+#: protected/models/Enquiry.php:218
 #: protected/views/enquiry/view.php:203
 #: protected/views/enquiry/_detailsForTeam.php:59
 msgid "Registry number"
 msgstr "Nº de registre"
 
-#: protected/models/Enquiry.php:218
+#: protected/models/Enquiry.php:219
 #: protected/views/enquiry/submit.php:131
 #: protected/views/enquiry/view.php:214
 msgid "Documentation"
 msgstr "Documentació"
 
-#: protected/models/Enquiry.php:220
+#: protected/models/Enquiry.php:221
 #: protected/views/enquiry/_detailsForTeam.php:31
 msgid "Addressed to"
 msgstr "Dirigit a"
 
-#: protected/models/Enquiry.php:244
-#: protected/models/Enquiry.php:246
+#: protected/models/Enquiry.php:245
+#: protected/models/Enquiry.php:247
 msgid "Send an email to the"
 msgstr "Enviar un correu al"
 
-#: protected/models/Enquiry.php:244
+#: protected/models/Enquiry.php:245
 msgid "team member"
 msgstr ""
 
-#: protected/models/Enquiry.php:246
+#: protected/models/Enquiry.php:247
 msgid "people subscribed to the Enquiry"
 msgstr "persones subscrites a la consulta"
 
@@ -1141,42 +1142,42 @@ msgstr "Correu enviats"
 msgid "List all"
 msgstr "List all"
 
-#: protected/views/enquiry/manage.php:58
+#: protected/views/enquiry/manage.php:60
 #: protected/views/enquiry/adminView.php:26
 msgid "Assign enquiry"
 msgstr "Assignar consulta"
 
-#: protected/views/enquiry/manage.php:68
+#: protected/views/enquiry/manage.php:70
 msgid "Team member responsable for this Enquiry"
 msgstr ""
 
-#: protected/views/enquiry/manage.php:71
+#: protected/views/enquiry/manage.php:73
 msgid "Not assigned"
 msgstr "No assignada"
 
-#: protected/views/enquiry/manage.php:78
+#: protected/views/enquiry/manage.php:80
 msgid "Who is this enquiry addressed to?"
 msgstr "A qui està dirigida està consulta?"
 
-#: protected/views/enquiry/manage.php:88
+#: protected/views/enquiry/manage.php:90
 msgid "Assign"
 msgstr "Assigna"
 
-#: protected/views/enquiry/manage.php:90
+#: protected/views/enquiry/manage.php:92
 msgid "Change team member"
 msgstr "Canviar team member"
 
-#: protected/views/enquiry/manage.php:98
+#: protected/views/enquiry/manage.php:100
 #: protected/views/enquiry/validate.php:69
 msgid "Reject the Enquiry"
 msgstr "Rebutjar la consulta"
 
-#: protected/views/enquiry/manage.php:99
+#: protected/views/enquiry/manage.php:101
 #: protected/views/enquiry/validate.php:69
 msgid "The enquiry is inappropriate"
 msgstr "The enquiry is inappropriate"
 
-#: protected/views/enquiry/manage.php:101
+#: protected/views/enquiry/manage.php:103
 #: protected/views/enquiry/validate.php:70
 msgid "Reject"
 msgstr "Rebutja"
@@ -2087,8 +2088,8 @@ msgstr "Has d'assignar un team member"
 msgid "New team member assigned"
 msgstr "Nou team member assignat"
 
-#: protected/controllers/EnquiryController.php:645
-#: protected/controllers/EnquiryController.php:667
+#: protected/controllers/EnquiryController.php:644
+#: protected/controllers/EnquiryController.php:666
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
