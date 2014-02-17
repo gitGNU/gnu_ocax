@@ -51,17 +51,9 @@
 			echo $form->error($model,'language');
 			echo '</div>';
 		}else{
-			$languages=explode(',', Config::model()->findByPk('languages')->value);
-			$model->language=$languages[0];
 			echo $form->hiddenField($model,'language');
 		}	
 	?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'code'); ?>
-		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'code'); ?>
-	</div>
 
 <?php }else{ ?>
 	<p>
@@ -71,11 +63,21 @@
 		'attributes'=>array(
 			'csv_id',
 			'language',
-			'code',
+			array(            
+				'label'=>__('Used where'),
+				'type'=>'raw',
+				'value'=>$model->whereUsed(),
+			),
 		),
 	)); ?>
 	</p>
 <?php } ?>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'code'); ?>
+		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'code'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'label'); ?>

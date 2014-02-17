@@ -49,7 +49,7 @@ class BudgetDescriptionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','create','update','admin','delete','newID'),
+				'actions'=>array('view','create','update','translate','admin','delete','newID'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -93,7 +93,11 @@ class BudgetDescriptionController extends Controller
 			$budget=Budget::model()->findByPk($_GET['budget']);
 			$model->csv_id = $budget->csv_id;
 			$model->concept = $budget->concept;
+			$model->code = $budget->code;
 			$model->label = $budget->label;
+			if(isset($_GET['lang']))
+				$model->language = $_GET['lang'];
+			else $model->language = getDefaultLanguage();				
 		}
 
 		if(isset($_POST['BudgetDescLocal']))
@@ -140,6 +144,21 @@ class BudgetDescriptionController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	public function actionTranslate()
+	{
+		if(!isset($_GET['lang']) && !isset($_GET['csv_id']))
+			$this->redirect(Yii::app()->createUrl('BudgetDescription/admin'));
+			
+		elseif(BudgetDescLocal::model()->findbyAttributes(array('language'=>$_GET['lang'],'csv_id'=>$_GET['csv_id'])))
+			$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$_GET['lang'].$_GET['csv_id']));
+			
+		else{
+			$budget = Budget::model()->findByAttributes(array('csv_id'=>$_GET['csv_id']));
+			$this->redirect(Yii::app()->createUrl('BudgetDescription/create?budget='.$budget->id.'&lang='.$_GET['lang']));
+		}
+	}
+
 
 	/**
 	 * Deletes a particular model.

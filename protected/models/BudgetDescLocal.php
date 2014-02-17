@@ -104,6 +104,18 @@ class BudgetDescLocal extends CActiveRecord
 		);
 	}
 
+	/* years that have budgets that use a local description */
+	public function whereUsed()
+	{	
+
+		$budgets =  Budget::model()->findAll("csv_id = '".$this->csv_id."' ORDER BY year ASC");
+
+		$result = '';
+		foreach($budgets as $budget)
+				$result = $budget->year.', '.$result;
+		return rtrim($result, ' ,');
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

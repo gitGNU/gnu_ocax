@@ -22,7 +22,7 @@
 /* @var $model BudgetDescription */
 
 $this->menu=array(
-	array('label'=>__('Create description'), 'url'=>array('create')),
+	//array('label'=>__('Create description'), 'url'=>array('create')),
 	array('label'=>__('Update description'), 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>__('Delete description'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
@@ -34,7 +34,17 @@ $this->inlineHelp=':budget_descriptions';
 <h1><?php echo __('Budget description');?></h1>
 <p>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php
+$languages = explode(',', Config::model()->findByPk('languages')->value);
+$langStr='';
+if(isset($languages[1])){
+	$languages = array_reverse($languages);
+	foreach($languages as $lang){
+		$langStr = CHtml::link($lang, array('budgetDescription/translate?lang='.$lang.'&csv_id='.$model->csv_id)).' '.$langStr;
+	}
+}
+
+$this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>array(
@@ -42,15 +52,30 @@ $this->inlineHelp=':budget_descriptions';
 		'language',
 		'code',
 		'label',
-		'concept',
+		array(            
+			'label'=>__('Used where'),
+			'type'=>'raw',
+			'value'=>$model->whereUsed(),
+		),
+		array(            
+			'label'=>__('Translations'),
+			'visible' => isset($languages[1]),
+			'type'=>'raw',
+			'value'=>$langStr,
+		),
 	),
 )); ?>
 </p>
 
+<div class="horizontalRule"></div>
+
 <?php
-	if($model->text){
-		echo '<h2>'.__('Description').'</h2>';
+	echo '<h2 style="margin-bottom:-5px">'.__('Concept').'</h2>';
+	echo '<p>'.$model->concept.'</p>';
+
+	echo '<h2 style="margin-bottom:-5px">'.__('Description').'</h2>';
+	if($model->text)		
 		echo '<p>'.$model->description.'</p>';
-	}else
+	else
 		echo '<p style="color:red;">'.__('Description not defined').'</p>';
 ?>
