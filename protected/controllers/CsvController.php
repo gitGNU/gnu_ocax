@@ -161,6 +161,7 @@ class CsvController extends Controller
 			$ids[]=$id;
 
 		}
+		$error = array_merge($error, $model->checkInternalCodeSanity());
 		if(!$error){
 			$model->orderCSV();	
 		}
@@ -170,7 +171,7 @@ class CsvController extends Controller
 			echo count($lines) - 1;
 	}
 
-	public function actionaddMissingValues()
+	public function actionAddMissingValues()
 	{
 		if(!isset($_GET['csv_file'])){
 			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
@@ -182,10 +183,10 @@ class CsvController extends Controller
 		$msg=Null;
 		$newRegisterCnt = $model->addMissignRegisters();
 		
-		$new_concepts = 0;
+		//$new_concepts = 0;
 		if($newRegisterCnt > 0){
 			$msg='<span class="warn">'.$newRegisterCnt.' new registers added.</span>';
-			$new_concepts = $model->addMissingConcepts();
+			//$new_concepts = $model->addMissingConcepts();
 		}	
 		if($new_totals = $model->addMissingTotals()){
 			if($newRegisterCnt)
@@ -193,7 +194,7 @@ class CsvController extends Controller
 			if($new_totals)
 				$msg = $msg.'<span class="warn"> '.$new_totals.' missing totals added</span>';
 		}
-		$new_concepts += $model->addMissingConcepts();
+		$new_concepts = $model->addMissingConcepts();
 		if($new_concepts)
 			$msg = $msg.'<span class="warn"> '.$new_concepts.' codes/concepts added.</span>';
 			
@@ -206,19 +207,19 @@ class CsvController extends Controller
 											'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']
 											));		
 	}
+
 /*
-	public function actionAddMissingDescriptions()
+	public function actionCheckInternalCodeSanity()
 	{
 		if(!isset($_GET['csv_file'])){
-			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));	
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
 			Yii::app()->end();
 		}
 		$model = new ImportCSV;
 		$model->csv = $model->path.$_GET['csv_file'];
-		$updated = $model->addMissingConcepts();
-		echo CJavaScript::jsonEncode(array('updated'=>$updated,'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']));
 	}
 */
+
 	public function actionCheckCSVTotals()
 	{
 		if(!isset($_GET['csv_file'])){

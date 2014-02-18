@@ -382,7 +382,7 @@ class Budget extends CActiveRecord
 				) AS `description` ON `b`.`csv_id` = `description`.`common_csv_id` OR `b`.`csv_id` = `description`.`local_csv_id`
 				WHERE
 					`year` = '".$this->year."' AND `code` = '".$this->code."'
-					AND (`description`.`common_language` = `$lang` OR description.local_language = `$lang`)
+					AND (`description`.`common_language` = '$lang' OR description.local_language = '$lang')
 					AND `b`.`parent` IS NOT NULL";
 
 			

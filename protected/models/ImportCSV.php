@@ -191,6 +191,28 @@ class ImportCSV extends CFormModel
 		}
 		return $newRegisterCnt;
 	}
+
+	public function checkInternalCodeSanity()
+	{
+		$msg=array();;
+		$registers = $this->csv2array();
+		foreach($registers as $csv_id => $register){
+			if(strlen($csv_id) > 3){	// because 'S-E' == 3
+				$codes = explode("-", $csv_id);
+				$pos=2;	// start at first code number S-E- =>1<= -11-111
+				while($pos <= count($codes)){
+					if(!isset($codes[$pos+1]))	// we're at the end of the array
+						break;
+					if(strpos($codes[$pos+1], $codes[$pos], 0) !== 0){
+						$msg[] = '<br />Check internal_code '.$csv_id;
+						break;
+					}
+					$pos += 1;
+				}
+			}
+		}
+		return $msg;
+	}
 	
 	public function addMissingTotals()
 	{

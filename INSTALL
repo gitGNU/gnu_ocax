@@ -25,7 +25,7 @@ GRANT ALL PRIVILEGES ON db_name. * TO 'user_name'@'localhost';
 $ mysql -uuser_name -p db_name < schema.sql
 
 * If your OCM is in Spain, import data common to all Spanish OCMs
-$ wget http://ocax.net/download/budgetdescriptions/spain_budget_descriptions.sql
+$ wget http://ocax.net/download/budgetdescriptions/spain_budget_description.sql
 $ mysql -uuser_name -p db_name < spain_budget_descriptions.sql
 
 2. Create config file
@@ -50,6 +50,6 @@ That's it. You should be able to browse to your site now.
 
 Help
 
-If you are having trouble installin OCAx, or any other OCAx related problems,
+If you are having trouble installing OCAx, or any other OCAx related problems,
 Please subscribe to our mailing list and ask there.
 http://ocax.net/cgi-bin/mailman/listinfo/lista
