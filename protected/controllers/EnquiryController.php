@@ -606,9 +606,10 @@ class EnquiryController extends Controller
 	public function actionAdminView($id)
 	{
 		$model=$this->loadModel($id);
-		$this->render('adminView',array(
-			'model'=>$model,
-		));
+		if($model->state == ENQUIRY_PENDING_VALIDATION)
+			$this->redirect(array('manage','id'=>$model->id));
+		else
+			$this->render('adminView',array('model'=>$model));
 	}
 
 	/**

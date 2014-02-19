@@ -22,23 +22,15 @@
 /* @var $model Enquiry */
 
 $this->menu=array(
-	array('label'=>__('View enquiry'), 'url'=>array('adminView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
-	array('label'=>__('List all'), 'url'=>array('admin')),
+	array('label'=>__('Manage enquiries'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':profiles:team_manager';
 ?>
 
 <style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{	width: 38%; float: left;
-			margin: 0px; margin-left:30px; padding:5px; padding-left:15px;
-			border:2px solid rgb(228, 222, 215);}
-	.right{	width: 38%; float:left;
-			margin: 0px; margin-right:40px; padding:5px; padding-left:15px;
-			border:2px solid rgb(228, 222, 215);
-		  }
-	.clear{clear:both;}
+	#yourOptions { font-size: 1.2em }
+	#yourOptions li { margin-bottom: 20px; clear:both}
 </style>
 
 <script>
@@ -55,54 +47,37 @@ function reject(){
 )); ?>
 
 	<div class="title"><?php echo __('Assign enquiry');?></div>
-
-<div class="outer">
-<div class="left">
-
-	<?php echo $form->errorSummary($model); ?>
-	<?php echo $form->hiddenField($model, 'state');?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'team_member'); ?>
-		<div class="hint"><?php echo __('Team member responsable for this Enquiry');?></div>
+	<p style="font-style:italic"><?php echo __('Please study the enquiry below before deciding on an option').'.'?></p>
+	<ol id="yourOptions">
+		<li style="margin-bottom:80px">
 		<?php
-			$data=CHtml::listData($team_members,'id', 'fullname');
-			echo $form->dropDownList($model, 'team_member', $data, array('prompt'=>__('Not assigned')));
-		?>
-		<?php echo $form->error($model,'team_member'); ?>
-	</div>
-
-	<div class="row">
-	<?php echo $form->labelEx($model,'addressed_to'); ?>
-	<div class="hint"><?php echo __('Who is this enquiry addressed to?'); ?></div>
-	<?php echo $form->radioButtonList($model,'addressed_to',
+			echo '<div style="float:left">'.__('Assign enquiry').'.</div>';
+			echo '<div style="float:left;margin-left:20px">';
+			echo '<div class="hint">'.__('Who is this enquiry addressed to?').'</div>';
+			echo $form->radioButtonList($model,'addressed_to',
 										$model->getHumanAddressedTo(),
 										array('labelOptions'=>array('style'=>'display:inline'))
-									);?>
-	</div>
-	
-	<div class="row buttons" style="margin-top:20px;">
-		<?php
-			if(!$model->team_member)
-				echo CHtml::submitButton(__('Assign'));
-			else
-				echo CHtml::submitButton(__('Change team member'));
+									);
+			echo '</div>';
+			echo '<div style="float:left;margin-left:20px">';
+			echo '<div>'.$form->labelEx($model,'team_member').'</div>';
+			$data=CHtml::listData($team_members,'id', 'fullname');
+			echo $form->dropDownList($model, 'team_member', $data, array('prompt'=>__('Not assigned')));
+			
+			echo '</div>';
+			echo '<div style="float:left;margin-left:20px">';			
+				if(!$model->team_member)
+					echo CHtml::submitButton(__('Assign'));
+				else
+					echo CHtml::submitButton(__('Change team member'));
+			echo '</div>';
 		?>
-	</div>
-
-</div>
-<div class="right">
-	<?php if($model->state < ENQUIRY_AWAITING_REPLY){ // not too late to reject enquiry ?>
-	<div class="row buttons">
-		<label><?php echo __('Reject the Enquiry');?></label>
-		<div class="hint"><?php echo __('The enquiry is inappropriate');?></div>
-		<p style="margin-bottom:37px"></p>
-		<?php echo CHtml::button(__('Reject'),array('onclick'=>'reject()')); ?>
-	</div>
-	<?php } ?>
-</div>
-</div>
-<div class="clear"></div>
+		</li>
+		<li>
+		<?php echo __('Reject the Enquiry').'. '.__('The enquiry is inappropriate').'.';?>
+		<?php echo CHtml::button(Config::model()->findByPk('siglas')->value.' '.__('Reject'),array('onclick'=>'js:reject();')); ?>
+		</li>
+	</ol>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
