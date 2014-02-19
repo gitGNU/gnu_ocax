@@ -300,7 +300,8 @@ INSERT INTO config(parameter, value, required, description) VALUES ('emailNoRepl
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca,en', '1', 'Available languages on this site');
 INSERT INTO config(parameter, value, required, description) VALUES ('membership', '1', '1', 'Does your Observatory encourage membership? (0 or 1)');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
-INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name');
+INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
+INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
 INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '1', 'SMTP Server');

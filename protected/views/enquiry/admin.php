@@ -31,33 +31,13 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 69%; float: left;}
-	.right{width: 30%; float: right; text-align:right;}
-	.clear{clear:both;}
-</style>
-
-<div class="outer">
-<div class="left">
 <h1><?php echo __('Manage enquiries');?></h1>
-</div>
-<div class="right">
-	<p style="margin-bottom:5px;"><?php echo __('States');?>
-	<a href="<?php echo getInlineHelpURL(':workflow'); ?>" target="_new"><?php echo __('more info');?></a>	
-	</p>
-</div></div>
-<div class="clear"></div>
-
 
 <div class="search-form">
 <?php $this->renderPartial('_managerSearch',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
-
-
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

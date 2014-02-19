@@ -30,16 +30,16 @@
 	'method'=>'get',
 )); ?>
 
-<div style="float:left;width:30%">
+<div style="float:left;width:33%;">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
-		<?php echo $form->textField($model,'username'); ?>
+		<?php echo $form->textField($model,'username',array('size'=>18)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>20,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'title',array('size'=>18,'maxlength'=>255)); ?>
 	</div>
 
 </div>
@@ -76,10 +76,10 @@
 </div>
 <div style="clear:both"></div>
 
-<div style="float:left;width:30%">
+<div style="float:left;width:33%">
 	<div class="row">
 		<?php echo $form->label($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>20,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'body',array('size'=>18,'maxlength'=>255)); ?>
 	</div>
 </div>
 <div style="float:left;width:60%">

@@ -37,7 +37,13 @@ $this->inlineHelp=':profiles:admin:global_parameters';
 	<div class="title"><?php echo __('Change global parameter'); ?></div>
 
 	<p class="row" style="margin:30px 0px 30px 0px">
-		<?php echo $model->description.'<br />'; ?>
+		<?php
+			echo $model->description.' ';
+			if($model->required)
+				echo '('.__('required').')<br />';
+			else
+				echo '('.__('optional').')<br />';
+		?>
 		<?php echo $form->textField($model,'value',array('size'=>40,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'value'); ?>
 	</p>

@@ -30,7 +30,7 @@
 	'method'=>'get',
 )); ?>
 
-<div style="float:left;width:30%">
+<div style="float:left;width:40%">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
@@ -49,7 +49,7 @@
 
 	
 </div>
-<div style="float:right;width:65%">
+<div style="float:right;width:55%">
 
 	<div class="row">
 		<?php echo $form->label($model,'type'); ?>

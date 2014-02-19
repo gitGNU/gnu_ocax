@@ -1,3 +1,15 @@
+1.1.2
+Reworked budget_descriptions into two tables. Common and Local.
+Citizen can now indicate the destination of an enquiry. Council or Observatory.
+Added a 'Executed budgets' bar to budget bar graph.
+New global parameters
+  1) OCM twitter address.
+  2) ObservatoryNameVal (see wiki).
+Added another test to csv import.
+Lots of other smaller changes and fixes.
+Please read UPGRADE
+
+
 1.1.1
 Improved CSV import.
 Italian translation added.
