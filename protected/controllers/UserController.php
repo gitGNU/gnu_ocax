@@ -33,7 +33,7 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + delete, disable', // we only allow deletion via POST request
 		);
 	}
 
@@ -53,6 +53,10 @@ class UserController extends Controller
 				'actions'=>array('view','admin','delete','updateRoles'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
+			array('allow',
+				'actions'=>array('disable'),
+				'expression'=>"Yii::app()->user->isManager()",
+			),			
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -255,6 +259,18 @@ class UserController extends Controller
 		));
 	}
 
+	/**
+	 * A disabled user cannot login
+	 * ajax call from enquiry/manage
+	 */
+	public function actionDisable($id)
+	{
+		$model=$this->loadModel($id);
+		$model->is_disabled = 1;
+		$model->save();
+		Yii::app()->user->setFlash('success', __('User disabled'));
+		echo 1;
+	}
 
 	/**
 	 * Deletes a particular model.

@@ -33,10 +33,66 @@ $this->inlineHelp=':profiles:team_manager';
 	#yourOptions li { margin-bottom: 20px; clear:both}
 </style>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function reject(){
 	$('#Enquiry_state').val('rejected');
 	$('#enquiry-form').submit();
+}
+function showEnquiry(enquiry_id){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
+		type: 'GET',
+		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		//complete: function(){ $('#right_loading_gif').hide(); },
+		success: function(data){
+			if(data != 0){
+				$("#mega_delete_content").html(data);
+				$('#mega_delete_button').attr('enquiry_id', enquiry_id)
+				$('#mega_delete').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, speed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on show mega delete");
+		}
+	});
+}
+function megaDelete(el){
+	$("#enquiry-form :input").attr("disabled", true);
+	enquiry_id = $(el).attr('enquiry_id');
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
+		type: 'POST',
+		success: function(data){
+			if($('#disable_user').is(':checked') == true)
+				disableUser();
+			else
+				window.location = '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/admin';
+		},
+		error: function() {
+			alert("Error on megaDelete");
+		}
+	});
+
+}
+function disableUser(){
+	user_id = <?php echo $model->user; ?>;
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/user/disable/'+user_id,
+		type: 'POST',
+		success: function(data){
+			window.location = '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/admin';
+		},
+		error: function() {
+			alert("Error on disableUser");
+		}
+	});
 }
 </script>
 
@@ -46,7 +102,7 @@ function reject(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title"><?php echo __('Assign enquiry');?></div>
+	<div class="title"><?php echo __('Manage enquiry');?></div>
 	<p style="font-style:italic"><?php echo __('Please study the enquiry below before deciding on an option').'.'?></p>
 	<ol id="yourOptions">
 		<li style="margin-bottom:80px">
@@ -74,11 +130,26 @@ function reject(){
 		?>
 		</li>
 		<li>
-		<?php echo __('Reject the Enquiry').'. '.__('The enquiry is inappropriate').'.';?>
+		<?php echo __('Reject the enquiry').'. '.__('The enquiry is inappropriate').'.';?>
 		<?php echo CHtml::button(Config::model()->findByPk('siglas')->value.' '.__('Reject'),array('onclick'=>'js:reject();')); ?>
+		</li>
+		<li>
+			<div style="float:left">
+			<?php
+				echo __('The enquiry is spam').'. '.__('Delete the enquiry and').'<br />';
+				$text = __('disable %s here on');
+				$text = str_replace('%s', $model->user0->fullname, $text);
+				echo '<input type="checkbox" id="disable_user" value="0"> '.$text.' '.Yii::app()->getBaseUrl(true);
+			?>
+			</div>
+			<div style="float:left;margin-left:20px;">
+			<?php echo CHtml::button(__('Delete'),array('onclick'=>'js:showEnquiry('.$model->id.');')); ?>
+			</div>
+			<div style="clear:both"></div>
 		</li>
 	</ol>
 
+<?php echo $form->hiddenField($model,'state');?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
@@ -91,8 +162,10 @@ function reject(){
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=manager';
 		?>
-		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
+		<button onclick="js:window.location='<?php echo $url?>';"><?php echo __('Yes');?></button>
+		<button onclick="window.location='<?php echo Yii::app()->request->baseUrl;?>/enquiry/admin'">
+		<?php echo __('No');?>
+		</button>
     </div>
 <?php endif; ?>
 
@@ -119,3 +192,8 @@ function reject(){
 		<?php echo Yii::app()->user->getFlash('notice');?>
     </div>
 <?php endif; ?>
+
+<div id="mega_delete" class="modal" style="display:none;width:850px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="mega_delete_content"></div>
+</div>

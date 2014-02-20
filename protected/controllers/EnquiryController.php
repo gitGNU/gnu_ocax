@@ -564,8 +564,9 @@ class EnquiryController extends Controller
 				$model->assigned = Null;
 				$model->team_member = Null;
 			}
-			elseif(!$model->team_member && $team_member == $model->team_member){
+			elseif(!$model->team_member && $team_member){
 				Yii::app()->user->setFlash('notice', __('You must assign a team member'));
+				$model->team_member = $team_member;
 				$saveMe=Null;
 			}
 			elseif($team_member != $model->team_member){
@@ -590,8 +591,10 @@ class EnquiryController extends Controller
 				}
 				if($model->state == ENQUIRY_ASSIGNED || $model->state == ENQUIRY_REJECTED)
 					$model->promptEmail();
-				else
+				else{
 					Yii::app()->user->setFlash('success', __('New team member assigned'));
+					//$this->redirect(array('adminView','id'=>$model->id));
+				}
 			}//else
 			//	$model=$this->loadModel($id);	// render an unchanged model.
 		}
