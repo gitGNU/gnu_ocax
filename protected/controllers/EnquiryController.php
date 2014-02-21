@@ -548,7 +548,6 @@ class EnquiryController extends Controller
 	public function actionManage($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -564,7 +563,7 @@ class EnquiryController extends Controller
 				$model->assigned = Null;
 				$model->team_member = Null;
 			}
-			elseif(!$model->team_member && $team_member){
+			elseif(!$model->team_member){
 				Yii::app()->user->setFlash('notice', __('You must assign a team member'));
 				$model->team_member = $team_member;
 				$saveMe=Null;
@@ -598,7 +597,6 @@ class EnquiryController extends Controller
 			}//else
 			//	$model=$this->loadModel($id);	// render an unchanged model.
 		}
-
 		$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
 		$this->render('manage',array(
 			'model'=>$model,
