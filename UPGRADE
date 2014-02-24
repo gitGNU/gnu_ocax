@@ -4,12 +4,24 @@ Before upgrading, read INSTALL to refresh your memory.
 2. Save your app/files folder
 3. Save your protected/config/main.php file
 4. Overwrite app/ and protected/ with new version
-5. You possibly need to restore app/files and protected/config/main.php
-6. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
+5. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
 
 
 1.1.2
-Follow steps 1-6 above.
+Follow steps 1-5 above.
+
+ONLY do this if you have modified budget descriptions.
+If you have created or modified budget_descriptions, you need to read this.
+In this version of ocax we are separating default descriptions and the descriptions that users create or modify.
+That's good because we keep things seperate and we can then update default descriptions without overwriting changes.
+So, before you continue updating the database, you need to export the budget descriptions you've modified.
+
+ONLY do this if you have modified budget descriptions.
+SELECT `csv_id`, `language`, `code`, `label`, `concept`, `description` FROM `budget_description` WHERE `modified` IS NOT NULL;
+(Using phpmyadmin it's easy to export this to a csv format).
+
+
+This version of OCAX come with some databse changes. You need to update the database.
 
 RENAME TABLE budget_description TO budget_desc_common;
 ALTER TABLE budget_desc_common DROP common;
@@ -35,6 +47,8 @@ ALTER TABLE enquiry ADD addressed_to TINYINT(1) DEFAULT 0 NOT NULL;
 UPDATE config SET parameter='observatoryName1' WHERE parameter='observatoryName';
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
+
+
 
 1.1.1
 Follow steps 1-6 above.

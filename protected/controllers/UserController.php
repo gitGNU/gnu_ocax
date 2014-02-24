@@ -266,6 +266,7 @@ class UserController extends Controller
 	public function actionDisable($id)
 	{
 		$model=$this->loadModel($id);
+		$model->is_active = 0;
 		$model->is_disabled = 1;
 		$model->save();
 		Yii::app()->user->setFlash('success', __('User disabled'));

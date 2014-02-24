@@ -129,6 +129,9 @@ class SiteController extends Controller
 			Yii::app()->end();
 
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
+		if($user->is_disabled)
+			Yii::app()->end();
+		
 		$user->activationcode = $user->generateActivationCode();
 		$user->save();
 

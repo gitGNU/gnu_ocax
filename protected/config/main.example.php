@@ -1,4 +1,5 @@
 <?php
+// For help join our mailing list. http://ocax.net/cgi-bin/mailman/listinfo/lista
 
 $config = array(
 	// See the list of directory names in app/themes for possible options
@@ -14,7 +15,7 @@ $config = array(
 			'charset' => 'utf8',
 		),
 	),
-	// Do you want to be part of the ocax network?
+	// Do you want to be part of the ocax network? http://ocax.net/network/
 	// We hope the network will provide support, automated backups and updates.
 	'params'=>array(
 		'ocaxnetwork'=>true,
