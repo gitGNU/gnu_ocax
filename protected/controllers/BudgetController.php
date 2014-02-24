@@ -45,7 +45,8 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getPieData','getBudgetDetailsForBar','getBudget','getAnualComparison'),
+				'actions'=>array('index','view','getPieData','getChildBars','getBudgetDetailsForBar',
+									'getBudget','getAnualComparison'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -93,10 +94,9 @@ class BudgetController extends Controller
 			Yii::app()->end();
 
 		$model=$this->loadModel($id);
-		if($model){
-			//echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('view',array('model'=>$model,'dataProvider'=>$dataProvider),true,true)));
+		if($model)
 			echo $this->renderPartial('view',array('model'=>$model),true,true);
-		}else
+		else
 			echo 0;
 	}
 
@@ -114,6 +114,12 @@ class BudgetController extends Controller
 			echo '</div>';
 		}else
 			echo 0;
+	}
+
+	public function actionGetChildBars($id)
+	{
+		$model=$this->loadModel($id);
+		$this->renderPartial('childBars', array('model'=>$model,'indent'=>$_GET['indent'],'globals'=>$_GET['globals']),false,true);
 	}
 
 	public function actionGetPieData($id)

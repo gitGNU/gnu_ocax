@@ -20,7 +20,8 @@
 
 /* @var $this BudgetController */
 /* @var $model Budget */
-//Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
+
+$graph_width=929;
 
 ?>
 
@@ -40,6 +41,10 @@
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax.js"></script>
 <script>
+
+var globals = new Array();
+var lightened_color;
+
 $(function() {
 	$('.budget').bind('click', function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
@@ -54,7 +59,11 @@ $(function() {
 		$('.key_executed').hide();
 });
 
-function toggleChildren(id){
+function colorExecutedBars(){
+	$('.executed_bar').css("background-color",lightened_color);
+}
+
+function _toggleChildren(id){
 	if ($('#budget_children_'+id).is(":visible")){
 		$('#budget_children_'+id).slideUp('fast');
 		$('#toggle_'+id).attr('src','<?php echo Yii::app()->request->baseUrl;?>/images/plus_icon.png');
@@ -63,79 +72,41 @@ function toggleChildren(id){
 		$('#toggle_'+id).attr('src','<?php echo Yii::app()->request->baseUrl;?>/images/minus_icon.png');
 	}
 }
+
+function toggleChildren(budget_id, indent, cache_id){
+	if ($('#budget_children_'+ budget_id +':not(:empty)').length) {
+		_toggleChildren(budget_id);
+		return;
+	}
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getChildBars/'+budget_id,
+		type: 'GET',
+		data: {
+				'indent': indent+1,
+				'globals': globals[cache_id],
+				},
+		//dataType: 'json',
+		beforeSend: function(){	$('#bar_loader_gif').appendTo($('div[budget_id="' + budget_id + '"]').find('span').eq(0));
+								$('#bar_loader_gif').show();
+							},
+		complete: function(){	$('#bar_loader_gif').hide();
+								colorExecutedBars();
+							},
+		success: function(childBars){
+			if(childBars){
+				$('#budget_children_'+ budget_id).html(childBars);
+				_toggleChildren(budget_id);
+			}
+		},
+		error: function() {
+			alert("Error on getChildBars");
+		}
+	});
+}
 </script>
 
-<?php
-function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
-	$criteria = new CDbCriteria;
-	$criteria->condition = 'parent = '.$parent_budget->id.' AND actual_provision != 0';
-	$criteria->order = 'code ASC';
-	$child_budgets = Budget::model()->findAll($criteria);
-
-	foreach($child_budgets as $budget){
-
-		$budget_indent = 0;
-		if($indent > 0)
-			$budget_indent = 32;
-
-		echo '<div style="margin-left:'.$budget_indent.'px;margin-top:20px;">';
-			if($budget->budgets)
-				echo '<div style="margin-left:'. (-16 - 4) .'px">';	// 16 width of icon
-			else
-				echo '<div style="margin-left:0px">';
-
-			if($budget->budgets){
-			echo '<div style="float:left;" class="showChildrenIcon">';
-			echo '<img id="toggle_'.$budget->id.'" src="'.Yii::app()->request->baseUrl.'/images/plus_icon.png" onClick="js:toggleChildren('.$budget->id.');"/>';
-			echo '</div>';
-			}
-			echo '<div class="budget" budget_id="'.$budget->id.'" style="float:left;">';
-				echo '<span class="barBudgetConcept">'.$budget->code.'. '
-						.$budget->getConcept().' '.format_number($budget->actual_provision)
-						//.', root actual '.$globals['root_actual_provision']	
-						//.', executed '.format_number($budget->getExecuted())
-						//.', root executed '.$globals['root_executed']				
-						.'</span> ';
-						
-/*					
-				echo '<p>';
-				foreach($globals['largest_provisions'] as $key => $value)
-					echo $key.' '.$value.'<br />';
-				echo '</p>';
-*/
-				
-				$percent=percentage($budget->actual_provision,$globals['root_actual_provision']);
-				$width = $graph_width*(percentage($budget->actual_provision,$globals['largest_provision']) / 100);
-				echo '<div class="actual_provision_bar" style="width:'.$width.'px;">';
-				echo '<div class="graph_bar_percent">'.$percent.'%</div>';
-				echo '</div>';
-				
-				if($executed=$budget->getExecuted()){
-					$percent=percentage($executed, $globals['root_actual_provision']);
-					$width = $graph_width*(percentage($executed, $globals['largest_provision']) / 100);
-					echo '<div class="executed_bar" style="width:'.$width.'px;">';
-					echo '<div class="graph_bar_percent">'.$percent.'%</div>';
-					echo '</div>';
-				}
-				
-			echo '</div>';
-		echo '</div>';
-		echo '<div style="clear:both"></div>';
-
-		if($budget->budgets){
-			echo '<div id="budget_children_'.$budget->id.'" style="display:none">';
-			echoChildBudgets($budget, $indent+1, $width, $globals);
-			echo '</div>';
-		}
-		echo '</div>';
-	}
-}
-
-?>
 
 <?php
-	$graph_width=929;
-		
 	echo '<div id="bar_display" style="margin: 5px 0 15px 0px">';
 	foreach($featured as $featured_budget){
 	
@@ -152,18 +123,20 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		}
 		arsort($largest_provisions);
 		reset($largest_provisions);
-		//$largest_provision = max($largest_provisions);
-				
-		//foreach($largest_provisions as $key => $value)
-		//	echo '<p>'.$key.' '.$value.'</p>';
-		//echo 'largest_provision -'.$largest_provision.'-';
-	
+		$largest_provision =max($largest_provisions);
+
+		$cache_id=$featured_budget->id;	
 		$globals=array(	'root_executed' => $featured_budget->getExecuted(),
 						'root_actual_provision' => $featured_budget->actual_provision,
-						'largest_provision'=> max($largest_provisions),
+						'largest_provision'=> $largest_provision,
 						'queried_budget' => $featured_budget->id,
+						'graph_width'=>$graph_width,
+						'cache_id'=>$cache_id,
 		);
-	
+		echo '<script>';
+		echo 'globals['.$cache_id.']='.CJSON::encode($globals);	// a place to keep params needed for ajax @ toggleChildren
+		echo '</script>';
+
 		echo '<div class="graph_bar_group graph_group">';
 		
 		echo '<div style="float:left; margin: -5px 0 15px 0;">';
@@ -177,7 +150,7 @@ function echoChildBudgets($parent_budget, $indent, $graph_width, $globals){
 		echo '</div>';
 		echo '<div style="clear:both"></div>';
 		echo '<div class="graph_bar_container">';
-			echoChildBudgets($featured_budget, 0, $graph_width, $globals);
+			$this->renderPartial('childBars', array('model'=>$featured_budget,'indent'=>0,'globals'=>$globals));
 		echo '</div>';
 		echo '</div>';
 
