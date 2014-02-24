@@ -46,9 +46,10 @@ var globals = new Array();
 var lightened_color;
 
 $(function() {
-	$('.budget').bind('click', function() {
+	$('#the_graphs').on("click", '.budget', function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
 	});
+	
 	theme_color = rgb2hex($('.actual_provision_bar').first().css("background-color"));
 	$('.swatch_actual').css("background-color",theme_color);
 	if($('.executed_bar').length != 0){
