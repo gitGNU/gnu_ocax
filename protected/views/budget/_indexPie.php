@@ -85,13 +85,13 @@ function goBack(parent_id){
 	group.children(".graph_container").hide();
 }
 
-function getPie(budget_id, loading_gif){
+function getPie(budget_id, clicked_el){
 	$('.jqplot-highlighter-tooltip').hide();
 	if($("#"+budget_id).length){
 		slideInChild($("#"+budget_id).attr('parent_id'),budget_id);
 		return;
 	}
-	
+	loading_gif = $(clicked_el).parents('.graph_pie_group').find('.loader_gif');
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getPieData/'+budget_id,
 		type: 'GET',
@@ -120,13 +120,21 @@ function getPie(budget_id, loading_gif){
 			group.append(graph_container);
 			createPie(budget_id+'_graph', data);
 			
-			back_button='<div class="prev_budget_arrow" onclick="javascript:goBack('+data.params.go_back_id+');return false;"></div>';	 
-			$('#'+budget_id+'_graph').append(back_button);		
-			
+			if(data.params.go_back_id){
+				back_button='<div class="prev_budget_arrow" onclick="javascript:goBack('+data.params.go_back_id+');return false;"></div>';	 
+				$('#'+budget_id+'_graph').append(back_button);
+			}
+			brothers = group.find('div[parent_id="'+data.params.parent_id+'"]'); // graphs with the same parent as this.
+			scroll = $(clicked_el).closest('.jqplot-table-legend-container').scrollTop();
+			$.each( brothers, function( key, value ) {
+				$(value).find('.jqplot-table-legend-container').scrollTop(scroll);
+			});
 			slideInChild(data.params.parent_id,budget_id);
+			
 		},
 		error: function() {
 			alert("Error on get Pie Data");
+			return;
 		}
 	});
 }
@@ -148,22 +156,22 @@ function createPie(div_id, data){
 		//http://www.kathyw.org/jQPlot/LinkTest.html
 		$('#'+div_id).bind('jqplotDataClick', 
 			function (ev, seriesIndex, pointIndex, data) {
-				 //alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-				getPie(data[2], $(this).parents('.graph_pie_group').find('.loader_gif'));
+				//alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+				//scroll = $(this).closest('.jqplot-table-legend-container').scrollTop();
+				//getPie(data[2], $(this).parents('.graph_pie_group').find('.loader_gif'));
+				getPie(data[2], this);
 				return false;
 			}
 		);
 		$('#'+div_id).bind('jqplotDataHighlight', function(ev, seriesIndex, pointIndex, data) {$(this).css('cursor','pointer');}); 
 		$('#'+div_id).bind('jqplotDataUnhighlight', function(ev, seriesIndex, pointIndex, data) {$(this).css('cursor','default');});
-
 	}
 }
 
 $(function() {
-
 	$('#pie_display').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
-		getPie(budget_id, $(this).parents('.graph_pie_group').find('.loader_gif'));
+		getPie(budget_id, this);
 		return false;
 	});
 

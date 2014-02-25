@@ -135,6 +135,8 @@ class BudgetController extends Controller
 			$goBackID=$model->parent0->parent0->id;
 			$hideConcept=Null;
 		}
+		if($model->parent0->featured && !$isParent)
+			$goBackID = Null;
 		
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>$graphThisModel->getConcept(),
