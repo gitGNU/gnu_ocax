@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-02-17 14:34+0100\n"
+"PO-Revision-Date: 2014-02-26 13:32+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,9 @@ msgstr "Destinatarios"
 #: protected/models/Email.php:106
 #: protected/models/Reply.php:99
 #: protected/models/Comment.php:95
-#: protected/views/budget/view.php:152
+#: protected/views/budget/view.php:157
 #: protected/views/enquiry/_reformulated.php:44
-#: protected/views/enquiry/managed.php:70
+#: protected/views/enquiry/managed.php:54
 #: protected/controllers/EnquiryController.php:83
 msgid "Enquiry"
 msgstr "Consulta"
@@ -257,7 +257,7 @@ msgstr "Trimestre 4"
 
 #: protected/models/Budget.php:150
 #: protected/views/enquiry/create.php:47
-#: protected/controllers/BudgetController.php:84
+#: protected/controllers/BudgetController.php:85
 msgid "Budget"
 msgstr "Presupuesto"
 
@@ -431,7 +431,7 @@ msgid "Formulated by"
 msgstr "Formulada por"
 
 #: protected/models/Enquiry.php:211
-#: protected/views/enquiry/admin.php:75
+#: protected/views/enquiry/admin.php:55
 #: protected/views/enquiry/_detailsForTeam.php:39
 msgid "Assigned to"
 msgstr "Asignada a"
@@ -442,7 +442,7 @@ msgid "Manager"
 msgstr "Gestionar años"
 
 #: protected/models/Enquiry.php:213
-#: protected/views/budget/view.php:157
+#: protected/views/budget/view.php:162
 #: protected/views/enquiry/view.php:178
 #: protected/views/enquiry/index.php:117
 #: protected/views/enquiry/_reformulated.php:53
@@ -511,7 +511,7 @@ msgstr ""
 msgid "CSV file"
 msgstr "Fichero CSV"
 
-#: protected/models/ImportCSV.php:353
+#: protected/models/ImportCSV.php:375
 msgid "generated on the"
 msgstr "generated on the"
 
@@ -523,30 +523,30 @@ msgstr "Presupuesto con Internal code"
 msgid "is not defined"
 msgstr "no está definida"
 
-#: protected/views/budget/view.php:115
+#: protected/views/budget/view.php:120
 msgid "No enquiries have been made about this budget yet"
 msgstr "Todavía nadie ha hecho una consulta al Ayuntamiento sobre esta partida presupuestaria"
 
-#: protected/views/budget/view.php:116
+#: protected/views/budget/view.php:121
 msgid "Do you wish to make an enquiry"
 msgstr "¿Quieres hacer tu una"
 
-#: protected/views/budget/view.php:130
+#: protected/views/budget/view.php:135
 msgid "One enquiry has already been made about this budget"
 msgstr "Ya hay una consulta hecha sobre esta partida presupuestaria"
 
-#: protected/views/budget/view.php:132
+#: protected/views/budget/view.php:137
 #, php-format
 msgid "%s enquiries have already been made about this budget"
 msgstr "Ya hay %s consultas hechas sobre esta partida presupuestaria"
 
-#: protected/views/budget/_indexBar.php:175
+#: protected/views/budget/_indexBar.php:149
 msgid "Actual"
-msgstr ""
+msgstr "Actual"
 
-#: protected/views/budget/_indexBar.php:176
+#: protected/views/budget/_indexBar.php:150
 msgid "Executed"
-msgstr ""
+msgstr "Ejecutado"
 
 #: protected/views/budget/_compareYears.php:22
 #, php-format
@@ -592,7 +592,7 @@ msgstr "Consultas presupuestarias del"
 #: protected/views/budget/index.php:134
 #: protected/views/layouts/main.php:92
 #: protected/views/user/panel.php:66
-#: protected/controllers/BudgetController.php:449
+#: protected/controllers/BudgetController.php:457
 msgid "Budgets"
 msgstr "Presupuestos"
 
@@ -636,7 +636,7 @@ msgstr "Gestionar las descripciones"
 msgid "Budgets without description"
 msgstr "Partidas sin descripción"
 
-#: protected/views/budget/_indexPie.php:184
+#: protected/views/budget/_indexPie.php:192
 msgid "Loading data"
 msgstr "Cargando datos"
 
@@ -757,6 +757,14 @@ msgstr "Listar parámetros"
 msgid "Change global parameter"
 msgstr "Cambiar parámetro globale"
 
+#: protected/views/config/update.php:43
+msgid "required"
+msgstr "obligatorio"
+
+#: protected/views/config/update.php:45
+msgid "optional"
+msgstr "opcional"
+
 #: protected/views/site/register.php:2
 #: protected/views/site/register.php:27
 #: protected/views/site/register.php:82
@@ -823,6 +831,7 @@ msgid "comments on the"
 msgstr "comenta el día"
 
 #: protected/views/comment/_view.php:36
+#: protected/views/enquiry/manage.php:146
 #: protected/views/archive/_view.php:29
 msgid "Delete"
 msgstr "Borrar"
@@ -918,9 +927,8 @@ msgid "Edit"
 msgstr "Editar"
 
 #: protected/views/csv/importCSV.php:30
-#, fuzzy
 msgid "Upload CSV again"
-msgstr "Subir un fichero"
+msgstr "Subir el CSV de nuevo"
 
 #: protected/views/csv/importCSV.php:186
 msgid "Import csv into"
@@ -1006,7 +1014,6 @@ msgid "Email text templates"
 msgstr "Plantillas de correo-e"
 
 #: protected/views/enquiry/submit.php:25
-#: protected/views/enquiry/manage.php:25
 #: protected/views/enquiry/assess.php:25
 #: protected/views/enquiry/changeType.php:25
 #: protected/views/reply/create.php:26
@@ -1128,7 +1135,7 @@ msgstr "<p>1. Haz tu consulta</p><p>2. Nosotros lo enviamos al Ayuntamiento</p><
 msgid "Not filtered"
 msgstr "Sin filtrar"
 
-#: protected/views/enquiry/manage.php:26
+#: protected/views/enquiry/manage.php:25
 #: protected/views/enquiry/assess.php:26
 #: protected/views/enquiry/teamView.php:25
 #: protected/views/enquiry/adminView.php:27
@@ -1138,49 +1145,79 @@ msgstr "Sin filtrar"
 msgid "Sent emails"
 msgstr "Correos enviados"
 
-#: protected/views/enquiry/manage.php:27
-msgid "List all"
-msgstr "Listar todo"
+#: protected/views/enquiry/manage.php:26
+#: protected/views/enquiry/admin.php:34
+#: protected/views/user/panel.php:135
+msgid "Manage enquiries"
+msgstr "Gestionar consultas"
 
-#: protected/views/enquiry/manage.php:57
+#: protected/views/enquiry/manage.php:105
 #: protected/views/enquiry/adminView.php:26
+#: protected/views/email/index.php:34
+msgid "Manage enquiry"
+msgstr "Manage enquiry"
+
+#: protected/views/enquiry/manage.php:106
+#: protected/views/enquiry/validate.php:57
+msgid "Please study the enquiry below before deciding on an option"
+msgstr "Estudia la consulta más abajo antes de decidir por una opción"
+
+#: protected/views/enquiry/manage.php:110
 msgid "Assign enquiry"
 msgstr "Asignar consulta"
 
-#: protected/views/enquiry/manage.php:67
-msgid "Team member responsable for this Enquiry"
-msgstr ""
-
-#: protected/views/enquiry/manage.php:70
-msgid "Not assigned"
-msgstr "No asignada"
-
-#: protected/views/enquiry/manage.php:77
+#: protected/views/enquiry/manage.php:112
 msgid "Who is this enquiry addressed to?"
 msgstr "¿A quien está dirigida está consulta?"
 
-#: protected/views/enquiry/manage.php:87
+#: protected/views/enquiry/manage.php:121
+msgid "Not assigned"
+msgstr "No asignada"
+
+#: protected/views/enquiry/manage.php:126
 msgid "Assign"
 msgstr "Asigna"
 
-#: protected/views/enquiry/manage.php:89
+#: protected/views/enquiry/manage.php:128
 msgid "Change team member"
 msgstr "Cambiar team member"
 
-#: protected/views/enquiry/manage.php:97
-#: protected/views/enquiry/validate.php:69
-msgid "Reject the Enquiry"
+#: protected/views/enquiry/manage.php:133
+msgid "Reject the enquiry"
 msgstr "Rechaza la consulta"
 
-#: protected/views/enquiry/manage.php:98
+#: protected/views/enquiry/manage.php:133
 #: protected/views/enquiry/validate.php:69
 msgid "The enquiry is inappropriate"
 msgstr "The enquiry is inappropriate"
 
-#: protected/views/enquiry/manage.php:100
+#: protected/views/enquiry/manage.php:134
 #: protected/views/enquiry/validate.php:70
 msgid "Reject"
 msgstr "Rechaza"
+
+#: protected/views/enquiry/manage.php:139
+msgid "The enquiry is spam"
+msgstr "La consulta es spam"
+
+#: protected/views/enquiry/manage.php:139
+msgid "Delete the enquiry and"
+msgstr "Eliminar la consulta y"
+
+#: protected/views/enquiry/manage.php:140
+#, php-format
+msgid "disable %s here on"
+msgstr "deshabilitar %s aquí en"
+
+#: protected/views/enquiry/manage.php:165
+#: protected/views/user/panel.php:300
+msgid "Yes"
+msgstr "Sí"
+
+#: protected/views/enquiry/manage.php:167
+#: protected/views/user/panel.php:301
+msgid "No"
+msgstr "No"
 
 #: protected/views/enquiry/index.php:85
 msgid "Enquiries made to date"
@@ -1271,25 +1308,6 @@ msgstr "Añadir respuesta"
 msgid "Reformulate enquiry"
 msgstr "Reformular consulta"
 
-#: protected/views/enquiry/adminView.php:31
-msgid "Delete enquiry"
-msgstr "Delete enquiry"
-
-#: protected/views/enquiry/admin.php:43
-#: protected/views/user/panel.php:135
-msgid "Manage enquiries"
-msgstr "Gestionar consultas"
-
-#: protected/views/enquiry/admin.php:46
-#: protected/views/enquiry/managed.php:46
-msgid "States"
-msgstr "Estados"
-
-#: protected/views/enquiry/admin.php:47
-#: protected/views/enquiry/managed.php:47
-msgid "more info"
-msgstr "más info"
-
 #: protected/views/enquiry/_megaDelete.php:39
 msgid "Reformulated enquires"
 msgstr "Consultas reformuladas"
@@ -1320,7 +1338,7 @@ msgstr "Votos"
 msgid "User email subscriptions"
 msgstr "Subscripciones por email"
 
-#: protected/views/enquiry/managed.php:43
+#: protected/views/enquiry/managed.php:34
 #: protected/views/user/panel.php:113
 msgid "Entrusted enquiries"
 msgstr "Consultas encomendadas"
@@ -1353,10 +1371,6 @@ msgstr "falta"
 msgid "Validate enquiry"
 msgstr "Validar consulta"
 
-#: protected/views/enquiry/validate.php:57
-msgid "Please study the enquiry below before deciding on an option"
-msgstr "Estudia la consulta más abajo antes de decidir por una opción"
-
 #: protected/views/enquiry/validate.php:60
 #, php-format
 msgid "Tell %s you do not want to take responsibility of this enquiry"
@@ -1373,6 +1387,10 @@ msgstr "Acceptes aquesta consulta com a vàlida"
 #: protected/views/enquiry/validate.php:66
 msgid "Accept"
 msgstr "Accepta"
+
+#: protected/views/enquiry/validate.php:69
+msgid "Reject the Enquiry"
+msgstr "Rechaza la consulta"
 
 #: protected/views/enquiry/_view.php:48
 msgid "Please login to participate"
@@ -1806,14 +1824,6 @@ msgstr "Las consultas que hayas realizado o a las que te hayas suscrito aparecer
 msgid "Do you want to block"
 msgstr "¿Quieres bloquear"
 
-#: protected/views/user/panel.php:300
-msgid "Yes"
-msgstr "Sí"
-
-#: protected/views/user/panel.php:301
-msgid "No"
-msgstr "No"
-
 #: protected/views/user/updateRoles.php:42
 msgid "View User"
 msgstr "Ver Usuario"
@@ -1874,10 +1884,6 @@ msgstr "Una descripción de este fichero"
 msgid "Date the Administration replied"
 msgstr "Fecha la administración ha respondido"
 
-#: protected/views/email/index.php:34
-msgid "Manage enquiry"
-msgstr "Manage enquiry"
-
 #: protected/views/email/index.php:41
 msgid "Emails originated from the enquiry"
 msgstr "Emails enviados desde la consulta"
@@ -1887,8 +1893,8 @@ msgid "Petition to make contact via email"
 msgstr "Petition to make contact via email"
 
 #: protected/views/email/_contactPetition.php:46
-#: protected/controllers/SiteController.php:140
-#: protected/controllers/SiteController.php:324
+#: protected/controllers/SiteController.php:143
+#: protected/controllers/SiteController.php:327
 msgid "Hello"
 msgstr "Hola"
 
@@ -1915,7 +1921,7 @@ msgstr "Si pienses que este usuario te está enviando correo basura, puedes bloq
 
 #: protected/views/email/_contactPetition.php:54
 #: protected/controllers/CommentController.php:149
-#: protected/controllers/SiteController.php:328
+#: protected/controllers/SiteController.php:331
 msgid "Kind regards"
 msgstr "Cordiales saludos"
 
@@ -1947,8 +1953,8 @@ msgstr "Email enviado correctamente"
 
 #: protected/controllers/EmailController.php:129
 #: protected/controllers/BulkEmailController.php:165
-#: protected/controllers/SiteController.php:147
-#: protected/controllers/SiteController.php:172
+#: protected/controllers/SiteController.php:150
+#: protected/controllers/SiteController.php:175
 msgid "Error while sending email"
 msgstr "Error while sending email"
 
@@ -1965,13 +1971,17 @@ msgstr "Petición de contacto privado por email de un usuario del '%s"
 msgid "Email not sent"
 msgstr "Email no enviado"
 
-#: protected/controllers/UserController.php:202
+#: protected/controllers/UserController.php:206
 msgid "Changes saved Ok"
 msgstr "Se han guardado los cambios correctamente"
 
-#: protected/controllers/UserController.php:229
+#: protected/controllers/UserController.php:233
 msgid "is blocked"
 msgstr "está bloqueado"
+
+#: protected/controllers/UserController.php:272
+msgid "User disabled"
+msgstr "Usuario deshabilitado"
 
 #: protected/controllers/FileController.php:124
 #: protected/controllers/ArchiveController.php:127
@@ -2002,66 +2012,66 @@ msgstr "Se ha añadido un comentario a la consulta"
 msgid "Please click the link below to activate your account"
 msgstr "Por favor, haz click en el siguiente enlace para activar tu cuenta"
 
-#: protected/controllers/SiteController.php:139
+#: protected/controllers/SiteController.php:142
 msgid "Activate your account"
 msgstr "Activar tu cuenta"
 
-#: protected/controllers/SiteController.php:142
-#: protected/controllers/SiteController.php:167
+#: protected/controllers/SiteController.php:145
+#: protected/controllers/SiteController.php:170
 msgid "Thank you"
 msgstr "Muchas gracias"
 
-#: protected/controllers/SiteController.php:145
-#: protected/controllers/SiteController.php:170
+#: protected/controllers/SiteController.php:148
+#: protected/controllers/SiteController.php:173
 msgid "We sent you an email"
 msgstr "Te hemos enviado un correo electrónico"
 
-#: protected/controllers/SiteController.php:162
-#: protected/controllers/SiteController.php:164
+#: protected/controllers/SiteController.php:165
+#: protected/controllers/SiteController.php:167
 msgid "Welcome to the"
 msgstr "Bienvenido al"
 
-#: protected/controllers/SiteController.php:165
+#: protected/controllers/SiteController.php:168
 msgid "NEW_USER_EMAIL_MSG"
 msgstr "Acabamos de dar de alta tu usuario.<br />Desde este momento ya puedes realizar  consultas, suscribirte a consultas de otros ciudadanos, así como valorar  las respuestas de nuestro Ayuntamiento."
 
-#: protected/controllers/SiteController.php:235
+#: protected/controllers/SiteController.php:238
 msgid "Your account is active"
 msgstr "Se ha activado tu cuenta"
 
-#: protected/controllers/SiteController.php:307
+#: protected/controllers/SiteController.php:310
 msgid "Invalid email address"
 msgstr "Dirección de correo inválida"
 
-#: protected/controllers/SiteController.php:322
+#: protected/controllers/SiteController.php:325
 msgid "New password request"
 msgstr "Petición de nueva contraseña"
 
-#: protected/controllers/SiteController.php:325
+#: protected/controllers/SiteController.php:328
 msgid "has received a request to reset your password"
 msgstr "ha recibido una petición para restablecer tu contraseña"
 
-#: protected/controllers/SiteController.php:326
+#: protected/controllers/SiteController.php:329
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr "Si no has olvidado tu contraseña por favor, ignora este correo"
 
-#: protected/controllers/SiteController.php:327
+#: protected/controllers/SiteController.php:330
 msgid "To reset your password, follow this link"
 msgstr "Para restablecer tu contraseña, sigue este enlace"
 
-#: protected/controllers/SiteController.php:332
+#: protected/controllers/SiteController.php:335
 msgid "We've just sent you an email"
 msgstr "Acabamos de enviarte un correo electrónico"
 
-#: protected/controllers/SiteController.php:336
+#: protected/controllers/SiteController.php:339
 msgid "Sorry, we cannot find you on our database"
 msgstr "Disculpa, no te encontramos en la base de datos"
 
-#: protected/controllers/SiteController.php:352
+#: protected/controllers/SiteController.php:355
 msgid "The password recovery link has expired"
 msgstr "El enlace para recuperar tu contraseña se ha caducado"
 
-#: protected/controllers/SiteController.php:360
+#: protected/controllers/SiteController.php:363
 msgid "Please change your password now"
 msgstr "Por favor, cambia tu contraseña ahora"
 
@@ -2081,7 +2091,7 @@ msgstr "Se ha registrado tu consulta correctamente"
 msgid "New reformulated enquiry created OK"
 msgstr "Nueva consulta reformulada correctamente"
 
-#: protected/controllers/EnquiryController.php:568
+#: protected/controllers/EnquiryController.php:567
 #: protected/controllers/EnquiryController.php:578
 msgid "You must assign a team member"
 msgstr "Debes asignar un team member"
@@ -2090,16 +2100,16 @@ msgstr "Debes asignar un team member"
 msgid "New team member assigned"
 msgstr "Nuevo team member assignado"
 
-#: protected/controllers/EnquiryController.php:644
-#: protected/controllers/EnquiryController.php:666
+#: protected/controllers/EnquiryController.php:646
+#: protected/controllers/EnquiryController.php:668
 msgid "Enquiry has been deleted"
 msgstr "Se ha borrado la consulta"
 
-#: protected/controllers/BudgetController.php:434
+#: protected/controllers/BudgetController.php:442
 msgid "Year deleted"
 msgstr "Año borrado"
 
-#: protected/controllers/BudgetController.php:496
+#: protected/controllers/BudgetController.php:504
 msgid "Database restored correctly"
 msgstr "Database restored correctly"
 

@@ -145,7 +145,7 @@ class EmailController extends Controller
 		if(!$model->body)
 			$model->body=Emailtext::model()->findByPk($enquiry->state)->getBody($enquiry);
 		if(!$model->title)
-			$model->title=$enquiry->getHumanStates($enquiry->state);
+			$model->title=$enquiry->getHumanStates($enquiry->state,$enquiry->addressed_to);
 
 		$this->render('create',array(
 			'model'=>$model,
