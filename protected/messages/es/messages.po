@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-02-26 13:32+0100\n"
+"PO-Revision-Date: 2014-02-27 08:29+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1657,7 +1657,7 @@ msgstr "Budget description"
 #: protected/views/budgetDescription/view.php:56
 #: protected/views/budgetDescription/_form.php:67
 msgid "Used where"
-msgstr "Empleado en"
+msgstr "Empleada en"
 
 #: protected/views/budgetDescription/view.php:80
 msgid "Description not defined"

@@ -23,7 +23,6 @@
 
 
 $this->menu=array(
-	array('label'=>__('Create description'), 'url'=>array('create')),
 	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
 );
 $this->inlineHelp=':budget_descriptions';

@@ -4,7 +4,7 @@
  * This is the model class for table "budget_desc_local".
  *
  * The followings are the available columns in table 'budget_desc_local':
- * @property string $id
+ * @property integer $id
  * @property string $csv_id
  * @property string $language
  * @property string $code
@@ -45,13 +45,11 @@ class BudgetDescLocal extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('csv_id, language, concept', 'required'),
-			array('id', 'length', 'max'=>110),
 			array('csv_id', 'length', 'max'=>100),
 			array('code', 'length', 'max'=>32),
 			array('label', 'length', 'max'=>32),
 			array('language', 'length', 'max'=>2),
 			array('combination', 'validCombination', 'on'=>'create'),
-			array('id', 'unique', 'className' => 'BudgetDescLocal', 'on'=>'create'),
 			array('concept', 'length', 'max'=>255),
 			array('description, text', 'safe'),
 			// The following rule is used by search().
@@ -59,14 +57,6 @@ class BudgetDescLocal extends CActiveRecord
 			array('csv_id, language, code, concept, text', 'safe', 'on'=>'search'),
 		);
 	}
-
-	protected function beforeSave()
-	{
-		if(!$this->id)
-			$this->id = $this->language.$this->csv_id;
-		return parent::beforeSave();
-	}
-
 
 	public function validCombination($attribute,$params)
 	{

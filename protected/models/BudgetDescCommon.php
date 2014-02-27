@@ -61,8 +61,7 @@ class BudgetDescCommon extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, csv_id, language, concept', 'required'),
-			array('id', 'length', 'max'=>110),
+			array('csv_id, language, concept', 'required'),
 			array('csv_id', 'length', 'max'=>100),
 			array('code', 'length', 'max'=>32),
 			array('label', 'length', 'max'=>32),

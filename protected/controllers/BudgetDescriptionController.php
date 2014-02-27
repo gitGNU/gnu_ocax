@@ -85,9 +85,7 @@ class BudgetDescriptionController extends Controller
 			$this->redirect(Yii::app()->createUrl('user/panel'));
 
 		$budget = Budget::model()->findByPk($_GET['budget']);
-		$desc_id = Yii::app()->language.$budget->csv_id;
-		
-		if($model = BudgetDescLocal::model()->findByPk($desc_id))
+		if($model = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language)))
 			$this->redirect('update/'.$model->id);
 		else
 			$this->redirect('create/?budget='.$budget->id);
@@ -107,10 +105,11 @@ class BudgetDescriptionController extends Controller
 		
 		if(isset($_GET['budget'])){
 			$budget = Budget::model()->findByPk($_GET['budget']);
-			$desc_id = Yii::app()->language.$budget->csv_id;
+			$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language));
+			if(!$common_desc)
+				$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id));
 			
-			if($common_desc = BudgetDescCommon::model()->findByPk($desc_id)){
-				$model->id = $common_desc->id;
+			if($common_desc){
 				$model->csv_id = $common_desc->csv_id;
 				$model->language = $common_desc->language;
 				$model->concept = $common_desc->concept;
@@ -178,8 +177,8 @@ class BudgetDescriptionController extends Controller
 		if(!isset($_GET['lang']) && !isset($_GET['csv_id']))
 			$this->redirect(Yii::app()->createUrl('BudgetDescription/admin'));
 			
-		elseif(BudgetDescLocal::model()->findbyAttributes(array('language'=>$_GET['lang'],'csv_id'=>$_GET['csv_id'])))
-			$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$_GET['lang'].$_GET['csv_id']));
+		elseif($desc = BudgetDescLocal::model()->findbyAttributes(array('language'=>$_GET['lang'],'csv_id'=>$_GET['csv_id'])))
+			$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$desc->id));
 			
 		else{
 			$budget = Budget::model()->findByAttributes(array('csv_id'=>$_GET['csv_id']));

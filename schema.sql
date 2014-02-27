@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS budget (
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2014', 0, 'root budget', 10000, 0);
 
 CREATE TABLE IF NOT EXISTS budget_desc_common (
-  id varchar(110) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
   csv_id varchar(100) NOT NULL,
   language char(2) NOT NULL,
   code varchar(32) NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS budget_desc_common (
 ) ENGINE=MyISAM DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS budget_desc_local (
-  id varchar(110) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
   csv_id varchar(100) NOT NULL,
   language char(2) NOT NULL,
   code varchar(32) NULL,

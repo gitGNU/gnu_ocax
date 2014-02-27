@@ -38,7 +38,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'csv_id'); ?>
-		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>100,'disabled'=>1)); ?>
 		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
 

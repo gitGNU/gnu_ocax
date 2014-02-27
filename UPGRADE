@@ -25,12 +25,12 @@ This version of OCAX come with some databse changes. You need to update the data
 
 RENAME TABLE budget_description TO budget_desc_common;
 ALTER TABLE budget_desc_common DROP common;
-ALTER TABLE budget_desc_common MODIFY `id` varchar(105) DEFAULT NULL;
+ALTER TABLE budget_desc_common MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE budget_desc_common MODIFY `csv_id` varchar(100) DEFAULT NULL;
 ALTER TABLE budget_desc_common MODIFY `code` varchar(32) DEFAULT NULL;
 
 CREATE TABLE IF NOT EXISTS budget_desc_local (
-  id varchar(105) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
   csv_id varchar(100) NOT NULL,
   language char(2) NOT NULL,
   code varchar(32) NULL,

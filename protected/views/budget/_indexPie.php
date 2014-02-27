@@ -69,7 +69,6 @@ function slideInChild(parent_id,child_id){
 }
 
 function addColorKeyToBudgetDetails(graph_container,budget_id){
-	//item = graph_container.find('.legend_item[budget_id='+budget_id+']');
 	item = graph_container.find('span[budget_id='+budget_id+']');
 	swatch = $(item).parent().prev('td');
 	swatch = swatch.find('.jqplot-table-legend-swatch');
@@ -124,13 +123,15 @@ function getPie(budget_id, clicked_el){
 				back_button='<div class="prev_budget_arrow" onclick="javascript:goBack('+data.params.go_back_id+');return false;"></div>';	 
 				$('#'+budget_id+'_graph').append(back_button);
 			}
-			brothers = group.find('div[parent_id="'+data.params.parent_id+'"]'); // graphs with the same parent as this.
-			scroll = $(clicked_el).closest('.jqplot-table-legend-container').scrollTop();
-			$.each( brothers, function( key, value ) {
-				$(value).find('.jqplot-table-legend-container').scrollTop(scroll);
-			});
+			legend = $(clicked_el).closest('.jqplot-table-legend-container');
+			if($(legend).length > 0){
+				scroll = $(legend).scrollTop();
+				brothers = group.find('div[parent_id="'+data.params.parent_id+'"]'); // graphs with the same parent as this.
+				$.each( brothers, function( key, value ) {
+					$(value).find('.jqplot-table-legend-container').scrollTop(scroll);
+				});
+			}
 			slideInChild(data.params.parent_id,budget_id);
-			
 		},
 		error: function() {
 			alert("Error on get Pie Data");
