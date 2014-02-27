@@ -10,17 +10,6 @@ Before upgrading, read INSTALL to refresh your memory.
 1.1.2
 Follow steps 1-5 above.
 
-ONLY do this if you have modified budget descriptions.
-If you have created or modified budget_descriptions, you need to read this.
-In this version of ocax we are separating default descriptions and the descriptions that users create or modify.
-That's good because we keep things seperate and we can then update default descriptions without overwriting changes.
-So, before you continue updating the database, you need to export the budget descriptions you've modified.
-
-ONLY do this if you have modified budget descriptions.
-SELECT `csv_id`, `language`, `code`, `label`, `concept`, `description` FROM `budget_description` WHERE `modified` IS NOT NULL;
-(Using phpmyadmin it's easy to export this to a csv format).
-
-
 This version of OCAX come with some databse changes. You need to update the database.
 
 RENAME TABLE budget_description TO budget_desc_common;
@@ -47,6 +36,16 @@ ALTER TABLE enquiry ADD addressed_to TINYINT(1) DEFAULT 0 NOT NULL;
 UPDATE config SET parameter='observatoryName1' WHERE parameter='observatoryName';
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
+
+
+Have you modified budget descriptions?
+If you have created or modified budget_descriptions, you need to do this.
+1. Save your modifications somewhere.
+> SELECT `csv_id`, `language`, `code`, `label`, `concept`, `description` FROM `budget_description` WHERE `modified` IS NOT NULL;
+(Using phpmyadmin it's easy to export this to a csv format. Save it on your PC.)
+2. Import budget_descriptions again.
+$ wget http://ocax.net/download/budgetdescriptions/spain_budget_description.sql
+$ mysql -uuser_name -p db_name < spain_budget_descriptions.sql
 
 
 
