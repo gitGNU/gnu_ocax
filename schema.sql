@@ -303,6 +303,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('observatory
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
+INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
 INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '1', 'SMTP Server');
 INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '1', 'SMTP Password');

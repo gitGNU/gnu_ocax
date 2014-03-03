@@ -6,11 +6,18 @@ Before upgrading, read INSTALL to refresh your memory.
 4. Overwrite app/ and protected/ with new version
 5. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
 
+1.1.3
+Follow steps 1-5 above.
+This version of OCAX come with some database changes. You need to update the database.
+
+INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
+
+
 
 1.1.2
 Follow steps 1-5 above.
 
-This version of OCAX come with some databse changes. You need to update the database.
+This version of OCAX come with some database changes. You need to update the database.
 
 RENAME TABLE budget_description TO budget_desc_common;
 ALTER TABLE budget_desc_common DROP common;

@@ -14,15 +14,17 @@ class Mailer
 		$this->_myMailer = new PHPMailer();
 	    $this->_myMailer->CharSet = "UTF-8";
 
-		$this->_myMailer->IsSMTP();
-		$this->_myMailer->SMTPAuth = Config::model()->findByPk('smtpAuth')->value;
-		$this->_myMailer->SMTPSecure = Config::model()->findByPk('smtpSecure')->value;
+		if(Config::model()->findByPk('smtpMethod')->value == 0){
+			$this->_myMailer->IsSMTP();
+			$this->_myMailer->SMTPAuth = Config::model()->findByPk('smtpAuth')->value;
+			$this->_myMailer->SMTPSecure = Config::model()->findByPk('smtpSecure')->value;
 
-		$this->_myMailer->Host = Config::model()->findByPk('smtpHost')->value;
-		$this->_myMailer->Port = Config::model()->findByPk('smtpPort')->value;
-		$this->_myMailer->Username = Config::model()->findByPk('smtpUsername')->value;
-		$this->_myMailer->Password = Config::model()->findByPk('smtpPassword')->value;
-
+			$this->_myMailer->Host = Config::model()->findByPk('smtpHost')->value;
+			$this->_myMailer->Port = Config::model()->findByPk('smtpPort')->value;
+			$this->_myMailer->Username = Config::model()->findByPk('smtpUsername')->value;
+			$this->_myMailer->Password = Config::model()->findByPk('smtpPassword')->value;
+		}else
+			$this->_myMailer->IsSendmail();
 	}
 
 	public function __call($method, $params)
