@@ -257,7 +257,7 @@ function sendContactForm(form){
 <?php
 echo '<div class="comments">';	// comments on enquiry open
 
-$comments = Comment::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+$comments = Comment::model()->findAllByAttributes(array('model'=>'enquiry', 'model_id'=>$model->id));
 $visible='';
 if(!$comments){
 	$visible='style="display:none;"';
@@ -346,7 +346,7 @@ foreach($replys as $reply){
 	
 	echo '<div class="comments">';	//comments on reply open
 	
-	$comments = Comment::model()->findAll(array('condition'=>'reply =  '.$reply->id));
+	$comments = Comment::model()->findAllByAttributes(array('model'=>'reply', 'model_id'=>$reply->id));
 	$visible='';
 	if(!$comments){
 		$visible='style="display:none;"';

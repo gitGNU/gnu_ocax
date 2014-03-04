@@ -6,15 +6,58 @@ Before upgrading, read INSTALL to refresh your memory.
 4. Overwrite app/ and protected/ with new version
 5. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
 
-1.1.3
+OCAX 1.1.3
 Follow steps 1-5 above.
 This version of OCAX come with some database changes. You need to update the database.
+
+ALTER TABLE comment ADD model VARCHAR(50) DEFAULT NULL;
+ALTER TABLE comment ADD model_id int(11) DEFAULT NULL;
+ALTER TABLE comment ADD thread_position int(11) DEFAULT NULL;
+
+DROP PROCEDURE IF EXISTS mod_comment;
+DELIMITER $$
+CREATE PROCEDURE mod_comment()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE c_id, c_enquiry, c_reply int(11);
+  DECLARE cur1 CURSOR FOR SELECT id,enquiry,reply FROM `comment`;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+  OPEN cur1;
+  read_loop: LOOP
+    FETCH cur1 INTO c_id, c_enquiry, c_reply;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    IF c_enquiry IS NOT NULL THEN
+      UPDATE `comment` SET model='enquiry', model_id=c_enquiry WHERE id=c_id;
+    ELSE
+      UPDATE `comment` SET model='reply', model_id=c_reply WHERE id=c_id;
+    END IF;
+  END LOOP;
+  CLOSE cur1;
+END$$
+DELIMITER ;
+CALL mod_comment();
+
+ALTER TABLE `comment` DROP FOREIGN KEY `comment_ibfk_1`;
+ALTER TABLE `comment` DROP FOREIGN KEY `comment_ibfk_2`;
+ALTER TABLE `comment` DROP COLUMN `enquiry`;
+ALTER TABLE `comment` DROP COLUMN `reply`;
+
+CREATE TABLE IF NOT EXISTS comment_count (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  model VARCHAR(50) DEFAULT NULL,
+  model_id int(11) DEFAULT NULL,
+  thread_count int(11) DEFAULT 1,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
 
 
 
-1.1.2
+
+OCAX 1.1.2
 Follow steps 1-5 above.
 
 This version of OCAX come with some database changes. You need to update the database.

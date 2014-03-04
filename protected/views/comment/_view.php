@@ -24,6 +24,11 @@
 
 <div class="comment" id="comment_<?php echo $data->id;?>">
 	<p style="margin-bottom:5px;margin-top:-10px">
+	<?php
+	if($data->thread_position){
+		echo '<span id="comment_'.$data->model.$data->model_id.'_'.$data->thread_position.'">#'.$data->thread_position.'</span> ';
+	}
+	?>
 	<?php if(! ($data->user0->username == Yii::app()->user->id || $data->user0->is_disabled == 1))
 			echo '<span class="link" onClick="js:getContactForm('.$data->user.');return false;">';
 		else
@@ -37,6 +42,8 @@
 	?>
 	</p>
 	<p style="margin-bottom:-5px;">
-	<?php echo $data->body; ?>
+	<?php
+		echo $data->body;
+	?>
 	</p>
 </div>

@@ -111,3 +111,17 @@ class EnquirySubscribe extends CActiveRecord
 		));
 	}
 }
+ function checkEncoding()
+	{
+		$content = file_get_contents($this->csv);
+
+		//$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
+		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);		
+		if($original_encoding != 'UTF-8')
+			return 0;
+		else
+			return 1;
+	}
+
+
+	public functi

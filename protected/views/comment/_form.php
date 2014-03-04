@@ -32,8 +32,8 @@
 	'enableAjaxValidation'=>false,
 	'enableClientValidation'=>false,
 )); ?>
-	<?php echo $form->hiddenField($model,'enquiry');?>
-	<?php echo $form->hiddenField($model,'reply');?>
+	<?php echo $form->hiddenField($model,'model');?>
+	<?php echo $form->hiddenField($model,'model_id');?>
 
 	<div class="row">
 		<span style="font-size:1.1em"><?php echo $fullname;?> <?php echo __('comments')?> ..</span><br />

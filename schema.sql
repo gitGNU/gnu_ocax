@@ -141,16 +141,24 @@ CREATE TABLE IF NOT EXISTS reply (
 
 CREATE TABLE IF NOT EXISTS comment (
   id int(11) NOT NULL AUTO_INCREMENT,
-  enquiry int(11) NULL,
-  reply int(11) NULL,
+  model VARCHAR(50) DEFAULT NULL,
+  model_id int(11) DEFAULT NULL,
+  thread_position int(11) DEFAULT NULL,
   created DATETIME NOT NULL,
   user int(11) NOT NULL,
   body TEXT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (enquiry) REFERENCES enquiry(id),
-  FOREIGN KEY (reply) REFERENCES reply(id),
   FOREIGN KEY (user) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS comment_count (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  model VARCHAR(50) DEFAULT NULL,
+  model_id int(11) DEFAULT NULL,
+  thread_count int(11) DEFAULT 1,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 
 CREATE TABLE IF NOT EXISTS vote (
   id int(11) NOT NULL AUTO_INCREMENT,
