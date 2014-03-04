@@ -110,18 +110,18 @@ function showBudgetDetails(){
 		echo '<div id="budget_comparative" style="display:none"></div>';
 		echo '</div>';
 	
-	echo '<p  style="margin-top:15px;">';
+	echo '<div style="margin-top:15px; font-size:1.2em">';
 	if($description = $model->getDescription()){
 		echo $description;
 	}	
 	
-	echo '<div style="font-size:1.3em;margin-top:35px;">';
+	echo '<p style="font-size:1.2em;margin-top:35px;">';
 	if(!$dataProvider->getData()){
-		echo '<p style="margin-bottom:10px">'.__('No enquiries have been made about this budget yet').'.</p>'.
+		echo '<span>'.__('No enquiries have been made about this budget yet').'.</span><br />'.
 			CHtml::link(__('Do you wish to make an enquiry').'?' ,array('enquiry/create', 'budget'=>$model->id));
 	}
-	echo '</div>';
 	echo '</p>';
+	echo '</div>';
 	echo '</div>';
 
 ?>

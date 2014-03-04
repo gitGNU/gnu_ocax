@@ -6,6 +6,12 @@ Before upgrading, read INSTALL to refresh your memory.
 4. Overwrite app/ and protected/ with new version
 5. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
 
+Note: If, for example you are on version 1.1.0 and you are updating to version 1.1.3,
+      you cannot jump to the 1.1.3 instructions.
+      You must follow all upgrade instructions in ascending order.
+
+
+
 OCAX 1.1.3
 Follow steps 1-5 above.
 This version of OCAX come with some database changes. You need to update the database.
