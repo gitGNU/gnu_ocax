@@ -75,10 +75,8 @@ class CommentController extends Controller
 			//Yii::app()->end();
 
 		$model = new Comment;
-		if($comment_on == 'enquiry')
-			$model->enquiry = $id;
-		if($comment_on == 'reply')
-			$model->reply = $id;
+		$model->model = $comment_on;
+		$model->model_id = $id;
 		
 		$user=User::model()->findByPk(Yii::app()->user->getUserID());
 		echo CJavaScript::jsonEncode(array(
@@ -107,79 +105,43 @@ class CommentController extends Controller
 			$model->user=Yii::app()->user->getUserID();
 			$model->created=date('c');
 			if($model->save()){
+				if($model->model == 'enquiry' || $model->model == 'reply'){
+					if($model->model == 'enquiry')
+						$enquiry = Enquiry::model()->findByPk($model->model_id);
+					else
+						$enquiry = Reply::model()->findByPk($model->model_id)->enquiry0;
 
-				if($model->enquiry == Null)
-					$enquiry = Enquiry::model()->findByPk($model->reply0->enquiry);
-				else
-					$enquiry = Enquiry::model()->findByPk($model->enquiry);
+					$commentCreatedNewSubscription = EnquirySubscribe::model()->subscribeUser($enquiry->id, $model->user);
+					echo CJavaScript::jsonEncode(array(
+						'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),
+						'newSubscription'=>$commentCreatedNewSubscription,
+					));
+					$criteria = array(
+						'with'=>array('enquirySubscribes'),
+						'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
+						'together'=>true,
+					);
+					$subscribedUsers = User::model()->findAll($criteria);
+					$mailer = new Mailer();
+					foreach($subscribedUsers as $subscribed)
+						$mailer->AddBCC($subscribed->email);
 
-				// subscribe commentator to enquiry
-				$criteria = new CDbCriteria;
-				$criteria->condition = 'enquiry = '.$enquiry->id.' AND user = '.$model->user;
-				if(! $subscription=EnquirySubscribe::model()->find($criteria)){
-					$subscription = new EnquirySubscribe;
-					$subscription->user=$model->user;
-					$subscription->enquiry=$enquiry->id;
-					$subscription->save();
-					$commentCreatedNewSubscription=1;
-				}				
+					$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+					$mailer->Subject=__('New comment at').': '.$enquiry->title;
 
-				echo CJavaScript::jsonEncode(array(
-					'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),
-					'newSubscription'=>$commentCreatedNewSubscription,
-				));
-					
-				$criteria = array(
-					'with'=>array('enquirySubscribes'),
-					'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
-					'together'=>true,
-				);
-				$subscribedUsers = User::model()->findAll($criteria);
-
-				$mailer = new Mailer();
-				foreach($subscribedUsers as $subscribed)
-					$mailer->AddBCC($subscribed->email);
-
-				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
-				$mailer->Subject=__('New comment at').': '.$enquiry->title;
-
-				$mailer->Body='	<p>'.__('A new comment has been added to the enquiry').' "'.$enquiry->title.'"<br />
-								<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
-								Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a></p><p><i>'.
-								$model->body.'</i></p><p>'.__('Kind regards').',<br />'.
-								Config::model()->getObservatoryName().'</p>';
-				$mailer->send();
+					$mailer->Body='	<p>'.__('A new comment has been added to the enquiry').' "'.$enquiry->title.'"<br />
+									<a href="'.Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'">'.
+									Yii::app()->createAbsoluteUrl('enquiry/view', array('id' => $enquiry->id)).'</a></p><p><i>'.
+									$model->body.'</i></p><p>'.__('Kind regards').',<br />'.
+									Config::model()->getObservatoryName().'</p>';
+					$mailer->send();
+				}
 			}else
 				echo 0;
 		}else
 			echo 0;
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-/*
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Comment']))
-		{
-			$model->attributes=$_POST['Comment'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-*/
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -220,4 +182,40 @@ class CommentController extends Controller
 	{
 		$model=new Comment('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Comment'])
+		if(isset($_GET['Comment']))
+			$model->attributes=$_GET['Comment'];
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return Comment the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=Comment::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param Comment $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='comment-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
+}
+
