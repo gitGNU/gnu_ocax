@@ -79,6 +79,19 @@ class EnquirySubscribe extends CActiveRecord
 		);
 	}
 
+	public function subscribeUser($enquiry_id, $user_id)
+	{
+		if(!$subscription=$this->findByAttributes(array('enquiry'=>$enquiry_id, 'user'=>$user_id))){
+			$subscription = new EnquirySubscribe;
+			$subscription->user=$user_id;
+			$subscription->enquiry=$enquiry_id;
+			$subscription->save();
+			return 1;
+		}
+		return 0;		
+	}
+
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -111,17 +124,4 @@ class EnquirySubscribe extends CActiveRecord
 		));
 	}
 }
- function checkEncoding()
-	{
-		$content = file_get_contents($this->csv);
 
-		//$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
-		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);		
-		if($original_encoding != 'UTF-8')
-			return 0;
-		else
-			return 1;
-	}
-
-
-	public functi
