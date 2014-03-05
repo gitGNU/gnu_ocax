@@ -244,6 +244,12 @@ if(count($years) > 1){
 			$criteria->order = 'csv_id ASC';
 			$featured=$model->findAll($criteria);
 		}
+		if(count($featured) > 2){
+			echo '<div style="font-size:1.2em; text-align:right">';
+			foreach($featured as $budget)
+				echo '<a style="margin-left:40px; white-space:nowrap;" href="#anchor_'.$budget->id.'">'.$budget->getConcept().'</a> ';
+			echo '</div>';
+		}
 		if($graph_type == 'bar')
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));
 		else

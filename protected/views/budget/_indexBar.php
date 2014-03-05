@@ -138,7 +138,7 @@ function toggleChildren(budget_id, indent, cache_id){
 		echo 'globals['.$cache_id.']='.CJSON::encode($globals);	// a place to keep params needed for ajax @ toggleChildren
 		echo '</script>';
 
-		echo '<div class="graph_bar_group graph_group">';
+		echo '<div class="graph_bar_group graph_group" id="anchor_'.$featured_budget->id.'">';
 		
 		echo '<div style="float:left; margin: -5px 0 15px 0;">';
 		echo '<a class="graph_title" href="'.Yii::app()->request->baseUrl.'/budget/view/'.$featured_budget->id.'" onclick="js:showBudget('.$featured_budget->id.', this);return false;">';

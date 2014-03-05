@@ -186,7 +186,8 @@ $(function() {
 		foreach($featured as $budget){ ?>
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
-			group=$('<div class="graph_pie_group graph_group"></div>');
+			group=$('<div class="graph_pie_group graph_group" id="anchor_<?php echo $budget->id;?>"></div>');
+			//group.append('<a name="anchor_<?php echo $budget->id;?>"></a>');
 			header=$('<div></div>');
 			header.append('<div style="font-size:1.5em; float:left"><?php echo $budget->getCategory();?></div>');
 			loader=$('<div class="loader_gif"></div>');

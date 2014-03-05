@@ -92,7 +92,7 @@ function showBudgetDetails(){
 
 <?php
 
-	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().' '.$model->getYearString().'</div>';
+	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().'</div>';
 
 	$modify_link = Null;
 	if(Yii::app()->user->isAdmin()){
