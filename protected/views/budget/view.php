@@ -88,17 +88,30 @@ function showBudgetDetails(){
 </script>
 
 <?php
+
+	echo '<div style="margin:-10px 0 -2px 2px;color:#8A8A8A;">'.$model->getCategory().' '.$model->getYearString().'</div>';
+	/*
+	if($model->code)
+    	echo $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears;
+    else
+    	echo $model->getYearString().$compareYears;
+    */
+
+
+
 	$modify_link = Null;
 	if(Yii::app()->user->isAdmin()){
 		$modify_link=CHtml::link('+',array('budgetDescription/modify','budget'=>$model->id),array('style'=>'text-decoration:none'));
 		$modify_link=' <span style="font-size:0.8em;">'.$modify_link.'</span>';
 	}
+
 	echo '<h1>'.$model->getTitle().$modify_link.'</h1>';
 
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right">';
 		echo '<div id="budget_details">';
-		$this->renderPartial('_enquiryView',array(	'model'=>$model,
+
+		$this->renderPartial('_budgetDetails',array('model'=>$model,
 													'showCreateEnquiry'=>1,
 													'showLinks'=>1,
 													'noConcept'=>1,

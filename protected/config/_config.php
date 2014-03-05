@@ -75,6 +75,9 @@ return array(
 				'CLinkPager'=>array(
 					'cssFile'=>(strlen(dirname($_SERVER['SCRIPT_NAME']))>1 ? dirname($_SERVER['SCRIPT_NAME']) : '' ) . '/css/pager.css',
 				),
+				'CDetailView'=>array(
+					'cssFile'=>(strlen(dirname($_SERVER['SCRIPT_NAME']))>1 ? dirname($_SERVER['SCRIPT_NAME']) : '' ) . '/css/pdetailview.css',
+				),
 			),
 		),
 

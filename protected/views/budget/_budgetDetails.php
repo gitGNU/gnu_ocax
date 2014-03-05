@@ -64,6 +64,11 @@ if(isset($showLinks)){
 
 	$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), $budgetModal);
 	
+	if(count($model->getAllBudgetsWithCSV_ID()) > 1)
+		$compareYears = '<span class="link" style="float:right;font-size:1em" '.
+						'onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').
+						'</span>';
+	
 }else{
 	if($enquiry_count){
 		if($enquiry_count == 1)
@@ -75,20 +80,19 @@ if(isset($showLinks)){
 	$budget_concept = $model->getConcept();
 }
 
-// compare years
-$compareYears = '';
-if(isset($showComparison)){
-	if(count($model->getAllBudgetsWithCSV_ID()) > 1)
-		$compareYears = '<span class="link" style="float:right;font-size:1em" onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
-}
-
-
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
 $attributes=array(
+/*
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
 	        'type'=>'raw',
 	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears : $model->getYearString().$compareYears,
+		),
+*/
+		array(
+	        'label'=>($model->code)? __('Code'):'',
+	        'type'=>'raw',
+	        'value'=>($model->code)? $model->code.$compareYears : $compareYears,
 		),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' '.$percentage),
 		array(
@@ -120,7 +124,6 @@ if(!isset($showMore)){
 	$attributes[]=$row;
 }
 $this->widget('zii.widgets.CDetailView', array(
-	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>$attributes,
 ));

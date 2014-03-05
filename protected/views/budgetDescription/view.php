@@ -75,7 +75,7 @@ $this->widget('zii.widgets.CDetailView', array(
 
 	echo '<h2 style="margin-bottom:-5px">'.__('Description').'</h2>';
 	if($model->text)		
-		echo '<p>'.$model->description.'</p>';
+		echo '<div style="font-size:1.2em">'.$model->description.'</div>';
 	else
 		echo '<p style="color:red;">'.__('Description not defined').'</p>';
 ?>
