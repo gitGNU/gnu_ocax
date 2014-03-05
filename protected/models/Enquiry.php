@@ -40,7 +40,6 @@
  * @property string $body
  *
  * The followings are the available model relations:
- * @property Comment[] $comments
  * @property Email[] $emails
  * @property Enquiry $relatedTo
  * @property Enquiry[] $reformulateds
@@ -185,7 +184,6 @@ class Enquiry extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'comments' => array(self::HAS_MANY, 'Comment', 'enquiry'),
 			'emails' => array(self::HAS_MANY, 'Email', 'enquiry'),
 			'relatedTo' => array(self::BELONGS_TO, 'Enquiry', 'related_to'),
 			'reformulateds' => array(self::HAS_MANY, 'Enquiry', 'related_to'),
@@ -288,12 +286,12 @@ class Enquiry extends CActiveRecord
 		$object_count['reforumulated'] = $object_count['reforumulated']+1;
 		$object_count['replys'] = $object_count['replys']+count($this->replys);
 		$object_count['emails'] = $object_count['emails']+count($this->emails);
-		$object_count['comments'] = $object_count['comments']+count($this->comments);
+		$object_count['comments'] = $object_count['comments']+count(Comment::model()->findAllByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)));
 		$object_count['subscriptions'] = $object_count['subscriptions']+count($this->subscriptions);
-		$object_count['files'] = $object_count['files']+count(File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)));
+		$object_count['files'] = $object_count['files']+count(File::model()->findAllByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)));
 		foreach($this->replys as $reply){
 			$object_count['votes'] = $object_count['votes']+count($reply->votes);
-			$object_count['comments'] = $object_count['comments']+count($reply->comments);
+			$object_count['comments'] = $object_count['comments']+count(Comment::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$reply->id)));
 			$object_count['files'] = $object_count['files']+count(File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$reply->id)));
 		}
 		foreach($this->reformulateds as $reforumulated)
@@ -311,11 +309,8 @@ class Enquiry extends CActiveRecord
 			$reply->delete();
 		foreach($this->emails as $email)
 			$email->delete();
-		foreach($this->comments as $comment)
-			$comment->delete();
 		foreach($this->subscriptions as $subscription)
 			$subscription->delete();
-
 		return parent::beforeDelete();
 	}
 
@@ -324,6 +319,9 @@ class Enquiry extends CActiveRecord
 		parent::afterDelete();
 		if($file = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$this->id)))
 			$file->delete();
+		$comments = Comment::model()->findAllByAttributes(array('model'=>'Enquiry','model_id'=>$this->id));
+		foreach($comments as $comment)
+			$comment->delete();
 	}
 
 	public function publicSearch()

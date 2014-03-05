@@ -15,6 +15,9 @@ $config = array(
 			'charset' => 'utf8',
 		),
 	),
+	// http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+	'timeZone' => 'Europe/Madrid',
+	
 	// Do you want to be part of the ocax network? http://ocax.net/network/
 	// We hope the network will provide support, automated backups and updates.
 	'params'=>array(

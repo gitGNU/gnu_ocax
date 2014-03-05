@@ -105,8 +105,8 @@ class CommentController extends Controller
 			$model->user=Yii::app()->user->getUserID();
 			$model->created=date('c');
 			if($model->save()){
-				if($model->model == 'enquiry' || $model->model == 'reply'){
-					if($model->model == 'enquiry')
+				if($model->model == 'Enquiry' || $model->model == 'Reply'){
+					if($model->model == 'Enquiry')
 						$enquiry = Enquiry::model()->findByPk($model->model_id);
 					else
 						$enquiry = Reply::model()->findByPk($model->model_id)->enquiry0;

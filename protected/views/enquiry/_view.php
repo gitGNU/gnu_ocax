@@ -268,7 +268,7 @@ echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)<
 
 if(!$comments){
 	echo '<div class="add_comment">';
-	echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
+	echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
 	echo '</div>';	
 }
 
@@ -278,7 +278,7 @@ echo '<div id="comments_enquiry" style="display:none">';
 	}
 	if($comments){
 		echo '<div class="add_comment">';
-		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
+		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
 		echo '</div>';
 	}
 
@@ -356,7 +356,7 @@ foreach($replys as $reply){
 	
 	if(!$comments){
 		echo '<div class="add_comment">';
-		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
+		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
 		echo '</div>';	
 	}
 
@@ -366,7 +366,7 @@ foreach($replys as $reply){
 		}
 		if($comments){
 			echo '<div class="add_comment">';
-			echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
+			echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
 			echo '</div>';
 		}
 	echo '</div>';
@@ -375,7 +375,6 @@ foreach($replys as $reply){
 	echo '</div>';		//close reply
 }?>
 <div class="clear"></div>
-
 
 <div id="comment_form" style="display:none"></div>
 
