@@ -141,7 +141,7 @@ class BudgetController extends Controller
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>$graphThisModel->getConcept(),
 						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
-											$this->renderPartial('_enquiryView',array(	'model'=>$model,
+											$this->renderPartial('_budgetDetails',array('model'=>$model,
 																						'showCreateEnquiry'=>1,
 																						'showLinks'=>1,
 																						'hideConcept'=>$hideConcept),

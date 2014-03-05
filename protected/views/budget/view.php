@@ -69,8 +69,7 @@ function getAnualComparative(budget_id){
 		complete: function() { /*$('.pie_loading_gif').hide();*/ },
 		success: function(data){
 			$('#budget_comparative').html(data);
-			$('#budget_details').hide();
-			$('#budget_comparative').show();
+			_showAnualComparative();
 		},
 		error: function() {
 			alert("Error on getAnualComparison");
@@ -78,26 +77,22 @@ function getAnualComparative(budget_id){
 	});
 }
 function _showAnualComparative(){
+	$('#compareYearsLink').hide();
 	$('#budget_details').hide();
+	$('#hideComparisonLink').show();
 	$('#budget_comparative').show();
 }
 function showBudgetDetails(){
+	$('#hideComparisonLink').hide();
 	$('#budget_comparative').hide();
+	$('#compareYearsLink').show();
 	$('#budget_details').show();
 }
 </script>
 
 <?php
 
-	echo '<div style="margin:-10px 0 -2px 2px;color:#8A8A8A;">'.$model->getCategory().' '.$model->getYearString().'</div>';
-	/*
-	if($model->code)
-    	echo $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears;
-    else
-    	echo $model->getYearString().$compareYears;
-    */
-
-
+	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().' '.$model->getYearString().'</div>';
 
 	$modify_link = Null;
 	if(Yii::app()->user->isAdmin()){
@@ -108,9 +103,20 @@ function showBudgetDetails(){
 	echo '<h1>'.$model->getTitle().$modify_link.'</h1>';
 
 	echo '<div>';
-		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;margin-top:-5px;float:right">';
+		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;margin-top:-25px;float:right">';
+		
+		if(count($model->getAllBudgetsWithCSV_ID()) > 1){
+			$compareYears = '<span id="compareYearsLink" class="link" style="float:right;font-size:1.1em" '.
+					'onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').
+					'</span>';
+			$words = str_replace('%s', $model->year, __('Details for %s'));
+			$showBudgetDetails='<span id="hideComparisonLink" class="link" style="float:right;font-size:1.1em;display:none" '.
+								'onclick="js:showBudgetDetails()">'.$words.'</span>';
+			echo $showBudgetDetails;
+			echo $compareYears.'<div style="clear:both"></div>';
+		}
+		
 		echo '<div id="budget_details">';
-
 		$this->renderPartial('_budgetDetails',array('model'=>$model,
 													'showCreateEnquiry'=>1,
 													'showLinks'=>1,

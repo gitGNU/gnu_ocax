@@ -19,17 +19,6 @@
 
 $attributes = array();
 
-$words = __('Details for %s');
-$words = str_replace('%s', $model->year, $words);
-
-$showBudgetDetails='<span class="link" style="float:right;font-size:1em" onclick="js:showBudgetDetails()">'.$words.'</span>';
-$row =	array(
-       		'label'=>__('Anual comparison'),
-			'type'=>'raw',
-			'value'=>$showBudgetDetails,
-		);
-$attributes[]=$row;
-
 foreach($budgets as $budget){
 	$percentage = '<span style="float:right">'.$budget->getPercentage().'% '.__('of total').'</span>';
 	$row =	array(
