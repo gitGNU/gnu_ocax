@@ -23,7 +23,7 @@
 
 $this->menu=array(
 	array('label'=>__('Create bulk email'), 'url'=>array('create')),
-	array('label'=>__('View bulk email'), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>__('View bulk email'), 'url'=>array('adminView', 'id'=>$model->id)),
 	array('label'=>__('Manage bulk email'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':profiles:admin:newsletters';

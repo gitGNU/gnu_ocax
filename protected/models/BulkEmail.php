@@ -24,7 +24,7 @@
  * The followings are the available columns in table 'bulk_email':
  * @property integer $id
  * @property string $created
- * @property integer $sent
+ * @property integer $sent 0 = draft, 1 = failed, 2 = sent
  * @property integer $sender
  * @property string $sent_as
  * @property string $recipients

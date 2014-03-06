@@ -65,6 +65,13 @@
 	<div>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
+		echo CHtml::link(__('Newsletter'), array('/bulkEmail'));
+	?>
+	</div>
+
+	<div>	
+	<?php
+		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
 		echo CHtml::link(__('Archive'), array('/archive'));
 	?>
 	</div>

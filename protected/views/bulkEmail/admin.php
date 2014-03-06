@@ -54,7 +54,7 @@ $('.search-form form').submit(function(){
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'bulk-email-grid',
 	'selectableRows'=>1,
-	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/bulkEmail/view').'/"+$.fn.yiiGridView.getSelection(id);}',
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/bulkEmail/adminView').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(

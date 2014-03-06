@@ -78,7 +78,7 @@ function deleteArchive(archive_id){
 <?php } ?>
 
 
-<div style="margin-top:-20px;">
+<div style="margin:-20px 0 40px 0">
 <?php
 echo '<span class="bigTitle">'.__('Archive').'</span>';
 if($userCanCreate){
@@ -89,7 +89,7 @@ if($userCanCreate){
 }
 ?>
 </div>
-<div class="horizontalRule" style="clear:both;margin-bottom:20px;"></div>
+
 
 <div style="margin-left:30px">
 <?php

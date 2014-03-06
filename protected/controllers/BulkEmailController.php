@@ -44,8 +44,12 @@ class BulkEmailController extends Controller
 	public function accessRules()
 	{
 		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view','feed'),
+				'users'=>array('*'),
+			),
 			array('allow',
-				'actions'=>array('view','create','send','update','admin','showRecipients','delete'),
+				'actions'=>array('adminView','create','send','update','admin','showRecipients','delete'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -54,11 +58,60 @@ class BulkEmailController extends Controller
 		);
 	}
 
+	// http://www.yiiframework.com/wiki/20/how-to-generate-web-feed-for-an-application/
+	public function actionFeed()
+	{
+		Yii::import('application.vendors.*');
+		require_once 'Zend/Loader/Autoloader.php';
+		spl_autoload_unregister(array('YiiBase','autoload')); 
+		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		// retrieve the latest 20 posts
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('sent = 2');// published
+		$criteria->order = 'created DESC';
+		$criteria->limit = '20';
+		
+		$newsletters = BulkEmail::model()->findAll($criteria);
+		// convert to the format needed by Zend_Feed
+		$entries=array();
+		foreach($newsletters as $newsletter)
+		{
+			$entries[]=array(
+				'title'=>$newsletter->subject,
+				'link'=>Yii::app()->createAbsoluteUrl('bulkEmail/view',array('id'=>$newsletter->id)),
+				'description'=>$newsletter->body,
+				'lastUpdate'=>$newsletter->created,
+			);
+		}
+		// generate and render RSS feed
+		$feed=Zend_Feed::importArray(array(
+			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
+			'link'    => Yii::app()->createUrl('bulkEmail'),
+			'charset' => 'UTF-8',
+			'entries' => $entries,      
+			), 'rss');
+		$feed->send();  
+	}
+
+	public function actionView($id)
+	{
+		$this->layout='//layouts/column1';
+		$model=$this->loadModel($id);
+		if($model->sent != 2)
+			$this->redirect(array('site/index'));
+		
+		$this->render('_view',array(
+			'data'=>$model,
+		));
+	}
+
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionAdminView($id)
 	{
 		$model=$this->loadModel($id);
 		if($model->sent == 0){
@@ -70,7 +123,7 @@ class BulkEmailController extends Controller
 		}
 
 
-		$this->render('view',array(
+		$this->render('adminView',array(
 			'model'=>$model,
 			'total_recipients'=>$count,
 		));
@@ -118,7 +171,7 @@ class BulkEmailController extends Controller
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('adminView','id'=>$model->id));
 		}
 
         $sql = "SELECT id FROM user WHERE is_active = 1";
@@ -165,7 +218,7 @@ class BulkEmailController extends Controller
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 		}
 		$model->save();
-		$this->redirect(array('view','id'=>$model->id));
+		$this->redirect(array('adminView','id'=>$model->id));
 	}
 
 	/**
@@ -199,7 +252,7 @@ class BulkEmailController extends Controller
 		{
 			$model->attributes=$_POST['BulkEmail'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('adminView','id'=>$model->id));
 		}
 
         $sql = "SELECT id FROM user WHERE is_active = 1";
@@ -232,16 +285,20 @@ class BulkEmailController extends Controller
 	/**
 	 * Lists all models.
 	 */
-/*
+
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('BulkEmail');
+		$this->layout='//layouts/column1';
+
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('sent = 2');	// published
+		$criteria->order = 'created DESC';
+
+		$dataProvider=new CActiveDataProvider('BulkEmail',array('criteria'=>$criteria,'pagination'=>array('pageSize'=>1)));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
-*/
-
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
