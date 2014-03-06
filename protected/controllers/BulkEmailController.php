@@ -78,11 +78,12 @@ class BulkEmailController extends Controller
 		$entries=array();
 		foreach($newsletters as $newsletter)
 		{
+			$date = new DateTime($newsletter->created);
 			$entries[]=array(
 				'title'=>$newsletter->subject,
 				'link'=>Yii::app()->createAbsoluteUrl('bulkEmail/view',array('id'=>$newsletter->id)),
 				'description'=>$newsletter->body,
-				'lastUpdate'=>$newsletter->created,
+				'lastUpdate'=>$date->getTimestamp(),
 			);
 		}
 		// generate and render RSS feed
