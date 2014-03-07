@@ -1,7 +1,8 @@
 <?php
+
 /**
  * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,20 +17,16 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
-/* @var $this BulkEmailController */
-/* @var $data BulkEmail */
+
+/* @var $this NewsletterController */
+/* @var $model Newsletter */
+
+$this->menu=array(
+	array('label'=>__('Create bulk email'), 'url'=>array('create')),
+	array('label'=>__('View bulk email'), 'url'=>array('adminView', 'id'=>$model->id)),
+	array('label'=>__('Manage bulk email'), 'url'=>array('admin')),
+);
+$this->inlineHelp=':profiles:admin:newsletters';
 ?>
 
-
-<p style="margin-bottom:0px">
-<?php echo __('Published on the').' '.format_date($data->created);?>
-</p>
-<div class="email" style="margin-top:0px">
-	<div class="title">
-	<span class="sub_title"><?php echo CHtml::encode($data->subject);?></span>
-	</div>
-
-<div style="font-size:1em"><?php echo $data->body; ?></div>
-
-</div>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'total_recipients'=>$total_recipients)); ?>

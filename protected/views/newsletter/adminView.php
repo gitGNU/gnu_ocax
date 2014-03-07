@@ -18,8 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this BulkEmailController */
-/* @var $model BulkEmail */
+/* @var $this NewsletterController */
+/* @var $model Newsletter */
 
 
 $this->menu=array(
@@ -56,7 +56,7 @@ $this->inlineHelp=':profiles:admin:newsletters';
 <script>
 function showRecipients(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/bulkEmail/showRecipients/<?php echo $model->id?>',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/newsletter/showRecipients/<?php echo $model->id?>',
 		type: 'GET',
 		success: function(data){
 			if(data != 0){
@@ -78,7 +78,7 @@ function showRecipients(){
 function send(){
 	$('input').prop('disabled', true);
 	$('#loading').show();
-	location.href='<?php echo Yii::app()->request->baseUrl;?>/bulkEmail/send/<?php echo $model->id?>';
+	location.href='<?php echo Yii::app()->request->baseUrl;?>/newsletter/send/<?php echo $model->id?>';
 }
 
 </script>
@@ -117,7 +117,7 @@ function send(){
 
 <?php if($model->sent == 0){
 
-echo CHtml::button(__('Edit draft'), array('onclick'=>'js:document.location.href="'.Yii::app()->request->baseUrl.'/bulkEmail/update/'.$model->id.'"'));
+echo CHtml::button(__('Edit draft'), array('onclick'=>'js:document.location.href="'.Yii::app()->request->baseUrl.'/newsletter/update/'.$model->id.'"'));
 echo CHtml::button(__('Send now'), array('onclick'=>'js:send();','style'=>'margin-left:100px;'));
 echo '<img id="loading" src="'.Yii::app()->request->baseUrl.'/images/small_loading.gif" style="vertical-align:middle;margin-left:15px;display:none"/>';
 

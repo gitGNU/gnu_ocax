@@ -149,7 +149,7 @@ if($model->is_admin){
 	}
 	echo '<div style="float:left"><p>';
 		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
-		echo CHtml::link(__('Newsletters'),array('bulkEmail/admin')).'<br />';
+		echo CHtml::link(__('Newsletters'),array('newsletter/admin')).'<br />';
 		echo CHtml::link(__('Zip file'),array('file/databaseDownload')).'<br />';
 		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 	echo '</p></div>';

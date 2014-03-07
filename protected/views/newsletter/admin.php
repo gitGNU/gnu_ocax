@@ -18,8 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this BulkEmailController */
-/* @var $model BulkEmail */
+/* @var $this NewsletterController */
+/* @var $model Newsletter */
 
 $this->menu=array(
 	array('label'=>__('Create bulk email'), 'url'=>array('create')),
@@ -32,7 +32,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#bulk-email-grid').yiiGridView('update', {
+	$('#newsletter-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -52,9 +52,9 @@ $('.search-form form').submit(function(){
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'id'=>'bulk-email-grid',
+	'id'=>'newsletter-grid',
 	'selectableRows'=>1,
-	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/bulkEmail/adminView').'/"+$.fn.yiiGridView.getSelection(id);}',
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/newsletter/adminView').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(

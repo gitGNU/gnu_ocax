@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS block_user (
   FOREIGN KEY (blocked_user) REFERENCES user(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS bulk_email (
+CREATE TABLE IF NOT EXISTS newsletter (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	created DATETIME NOT NULL,
 	sent TINYINT(1) DEFAULT 0 NOT NULL,	/* 0 = draft, 1 = failed, 2 = sent */

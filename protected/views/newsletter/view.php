@@ -18,32 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this BulkEmailController */
-/* @var $model BulkEmail */
-/* @var $form CActiveForm */
+/* @var $this NewsletterController */
+/* @var $model Newsletter */
 ?>
 
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
-
-	<div class="row">
-		<?php echo $form->label($model,'recipients'); ?>
-		<?php echo $form->textField($model,'recipients',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton(__('Search')); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<?php echo $this->renderPartial('_view', array('model'=>$model)); ?>

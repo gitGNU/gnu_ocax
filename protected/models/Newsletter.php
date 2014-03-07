@@ -19,9 +19,9 @@
  */
 
 /**
- * This is the model class for table "bulk_email".
+ * This is the model class for table "newsletter".
  *
- * The followings are the available columns in table 'bulk_email':
+ * The followings are the available columns in table 'newsletter':
  * @property integer $id
  * @property string $created
  * @property integer $sent 0 = draft, 1 = failed, 2 = sent
@@ -34,12 +34,12 @@
  * The followings are the available model relations:
  * @property User $sender0
  */
-class BulkEmail extends CActiveRecord
+class Newsletter extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return BulkEmail the static model class
+	 * @return Newsletter the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -51,7 +51,7 @@ class BulkEmail extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'bulk_email';
+		return 'newsletter';
 	}
 
 	public static function getHumanSentValues($state)

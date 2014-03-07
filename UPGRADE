@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS comment_count (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+RENAME TABLE bulk_email TO newsletter;
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
-
 
 
 

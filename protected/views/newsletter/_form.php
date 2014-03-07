@@ -18,8 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this BulkEmailController */
-/* @var $model BulkEmail */
+/* @var $this NewsletterController */
+/* @var $model Newsletter */
 
 ?>
 
@@ -34,7 +34,7 @@
 <script>
 function showRecipients(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/bulkEmail/showRecipients',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/newsletter/showRecipients',
 		type: 'GET',
 		success: function(data){
 			if(data != 0){
@@ -58,7 +58,7 @@ function showRecipients(){
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'bulk-email-form',
+	'id'=>'newsletter-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 

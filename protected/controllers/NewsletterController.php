@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class BulkEmailController extends Controller
+class NewsletterController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -73,7 +73,7 @@ class BulkEmailController extends Controller
 		$criteria->order = 'created DESC';
 		$criteria->limit = '20';
 		
-		$newsletters = BulkEmail::model()->findAll($criteria);
+		$newsletters = Newsletter::model()->findAll($criteria);
 		// convert to the format needed by Zend_Feed
 		$entries=array();
 		foreach($newsletters as $newsletter)
@@ -81,7 +81,7 @@ class BulkEmailController extends Controller
 			$date = new DateTime($newsletter->created);
 			$entries[]=array(
 				'title'=>$newsletter->subject,
-				'link'=>Yii::app()->createAbsoluteUrl('bulkEmail/view',array('id'=>$newsletter->id)),
+				'link'=>Yii::app()->createAbsoluteUrl('newsletter/view',array('id'=>$newsletter->id)),
 				'description'=>$newsletter->body,
 				'lastUpdate'=>$date->getTimestamp(),
 			);
@@ -89,7 +89,7 @@ class BulkEmailController extends Controller
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
 			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
-			'link'    => Yii::app()->createUrl('bulkEmail'),
+			'link'    => Yii::app()->createUrl('newsletter'),
 			'charset' => 'UTF-8',
 			'entries' => $entries,      
 			), 'rss');
@@ -157,14 +157,14 @@ class BulkEmailController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new BulkEmail;
+		$model=new Newsletter;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BulkEmail']))
+		if(isset($_POST['Newsletter']))
 		{
-			$model->attributes=$_POST['BulkEmail'];
+			$model->attributes=$_POST['Newsletter'];
 
 			$model->created = date('c');
 			$model->sent=0;
@@ -227,10 +227,10 @@ class BulkEmailController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new BulkEmail('search');
+		$model=new Newsletter('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['BulkEmail']))
-			$model->attributes=$_GET['BulkEmail'];
+		if(isset($_GET['Newsletter']))
+			$model->attributes=$_GET['Newsletter'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -249,9 +249,9 @@ class BulkEmailController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BulkEmail']))
+		if(isset($_POST['Newsletter']))
 		{
-			$model->attributes=$_POST['BulkEmail'];
+			$model->attributes=$_POST['Newsletter'];
 			if($model->save())
 				$this->redirect(array('adminView','id'=>$model->id));
 		}
@@ -295,7 +295,7 @@ class BulkEmailController extends Controller
 		$criteria->addCondition('sent = 2');	// published
 		$criteria->order = 'created DESC';
 
-		$dataProvider=new CActiveDataProvider('BulkEmail',array('criteria'=>$criteria,'pagination'=>array('pageSize'=>1)));
+		$dataProvider=new CActiveDataProvider('Newsletter',array('criteria'=>$criteria,'pagination'=>array('pageSize'=>1)));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -305,12 +305,12 @@ class BulkEmailController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return BulkEmail the loaded model
+	 * @return Newsletter the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=BulkEmail::model()->findByPk($id);
+		$model=Newsletter::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -318,11 +318,11 @@ class BulkEmailController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param BulkEmail $model the model to be validated
+	 * @param Newsletter $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='bulk-email-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='newsletter-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

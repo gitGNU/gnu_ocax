@@ -102,7 +102,7 @@ class User extends CActiveRecord
 		return array(
 			//'blockUsers' => array(self::HAS_MANY, 'BlockUser', 'user'),
 			//'blockUsers1' => array(self::HAS_MANY, 'BlockUser', 'blocked_user'),
-			//'bulkEmails' => array(self::HAS_MANY, 'BulkEmail', 'sender'),
+			//'newsletters' => array(self::HAS_MANY, 'Newsletter', 'sender'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'user'),
 			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'user'),
 			'assignedEnquirues' => array(self::HAS_MANY, 'Enquiry', 'team_member'),

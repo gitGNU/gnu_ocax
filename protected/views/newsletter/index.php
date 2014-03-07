@@ -17,14 +17,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
  
-/* @var $this BulkEmailController */
+/* @var $this NewsletterController */
 /* @var $dataProvider CActiveDataProvider */
 
 ?>
 
 <div style="margin:-20px 0 20px 0; position:relative;">
 <?php echo '<span class="bigTitle">'.__('Newsletters').'</span>';?>
-<a style="position:absolute;top:0;left:915px;" href="<?php echo Yii::app()->createAbsoluteUrl('bulkEmail/feed');?>">
+<a style="position:absolute;top:0;left:915px;" href="<?php echo Yii::app()->createAbsoluteUrl('newsletter/feed');?>">
 <img src="<?php echo Yii::app()->baseUrl;?>/images/rss.png"/>
 </a>
 </div>
