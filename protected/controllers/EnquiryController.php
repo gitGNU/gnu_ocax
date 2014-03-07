@@ -45,7 +45,7 @@ class EnquiryController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view','index','getEnquiry'),
+				'actions'=>array('view','index','getEnquiry','feed'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -629,6 +629,46 @@ class EnquiryController extends Controller
 		));
 	}
 
+	public function actionFeed()
+	{
+		Yii::import('application.vendors.*');
+		require_once 'Zend/Loader/Autoloader.php';
+		spl_autoload_unregister(array('YiiBase','autoload')); 
+		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		// retrieve the latest 20 posts
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
+								' AND state != '.ENQUIRY_ASSIGNED.
+								' AND state != '.ENQUIRY_REJECTED);
+		$criteria->order = 'created DESC';
+		$criteria->limit = '20';
+		
+		$enquiries = Enquiry::model()->findAll($criteria);
+		// convert to the format needed by Zend_Feed
+		$entries=array();
+		foreach($enquiries as $enquiry)
+		{
+			$date = new DateTime($enquiry->created);
+			$entries[]=array(
+				'title'=>$enquiry->title,
+				'link'=>Yii::app()->createAbsoluteUrl('enquiry/view',array('id'=>$enquiry->id)),
+				'description'=>$enquiry->body,
+				'lastUpdate'=>$date->getTimestamp(),
+			);
+		}
+		// generate and render RSS feed
+		$feed=Zend_Feed::importArray(array(
+			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
+			'link'    => Yii::app()->createUrl('newsletter'),
+			'charset' => 'UTF-8',
+			'entries' => $entries,      
+			), 'rss');
+		$feed->send();  
+	}
+
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -664,38 +704,6 @@ class EnquiryController extends Controller
 	public function actionMegaDelete($id)
 	{
 		$model=$this->loadModel($id);
-		$model->delete();
-		Yii::app()->user->setFlash('success', __('Enquiry has been deleted'));
-		echo $id;
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=Enquiry::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='enquiry-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
-}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          $this->loadModel($id);
 		$model->delete();
 		Yii::app()->user->setFlash('success', __('Enquiry has been deleted'));
 		echo $id;
