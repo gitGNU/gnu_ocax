@@ -324,6 +324,19 @@ class Enquiry extends CActiveRecord
 			$comment->delete();
 	}
 
+	public function getEnquiriesForRSS()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
+								' AND state != '.ENQUIRY_ASSIGNED.
+								' AND state != '.ENQUIRY_REJECTED);
+		$criteria->order = 'created DESC';
+		$criteria->limit = '20';
+		
+		return $this->findAll($criteria);
+	}
+	
+
 	public function publicSearch()
 	{
 		$search_text=$this->body;

@@ -370,6 +370,7 @@ div.search-form
 {
 	margin: 0;
 	padding: 0;
+
 	height:34px;
 	font-size: 16px;
 	/*color:#1F1F1F;*/
@@ -389,9 +390,9 @@ div.search-form
 #header_bar_container > div
 {
 	font-weight:800;
-	background: url(../images/separador.png) no-repeat scroll right transparent;
-	margin-right:17px;
-	padding-right:17px;
+	background: url(../images/separador.png) no-repeat scroll right 0px transparent;
+	margin: 0px 17px 0 0;
+	padding: 1px 17px 0 0;
 	height:30px;
 	float:right;
 }

@@ -637,15 +637,7 @@ class EnquiryController extends Controller
 		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
 		spl_autoload_register(array('YiiBase','autoload'));
 
-		// retrieve the latest 20 posts
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
-								' AND state != '.ENQUIRY_ASSIGNED.
-								' AND state != '.ENQUIRY_REJECTED);
-		$criteria->order = 'created DESC';
-		$criteria->limit = '20';
-		
-		$enquiries = Enquiry::model()->findAll($criteria);
+		$enquiries = Enquiry::model()->getEnquiriesForRSS();
 		// convert to the format needed by Zend_Feed
 		$entries=array();
 		foreach($enquiries as $enquiry)
@@ -660,8 +652,8 @@ class EnquiryController extends Controller
 		}
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
-			'link'    => Yii::app()->createUrl('newsletter'),
+			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Enquiries'),
+			'link'    => Yii::app()->createUrl('enquiry'),
 			'charset' => 'UTF-8',
 			'entries' => $entries,      
 			), 'rss');
