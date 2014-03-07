@@ -103,8 +103,8 @@ class NewsletterController extends Controller
 		if($model->sent != 2)
 			$this->redirect(array('site/index'));
 		
-		$this->render('_view',array(
-			'data'=>$model,
+		$this->render('view',array(
+			'model'=>$model,
 		));
 	}
 

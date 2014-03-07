@@ -78,7 +78,7 @@ function deleteArchive(archive_id){
 <?php } ?>
 
 
-<div style="margin:-20px 0 40px 0">
+<div style="margin:0px 0 40px 0">
 <?php
 echo '<span class="bigTitle">'.__('Archive').'</span>';
 if($userCanCreate){

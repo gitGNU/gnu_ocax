@@ -22,4 +22,7 @@
 /* @var $model Newsletter */
 ?>
 
-<?php echo $this->renderPartial('_view', array('model'=>$model)); ?>
+<div style="margin:0px 0 20px 0;">
+<?php echo '<span class="bigTitle">'.__('Newsletter').'</span>';?>
+</div>
+<?php echo $this->renderPartial('_view', array('data'=>$model)); ?>

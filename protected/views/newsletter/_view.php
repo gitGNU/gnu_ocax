@@ -22,14 +22,10 @@
 ?>
 
 
-<p style="margin-bottom:0px">
-<?php echo __('Published on the').' '.format_date($data->created);?>
-</p>
-<div class="email" style="margin-top:0px">
-	<div class="title">
-	<span class="sub_title"><?php echo CHtml::encode($data->subject);?></span>
-	</div>
+<span style="color:#8A8A8A;font-size:1.05em"><?php echo __('Published on the').' '.format_date($data->created);?></span>
+<div class="horizontalRule"></div>
+<h1 style="font-size:26pt;"><?php echo CHtml::encode($data->subject);?></h1>
 
-<div style="font-size:1em"><?php echo $data->body; ?></div>
+<div style="font-size:1.2em"><?php echo $data->body; ?></div>
 
-</div>
+
