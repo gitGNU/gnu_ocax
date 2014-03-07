@@ -49,22 +49,9 @@
 		?>
 	</div>
 
-	<?php
-	$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
-	$twURL = Config::model()->findByPk('socialTwitterURL')->value;
-
-	if($fbURL || $twURL){
-		echo '<div>';
-		if($fbURL)
-			echo '<a style="margin:4px;float:right" href="'.$fbURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/fb_bar.gif"/></a> ';
-		if($twURL)
-			echo '<a style="margin:4px;float:right" href="'.$twURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/tw_bar.gif"/></a> ';
-		echo '</div>';
-	} ?>    
-
 	<div>	
 	<?php
-		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/archive'));
+		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/newsletter'));
 		echo CHtml::link(__('Newsletters'), array('/newsletter'));
 	?>
 	</div>
@@ -131,7 +118,7 @@
 </div><!-- page -->
 
 <div id="footer">
-	<div style="width: 600px; float: left; margin:10px 0 10px 0;">
+	<div style="width: 680px; float: left; margin:10px 0 10px 0;">
 		<b><?php echo Config::model()->getObservatoryName();?></b><br />
 		<u><?php echo __('Contact information')?></u><br />
 		<?php if($blog = Config::model()->findByPk('observatoryBlog')->value)
@@ -140,7 +127,18 @@
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';
-		?>
+
+		$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
+		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
+		if($fbURL || $twURL){
+			echo '<div style="margin-top:10px">';
+			if($fbURL)
+				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->baseUrl.'/images/facebook.png"/></a> ';
+			if($twURL)
+				echo '<a href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
+			echo '</div>';
+		}
+	?>  
 	</div>
 	
 	<div style="width: 250px; float:right; margin:10px 0 10px 0;">
