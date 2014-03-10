@@ -96,7 +96,7 @@ class EnquiryController extends Controller
 		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('councilName')->value;
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->addressed_to = 0;
+		$model->addressed_to = Null;
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
 

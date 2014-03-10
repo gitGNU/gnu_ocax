@@ -30,21 +30,22 @@
 )); ?>
 	<div style="margin-left:-10px" class="row">
 		<?php
+			echo $form->hiddenField($model,'addressed_to');
 			echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255));
 			echo ' '.CHtml::submitButton(__('Search')).'<br />';
-			echo '<p style="margin-top:15px; margin-bottom:-10px">';
-			echo '<span style="float:left">'.__('Enquiries addressed to').'</span>';
-			echo '<span style="float:left">';
-			echo $form->radioButtonList($model,'addressed_to',
-										$model->getHumanAddressedTo(),
-										array(	'labelOptions'=>array('style'=>'display:inline'),
-												'separator'=>'<br />',
-												//'onchange'=>'js:$("#search_enquiries").submit();return false;',
-												'onchange'=>'js:toggleAddressedTo(this); return false;',
-											)
-									);
-			echo '</span></p><div style="clear:both;margin-bottom:-5px;"></div>';
-		?>
-	</div>
+// search options
+echo '<span id="search-options-button" class="link" style="font-size:1.1em">'.__('search options').'</span>';
+echo '<div id="search-options" style="display:none">';
+	echo '<p style="margin-top:15px; margin-bottom:-10px">';
+	echo '<span style="float:left">'.__('Enquiries addressed to').'</span>';
+	echo '<span style="float:left">';
+	foreach($model->getHumanAddressedTo() as $key=>$value){
+		echo '<input type="checkbox" value="'.$key.'" onclick="toggleAddressedTo(this)">'.$value.'<br>';
+	}
 
+	echo '</span></p><div style="clear:both;margin-bottom:-5px;"></div>';
+echo '</div>';
+
+?>
+</div>
 <?php $this->endWidget(); ?>

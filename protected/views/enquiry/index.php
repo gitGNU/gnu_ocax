@@ -22,6 +22,10 @@
 /* @var $model Enquiry */
 
 Yii::app()->clientScript->registerScript('search', "
+$('#search-options-button').click(function(){
+	$('#search-options').toggle();
+	return false;
+});
 $('.search-form form').submit(function(){
 	$.fn.yiiGridView.update('enquiry-grid', {
 		data: $(this).serialize()
@@ -42,10 +46,17 @@ $('.search-form form').submit(function(){
 
 <script>
 function toggleAddressedTo(el){
-	if($(el).val() == 0){
-		$('#addressed_to').html($('#addressed_to_administration').html());
+	if(!($(el).prop('checked'))){
+		$('#Enquiry_addressed_to').val('');
+	}
+	else if($(el).val() == 0){
+		$(':checkbox').not(el).attr('checked', false);
+		$('#Enquiry_addressed_to').val(0);
+		$('#addressed_to').html($('#addressed_to_administration').html());	// workflow diagram
 	}else{
-		$('#addressed_to').html($('#addressed_to_observatory').html());
+		$(':checkbox').not(el).attr('checked', false);
+		$('#Enquiry_addressed_to').val(1);
+		$('#addressed_to').html($('#addressed_to_observatory').html());	// workflow diagram
 	}
 	$("#search_enquiries").submit();
 }
