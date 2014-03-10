@@ -24,6 +24,7 @@
  * The followings are the available columns in table 'newsletter':
  * @property integer $id
  * @property string $created
+ * @property string $published
  * @property integer $sent 0 = draft, 1 = failed, 2 = sent
  * @property integer $sender
  * @property string $sent_as
@@ -104,6 +105,7 @@ class Newsletter extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'created' => __('Created'),
+			'published' => __('Published'),
 			'sent' => __('State'),
 			'sender' => 'Sender',
 			'sent_as' => 'Sent As',
@@ -111,6 +113,16 @@ class Newsletter extends CActiveRecord
 			'subject' => __('Subject'),
 			'body' => __('Body'),
 		);
+	}
+
+	public function getNewslettersForRSS()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('published IS NOT NULL');
+		$criteria->order = 'published DESC';
+		$criteria->limit = '20';
+		
+		return $this->findAll($criteria);
 	}
 
 	/**

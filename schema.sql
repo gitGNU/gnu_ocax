@@ -213,6 +213,7 @@ CREATE TABLE IF NOT EXISTS block_user (
 CREATE TABLE IF NOT EXISTS newsletter (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	created DATETIME NOT NULL,
+	published DATETIME NULL,
 	sent TINYINT(1) DEFAULT 0 NOT NULL,	/* 0 = draft, 1 = failed, 2 = sent */
 	sender int(11) NOT NULL,
   	sent_as varchar(128) NOT NULL,

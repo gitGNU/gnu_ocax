@@ -59,6 +59,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'created',
+		'published',
 		'subject',
 		array(
 			'header'=>__('State'),

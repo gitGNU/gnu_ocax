@@ -67,13 +67,7 @@ class NewsletterController extends Controller
 		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
 		spl_autoload_register(array('YiiBase','autoload'));
 
-		// retrieve the latest 20 posts
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('sent = 2');// published
-		$criteria->order = 'created DESC';
-		$criteria->limit = '20';
-		
-		$newsletters = Newsletter::model()->findAll($criteria);
+		$newsletters = Newsletter::model()->getNewslettersForRSS();
 		// convert to the format needed by Zend_Feed
 		$entries=array();
 		foreach($newsletters as $newsletter)
@@ -213,6 +207,7 @@ class NewsletterController extends Controller
 
 		if($mailer->send()){
 			$model->sent=2;
+			$model->published = date('c');
 			Yii::app()->user->setFlash('success',__('Email sent OK'));
 		}else{
 			$model->sent=1;
@@ -292,8 +287,8 @@ class NewsletterController extends Controller
 		$this->layout='//layouts/column1';
 
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('sent = 2');	// published
-		$criteria->order = 'created DESC';
+		$criteria->addCondition('published IS NOT NULL');
+		$criteria->order = 'published DESC';
 
 		$dataProvider=new CActiveDataProvider('Newsletter',array('criteria'=>$criteria,'pagination'=>array('pageSize'=>1)));
 		$this->render('index',array(

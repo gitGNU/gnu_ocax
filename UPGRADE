@@ -59,6 +59,32 @@ CREATE TABLE IF NOT EXISTS comment_count (
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 RENAME TABLE bulk_email TO newsletter;
+ALTER TABLE newsletter ADD published DATETIME NULL;
+
+DROP PROCEDURE IF EXISTS mod_newsletter;
+DELIMITER $$
+CREATE PROCEDURE mod_newsletter()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE c_id, c_sent int(11);
+  DECLARE c_created, c_published DATETIME;
+  DECLARE cur1 CURSOR FOR SELECT id, created, sent, published FROM `newsletter`;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+  OPEN cur1;
+  read_loop: LOOP
+    FETCH cur1 INTO c_id, c_created, c_sent, c_published;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    IF c_sent = 2 THEN
+      UPDATE `newsletter` SET published=c_created WHERE id=c_id;
+    END IF;
+  END LOOP;
+  CLOSE cur1;
+END$$
+DELIMITER ;
+CALL mod_newsletter();
+
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
 
 

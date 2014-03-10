@@ -24,8 +24,8 @@
 
 <div style="margin:0px 0 20px 0; position:relative;">
 <?php echo '<span class="bigTitle">'.__('Newsletters').'</span>';?>
-<a style="position:absolute;top:-20px;left:915px;" href="<?php echo Yii::app()->createAbsoluteUrl('newsletter/feed');?>">
-<img src="<?php echo Yii::app()->baseUrl;?>/images/rss.png"/>
+<a style="position:absolute;top:-25px;left:935px;" href="<?php echo Yii::app()->createAbsoluteUrl('newsletter/feed');?>">
+<img src="<?php echo Yii::app()->baseUrl;?>/images/rss-16x16.png"/>
 </a>
 </div>
 
