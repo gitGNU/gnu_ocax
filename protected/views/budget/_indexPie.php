@@ -155,9 +155,6 @@ function createPie(div_id, data){
 		//http://www.kathyw.org/jQPlot/LinkTest.html
 		$('#'+div_id).bind('jqplotDataClick', 
 			function (ev, seriesIndex, pointIndex, data) {
-				//alert('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
-				//scroll = $(this).closest('.jqplot-table-legend-container').scrollTop();
-				//getPie(data[2], $(this).parents('.graph_pie_group').find('.loader_gif'));
 				getPie(data[2], this);
 				return false;
 			}
@@ -185,11 +182,10 @@ $(function() {
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_pie_group graph_group" id="anchor_<?php echo $budget->id;?>"></div>');
-			//group.append('<a name="anchor_<?php echo $budget->id;?>"></a>');
+			group.append('<img class="budgetGoToTop" src="<?php echo Yii::app()->request->baseUrl;?>/images/arrow_up.png" />');
 			header=$('<div></div>');
 			header.append('<div style="font-size:1.5em; float:left"><?php echo $budget->getCategory();?></div>');
 			loader=$('<div class="loader_gif"></div>');
-			//loader.append('<div><?php echo __('Loading data');?><div>');
 			loader.append('<img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>');
 			header.append(loader);
 			header.append('<div style="clear:both"></div>');
@@ -198,13 +194,17 @@ $(function() {
 			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
 			graph_container.attr('is_parent',data.params.is_parent);
 			title= '<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/<?php echo $budget->id;?>" onclick="js:showBudget(<?php echo $budget->id;?>, this);return false;"><?php echo CHtml::encode($budget->getConcept());?></a>';	
-			graph_container.append('<div class="graph_title"><img style="vertical-align:middle" src="<?php echo Yii::app()->request->baseUrl;?>/images/info.png" /> '+title+'</div>');
+			graph_container.append('<div class="graph_title"> '+title+'</div>');
 			graph_container.append(data.params.budget_details);
 			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
 			group.append(graph_container);
 			createPie("<?php echo $budget->id;?>_graph", data);
 
 	<?php } ?>
+	
+	$(".budgetGoToTop").click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 0);
+	});
 });
 </script>
 

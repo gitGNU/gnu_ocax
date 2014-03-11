@@ -84,14 +84,22 @@
 	margin-bottom:15px;
 	margin-left:-5px;
 	line-height: 100%;
-	font-size: 28pt;
+	font-size: 26pt;
 	letter-spacing:-0.5pt;	font-weight:200;
 }
 .graph_container{
 	margin:0px;
 	padding:0px;
 }
-
+.graph_group{
+	position:relative;
+}
+.budgetGoToTop{
+	position:absolute;
+	left:925px;
+	top:5px;
+	cursor:pointer;
+}
 .budget_details{
 	width:470px;
 	float:right;

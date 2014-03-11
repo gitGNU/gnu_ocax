@@ -377,7 +377,9 @@ class BudgetController extends Controller
 	public function actionFeature($id)
 	{
 		$model = $this->loadModel($id);
-		if($model->featured)
+		if(!$model->budgets)
+			$model->featured=0;
+		elseif($model->featured)
 			$model->featured=0;
 		else
 			$model->featured=1;

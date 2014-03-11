@@ -68,10 +68,12 @@ $(function() {
 	});
 	$("#featured_menu > li").click(function(){
 		$("#featured_menu").hide();
-		window.location.hash = $(this).attr('anchor');
+		$('html,body').animate({scrollTop: $($(this).attr('anchor')).offset().top}, 0);
+		//window.location.hash = $(this).attr('anchor');
 	});
+
 	$("#featured_menu").mouseleave(function(){
-	    $("#featured_menu").fadeOut();
+		$("#featured_menu").fadeOut();
 	});
 });
 function toggleFeaturedMenu(){
@@ -133,6 +135,7 @@ function highlightResult(){
 function afterSearch(){
 	if($.fn.yiiListView.getKey('search-results', 0)){
 		$('#the_graphs').hide();
+		$('#featured_menu_icon').hide();
 		$('#no_results').hide();
 		$('#search_results_container').show();
 		highlightResult();
@@ -143,6 +146,7 @@ function afterSearch(){
 		$('#no_results').hide();
 		$('#no_results').fadeIn('fast');
 		$('#the_graphs').show();
+		$('#featured_menu_icon').show();
 	}
 }
 </script>
@@ -227,7 +231,8 @@ if(count($years) > 1){
 		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 		if($showFeaturedMenu){
-			echo '<img style="cursor:pointer" src="'.Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
+			echo '<img id="featured_menu_icon" style="cursor:pointer" src="'.
+				Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
 				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
