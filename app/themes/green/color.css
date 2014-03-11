@@ -59,6 +59,8 @@ div.form .title{ color:#a1a150; }
 #change_to_pie { background: url("./images/graph_type_pie.png") no-repeat scroll 0 0 transparent; }
 #change_to_bar { background: url("./images/graph_type_bar.png") no-repeat scroll 0 0 transparent; }
 
+#featured_menu li:hover { color:white; background-color:#a1a150; cursor:pointer; } 
+
 .prev_budget_arrow{	background-image:url('./images/prev_budget.png'); }
 
 

@@ -21,13 +21,29 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
-//$year = Config::model()->findByPk('year')->value;
+
+Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
+
 $year = $model->year;
 
 $criteria = new CDbCriteria;
 $criteria->condition = 'year = '.$year.' AND parent is NULL';
-//$criteria->order = 'weight ASC';
 $root_budget = Budget::model()->find($criteria);
+
+if($root_budget){
+	if(!Yii::app()->user->isAdmin() && !$model->isPublished())
+		$featured = array();
+	else{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('featured = 1');
+		$criteria->addCondition('year = '.$model->year);
+		$criteria->order = 'csv_id ASC';
+		$featured=$model->findAll($criteria);
+	}
+	$showFeaturedMenu=0;
+	if(count($featured) > 2)
+		$showFeaturedMenu=1;
+}
 
 Yii::app()->clientScript->registerScript('search', "
   $('#budget-form').submit(function(){
@@ -43,7 +59,6 @@ Yii::app()->clientScript->registerScript('search', "
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budget.css" />
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
-
 <script>
 var budgetCache=new Array();
 
@@ -51,8 +66,20 @@ $(function() {
 	$('#Budget_concept').focus(function () {
 		$('#Budget_code').val('');
 	});
+	$("#featured_menu > li").click(function(){
+		$("#featured_menu").hide();
+		window.location.hash = $(this).attr('anchor');
+	});
+	$("#featured_menu").mouseleave(function(){
+	    $("#featured_menu").fadeOut();
+	});
 });
-
+function toggleFeaturedMenu(){
+	if($("#featured_menu").is(':visible'))
+		$("#featured_menu").fadeOut();
+	else
+		$("#featured_menu").show("slide", { direction: "right" }, 250);
+}
 function _showBudget(budget_id){
 	$("#budget_popup_body").html(budgetCache[budget_id]);
 	$('#budget_popup').bPopup({
@@ -199,6 +226,8 @@ if(count($years) > 1){
 		$change=Yii::app()->request->baseUrl.'/budget?graph_type';
 		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
+		if($showFeaturedMenu)
+			echo '<img style="cursor:pointer" src="'.Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 		echo '</div>';
 	
 		if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
@@ -215,7 +244,6 @@ if(count($years) > 1){
 </div>
 <div style="clear:both"></div>
 
-
 <div>
 <?php
 	echo '<div id="search_results_container" style="display:none">';
@@ -230,25 +258,16 @@ if(count($years) > 1){
 	));
 	echo '</div>';
 
-	echo '<div id="the_graphs">';
+	echo '<div id="the_graphs" style="position:relative">';
 	
 	if(!$root_budget){
 		echo '<h1>'. __('No data available').'</h1>';
 	}else{
-		if(!Yii::app()->user->isAdmin() && !$model->isPublished())
-			$featured = array();
-		else{
-			$criteria=new CDbCriteria;
-			$criteria->addCondition('featured = 1');
-			$criteria->addCondition('year = '.$model->year);
-			$criteria->order = 'csv_id ASC';
-			$featured=$model->findAll($criteria);
-		}
-		if(count($featured) > 2){
-			echo '<div style="font-size:1.2em; text-align:right">';
+		if($showFeaturedMenu){
+			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
-				echo '<a style="margin-left:40px; white-space:nowrap;" href="#anchor_'.$budget->id.'">'.$budget->getConcept().'</a> ';
-			echo '</div>';
+				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
+			echo '</ul>';
 		}
 		if($graph_type == 'bar')
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));

@@ -72,7 +72,7 @@ class NewsletterController extends Controller
 		$entries=array();
 		foreach($newsletters as $newsletter)
 		{
-			$date = new DateTime($newsletter->created);
+			$date = new DateTime($newsletter->published);
 			$entries[]=array(
 				'title'=>$newsletter->subject,
 				'link'=>Yii::app()->createAbsoluteUrl('newsletter/view',array('id'=>$newsletter->id)),

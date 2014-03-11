@@ -22,7 +22,6 @@
 /* @var $model Budget */
 
 $graph_width=929;
-
 ?>
 
 <style>

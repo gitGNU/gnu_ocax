@@ -20,8 +20,6 @@
 
 /* @var $this BudgetController */
 /* @var $model Budget */
-
-Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 ?>
 
 <style>
