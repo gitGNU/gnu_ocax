@@ -222,12 +222,17 @@ if(count($years) > 1){
 	<!--  Change graph type start  -->
 	<div style="clear:right">
 	<?php
-		echo '<div class="budgetOptions">';
+		echo '<div class="budgetOptions" style="position:relative">';
 		$change=Yii::app()->request->baseUrl.'/budget?graph_type';
 		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
-		if($showFeaturedMenu)
+		if($showFeaturedMenu){
 			echo '<img style="cursor:pointer" src="'.Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
+			echo '<ul id="featured_menu">';
+			foreach($featured as $budget)
+				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
+			echo '</ul>';
+		}
 		echo '</div>';
 	
 		if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
@@ -258,17 +263,10 @@ if(count($years) > 1){
 	));
 	echo '</div>';
 
-	echo '<div id="the_graphs" style="position:relative">';
-	
+	echo '<div id="the_graphs">';
 	if(!$root_budget){
 		echo '<h1>'. __('No data available').'</h1>';
 	}else{
-		if($showFeaturedMenu){
-			echo '<ul id="featured_menu">';
-			foreach($featured as $budget)
-				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
-			echo '</ul>';
-		}
 		if($graph_type == 'bar')
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));
 		else
