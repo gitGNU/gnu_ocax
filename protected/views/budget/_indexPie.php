@@ -107,7 +107,7 @@ function getPie(budget_id, clicked_el){
 				title=	'<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/'+data.params.parent_id+
 						'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';			
 			}
-			graph_container.append('<div class="graph_title"><img style="vertical-align:middle;" src="<?php echo Yii::app()->request->baseUrl;?>/images/info.png" /> '+title+'</div>');
+			graph_container.append('<div class="graph_title">'+title+'</div>');
 			graph_container.append(data.params.budget_details);
 			
 			graph=$('<div id="'+budget_id+'_graph" class="graph"></div>');
@@ -182,11 +182,10 @@ $(function() {
 			data = <?php echo $this->actionGetPieData($budget->id);?>
 
 			group=$('<div class="graph_pie_group graph_group" id="anchor_<?php echo $budget->id;?>"></div>');
-			group.append('<img class="budgetGoToTop" src="<?php echo Yii::app()->request->baseUrl;?>/images/arrow_up.png" />');
 			header=$('<div></div>');
-			header.append('<div style="font-size:1.5em; float:left"><?php echo $budget->getCategory();?></div>');
+			header.append('<div style="font-size:1.5em;float:left;margin-bottom:-5px;"><?php echo $budget->getCategory();?></div>');
 			loader=$('<div class="loader_gif"></div>');
-			loader.append('<img src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>');
+			loader.append('<img style="margin-right:5px" src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>');
 			header.append(loader);
 			header.append('<div style="clear:both"></div>');
 			group.append(header);
@@ -202,9 +201,6 @@ $(function() {
 
 	<?php } ?>
 	
-	$(".budgetGoToTop").click(function(){
-		$("html, body").animate({ scrollTop: 0 }, 0);
-	});
 });
 </script>
 

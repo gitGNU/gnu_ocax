@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-03-07 10:49+0100\n"
+"PO-Revision-Date: 2014-03-12 11:34+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "Type"
 msgstr "Tipus"
 
 #: protected/models/Email.php:100
-#: protected/models/Newsletter.php:106
+#: protected/models/Newsletter.php:107
 #: protected/models/Archive.php:89
 msgid "Created"
 msgstr "Creada"
@@ -63,7 +63,7 @@ msgid "Enquiry"
 msgstr "Consulta"
 
 #: protected/models/Email.php:107
-#: protected/models/Newsletter.php:112
+#: protected/models/Newsletter.php:114
 #: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:220
 #: protected/models/Emailtext.php:114
@@ -94,7 +94,7 @@ msgstr "Contrasenya repetida"
 
 #: protected/models/RegisterForm.php:90
 #: protected/models/User.php:129
-#: protected/views/layouts/main.php:140
+#: protected/views/layouts/main.php:127
 msgid "Email"
 msgstr "Correu electrònic"
 
@@ -110,34 +110,42 @@ msgstr "Nom"
 msgid "Path"
 msgstr "Camí"
 
-#: protected/models/Newsletter.php:60
+#: protected/models/Newsletter.php:61
 msgid "Draft"
 msgstr "Esborrador"
 
-#: protected/models/Newsletter.php:61
+#: protected/models/Newsletter.php:62
 msgid "Failed to send"
 msgstr "Enviament fallit"
 
-#: protected/models/Newsletter.php:62
+#: protected/models/Newsletter.php:63
 msgid "Sent OK"
 msgstr "Enviat OK"
 
-#: protected/models/Newsletter.php:107
+#: protected/models/Newsletter.php:108
+#: protected/models/CmsPage.php:90
+#: protected/models/IntroPage.php:112
+#: protected/views/budget/_formYear.php:63
+#: protected/views/budget/adminYears.php:99
+msgid "Published"
+msgstr "Publicat"
+
+#: protected/models/Newsletter.php:109
 #: protected/models/Enquiry.php:218
 #: protected/models/Emailtext.php:113
 #: protected/views/emailtext/admin.php:46
 #: protected/views/enquiry/view.php:192
-#: protected/views/enquiry/index.php:127
+#: protected/views/enquiry/index.php:138
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
-#: protected/views/newsletter/admin.php:64
+#: protected/views/newsletter/admin.php:65
 #: protected/views/user/view.php:133
 #: protected/views/user/panel.php:201
 #: protected/views/user/panel.php:238
 msgid "State"
 msgstr "Estat"
 
-#: protected/models/Newsletter.php:111
+#: protected/models/Newsletter.php:113
 msgid "Subject"
 msgstr "Assumpte"
 
@@ -196,13 +204,6 @@ msgstr "Bloc"
 #: protected/models/Budget.php:129
 msgid "Weight"
 msgstr "Pes"
-
-#: protected/models/CmsPage.php:90
-#: protected/models/IntroPage.php:112
-#: protected/views/budget/_formYear.php:63
-#: protected/views/budget/adminYears.php:99
-msgid "Published"
-msgstr "Publicat"
 
 #: protected/models/User.php:127
 msgid "New password"
@@ -443,7 +444,7 @@ msgstr "Gestiona anys"
 #: protected/models/Enquiry.php:211
 #: protected/views/budget/view.php:181
 #: protected/views/enquiry/view.php:178
-#: protected/views/enquiry/index.php:122
+#: protected/views/enquiry/index.php:133
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/user/panel.php:196
 #: protected/views/user/panel.php:233
@@ -549,11 +550,11 @@ msgstr "Ja hi ha una consulta feta sobre aquesta partida pressupostària"
 msgid "%s enquiries have already been made about this budget"
 msgstr "Ja hi ha %s consultes fetes sobre aquesta partida pressupostària"
 
-#: protected/views/budget/_indexBar.php:149
+#: protected/views/budget/_indexBar.php:150
 msgid "Actual"
 msgstr "Actual"
 
-#: protected/views/budget/_indexBar.php:150
+#: protected/views/budget/_indexBar.php:151
 msgid "Executed"
 msgstr "Executat"
 
@@ -590,16 +591,20 @@ msgstr "Editar any"
 msgid "Budgetary enquiries for"
 msgstr "Consultes pressupostàries del"
 
-#: protected/views/budget/index.php:134
-#: protected/views/layouts/main.php:99
+#: protected/views/budget/index.php:170
+msgid "Go to top"
+msgstr "Pujar al principi"
+
+#: protected/views/budget/index.php:175
+#: protected/views/layouts/main.php:86
 #: protected/views/user/panel.php:66
-#: protected/controllers/BudgetController.php:457
+#: protected/controllers/BudgetController.php:459
 msgid "Budgets"
 msgstr "Pressupostos"
 
-#: protected/views/budget/index.php:153
+#: protected/views/budget/index.php:194
 #: protected/views/enquiry/_memberSearch.php:72
-#: protected/views/enquiry/_searchPublic.php:34
+#: protected/views/enquiry/_searchPublic.php:35
 #: protected/views/enquiry/_managerSearch.php:95
 #: protected/views/newsletter/_search.php:44
 #: protected/views/budgetDescription/_search.php:51
@@ -607,19 +612,19 @@ msgstr "Pressupostos"
 msgid "Search"
 msgstr "Cerca"
 
-#: protected/views/budget/index.php:161
+#: protected/views/budget/index.php:202
 msgid "No search results"
 msgstr "No va haver-hi coincidències"
 
-#: protected/views/budget/index.php:183
+#: protected/views/budget/index.php:224
 msgid "Available years"
 msgstr "Anys disponibles"
 
-#: protected/views/budget/index.php:207
+#: protected/views/budget/index.php:256
 msgid "Download data"
 msgstr "Baixar Dades"
 
-#: protected/views/budget/index.php:236
+#: protected/views/budget/index.php:283
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
 
@@ -636,10 +641,6 @@ msgstr "Gestionar les descripcions"
 #: protected/views/budgetDescription/admin.php:26
 msgid "Budgets without description"
 msgstr "Partides sense descripció"
-
-#: protected/views/budget/_indexPie.php:194
-msgid "Loading data"
-msgstr "Carregant dades"
 
 #: protected/views/budget/createYear.php:22
 #: protected/views/budget/featured.php:30
@@ -695,12 +696,13 @@ msgstr "Euros per persona"
 #: protected/views/budget/_enquiryView.php:139
 #: protected/views/budget/_budgetDetails.php:121
 #: protected/views/budget/_budgetDetails.php:144
-#: protected/views/enquiry/index.php:117
-#: protected/views/layouts/main.php:100
+#: protected/views/enquiry/index.php:128
+#: protected/views/layouts/main.php:87
 #: protected/views/user/view.php:127
 #: protected/views/user/panel.php:191
 #: protected/views/user/panel.php:228
 #: protected/controllers/EnquiryController.php:96
+#: protected/controllers/EnquiryController.php:655
 msgid "Enquiries"
 msgstr "Consultes"
 
@@ -1232,35 +1234,35 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: protected/views/enquiry/index.php:90
+#: protected/views/enquiry/index.php:101
 msgid "Enquiries made to date"
 msgstr "Consultes fetes fins a avui"
 
-#: protected/views/enquiry/index.php:91
+#: protected/views/enquiry/index.php:102
 msgid "This is a list of enquiries made by citizens like you."
 msgstr "Llista de consultes realitzades per ciutadan@s com tu"
 
-#: protected/views/enquiry/index.php:141
+#: protected/views/enquiry/index.php:152
 msgid "Formulate a new enquiry"
 msgstr "Formula una consulta nova"
 
-#: protected/views/enquiry/index.php:142
+#: protected/views/enquiry/index.php:153
 msgid "Remember you must first"
 msgstr "Recorda que primer has de"
 
-#: protected/views/enquiry/index.php:143
+#: protected/views/enquiry/index.php:154
 msgid "login"
 msgstr "iniciar una sessió"
 
-#: protected/views/enquiry/index.php:143
+#: protected/views/enquiry/index.php:154
 msgid "or"
 msgstr " o"
 
-#: protected/views/enquiry/index.php:144
+#: protected/views/enquiry/index.php:155
 msgid "create an account"
 msgstr "crear un compte"
 
-#: protected/views/enquiry/index.php:150
+#: protected/views/enquiry/index.php:161
 msgid "What are the different states of an enquiry?"
 msgstr "Quins són els estats d'una consulta?"
 
@@ -1297,7 +1299,11 @@ msgstr "vegada"
 msgid "times"
 msgstr "vegades"
 
-#: protected/views/enquiry/_searchPublic.php:36
+#: protected/views/enquiry/_searchPublic.php:37
+msgid "search options"
+msgstr "opcions de cerca"
+
+#: protected/views/enquiry/_searchPublic.php:40
 msgid "Enquiries addressed to"
 msgstr "Consultes dirigides a"
 
@@ -1552,7 +1558,7 @@ msgid "Translations"
 msgstr "Traduccions"
 
 #: protected/views/layouts/column2.php:19
-#: protected/views/layouts/main.php:115
+#: protected/views/layouts/main.php:102
 msgid "My page"
 msgstr "La meva pàgina"
 
@@ -1568,28 +1574,27 @@ msgstr "Opcions"
 msgid "Logout"
 msgstr "Logout"
 
-#: protected/views/layouts/main.php:68
+#: protected/views/layouts/main.php:55
 #: protected/views/newsletter/index.php:26
 #: protected/views/user/panel.php:152
-#: protected/controllers/NewsletterController.php:91
-#: protected/controllers/EnquiryController.php:663
+#: protected/controllers/NewsletterController.php:85
 msgid "Newsletters"
 msgstr "Butlletins"
 
-#: protected/views/layouts/main.php:75
+#: protected/views/layouts/main.php:62
 #: protected/views/archive/index.php:83
 msgid "Archive"
 msgstr "Arxiu"
 
-#: protected/views/layouts/main.php:82
+#: protected/views/layouts/main.php:69
 msgid "Home"
 msgstr "Inici"
 
-#: protected/views/layouts/main.php:136
+#: protected/views/layouts/main.php:123
 msgid "Contact information"
 msgstr "Dades de contacte"
 
-#: protected/views/layouts/main.php:142
+#: protected/views/layouts/main.php:129
 msgid "Telephone"
 msgstr "Telèfon"
 
@@ -1658,7 +1663,7 @@ msgstr "Cerca avançada"
 msgid "View bulk email"
 msgstr "Veure butlletí"
 
-#: protected/views/newsletter/_view.php:25
+#: protected/views/newsletter/_view.php:27
 msgid "Published on the"
 msgstr "Publicat el dia"
 
@@ -1666,7 +1671,7 @@ msgstr "Publicat el dia"
 msgid "Send bulk email"
 msgstr "Enviar butlletí"
 
-#: protected/views/newsletter/_form.php:117
+#: protected/views/newsletter/_form.php:121
 msgid "Preview"
 msgstr "Vista preliminar"
 
@@ -1972,12 +1977,12 @@ msgid "Email sent"
 msgstr "Correu electrònic enviat"
 
 #: protected/controllers/EmailController.php:127
-#: protected/controllers/NewsletterController.php:216
+#: protected/controllers/NewsletterController.php:211
 msgid "Email sent OK"
 msgstr "Email sent OK"
 
 #: protected/controllers/EmailController.php:129
-#: protected/controllers/NewsletterController.php:219
+#: protected/controllers/NewsletterController.php:214
 #: protected/controllers/SiteController.php:150
 #: protected/controllers/SiteController.php:175
 msgid "Error while sending email"
@@ -2126,16 +2131,16 @@ msgstr "Has d'assignar un team member"
 msgid "New team member assigned"
 msgstr "Nou team member assignat"
 
-#: protected/controllers/EnquiryController.php:686
-#: protected/controllers/EnquiryController.php:708
+#: protected/controllers/EnquiryController.php:678
+#: protected/controllers/EnquiryController.php:700
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
-#: protected/controllers/BudgetController.php:442
+#: protected/controllers/BudgetController.php:444
 msgid "Year deleted"
 msgstr "Any esborrat"
 
-#: protected/controllers/BudgetController.php:504
+#: protected/controllers/BudgetController.php:506
 msgid "Database restored correctly"
 msgstr "Database restored correctly"
 

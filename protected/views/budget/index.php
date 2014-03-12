@@ -63,15 +63,24 @@ Yii::app()->clientScript->registerScript('search', "
 var budgetCache=new Array();
 
 $(function() {
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 300) {
+			$('.budgetGoToTop').fadeIn(500);
+		} else {
+			$('.budgetGoToTop').fadeOut(500);
+		}
+	});
+	$(".budgetGoToTop").click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 0);
+		$('.budgetGoToTop').hide();
+	});
 	$('#Budget_concept').focus(function () {
 		$('#Budget_code').val('');
 	});
 	$("#featured_menu > li").click(function(){
 		$("#featured_menu").hide();
 		$('html,body').animate({scrollTop: $($(this).attr('anchor')).offset().top}, 0);
-		//window.location.hash = $(this).attr('anchor');
 	});
-
 	$("#featured_menu").mouseleave(function(){
 		$("#featured_menu").fadeOut();
 	});
@@ -158,6 +167,7 @@ function afterSearch(){
 	.clear{clear:both;}
 </style>
 
+<div class="budgetGoToTop">&#x25B2; <?php echo __('Go to top');?></div>
 <div class="outer">
 <div class="left" style="height:140px">
 
@@ -252,7 +262,7 @@ if(count($years) > 1){
 </div>
 
 </div>
-<div style="clear:both"></div>
+<div style="clear:both;"></div>
 
 <div>
 <?php
