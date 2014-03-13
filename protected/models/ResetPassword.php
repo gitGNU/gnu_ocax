@@ -61,7 +61,7 @@ class ResetPassword extends CActiveRecord
 		return array(
 			array('user, code, created, used', 'required'),
 			array('user, used', 'numerical', 'integerOnly'=>true),
-			array('code', 'length', 'max'=>15),
+			array('code', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, user, code, created', 'safe', 'on'=>'search'),
@@ -93,22 +93,11 @@ class ResetPassword extends CActiveRecord
 		);
 	}
 
-
-	private function _createCode()
-	{
-		$code='';
-		$length=15;
-		$charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		$count = strlen($charset);
-		while ($length--)
-			$code .= $charset[mt_rand(0, $count-1)];
-		return $code;
-	}
  	public function createCode()
 	{
-		$code = $this->_createCode();
+		$code = substr(md5(rand(0, 1000000)), 0, 45);
 		while($this->findAllByAttributes(array('code'=>$code)))
-			$code = $this->_createCode();
+			$code = substr(md5(rand(0, 1000000)), 0, 45);
 		$this->code = $code;
 	}
 
@@ -133,3 +122,4 @@ class ResetPassword extends CActiveRecord
 		));
 	}
 }
+

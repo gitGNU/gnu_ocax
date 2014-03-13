@@ -157,9 +157,9 @@ class User extends CActiveRecord
 	 */
 	public function generateActivationCode()
 	{
-		$code = substr(uniqid(),rand(1,5),15);
+		$code = substr(md5(rand(0, 1000000)), 0, 45);
 		while ($this->findByAttributes(array('activationcode'=>$code)))
-			$code = substr(uniqid(),rand(1,5),15);
+			$code = substr(md5(rand(0, 1000000)), 0, 45);
 		return $code;
 	}
  

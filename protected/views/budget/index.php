@@ -21,7 +21,6 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
-
 Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
 $year = $model->year;
@@ -238,7 +237,7 @@ if(count($years) > 1){
 		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 		if($showFeaturedMenu){
-			echo '<img style="margin-left:50px" id="featured_menu_icon" style="cursor:pointer" src="'.
+			echo '<img style="margin-left:55px;cursor:pointer" id="featured_menu_icon" src="'.
 				Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)

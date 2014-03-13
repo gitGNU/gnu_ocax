@@ -86,8 +86,8 @@ DELIMITER ;
 CALL mod_newsletter();
 
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
-
-
+ALTER TABLE user MODIFY COLUMN activationcode varchar(45) NOT NULL;
+ALTER TABLE reset_password MODIFY COLUMN code varchar(45) NOT NULL;
 
 OCAX 1.1.2
 Follow steps 1-5 above.

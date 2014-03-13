@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS user (
   email varchar(128) NOT NULL,
   language char(2) NULL,
   joined date NOT NULL,
-  activationcode varchar(15) NOT NULL,
+  activationcode varchar(45) NOT NULL,
   is_active TINYINT(1) DEFAULT 0,
   is_disabled TINYINT(1) DEFAULT 0,
   is_socio TINYINT(1) DEFAULT 0,
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS archive (
 CREATE TABLE IF NOT EXISTS reset_password (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,
-  code varchar(15) NOT NULL,
+  code varchar(45) NOT NULL,
   created DATETIME NOT NULL,
   used TINYINT(1) DEFAULT 0 NOT NULL,
   FOREIGN KEY (user) REFERENCES user(id),
