@@ -498,25 +498,34 @@ class Budget extends CActiveRecord
 
 	public function featuredSearch()
 	{
+		//$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
 		$criteria=new CDbCriteria;
 
-		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
+		/*
+		SELECT * FROM `budget` `t` LEFT JOIN budget as child
+		ON t.id = child.parent AND t.year = child.year 
+		WHERE (CHAR_LENGTH(t.csv_id) > 1) AND child.id IS NOT NULL group by t.id
+		*/
+		// we only show budgets that have children. otherwise the graphs don't make sense.
+		$criteria->select = 't.*';
+		$criteria->together = true;
+		$criteria->join = 'LEFT JOIN budget as child ON t.id = child.parent AND t.year = child.year';
+		$criteria->addCondition('child.id IS NOT NULL');
+		$criteria->group = 't.id';
 
-		$criteria->addCondition('parent is not null');	// dont show year budget
-		$criteria->addCondition('CHAR_LENGTH(csv_id) > 1');
-
-		$criteria->compare('featured', $this->featured);
-		$criteria->compare('code', $this->code);
-		$criteria->compare('concept', $this->concept, true);
-		$criteria->compare('csv_id', $this->csv_id, true);
-		$criteria->compare('year',$this->year);
+		$criteria->addCondition('CHAR_LENGTH(t.csv_id) > 1');	// don't show 'S' o 'I', etc
+		
+		$criteria->compare('t.featured', $this->featured);
+		$criteria->compare('t.code', $this->code);
+		$criteria->compare('t.concept', $this->concept, true);
+		$criteria->compare('t.csv_id', $this->csv_id, true);
+		$criteria->compare('t.year',$this->year);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'csv_id ASC'),
+			'sort'=>array('defaultOrder'=>'t.csv_id ASC'),
 		));
 	}
-
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

@@ -377,9 +377,12 @@ class BudgetController extends Controller
 	public function actionFeature($id)
 	{
 		$model = $this->loadModel($id);
-		if(!$model->budgets)
-			$model->featured=0;
-		elseif($model->featured)
+		// we don't show graphs of budgets that don't have children
+		if(!$model->budgets){
+			echo 1;
+			return;
+		}	
+		if($model->featured)
 			$model->featured=0;
 		else
 			$model->featured=1;

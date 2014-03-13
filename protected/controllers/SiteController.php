@@ -303,6 +303,8 @@ class SiteController extends Controller
 
 	public function actionRequestNewPassword()
 	{
+		if(!Yii::app()->request->isAjaxRequest)
+			Yii::app()->end();
 		if(isset($_GET['email'])){
 			$email = htmLawed::hl(trim($_GET['email']), array('elements'=>'-*', 'keep_bad'=>0));
 			if(filter_var($email, FILTER_VALIDATE_EMAIL) && $user = User::model()->findByAttributes(array('email'=>$email))){
@@ -365,7 +367,6 @@ class SiteController extends Controller
 			}
 		}
 		$this->redirect(array('/site/index'));
-
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-03-12 11:34+0100\n"
+"PO-Revision-Date: 2014-03-13 12:20+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -299,7 +299,7 @@ msgid "Width"
 msgstr "Amplària"
 
 #: protected/models/Vote.php:90
-#: protected/views/enquiry/_view.php:299
+#: protected/views/reply/_view.php:30
 msgid "Reply"
 msgstr "Resposta"
 
@@ -309,8 +309,8 @@ msgid "User"
 msgstr "Usuari"
 
 #: protected/models/Vote.php:92
-#: protected/views/enquiry/_view.php:305
-#: protected/views/enquiry/_view.php:309
+#: protected/views/reply/_view.php:36
+#: protected/views/reply/_view.php:40
 msgid "Vote"
 msgstr "Vota"
 
@@ -591,18 +591,14 @@ msgstr "Editar any"
 msgid "Budgetary enquiries for"
 msgstr "Consultes pressupostàries del"
 
-#: protected/views/budget/index.php:170
-msgid "Go to top"
-msgstr "Pujar al principi"
-
-#: protected/views/budget/index.php:175
+#: protected/views/budget/index.php:173
 #: protected/views/layouts/main.php:86
 #: protected/views/user/panel.php:66
-#: protected/controllers/BudgetController.php:459
+#: protected/controllers/BudgetController.php:462
 msgid "Budgets"
 msgstr "Pressupostos"
 
-#: protected/views/budget/index.php:194
+#: protected/views/budget/index.php:192
 #: protected/views/enquiry/_memberSearch.php:72
 #: protected/views/enquiry/_searchPublic.php:35
 #: protected/views/enquiry/_managerSearch.php:95
@@ -612,21 +608,25 @@ msgstr "Pressupostos"
 msgid "Search"
 msgstr "Cerca"
 
-#: protected/views/budget/index.php:202
+#: protected/views/budget/index.php:200
 msgid "No search results"
 msgstr "No va haver-hi coincidències"
 
-#: protected/views/budget/index.php:224
+#: protected/views/budget/index.php:221
 msgid "Available years"
 msgstr "Anys disponibles"
 
-#: protected/views/budget/index.php:256
+#: protected/views/budget/index.php:253
 msgid "Download data"
 msgstr "Baixar Dades"
 
-#: protected/views/budget/index.php:283
+#: protected/views/budget/index.php:280
 msgid "No data available"
 msgstr "No hi ha dades disponibles"
+
+#: protected/views/budget/index.php:302
+msgid "go to top"
+msgstr "pujar al principi"
 
 #: protected/views/budget/noDescriptions.php:25
 #: protected/views/budgetDescription/view.php:29
@@ -837,6 +837,16 @@ msgstr "Introdueix la teva adreça de correu electrònic i t'enviarem un enllaç
 #: protected/views/email/create.php:138
 msgid "Send"
 msgstr "Enviar"
+
+#: protected/views/comment/_showThread.php:37
+#: protected/views/enquiry/_megaDelete.php:43
+msgid "Comments"
+msgstr "Comentaris"
+
+#: protected/views/comment/_showThread.php:42
+#: protected/views/comment/_showThread.php:52
+msgid "Add comment"
+msgstr "Afegeix comentari"
 
 #: protected/views/comment/_view.php:39
 msgid "comments on the"
@@ -1343,12 +1353,6 @@ msgstr "Fitxers"
 msgid "Record of sent emails"
 msgstr "Record de correus enviats"
 
-#: protected/views/enquiry/_megaDelete.php:43
-#: protected/views/enquiry/_view.php:267
-#: protected/views/enquiry/_view.php:355
-msgid "Comments"
-msgstr "Comentaris"
-
 #: protected/views/enquiry/_megaDelete.php:44
 msgid "Votes"
 msgstr "Vots"
@@ -1430,21 +1434,6 @@ msgstr "Ja has votat favorablement"
 #: protected/views/enquiry/_view.php:182
 msgid "You have already voted unfavourably"
 msgstr "Ja has votat desfavorablement"
-
-#: protected/views/enquiry/_view.php:271
-#: protected/views/enquiry/_view.php:281
-#: protected/views/enquiry/_view.php:359
-#: protected/views/enquiry/_view.php:369
-msgid "Add comment"
-msgstr "Afegeix comentari"
-
-#: protected/views/enquiry/_view.php:321
-msgid "Add attachment"
-msgstr "Afegeix adjunt"
-
-#: protected/views/enquiry/_view.php:333
-msgid "Attachments"
-msgstr "Adjunts"
 
 #: protected/views/enquiry/create.php:36
 #: protected/views/enquiry/create.php:39
@@ -1910,6 +1899,14 @@ msgstr "Falta incloure una descripció"
 msgid "A description of this file"
 msgstr "Una descripció d'aquest fitxer"
 
+#: protected/views/reply/_view.php:52
+msgid "Add attachment"
+msgstr "Afegeix adjunt"
+
+#: protected/views/reply/_view.php:64
+msgid "Attachments"
+msgstr "Adjunts"
+
 #: protected/views/reply/create.php:47
 msgid "Date the Administration replied"
 msgstr "Data l'administració ha respost"
@@ -1924,7 +1921,7 @@ msgstr "Petition to make contact via email"
 
 #: protected/views/email/_contactPetition.php:46
 #: protected/controllers/SiteController.php:143
-#: protected/controllers/SiteController.php:327
+#: protected/controllers/SiteController.php:329
 msgid "Hello"
 msgstr "Hola"
 
@@ -1951,7 +1948,7 @@ msgstr "Si penses que aquest usuari t'està enviant correu brossa, pots bloqueja
 
 #: protected/views/email/_contactPetition.php:54
 #: protected/controllers/CommentController.php:135
-#: protected/controllers/SiteController.php:331
+#: protected/controllers/SiteController.php:333
 msgid "Kind regards"
 msgstr "Cordials salutacions"
 
@@ -2069,39 +2066,39 @@ msgstr "Acabem de donar d'alta el teu usuari.<br />Des d'aquest moment ja pots r
 msgid "Your account is active"
 msgstr "S'ha activat el teu compte"
 
-#: protected/controllers/SiteController.php:310
+#: protected/controllers/SiteController.php:312
 msgid "Invalid email address"
 msgstr "Adreça de correu invàlida"
 
-#: protected/controllers/SiteController.php:325
+#: protected/controllers/SiteController.php:327
 msgid "New password request"
 msgstr "Petició de nova contrasenya"
 
-#: protected/controllers/SiteController.php:328
+#: protected/controllers/SiteController.php:330
 msgid "has received a request to reset your password"
 msgstr "ha rebut una petició de restableix la teva contrasenya"
 
-#: protected/controllers/SiteController.php:329
+#: protected/controllers/SiteController.php:331
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr "Si no has oblidat la teva contrasenya per favor, ignora aquest correu"
 
-#: protected/controllers/SiteController.php:330
+#: protected/controllers/SiteController.php:332
 msgid "To reset your password, follow this link"
 msgstr "Per restablir la teva contrasenya, segueix aquest enllaç"
 
-#: protected/controllers/SiteController.php:335
+#: protected/controllers/SiteController.php:337
 msgid "We've just sent you an email"
 msgstr "T'hem enviat un correu electrònic"
 
-#: protected/controllers/SiteController.php:339
+#: protected/controllers/SiteController.php:341
 msgid "Sorry, we cannot find you on our database"
 msgstr "Disculpa, no et trobem en la base de dades"
 
-#: protected/controllers/SiteController.php:355
+#: protected/controllers/SiteController.php:357
 msgid "The password recovery link has expired"
 msgstr "L'enllaç per recuperar la teva contrasenya s'ha caducat"
 
-#: protected/controllers/SiteController.php:363
+#: protected/controllers/SiteController.php:365
 msgid "Please change your password now"
 msgstr "Per favor, canvia la teva contrasenya ara"
 
@@ -2136,11 +2133,11 @@ msgstr "Nou team member assignat"
 msgid "Enquiry has been deleted"
 msgstr "S'ha esborrat la consulta"
 
-#: protected/controllers/BudgetController.php:444
+#: protected/controllers/BudgetController.php:447
 msgid "Year deleted"
 msgstr "Any esborrat"
 
-#: protected/controllers/BudgetController.php:506
+#: protected/controllers/BudgetController.php:509
 msgid "Database restored correctly"
 msgstr "Database restored correctly"
 

@@ -251,130 +251,20 @@ function sendContactForm(form){
 </script>
 
 <div class="enquiryBody"><?php echo $model->body;?></div>
-
 <div style="clear:both"></div>
 
+<?php $this->renderPartial('//comment/_showThread', array('model'=>$model)); ?>
+
 <?php
-echo '<div class="comments">';	// comments on enquiry open
-
-$comments = Comment::model()->findAllByAttributes(array('model'=>'enquiry', 'model_id'=>$model->id));
-$visible='';
-if(!$comments){
-	$visible='style="display:none;"';
-}
-
-echo '<div class="show_comments_link link" '.$visible.' onClick="js:toggleComments(\'comments_enquiry\')">';
-echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)</div>';
-
-if(!$comments){
-	echo '<div class="add_comment">';
-	echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
-	echo '</div>';	
-}
-
-echo '<div id="comments_enquiry" style="display:none">';
-	foreach($comments as $comment){
-		$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
-	}
-	if($comments){
-		echo '<div class="add_comment">';
-		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Enquiry",'.$model->id.',this)\'>'.__('Add comment').'</span>';
-		echo '</div>';
-	}
-
-echo '</div>';
-echo '</div>';	// comments on enquiry close
+// start replies
+$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+foreach($replys as $reply)
+	$this->renderPartial('//reply/_view', array('model'=>$reply));
 
 ?>
 <div class="clear"></div>
 
-<?php
-$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
 
-foreach($replys as $reply){
-	echo '<div class="reply">';	//open reply
-
-	// title bar
-	echo '<div class="title">';
-	echo '<span class="sub_title">'.__('Reply').': '.format_date($reply->created).'</span>';
-
-	echo '<div class="voteBlock">';
-	echo '<span style="margin-left:30px"></span>';
-	
-	echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$reply->id.', 1);">'.
-		 __('Vote').'<i class="icon-thumbs-up"></i></span>';
-	echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteLikeTotal_'.$reply->id.'">'.Vote::model()->getTotal($reply->id, 1).'</span>';
-	echo '<span style="margin-left:30px"></span>';
-	echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$reply->id.', 0);">'.
-		 __('Vote').'<i class="icon-thumbs-down"></i></span>';
-	echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteDislikeTotal_'.$reply->id.'">'.Vote::model()->getTotal($reply->id, 0).'</span>';	
-	
-	echo '</div><div class="clear"></div>';
-	echo '</div>';
-
-	// attachments
-	$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$reply->id));
-	if($attachments || $model->team_member == Yii::app()->user->getUserID()){
-		echo '<div class="attachments">';
-
-		if($model->team_member == Yii::app()->user->getUserID()){
-			echo '<span class="link" onClick=\'js:uploadFile("Reply",'.$reply->id.');\'>'.__('Add attachment').'</span>';
-			echo '<span style="float:right;text-align:right;">';
-			foreach($attachments as $attachment){
-				echo '<span style="white-space: nowrap;margin-left:10px;" id="attachment_'.$attachment->id.'">';
-				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a>';
-				echo '	<img style="cursor:pointer;vertical-align:middle;"
-						src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
-				echo '</span>';
-			}
-			echo '</span>';
-		}else{
-			echo '<span style="float:right;text-align:right;white-space: nowrap;">';
-			echo '<img style="vertical-align:text-top;" src="'.Yii::app()->request->baseUrl.'/images/paper_clip.png" />'.__('Attachments').': ';
-			foreach($attachments as $attachment){
-				//echo '<span style="white-space: nowrap;margin-left:10px;">';
-				echo '<a href="'.$attachment->getWebPath().'" target="_new">'.$attachment->name.'</a> ';
-				//echo '</span>';
-			}
-			echo '</span>';
-		}
-		echo '<div class="clear"></div></div>';
-	}
-
-	// reply body
-	echo '<p style="padding-top:10px;">'.$reply->body.'</p>';
-	
-	echo '<div class="comments">';	//comments on reply open
-	
-	$comments = Comment::model()->findAllByAttributes(array('model'=>'reply', 'model_id'=>$reply->id));
-	$visible='';
-	if(!$comments){
-		$visible='style="display:none;"';
-	}
-	echo '<div class="show_comments_link link" '.$visible.' onClick="js:toggleComments(\'comments_reply_'.$reply->id.'\')">';
-	echo __('Comments').' (<span class="comment_count">'.count($comments).'</span>)</div>';
-	
-	if(!$comments){
-		echo '<div class="add_comment">';
-		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
-		echo '</div>';	
-	}
-
-	echo '<div id="comments_reply_'.$reply->id.'" style="display:none">';
-		foreach($comments as $comment){
-			$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
-		}
-		if($comments){
-			echo '<div class="add_comment">';
-			echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("Reply",'.$reply->id.',this)\'>'.__('Add comment').'</span>';
-			echo '</div>';
-		}
-	echo '</div>';
-	echo '</div>';		//comments on reply close
-	
-	echo '</div>';		//close reply
-}?>
-<div class="clear"></div>
 
 <div id="comment_form" style="display:none"></div>
 
@@ -382,15 +272,12 @@ foreach($replys as $reply){
 	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 	<div id="budget_popup_body"></div>
 </div>
-
 <?php if (!Yii::app()->user->isGuest) : ?>
 	<div id="contact_petition" class="modal" style="width:700px;">
 		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 		<div id="contact_petition_content" style="margin:-10px"></div>
 	</div>
 <? endif ?>
-
-
 <?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
 <script>
 function uploadFile(model,model_id){
@@ -435,5 +322,3 @@ function deleteFile(file_id){
 <div id="files_popup_content" style="margin:-10px;"></div>
 </div>
 <? endif ?>
-
-

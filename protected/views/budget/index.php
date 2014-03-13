@@ -64,11 +64,10 @@ var budgetCache=new Array();
 
 $(function() {
 	$(window).scroll(function() {
-		if ($(this).scrollTop() > 300) {
+		if($(this).scrollTop() > 300)
 			$('.budgetGoToTop').fadeIn(500);
-		} else {
+		else
 			$('.budgetGoToTop').fadeOut(500);
-		}
 	});
 	$(".budgetGoToTop").click(function(){
 		$("html, body").animate({ scrollTop: 0 }, 0);
@@ -167,7 +166,6 @@ function afterSearch(){
 	.clear{clear:both;}
 </style>
 
-<div class="budgetGoToTop">&#x25B2; <?php echo __('Go to top');?></div>
 <div class="outer">
 <div class="left" style="height:140px">
 
@@ -198,14 +196,13 @@ function afterSearch(){
 </div><!-- search-form end-->
 
 <?php
-	echo '<p id="no_results" style="display:none;margin-left:70px;margin-top:-15px">'.
+	echo '<p id="no_results" style="display:none;margin-left:80px;">'.
 		__('No search results').
 		'</p>';
 ?>
 
 </div>
 <div class="right">
-
 
 <!--  Select year start  -->
 <?php
@@ -241,7 +238,7 @@ if(count($years) > 1){
 		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 		if($showFeaturedMenu){
-			echo '<img id="featured_menu_icon" style="cursor:pointer" src="'.
+			echo '<img style="margin-left:50px" id="featured_menu_icon" style="cursor:pointer" src="'.
 				Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
@@ -302,7 +299,6 @@ if(count($years) > 1){
 	opacity: .6;
 }
 </style>
-
-<div id="preloader" class="loading">
-</div>
+<div class="budgetGoToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
+<div id="preloader" class="loading"></div>
 
