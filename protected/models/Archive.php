@@ -23,7 +23,7 @@ class Archive extends CActiveRecord
 
 	public function init()
 	{
-		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app';
+		$this->baseDir = dirname(Yii::app()->request->scriptFile);
 	}
 	
 	/**

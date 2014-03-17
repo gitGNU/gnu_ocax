@@ -21,12 +21,11 @@
  
 class Backup
 {
-	
 	public function dump()
 	{
-		$baseDir = dirname(Yii::getPathOfAlias('application'));
+		$baseDir = dirname(Yii::app()->request->scriptFile);
+		$filesDir = $baseDir.'/files';
 		$backupDir = Yii::app()->basePath.'/runtime/';
-		$filesDir = $baseDir.'/app/files';
 		$error = Null;
 		
 		$backupFileName = 'backup-'.date('d-m-Y-H-i-s').'.zip';

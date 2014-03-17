@@ -25,10 +25,9 @@ class ImportCSV extends CFormModel
 	public $csv;
 	public $step = 1;
 
-
 	public function init()
 	{
-		$this->path = dirname(Yii::getPathOfAlias('application')).'/app/files/csv/';
+		$this->path = dirname(Yii::app()->request->scriptFile).'/files/csv/';
 	}
 
 	/**

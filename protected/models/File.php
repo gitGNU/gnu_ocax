@@ -36,7 +36,7 @@ class File extends CActiveRecord
 
 	public function init()
 	{
-		$this->baseDir = dirname(Yii::getPathOfAlias('application')).'/app';
+		$this->baseDir = dirname(Yii::app()->request->scriptFile);
 	}
 
 	/**
@@ -132,7 +132,7 @@ class File extends CActiveRecord
 
 	public function getURI()
 	{
-		return dirname(Yii::getPathOfAlias('application')).'/app'.$this->path;
+		return $this->baseDir.$this->path;
 	}
 	
 	public function getWebPath()
