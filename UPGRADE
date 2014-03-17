@@ -89,6 +89,9 @@ INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod'
 ALTER TABLE user MODIFY COLUMN activationcode varchar(45) NOT NULL;
 ALTER TABLE reset_password MODIFY COLUMN code varchar(45) NOT NULL;
 
+
+
+
 OCAX 1.1.2
 Follow steps 1-5 above.
 

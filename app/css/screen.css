@@ -33,7 +33,7 @@ object, iframe, h1, h2, h3, h4, h5, h6,  blockquote, pre,  abbr, acronym, addres
 	font-size:100%;
 	font:inherit;
 	vertical-align:baseline; 
-	background-color:#transparent;
+	background-color:transparent;
 	}
 	
 	
@@ -50,12 +50,15 @@ footer
 	
 	
 /*CONTENT*/
+/*
 #content .left {background-color:none;}
 #content .right {background-color:#none;}
+*/
 
 /*MAINMENU*/
+/*
 #mainmenu {background-color:#none;}
-
+*/
 
 article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {display:block;}
 
