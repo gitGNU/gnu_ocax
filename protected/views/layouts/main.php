@@ -19,23 +19,22 @@
 </head>
 
 <body>
-<div  style="position:relative">
+<div style="position:relative;">
 
 <div id="header_bar">
-<div id="header_bar_container">
-
+<ul>
 	<?php
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		if(isset($languages[1])){
-			echo '<div><span style="float:right; position:relative">';
+			echo '<li><span style="float:right; position:relative">';
 			foreach($languages as $lang){
 				echo '<a class="language_link" href="'.Yii::app()->request->baseUrl.'/site/language?lang='.$lang.'">'.$lang.'</a> ';
 			}
-			echo '</span></div>';
+			echo '</span></li>';
 		}
 	?>
     
-    <div>
+    <li>
 		<?php
 			if(Yii::app()->user->isGuest){
 				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/login'));
@@ -45,30 +44,30 @@
 				echo CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout'));				
 			}
 		?>
-	</div>
+	</li>
 
-	<div>	
+	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/newsletter'));
 		echo CHtml::link(__('Newsletters'), array('/newsletter'));
 	?>
-	</div>
+	</li>
 
-	<div>	
+	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
 		echo CHtml::link(__('Archive'), array('/archive'));
 	?>
-	</div>
+	</li>
 
-	<div>	
+	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
 	?>
-	</div>
+	</li>
 
-</div> 
+</ul> 
 </div>   
 
 <div id="header" >
