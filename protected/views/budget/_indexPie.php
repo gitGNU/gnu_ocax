@@ -37,22 +37,29 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax-jqplot.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.jqplot.css" />
 
+<div id="pie_display">
+<div id="graph1" class="graph_pie_group"></div>
+<div id="graph2" class="graph_pie_group"></div>
+<?php
+foreach($featured as $budget){
+		echo '<div id="anchor_'.$budget->id.'" class="graph_pie_group"></div>';
+}
+?>
+</div>
+
 <script>
 $(function() {
-	//$('#graph1').ocaxjqplot({ source: 'http://dev.bcn.uned/ocax', budget: 960 });
-	//$('#graph2').ocaxjqplot({ source: 'http://dev.bcn.uned/ocax', budget: 13981 });
+
+	$('#graph1').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 960 });
+	//$('#graph2').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 13981 });
+
 	<?php 
-		foreach($featured as $budget){ ?>
-			$("#anchor_<?php echo $budget->id;?>").ocaxjqplot({ source: 'http://dev.bcn.uned/ocax', budget: <?php echo $budget->id;?> });
-	<?php } ?>
+		foreach($featured as $budget){
+			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",
+																rootBudget: '.$budget->id.',
+																rootBudgetData: '.$this->actionGetPieData($budget->id).'
+															});';
+	} ?>
 });
 </script>
-
-<?php
-echo '<div id="pie_display">';
-foreach($featured as $budget){
-		echo '<div id="anchor_'.$budget->id.'"></div>';
-}
-echo '</div>';
-?>
 

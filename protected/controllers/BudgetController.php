@@ -119,11 +119,15 @@ class BudgetController extends Controller
 	public function actionGetChildBars($id)
 	{
 		$model=$this->loadModel($id);
-		$this->renderPartial('childBars', array('model'=>$model,'indent'=>$_GET['indent'],'globals'=>$_GET['globals']),false,true);
+		$this->renderPartial('childBars', array('model'=>$model,
+												'indent'=>$_GET['indent'],
+												'globals'=>$_GET['globals']),
+												false,true);
 	}
 
 	public function actionGetPieData($id)
 	{
+		$rootBudget_id = $_GET['rootBudget_id'];
 		$model=$this->loadModel($id);
 		$graphThisModel=$model;
 		$goBackID=$model->parent0->id;
@@ -135,7 +139,9 @@ class BudgetController extends Controller
 			$goBackID=$model->parent0->parent0->id;
 			$hideConcept=Null;
 		}
-		if($model->parent0->featured && !$isParent)
+		if($model->id == $rootBudget_id)
+			$goBackID = Null;
+		if(!$model->budgets && ($model->parent0->id == $rootBudget_id))
 			$goBackID = Null;
 		
 		$params=array(	'parent_id'=>$model->parent,

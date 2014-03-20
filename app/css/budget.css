@@ -69,7 +69,7 @@
 
 	
 /* Graphs */	
-.graph{
+.graph_pie{
 	width:450px;
 	height:450px;
 	margin:0px;
@@ -102,13 +102,15 @@
 	float:right;
 }
 
+.ocaxjqplot{
+	padding:0px 0px 20px 0px;
+	height:500px;
+	margin-bottom:45px;
+}
 .graph_pie_group{
 	background-image:url('../images/bar.gif');
 	background-repeat: repeat-x;
 	background-position: top;
-	padding:0px 0px 20px 0px;
-	height:500px;
-	margin-bottom:45px;
 }
 
 .budget_details > a {
