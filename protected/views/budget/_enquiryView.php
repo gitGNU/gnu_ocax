@@ -23,7 +23,6 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 }
 
-
 if(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager())
 	$enquiry_count = count($model->enquirys);
 else{

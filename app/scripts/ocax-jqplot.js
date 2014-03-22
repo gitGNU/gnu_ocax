@@ -16,40 +16,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-/*
-(function ($) {	// this is a graph group.
-	$.fn.ocaxjqplot1 = function( options ) {
-		var options = $.extend({
-			source: '',
-			budget: 0,
-			id: $(this).attr('id'),
-		}, options);
-		$(this).addClass('ocaxjqplot');
-		$.fn.ocaxjqplot.getSource = function() { return options.source };
-		$.fn.ocaxjqplot.getStartBudget = function() { return options.budget };
-		$.fn.ocaxjqplot.preload = function(graphData){ 
-									createGraph($('#'+options.id), options.budget, graphData);
-									$('#'+options.id).find('.graph_container').show();
-								};
-		$.fn.ocaxjqplot.load = function(){
-									getPie(options.budget, $('#'+options.id));
-									$('#'+options.id).find('.graph_container').show();
-								};
-	}
-}( jQuery ));
-*/
-
-
 http://www.websanova.com/blog/jquery/the-ultimate-guide-to-writing-jquery-plugins#.UymFmh_C0Xo
 
 $(function() {
-	//jQuery.ajax({ url: "./css/pdetailview.css", dataType: "style", cache: true, async: false });
+/*
+	$("<link/>", {
+		rel: "stylesheet",
+		type: "text/css",
+		href: "./css/pdetailview.css"
+	}).appendTo("head");
+
+	$("<link/>", {
+		rel: "stylesheet",
+		type: "text/css",
+		href: "./css/jquery.jqplot.css"
+	}).appendTo("head");
+*/
+/*
 	jQuery.ajax({ url: "./scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
 	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
 	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
 	jQuery.ajax({ url: "./scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
-	$.jqplot.config.enablePlugins = true;
+*/
 });
 
 /*
@@ -70,33 +58,55 @@ a graph has class ".graph_pie"
 */
 
 (function($) {
- 
-$.widget( "ocax.ocaxpiegraph", {
-	// Default options.
-	options: {
-		source: "",
-		rootBudget: 0,
-		rootBudgetData: "",
-	},
-	_create: function() {
-		this.element.addClass('ocaxjqplot');
+	$.widget( "ocax.ocaxpiegraph", {
+		// Default options.
+		options: {
+			source: "",
+			rootBudget: 0,
+			rootBudgetData: "",
+			graphTitle: "",
+		},
+		_create: function() {
+			if(!this.options.graphTitle)
+				this.options.graphTitle = 'A budget';
+			this.element.addClass('ocaxjqplot');
 
-		if(!this.options.rootBudgetData)
-			getPie(this.options.rootBudget, this.element );
-		else
-			createGraph(this.element, this.options.rootBudget, this.options.rootBudgetData);
-		
-		this.element.find('.graph_container').show();
-	},
-	// Create a public method.
-	source: function() {
-			return this.options.source;
-	},
-	rootBudget: function() {
-			return this.options.rootBudget;
-	},
-});
+			jQuery.ajax({ url: this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
+			jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
+			jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
+			jQuery.ajax({ url: this.options.source+"/scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
+			
+			$("<link/>", {
+				rel: "stylesheet",
+				type: "text/css",
+				href: this.options.source+"/css/pdetailview.css"
+			}).appendTo("head");
 
+			$.jqplot.config.enablePlugins = true;
+	
+			header=$('<div></div>');
+			header.append('<div style="font-size:1.5em;float:left;margin-bottom:-5px;">'+this.options.graphTitle+'</div>');
+			loader=$('<div class="loader_gif"></div>');
+			loader.append('<img style="margin-right:5px" src="'+this.options.source+'/images/preloader.gif"/></div>');
+			header.append(loader);
+			header.append('<div style="clear:both"></div>');
+			this.element.append(header);
+			
+			if(!this.options.rootBudgetData)
+				getPie(this.options.rootBudget, this.element );
+			else
+				createGraph(this.element, this.options.rootBudget, this.options.rootBudgetData);
+			
+			this.element.find('.graph_container').show();
+		},
+		// Create a public method.
+		source: function() {
+				return this.options.source;
+		},
+		rootBudget: function() {
+				return this.options.rootBudget;
+		},
+	});
 })(jQuery);
 
 function getGraphGroup(el){
@@ -116,6 +126,7 @@ function getGraphContainerID(el, budget_id){
 function getGraphID(el, budget_id){
 	return getGraphGroup(el).attr('id')+'_'+budget_id+'_graph';
 }
+
 $(function() {
 	$('#pie_display').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
@@ -129,21 +140,19 @@ $(function() {
 });
 
 function getPie(budget_id, clicked_el){
-
-	//alert('budget: '+budget_id+' el: '+clicked_el);
-
 	if($('#'+getGraphContainerID(clicked_el, budget_id)).length > 0 )
 		return;
 
 	source = getSource(clicked_el);
+	loading_gif = $(clicked_el).parents('.ocaxjqplot').find('.loader_gif');
 	$.ajax({
 		url: source+'/budget/getPieData/',
 		type: 'GET',
 		dataType: 'json',
 		data: { id: budget_id, rootBudget_id: getRootBudget(clicked_el) },
 		async: false,
-		beforeSend: function(){ /*$('.loader_gif').hide(); $(loading_gif).show();*/ },
-		complete: function() { /*$('.loader_gif').hide(); */},
+		beforeSend: function(){ $('.loader_gif').hide(); $(loading_gif).show(); },
+		complete: function() { $('.loader_gif').hide(); },
 		success: function(data){
 			createGraph(clicked_el, budget_id, data);
 		},
@@ -196,33 +205,6 @@ function createGraph(clicked_el, budget_id, data){
 		});
 	}
 }
-
-/*
-function addGraph(el){
-	alert($(el).ocaxjqplot.getSource());
-	$(el).append('<div>this is the graph</div>');
-	
-			data = <?php echo $this->actionGetPieData($budget->id);?>
-
-			group=$('<div class="graph_pie_group graph_group" id="anchor_<?php echo $budget->id;?>"></div>');
-			header=$('<div></div>');
-			header.append('<div style="font-size:1.5em;float:left;margin-bottom:-5px;"><?php echo $budget->getCategory();?></div>');
-			loader=$('<div class="loader_gif"></div>');
-			loader.append('<img style="margin-right:5px" src="<?php echo Yii::app()->request->baseUrl;?>/images/preloader.gif"/></div>');
-			header.append(loader);
-			header.append('<div style="clear:both"></div>');
-			group.append(header);
-			$('#pie_display').append(group);
-			graph_container=$('<div id="<?php echo $budget->id?>" class="graph_container"></div>');
-			graph_container.attr('is_parent',data.params.is_parent);
-			title= '<a href="<?php echo Yii::app()->request->baseUrl;?>/budget/view/<?php echo $budget->id;?>" onclick="js:showBudget(<?php echo $budget->id;?>, this);return false;"><?php echo CHtml::encode($budget->getConcept());?></a>';	
-			graph_container.append('<div class="graph_title"> '+title+'</div>');
-			graph_container.append(data.params.budget_details);
-			graph_container.append('<div id="<?php echo $budget->id?>_graph" class="graph"></div>');
-			group.append(graph_container);
-			createPie("<?php echo $budget->id;?>_graph", data);
-}
-*/
 
 function createPie(target_div_id, data){
 	chart= $.jqplot(target_div_id, [data.data], pie_properties);

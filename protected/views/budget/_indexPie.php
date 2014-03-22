@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -32,15 +32,19 @@
 	margin-top:5px;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/piegraph.css" />
 
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax-jqplot.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.jqplot.css" />
+			
 
 <div id="pie_display">
+
+<?php
+/*
 <div id="graph1" class="graph_pie_group"></div>
 <div id="graph2" class="graph_pie_group"></div>
-<?php
+*/
 foreach($featured as $budget){
 		echo '<div id="anchor_'.$budget->id.'" class="graph_pie_group"></div>';
 }
@@ -50,16 +54,18 @@ foreach($featured as $budget){
 <script>
 $(function() {
 
-	$('#graph1').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 960 });
+	//$('#graph1').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 960 });
 	//$('#graph2').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 13981 });
 
 	<?php 
 		foreach($featured as $budget){
 			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",
 																rootBudget: '.$budget->id.',
-																rootBudgetData: '.$this->actionGetPieData($budget->id).'
+																rootBudgetData: '.$this->actionGetPieData($budget->id).',
+																graphTitle: "'.$budget->getCategory().'"
 															});';
-	} ?>
+	}
+	?>
 });
 </script>
 
