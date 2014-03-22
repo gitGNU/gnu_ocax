@@ -16,9 +16,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-http://www.websanova.com/blog/jquery/the-ultimate-guide-to-writing-jquery-plugins#.UymFmh_C0Xo
+var ocaxExternalScriptsLoaded = 0;
+
+// http://www.websanova.com/blog/jquery/the-ultimate-guide-to-writing-jquery-plugins#.UymFmh_C0Xo
 
 $(function() {
+
 /*
 	$("<link/>", {
 		rel: "stylesheet",
@@ -69,12 +72,15 @@ a graph has class ".graph_pie"
 		_create: function() {
 			if(!this.options.graphTitle)
 				this.options.graphTitle = 'A budget';
-			this.element.addClass('ocaxjqplot');
+			this.element.addClass('ocaxjqplot graph_pie_group');
 
-			jQuery.ajax({ url: this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
-			jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
-			jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
-			jQuery.ajax({ url: this.options.source+"/scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
+			if(!ocaxExternalScriptsLoaded){
+				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
+				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
+				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
+				jQuery.ajax({ url: this.options.source+"/scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
+				ocaxExternalScriptsLoaded = 1;		
+			}
 			
 			$("<link/>", {
 				rel: "stylesheet",
@@ -82,7 +88,6 @@ a graph has class ".graph_pie"
 				href: this.options.source+"/css/pdetailview.css"
 			}).appendTo("head");
 
-			$.jqplot.config.enablePlugins = true;
 	
 			header=$('<div></div>');
 			header.append('<div style="font-size:1.5em;float:left;margin-bottom:-5px;">'+this.options.graphTitle+'</div>');
@@ -91,7 +96,8 @@ a graph has class ".graph_pie"
 			header.append(loader);
 			header.append('<div style="clear:both"></div>');
 			this.element.append(header);
-			
+
+			$.jqplot.config.enablePlugins = true;			
 			if(!this.options.rootBudgetData)
 				getPie(this.options.rootBudget, this.element );
 			else
@@ -128,13 +134,13 @@ function getGraphID(el, budget_id){
 }
 
 $(function() {
-	$('.ocaxgraph').delegate('.legend_item','click', function() {	
+	$('.ocaxpiegraph').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
 		getPie(budget_id, this);
 		slideInChild(this, budget_id);
 		return false;
 	});
-	$('.ocaxgraph').on('mouseleave', '.jqplot-target', function() {
+	$('.ocaxpiegraph').on('mouseleave', '.jqplot-target', function() {
 		$('.jqplot-highlighter-tooltip').fadeOut('fast');
 	});
 });
@@ -150,7 +156,7 @@ function getPie(budget_id, clicked_el){
 		type: 'GET',
 		dataType: 'json',
 		data: { id: budget_id, rootBudget_id: getRootBudget(clicked_el) },
-		async: false,
+		//async: false,
 		beforeSend: function(){ $('.loader_gif').hide(); $(loading_gif).show(); },
 		complete: function() { $('.loader_gif').hide(); },
 		success: function(data){
