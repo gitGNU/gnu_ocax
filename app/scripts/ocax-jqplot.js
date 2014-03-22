@@ -128,13 +128,13 @@ function getGraphID(el, budget_id){
 }
 
 $(function() {
-	$('#pie_display').delegate('.legend_item','click', function() {	
+	$('.ocaxgraph').delegate('.legend_item','click', function() {	
 		budget_id = $(this).attr('budget_id');
 		getPie(budget_id, this);
 		slideInChild(this, budget_id);
 		return false;
 	});
-	$('#pie_display').on('mouseleave', '.jqplot-target', function() {
+	$('.ocaxgraph').on('mouseleave', '.jqplot-target', function() {
 		$('.jqplot-highlighter-tooltip').fadeOut('fast');
 	});
 });
@@ -187,7 +187,7 @@ function createGraph(clicked_el, budget_id, data){
 	graph=$('<div id="'+graph_id+'" class="graph_pie"></div>');
 	graph_container.append(graph);
 	group.append(graph_container);
-			
+
 	createPie(graph_id, data);
 			
 	if((group.ocaxpiegraph("rootBudget") != budget_id) && data.params.go_back_id){

@@ -38,13 +38,9 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax-jqplot.js"></script>
 			
 
-<div id="pie_display">
-
+<div class="ocaxgraph">
 <?php
-/*
-<div id="graph1" class="graph_pie_group"></div>
-<div id="graph2" class="graph_pie_group"></div>
-*/
+
 foreach($featured as $budget){
 		echo '<div id="anchor_'.$budget->id.'" class="graph_pie_group"></div>';
 }
@@ -53,10 +49,6 @@ foreach($featured as $budget){
 
 <script>
 $(function() {
-
-	//$('#graph1').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 960 });
-	//$('#graph2').ocaxpiegraph({ source: '<?php echo Yii::app()->request->baseUrl;?>', rootBudget: 13981 });
-
 	<?php 
 		foreach($featured as $budget){
 			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",
@@ -68,4 +60,5 @@ $(function() {
 	?>
 });
 </script>
+
 

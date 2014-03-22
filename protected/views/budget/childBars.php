@@ -26,7 +26,7 @@
  */
 ?>
 
-<?
+<?php
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$model->id.' AND actual_provision != 0';
 	$criteria->order = 'code ASC';
@@ -80,4 +80,5 @@
 		}
 		echo '</div>';
 	}
+
 ?>

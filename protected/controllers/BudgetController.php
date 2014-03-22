@@ -127,7 +127,12 @@ class BudgetController extends Controller
 
 	public function actionGetPieData($id)
 	{
-		$rootBudget_id = $_GET['rootBudget_id'];
+		if(isset($_GET['rootBudget_id']))
+			$rootBudget_id = $_GET['rootBudget_id'];
+		else
+			$rootBudget_id = $id;
+		$rootBudget_id = 4;
+		
 		$model=$this->loadModel($id);
 		$graphThisModel=$model;
 		$goBackID=$model->parent0->id;
