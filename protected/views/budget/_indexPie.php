@@ -38,11 +38,11 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax-jqplot.js"></script>
 			
 
-<div class="ocaxgraph">
+<div class="ocaxpiegraph">
 <?php
 
 foreach($featured as $budget){
-		echo '<div id="anchor_'.$budget->id.'" class="graph_pie_group"></div>';
+		echo '<div id="anchor_'.$budget->id.'"></div>';
 }
 ?>
 </div>

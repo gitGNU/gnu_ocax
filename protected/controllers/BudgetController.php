@@ -131,7 +131,6 @@ class BudgetController extends Controller
 			$rootBudget_id = $_GET['rootBudget_id'];
 		else
 			$rootBudget_id = $id;
-		$rootBudget_id = 4;
 		
 		$model=$this->loadModel($id);
 		$graphThisModel=$model;
