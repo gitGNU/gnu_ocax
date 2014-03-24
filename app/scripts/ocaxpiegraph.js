@@ -17,7 +17,12 @@
  */
 
 // http://www.websanova.com/blog/jquery/the-ultimate-guide-to-writing-jquery-plugins#.UymFmh_C0Xo
-$(function() { /* */ });
+(function($) {
+	jQuery.ajax({ url: "./scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
+	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
+	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
+	jQuery.ajax({ url: "./scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });	
+})(jQuery);	
 
 /*
 DIVs
@@ -37,7 +42,9 @@ a graph has class ".graph_pie"
 */
 
 var ocaxExternalScriptsLoaded = 0;
+
 (function($) {
+//$(window).load(function() {
 	$.widget( "ocax.ocaxpiegraph", {
 		// Default options.
 		options: {
@@ -53,10 +60,22 @@ var ocaxExternalScriptsLoaded = 0;
 			this.element.addClass('ocaxjqplot');
 
 			if(!ocaxExternalScriptsLoaded){
+				/*
+				$.getScript(this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", function(){
+					$.jqplot.config.enablePlugins = true;
+					$.getScript(this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", function(){	
+						$.getScript(this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", function(){	
+							$.getScript(this.options.source+"/scripts/jqplot.pieProperties.js", function(){	});
+						});
+					});
+				});
+				*/
+/*
 				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
 				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
 				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
 				jQuery.ajax({ url: this.options.source+"/scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
+*/
 				ocaxExternalScriptsLoaded = 1;		
 			}
 			
@@ -75,7 +94,7 @@ var ocaxExternalScriptsLoaded = 0;
 			header.append('<div style="clear:both"></div>');
 			this.element.append(header);
 
-			$.jqplot.config.enablePlugins = true;			
+			//$.jqplot.config.enablePlugins = true;			
 			if(!this.options.rootBudgetData){
 				this.options.loadedRemotely = 1;
 				getPie(this.options.rootBudget, this.element );
@@ -95,6 +114,7 @@ var ocaxExternalScriptsLoaded = 0;
 				return this.options.loadedRemotely;
 		},
 	});
+//});
 })(jQuery);
 
 function getGraphGroup(el){
@@ -202,6 +222,7 @@ function createGraph(clicked_el, budget_id, data){
 }
 
 function createPie(target_div_id, data){
+	$.jqplot.config.enablePlugins = true;
 	chart= $.jqplot(target_div_id, [data.data], pie_properties);
 	target_div = $('#'+target_div_id);
 
