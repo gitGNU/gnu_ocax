@@ -1,7 +1,7 @@
 var pie_properties = {
 	grid:{
 			drawGridlines:false,
-			background:"#f5f1ed",
+			background:'transparent',
 			drawBorder:false,
 			shadow:false,
 	},

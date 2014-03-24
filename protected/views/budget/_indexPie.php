@@ -23,26 +23,19 @@
 ?>
 
 <style>
-.loader_gif {
-	float:right;
-	font-size:1.4em;
-	display:none;
-}
-.loader_gif img {
-	margin-top:5px;
-}
+
 </style>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/piegraph.css" />
 
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax-jqplot.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocaxpiegraph.js"></script>
 			
 
 <div class="ocaxpiegraph">
 <?php
 
 foreach($featured as $budget){
-		echo '<div id="anchor_'.$budget->id.'"></div>';
+		echo '<div id="anchor_'.$budget->id.'" class="graph_pie_group"></div>';
 }
 ?>
 </div>
@@ -50,8 +43,8 @@ foreach($featured as $budget){
 <script>
 $(function() {
 	<?php 
-		foreach($featured as $budget){
-			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",
+		foreach($featured as $budget){	// Yii::app()->getBaseUrl(true)
+			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",	
 																rootBudget: '.$budget->id.',
 																rootBudgetData: '.$this->actionGetPieData($budget->id).',
 																graphTitle: "'.$budget->getCategory().'"

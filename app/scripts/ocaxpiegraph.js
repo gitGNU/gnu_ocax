@@ -16,32 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-var ocaxExternalScriptsLoaded = 0;
-
 // http://www.websanova.com/blog/jquery/the-ultimate-guide-to-writing-jquery-plugins#.UymFmh_C0Xo
-
-$(function() {
-
-/*
-	$("<link/>", {
-		rel: "stylesheet",
-		type: "text/css",
-		href: "./css/pdetailview.css"
-	}).appendTo("head");
-
-	$("<link/>", {
-		rel: "stylesheet",
-		type: "text/css",
-		href: "./css/jquery.jqplot.css"
-	}).appendTo("head");
-*/
-/*
-	jQuery.ajax({ url: "./scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
-	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
-	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
-	jQuery.ajax({ url: "./scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
-*/
-});
+$(function() { /* */ });
 
 /*
 DIVs
@@ -60,6 +36,7 @@ a graph_container has class ".graph_container"
 a graph has class ".graph_pie"
 */
 
+var ocaxExternalScriptsLoaded = 0;
 (function($) {
 	$.widget( "ocax.ocaxpiegraph", {
 		// Default options.
@@ -68,11 +45,12 @@ a graph has class ".graph_pie"
 			rootBudget: 0,
 			rootBudgetData: "",
 			graphTitle: "",
+			loadedRemotely: 0,
 		},
 		_create: function() {
 			if(!this.options.graphTitle)
 				this.options.graphTitle = 'A budget';
-			this.element.addClass('ocaxjqplot graph_pie_group');
+			this.element.addClass('ocaxjqplot');
 
 			if(!ocaxExternalScriptsLoaded){
 				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
@@ -98,9 +76,10 @@ a graph has class ".graph_pie"
 			this.element.append(header);
 
 			$.jqplot.config.enablePlugins = true;			
-			if(!this.options.rootBudgetData)
+			if(!this.options.rootBudgetData){
+				this.options.loadedRemotely = 1;
 				getPie(this.options.rootBudget, this.element );
-			else
+			}else
 				createGraph(this.element, this.options.rootBudget, this.options.rootBudgetData);
 			
 			this.element.find('.graph_container').show();
@@ -111,6 +90,9 @@ a graph has class ".graph_pie"
 		},
 		rootBudget: function() {
 				return this.options.rootBudget;
+		},
+		loadedRemotely: function() {
+				return this.options.loadedRemotely;
 		},
 	});
 })(jQuery);
@@ -125,6 +107,10 @@ function getSource(el){
 function getRootBudget(el){
 	group = getGraphGroup(el);
 	return $(group).ocaxpiegraph("rootBudget");
+}
+function isRemoteGraph(el){
+	group = getGraphGroup(el);
+	return $(group).ocaxpiegraph("loadedRemotely");
 }
 function getGraphContainerID(el, budget_id){
 	return getGraphGroup(el).attr('id')+'_'+budget_id+'_container';
@@ -156,7 +142,7 @@ function getPie(budget_id, clicked_el){
 		type: 'GET',
 		dataType: 'json',
 		data: { id: budget_id, rootBudget_id: getRootBudget(clicked_el) },
-		//async: false,
+		async: false,
 		beforeSend: function(){ $('.loader_gif').hide(); $(loading_gif).show(); },
 		complete: function() { $('.loader_gif').hide(); },
 		success: function(data){
@@ -198,7 +184,10 @@ function createGraph(clicked_el, budget_id, data){
 			
 	if((group.ocaxpiegraph("rootBudget") != budget_id) && data.params.go_back_id){
 		go_back_to = getGraphContainerID(clicked_el, data.params.go_back_id);
-		back_button='<div class="prev_budget_arrow" onclick="javascript:goBack(\''+go_back_to+'\');return false;"></div>';	 
+		generic_button_image='';
+		if(isRemoteGraph(clicked_el) == 1)
+			generic_button_image='style="background-image:url('+source+'/images/prev_budget.png);"';
+		back_button='<div class="prev_budget_arrow" '+generic_button_image+' onclick="javascript:goBack(\''+go_back_to+'\');return false;"></div>';
 		$('#'+graph_id).append(back_button);
 	}
 

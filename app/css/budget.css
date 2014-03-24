@@ -91,30 +91,11 @@
 	display:none;
 	cursor:pointer;
 }
-.budget_details{
-	width:470px;
-	float:right;
-}
 
-
-
-.budget_details > a {
-	margin-top:-15px;
-}
-
-.prev_budget_arrow{
-	width:69px;
-	height:69px;
-	position:absolute;
-	top:0px;
-	left:0px;
-	padding:0px;
-	cursor:pointer;
-}
-
-.prev_budget_arrow:hover
-{
-    background-position: -69px 0;
+.graph_pie_group{
+	background-image:url('../images/bar.gif');
+	background-repeat: repeat-x;
+	background-position: top;
 }
 
 /* BAR BUDGET */

@@ -9,15 +9,45 @@
 	width:940px;
 	margin-bottom:45px;
 }
-.graph_pie_group{
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;
-}
 .graph_container{
 	margin:0px;
 	padding:0px;
 }
+
+.budget_details{
+	width:470px;
+	float:right;
+}
+
+.budget_details > a {
+	margin-top:-15px;
+}
+
+.prev_budget_arrow{
+	width:69px;
+	height:69px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	padding:0px;
+	cursor:pointer;
+}
+
+.prev_budget_arrow:hover
+{
+    background-position: -69px 0;
+}
+
+.loader_gif {
+	float:right;
+	font-size:1.4em;
+	display:none;
+}
+.loader_gif img {
+	margin-top:5px;
+}
+
+/********* JQPLOT *********/
 
 /*rules for the plot target div.  These will be cascaded down to all plot elements according to css rules*/
 .jqplot-target {
@@ -173,6 +203,13 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 td.jqplot-table-legend {
     vertical-align:middle;
 }
+
+.jqplot-table-legend-label > .legend_item{
+    cursor:pointer;
+    font-size:16px;
+}
+
+
 
 /*
 These rules could be used instead of assigning
