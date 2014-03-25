@@ -18,11 +18,27 @@
 
 // http://www.websanova.com/blog/jquery/the-ultimate-guide-to-writing-jquery-plugins#.UymFmh_C0Xo
 (function($) {
+	jQuery.support.cors = true;
 	jQuery.ajax({ url: "./scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
 	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
 	jQuery.ajax({ url: "./scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
-	jQuery.ajax({ url: "./scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });	
-})(jQuery);	
+	jQuery.ajax({ url: "./scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
+	
+			$("<link/>", {
+				rel: "stylesheet",
+				type: "text/css",
+				href: "./css/pdetailview.css"
+			}).appendTo("head");
+			
+			$("<link/>", {
+				rel: "stylesheet",
+				type: "text/css",
+				href: "./css/piegraph.css"
+			}).appendTo("head");
+})(jQuery);
+
+
+
 
 /*
 DIVs
@@ -42,7 +58,6 @@ a graph has class ".graph_pie"
 */
 
 (function($) {
-//$(window).load(function() {
 	$.widget( "ocax.ocaxpiegraph", {
 		// Default options.
 		options: {
@@ -57,13 +72,6 @@ a graph has class ".graph_pie"
 				this.options.graphTitle = 'A budget';
 			this.element.addClass('ocaxjqplot');
 
-			$("<link/>", {
-				rel: "stylesheet",
-				type: "text/css",
-				href: this.options.source+"/css/pdetailview.css"
-			}).appendTo("head");
-
-	
 			header=$('<div></div>');
 			header.append('<div style="font-size:1.5em;float:left;margin-bottom:-5px;">'+this.options.graphTitle+'</div>');
 			loader=$('<div class="loader_gif"></div>');
@@ -92,13 +100,13 @@ a graph has class ".graph_pie"
 				return this.options.loadedRemotely;
 		},
 	});
-//});
 })(jQuery);
 
 function getGraphGroup(el){
 	return $(el).closest('.ocaxjqplot');
 }
 function getSource(el){
+	return ".";
 	group = getGraphGroup(el);
 	return $(group).ocaxpiegraph("source");
 }
@@ -135,6 +143,7 @@ function getPie(budget_id, clicked_el){
 
 	source = getSource(clicked_el);
 	loading_gif = $(clicked_el).parents('.ocaxjqplot').find('.loader_gif');
+	
 	$.ajax({
 		url: source+'/budget/getPieData/',
 		type: 'GET',
