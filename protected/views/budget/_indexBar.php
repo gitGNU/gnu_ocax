@@ -38,7 +38,7 @@ $graph_width=929;
 .key_label { float:left; margin-top:-3px; }
 </style>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocax.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocaxcolor.js"></script>
 <script>
 
 var globals = new Array();
