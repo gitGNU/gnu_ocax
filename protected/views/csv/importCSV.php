@@ -151,8 +151,8 @@ function dumpBudgets(el,next_step){
 		//beforeSend: function(){  },
 		//complete: function(){  },
 		success: function(data){
-					if(data == 1){
-						$(el).replaceWith('<span class="error">Failed to back up Budgets. See your Admin.</span>');
+					if(data != 0){
+						$(el).replaceWith('<span class="error">Error: '+data+'. Failed to back up Budgets. See your Admin.</span>');
 					}else{
 						$(el).replaceWith('<span class="success">All budgets backed up ok.</span>');
 						$('#step_'+next_step).show();

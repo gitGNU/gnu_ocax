@@ -273,7 +273,7 @@ class Budget extends CActiveRecord
 		}else{
 			if(file_exists($file->getURI()))
 				unlink($file->getURI());
-			echo 1;
+			echo $return_var;
 		}
 	}
 
