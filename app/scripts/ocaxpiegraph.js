@@ -41,8 +41,6 @@ a graph_container has class ".graph_container"
 a graph has class ".graph_pie"
 */
 
-var ocaxExternalScriptsLoaded = 0;
-
 (function($) {
 //$(window).load(function() {
 	$.widget( "ocax.ocaxpiegraph", {
@@ -59,26 +57,6 @@ var ocaxExternalScriptsLoaded = 0;
 				this.options.graphTitle = 'A budget';
 			this.element.addClass('ocaxjqplot');
 
-			if(!ocaxExternalScriptsLoaded){
-				/*
-				$.getScript(this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", function(){
-					$.jqplot.config.enablePlugins = true;
-					$.getScript(this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", function(){	
-						$.getScript(this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", function(){	
-							$.getScript(this.options.source+"/scripts/jqplot.pieProperties.js", function(){	});
-						});
-					});
-				});
-				*/
-/*
-				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/jquery.jqplot.min.js", dataType: "script", cache: true, async: false });
-				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.pieRenderer.min.js", dataType: "script", cache: true, async: false });
-				jQuery.ajax({ url: this.options.source+"/scripts/jqplot/plugins/jqplot.highlighter.min.js", dataType: "script", cache: true, async: false });
-				jQuery.ajax({ url: this.options.source+"/scripts/jqplot.pieProperties.js", dataType: "script", cache: true, async: false });
-*/
-				ocaxExternalScriptsLoaded = 1;		
-			}
-			
 			$("<link/>", {
 				rel: "stylesheet",
 				type: "text/css",

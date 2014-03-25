@@ -147,6 +147,9 @@ class BudgetController extends Controller
 			$goBackID = Null;
 		if(!$model->budgets && ($model->parent0->id == $rootBudget_id))
 			$goBackID = Null;
+
+
+
 		
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>$graphThisModel->getConcept(),
@@ -172,6 +175,9 @@ class BudgetController extends Controller
 						);
 		}
 		$result=array('data'=>$data, 'params'=>$params,);
+
+		//echo CJavaScript::jsonEncode($result);
+		//Yii::app()->end();
 		
 		if(Yii::app()->request->isAjaxRequest)
 			echo CJavaScript::jsonEncode($result);
