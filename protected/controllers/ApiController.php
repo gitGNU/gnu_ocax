@@ -42,6 +42,11 @@ class ApiController extends Controller
 	}
 
 	// Actions
+	public function actionScript()
+	{
+		return $this->renderPartial('index');
+	}
+	
 	public function actionList()
 	{
 		// Get the respective model instance
@@ -132,10 +137,13 @@ class ApiController extends Controller
 			$this->_sendResponse(200, CJSON::encode($model));
 	}
 
-
-
 	private function _sendResponse($status = 200, $body = '', $content_type = 'text/html')
 	{
+		if(isset($_GET['callback'])){	//jsonp
+			echo $_GET['callback'] . '('. $body .')';
+			Yii::app()->end();
+		}
+		
 		// set the status
 		$status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
 		header($status_header);
@@ -182,7 +190,7 @@ class ApiController extends Controller
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>' . $status . ' ' . $this->_getStatusCodeMessage($status) . '</title>
 </head>
 <body>

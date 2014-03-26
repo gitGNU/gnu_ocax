@@ -105,6 +105,11 @@ class BudgetDescriptionController extends Controller
 		
 		if(isset($_GET['budget'])){
 			$budget = Budget::model()->findByPk($_GET['budget']);
+			if($local = $model->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language))){
+				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$local->id));
+				Yii::app()->end();
+			}
+			
 			$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language));
 			if(!$common_desc)
 				$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id));

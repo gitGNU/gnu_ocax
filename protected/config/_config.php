@@ -56,6 +56,7 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
+				array('api/script', 'pattern'=>'api', 'verb'=>'GET'),
 				array('api/list', 'pattern'=>'api/<model:\w+>', 'verb'=>'GET'),
 				array('api/view', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'GET'),
 				array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
