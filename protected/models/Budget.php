@@ -264,7 +264,8 @@ class Budget extends CActiveRecord
 		$params = getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
-		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->getURI();
+		
+		$command = 'mysqldump --user='.$params['user'].' --password=\''.$params['pass'].'\' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->getURI();
 		exec($command, $output, $return_var);
 
 		if(!$return_var){
