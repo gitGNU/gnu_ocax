@@ -172,7 +172,7 @@ function afterSearch(){
 	<div class="bigTitle" style=""><?php echo __('Budgets');?></div>
 </div>
 
-<div id="budgetSearchForm"><!-- search-form start -->
+<div id="budgetSearchForm" style="margin-top:30px"><!-- search-form start -->
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'id'=>'budget-form',
@@ -183,10 +183,10 @@ function afterSearch(){
 
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?> 
-		<?php echo $form->textField($model,'concept',array('size'=>15,'maxlength'=>200)); ?>
+		<?php echo $form->textField($model,'concept',array('size'=>13,'maxlength'=>200)); ?>
 		<span style="margin-left:13px;">
 		<?php echo $form->label($model,'code'); ?> 
-		<?php echo $form->textField($model,'code',array('size'=>4,'maxlength'=>15)); ?>
+		<?php echo $form->textField($model,'code',array('size'=>5,'maxlength'=>15)); ?>
 		</span>
 		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
 	</div>
