@@ -22,6 +22,7 @@
 
 class ApiController extends Controller
 {
+
 	// Members
 	/**
 	 * Key which has to be in HTTP USERNAME and PASSWORD headers 
@@ -44,7 +45,25 @@ class ApiController extends Controller
 	// Actions
 	public function actionScript()
 	{
-		return $this->renderPartial('index');
+		//if($_GET['callback'] &&  (preg_match('/\W/', $_GET['callback']))
+		//	Yii::app()->end();
+		
+		if(!isset($_GET['script'])){	// this should already be caught by api/<model> aka actionList but we'll leave it here.
+			$this->_sendResponse(501, sprintf(
+					'Not implemented',
+					$_GET['model'])
+				);
+			Yii::app()->end();
+		}
+		$fileName = Yii::getPathOfAlias('application.views.api').'/'.$_GET['script'].'.js';
+		if(!file_exists($fileName)){
+			$this->_sendResponse(501, sprintf(
+					'Not implemented',
+					$_GET['model'])
+				);
+				Yii::app()->end();
+		}
+		echo str_replace('$baseURL', Yii::app()->getBaseUrl(true), file_get_contents($fileName));
 	}
 	
 	public function actionList()
@@ -95,7 +114,7 @@ class ApiController extends Controller
 			default:
 				// Model not implemented error
 				$this->_sendResponse(501, sprintf(
-				'Error: Mode <b>list</b> is not implemented for model <b>%s</b>',
+				'Error: %s not implemented',
 				$_GET['model']) );
 				Yii::app()->end();
 		}

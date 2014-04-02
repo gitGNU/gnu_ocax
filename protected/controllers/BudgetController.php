@@ -143,11 +143,14 @@ class BudgetController extends Controller
 			$goBackID=$model->parent0->parent0->id;
 			$hideConcept=Null;
 		}
-		if($model->id == $rootBudget_id)
-			$goBackID = Null;
-		if(!$model->budgets && ($model->parent0->id == $rootBudget_id))
+		if(!$model->parent0->parent)
 			$goBackID = Null;
 
+		if($model->id == $rootBudget_id)
+			$goBackID = Null;
+		if(($model->parent0->id == $rootBudget_id) && !$isParent)
+			$goBackID = Null;
+		
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>$graphThisModel->getConcept(),
 						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
@@ -173,8 +176,9 @@ class BudgetController extends Controller
 		}
 		$result=array('data'=>$data, 'params'=>$params,);
 
-		if(Yii::app()->request->isAjaxRequest)
-			echo CJavaScript::jsonEncode($result);
+		if(isset($_GET['callback']))
+		//if(Yii::app()->request->isAjaxRequest)
+			echo $_GET['callback'] . '('. CJavaScript::jsonEncode($result) .')';
 		else
 			return CJavaScript::jsonEncode($result);
 	}
@@ -184,10 +188,10 @@ class BudgetController extends Controller
 	 */	
 	public function actionGetBudgetDetails($id)
 	{
-		//if(!Yii::app()->request->isAjaxRequest)
-		//  Yii::app()->end();
- 
-		$model=$this->loadModel($id);
+		if(!Yii::app()->request->isAjaxRequest)
+		  Yii::app()->end();
+		  
+ 		$model=$this->loadModel($id);
 		if($model){
 			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
 		}else

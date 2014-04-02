@@ -28,7 +28,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/piegraph.css" />
 
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocaxpiegraph.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/api/script/ocaxpiegraph"></script>
 			
 
 <div class="ocaxpiegraph">

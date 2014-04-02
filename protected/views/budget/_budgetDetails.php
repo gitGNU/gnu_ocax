@@ -45,7 +45,7 @@ else{
 if(isset($showLinks)){
 	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.', this);return false;');
 	$create_enquiry_link = 	'<span style="float:right">'.
-							CHtml::link(__('New enquiry'),array('enquiry/create', 'budget'=>$model->id)).
+							CHtml::link(__('New enquiry'), $this->createAbsoluteUrl('enquiry/create',array('id'=>$model->id))).
 							'</span>';
 	if($enquiry_count){
 		if($enquiry_count == 1){
@@ -62,7 +62,8 @@ if(isset($showLinks)){
 	}else
 		$enquiries = '0 '.__('enquiries made').' '.$create_enquiry_link;
 
-	$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), $budgetModal);
+	//$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), $budgetModal);
+	$budget_concept= CHtml::link($model->getConcept(), $this->createAbsoluteUrl('budget/view',array('id'=>$model->id)), $budgetModal);
 }else{
 	if($enquiry_count){
 		if($enquiry_count == 1)
@@ -106,7 +107,7 @@ $attributes=array(
 if(!isset($hideConcept)){
 	$label=$model->getLabel();
 	if(isset($showLinks))
-		$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->request->baseUrl.'/images/info_small.png" />';
+		$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->getBaseUrl(true).'/images/info_small.png" />';
 	$row =	array(
 				array(
 					'label'=>$label,
