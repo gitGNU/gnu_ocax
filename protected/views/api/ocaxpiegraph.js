@@ -87,12 +87,12 @@ $.widget( "ocax.ocaxpiegraph", {
 				this.options.graphTitle = 'A budget';
 			this.element.addClass('ocaxjqplot');
 
-			header=$('<div></div>');
-			header.append('<div style="font-size:1.5em;float:left;margin-bottom:-5px;">'+this.options.graphTitle+'</div>');
+			header=$('<div class="ocax_piegraph_header"></div>');
+			header.append('<div>'+this.options.graphTitle+'</div>');
 			loader=$('<div class="loader_gif"></div>');
-			loader.append('<img style="margin-right:5px" src="$baseURL/images/preloader.gif"/></div>');
+			loader.append('<img src="$baseURL/images/preloader.gif"/></div>');
 			header.append(loader);
-			header.append('<div style="clear:both"></div>');
+			//header.append('<div style="clear:both"></div>');
 			this.element.append(header);
 
 			if(!this.options.rootBudgetData){
@@ -106,7 +106,8 @@ $.widget( "ocax.ocaxpiegraph", {
 		},
 		// Create a public method.
 		source: function() {
-				return this.options.source;
+				return "$baseURL";
+				//return this.options.source;
 		},
 		rootBudget: function() {
 				return this.options.rootBudget;
@@ -208,7 +209,7 @@ function createGraph(clicked_el, budget_id, data){
 		title=	'<a href="$baseURL/budget/view/'+budget_id+
 				'" onclick="js:showBudget('+budget_id+', this);return false;">'+data.params.title+'</a>';
 	}else{
-		title=	'<a href="'+source+'/budget/view/'+data.params.parent_id+
+		title=	'<a href="$baseURL/budget/view/'+data.params.parent_id+
 				'" onclick="js:showBudget('+data.params.parent_id+', this);return false;">'+data.params.title+'</a>';			
 	}
 	graph_container.append('<div class="graph_title">'+title+'</div>');

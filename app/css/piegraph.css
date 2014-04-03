@@ -1,29 +1,32 @@
-.graph_pie{
-	width:450px;
-	height:450px;
-	margin:0px;
-}
 .ocaxjqplot{
+	position:relative;
 	padding:0px 0px 20px 0px;
 	height:500px;
 	width:930px;
 	margin-bottom:45px;
 }
-.graph_container{
+.ocaxjqplot .ocax_piegraph_header{
+	font-size:1.5em;
+	margin-bottom:-5px;
+}
+
+.ocaxjqplot .graph_container{
 	margin:0px;
 	padding:0px;
 }
-
-.budget_details{
+.ocaxjqplot .graph_pie{
+	width:450px;
+	height:450px;
+	margin:0px;
+}
+.ocaxjqplot .budget_details{
 	width:470px;
 	float:right;
 }
-
-.budget_details > a {
+.ocaxjqplot .budget_details > a {
 	margin-top:-15px;
 }
-
-.prev_budget_arrow{
+.ocaxjqplot .prev_budget_arrow{
 	width:69px;
 	height:69px;
 	position:absolute;
@@ -32,18 +35,18 @@
 	padding:0px;
 	cursor:pointer;
 }
-
-.prev_budget_arrow:hover
+.ocaxjqplot .prev_budget_arrow:hover
 {
     background-position: -69px 0;
 }
 
-.loader_gif {
-	float:right;
-	font-size:1.4em;
+.ocaxjqplot .loader_gif {
+	position:absolute;
+	left:865px;
+	top:0px;
 	display:none;
 }
-.loader_gif img {
+.ocaxjqplot .loader_gif img {
 	margin-top:5px;
 }
 
