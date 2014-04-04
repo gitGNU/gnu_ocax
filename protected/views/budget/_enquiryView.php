@@ -44,7 +44,7 @@ else{
 if(isset($showLinks)){
 	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.', this);return false;');
 	$create_enquiry_link = 	'<span style="float:right">'.
-							CHtml::link(__('New enquiry'),array('enquiry/create', 'budget'=>$model->id)).
+							CHtml::link(__('New enquiry'),array('enquiry/create?budget='.$model->id)).
 							'</span>';
 	if($enquiry_count){
 		if($enquiry_count == 1){

@@ -142,7 +142,7 @@ class EnquiryController extends Controller
 				$model->save();
 				echo '1';
 			}
-			Yii::app()->end();		
+			Yii::app()->end();
 		}
 		echo '0';
 	}
@@ -162,6 +162,15 @@ class EnquiryController extends Controller
 		if(isset($_GET['budget'])){
 			$model->budget=$_GET['budget'];
 			$model->type = 1;
+			
+			if($budget=Budget::model()->findByPk($model->budget)){
+				if(Config::model()->findByPk('year')->value != $budget->year){
+					$msg = __('This budget is from the year %s.').'. '.__('Do you want to continue?');
+					$msg = str_replace('%s', $budget->year, $msg);
+					Yii::app()->user->setFlash('prompt_year', $msg );
+				}
+			}else
+				Yii::app()->end();
 		}
 		$model->addressed_to = ADMINISTRATION;
 

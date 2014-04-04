@@ -114,7 +114,7 @@ function showBudget(budget_id, element){
 							$('#bar_loader_gif').show();
 						}else{
 							$('.loader_gif').hide();
-							loader = $(element).closest('.graph_group').find('.loader_gif');
+							loader = $(element).closest('.ocaxjqplot').find('.loader_gif');
 							loader.show();
 						}
 					},

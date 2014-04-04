@@ -69,3 +69,15 @@ if($model->related_to){
 	echo $this->renderPartial('_teamView', array('model'=>$related_enquiry));
 }
 ?>
+
+<?php if(Yii::app()->user->hasFlash('prompt_year')):?>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('prompt_year');?><br />
+		<?php
+		$year = Config::model()->findByPk('year')->value;
+		$url=Yii::app()->request->baseUrl.'/budget?year='.$year;
+		?>
+		<button onclick="$('.flash-notice').slideUp('fast')"><?php echo __('Yes');?></button>&nbsp;&nbsp;&nbsp;
+		<button onclick="js:window.location='<?php echo $url?>';"><?php echo __('No, take me to').' '.$year;?></button>
+    </div>
+<?php endif; ?>

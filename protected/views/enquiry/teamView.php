@@ -65,8 +65,8 @@ $this->inlineHelp=':profiles:team_member';
 		<?php 
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
-		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
+		<button onclick="js:window.location='<?php echo $url?>';"><?php echo __('Yes');?></button>
+		<button onclick="$('.flash-notice').slideUp('fast')"><?php echo __('No');?></button>
     </div>
 <?php endif; ?>
 
