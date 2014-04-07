@@ -22,7 +22,6 @@ $config = array(
 	// We hope the network will provide support, automated backups and updates.
 	'params'=>array(
 		'ocaxnetwork'=>false,
-		'databaseDumpMethod'=>'MySQLDump',	// MySQLDump(recommended) or FkMySQLDump
 	),
 
 	// This default should be good. Only touch this if you've moved the base directories.

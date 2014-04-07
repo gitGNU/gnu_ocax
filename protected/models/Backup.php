@@ -53,35 +53,17 @@ class Backup
 	{
 		$params = getMySqlParams();
 		
-		if(Yii::app()->params['databaseDumpMethod'] == 'MySQLDump'){
-			$output = NULL;
-			$return_var = NULL;
-			$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' > '.$filePath;
-			exec($command, $output, $return_var);
+		$output = NULL;
+		$return_var = NULL;
+		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' > '.$filePath;
+		exec($command, $output, $return_var);
 
-			if(!$return_var){
-				return 0;
-			}else{
-				if(file_exists($filePath))
-					unlink($filePath);
-				return $return_var;
-			}
-		}else{
-			$con = @mysql_connect($params['host'], $params['user'], $params['pass']);
-			//Set encoding
-			mysql_query("SET CHARSET utf8");
-			mysql_query("SET NAMES 'utf8' COLLATE 'utf8_general_ci'");
-			//Includes class
-			//require_once('FKMySQLDump.php');
-			Yii::import('application.extensions.FKMySQLDump.FKMySQLDump');
-			$dumper = new FKMySQLDump($params['dbname'], $filePath, false, false);
-			$dumpParams = array(
-				//'skip_structure' => TRUE,
-				//'skip_data' => TRUE,
-			);
-			//Make dump
-			$dumper->doFKDump($dumpParams);
+		if(!$return_var){
 			return 0;
+		}else{
+			if(file_exists($filePath))
+				unlink($filePath);
+			return $return_var;
 		}
 	}
 	
