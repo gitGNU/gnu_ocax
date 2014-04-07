@@ -268,9 +268,6 @@ class Budget extends CActiveRecord
 		$command = 'mysqldump --user='.$params['user'].' --password=\''.$params['pass'].'\' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->getURI();
 		exec($command, $output, $return_var);
 
-		//echo '<p>file: '.$file->getURI().'</p>';
-		//print_r($output);
-
 		if(!$return_var){
 			$file->save();
 			echo 0;

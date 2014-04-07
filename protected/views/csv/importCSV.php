@@ -152,11 +152,11 @@ function dumpBudgets(el,next_step){
 		//complete: function(){  },
 		success: function(data){
 					if(data != 0){
-						$(el).replaceWith('<span class="error">Error: '+data+'. Failed to back up Budgets. See your Admin.</span>');
+						$(el).replaceWith('<span class="warn">exec(mysqldump) returned:'+data+' Failed to backup Budgets.</span>');
 					}else{
 						$(el).replaceWith('<span class="success">All budgets backed up ok.</span>');
-						$('#step_'+next_step).show();
 					}
+					$('#step_'+next_step).show();
 		},
 		error: function() { alert("error on dump Budgets"); },
 	});

@@ -60,7 +60,6 @@ class BackupController extends Controller
 	public function actionCreate()
 	{
 		$model=new Backup;
-
 		list($path, $file, $dump_error) = $model->dump();
 		
 		if($dump_error){

@@ -23,51 +23,65 @@ class Backup
 {
 	public function dump()
 	{
-		$baseDir = dirname(Yii::app()->request->scriptFile);
-		$filesDir = $baseDir.'/files';
 		$backupDir = Yii::app()->basePath.'/runtime/';
-		$error = Null;
-		
-		$backupFileName = 'backup-'.date('d-m-Y-H-i-s').'.zip';
-
 		foreach(glob($backupDir.'backup-*') as $f) {
 			unlink($f);
 		}
+		$baseDir = dirname(Yii::app()->request->scriptFile);
+		$filesDir = $baseDir.'/files';
+		$backupFileName = 'backup-'.date('d-m-Y-H-i-s').'.zip';
+
+		$dump_file = $backupDir.date('d-m-Y-H-i-s').'.sql';
+		if($error = $this->dumpDatabase($dump_file))
+			return array(null, null, 'exec(mysqldump) returns:'.$error);
+		
 		
 		$zip = new ZipArchive();
-		if (!$zip->open($backupDir.$backupFileName, ZIPARCHIVE::CREATE)) {
-			$error = __('Cannot create zip file');
-		}
-		if(!$error)
-			$this->Zip($filesDir, $zip);
-		
-		$dump_file = $backupDir.date('d-m-Y-H-i-s').'.sql';
-		if(!$error && $error_msg = $this->dumpDatabase($dump_file)){
-			$error = __('Cannot dump database');
-			$zip->close();
-		}
+		if (!$zip->open($backupDir.$backupFileName, ZIPARCHIVE::CREATE))
+			return array(null, null, __('Cannot create zip file'));
+
+		$this->Zip($filesDir, $zip);
 		$zip->addFile($dump_file, 'database.sql');
 		$zip->addFile(Yii::app()->basePath.'/data/RESTORE','RESTORE');
 		$zip->addFile(Yii::app()->basePath.'/data/ocax.version','VERSION');
 		$zip->close();
 
-		return array($backupDir, $backupFileName, $error);
+		return array($backupDir, $backupFileName, null);
 	}
 
 	public function dumpDatabase($filePath)
 	{
 		$params = getMySqlParams();
-		$output = NULL;
-		$return_var = NULL;
-		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' > '.$filePath;
-		exec($command, $output, $return_var);
+		
+		if(Yii::app()->params['databaseDumpMethod'] == 'MySQLDump'){
+			$output = NULL;
+			$return_var = NULL;
+			$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' > '.$filePath;
+			exec($command, $output, $return_var);
 
-		if(!$return_var){
-			return Null;
+			if(!$return_var){
+				return 0;
+			}else{
+				if(file_exists($filePath))
+					unlink($filePath);
+				return $return_var;
+			}
 		}else{
-			if(file_exists($filePath))
-				unlink($filePath);
-			return $return_var;
+			$con = @mysql_connect($params['host'], $params['user'], $params['pass']);
+			//Set encoding
+			mysql_query("SET CHARSET utf8");
+			mysql_query("SET NAMES 'utf8' COLLATE 'utf8_general_ci'");
+			//Includes class
+			//require_once('FKMySQLDump.php');
+			Yii::import('application.extensions.FKMySQLDump.FKMySQLDump');
+			$dumper = new FKMySQLDump($params['dbname'], $filePath, false, false);
+			$dumpParams = array(
+				//'skip_structure' => TRUE,
+				//'skip_data' => TRUE,
+			);
+			//Make dump
+			$dumper->doFKDump($dumpParams);
+			return 0;
 		}
 	}
 	
