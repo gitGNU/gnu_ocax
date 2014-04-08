@@ -53,11 +53,11 @@ class Backup
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
 		$params = getMySqlParams();
-		if(Config::model()->findByPk('databaseDumpMethod') == 'native'){
+		if(Config::model()->findByPk('databaseDumpMethod')->value == 'native'){
 			if($error = $this->dumpDatabase($dump_file, $params))
 				return array(null, null, __('exec(mysqldump) returns:').$error);
-		}elseif(Config::model()->findByPk('databaseDumpMethod') == 'alternative')
-			$this->dumpDatabaseAlernative($dump_file, $params)
+		}elseif(Config::model()->findByPk('databaseDumpMethod')->value == 'alternative')
+			$this->dumpDatabaseAlernative($dump_file, $params);
 		else
 			return array(null, null, __('No database dump method available'));
 		
