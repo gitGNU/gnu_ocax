@@ -18,27 +18,49 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Clouddueling\Mysqldump\Mysqldump; 
  
 class Backup
 {
+	public $tables = array();
+	public $fp ;
+	public $file_name;
+	public $_path = null;
+	public $back_temp_file = 'db_backup_';
+
+	public function init()
+	{
+
+	}
+
 	public function dump()
 	{
+		$error='';
 		$backupDir = Yii::app()->basePath.'/runtime/';
 		foreach(glob($backupDir.'backup-*') as $f) {
+			unlink($f);
+		}
+		foreach(glob($backupDir.'*-backup.sql') as $f) {
 			unlink($f);
 		}
 		$baseDir = dirname(Yii::app()->request->scriptFile);
 		$filesDir = $baseDir.'/files';
 		$backupFileName = 'backup-'.date('d-m-Y-H-i-s').'.zip';
 
-		$dump_file = $backupDir.date('d-m-Y-H-i-s').'.sql';
-		if($error = $this->dumpDatabase($dump_file))
-			return array(null, null, 'exec(mysqldump) returns:'.$error);
-		
-		
 		$zip = new ZipArchive();
 		if (!$zip->open($backupDir.$backupFileName, ZIPARCHIVE::CREATE))
 			return array(null, null, __('Cannot create zip file'));
+
+		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
+		$params = getMySqlParams();
+		if(Config::model()->findByPk('databaseDumpMethod') == 'native'){
+			if($error = $this->dumpDatabase($dump_file, $params))
+				return array(null, null, __('exec(mysqldump) returns:').$error);
+		}elseif(Config::model()->findByPk('databaseDumpMethod') == 'alternative')
+			$this->dumpDatabaseAlernative($dump_file, $params)
+		else
+			return array(null, null, __('No database dump method available'));
+		
 
 		$this->Zip($filesDir, $zip);
 		$zip->addFile($dump_file, 'database.sql');
@@ -46,12 +68,12 @@ class Backup
 		$zip->addFile(Yii::app()->basePath.'/data/ocax.version','VERSION');
 		$zip->close();
 
-		return array($backupDir, $backupFileName, null);
+		return array($backupDir, $backupFileName, $error);
 	}
 
-	public function dumpDatabase($filePath)
+	public function dumpDatabase($filePath, $params)
 	{
-		$params = getMySqlParams();
+		
 		
 		$output = NULL;
 		$return_var = NULL;
@@ -63,9 +85,18 @@ class Backup
 		}else{
 			if(file_exists($filePath))
 				unlink($filePath);
+			$this->dumpDatabaseAlernative($filePath, $params);
 			return $return_var;
 		}
 	}
+	
+	public function dumpDatabaseAlernative($filePath, $params)
+	{
+		Yii::import('application.extensions.Clouddueling.Mysqldump.*');
+		require_once('Mysqldump.php');
+		$dump =  new Mysqldump($params['dbname'], $params['user'], $params['pass'], $params['host']);
+		$dump->start($filePath);
+	}	
 	
 	// http://stackoverflow.com/questions/1334613/how-to-recursively-zip-a-directory-in-php/1334949#1334949
 	private function Zip($source, $zip)
@@ -93,5 +124,4 @@ class Backup
 		else if (is_file($source) === true)
 			$zip->addFromString(basename($source), file_get_contents($source));
 	}
-
 }

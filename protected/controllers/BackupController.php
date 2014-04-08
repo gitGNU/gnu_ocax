@@ -62,11 +62,7 @@ class BackupController extends Controller
 		$model=new Backup;
 		list($path, $file, $dump_error) = $model->dump();
 		
-		if($dump_error){
-			Yii::app()->user->setFlash('error', __($dump_error));
-			$this->redirect(array('/user/panel'));
-		}
-		
+	
 		if (file_exists($path.$file)) {
 			header("Pragma: public");
 			header("Expires: 0");
@@ -81,5 +77,10 @@ class BackupController extends Controller
 			@readfile($path.$file);
 			exit;
 		}
+		if($dump_error){
+			Yii::app()->user->setFlash('error', __($dump_error));
+			$this->redirect(array('/user/panel'));
+		}
+		
 	}
 }

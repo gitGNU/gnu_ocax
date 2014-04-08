@@ -2,10 +2,7 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-
-
 require_once(dirname(__FILE__).'/../includes/utils.php');
-
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -25,6 +22,16 @@ return array(
 	),
 
 	'modules'=>array(
+		//'backup',
+		'jbackup'=>array(
+			//'path' => __DIR__.'/../_backup/', //Directory where backups are saved
+			//'path' => dirname(Yii::app()->request->scriptFile).'/files/Budget/', //Directory where backups are saved
+			'path' => '/tmp/', //Directory where backups are saved
+			'directoryBackup'=>array( 
+				'folder/'=> dirname(Yii::app()->request->scriptFile).'/files/archive/',
+			),
+		),
+	
 		// uncomment the following to enable the Gii tool
 /*
 		'gii'=>array(
