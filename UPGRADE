@@ -85,11 +85,10 @@ END$$
 DELIMITER ;
 CALL mod_newsletter();
 
-INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
-INSERT INTO config(parameter, value, required, description) VALUES ('databaseDumpMethod', 'native', '1', 'native or alternative');
 ALTER TABLE user MODIFY COLUMN activationcode varchar(45) NOT NULL;
 ALTER TABLE reset_password MODIFY COLUMN code varchar(45) NOT NULL;
-
+INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
+INSERT INTO config(parameter, value, required, description) VALUES ('databaseDumpMethod', 'native', '1', 'native or alternative');
 
 
 

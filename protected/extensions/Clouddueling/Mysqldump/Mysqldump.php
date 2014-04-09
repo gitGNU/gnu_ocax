@@ -50,12 +50,12 @@ class Mysqldump
             'compress' => 'None',
             'no-data' => false,
             'add-drop-database' => false,
-            'add-drop-table' => false,
-            'single-transaction' => true,
+            'add-drop-table' => true,
+            'single-transaction' => false,	// true requires SUPER privilege
             'lock-tables' => false,
             'add-locks' => true,
             'extended-insert' => true,
-            'disable-foreign-keys-check' => true
+            'disable-foreign-keys-check' => true	// ocax needs this to be true
         );
 
         $this->db = $db;

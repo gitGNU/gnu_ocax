@@ -22,18 +22,7 @@ use Clouddueling\Mysqldump\Mysqldump;
  
 class Backup
 {
-	public $tables = array();
-	public $fp ;
-	public $file_name;
-	public $_path = null;
-	public $back_temp_file = 'db_backup_';
-
-	public function init()
-	{
-
-	}
-
-	public function dump()
+	public function backupSite()
 	{
 		$error='';
 		$backupDir = Yii::app()->basePath.'/runtime/';
@@ -52,16 +41,10 @@ class Backup
 			return array(null, null, __('Cannot create zip file'));
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
-		$params = getMySqlParams();
-		if(Config::model()->findByPk('databaseDumpMethod')->value == 'native'){
-			if($error = $this->dumpDatabase($dump_file, $params))
-				return array(null, null, __('exec(mysqldump) returns:').$error);
-		}elseif(Config::model()->findByPk('databaseDumpMethod')->value == 'alternative')
-			$this->dumpDatabaseAlernative($dump_file, $params);
-		else
-			return array(null, null, __('No database dump method available'));
-		
-
+		if($error = $this->dumpDatabase($dump_file)){
+			if(file_exists($dump_file))
+				unlink($dump_file);
+		}
 		$this->Zip($filesDir, $zip);
 		$zip->addFile($dump_file, 'database.sql');
 		$zip->addFile(Yii::app()->basePath.'/data/RESTORE','RESTORE');
@@ -71,32 +54,36 @@ class Backup
 		return array($backupDir, $backupFileName, $error);
 	}
 
-	public function dumpDatabase($filePath, $params)
+	public function dumpDatabase($filePath, $table=Null)
 	{
-		
-		
-		$output = NULL;
-		$return_var = NULL;
-		$command = 'mysqldump --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' > '.$filePath;
-		exec($command, $output, $return_var);
-
-		if(!$return_var){
-			return 0;
-		}else{
-			if(file_exists($filePath))
-				unlink($filePath);
-			$this->dumpDatabaseAlernative($filePath, $params);
-			return $return_var;
+		$params = getMySqlParams();
+		$method = Config::model()->findByPk('databaseDumpMethod')->value;
+		switch ($method) {
+			case 'native':
+				$output = NULL;
+				$return_var = NULL;
+				$command =	'mysqldump --user='.$params['user'].' --password='.$params['pass'].
+							' --host='.$params['host'].' '.$params['dbname'].' '.$table.' > '.$filePath;
+				exec($command, $output, $return_var);
+				if($return_var)
+					return 'exec(mysqldump) returned:'.$return_var;
+				break;
+			case 'alternative':
+				Yii::import('application.extensions.Clouddueling.Mysqldump.*');
+				require_once('Mysqldump.php');
+				$dumpSettings = array();
+				if($table)
+					$dumpSettings = array('include-tables' => array($table));
+				$dump =  new Mysqldump($params['dbname'], $params['user'], $params['pass'], $params['host'], 'mysql', $dumpSettings);
+				$dump->start($filePath);
+				// need to find a way to return errors here
+				break;
+			default:
+				return '\''.$method.'\' is not a valid database dump method';
 		}
+		return 0;	// dumped ok.
 	}
 	
-	public function dumpDatabaseAlernative($filePath, $params)
-	{
-		Yii::import('application.extensions.Clouddueling.Mysqldump.*');
-		require_once('Mysqldump.php');
-		$dump =  new Mysqldump($params['dbname'], $params['user'], $params['pass'], $params['host']);
-		$dump->start($filePath);
-	}	
 	
 	// http://stackoverflow.com/questions/1334613/how-to-recursively-zip-a-directory-in-php/1334949#1334949
 	private function Zip($source, $zip)

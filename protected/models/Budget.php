@@ -261,20 +261,13 @@ class Budget extends CActiveRecord
 		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
 			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
 
-		$params = getMySqlParams();
-		$output = NULL;
-		$return_var = NULL;
-		
-		$command = 'mysqldump --user='.$params['user'].' --password=\''.$params['pass'].'\' --host='.$params['host'].' '.$params['dbname'].' budget > '.$file->getURI();
-		exec($command, $output, $return_var);
-
-		if(!$return_var){
-			$file->save();
-			echo 0;
-		}else{
+		if($error = Backup::dumpDatabase($file->getURI(), 'budget')){
 			if(file_exists($file->getURI()))
 				unlink($file->getURI());
-			echo $return_var;
+			echo $error;
+		}else{
+			$file->save();
+			echo 0;
 		}
 	}
 

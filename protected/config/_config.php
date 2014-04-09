@@ -22,16 +22,6 @@ return array(
 	),
 
 	'modules'=>array(
-		//'backup',
-		'jbackup'=>array(
-			//'path' => __DIR__.'/../_backup/', //Directory where backups are saved
-			//'path' => dirname(Yii::app()->request->scriptFile).'/files/Budget/', //Directory where backups are saved
-			'path' => '/tmp/', //Directory where backups are saved
-			'directoryBackup'=>array( 
-				'folder/'=> dirname(Yii::app()->request->scriptFile).'/files/archive/',
-			),
-		),
-	
 		// uncomment the following to enable the Gii tool
 /*
 		'gii'=>array(
