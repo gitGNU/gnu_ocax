@@ -18,7 +18,8 @@
 
 .pgrid-view table.items th, .pgrid-view table.items td
 {
-	font-size: 0.9em;
+	font-family: Helvetica;
+	font-size: 0.95em;
 	border: 1px #827E78 solid;
 	border-left: 0px;
 	border-right: 0px;

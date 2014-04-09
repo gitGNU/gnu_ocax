@@ -91,6 +91,12 @@ class EnquirySubscribe extends CActiveRecord
 		return 0;		
 	}
 
+	public function isUserSubscribed($enquiry_id, $user_id)
+	{
+		if($this->findByAttributes(array('enquiry'=>$enquiry_id, 'user'=>$user_id)))
+			return 1;
+		return 0;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)

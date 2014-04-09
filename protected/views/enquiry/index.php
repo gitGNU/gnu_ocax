@@ -42,6 +42,7 @@ $('.search-form form').submit(function(){
 	.left{width: 60%; float: left;  margin: 0px;}
 	.right{width: 38%; float: left; margin: 0px;}
 	.clear{clear:both;}
+	.tag_enquiry_row_as_subscribed td:first-child { font-weight: bold }
 </style>
 
 <script>
@@ -113,6 +114,14 @@ function showEnquiry(enquiry_id){
 $this->widget('PGridView', array(
 	'id'=>'enquiry-grid',
 	'dataProvider'=>$model->publicSearch(),
+	'rowCssClassExpression'=>function($row, $data){
+						if(Yii::app()->user->isGuest)
+							return $row % 2 ? 'even' : 'odd';
+						if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
+							return 'tag_enquiry_row_as_subscribed';
+						else
+							return $row % 2 ? 'even' : 'odd';
+					},
     'onClick'=>array(
         'type'=>'javascript',
         'call'=>'showEnquiry',
