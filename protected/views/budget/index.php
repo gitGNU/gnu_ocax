@@ -238,7 +238,7 @@ if(count($years) > 1){
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 		if($showFeaturedMenu){
 			echo '<img style="position:absolute;margin-left:95px;cursor:pointer" id="featured_menu_icon" src="'.
-				Yii::app()->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
+				Yii::app()->theme->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
 				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
