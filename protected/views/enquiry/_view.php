@@ -163,11 +163,6 @@ function vote(reply_id, like){
 		return;
 	if(!canParticipate())
 		return;
-	if(like == 1)
-		totalElement_id='voteLikeTotal_'+reply_id;
-	else
-		totalElement_id='voteDislikeTotal_'+reply_id;
-
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/vote/create',
 		type: 'POST',
@@ -180,8 +175,10 @@ function vote(reply_id, like){
 							alert('<?php echo __('You have already voted favourably');?>');
 						else
 							alert('<?php echo __('You have already voted unfavourably');?>');
-					}else
-						$("#"+totalElement_id).html(data.total);
+					}else{
+						$("#voteLikeTotal_"+reply_id).html(data.total_likes);
+						$("#voteDislikeTotal_"+reply_id).html(data.total_dislikes);
+					}
 				}					
 		},
 		error: function() { alert("error on vote"); },
@@ -247,6 +244,10 @@ function sendContactForm(form){
 			alert("Error on post Contact petition");
 		}
 	});
+}
+function viewFile(url){
+	var win=window.open(url, '_blank');
+	win.focus();
 }
 </script>
 

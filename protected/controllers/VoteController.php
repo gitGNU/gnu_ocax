@@ -84,18 +84,23 @@ class VoteController extends Controller
 
 		if(isset($_POST['reply']) && isset($_POST['like']))
 		{
-			$model->reply=$_POST['reply'];
-			$model->user = Yii::app()->user->getUserID();
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'reply = '.$model->reply.' AND user = '.$model->user;
-			$userVote = $model->findAll($criteria);
-			if($userVote)
-				echo CJavaScript::jsonEncode(array('already_voted'=> $userVote[0]->vote));
-			else{
+			if($userVote = $model->findByAttributes(array('reply'=>$_POST['reply'], 'user'=>Yii::app()->user->getUserID())) ){
+				if($userVote->vote == $_POST['like']){
+					echo CJavaScript::jsonEncode(array('already_voted'=> $userVote->vote));
+					Yii::app()->end();
+				}else{
+					$userVote->vote = $_POST['like'];
+					$userVote->save();
+				}
+			}else{
+				$model->reply=$_POST['reply'];
+				$model->user = Yii::app()->user->getUserID();
 				$model->vote = $_POST['like'];
 				$model->save();
-				echo CJavaScript::jsonEncode(array('total'=>$model->getTotal($model->reply, $model->vote)));
 			}
+			echo CJavaScript::jsonEncode(array(	'total_likes'=>$model->getTotal($_POST['reply'], 1),
+												'total_dislikes'=>$model->getTotal($_POST['reply'], 0),
+										));
 		}else
 			echo '0';
 	}

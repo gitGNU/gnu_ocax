@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-04-04 10:28+0100\n"
+"PO-Revision-Date: 2014-04-10 09:40+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -203,7 +203,7 @@ msgstr "Bloque"
 #: protected/models/CmsPage.php:89
 #: protected/models/Budget.php:129
 msgid "Weight"
-msgstr "Pes"
+msgstr "Peso"
 
 #: protected/models/User.php:127
 msgid "New password"

@@ -281,7 +281,8 @@ class Budget extends CActiveRecord
 		$params = getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
-		$command = 'mysql --user='.$params['user'].' --password='.$params['pass'].' --host='.$params['host'].' '.$params['dbname'].' < '.$file->getURI();
+		$command =	'mysql --user='.$params['user'].' --password='.$params['pass'].
+					' --host='.$params['host'].' --default_character_set utf8 '.$params['dbname'].' < '.$file->getURI();
 		exec($command, $output, $return_var);
 		echo $return_var;
 	}
