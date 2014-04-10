@@ -303,7 +303,7 @@ function uploadFile(model,model_id){
 	});
 }
 function deleteFile(file_id){
-	answer=confirm("Are you sure?");
+	answer=confirm("<?php echo __('Are you sure you want to delete it?');?>");
 	if(!answer)
 		return 1;
 	$.ajax({

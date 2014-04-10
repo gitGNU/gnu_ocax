@@ -201,6 +201,8 @@ function showBudget(budget_id, element){
 
 if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
 	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
+	if($model->documentation)
+		$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';
 	$attributes=array(
 					array(
 	        			'label'=>__('Submitted'),
@@ -208,14 +210,6 @@ if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATOR
 						'value'=>$submitted_info,
 					),
 				);
-	if($model->documentation){
-		$document = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
-		$attributes[]=array(
-				        'label'=>__('Documentation'),
-						'type'=>'raw',
-	        			'value'=>$document,
-					);
-	}
 	$this->widget('zii.widgets.CDetailView', array(
 		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 		'data'=>$model,

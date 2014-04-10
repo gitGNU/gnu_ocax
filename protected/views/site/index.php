@@ -55,9 +55,6 @@ if($page=IntroPage::model()->find(array('condition'=> 'published = 1'))){
 </style>
 
 <script>
-//var TOTAL_PAGES = 3;
-//var pageCnt = 0;
-
 var wallpaperCnt = 0;
 var wallpapers = <?php echo json_encode($images); ?>;
 var pageCache=new Array();
@@ -75,8 +72,6 @@ function nextPage(page_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/introPage/getPage/'+page_id,
 		type: 'GET',
-		//beforeSend: function(){	$('.loading_gif').remove();	},
-		//complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
 			if(data != 0){
 				pageCache[page_id]=data;
@@ -88,14 +83,12 @@ function nextPage(page_id){
 		}
 	});
 }
-
 function showPage(page_id){
 	$('#wallpaper').hide();
-	$('#wallpaper').css('background-image', 'url("<?php echo Yii::app()->theme->baseUrl;?>/wallpaper/'+wallpapers[wallpaperCnt]+'")');
+	$('#wallpaper').css('background-image', 'url("'+wallpapers[wallpaperCnt]+'"');
 	$('#wallpaper').html(pageCache[page_id]);
 	$('#wallpaper').fadeIn('fast');
 }
-
 </script>
 
 <div id="wallpaper">
