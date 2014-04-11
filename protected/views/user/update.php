@@ -23,6 +23,24 @@
 $languages = getLanguagesArray();
 $solicit_membership = Config::model()->findByPk('membership')->value;
 ?>
+
+<script>
+function optout(){
+	retVal = confirm("<?php echo __('Are you sure you want to delete your account?');?>");
+	if( retVal == false ){
+		return;
+	}
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/user/optout',
+		type: 'POST',
+		success: function(){
+			window.location.href = '<?php echo Yii::app()->request->baseUrl; ?>';					
+		},
+		error: function() { alert("error on opt out"); },
+	});
+}
+</script>
+
 <?php if($languages || $solicit_membership) { ?>
 	<style>           
 		.outer{width:100%; padding: 0px; float: left; margin-top:10px;}
@@ -40,8 +58,13 @@ $solicit_membership = Config::model()->findByPk('membership')->value;
 	</style>
 <?php } ?>
 
-<span id="datos_usuario" style="margin-top:-15px;cursor:auto;"></span>
-<h1><?php echo __('Change your user information')?></h1>
+<div>
+<span id="datos_usuario" style="margin-top:-15px;cursor:auto;float:left"></span>
+<h1 style="float:left"><?php echo __('Change your user information')?></h1>
+<span class="link" style="float:right" onclick="js:optout();"><?php echo __('Delete my user account');?></span>
+</div>
+<div style="clear:both"></div>
+
 
 <div class="form">
 

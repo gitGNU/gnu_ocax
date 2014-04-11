@@ -33,7 +33,7 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete, disable', // we only allow deletion via POST request
+			'postOnly + delete, disable, optout', // we only allow deletion via POST request
 		);
 	}
 
@@ -46,7 +46,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('panel','update','block'),
+				'actions'=>array('panel','update','block','optout'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -273,6 +273,27 @@ class UserController extends Controller
 		echo 1;
 	}
 
+	public function actionOptout()
+	{
+		if(Yii::app()->user->isGuest){
+			$this->redirect(array('site/index'));
+			yii:app()->end();
+		}
+		$model=$this->loadModel(Yii::app()->user->getUserID());
+		
+		$model->scenario = 'opt_out';
+		$model->is_active = 0;
+		$model->is_disabled = 1;
+		$model->username = '░░░░deleted░░░░░';
+		$model->fullname = '░░░░deleted░░░░░';
+		$model->email = '░░░░deleted░░░░░';
+		
+		$model->save();			
+		Yii::app()->user->logout();
+		//Yii::app()->user->setFlash('success', __('Your profile has been deleted.'));
+		$this->redirect(Yii::app()->homeUrl);
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -281,7 +302,7 @@ class UserController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
-
+/*
 		foreach($model->comments as $comment)
 			$comment->delete();
 		foreach($model->votes as $vote)
@@ -296,6 +317,7 @@ class UserController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+*/
 	}
 
 	/**

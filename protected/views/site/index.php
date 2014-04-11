@@ -97,4 +97,3 @@ function showPage(page_id){
 		echo $this->renderPartial('//introPage/show', array('model'=>$page,'content'=>$content));
 ?>
 </div>
-
