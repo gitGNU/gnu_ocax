@@ -277,16 +277,16 @@ class UserController extends Controller
 	{
 		if(Yii::app()->user->isGuest){
 			$this->redirect(array('site/index'));
-			yii:app()->end();
+			Yii:app()->end();
 		}
 		$model=$this->loadModel(Yii::app()->user->getUserID());
 		
 		$model->scenario = 'opt_out';
 		$model->is_active = 0;
 		$model->is_disabled = 1;
-		$model->username = '░░░░deleted░░░░░';
-		$model->fullname = '░░░░deleted░░░░░';
-		$model->email = '░░░░deleted░░░░░';
+		$model->username = '░░░░░░░░░';
+		$model->fullname = '░░░░░░░░░';
+		$model->email = '░░░░░░░░░';
 		
 		$model->save();			
 		Yii::app()->user->logout();

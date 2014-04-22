@@ -91,7 +91,6 @@ function showBudgetDetails(){
 </script>
 
 <?php
-
 	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().'</div>';
 
 	$modify_link = Null;
@@ -99,11 +98,10 @@ function showBudgetDetails(){
 		$modify_link=CHtml::link('+',array('budgetDescription/modify','budget'=>$model->id),array('style'=>'text-decoration:none'));
 		$modify_link=' <span style="font-size:0.8em;">'.$modify_link.'</span>';
 	}
-
 	echo '<h1>'.$model->getTitle().$modify_link.'</h1>';
 
 	echo '<div>';
-		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;margin-top:-25px;float:right">';
+		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';
 		
 		if(count($model->getAllBudgetsWithCSV_ID()) > 1){
 			$compareYears = '<span id="compareYearsLink" class="link" style="float:right;font-size:1.1em" '.

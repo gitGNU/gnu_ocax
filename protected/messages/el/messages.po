@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-03-17 11:23+0100\n"
+"PO-Revision-Date: 2014-04-22 11:14+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr "Παραλήπτες"
 
 #: protected/models/Email.php:106
 #: protected/models/Reply.php:97
-#: protected/views/budget/view.php:176
+#: protected/views/budget/view.php:174
 #: protected/views/enquiry/_reformulated.php:44
 #: protected/views/enquiry/managed.php:54
 #: protected/controllers/EnquiryController.php:83
@@ -71,30 +71,30 @@ msgid "Body"
 msgstr "Σώμα"
 
 #: protected/models/RegisterForm.php:86
-#: protected/models/User.php:124
+#: protected/models/User.php:125
 #: protected/models/LoginForm.php:58
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
 #: protected/models/RegisterForm.php:87
-#: protected/models/User.php:125
+#: protected/models/User.php:126
 msgid "Full name"
 msgstr "Πλήρες όνομα"
 
 #: protected/models/RegisterForm.php:88
-#: protected/models/User.php:126
+#: protected/models/User.php:127
 #: protected/models/LoginForm.php:59
 msgid "Password"
 msgstr "κωδικός"
 
 #: protected/models/RegisterForm.php:89
-#: protected/models/User.php:128
+#: protected/models/User.php:129
 msgid "Repeat password"
 msgstr "Επανάληψη κωδικού"
 
 #: protected/models/RegisterForm.php:90
-#: protected/models/User.php:129
-#: protected/views/layouts/main.php:125
+#: protected/models/User.php:130
+#: protected/views/layouts/main.php:124
 msgid "Email"
 msgstr "Email"
 
@@ -135,13 +135,13 @@ msgstr "Δημοσίευση"
 #: protected/models/Emailtext.php:113
 #: protected/views/emailtext/admin.php:46
 #: protected/views/enquiry/view.php:192
-#: protected/views/enquiry/index.php:138
+#: protected/views/enquiry/index.php:147
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/newsletter/admin.php:65
 #: protected/views/user/view.php:133
-#: protected/views/user/panel.php:201
-#: protected/views/user/panel.php:238
+#: protected/views/user/panel.php:198
+#: protected/views/user/panel.php:235
 msgid "State"
 msgstr "Κατάσταση"
 
@@ -150,7 +150,7 @@ msgid "Subject"
 msgstr "Θέμα"
 
 #: protected/models/BudgetDescCommon.php:101
-#: protected/models/User.php:130
+#: protected/models/User.php:131
 #: protected/models/BudgetDescLocal.php:87
 #: protected/models/CmsPageContent.php:104
 msgid "Language"
@@ -205,20 +205,20 @@ msgstr ""
 msgid "Weight"
 msgstr "Βάρος"
 
-#: protected/models/User.php:127
+#: protected/models/User.php:128
 msgid "New password"
 msgstr "Νέος κωδικός"
 
-#: protected/models/User.php:131
+#: protected/models/User.php:132
 msgid "Joined"
 msgstr "Εγγραφή"
 
-#: protected/models/User.php:132
+#: protected/models/User.php:133
 #, fuzzy
 msgid "Active"
 msgstr "χρόνος"
 
-#: protected/models/User.php:133
+#: protected/models/User.php:134
 msgid "Is partner"
 msgstr "Εταίρος"
 
@@ -228,8 +228,8 @@ msgstr "Γονέας"
 
 #: protected/models/Budget.php:119
 #: protected/views/budget/_compareYears.php:25
-#: protected/views/budget/_enquiryView.php:89
-#: protected/views/budget/_budgetDetails.php:94
+#: protected/views/budget/_enquiryView.php:88
+#: protected/views/budget/_budgetDetails.php:95
 msgid "Year"
 msgstr "Έτος"
 
@@ -300,7 +300,7 @@ msgid "Width"
 msgstr "Πλάτος"
 
 #: protected/models/Vote.php:90
-#: protected/views/reply/_view.php:30
+#: protected/views/reply/_view.php:29
 msgid "Reply"
 msgstr "Απάντηση"
 
@@ -310,8 +310,8 @@ msgid "User"
 msgstr "Χρήστης"
 
 #: protected/models/Vote.php:92
-#: protected/views/reply/_view.php:36
-#: protected/views/reply/_view.php:40
+#: protected/views/reply/_view.php:47
+#: protected/views/reply/_view.php:51
 msgid "Vote"
 msgstr "Ψήφος"
 
@@ -449,12 +449,12 @@ msgid "Manager"
 msgstr "Διαχείριση ετών"
 
 #: protected/models/Enquiry.php:211
-#: protected/views/budget/view.php:181
+#: protected/views/budget/view.php:179
 #: protected/views/enquiry/view.php:178
-#: protected/views/enquiry/index.php:133
+#: protected/views/enquiry/index.php:142
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/user/panel.php:196
-#: protected/views/user/panel.php:233
+#: protected/views/user/panel.php:193
+#: protected/views/user/panel.php:230
 msgid "Formulated"
 msgstr "Διατυπώθηκε"
 
@@ -463,7 +463,7 @@ msgid "Assigned"
 msgstr "Ανατέθηκε"
 
 #: protected/models/Enquiry.php:213
-#: protected/views/enquiry/view.php:206
+#: protected/views/enquiry/view.php:208
 #: protected/views/enquiry/_detailsForTeam.php:66
 msgid "Submitted"
 msgstr "Υποβλήθηκε"
@@ -476,7 +476,6 @@ msgstr "Αριθμός μητρώου"
 
 #: protected/models/Enquiry.php:215
 #: protected/views/enquiry/submit.php:131
-#: protected/views/enquiry/view.php:214
 msgid "Documentation"
 msgstr "Τεκμηρίωση"
 
@@ -499,13 +498,9 @@ msgstr "μέλος ομάδας"
 msgid "people subscribed to the Enquiry"
 msgstr "πρόσωπα που συνδράμουν την Έρευνα"
 
-#: protected/models/Backup.php:39
+#: protected/models/Backup.php:41
 msgid "Cannot create zip file"
 msgstr "Δεν είναι δυνατή η δημιουργία αρχείου zip"
-
-#: protected/models/Backup.php:46
-msgid "Cannot dump database"
-msgstr "Δεν μπορεί να απορρίψει τη βάση δεδομένων"
 
 #: protected/models/LoginForm.php:57
 msgid "Remember me"
@@ -531,29 +526,29 @@ msgstr "Προϋπολογισμός με εσωτερικό κωδικό"
 msgid "is not defined"
 msgstr "δεν έχει οριστεί"
 
-#: protected/views/budget/view.php:110
-#: protected/views/budget/_enquiryView.php:82
+#: protected/views/budget/view.php:108
+#: protected/views/budget/_enquiryView.php:81
 msgid "Compare years"
 msgstr "Σύγκρινε έτη"
 
-#: protected/views/budget/view.php:112
+#: protected/views/budget/view.php:110
 #, php-format
 msgid "Details for %s"
 msgstr "%s έρευνες έχουν ήδη γίνει για αυτόν τον προϋπολογισμό"
 
-#: protected/views/budget/view.php:139
+#: protected/views/budget/view.php:137
 msgid "No enquiries have been made about this budget yet"
 msgstr "Ακόμα δεν έχουν γίνει έρευνες σχετικά μ’ αυτόν τον προϋπολογισμό"
 
-#: protected/views/budget/view.php:140
+#: protected/views/budget/view.php:138
 msgid "Do you wish to make an enquiry"
 msgstr "Θέλετε να κάνετε μια ερώτηση;"
 
-#: protected/views/budget/view.php:154
+#: protected/views/budget/view.php:152
 msgid "One enquiry has already been made about this budget"
 msgstr "Έχει ήδη γίνει ερώτηση για αυτόν τον προϋπολογισμό"
 
-#: protected/views/budget/view.php:156
+#: protected/views/budget/view.php:154
 #, php-format
 msgid "%s enquiries have already been made about this budget"
 msgstr "%s ερωτήσεις έχουν ήδη γίνει για αυτόν τον προϋπολογισμό"
@@ -567,8 +562,8 @@ msgid "Executed"
 msgstr ""
 
 #: protected/views/budget/_compareYears.php:23
-#: protected/views/budget/_enquiryView.php:86
-#: protected/views/budget/_budgetDetails.php:77
+#: protected/views/budget/_enquiryView.php:85
+#: protected/views/budget/_budgetDetails.php:78
 msgid "of total"
 msgstr "από το σύνολο"
 
@@ -600,9 +595,9 @@ msgid "Budgetary enquiries for"
 msgstr "Έρευνες προϋπολογισμού για"
 
 #: protected/views/budget/index.php:172
-#: protected/views/layouts/main.php:84
+#: protected/views/layouts/main.php:83
 #: protected/views/user/panel.php:66
-#: protected/controllers/BudgetController.php:462
+#: protected/controllers/BudgetController.php:476
 msgid "Budgets"
 msgstr "Προϋπολογισμοί"
 
@@ -662,56 +657,56 @@ msgstr "Διαχείριση ετών"
 msgid "Create Year"
 msgstr "Δημιουργία έτους"
 
-#: protected/views/budget/_enquiryView.php:48
+#: protected/views/budget/_enquiryView.php:47
 #: protected/views/budget/_budgetDetails.php:48
 #: protected/views/user/panel.php:62
 #: protected/controllers/EnquiryController.php:157
 msgid "New enquiry"
 msgstr "Νέα έρευνα"
 
-#: protected/views/budget/_enquiryView.php:53
-#: protected/views/budget/_enquiryView.php:55
-#: protected/views/budget/_enquiryView.php:70
+#: protected/views/budget/_enquiryView.php:52
+#: protected/views/budget/_enquiryView.php:54
+#: protected/views/budget/_enquiryView.php:69
 #: protected/views/budget/_budgetDetails.php:53
 #: protected/views/budget/_budgetDetails.php:55
-#: protected/views/budget/_budgetDetails.php:69
+#: protected/views/budget/_budgetDetails.php:70
 msgid "1 enquiry made"
 msgstr "Μια έρευνα έγινε"
 
-#: protected/views/budget/_enquiryView.php:58
-#: protected/views/budget/_enquiryView.php:60
-#: protected/views/budget/_enquiryView.php:63
-#: protected/views/budget/_enquiryView.php:72
-#: protected/views/budget/_enquiryView.php:74
+#: protected/views/budget/_enquiryView.php:57
+#: protected/views/budget/_enquiryView.php:59
+#: protected/views/budget/_enquiryView.php:62
+#: protected/views/budget/_enquiryView.php:71
+#: protected/views/budget/_enquiryView.php:73
 #: protected/views/budget/_budgetDetails.php:58
 #: protected/views/budget/_budgetDetails.php:60
 #: protected/views/budget/_budgetDetails.php:63
-#: protected/views/budget/_budgetDetails.php:71
-#: protected/views/budget/_budgetDetails.php:73
+#: protected/views/budget/_budgetDetails.php:72
+#: protected/views/budget/_budgetDetails.php:74
 msgid "enquiries made"
 msgstr "Έρευνες έγιναν"
 
-#: protected/views/budget/_enquiryView.php:89
-#: protected/views/budget/_budgetDetails.php:94
+#: protected/views/budget/_enquiryView.php:88
+#: protected/views/budget/_budgetDetails.php:95
 msgid "Year / Code"
 msgstr "Έτος / Κωδικός"
 
-#: protected/views/budget/_enquiryView.php:95
-#: protected/views/budget/_budgetDetails.php:100
+#: protected/views/budget/_enquiryView.php:94
+#: protected/views/budget/_budgetDetails.php:101
 msgid "Euros per person"
 msgstr "Ευρώ ανά άτομο"
 
-#: protected/views/budget/_enquiryView.php:116
-#: protected/views/budget/_enquiryView.php:139
-#: protected/views/budget/_budgetDetails.php:121
-#: protected/views/budget/_budgetDetails.php:144
-#: protected/views/enquiry/index.php:128
-#: protected/views/layouts/main.php:85
+#: protected/views/budget/_enquiryView.php:115
+#: protected/views/budget/_enquiryView.php:138
+#: protected/views/budget/_budgetDetails.php:122
+#: protected/views/budget/_budgetDetails.php:145
+#: protected/views/enquiry/index.php:137
+#: protected/views/layouts/main.php:84
 #: protected/views/user/view.php:127
-#: protected/views/user/panel.php:191
-#: protected/views/user/panel.php:228
+#: protected/views/user/panel.php:188
+#: protected/views/user/panel.php:225
 #: protected/controllers/EnquiryController.php:96
-#: protected/controllers/EnquiryController.php:655
+#: protected/controllers/EnquiryController.php:664
 msgid "Enquiries"
 msgstr "ερωτήσεις"
 
@@ -747,7 +742,7 @@ msgstr "Δημιουργία"
 #: protected/views/enquiry/changeType.php:104
 #: protected/views/introPage/_form.php:159
 #: protected/views/user/updateRoles.php:109
-#: protected/views/user/update.php:122
+#: protected/views/user/update.php:145
 #: protected/views/email/create.php:138
 msgid "Save"
 msgstr "Διάσωση"
@@ -766,7 +761,7 @@ msgid "Restore budgets"
 msgstr "Επαναφορά προϋπολογισμών"
 
 #: protected/views/config/admin.php:25
-#: protected/views/user/panel.php:159
+#: protected/views/user/panel.php:156
 msgid "Global parameters"
 msgstr "Οικουμενικές παράμετροι"
 
@@ -804,19 +799,19 @@ msgid "REGISTER_MSG"
 msgstr "καταγράψτε το μήνυμα"
 
 #: protected/views/site/register.php:93
-#: protected/views/user/update.php:117
+#: protected/views/user/update.php:140
 msgid "MEMBERSHIP_MSG"
 msgstr "μήνυμα μελών"
 
 #: protected/views/site/register.php:95
-#: protected/views/user/update.php:105
+#: protected/views/user/update.php:128
 msgid "Yes, I want to be a member"
 msgstr "Ναι, θέλω να είμαι μέλος"
 
 #: protected/views/site/login.php:6
 #: protected/views/site/login.php:48
 #: protected/views/site/login.php:78
-#: protected/views/layouts/main.php:42
+#: protected/views/layouts/main.php:41
 msgid "Login"
 msgstr "Σύνδεση"
 
@@ -882,7 +877,7 @@ msgstr "Δημοσίευση"
 #: protected/views/comment/_form.php:45
 #: protected/views/enquiry/changeType.php:107
 #: protected/views/enquiry/_form.php:158
-#: protected/views/user/update.php:123
+#: protected/views/user/update.php:146
 #: protected/views/reply/create.php:94
 #: protected/views/email/_contactPetition.php:74
 msgid "Cancel"
@@ -1045,7 +1040,7 @@ msgid "Upload"
 msgstr "Μεταφόρτωση"
 
 #: protected/views/emailtext/admin.php:28
-#: protected/views/user/panel.php:158
+#: protected/views/user/panel.php:155
 msgid "Email text templates"
 msgstr "Πρότυπα κειμένου ηλεκτρονικού ταχυδρομείου"
 
@@ -1114,39 +1109,39 @@ msgstr "από"
 msgid "reformulated"
 msgstr "αναδιαμορφώθηκε"
 
-#: protected/views/enquiry/view.php:250
+#: protected/views/enquiry/view.php:244
 msgid "Keep me informed via email when there are changes"
 msgstr "Να ενημερώνομαι μέσω e-mail όποτε υπάρχουν αλλαγές"
 
-#: protected/views/enquiry/view.php:267
+#: protected/views/enquiry/view.php:261
 msgid "Direct link"
 msgstr "Απευθείας σύνδεση"
 
-#: protected/views/enquiry/view.php:269
+#: protected/views/enquiry/view.php:263
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: protected/views/enquiry/view.php:302
+#: protected/views/enquiry/view.php:296
 msgid "You can"
 msgstr "Μπορείτε να κάνετε"
 
-#: protected/views/enquiry/view.php:303
+#: protected/views/enquiry/view.php:297
 msgid "edit the enquiry"
 msgstr "επεξεργασία της έρευνας"
 
-#: protected/views/enquiry/view.php:303
+#: protected/views/enquiry/view.php:297
 msgid "and even"
 msgstr "ακόμη και"
 
-#: protected/views/enquiry/view.php:304
+#: protected/views/enquiry/view.php:298
 msgid "delete it"
 msgstr "διαγραφή"
 
-#: protected/views/enquiry/view.php:308
+#: protected/views/enquiry/view.php:302
 msgid "Are you sure?"
 msgstr "Είστε σίγουρος/η;"
 
-#: protected/views/enquiry/view.php:309
+#: protected/views/enquiry/view.php:303
 msgid "until it has been accepted by the observatory."
 msgstr "μέχρι να γίνει αποδεκτή από το παρατηρητήριο."
 
@@ -1183,7 +1178,7 @@ msgstr "Emails που έχουν σταλεί"
 
 #: protected/views/enquiry/manage.php:26
 #: protected/views/enquiry/admin.php:34
-#: protected/views/user/panel.php:135
+#: protected/views/user/panel.php:132
 msgid "Manage enquiries"
 msgstr "Διαχείριση έρευνας"
 
@@ -1249,44 +1244,47 @@ msgid "disable %s here on"
 msgstr ""
 
 #: protected/views/enquiry/manage.php:165
-#: protected/views/user/panel.php:300
+#: protected/views/enquiry/teamView.php:68
+#: protected/views/enquiry/create.php:80
+#: protected/views/user/panel.php:297
 msgid "Yes"
 msgstr "Ναι"
 
 #: protected/views/enquiry/manage.php:167
-#: protected/views/user/panel.php:301
+#: protected/views/enquiry/teamView.php:69
+#: protected/views/user/panel.php:298
 msgid "No"
 msgstr "όχι"
 
-#: protected/views/enquiry/index.php:101
+#: protected/views/enquiry/index.php:102
 msgid "Enquiries made to date"
 msgstr "Έρευνες που έγιναν μέχρι σήμερα"
 
-#: protected/views/enquiry/index.php:102
+#: protected/views/enquiry/index.php:103
 msgid "This is a list of enquiries made by citizens like you."
 msgstr "Αυτή είναι μια λίστα ερευνών που έγιναν από πολίτες, όπως εσείς"
 
-#: protected/views/enquiry/index.php:152
+#: protected/views/enquiry/index.php:161
 msgid "Formulate a new enquiry"
 msgstr "Οργανώστε μια νέα έρευνα"
 
-#: protected/views/enquiry/index.php:153
+#: protected/views/enquiry/index.php:162
 msgid "Remember you must first"
 msgstr "Να θυμάστε ότι πρώτα πρέπει να"
 
-#: protected/views/enquiry/index.php:154
+#: protected/views/enquiry/index.php:163
 msgid "login"
 msgstr "συνδεθείτε"
 
-#: protected/views/enquiry/index.php:154
+#: protected/views/enquiry/index.php:163
 msgid "or"
 msgstr "ή"
 
-#: protected/views/enquiry/index.php:155
+#: protected/views/enquiry/index.php:164
 msgid "create an account"
 msgstr "δημιουργήστε λογαριασμό"
 
-#: protected/views/enquiry/index.php:161
+#: protected/views/enquiry/index.php:170
 msgid "What are the different states of an enquiry?"
 msgstr "Ποια είναι τα στάδια μιας έρευνας;"
 
@@ -1349,7 +1347,7 @@ msgid "Add reply"
 msgstr "Προσθήκη απάντησης"
 
 #: protected/views/enquiry/teamView.php:53
-#: protected/controllers/EnquiryController.php:240
+#: protected/controllers/EnquiryController.php:249
 msgid "Reformulate enquiry"
 msgstr "Αναδιαμόρφωση έρευνας"
 
@@ -1378,7 +1376,7 @@ msgid "User email subscriptions"
 msgstr "Εγγραφή μέσω  email"
 
 #: protected/views/enquiry/managed.php:34
-#: protected/views/user/panel.php:113
+#: protected/views/user/panel.php:110
 msgid "Entrusted enquiries"
 msgstr "Έρευνες που έχουν ανατεθεί"
 
@@ -1440,14 +1438,15 @@ msgid "Before participating, please confirm your email address"
 msgstr "Προτού συμμετάσχετε, παρακαλούμε επιβεβαιώστε τη διεύθυνση ηλεκτρονικού ταχυδρομείου σας"
 
 #: protected/views/enquiry/_view.php:140
+#: protected/views/enquiry/_view.php:306
 msgid "Are you sure you want to delete it?"
 msgstr "Σίγουρα θέλετε να κάνετε διαγραφή;"
 
-#: protected/views/enquiry/_view.php:180
+#: protected/views/enquiry/_view.php:175
 msgid "You have already voted favourably"
 msgstr "Έχετε ήδη ψηφίσει υπέρ"
 
-#: protected/views/enquiry/_view.php:182
+#: protected/views/enquiry/_view.php:177
 msgid "You have already voted unfavourably"
 msgstr "Έχετε ήδη ψηφίσει κατά"
 
@@ -1473,6 +1472,10 @@ msgstr "Εάν επιθυμείτε να διαμορφώσετε μια έρε�
 msgid "The original enquiry"
 msgstr "Αρχική έρευνα"
 
+#: protected/views/enquiry/create.php:81
+msgid "No, take me to"
+msgstr ""
+
 #: protected/views/enquiry/changeType.php:51
 msgid "Select a budget from the grid below"
 msgstr "Επιλέξτε έναν προϋπολογισμό από τον πίνακα που ακολουθεί"
@@ -1486,7 +1489,7 @@ msgid "New reformulated enquiry"
 msgstr "Νέα αναδιατυπωμένη έρευνα"
 
 #: protected/views/enquiry/_form.php:77
-#: protected/controllers/EnquiryController.php:307
+#: protected/controllers/EnquiryController.php:316
 msgid "Modify enquiry"
 msgstr "Τροποποίηση έρευνας"
 
@@ -1566,7 +1569,7 @@ msgid "Translations"
 msgstr "Μεταφράσεις"
 
 #: protected/views/layouts/column2.php:19
-#: protected/views/layouts/main.php:100
+#: protected/views/layouts/main.php:99
 msgid "My page"
 msgstr "Η σελίδα μου"
 
@@ -1578,31 +1581,31 @@ msgstr "Βοήθεια για το πλαίσιο"
 msgid "Options"
 msgstr "Επιλογές"
 
-#: protected/views/layouts/main.php:45
+#: protected/views/layouts/main.php:44
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
-#: protected/views/layouts/main.php:53
+#: protected/views/layouts/main.php:52
 #: protected/views/newsletter/index.php:26
-#: protected/views/user/panel.php:152
+#: protected/views/user/panel.php:149
 #: protected/controllers/NewsletterController.php:85
 msgid "Newsletters"
 msgstr "ενημερωτικά δελτία"
 
-#: protected/views/layouts/main.php:60
+#: protected/views/layouts/main.php:59
 #: protected/views/archive/index.php:83
 msgid "Archive"
 msgstr ""
 
-#: protected/views/layouts/main.php:67
+#: protected/views/layouts/main.php:66
 msgid "Home"
 msgstr "Αρχική"
 
-#: protected/views/layouts/main.php:121
+#: protected/views/layouts/main.php:120
 msgid "Contact information"
 msgstr "Στοιχεία επικοινωνίας"
 
-#: protected/views/layouts/main.php:127
+#: protected/views/layouts/main.php:126
 msgid "Telephone"
 msgstr "Τηλέφωνο"
 
@@ -1785,84 +1788,84 @@ msgstr "Διαμορφώστε το email σας"
 msgid "Change your password"
 msgstr "Αλλαγή κωδικού"
 
-#: protected/views/user/panel.php:114
+#: protected/views/user/panel.php:111
 #: protected/views/user/updateRoles.php:79
 #, fuzzy
 msgid "Manage the enquiries you are responsable for"
 msgstr "Διαχείριση ερωτημάτων για τα οποία είστε υπεύθυνοι"
 
-#: protected/views/user/panel.php:121
+#: protected/views/user/panel.php:118
 msgid "CMS editor options"
 msgstr "επιλογές επεξεργαστή CMS"
 
-#: protected/views/user/panel.php:123
+#: protected/views/user/panel.php:120
 msgid "Introduction pages"
 msgstr "Εισαγωγικές σελίδες"
 
-#: protected/views/user/panel.php:124
+#: protected/views/user/panel.php:121
 msgid "Site pages"
 msgstr "Σελίδες του ιστότοπου"
 
-#: protected/views/user/panel.php:127
+#: protected/views/user/panel.php:124
 msgid "Wallpaper"
 msgstr ""
 
-#: protected/views/user/panel.php:136
+#: protected/views/user/panel.php:133
 #: protected/views/user/updateRoles.php:95
 msgid "Assign enquiries to team members and check status"
 msgstr "Ανάθεση ερευνών σε μέλη της ομάδας, και έλεγχος κατάστασης"
 
-#: protected/views/user/panel.php:143
+#: protected/views/user/panel.php:140
 msgid "Administator's options"
 msgstr "Επιλογές διαχειριστή"
 
-#: protected/views/user/panel.php:146
+#: protected/views/user/panel.php:143
 msgid "New version available"
 msgstr "Νέα διαθέσιμη έκδοση"
 
-#: protected/views/user/panel.php:146
+#: protected/views/user/panel.php:143
 msgid "Upgrade now"
 msgstr "Αναβάθμιση τώρα"
 
-#: protected/views/user/panel.php:151
+#: protected/views/user/panel.php:148
 msgid "Years and budgets"
 msgstr "Έτη και προϋπολογισμοί"
 
-#: protected/views/user/panel.php:153
+#: protected/views/user/panel.php:150
 msgid "Zip file"
 msgstr "αρχείο Zip"
 
-#: protected/views/user/panel.php:154
+#: protected/views/user/panel.php:151
 msgid "Budget descriptions"
 msgstr "Περιγραφές προϋπολογισμών"
 
-#: protected/views/user/panel.php:157
+#: protected/views/user/panel.php:154
 #: protected/views/user/admin.php:37
 msgid "Users and roles"
 msgstr "Χρήστες και ρόλοι"
 
-#: protected/views/user/panel.php:160
+#: protected/views/user/panel.php:157
 msgid "Backup"
 msgstr "Backup"
 
-#: protected/views/user/panel.php:178
+#: protected/views/user/panel.php:175
 msgid "My enquiries"
 msgstr "Τα ερωτήματά μου"
 
-#: protected/views/user/panel.php:215
+#: protected/views/user/panel.php:212
 #, fuzzy
 msgid "I am subscribed to these enquirytions"
 msgstr "Είμαι συνδρομητής σε αυτές τις έρευνες"
 
-#: protected/views/user/panel.php:216
+#: protected/views/user/panel.php:213
 msgid "You will be sent an email when these enquiries are updated"
 msgstr "Θα ειδοποιηθείτε με email όταν ενημερωθούν αυτές οι έρευνες"
 
-#: protected/views/user/panel.php:250
+#: protected/views/user/panel.php:247
 msgid "Enquiries of your interest will be displayed here"
 msgstr "Οι έρευνες που σας ενδιαφέρουν θα εμφανίζονται εδώ"
 
-#: protected/views/user/panel.php:298
+#: protected/views/user/panel.php:295
 msgid "Do you want to block"
 msgstr "Θέλετε να μπλοκάρετε"
 
@@ -1878,27 +1881,37 @@ msgstr "Διαχείριση χρηστών"
 msgid "Change roles"
 msgstr "Αλλαγή ρόλων"
 
-#: protected/views/user/update.php:44
+#: protected/views/user/update.php:29
+#, fuzzy
+msgid "Are you sure you want to delete your account?"
+msgstr "Σίγουρα θέλετε να κάνετε διαγραφή;"
+
+#: protected/views/user/update.php:63
 msgid "Change your user information"
 msgstr "Αλλαγή δεδομένων χρήστη"
 
-#: protected/views/user/update.php:56
+#: protected/views/user/update.php:64
+#, fuzzy
+msgid "Delete my user account"
+msgstr "Διαγραφή χρήστη"
+
+#: protected/views/user/update.php:79
 msgid "Your information"
 msgstr "Τα στοιχεία σας"
 
-#: protected/views/user/update.php:75
+#: protected/views/user/update.php:98
 msgid "Change password"
 msgstr "Αλλαγή κωδικού"
 
-#: protected/views/user/update.php:92
+#: protected/views/user/update.php:115
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: protected/views/user/update.php:97
+#: protected/views/user/update.php:120
 msgid "Your preferred language"
 msgstr "προτιμώμενη γλώσσα"
 
-#: protected/views/user/update.php:106
+#: protected/views/user/update.php:129
 msgid "What does this mean?"
 msgstr "Τι σημαίνει αυτό;"
 
@@ -1926,13 +1939,9 @@ msgstr "Δεν ορίστηκε περιγραφή"
 msgid "A description of this file"
 msgstr "Δεν ορίστηκε περιγραφή"
 
-#: protected/views/reply/_view.php:52
+#: protected/views/reply/_view.php:57
 msgid "Add attachment"
 msgstr "Προσθήκη επισύναψης"
-
-#: protected/views/reply/_view.php:64
-msgid "Attachments"
-msgstr "Συνημμένα"
 
 #: protected/views/reply/create.php:47
 msgid "Date the Administration replied"
@@ -2135,37 +2144,47 @@ msgstr "Παρακαλούμε να αλλάξετε τον κωδικό πρό�
 msgid "File uploaded failed"
 msgstr "Εμφάνιση των μεταφορτωμένων αρχείων"
 
-#: protected/controllers/EnquiryController.php:221
+#: protected/controllers/EnquiryController.php:168
+#, php-format
+msgid "This budget is from the year %s."
+msgstr ""
+
+#: protected/controllers/EnquiryController.php:168
+#, fuzzy
+msgid "Do you want to continue?"
+msgstr "Θέλετε να μπλοκάρετε"
+
+#: protected/controllers/EnquiryController.php:230
 msgid "We have sent you an email"
 msgstr "Σας έχουμε στείλει ένα email"
 
-#: protected/controllers/EnquiryController.php:225
+#: protected/controllers/EnquiryController.php:234
 msgid "Your enquiry has been registered correctly"
 msgstr "Το στοιχεία σας έχουν καταχωρηθεί σωστά"
 
-#: protected/controllers/EnquiryController.php:290
+#: protected/controllers/EnquiryController.php:299
 msgid "New reformulated enquiry created OK"
 msgstr "Η έρευνα αναδιατυπώθηκε σωστά"
 
-#: protected/controllers/EnquiryController.php:567
-#: protected/controllers/EnquiryController.php:578
+#: protected/controllers/EnquiryController.php:576
+#: protected/controllers/EnquiryController.php:587
 msgid "You must assign a team member"
 msgstr "Θα πρέπει να ορίσετε ένα μέλος της ομάδας"
 
-#: protected/controllers/EnquiryController.php:594
+#: protected/controllers/EnquiryController.php:603
 msgid "New team member assigned"
 msgstr "Ορίστηκε νέο μέλος της ομάδας"
 
-#: protected/controllers/EnquiryController.php:678
-#: protected/controllers/EnquiryController.php:700
+#: protected/controllers/EnquiryController.php:687
+#: protected/controllers/EnquiryController.php:709
 msgid "Enquiry has been deleted"
 msgstr "Η έρευνα έχει διαγραφεί"
 
-#: protected/controllers/BudgetController.php:447
+#: protected/controllers/BudgetController.php:461
 msgid "Year deleted"
 msgstr "Έτος διαγραφής"
 
-#: protected/controllers/BudgetController.php:509
+#: protected/controllers/BudgetController.php:523
 msgid "Database restored correctly"
 msgstr "Η βάση δεδομένων αποκαταστάθηκε σωστά"
 
