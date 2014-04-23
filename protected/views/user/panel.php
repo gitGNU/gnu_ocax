@@ -97,7 +97,7 @@ function addPanelSeparator(){
 		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">mailing list</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="float:right;font-size: 16pt;">';
-		echo '<a href="http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
+		echo '<a href="http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
 		echo '</div>';
 
 		$panel_separator_added=1;

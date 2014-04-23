@@ -5,9 +5,11 @@ Added crossdomain ajax access to piegraphs http://ocax.net/embedded-graph-exampl
 Added #id count to comments.
 Added RSS feed to newsletter/index and enquiry/index.
 Added a menu of featured budgets to budget/index.
-New config parameters; 'timeZone', 'SMTP Method'
-Added alternative mysqldump method when mysqldump is not available.
+New config/main.php parameter 'timeZone'
+New global param 'SMTP Method' (phpmailer smtp or localhost).
+Global param 'databaseDumpMethod' alternative mysqldump method when mysqldump is not available.
 Now possible to change the name of the /app directory if needed.
+User can now delete user account.
 Lots of other smaller changes and fixes.
 Please read UPGRADE
 

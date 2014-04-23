@@ -232,11 +232,12 @@ class SiteController extends Controller
 		if($code)
 		{
 			$model = User::model()->findByAttributes(array('activationcode'=>$code));
-			if($model){
+			if($model && !$model->is_disabled){
 				$model->is_active=1;
-				$model->save();
-				Yii::app()->user->setFlash('success',__('Your account is active'));
-			}
+				if($model->save())
+					Yii::app()->user->setFlash('success',__('Your account is active'));
+			}else
+				$this->redirect(array('/site/index'));
 		}
 		if(!Yii::app()->user->isGuest)
 			$this->redirect(array('/user/panel'));

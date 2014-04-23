@@ -93,7 +93,7 @@ function getOCAXVersion(){
 }
 
 function getInlineHelpURL($path){
-	return 'http://ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
+	return 'http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
 }
 
 function getMySqlParams()
