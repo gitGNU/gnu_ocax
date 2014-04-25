@@ -353,7 +353,8 @@ class ImportCSV extends CFormModel
 						'|'.$b->label.'|'.$b->concept.PHP_EOL;
 		
 		ksort($csv);
-		$tmp_fn = '/tmp/csv-' . mt_rand(10000,99999);
+		$tmp_fn = tempnam(sys_get_temp_dir(), 'csv-');
+		//$tmp_fn = '/tmp/csv-' . mt_rand(10000,99999);
 		$fh = fopen($tmp_fn, 'w');
 		fwrite($fh, $this->getHeader());
 		foreach($csv as $line)

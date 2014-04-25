@@ -41,7 +41,8 @@ foreach($featured as $budget){
 </div>
 
 <script>
-$(function() {
+//$(function() {
+$(window).bind("load", function() {
 	<?php 
 		foreach($featured as $budget){	// Yii::app()->getBaseUrl(true)
 			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",	
