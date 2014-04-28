@@ -261,7 +261,8 @@ class Budget extends CActiveRecord
 		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
 			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
 
-		if($error = Backup::dumpDatabase($file->getURI(), 'budget')){
+		$backup = new Backup();
+		if($error = $backup->dumpDatabase($file->getURI(), 'budget')){
 			if(file_exists($file->getURI()))
 				unlink($file->getURI());
 			echo $error;

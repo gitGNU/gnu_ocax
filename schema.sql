@@ -315,11 +315,11 @@ INSERT INTO config(parameter, value, required, description) VALUES ('observatory
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
-INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '1', 'SMTP Server');
-INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '1', 'SMTP Password');
-INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '1', 'SMTP Port');
+INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '0', 'SMTP Server');
+INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '0', 'SMTP Password');
+INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '0', 'SMTP Port');
 INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
-INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '1', 'SMTP Username');
+INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '0', 'SMTP Username');
 INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
