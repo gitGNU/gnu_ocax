@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -30,16 +30,16 @@
 	'method'=>'get',
 )); ?>
 
-<div style="float:left;width:33%;">
+<div style="float:left;width:33%;margin-left:-20px;">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>18)); ?>
+		<?php echo $form->textField($model,'username',array('size'=>14)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>18,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'title',array('size'=>14,'maxlength'=>255)); ?>
 	</div>
 
 </div>
@@ -62,7 +62,7 @@
 	</div>
 
 </div>
-<div style="float:left;width:35%">
+<div style="float:left;width:38%">
 
 	<div class="row">
 		<?php echo $form->label($model,'type'); ?>
@@ -76,10 +76,10 @@
 </div>
 <div style="clear:both"></div>
 
-<div style="float:left;width:33%">
+<div style="float:left;width:33%;margin-left:-20px;">
 	<div class="row">
 		<?php echo $form->label($model,'body'); ?>
-		<?php echo $form->textField($model,'body',array('size'=>18,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'body',array('size'=>14,'maxlength'=>255)); ?>
 	</div>
 </div>
 <div style="float:left;width:60%">
