@@ -29,6 +29,7 @@ $criteria = new CDbCriteria;
 $criteria->condition = 'year = '.$year.' AND parent is NULL';
 $root_budget = Budget::model()->find($criteria);
 
+$showFeaturedMenu=0;
 if($root_budget){
 	if(!Yii::app()->user->isAdmin() && !$model->isPublished())
 		$featured = array();
@@ -39,7 +40,6 @@ if($root_budget){
 		$criteria->order = 'csv_id ASC';
 		$featured=$model->findAll($criteria);
 	}
-	$showFeaturedMenu=0;
 	if(count($featured) > 2)
 		$showFeaturedMenu=1;
 }
