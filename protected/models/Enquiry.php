@@ -74,7 +74,7 @@ class Enquiry extends CActiveRecord
 	public function getHumanAddressedTo($address=Null)
 	{
 		$humanAddressValues=array(
-				0=>Config::model()->findByPk('councilName')->value,
+				0=>Config::model()->findByPk('administrationName')->value,
 				1=>__('The observatory'),
 		);
 

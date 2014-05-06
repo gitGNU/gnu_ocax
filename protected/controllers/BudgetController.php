@@ -473,7 +473,7 @@ class BudgetController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('councilName')->value;
+		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('administrationName')->value;
 		$model = new Budget('publicSearch');
 
 		$model->unsetAttributes();  // clear any default values

@@ -63,6 +63,8 @@ class ApiController extends Controller
 				);
 				Yii::app()->end();
 		}
+
+		header("Content-type: text/javascript; charset: UTF-8");
 		echo str_replace('$baseURL', Yii::app()->getBaseUrl(true), file_get_contents($fileName));
 	}
 	
@@ -89,8 +91,9 @@ class ApiController extends Controller
 
 			case 'geoLocation':
 				$result = array(
-							'latitude'=>Config::model()->findByPk('geoLatitude')->value,
-							'longitude'=>Config::model()->findByPk('geoLongitude')->value,
+							'name'=>Config::model()->findByPk('administrationName')->value,
+							'latitude'=>Config::model()->findByPk('administrationLatitude')->value,
+							'longitude'=>Config::model()->findByPk('administrationLongitude')->value,
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();

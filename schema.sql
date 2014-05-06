@@ -302,13 +302,13 @@ CREATE TABLE IF NOT EXISTS config (
   description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO config(parameter, value, required, description) VALUES ('councilName', 'Ayuntamiento de Espanistan', '1', 'Name of the council');
+INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
+INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
+INSERT INTO config(parameter, value, required, description) VALUES ('administrationName', 'Ayuntamiento de Espanistan', '1', 'Name of the administration');
 INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
 INSERT INTO config(parameter, value, required, description) VALUES ('databaseDumpMethod', 'native', '1', 'Method for database backups: native or alternative');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
-INSERT INTO config(parameter, value, required, description) VALUES ('geoLongitude', '', '0', "Observatory\'s WGS84 longitude on earth");
-INSERT INTO config(parameter, value, required, description) VALUES ('geoLatitude', '', '0', "Observatory\'s WGS84 latitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca,en', '1', 'Available languages on this site');
 INSERT INTO config(parameter, value, required, description) VALUES ('membership', '1', '1', 'Does your Observatory encourage membership? (0 or 1)');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');

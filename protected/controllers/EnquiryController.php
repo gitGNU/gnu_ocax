@@ -93,7 +93,7 @@ class EnquiryController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('councilName')->value;
+		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('administrationName')->value;
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
 		$model->addressed_to = Null;
