@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -86,7 +86,15 @@ class ApiController extends Controller
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
-			
+
+			case 'geoLocation':
+				$result = array(
+							'latitude'=>Config::model()->findByPk('geoLatitude')->value,
+							'longitude'=>Config::model()->findByPk('geoLongitude')->value,
+							);
+				$this->_sendResponse(200, CJSON::encode($result));
+				Yii::app()->end();
+							
 			case 'status':
 				$result = array();
 				$years = Budget::model()->getPublicYears();

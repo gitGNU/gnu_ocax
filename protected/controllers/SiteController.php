@@ -299,7 +299,8 @@ class SiteController extends Controller
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
 			$this->changeLanguage($_GET['lang']);
 		}
-		Yii::app()->request->redirect(Yii::app()->request->getUrlReferrer());
+		$reffer = Yii::app()->request->getUrlReferrer();
+		Yii::app()->request->redirect($reffer);
 	}
 
 	public function actionRequestNewPassword()

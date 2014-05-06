@@ -33,7 +33,6 @@
 			echo '</span></li>';
 		}
 	?>
-    
     <li>
 		<?php
 			if(Yii::app()->user->isGuest){
@@ -45,28 +44,24 @@
 			}
 		?>
 	</li>
-
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/newsletter'));
 		echo CHtml::link(__('Newsletters'), array('/newsletter'));
 	?>
 	</li>
-
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
 		echo CHtml::link(__('Archive'), array('/archive'));
 	?>
 	</li>
-
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
 	?>
 	</li>
-
 </ul> 
 </div>   
 
@@ -137,12 +132,12 @@
 		}
 	?>  
 	</div>
-	
 	<div style="width: 250px; float:right; margin:10px 0 10px 0;">
 		<div style="float: left;">
 			AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
-			<a href="http://ocax.net">http://ocax.net</a><br />
-			<a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
+			<?php $lang=Yii::app()->language; ?>
+			<a href="http://ocax.net/?<?php echo $lang;?>">http://ocax.net</a><br />
+			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a><br/>
 		</div>
 		<div style="float:right;margin-left:20px">
 			<a href="http://auditoriaciudadana.net">
