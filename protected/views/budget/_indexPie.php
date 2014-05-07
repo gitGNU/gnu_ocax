@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -40,7 +40,6 @@ foreach($featured as $budget){
 </div>
 
 <script>
-//$(function() {
 $(window).bind("load", function() {
 	<?php 
 		foreach($featured as $budget){	// Yii::app()->getBaseUrl(true)

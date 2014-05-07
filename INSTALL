@@ -28,7 +28,7 @@ $ mysql -uuser_name -p db_name < schema.sql
 
 * If your OCM is in Spain, import data common to all Spanish OCMs
 $ wget http://ocax.net/download/budgetdescriptions/spain_budget_description.sql
-$ mysql -uuser_name -p db_name < spain_budget_descriptions.sql
+$ mysql -uuser_name -p db_name < spain_budget_description.sql
 
 2. Create config file
 $ cp protected/config/main.example.php protected/config/main.php
@@ -42,13 +42,9 @@ and modify mysql connection parameters in protected/config/main.php
 If you cannot edit the apache server config, you'll need a .htaccess file
 $ cp app/htaccess app/.htaccess
 
-5. Other software
-Your web server needs to create the Database download zip file.
-# apt-get install zip
-
 That's it. You should be able to browse to your site now.
 
-6. See Post Installation instructions here http://wiki.ocax.net/en:install
+5. See Post Installation instructions here http://wiki.ocax.net/en:install
 
 Help
 

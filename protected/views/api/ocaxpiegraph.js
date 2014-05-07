@@ -1,5 +1,5 @@
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -161,10 +161,11 @@ function getPie(budget_id, clicked_el, slideIn ){
 	}
 	//source = getSource(clicked_el);
 	loading_gif = $(clicked_el).parents('.ocaxjqplot').find('.loader_gif');
+	$('.loader_gif').hide(); $(loading_gif).show();
 	root_budget = getRootBudget(clicked_el);
 	
 	$.jqplot.config.enablePlugins = true;
-	ocaxAPIGetPieData(	budget_id, root_budget,
+	ocaxAPIGetPieData(	budget_id, root_budget, clicked_el,
 						function(data){
 							createGraph(clicked_el, budget_id, data);
 							if(slideIn)
@@ -174,7 +175,7 @@ function getPie(budget_id, clicked_el, slideIn ){
 	return;
 }
 
-function ocaxAPIGetPieData(budget_id, root_budget, cfunction){
+function ocaxAPIGetPieData(budget_id, root_budget, clicked_el, cfunction){
 	$.ajax({
 		url: '$baseURL/budget/getPieData/',
 		type: 'GET',
@@ -182,8 +183,8 @@ function ocaxAPIGetPieData(budget_id, root_budget, cfunction){
 		jsonp: 'callback',
 		data: { 'id': budget_id, 'rootBudget_id': root_budget },
 		async: false,
-		beforeSend: function(){ $('.loader_gif').hide(); $(loading_gif).show(); },
-		complete: function() { $('.loader_gif').hide(); },
+		beforeSend: function(){ /* $('.loader_gif').hide(); $(loading_gif).show();*/ },
+		complete: function() { /*$('.loader_gif').hide();*/ },
 		success: function(data){
 			cfunction(data);
 		},
@@ -278,12 +279,12 @@ function slideInChild(clicked_el, child_id){
 	
 	group=getGraphGroup(clicked_el);
 
-	if(child_budget_graph_container.attr('is_parent') == 0){		
+	if(child_budget_graph_container.attr('is_parent') == 0){	
 		budget_details=child_budget_graph_container.children('.budget_details');
 		budget_details.hide();
 		group.children('.graph_container').hide();
-		child_budget_graph_container.show();	
-		budget_details.fadeIn(700);
+		child_budget_graph_container.show();
+		budget_details.fadeIn(200, function(){ $('.loader_gif').hide(); } );
 		child_budget_graph_container.find('.legend_item[budget_id='+child_id+']').css('font-weight','bold');
 		addColorKeyToBudgetDetails(child_budget_graph_container, child_id);	
 		return;
@@ -293,6 +294,7 @@ function slideInChild(clicked_el, child_id){
 													600,
 													function(){
 														child_budget_graph_container.fadeIn(200);
+														$('.loader_gif').hide();
 													;}
 					);
 }
