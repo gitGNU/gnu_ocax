@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -46,6 +46,7 @@ if($root_budget){
 
 Yii::app()->clientScript->registerScript('search', "
   $('#budget-form').submit(function(){
+  $('#search_loader_gif').show();
   $.fn.yiiListView.update('search-results', {
   data: $(this).serialize()
   });
@@ -140,6 +141,7 @@ function highlightResult(){
 	}
 }
 function afterSearch(){
+	$('#search_loader_gif').hide();
 	if($.fn.yiiListView.getKey('search-results', 0)){
 		$('#the_graphs').hide();
 		$('#featured_menu_icon').hide();
@@ -189,6 +191,7 @@ function afterSearch(){
 		<?php echo $form->textField($model,'code',array('size'=>5,'maxlength'=>15)); ?>
 		</span>
 		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
+		<img id="search_loader_gif" style="vertical-align:middle;display:none" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -237,7 +240,7 @@ if(count($years) > 1){
 		echo '<div id="change_to_pie" onclick="window.location=\''.$change.'=pie\'"></div>';
 		echo '<div id="change_to_bar" onclick="window.location=\''.$change.'=bar\'"></div>';
 		if($showFeaturedMenu){
-			echo '<img style="position:absolute;margin-left:95px;cursor:pointer" id="featured_menu_icon" src="'.
+			echo '<img id="featured_menu_icon" src="'.
 				Yii::app()->theme->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
@@ -249,7 +252,8 @@ if(count($years) > 1){
 		if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 			echo '<div class="budgetOptions" style="float:left; margin-bottom:-20px;">';
 			echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
-			echo '<p class="link" style="margin-top:15px;font-weight:bold;" onclick="window.location=\''.$zip->webPath.'\'">'.__('Download data').'</p>';
+			echo '<p class="link" style="margin-top:15px;font-weight:bold;" onclick="window.location=\''.
+				 $zip->webPath.'\'">'.__('Download data').'</p>';
 			echo '</div>';
 		}
 	?>
@@ -269,6 +273,7 @@ if(count($years) > 1){
 		'ajaxUpdate' => true,
 		'dataProvider'=> $model->publicSearch(),
 		'itemView'=>'_searchResults',
+		'loadingCssClass'=>'',
 		'enableHistory' => true,
 		'afterAjaxUpdate' => 'js:function(){ afterSearch(); }',
 	));

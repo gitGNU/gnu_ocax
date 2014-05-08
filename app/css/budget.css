@@ -158,6 +158,14 @@
 	cursor:pointer;
 }
 
+#featured_menu_icon
+{
+	position:absolute;
+	top:12px;
+	right:-25px;
+	cursor:pointer
+}
+
 #featured_menu
 {
 	display:none;
