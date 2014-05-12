@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -22,13 +22,20 @@
 
 
 // get wallpaper photo
-$files=array();
-$images=array();
-$dir = Yii::app()->theme->basePath.'/wallpaper/';
-$files = glob($dir.'*.jpg',GLOB_BRACE);
+if($wallpapers = File::model()->findAllByAttributes(array('model'=>'wallpaper'))){
+	$images=array();
+	foreach($wallpapers as $wallpaper){
+		$images[]=$wallpaper->getWebPath();
+	}
+}else{
+	$files=array();
+	$images=array();
+	$dir = Yii::app()->theme->basePath.'/wallpaper/';
+	$files = glob($dir.'*.jpg',GLOB_BRACE);
 
-foreach($files as $image)
-	$images[] = basename($image);
+	foreach($files as $image)
+		$images[] = Yii::app()->theme->baseUrl.'/wallpaper/'.basename($image);
+}
 shuffle($images);
 
 ?>
@@ -53,7 +60,7 @@ shuffle($images);
 	margin-bottom:-10px;
 	height:728px;
 	width:980px;
-	background: url("<?php echo Yii::app()->theme->baseUrl;?>/wallpaper/<?php echo $images[0];?>") 0 0 no-repeat;
+	background: url("<?php echo $images[0];?>") 0 0 no-repeat;
 }
 </style>
 

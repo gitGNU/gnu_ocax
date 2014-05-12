@@ -106,8 +106,8 @@ $attributes=array(
 
 if(!isset($hideConcept)){
 	$label=$model->getLabel();
-	if(isset($showLinks))
-		$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->getBaseUrl(true).'/images/info_small.png" />';
+	//if(isset($showLinks))
+	//	$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->getBaseUrl(true).'/images/info_small.png" />';
 	$row =	array(
 				array(
 					'label'=>$label,
