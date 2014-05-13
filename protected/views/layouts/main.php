@@ -122,14 +122,16 @@
 
 		$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
 		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
+		echo '<div style="margin-top:10px">';
 		if($fbURL || $twURL){
-			echo '<div style="margin-top:10px">';
+			
 			if($fbURL)
 				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->baseUrl.'/images/facebook.png"/></a> ';
 			if($twURL)
-				echo '<a href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
-			echo '</div>';
+				echo '<a style="margin-right:10px" href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
+			echo '<a href="site/feed"><img src="'.Yii::app()->baseUrl.'/images/rss.png"/></a> ';
 		}
+		echo '</div>';
 	?>  
 	</div>
 	<div style="width: 250px; float:right; margin:10px 0 10px 0;">

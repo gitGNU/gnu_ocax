@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -369,6 +369,53 @@ class SiteController extends Controller
 			}
 		}
 		$this->redirect(array('/site/index'));
+	}
+
+
+	public function actionFeed()
+	{
+		Yii::import('application.vendors.*');
+		require_once 'Zend/Loader/Autoloader.php';
+		spl_autoload_unregister(array('YiiBase','autoload')); 
+		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$entries=array();
+
+		$enquiries = Enquiry::model()->getEnquiriesForRSS();
+		// convert to the format needed by Zend_Feed
+		foreach($enquiries as $enquiry)
+		{
+			$date = new DateTime($enquiry->created);
+			$entries[]=array(
+				'title'=>$enquiry->title,
+				'link'=>Yii::app()->createAbsoluteUrl('enquiry/view',array('id'=>$enquiry->id)),
+				'description'=>$enquiry->body,
+				'lastUpdate'=>$date->getTimestamp(),
+			);
+		}
+		$newsletters = Newsletter::model()->getNewslettersForRSS();
+		foreach($newsletters as $newsletter)
+		{
+			$date = new DateTime($newsletter->published);
+			$entries[]=array(
+				'title'=>$newsletter->subject,
+				'link'=>Yii::app()->createAbsoluteUrl('newsletter/view',array('id'=>$newsletter->id)),
+				'description'=>$newsletter->body,
+				'lastUpdate'=>$date->getTimestamp(),
+			);
+		}
+		usort($entries, function($a, $b) {
+    		return $b['lastUpdate'] - $a['lastUpdate'];
+		});
+		// generate and render RSS feed
+		$feed=Zend_Feed::importArray(array(
+			'title'   => Config::model()->findByPk('siglas')->value.' '.__('activity'),
+			'link'    => Yii::app()->createUrl('site'),
+			'charset' => 'UTF-8',
+			'entries' => $entries,      
+			), 'rss');
+		$feed->send();  
 	}
 
 	/**
