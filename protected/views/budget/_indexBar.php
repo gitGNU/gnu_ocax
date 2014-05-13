@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -49,7 +49,8 @@ $(function() {
 		showBudget($(this).attr('budget_id'), $(this).find('span').eq(0));
 	});
 	
-	theme_color = rgb2hex($('.actual_provision_bar').first().css("background-color"));
+	rgb_theme_color = $('.actual_provision_bar').first().css("background-color");
+	theme_color = rgb2hex(rgb_theme_color);
 	$('.swatch_actual').css("background-color",theme_color);
 	if($('.executed_bar').length != 0){
 		lightened_color = lightenDarkenColor(theme_color,-15);
@@ -57,6 +58,10 @@ $(function() {
 		$('.swatch_executed').css("background-color",lightened_color);
 	}else
 		$('.key_executed').hide();
+
+	//bar_font_color = getFontColor(rgb_theme_color);
+	//$('.graph_bar_percent').css('color', bar_font_color);
+
 });
 
 function colorExecutedBars(){

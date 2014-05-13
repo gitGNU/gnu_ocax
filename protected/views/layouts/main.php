@@ -124,13 +124,12 @@
 		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
 		echo '<div style="margin-top:10px">';
 		if($fbURL || $twURL){
-			
 			if($fbURL)
 				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->baseUrl.'/images/facebook.png"/></a> ';
 			if($twURL)
 				echo '<a style="margin-right:10px" href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
-			echo '<a href="site/feed"><img src="'.Yii::app()->baseUrl.'/images/rss.png"/></a> ';
 		}
+		echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/rss.png"/>', array('/site/feed'));
 		echo '</div>';
 	?>  
 	</div>
