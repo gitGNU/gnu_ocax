@@ -65,6 +65,11 @@ class ApiController extends Controller
 		}
 
 		header("Content-type: text/javascript; charset: UTF-8");
+		header("Pragma: cache");
+		header("Cache-Control: must-revalidate");
+		$offset = strtotime('+42 hours'); // same as time() + 42 * 60 * 60
+		$ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", $offset) . " GMT";
+		header($ExpStr);
 		echo str_replace('$baseURL', Yii::app()->getBaseUrl(true), file_get_contents($fileName));
 	}
 	
