@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {font-weight:normal}
 h1 {
 	line-height: 90%;
 	font-size: 22pt;
-	letter-spacing:-0.5pt;	
+	letter-spacing:-0.5pt;
 	font-weight:200;
 	margin-bottom:15px;
 }
@@ -389,7 +389,7 @@ div.search-form
 	font-size: 22pt;
 	letter-spacing:-0.5pt;
 	font-weight:200;
-} 
+}
 
 .horizontalRule
 {
@@ -397,7 +397,7 @@ div.search-form
 	background-repeat: repeat-x;
 	background-position: top;
 	padding-top:10px;
-	width: 100%; 
+	width: 100%;
 }
 
 
@@ -426,13 +426,13 @@ div.search-form
 
 /*USER PANEL*/
 .panel_left {
-	width: 60%; 
-	float: left; 
+	width: 60%;
+	float: left;
 	padding:10px 0px 0px 0px;
 }
 .panel_right {
-	width: 38%; 
-	float: right; 
+	width: 38%;
+	float: right;
 	padding:10px 0px 0px 0px;
 }
 
@@ -500,8 +500,8 @@ span.ocaxButtonCount {
 #datos_usuario:hover {
 	background-position: -46px 0;
 }
- 
-  
+
+
 #control_panel {
 	float:left;
 	margin-right: 8px;
@@ -516,7 +516,7 @@ span.ocaxButtonCount {
 	background-position: -55px 0;
 }
 
- 
+
 #panelMyEnquiries {
 	float:left;
 	margin-right: 8px;
@@ -527,7 +527,7 @@ span.ocaxButtonCount {
 	width:55px;
 	height:55px;
 }
- 
+
 /* ******* CMS*/
 .activeMenuItem a {text-decoration:none;}
 
@@ -561,7 +561,7 @@ span.ocaxButtonCount {
 .cmsPageMenuItem { font-size:1.6em; }
 
 /*bPopup Lightbox*/
-.modal 
+.modal
 {
 	display:none;
 	background-color: rgb(245,241,237);
@@ -604,6 +604,22 @@ span.ocaxButtonCount {
 	margin-bottom:-10px;
 }
 
+/* RELPY */
+div.reply{
+	padding:10px;
+	margin-top:20px;
+	border: 1px solid #cdcbc9;
+	background:white
+}
+div.reply > .title{
+	padding:10px;
+	margin-top:-10px;
+	margin-left:-10px;
+	margin-right:-10px;
+	background-color:rgb(228, 222, 215);
+	margin-bottom:10px;
+}
+
 /* email */
 .email{
 	padding:10px;
@@ -635,4 +651,4 @@ span.ocaxButtonCount {
 }
 
 .link { cursor:pointer; text-decoration:underline; font-size:16px; }
-.clear{clear:both;}	
+.clear{clear:both;}

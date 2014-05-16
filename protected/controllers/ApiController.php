@@ -25,10 +25,10 @@ class ApiController extends Controller
 
 	// Members
 	/**
-	 * Key which has to be in HTTP USERNAME and PASSWORD headers 
+	 * Key which has to be in HTTP USERNAME and PASSWORD headers
 	 */
 	Const APPLICATION_ID = 'ASCCPE';
- 
+
 	/**
 	* Default response format
 	 * either 'json' or 'xml'
@@ -47,7 +47,7 @@ class ApiController extends Controller
 	{
 		//if($_GET['callback'] &&  (preg_match('/\W/', $_GET['callback']))
 		//	Yii::app()->end();
-		
+
 		if(!isset($_GET['script'])){	// this should already be caught by api/<model> aka actionList but we'll leave it here.
 			$this->_sendResponse(501, sprintf(
 					'Not implemented',
@@ -65,9 +65,15 @@ class ApiController extends Controller
 		}
 
 		header("Content-type: text/javascript; charset: UTF-8");
+		header("Content-type: text/javascript; charset: UTF-8");
+		header("Pragma: cache");
+		header("Cache-Control: must-revalidate");
+		$offset = strtotime('+42 hours'); // same as time() + 42 * 60 * 60
+		$ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", $offset) . " GMT";
+		header($ExpStr);
 		echo str_replace('$baseURL', Yii::app()->getBaseUrl(true), file_get_contents($fileName));
 	}
-	
+
 	public function actionList()
 	{
 		// Get the respective model instance
@@ -78,9 +84,9 @@ class ApiController extends Controller
 						'ocax'=>getOCAXVersion(),
 						'yii'=>Yii::getVersion(),
 						);
-				$this->_sendResponse(200, CJSON::encode($result));					
+				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
-			
+
 			case 'profile':
 				$result = array(
 							'language'=>Config::model()->findByPk('languages')->value,
@@ -97,21 +103,21 @@ class ApiController extends Controller
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
-							
+
 			case 'status':
 				$result = array();
 				$years = Budget::model()->getPublicYears();
-				
+
 				foreach($years as $year){
 					$sql = "SELECT actual_provision FROM budget WHERE year = '".$year->year."' AND csv_id = 'I-E'";
 					$budget = Yii::app()->db->createCommand($sql)->queryScalar();
-					
+
 					$sql = "SELECT COUNT(*) FROM enquiry WHERE YEAR(created) = ".$year->year;
 					$enquiries = Yii::app()->db->createCommand($sql)->queryScalar();
-					
+
 					$sql = "SELECT COUNT(*) FROM enquiry WHERE YEAR(created) = '".$year->year."' AND state = ".ENQUIRY_REPLY_INSATISFACTORY;
 					$enquiries_failed = Yii::app()->db->createCommand($sql)->queryScalar();
-					
+
 					$result[$year->year]=array(
 						'population'=>(string)(int)Budget::model()->getPopulation($year->year),
 						'budget'=>$budget,
@@ -132,14 +138,14 @@ class ApiController extends Controller
 		// Did we get some results?
 		if(empty($models)) {
 			// No
-			$this->_sendResponse(200, 
+			$this->_sendResponse(200,
 				sprintf('No items where found for model <b>%s</b>', $_GET['model']) );
 		} else {
 			// Prepare response
 			$rows = array();
 			foreach($models as $model)
 				$rows[] = $model->attributes;
-				
+
 			// Send the response
 			$this->_sendResponse(200, CJSON::encode($rows));
 		}
@@ -150,10 +156,10 @@ class ApiController extends Controller
 		// Check if id was submitted via GET
 		if(!isset($_GET['id']))
 			$this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
- 
+
 		switch($_GET['model'])
 		{
-			// Find respective model    
+			// Find respective model
 			default:
 				$this->_sendResponse(501, sprintf(
 					'Mode <b>view</b> is not implemented for model <b>%s</b>',
@@ -173,13 +179,13 @@ class ApiController extends Controller
 			echo $_GET['callback'] . '('. $body .')';
 			Yii::app()->end();
 		}
-		
+
 		// set the status
 		$status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
 		header($status_header);
 		// and the content type
 		header('Content-type: ' . $content_type);
- 
+
 		// pages with body are easy
 		if($body != '')
 		{
@@ -191,7 +197,7 @@ class ApiController extends Controller
 		{
 			// create some body messages
 			$message = '';
- 
+
 			// this is purely optional, but makes the pages a little nicer to read
 			// for your users.  Since you won't likely send a lot of different status codes,
 			// this also shouldn't be too ponderous to maintain
@@ -210,11 +216,11 @@ class ApiController extends Controller
 					$message = 'The requested method is not implemented.';
 					break;
 			}
- 
-			// servers don't always have a signature turned on 
+
+			// servers don't always have a signature turned on
 			// (this is an apache directive "ServerSignature On")
 			$signature = ($_SERVER['SERVER_SIGNATURE'] == '') ? $_SERVER['SERVER_SOFTWARE'] . ' Server at ' . $_SERVER['SERVER_NAME'] . ' Port ' . $_SERVER['SERVER_PORT'] : $_SERVER['SERVER_SIGNATURE'];
- 
+
 			// this should be templated in a real-world solution
 			$body = '
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -230,7 +236,7 @@ class ApiController extends Controller
     <address>' . $signature . '</address>
 </body>
 </html>';
- 
+
 			echo $body;
 		}
 		Yii::app()->end();
