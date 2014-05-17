@@ -37,7 +37,7 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 </style>
 <style>
 .comments { margin-top:15px; }
-.voteBlock { float:right;text-align:right; }
+.voteBlock { float:right;text-align:right; white-space:nowrap; }
 .clear { clear:both; }
 </style>
 
@@ -116,12 +116,12 @@ function submitComment(form){
 					},
 		complete: function(){
 						$('#comment_form').html('');
-						$('#comment_form').hide();			
+						$('#comment_form').hide();
 					},
 		success: function(data){
 				if(data != 0){
 					$('#comment_form').parents('.add_comment:first').before(data.html);
-					
+
 					show_comments_link = $('#comment_form').parents('.comments').find('.show_comments_link');
 					comment_count = show_comments_link.find('.comment_count');
 					count = parseInt(comment_count.html())+1;
@@ -179,7 +179,7 @@ function vote(reply_id, like){
 						$("#voteLikeTotal_"+reply_id).html(data.total_likes);
 						$("#voteDislikeTotal_"+reply_id).html(data.total_dislikes);
 					}
-				}					
+				}
 		},
 		error: function() { alert("error on vote"); },
 	});
