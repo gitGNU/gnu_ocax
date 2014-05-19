@@ -55,6 +55,20 @@ CREATE TABLE IF NOT EXISTS budget (
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2014', 0, 'root budget', 10000, 0);
 
+CREATE TABLE IF NOT EXISTS budget_desc_state (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  csv_id varchar(100) NOT NULL,
+  language char(2) NOT NULL,
+  code varchar(32) NULL,
+  label varchar(32) NULL,
+  concept varchar( 255 ) NOT NULL,
+  description MEDIUMTEXT,
+  text MEDIUMTEXT,      /* description without tags */
+  modified DATETIME NULL,
+  FULLTEXT (concept, text),
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS budget_desc_common (
   id int(11) NOT NULL AUTO_INCREMENT,
   csv_id varchar(100) NOT NULL,

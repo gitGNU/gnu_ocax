@@ -189,13 +189,13 @@ class Budget extends CActiveRecord
 		$lang=Yii::app()->language;
 		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
 			if($description->description)
-				return $description->description;
+				return $description;
 		}
 		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
 			if($description->description)
-				return $description->description;
+				return $description;
 		}
-		return '';
+		return Null;
 	}
 
 	// return the percentage of this budget from total
