@@ -148,6 +148,12 @@ body
 }
 #footer div a { color: lightgrey }
 
+#postFooterRSSLink { float:right; }
+
+#postFooterRSSLink > a {
+	vertical-align: middle;
+	margin-left:5px;
+}
 
 .poweredBy
 {

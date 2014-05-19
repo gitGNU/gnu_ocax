@@ -129,7 +129,6 @@
 			if($twURL)
 				echo '<a style="margin-right:10px" href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
 		}
-		echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/rss.png"/>', array('/site/feed'));
 		echo '</div>';
 	?>  
 	</div>
@@ -150,7 +149,15 @@
 	<div style="clear:both;"></div>	
 </div><!-- footer -->
 
-<div class="poweredBy"><?php echo Yii::powered(); ?></div>
+<div style="width:980px;margin:0 auto;margin-top:5px;">
+	<div id="postFooterRSSLink">
+	<?php 
+		echo Config::model()->getObservatoryName().' RSS feed ';
+		echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/rss-16x16.png"/>',array('/site/feed'));
+	?>
+	</div>
+</div>
+
 </div>
 </body>
 </html>
