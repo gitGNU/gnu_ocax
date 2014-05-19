@@ -22,10 +22,14 @@
 /* @var $model Reply */
 ?>
 
-<div class="horizontalRule" style="margin-top:30px"></div>
+<style>
+
+</style>
+
+<div class="reply">
 <?php
 	$user_id=Yii::app()->user->getUserID();
-	echo '<div>';
+	echo '<div class="title">';
 		echo '<span class="sub_title">'.__('Reply').': '.format_date($model->created).'</span>';
 
 		echo '<div class="voteBlock">';
@@ -40,7 +44,7 @@
 					echo '	<img style="margin-right:-10px;cursor:pointer;vertical-align:middle;"
 					src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
 				}
-				echo '</span>';				
+				echo '</span>';
 			}
 			echo '<span style="margin-left:30px"></span>';
 			echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$model->id.', 1);">'.
@@ -49,19 +53,18 @@
 			echo '<span style="margin-left:30px"></span>';
 			echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$model->id.', 0);">'.
 				 __('Vote').'<i class="icon-thumbs-down"></i></span>';
-			echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0).'</span>';	
-		
+			echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0).'</span>';
+
 		echo '</div><div class="clear"></div>';
 	echo '</div>';
 	if($model->team_member == Yii::app()->user->getUserID()){
-		echo '<span class="link" onClick=\'js:uploadFile("Reply",'.$model->id.');\'>'.__('Add attachment').'</span>';	
-		
+		echo '<div class="link" style="margin-top:-10px;float:right;" onClick=\'js:uploadFile("Reply",'.$model->id.');\'>'.__('Add attachment').'</div>';
+		echo '<div class="clear"></div>';
 	}
 	echo '<div class="clear"></div>';
-
 	// reply body
 	echo '<p style="padding-top:30px;">'.$model->body.'</p>';
-	
-	$this->renderPartial('//comment/_showThread', array('model'=>$model));
 
+	$this->renderPartial('//comment/_showThread', array('model'=>$model));
 ?>
+</div>
