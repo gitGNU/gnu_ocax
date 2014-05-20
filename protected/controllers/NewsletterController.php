@@ -92,6 +92,7 @@ class NewsletterController extends Controller
 
 	public function actionView($id)
 	{
+		$this->pageTitle = Config::model()->findByPk('siglas')->value.' '.__('Newsletter');
 		$this->layout='//layouts/column1';
 		$model=$this->loadModel($id);
 		if($model->sent != 2)
@@ -285,7 +286,7 @@ class NewsletterController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-
+		$this->pageTitle = Config::model()->findByPk('siglas')->value.' '.__('Newsletter');
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('published IS NOT NULL');
 		$criteria->order = 'published DESC';
