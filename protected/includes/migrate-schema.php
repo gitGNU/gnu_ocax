@@ -19,12 +19,10 @@
 
 /*
  * https://github.com/kennberg/php-mysql-migrate
- * http://stackoverflow.com/questions/4027769/running-mysql-sql-files-in-php
  */
 
-Yii::import('application.extensions.sql-parser.src.*');
-require_once('PHPSQLParser.php');
-require_once('PHPSQLCreator.php');
+Yii::import('application.includes.*');
+require_once('runSQL.php');
 
 class MigrateSchema{
 	protected $MIGRATIONS_DIR;
@@ -99,8 +97,8 @@ class MigrateSchema{
 			}
 
 			echo "Running: $file\n";
-			list($success, $total) = $this->run_sql_file($this->MIGRATIONS_DIR.$file);
-			if($success != $total){
+			$result = runSQLFile($this->MIGRATIONS_DIR.$file);
+			if(!$result){
 				echo $total-$success." queries failed\n";
 				break;
 			}
@@ -118,41 +116,11 @@ class MigrateSchema{
 				echo "Failed to output new version to " . $this->MIGRATION_VERSION_FILE . "\n";
 			}
 		}
-		mysql_close($this->link);
 		
 		if ($found_new)
 			echo "Migration complete.\n";
 		else
 			echo "Your database is up-to-date.\n";
-	}
-
-	protected function run_sql_file($migrateFile){
-		//load file
-		$commands = file_get_contents($migrateFile);
-		//delete comments
-		$lines = explode("\n",$commands);
-		$commands = '';
-		foreach($lines as $line){
-			$line = trim($line);
-			if( $line && !startsWith($line,'--') ){
-				$commands .= $line . "\n";
-			}
-		}
-		//convert to array
-		$commands = explode(";", $commands);
-		//run commands
-		$total = $success = 0;
-		$creator = new PHPSQLCreator();
-		foreach($commands as $command){
-			if(trim($command)){
-				$parser = new PHPSQLParser($command);
-				$creator->create($parser->parsed);
-				$success += (@mysql_query($creator->created)==false ? 0 : 1);
-				$total += 1;
-			}
-		}
-		//return number of successful queries and total number of queries found
-		return array($success, $total);
 	}
 
 	protected function get_migrations() {
@@ -170,24 +138,6 @@ class MigrateSchema{
 
 	protected function get_version_from_file($file) {
 		return intval(substr($file, strlen($this->MIGRATE_FILE_PREFIX)));
-	}
-
-	protected function connect()
-	{
-		$params = getMySqlParams();
-		$this->link = mysql_connect($params['host'], $params['user'], $params['pass']);
-		if (!$this->link) {
-			echo "Failed to connect to the database.\n";
-			exit;
-		}
-		mysql_select_db($params['dbname'], $this->link);
-		mysql_query("SET NAMES 'utf8'", $this->link);	
-	}
-
-	private function startsWith($haystack, $needle)
-	{
-		$length = strlen($needle);
-		return (substr($haystack, 0, $length) === $needle);
 	}
 }
 ?>
