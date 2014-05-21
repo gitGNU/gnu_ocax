@@ -62,6 +62,8 @@ class ConfigController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		if(!$model->can_edit)
+			$this->redirect(array('admin'));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

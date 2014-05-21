@@ -23,12 +23,13 @@ and import it into your database.
 
 /* ---------- start copying ---------- */
 
+ALTER TABLE config ADD can_edit TINYINT(1) DEFAULT 1;
 UPDATE config SET parameter='administrationName' WHERE parameter='councilName';
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
+INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'MYSQL schema version');
 
 /* ---------- stop copying ---------- */
-
 
 
 OCAX 1.1.3
