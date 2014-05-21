@@ -41,31 +41,13 @@ class MigrateSchema{
 		}
     }
 
-	public function add($fn)
-	{
-		$new_version = $this->version;
-		// Check the new version against existing migrations.
-		$files = get_migrations();
-		$last_file = end($files);
-		if ($last_file !== false) {
-			$file_version = get_version_from_file($last_file);
-			if ($file_version > $new_version)
-				$new_version = $file_version;
-		}
-		// Create migration file path.
-		$new_version++;
-		$path = $this->MIGRATIONS_DIR.$this->MIGRATE_FILE_PREFIX.sprintf('%04d', $new_version).$this->MIGRATE_FILE_POSTFIX;
-
-		echo "Adding a new migration script: $path\n";
-		rename($fn, $path);
-	}
-
 	public function migrate()
 	{
 		// Find the latest version or start at 0.
 		echo "Current database version is: $this->version\n";
 
-		$files = get_migrations();
+		$files = $this->get_migrations();
+		print_r($files);
 
 		// Check to make sure there are no conflicts such as 2 files under the same version.
 		$errors = array();
@@ -87,8 +69,8 @@ class MigrateSchema{
 			}
 			exit;
 		}
+		
 		// Run all the new files.
-		$this->connect();
 		$found_new = false;
 		foreach ($files as $file) {
 			$file_version = $this->get_version_from_file($file);
@@ -98,10 +80,8 @@ class MigrateSchema{
 
 			echo "Running: $file\n";
 			$result = runSQLFile($this->MIGRATIONS_DIR.$file);
-			if(!$result){
-				echo $total-$success." queries failed\n";
-				break;
-			}
+			if(!$result)
+				return "Migrating file:".$this->MIGRATIONS_DIR.$file." failed";
 			echo "Done.\n";
 
 			$this->version = $file_version;
@@ -139,5 +119,25 @@ class MigrateSchema{
 	protected function get_version_from_file($file) {
 		return intval(substr($file, strlen($this->MIGRATE_FILE_PREFIX)));
 	}
+/*
+	public function add($fn)
+	{
+		$new_version = $this->version;
+		// Check the new version against existing migrations.
+		$files = get_migrations();
+		$last_file = end($files);
+		if ($last_file !== false) {
+			$file_version = get_version_from_file($last_file);
+			if ($file_version > $new_version)
+				$new_version = $file_version;
+		}
+		// Create migration file path.
+		$new_version++;
+		$path = $this->MIGRATIONS_DIR.$this->MIGRATE_FILE_PREFIX.sprintf('%04d', $new_version).$this->MIGRATE_FILE_POSTFIX;
+
+		echo "Adding a new migration script: $path\n";
+		rename($fn, $path);
+	}
+*/
 }
 ?>

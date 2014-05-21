@@ -81,6 +81,7 @@ class ApiController extends Controller
 			case 'version':
 				$result = array(
 						'ocax'=>getOCAXVersion(),
+						'schema'=>getMSQLSchemaVersion(),
 						'yii'=>Yii::getVersion(),
 						);
 				$this->_sendResponse(200, CJSON::encode($result));

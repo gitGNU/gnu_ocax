@@ -8,7 +8,7 @@
  */
  
 // also look at http://www.yiiframework.com/forum/index.php/topic/28947-execute-sql-file-in-migration/
- 
+
 function runSQLFile($file){
 	$pdo = Yii::app()->db->pdoInstance;
 	try 
