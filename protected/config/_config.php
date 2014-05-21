@@ -39,9 +39,9 @@ return array(
 			'class' => "CGettextMessageSource",
 			'useMoFile' => TRUE,
 		),
-        'coreMessages'=>array(
-            'basePath'=>'../protected/messages',
-        ),
+		'coreMessages'=>array(
+			'basePath'=>null,
+		),
 		'user'=>array(
 			'class' => 'WebUser', // http://www.yiiframework.com/wiki/60/
 			// enable cookie-based authentication
