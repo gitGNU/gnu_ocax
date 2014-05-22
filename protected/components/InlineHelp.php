@@ -26,7 +26,7 @@ class InlineHelp extends CWidget
     {
 		?>
 <!-- help widget start -->
-<style>iframe{min-width:880px; min-height:500px;}</style>
+<style>iframe{min-height:500px;}</style>
 <script src="<?php echo Yii::app()->request->baseUrl;?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showHelp(url){
@@ -46,9 +46,7 @@ function showHelp(url){
 </script>
 <div id="help" class="modal" style="width:900px;scrolling:auto;padding:0px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="helpContent">
-<?php /*echo '<img class="loading_help" src="'.Yii::app()->request->baseUrl.'/images/big_loading.gif" />'; */ ?>
-</div>
+<div id="helpContent"></div>
 </div>
 <!-- help widget stop -->
 <?php
