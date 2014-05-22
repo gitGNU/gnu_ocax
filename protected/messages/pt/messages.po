@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-04-22 11:15+0100\n"
+"PO-Revision-Date: 2014-05-22 09:14+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr "Destinatários"
 
 #: protected/models/Email.php:106
 #: protected/models/Reply.php:97
-#: protected/views/budget/view.php:174
+#: protected/views/budget/view.php:184
 #: protected/views/enquiry/_reformulated.php:44
 #: protected/views/enquiry/managed.php:54
 #: protected/controllers/EnquiryController.php:83
@@ -94,7 +94,7 @@ msgstr "Repetir palavra-passe"
 
 #: protected/models/RegisterForm.php:90
 #: protected/models/User.php:130
-#: protected/views/layouts/main.php:124
+#: protected/views/layouts/main.php:119
 msgid "Email"
 msgstr "Email"
 
@@ -135,7 +135,7 @@ msgstr "Publicada"
 #: protected/models/Emailtext.php:113
 #: protected/views/emailtext/admin.php:46
 #: protected/views/enquiry/view.php:192
-#: protected/views/enquiry/index.php:147
+#: protected/views/enquiry/index.php:143
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/newsletter/admin.php:65
@@ -181,7 +181,7 @@ msgstr "Conceito"
 #: protected/models/BudgetDescCommon.php:105
 #: protected/models/BudgetDescLocal.php:91
 #: protected/models/BudgetCategory.php:90
-#: protected/models/Config.php:107
+#: protected/models/Config.php:108
 #: protected/models/Archive.php:88
 #: protected/views/budgetDescription/view.php:76
 msgid "Description"
@@ -300,7 +300,7 @@ msgid "Width"
 msgstr "Largura"
 
 #: protected/models/Vote.php:90
-#: protected/views/reply/_view.php:29
+#: protected/views/reply/_view.php:33
 msgid "Reply"
 msgstr "Resposta"
 
@@ -310,8 +310,8 @@ msgid "User"
 msgstr "Utilizador"
 
 #: protected/models/Vote.php:92
-#: protected/views/reply/_view.php:47
 #: protected/views/reply/_view.php:51
+#: protected/views/reply/_view.php:55
 msgid "Vote"
 msgstr "Votar"
 
@@ -333,19 +333,19 @@ msgstr ""
 msgid "Page Title"
 msgstr "Título"
 
-#: protected/models/Config.php:75
+#: protected/models/Config.php:76
 msgid "is not a valid language."
 msgstr "não é um idioma válido"
 
-#: protected/models/Config.php:84
+#: protected/models/Config.php:85
 msgid "Character 'n' is missing."
 msgstr ""
 
-#: protected/models/Config.php:105
+#: protected/models/Config.php:106
 msgid "Parameter"
 msgstr "Parâmetro"
 
-#: protected/models/Config.php:106
+#: protected/models/Config.php:107
 msgid "Value"
 msgstr "Valor"
 
@@ -449,9 +449,9 @@ msgid "Manager"
 msgstr "Gerir anos"
 
 #: protected/models/Enquiry.php:211
-#: protected/views/budget/view.php:179
+#: protected/views/budget/view.php:189
 #: protected/views/enquiry/view.php:178
-#: protected/views/enquiry/index.php:142
+#: protected/views/enquiry/index.php:138
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/user/panel.php:193
 #: protected/views/user/panel.php:230
@@ -498,7 +498,7 @@ msgstr "membro da equipa"
 msgid "people subscribed to the Enquiry"
 msgstr "pessoas subscreveram esta consulta"
 
-#: protected/models/Backup.php:41
+#: protected/models/Backup.php:45
 msgid "Cannot create zip file"
 msgstr "Não é possível criar o ficheiro zip"
 
@@ -514,7 +514,7 @@ msgstr ""
 msgid "CSV file"
 msgstr "Ficheiro CSV"
 
-#: protected/models/ImportCSV.php:374
+#: protected/models/ImportCSV.php:375
 msgid "generated on the"
 msgstr "gerado em"
 
@@ -536,28 +536,38 @@ msgstr "Comparar anos"
 msgid "Details for %s"
 msgstr "Detalhes do %s"
 
-#: protected/views/budget/view.php:137
+#: protected/views/budget/view.php:136
+#, fuzzy
+msgid "Read the administration's description"
+msgstr "Data em que a administração respondeu"
+
+#: protected/views/budget/view.php:138
+#, fuzzy
+msgid "Official description"
+msgstr "Ver descrição"
+
+#: protected/views/budget/view.php:147
 msgid "No enquiries have been made about this budget yet"
 msgstr "Ainda ninguém consultou o município sobre este orçamento"
 
-#: protected/views/budget/view.php:138
+#: protected/views/budget/view.php:148
 msgid "Do you wish to make an enquiry"
 msgstr "Queres fazer uma consulta?"
 
-#: protected/views/budget/view.php:152
+#: protected/views/budget/view.php:162
 msgid "One enquiry has already been made about this budget"
 msgstr "Já foi feita uma consulta sobre este orçamento."
 
-#: protected/views/budget/view.php:154
+#: protected/views/budget/view.php:164
 #, php-format
 msgid "%s enquiries have already been made about this budget"
 msgstr "Já foram feitas %s consultas sobre este orçamento"
 
-#: protected/views/budget/_indexBar.php:150
+#: protected/views/budget/_indexBar.php:155
 msgid "Actual"
 msgstr ""
 
-#: protected/views/budget/_indexBar.php:151
+#: protected/views/budget/_indexBar.php:156
 msgid "Executed"
 msgstr ""
 
@@ -594,14 +604,14 @@ msgstr "Editar ano"
 msgid "Budgetary enquiries for"
 msgstr "Consultas do orçamento de"
 
-#: protected/views/budget/index.php:172
-#: protected/views/layouts/main.php:83
+#: protected/views/budget/index.php:174
+#: protected/views/layouts/main.php:78
 #: protected/views/user/panel.php:66
 #: protected/controllers/BudgetController.php:476
 msgid "Budgets"
 msgstr "Orçamentos"
 
-#: protected/views/budget/index.php:191
+#: protected/views/budget/index.php:193
 #: protected/views/enquiry/_memberSearch.php:72
 #: protected/views/enquiry/_searchPublic.php:35
 #: protected/views/enquiry/_managerSearch.php:95
@@ -611,24 +621,24 @@ msgstr "Orçamentos"
 msgid "Search"
 msgstr "Pesquisa"
 
-#: protected/views/budget/index.php:199
+#: protected/views/budget/index.php:202
 msgid "No search results"
 msgstr "Não há resultados"
 
-#: protected/views/budget/index.php:220
+#: protected/views/budget/index.php:223
 msgid "Available years"
 msgstr "Anos disponíveis"
 
-#: protected/views/budget/index.php:252
+#: protected/views/budget/index.php:256
 #, fuzzy
 msgid "Download data"
 msgstr "Guardar base de dados"
 
-#: protected/views/budget/index.php:279
+#: protected/views/budget/index.php:284
 msgid "No data available"
 msgstr "Não há dados disponíveis"
 
-#: protected/views/budget/index.php:301
+#: protected/views/budget/index.php:306
 msgid "go to top"
 msgstr ""
 
@@ -700,8 +710,8 @@ msgstr "Euros por pessoa"
 #: protected/views/budget/_enquiryView.php:138
 #: protected/views/budget/_budgetDetails.php:122
 #: protected/views/budget/_budgetDetails.php:145
-#: protected/views/enquiry/index.php:137
-#: protected/views/layouts/main.php:84
+#: protected/views/enquiry/index.php:133
+#: protected/views/layouts/main.php:79
 #: protected/views/user/view.php:127
 #: protected/views/user/panel.php:188
 #: protected/views/user/panel.php:225
@@ -811,7 +821,7 @@ msgstr "Sim, quero ser sócio"
 #: protected/views/site/login.php:6
 #: protected/views/site/login.php:48
 #: protected/views/site/login.php:78
-#: protected/views/layouts/main.php:41
+#: protected/views/layouts/main.php:40
 msgid "Login"
 msgstr "Iniciar sessão"
 
@@ -884,7 +894,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: protected/views/cmsPage/show.php:47
-#: protected/views/introPage/view.php:71
+#: protected/views/introPage/view.php:78
 msgid "Edit page"
 msgstr "Editar página"
 
@@ -892,7 +902,7 @@ msgstr "Editar página"
 #: protected/views/cmsPage/admin.php:83
 #: protected/views/cmsPage/update.php:32
 #: protected/views/cmsPage/create.php:25
-#: protected/views/introPage/view.php:77
+#: protected/views/introPage/view.php:84
 #: protected/views/introPage/update.php:34
 #: protected/views/introPage/create.php:24
 msgid "Manage pages"
@@ -1257,35 +1267,35 @@ msgstr "Sim"
 msgid "No"
 msgstr "Não"
 
-#: protected/views/enquiry/index.php:102
+#: protected/views/enquiry/index.php:98
 msgid "Enquiries made to date"
 msgstr "Consultas feitas até hoje"
 
-#: protected/views/enquiry/index.php:103
+#: protected/views/enquiry/index.php:99
 msgid "This is a list of enquiries made by citizens like you."
 msgstr "Lista de consultas feitas por cidadãos como tu"
 
-#: protected/views/enquiry/index.php:161
+#: protected/views/enquiry/index.php:157
 msgid "Formulate a new enquiry"
 msgstr "Faz uma consulta nova"
 
-#: protected/views/enquiry/index.php:162
+#: protected/views/enquiry/index.php:158
 msgid "Remember you must first"
 msgstr "Recorda que primeiro tens de"
 
-#: protected/views/enquiry/index.php:163
+#: protected/views/enquiry/index.php:159
 msgid "login"
 msgstr "iniciar una sessão"
 
-#: protected/views/enquiry/index.php:163
+#: protected/views/enquiry/index.php:159
 msgid "or"
 msgstr " ou"
 
-#: protected/views/enquiry/index.php:164
+#: protected/views/enquiry/index.php:160
 msgid "create an account"
 msgstr "criar uma conta"
 
-#: protected/views/enquiry/index.php:170
+#: protected/views/enquiry/index.php:166
 msgid "What are the different states of an enquiry?"
 msgstr "Quais os diferentes estados duma consulta?"
 
@@ -1526,7 +1536,7 @@ msgstr "Se queres fazer uma consulta relativa ao orçamento, primeiro tens de"
 msgid "find the corresponding budget"
 msgstr "identificar o orçamento"
 
-#: protected/views/introPage/view.php:65
+#: protected/views/introPage/view.php:72
 msgid "You are in edit mode"
 msgstr "Estás em modo de edição"
 
@@ -1569,7 +1579,7 @@ msgid "Translations"
 msgstr "Traduções"
 
 #: protected/views/layouts/column2.php:19
-#: protected/views/layouts/main.php:99
+#: protected/views/layouts/main.php:94
 msgid "My page"
 msgstr "A minha página"
 
@@ -1581,35 +1591,38 @@ msgstr "Ajuda contextual"
 msgid "Options"
 msgstr "Opções"
 
-#: protected/views/layouts/main.php:44
+#: protected/views/layouts/main.php:43
 msgid "Logout"
 msgstr "Sair"
 
-#: protected/views/layouts/main.php:52
+#: protected/views/layouts/main.php:50
 #: protected/views/newsletter/index.php:26
 #: protected/views/user/panel.php:149
 #: protected/controllers/NewsletterController.php:85
 msgid "Newsletters"
 msgstr "Newsletters"
 
-#: protected/views/layouts/main.php:59
+#: protected/views/layouts/main.php:56
 #: protected/views/archive/index.php:83
+#: protected/controllers/ArchiveController.php:184
 msgid "Archive"
 msgstr ""
 
-#: protected/views/layouts/main.php:66
+#: protected/views/layouts/main.php:62
 msgid "Home"
 msgstr "Início"
 
-#: protected/views/layouts/main.php:120
+#: protected/views/layouts/main.php:115
 msgid "Contact information"
 msgstr "Dados de contacto"
 
-#: protected/views/layouts/main.php:126
+#: protected/views/layouts/main.php:121
 msgid "Telephone"
 msgstr "Telefone"
 
 #: protected/views/newsletter/view.php:26
+#: protected/controllers/NewsletterController.php:95
+#: protected/controllers/NewsletterController.php:289
 #, fuzzy
 msgid "Newsletter"
 msgstr "Newsletters"
@@ -1937,7 +1950,7 @@ msgstr "Falta incluir uma descrição"
 msgid "A description of this file"
 msgstr "Falta incluir uma descrição"
 
-#: protected/views/reply/_view.php:57
+#: protected/views/reply/_view.php:61
 msgid "Add attachment"
 msgstr "Adicionar anexo"
 
@@ -1955,7 +1968,7 @@ msgstr "Pedido para contactar via email"
 
 #: protected/views/email/_contactPetition.php:46
 #: protected/controllers/SiteController.php:143
-#: protected/controllers/SiteController.php:329
+#: protected/controllers/SiteController.php:334
 msgid "Hello"
 msgstr "Olá"
 
@@ -1982,7 +1995,7 @@ msgstr "Se achas que este utilizador te está a enviar lixo por email podes bloq
 
 #: protected/views/email/_contactPetition.php:54
 #: protected/controllers/CommentController.php:135
-#: protected/controllers/SiteController.php:333
+#: protected/controllers/SiteController.php:338
 msgid "Kind regards"
 msgstr "Saudações cordiais"
 
@@ -2008,12 +2021,12 @@ msgid "Email sent"
 msgstr "Mensagem enviada"
 
 #: protected/controllers/EmailController.php:127
-#: protected/controllers/NewsletterController.php:211
+#: protected/controllers/NewsletterController.php:212
 msgid "Email sent OK"
 msgstr "Email enviado - OK"
 
 #: protected/controllers/EmailController.php:129
-#: protected/controllers/NewsletterController.php:214
+#: protected/controllers/NewsletterController.php:215
 #: protected/controllers/SiteController.php:150
 #: protected/controllers/SiteController.php:175
 msgid "Error while sending email"
@@ -2050,15 +2063,15 @@ msgstr "Detalhes do utilizador"
 msgid "File uploaded correctly"
 msgstr "Ficheiro enviado com sucesso"
 
-#: protected/controllers/FileController.php:219
+#: protected/controllers/FileController.php:230
 msgid "MSG_ZIP_DESCRIPTION"
 msgstr ""
 
-#: protected/controllers/FileController.php:230
+#: protected/controllers/FileController.php:242
 msgid "Zip file updated"
 msgstr "Ficheiro zip actualizado"
 
-#: protected/controllers/FileController.php:232
+#: protected/controllers/FileController.php:244
 msgid "Error: zip file not created"
 msgstr "Erro: o ficheiro zip não foi gerado"
 
@@ -2101,41 +2114,46 @@ msgstr "Acabamos de registar-te como utilizador.<br /> A partir deste momento j�
 msgid "Your account is active"
 msgstr "A tua conta foi activada"
 
-#: protected/controllers/SiteController.php:312
+#: protected/controllers/SiteController.php:317
 msgid "Invalid email address"
 msgstr "Endereço de email inválido"
 
-#: protected/controllers/SiteController.php:327
+#: protected/controllers/SiteController.php:332
 msgid "New password request"
 msgstr "Pedido de nova palavra-passe"
 
-#: protected/controllers/SiteController.php:330
+#: protected/controllers/SiteController.php:335
 msgid "has received a request to reset your password"
 msgstr "recebeu um pedido para mudar a tua palavra-passe"
 
-#: protected/controllers/SiteController.php:331
+#: protected/controllers/SiteController.php:336
 msgid "If you have not forgotten your password, please ignore this email"
 msgstr "Se não esqueceste a tua palavra-passe, por favor ignora esta mensagem"
 
-#: protected/controllers/SiteController.php:332
+#: protected/controllers/SiteController.php:337
 msgid "To reset your password, follow this link"
 msgstr "Para restablecer a tua palavra-passe, segue este link"
 
-#: protected/controllers/SiteController.php:337
+#: protected/controllers/SiteController.php:342
 msgid "We've just sent you an email"
 msgstr "Acabamos de enviar-te uma mensagem por email"
 
-#: protected/controllers/SiteController.php:341
+#: protected/controllers/SiteController.php:346
 msgid "Sorry, we cannot find you on our database"
 msgstr "Desculpa, não te encontramos na base de dados"
 
-#: protected/controllers/SiteController.php:357
+#: protected/controllers/SiteController.php:362
 msgid "The password recovery link has expired"
 msgstr "O link para recuperar a tua palavra-passe caducou"
 
-#: protected/controllers/SiteController.php:365
+#: protected/controllers/SiteController.php:370
 msgid "Please change your password now"
 msgstr "Por favor, altera agora a tua palavra-passe"
+
+#: protected/controllers/SiteController.php:416
+#, fuzzy
+msgid "activity"
+msgstr "Opacidade"
 
 #: protected/controllers/ArchiveController.php:129
 #, fuzzy
