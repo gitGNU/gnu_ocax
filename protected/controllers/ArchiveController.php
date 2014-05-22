@@ -181,13 +181,14 @@ class ArchiveController extends Controller
 	 */
 	public function actionIndex()
 	{
-	$dataProvider=new CActiveDataProvider('Archive', array(
-													'criteria' => array(
-														'order' => 'created DESC',
-													),
-													'pagination' => array(
-														'pageSize' => 12,
-													),
+		$this->pageTitle = Config::model()->findByPk('siglas')->value.' '.__('Archive');
+		$dataProvider=new CActiveDataProvider('Archive', array(
+												'criteria' => array(
+													'order' => 'created DESC',
+												),
+												'pagination' => array(
+													'pageSize' => 12,
+												),
 										));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

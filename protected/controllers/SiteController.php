@@ -301,6 +301,8 @@ class SiteController extends Controller
 			$this->changeLanguage($_GET['lang']);
 		}
 		$reffer = Yii::app()->request->getUrlReferrer();
+		if(!$reffer)
+			$this->redirect(array('/site/index'));
 		Yii::app()->request->redirect($reffer);
 	}
 

@@ -131,7 +131,8 @@ class Config extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->addCondition('can_edit = 1');
+		
 		$criteria->compare('parameter',$this->parameter,true);
 		$criteria->compare('value',$this->value,true);
 		$criteria->compare('description',$this->description,true);

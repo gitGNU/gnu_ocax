@@ -12,17 +12,24 @@ Note: If, for example you are on version 1.1.0 and you are upgrading to version 
 
 
 OCAX 1.1.4
-Follow steps 1-5 above.
-You need to make changes to the database. Copy the sql code and paste it into your sql workspace.
+Upgrade instructions.
+1. Follow steps 1-5 above.
+
+2. If you use spain_budget_description.sql, you need to download the updated version from
+http://ocax.net/download/budgetdescriptions/spain_budget_description.sql
+and import it into your database.
+
+3. You need to make changes to the database. Copy the sql code and paste it into your sql workspace.
 
 /* ---------- start copying ---------- */
 
+ALTER TABLE config ADD can_edit TINYINT(1) DEFAULT 1;
 UPDATE config SET parameter='administrationName' WHERE parameter='councilName';
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
+INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'MYSQL schema version');
 
 /* ---------- stop copying ---------- */
-
 
 
 OCAX 1.1.3
