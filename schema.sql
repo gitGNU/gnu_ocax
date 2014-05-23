@@ -297,7 +297,6 @@ CREATE TABLE IF NOT EXISTS archive (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-
 CREATE TABLE IF NOT EXISTS reset_password (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,
@@ -308,6 +307,27 @@ CREATE TABLE IF NOT EXISTS reset_password (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS vault (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  host varchar(255) NOT NULL,
+  type TINYINT(1) NOT NULL,	/* 0 = copies are on localhost, 1 = copies are on remotehost */
+  schedule TINYINT(3) NOT NULL,	/* how often to make the copy */
+  created DATETIME NOT NULL,
+  state int(11) DEFAULT 0,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS backup (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  vault int(11) NOT NULL,
+  filename varchar(255) NULL,
+  initiated DATETIME NOT NULL,
+  completed DATETIME NULL,
+  checksum varchar(255) NULL,
+  state int(11) DEFAULT 0,
+  FOREIGN KEY (vault) REFERENCES vault(id),
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,

@@ -1,6 +1,6 @@
 <?php
 
-class BackupController extends Controller
+class VaultController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class BackupController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Backup;
+		$model=new Vault;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Backup']))
+		if(isset($_POST['Vault']))
 		{
-			$model->attributes=$_POST['Backup'];
+			$model->attributes=$_POST['Vault'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class BackupController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Backup']))
+		if(isset($_POST['Vault']))
 		{
-			$model->attributes=$_POST['Backup'];
+			$model->attributes=$_POST['Vault'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class BackupController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Backup');
+		$dataProvider=new CActiveDataProvider('Vault');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class BackupController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Backup('search');
+		$model=new Vault('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Backup']))
-			$model->attributes=$_GET['Backup'];
+		if(isset($_GET['Vault']))
+			$model->attributes=$_GET['Vault'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class BackupController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Backup the loaded model
+	 * @return Vault the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Backup::model()->findByPk($id);
+		$model=Vault::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +160,11 @@ class BackupController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Backup $model the model to be validated
+	 * @param Vault $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='backup-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='vault-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
