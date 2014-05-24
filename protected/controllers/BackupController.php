@@ -1,4 +1,22 @@
 <?php
+/**
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 
 class BackupController extends Controller
 {
@@ -27,17 +45,9 @@ class BackupController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin', 'index', 'create'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -135,11 +145,23 @@ class BackupController extends Controller
 	{
 		$model=new Backup('search');
 		$model->unsetAttributes();  // clear any default values
+		
+		$localVaults=new CActiveDataProvider('Vault', array(
+			'criteria'=>array(
+				'condition'=>"type=0",
+			),
+		));
+		$remoteVaults=new CActiveDataProvider('Vault', array(
+			'criteria'=>array(
+				'condition'=>"type=1",
+			),
+		));
+				
 		if(isset($_GET['Backup']))
 			$model->attributes=$_GET['Backup'];
 
 		$this->render('admin',array(
-			'model'=>$model,
+			'model'=>$model, 'localVaults'=>$localVaults, 'remoteVaults'=>$remoteVaults
 		));
 	}
 

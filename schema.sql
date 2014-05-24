@@ -310,6 +310,7 @@ CREATE TABLE IF NOT EXISTS reset_password (
 CREATE TABLE IF NOT EXISTS vault (
   id int(11) NOT NULL AUTO_INCREMENT,
   host varchar(255) NOT NULL,
+  name varchar(255) NOT NULL, /* name of the directory where backups are kept */
   type TINYINT(1) NOT NULL,	/* 0 = copies are on localhost, 1 = copies are on remotehost */
   schedule TINYINT(3) NOT NULL,	/* how often to make the copy */
   created DATETIME NOT NULL,

@@ -1,5 +1,23 @@
 <?php
 
+/**
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 class VaultController extends Controller
 {
 	/**
@@ -27,17 +45,9 @@ class VaultController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('view', 'admin', 'index', 'create', 'update', 'delete'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -51,9 +61,19 @@ class VaultController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		//if(!Yii::app()->request->isAjaxRequest)
+		//	Yii::app()->end();
+
+		$model=$this->loadModel($id);
+		if($model){
+			$backups = Backup::model()->getDataproviderByVault($model->id);
+			if(Yii::app()->request->isAjaxRequest)
+				echo $this->renderPartial('view',array('model'=>$model,'backups'=>$backups),true,true);
+			else
+				$this->render('view',array('model'=>$model,'backups'=>$backups));
+		}
+		else
+			echo 0;
 	}
 
 	/**
@@ -70,8 +90,14 @@ class VaultController extends Controller
 		if(isset($_POST['Vault']))
 		{
 			$model->attributes=$_POST['Vault'];
-			if($model->save())
+			$model->created = date('c');
+			$model->state=0;
+			$model->schedule=0;
+			if($model->save()){
+				//$backups = Backup::model()->getDataproviderByVault($model->id);
+				//$this->render('view',array('model'=>$model,'backups'=>$backups));
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(
@@ -94,11 +120,20 @@ class VaultController extends Controller
 		if(isset($_POST['Vault']))
 		{
 			$model->attributes=$_POST['Vault'];
-			if($model->save())
+			if($model->state == CREATED && $model->key){
+				$model->setScenario('newKey');
+				if($model->validate()){
+					// contact remote server
+						//$model->state = INITIATED;
+						$model->saveKey();
+						$model->save();
+				}
+			}
+			elseif($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('update',array(
+		$this->render('view',array(
 			'model'=>$model,
 		));
 	}
@@ -155,6 +190,7 @@ class VaultController extends Controller
 		$model=Vault::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
+		$model->loadKey();
 		return $model;
 	}
 
