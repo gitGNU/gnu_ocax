@@ -49,13 +49,11 @@ if($model->type == LOCAL && $model->state == 0){
 	$text = str_replace("%s", $model->host, $text);
 	echo "<h2>You need to:</h2><p>$text ".$model->key."</p>";
 }
-if($model->type == REMOTE && $model->state == 0){
-	$text = __('Ask the Admin at %s to create a vault for you');
+if($model->type == REMOTE && $model->state == CREATED){
+	$text = __('Ask the Admin at %s to create a vault for you. Your URL is').' '.Yii::app()->getBaseUrl(true);
 	$text = str_replace("%s", $model->host, $text);
-	if(!$model->key)
-		$text = $text.' '.__('and send you the key to the new vault');
-	$text = $text.'.';
 	echo "<h2>You need to:</h2><p>$text</p>";
+	echo '<p>'.str_replace("%s", $model->host, __('%s will send you a key')).'</p>';
 	$this->renderPartial('//vault/_updateKey', array('model'=>$model));
 }
 

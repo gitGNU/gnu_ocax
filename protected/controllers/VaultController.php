@@ -45,6 +45,10 @@ class VaultController extends Controller
 	public function accessRules()
 	{
 		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('verifyKey'),
+				'users'=>array('*'),
+			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('view', 'admin', 'index', 'create', 'update', 'delete'),
 				'expression'=>"Yii::app()->user->isAdmin()",
@@ -123,10 +127,58 @@ class VaultController extends Controller
 			if($model->state == CREATED && $model->key){
 				$model->setScenario('newKey');
 				if($model->validate()){
+					if($model->type == REMOTE){
+						/*
+						$opts = array('http' => array(
+												'method'  => 'POST',
+												'header'  => 'Content-type: application/x-www-form-urlencoded',
+												'ignore_errors' => '1',
+												'timeout' => 2.5,
+											));
+						$localhostname = $model->normalizeHost(Yii::app()->getBaseUrl(true));
+						$context = stream_context_create($opts);
+						$reply = @file_get_contents($model->host.'/vault/verifyKey?key='.$model->key.'&host='.$localhostname, false, $context);
+						file_put_contents('/tmp/verify.txt', $reply);
+						*/
 					// contact remote server
 						//$model->state = INITIATED;
-						$model->saveKey();
-						$model->save();
+					/*
+						$data = array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)));
+						$url = $model->host.'/vault/verifyKey';
+						$options = array(
+							'http' => array(
+								'method'  => 'GET',
+								'content' => json_encode( $data ),
+								'header'=>  "Content-Type: application/json\r\n" .
+											"Accept: application/json\r\n"
+							  )
+						);
+						$context     = stream_context_create($options);
+						$result      = file_get_contents($url, false, $context);
+						$response    = json_decode($result);
+						//file_put_contents('/tmp/verify.txt', $result);
+						//var_dump($response);
+					*/
+
+					$postdata = http_build_query(
+						array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)))
+					);
+
+					$opts = array('http' =>
+						array(
+							'method'  => 'POST',
+							'header'  => 'Content-type: application/x-www-form-urlencoded',
+							'content' => $postdata
+						)
+					);
+					$context  = stream_context_create($opts);
+					$result = file_get_contents($model->host.'/vault/verifyKey', false, $context);
+
+
+					file_put_contents('/tmp/verify.txt', $response);
+					}
+					$model->saveKey();
+					$model->save();
 				}
 			}
 			elseif($model->save())
@@ -136,6 +188,26 @@ class VaultController extends Controller
 		$this->render('view',array(
 			'model'=>$model,
 		));
+	}
+	
+	public function actionVerifyKey()
+	{
+		//$post = Yii::app()->request->rawBody;
+		//$data = CJSON::decode($post, true);
+		file_put_contents('/tmp/verify.txt', $data);
+		//echo 1;
+
+		if(isset($_GET['key']) &&  isset($_GET['host'])){
+			if($model = Vault::model()->findByAttributes(array('key'=>$_GET['key'], 'name'=>$_GET['host']))){
+				if($model->state == CREATED){
+					$model->state = INITIATED;
+					$model->save();
+				}
+				echo 1;
+			}else
+				echo 0;
+		}else
+			echo 0;
 	}
 
 	/**

@@ -37,7 +37,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(__('Save')); ?>
+		<?php echo CHtml::submitButton(__('Verify')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

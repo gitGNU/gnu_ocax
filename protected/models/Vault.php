@@ -96,7 +96,7 @@ class Vault extends CActiveRecord
 	public function beforeSave()
 	{
 		if($this->isNewRecord){
-			$this->name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $this->host);
+			$this->name = $this->normalizeHost($this->host);
 			mkdir($this->vaultDir.$this->name, 0777, true);
 			if($this->type == LOCAL){
 				$length = 32;
@@ -107,6 +107,11 @@ class Vault extends CActiveRecord
 		}
 		return parent::beforeSave();
     }
+
+	public function normalizeHost($host)
+	{
+		return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
+	}
 
 	/**
 	 * @return array relational rules.
