@@ -64,18 +64,20 @@ if($model->type == REMOTE && $model->state == CREATED){
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		'host',
 		array(
 	        'label'=>__('State'),
 			'type' => 'raw',
 			'value'=> $model->getHumanStates($model->state),
 		),
-		'host',
+		'schedule',
+		/*
 		array(
 	        'label'=>__('Key'),
 			'type' => 'raw',
 			'value'=> ($model->state == CREATED && $model->type == REMOTE)? '': $model->key,
 		),
-		'schedule',
+		*/
 	),
 )); ?>
 </div>

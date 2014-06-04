@@ -100,6 +100,7 @@ class VaultController extends Controller
 			if($model->save()){
 				//$backups = Backup::model()->getDataproviderByVault($model->id);
 				//$this->render('view',array('model'=>$model,'backups'=>$backups));
+				//$backups = Backup::model()->getDataproviderByVault($model->id);
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -128,57 +129,23 @@ class VaultController extends Controller
 				$model->setScenario('newKey');
 				if($model->validate()){
 					if($model->type == REMOTE){
-						/*
 						$opts = array('http' => array(
-												'method'  => 'POST',
+												'method'  => 'GET',
 												'header'  => 'Content-type: application/x-www-form-urlencoded',
 												'ignore_errors' => '1',
 												'timeout' => 2.5,
 											));
-						$localhostname = $model->normalizeHost(Yii::app()->getBaseUrl(true));
+						$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true));
 						$context = stream_context_create($opts);
-						$reply = @file_get_contents($model->host.'/vault/verifyKey?key='.$model->key.'&host='.$localhostname, false, $context);
-						file_put_contents('/tmp/verify.txt', $reply);
-						*/
-					// contact remote server
-						//$model->state = INITIATED;
-					/*
-						$data = array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)));
-						$url = $model->host.'/vault/verifyKey';
-						$options = array(
-							'http' => array(
-								'method'  => 'GET',
-								'content' => json_encode( $data ),
-								'header'=>  "Content-Type: application/json\r\n" .
-											"Accept: application/json\r\n"
-							  )
-						);
-						$context     = stream_context_create($options);
-						$result      = file_get_contents($url, false, $context);
-						$response    = json_decode($result);
-						//file_put_contents('/tmp/verify.txt', $result);
-						//var_dump($response);
-					*/
-
-					$postdata = http_build_query(
-						array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)))
-					);
-
-					$opts = array('http' =>
-						array(
-							'method'  => 'POST',
-							'header'  => 'Content-type: application/x-www-form-urlencoded',
-							'content' => $postdata
-						)
-					);
-					$context  = stream_context_create($opts);
-					$result = file_get_contents($model->host.'/vault/verifyKey', false, $context);
-
-
-					file_put_contents('/tmp/verify.txt', $response);
+						$reply=Null;
+						$reply = @file_get_contents($model->host.'/vault/verifyKey?key='.$model->key.'&vault='.$vaultName, false, $context);
+						if($reply == 1){
+							$model->state = VERIFIED;
+							$model->saveKey();
+							$model->save();
+							$this->redirect(array('view','id'=>$model->id));
+						}
 					}
-					$model->saveKey();
-					$model->save();
 				}
 			}
 			elseif($model->save())
@@ -190,24 +157,27 @@ class VaultController extends Controller
 		));
 	}
 	
+	/**
+	 * Part of the vault handshake
+	 * Remote ocax instalation calls this
+	 */
 	public function actionVerifyKey()
 	{
-		//$post = Yii::app()->request->rawBody;
-		//$data = CJSON::decode($post, true);
-		file_put_contents('/tmp/verify.txt', $data);
-		//echo 1;
-
-		if(isset($_GET['key']) &&  isset($_GET['host'])){
-			if($model = Vault::model()->findByAttributes(array('key'=>$_GET['key'], 'name'=>$_GET['host']))){
-				if($model->state == CREATED){
-					$model->state = INITIATED;
-					$model->save();
-				}
-				echo 1;
-			}else
-				echo 0;
-		}else
-			echo 0;
+		if(isset($_GET['key']) && isset($_GET['vault'])){
+			if($model = Vault::model()->findByAttributes(array('name'=>$_GET['vault']))){
+				$model->loadKey();
+				if($model->key && $model->key == $_GET['key']){
+					if($model->state == CREATED){
+						$model->state = VERIFIED;
+						$model->save();
+					}
+					echo 1;
+					Yii::app()->end();
+				}		
+			}
+		}
+		echo 0;
+		Yii::app()->end();
 	}
 
 	/**
@@ -279,3 +249,44 @@ class VaultController extends Controller
 		}
 	}
 }
+
+
+/*
+					// contact remote server
+						//$model->state = INITIATED;
+
+					/*
+						$data = array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)));
+						$url = $model->host.'/vault/verifyKey';
+						$options = array(
+							'http' => array(
+								'method'  => 'GET',
+								'content' => json_encode( $data ),
+								'header'=>  "Content-Type: application/json\r\n" .
+											"Accept: application/json\r\n"
+							  )
+						);
+						$context     = stream_context_create($options);
+						$result      = file_get_contents($url, false, $context);
+						$response    = json_decode($result);
+						//file_put_contents('/tmp/verify.txt', $result);
+						//var_dump($response);
+					*/
+/*
+					$postdata = http_build_query(
+						array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)))
+					);
+
+					$opts = array('http' =>
+						array(
+							'method'  => 'POST',
+							'header'  => 'Content-type: application/x-www-form-urlencoded',
+							'content' => $postdata
+						)
+					);
+					$context  = stream_context_create($opts);
+					$result = file_get_contents($model->host.'/vault/verifyKey', false, $context);
+
+
+					file_put_contents('/tmp/verify.txt', $response);
+*/

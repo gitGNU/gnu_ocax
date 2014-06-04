@@ -96,7 +96,7 @@ class Vault extends CActiveRecord
 	public function beforeSave()
 	{
 		if($this->isNewRecord){
-			$this->name = $this->normalizeHost($this->host);
+			$this->name = $this->host2VaultName($this->host);
 			mkdir($this->vaultDir.$this->name, 0777, true);
 			if($this->type == LOCAL){
 				$length = 32;
@@ -108,7 +108,7 @@ class Vault extends CActiveRecord
 		return parent::beforeSave();
     }
 
-	public function normalizeHost($host)
+	public function host2VaultName($host)
 	{
 		return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
 	}
@@ -145,7 +145,7 @@ class Vault extends CActiveRecord
 	{
 		$humanStateValues=array(
 				0		=>__('Created'),
-				1		=>__('Initiated'),
+				1		=>__('Verified'),
 		);
 		return $humanStateValues[$state];
 	}

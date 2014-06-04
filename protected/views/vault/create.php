@@ -33,8 +33,12 @@ $this->menu=array(
 </style>
 
 <script>
-
-
+function toggleSchedule(){
+	if( $("#vault-form input[type='radio']:checked").val() == 0)
+		$("#schedule").show();
+	else
+		$("#schedule").hide();
+}
 </script>
 
 <h1><?php echo __('Create a vault');?></h1>
@@ -45,7 +49,7 @@ $this->menu=array(
 	'enableAjaxValidation'=>false,
 )); ?>
 
-<div id="question_1" class="row step" style="display:block">
+<div class="row step" style="display:block">
 <h2><?php echo __('What type of vault are you creating?');?></h2>
 <p>
 <?php
@@ -57,7 +61,7 @@ $this->menu=array(
 								$vaultType,
 								array(	'labelOptions'=>array('style'=>'display:inline'),
 										'separator'=>'<br />',
-										'onchange'=>'js:showChangedAddressedToMSG(this);return false;',
+										'onchange'=>'js:toggleSchedule();return false;',
 									)
 							);
 	echo $form->error($model,'type');
@@ -65,7 +69,14 @@ $this->menu=array(
 </p>
 </div>
 
-<div id="question_2" class="row step">
+<div id="schedule" class="row" style="display:none;">
+<h2><?php echo __('When can they make backups?');?></h2>
+<p>
+hello
+</p>
+</div>
+
+<div class="row step">
 <h2>Every vault has two observatories</h2>
 <p>
 1.	<?php echo Yii::app()->getBaseUrl(true);?><br />

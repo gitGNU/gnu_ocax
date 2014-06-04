@@ -52,7 +52,7 @@ define ('LOCAL', 0);
 define ('REMOTE', 1);
 // Vault->state
 define ('CREATED', 0);
-define ('INITIATED', 1);
+define ('VERIFIED', 1);
 
 
 
