@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,6 @@
 
 </style>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/piegraph.css" />
-
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/api/script/ocaxpiegraph"></script>
 			
@@ -41,7 +40,7 @@ foreach($featured as $budget){
 </div>
 
 <script>
-$(function() {
+$(window).bind("load", function() {
 	<?php 
 		foreach($featured as $budget){	// Yii::app()->getBaseUrl(true)
 			echo '$("#anchor_'.$budget->id.'").ocaxpiegraph({	source: "'.Yii::app()->request->baseUrl.'",	

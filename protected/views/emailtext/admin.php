@@ -21,8 +21,7 @@
 /* @var $this EmailtextController */
 /* @var $model Emailtext */
 
-$this->inlineHelp='::profiles:admin';
-
+$this->inlineHelp=':profiles:admin';
 ?>
 
 <h1><?php echo __('Email text templates');?></h1>

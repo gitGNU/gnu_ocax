@@ -7,6 +7,14 @@ function rgb2hex(rgb) {
 	}
 	return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
+function getFontColor(rgb) {
+	rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+	//alert(rgb[1]*0.299 + rgb[2]*0.587 + rgb[3]*0.114);
+	if ( (rgb[1]*0.299 + rgb[2]*0.587 + rgb[3]*0.114) > 128 )
+		return '#000000';
+	else
+		return '#ffffff';
+}
 
 function lightenDarkenColor(col, amt) {
 	

@@ -189,13 +189,13 @@ class Budget extends CActiveRecord
 		$lang=Yii::app()->language;
 		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
 			if($description->description)
-				return $description->description;
+				return $description;
 		}
 		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
 			if($description->description)
-				return $description->description;
+				return $description;
 		}
-		return '';
+		return Null;
 	}
 
 	// return the percentage of this budget from total
@@ -261,7 +261,8 @@ class Budget extends CActiveRecord
 		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
 			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
 
-		if($error = Backup::dumpDatabase($file->getURI(), 'budget')){
+		$backup = new Backup();
+		if($error = $backup->dumpDatabase($file->getURI(), 'budget')){
 			if(file_exists($file->getURI()))
 				unlink($file->getURI());
 			echo $error;
@@ -277,7 +278,38 @@ class Budget extends CActiveRecord
 	public function restoreBudgets($file_id)
 	{
 		$file = File::model()->findByPk($file_id);
-
+		if(!$file)
+			Yii::app()->end();
+		
+		// http://www.cnblogs.com/davidhhuan/archive/2011/12/30/2306841.html
+        $pdo = Yii::app()->db->pdoInstance;
+        try 
+        { 
+            if (file_exists($file->getURI())) 
+            {
+                $sqlStream = file_get_contents($file->getURI());
+                $sqlStream = rtrim($sqlStream);
+                $newStream = preg_replace_callback("/\((.*)\)/", create_function('$matches', 'return str_replace(";"," $$$ ",$matches[0]);'), $sqlStream); 
+                $sqlArray = explode(";", $newStream); 
+                foreach ($sqlArray as $value) 
+                { 
+                    if (!empty($value))
+                    {
+                        $sql = str_replace(" $$$ ", ";", $value) . ";";
+                        $pdo->exec($sql);
+                    } 
+                } 
+                //echo "succeed to import the sql data!";
+                return true;
+            } 
+        } 
+        catch (PDOException $e) 
+        { 
+            echo $e->getMessage();
+            exit; 
+        }
+		
+/*
 		$params = getMySqlParams();
 		$output = NULL;
 		$return_var = NULL;
@@ -285,6 +317,7 @@ class Budget extends CActiveRecord
 					' --host='.$params['host'].' --default_character_set utf8 '.$params['dbname'].' < '.$file->getURI();
 		exec($command, $output, $return_var);
 		echo $return_var;
+*/
 	}
 
 	public function budgetsWithoutDescription()

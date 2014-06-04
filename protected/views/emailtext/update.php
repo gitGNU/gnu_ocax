@@ -30,6 +30,7 @@ $this->menu=array(
 	array('label'=>'View text', 'url'=>array('view', 'id'=>$model->state)),
 	array('label'=>'Manage texts', 'url'=>array('admin')),
 );
+$this->inlineHelp=':profiles:admin';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

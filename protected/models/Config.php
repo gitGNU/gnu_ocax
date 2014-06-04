@@ -68,13 +68,14 @@ class Config extends CActiveRecord
 
 	public function validateLanguage($attribute,$params)
 	{
-		$available_langs = Yii::app()->coreMessages->basePath;
+		//$available_langs = Yii::app()->coreMessages->basePath;
+		$available_langs = Yiibase::getPathOfAlias('application.messages');
 		$languages = explode(',', $this->$attribute);
 		foreach($languages as $language){
 			if(!is_dir($available_langs.'/'.$language)){
 				$this->addError($attribute, $language.' '.__('is not a valid language.'));
-			}				
-		}		
+			}
+		}
 	}
 
 	public function validateCurrenyCollocation($attribute,$params)
@@ -130,7 +131,8 @@ class Config extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$criteria->addCondition('can_edit = 1');
+		
 		$criteria->compare('parameter',$this->parameter,true);
 		$criteria->compare('value',$this->value,true);
 		$criteria->compare('description',$this->description,true);

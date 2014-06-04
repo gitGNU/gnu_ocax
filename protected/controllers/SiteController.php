@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -53,7 +53,7 @@ class SiteController extends Controller
 		}else
 			$this->render('index', array('lang'=>Yii::app()->user->getState('applicationLanguage')));
 	}
-	
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -72,7 +72,7 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isPrivileged())
 			$this->redirect(array('index'));
-		else	
+		else
 			$this->renderPartial('chat');
 	}
 
@@ -80,7 +80,7 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isPrivileged())
 			$this->redirect(array('index'));
-		else	
+		else
 			$this->renderPartial('candy');
 	}
 
@@ -131,7 +131,7 @@ class SiteController extends Controller
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
 		if($user->is_disabled)
 			Yii::app()->end();
-		
+
 		$user->activationcode = $user->generateActivationCode();
 		$user->save();
 
@@ -143,7 +143,7 @@ class SiteController extends Controller
 		$mailer->Body = '<p>'.__('Hello').' '.$user->fullname.',</p>'.
 						$this->getActivationEmailText($user).
 						'<p>'.__('Thank you').',<br />'.
-						Config::model()->getObservatoryName().'</p>'; 
+						Config::model()->getObservatoryName().'</p>';
 		if($mailer->send())
 			Yii::app()->user->setFlash('success',__('We sent you an email'));
 		else
@@ -158,7 +158,7 @@ class SiteController extends Controller
 			Yii::app()->end();
 
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
-		
+
 		$mailer = new Mailer();
 		$mailer->AddAddress($user->email);
 		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
@@ -168,13 +168,13 @@ class SiteController extends Controller
 						'<p>'.__('NEW_USER_EMAIL_MSG').'</p>'.
 						'<p>'.$this->getActivationEmailText($user).'</p>'.
 						'<p>'.__('Thank you').',<br />'.Config::model()->getObservatoryName().'</p>';
- 
+
 		if($mailer->send())
 			Yii::app()->user->setFlash('success',__('We sent you an email'));
 		else
 			Yii::app()->user->setFlash('newActivationCodeError',__('Error while sending email').'<br />'.$mailer->ErrorInfo);
 
-		$this->redirect(array('/user/panel'));		
+		$this->redirect(array('/user/panel'));
 	}
 
 
@@ -182,10 +182,10 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isGuest)
 			$this->redirect(array('/user/panel'));
- 
+
 		$model=new RegisterForm;
 		$newUser = new User;
- 
+
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
@@ -197,7 +197,7 @@ class SiteController extends Controller
 		if(isset($_POST['RegisterForm']))
 		{
 			$model->attributes=$_POST['RegisterForm'];
- 
+
 			$newUser->username = $model->username;
 			$newUser->fullname = $model->fullname;
 			$newSalt=$newUser->generateSalt();
@@ -218,11 +218,11 @@ class SiteController extends Controller
 				//$identity->authenticate();
 				Yii::app()->user->login($identity,0);
 				$this->actionSendWelcomeText();
-			} 
+			}
 		}
 		$this->render('register',array('model'=>$model));
 	}
- 
+
 	/**
 	 * Activation Action
 	*/
@@ -252,7 +252,7 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isGuest)
 			$this->redirect(array('/user/panel'));
-		
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -271,7 +271,7 @@ class SiteController extends Controller
 				$lang = User::model()->findByPk(Yii::app()->user->getUserID())->language;
 				if($lang != Null){
 					$cookie = new CHttpCookie('lang', $lang);
-					$cookie->expire = time()+60*60*24*180; 
+					$cookie->expire = time()+60*60*24*180;
 					Yii::app()->request->cookies['lang'] = $cookie;
 				}
 				if(Yii::app()->user->returnUrl != Yii::app()->getHomeUrl())
@@ -286,12 +286,13 @@ class SiteController extends Controller
 
 	private function changeLanguage($lang)
 	{
-		$available_langs = Yii::app()->coreMessages->basePath;
+		//$available_langs = Yii::app()->coreMessages->basePath;
+		$available_langs = Yiibase::getPathOfAlias('application.messages');
 		if(is_dir($available_langs.'/'.$lang)){
 			$cookie = new CHttpCookie('lang', $lang);
-			$cookie->expire = time()+60*60*24*180; 
+			$cookie->expire = time()+60*60*24*180;
 			Yii::app()->request->cookies['lang'] = $cookie;
-		}		
+		}
 	}
 
 	public function actionLanguage()
@@ -299,7 +300,10 @@ class SiteController extends Controller
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
 			$this->changeLanguage($_GET['lang']);
 		}
-		Yii::app()->request->redirect(Yii::app()->request->getUrlReferrer());
+		$reffer = Yii::app()->request->getUrlReferrer();
+		if(!$reffer)
+			$this->redirect(array('/site/index'));
+		Yii::app()->request->redirect($reffer);
 	}
 
 	public function actionRequestNewPassword()
@@ -361,13 +365,60 @@ class SiteController extends Controller
 				$user=User::model()->findByPk($reset->user);
 				if($user->is_disabled)
 					$this->redirect(array('/site/index'));
-					
+
 				Yii::app()->user->login(UserIdentity::createAuthenticatedIdentity($user->username),0);
 				Yii::app()->user->setFlash('success', __('Please change your password now'));
 				$this->redirect(array('/user/update'));
 			}
 		}
 		$this->redirect(array('/site/index'));
+	}
+
+
+	public function actionFeed()
+	{
+		Yii::import('application.vendors.*');
+		require_once 'Zend/Loader/Autoloader.php';
+		spl_autoload_unregister(array('YiiBase','autoload')); 
+		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$entries=array();
+
+		$enquiries = Enquiry::model()->getEnquiriesForRSS();
+		// convert to the format needed by Zend_Feed
+		foreach($enquiries as $enquiry)
+		{
+			$date = new DateTime($enquiry->created);
+			$entries[]=array(
+				'title'=>$enquiry->title,
+				'link'=>Yii::app()->createAbsoluteUrl('enquiry/view',array('id'=>$enquiry->id)),
+				'description'=>$enquiry->body,
+				'lastUpdate'=>$date->getTimestamp(),
+			);
+		}
+		$newsletters = Newsletter::model()->getNewslettersForRSS();
+		foreach($newsletters as $newsletter)
+		{
+			$date = new DateTime($newsletter->published);
+			$entries[]=array(
+				'title'=>$newsletter->subject,
+				'link'=>Yii::app()->createAbsoluteUrl('newsletter/view',array('id'=>$newsletter->id)),
+				'description'=>$newsletter->body,
+				'lastUpdate'=>$date->getTimestamp(),
+			);
+		}
+		usort($entries, function($a, $b) {
+    		return $b['lastUpdate'] - $a['lastUpdate'];
+		});
+		// generate and render RSS feed
+		$feed=Zend_Feed::importArray(array(
+			'title'   => Config::model()->findByPk('siglas')->value.' '.__('activity'),
+			'link'    => Yii::app()->createUrl('site'),
+			'charset' => 'UTF-8',
+			'entries' => $entries,      
+			), 'rss');
+		$feed->send();  
 	}
 
 	/**

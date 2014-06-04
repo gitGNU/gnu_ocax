@@ -32,7 +32,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete,restoreBudgets', // we only allow deletion via POST request
+			'postOnly + delete, restoreBudgets', // we only allow deletion via POST request
 		);
 	}
 
@@ -473,7 +473,7 @@ class BudgetController extends Controller
 	public function actionIndex()
 	{
 		$this->layout='//layouts/column1';
-		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('councilName')->value;
+		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('administrationName')->value;
 		$model = new Budget('publicSearch');
 
 		$model->unsetAttributes();  // clear any default values
@@ -519,7 +519,7 @@ class BudgetController extends Controller
 	public function actionRestoreBudgets($id)
 	{
 		$result = Budget::model()->restoreBudgets($id);
-		if($result == 0){
+		if($result === true){
 			Yii::app()->user->setFlash('success',__('Database restored correctly'));
 		}
 		return $result;

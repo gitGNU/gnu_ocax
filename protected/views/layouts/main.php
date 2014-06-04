@@ -33,7 +33,6 @@
 			echo '</span></li>';
 		}
 	?>
-    
     <li>
 		<?php
 			if(Yii::app()->user->isGuest){
@@ -45,28 +44,36 @@
 			}
 		?>
 	</li>
-
+	<?php
+		$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
+		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
+		if($fbURL || $twURL){
+			echo '<li>';
+			if($fbURL)
+				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/facebook.png"/></a> ';
+			if($twURL)
+				echo '<a href="'.$twURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/twitter.png"/></a> ';
+			echo '</li>';
+		}
+	?>	
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/newsletter'));
 		echo CHtml::link(__('Newsletters'), array('/newsletter'));
 	?>
 	</li>
-
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
 		echo CHtml::link(__('Archive'), array('/archive'));
 	?>
 	</li>
-
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
 	?>
 	</li>
-
 </ul> 
 </div>   
 
@@ -124,25 +131,14 @@
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';
-
-		$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
-		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
-		if($fbURL || $twURL){
-			echo '<div style="margin-top:10px">';
-			if($fbURL)
-				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->baseUrl.'/images/facebook.png"/></a> ';
-			if($twURL)
-				echo '<a href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
-			echo '</div>';
-		}
-	?>  
+		?>  
 	</div>
-	
 	<div style="width: 250px; float:right; margin:10px 0 10px 0;">
 		<div style="float: left;">
 			AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
-			<a href="http://ocax.net">http://ocax.net</a><br />
-			<a href="http://ocmunicipal.net">http://ocmunicipal.net</a><br/>
+			<?php $lang=Yii::app()->language; ?>
+			<a href="http://ocax.net/?<?php echo $lang;?>">http://ocax.net</a><br />
+			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a><br/>
 		</div>
 		<div style="float:right;margin-left:20px">
 			<a href="http://auditoriaciudadana.net">
@@ -154,7 +150,15 @@
 	<div style="clear:both;"></div>	
 </div><!-- footer -->
 
-<div class="poweredBy"><?php echo Yii::powered(); ?></div>
+<div style="width:980px;margin:0 auto;margin-top:5px;">
+	<div id="postFooterRSSLink">
+	<?php 
+		echo Config::model()->getObservatoryName().' RSS feed ';
+		echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/rss-16x16.png"/>',array('/site/feed'));
+	?>
+	</div>
+</div>
+
 </div>
 </body>
 </html>

@@ -127,9 +127,19 @@ function showBudgetDetails(){
 		echo '<div id="budget_comparative" style="display:none"></div>';
 		echo '</div>';
 	
-	echo '<div style="margin-top:15px; font-size:1.2em">';
+	echo '<div style="margin-top:15px; font-size:1.2em">';	
 	if($description = $model->getDescription()){
-		echo $description;
+		echo $description->description;
+		if($description->modified){
+			if($state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language)){
+				echo '<div class="link" style="margin-top:15px;" onClick="js:$(\'#state_desc\').slideDown();$(this).empty();return false">'.
+					  __('Read the administration\'s description').'</div>';
+				echo '<div id="state_desc" style="display:none;margin-top:10px;">';
+				echo '<div class="sub_title">'.__('Official description').'</div>';
+				echo $state_description->description;
+				echo '</div>';
+			}	
+		}
 	}	
 	
 	echo '<p style="font-size:1.2em;margin-top:35px;">';

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -93,10 +93,6 @@ function showEnquiry(enquiry_id){
 </script>
 
 <div class="outer" style="position:relative">
-
-<a style="position:absolute;top:-25px;left:935px;" href="<?php echo Yii::app()->createAbsoluteUrl('enquiry/feed');?>">
-<img src="<?php echo Yii::app()->baseUrl;?>/images/rss-16x16.png"/>
-</a>
 
 <div class="left">
 <h1><?php echo __('Enquiries made to date');?></h1>

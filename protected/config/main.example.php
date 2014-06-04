@@ -21,7 +21,7 @@ $config = array(
 	// Do you want to be part of the ocax network? http://ocax.net/network/
 	// We hope the network will provide support, automated backups and updates.
 	'params'=>array(
-		'ocaxnetwork'=>false,
+		'ocaxnetwork'=>true,
 	),
 
 	// This default should be good. Only touch this if you've moved the base directories.

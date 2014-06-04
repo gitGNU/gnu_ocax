@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,9 +24,6 @@
 
 <div style="margin:0px 0 20px 0; position:relative;">
 <?php echo '<span class="bigTitle">'.__('Newsletters').'</span>';?>
-<a style="position:absolute;top:-25px;left:935px;" href="<?php echo Yii::app()->createAbsoluteUrl('newsletter/feed');?>">
-<img src="<?php echo Yii::app()->baseUrl;?>/images/rss-16x16.png"/>
-</a>
 </div>
 
 <?php

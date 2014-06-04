@@ -55,6 +55,20 @@ CREATE TABLE IF NOT EXISTS budget (
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2014', 0, 'root budget', 10000, 0);
 
+CREATE TABLE IF NOT EXISTS budget_desc_state (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  csv_id varchar(100) NOT NULL,
+  language char(2) NOT NULL,
+  code varchar(32) NULL,
+  label varchar(32) NULL,
+  concept varchar( 255 ) NOT NULL,
+  description MEDIUMTEXT,
+  text MEDIUMTEXT,      /* description without tags */
+  modified DATETIME NULL,
+  FULLTEXT (concept, text),
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS budget_desc_common (
   id int(11) NOT NULL AUTO_INCREMENT,
   csv_id varchar(100) NOT NULL,
@@ -298,11 +312,14 @@ CREATE TABLE IF NOT EXISTS reset_password (
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,
   value varchar(255) NOT NULL ,
+  can_edit TINYINT(1) DEFAULT 1,
   required TINYINT(1) DEFAULT 1,
   description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO config(parameter, value, required, description) VALUES ('councilName', 'Ayuntamiento de Espanistan', '1', 'Name of the council');
+INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
+INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
+INSERT INTO config(parameter, value, required, description) VALUES ('administrationName', 'Ayuntamiento de Espanistan', '1', 'Name of the administration');
 INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
 INSERT INTO config(parameter, value, required, description) VALUES ('databaseDumpMethod', 'native', '1', 'Method for database backups: native or alternative');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
@@ -313,13 +330,14 @@ INSERT INTO config(parameter, value, required, description) VALUES ('observatory
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
+INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'Database schema version');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
-INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '1', 'SMTP Server');
-INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '1', 'SMTP Password');
-INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '1', 'SMTP Port');
+INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '0', 'SMTP Server');
+INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '0', 'SMTP Password');
+INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '0', 'SMTP Port');
 INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
-INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '1', 'SMTP Username');
+INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '0', 'SMTP Username');
 INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");

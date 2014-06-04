@@ -1,8 +1,7 @@
 <?php
-
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,9 +18,9 @@
  */
 
 /**
- * This is the model class for table "budget_desc_common".
+ * This is the model class for table "budget_desc_state".
  *
- * The followings are the available columns in table 'budget_desc_common':
+ * The followings are the available columns in table 'budget_desc_state':
  * @property integer $id
  * @property string $csv_id
  * @property string $language
@@ -32,13 +31,12 @@
  * @property string $text
  * @property string $modified
  */
-class BudgetDescCommon extends CActiveRecord
+class BudgetDescState extends CActiveRecord
 {
-	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return BudgetDescription the static model class
+	 * @return BudgetDescState the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -50,7 +48,7 @@ class BudgetDescCommon extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'budget_desc_common';
+		return 'budget_desc_state';
 	}
 
 	/**
@@ -60,18 +58,20 @@ class BudgetDescCommon extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
+/*
 		return array(
-			array('csv_id, language, concept', 'required'),
+			array('language, concept', 'required'),
 			array('csv_id', 'length', 'max'=>100),
-			array('code', 'length', 'max'=>32),
-			array('label', 'length', 'max'=>32),
 			array('language', 'length', 'max'=>2),
+			array('code, label', 'length', 'max'=>32),
 			array('concept', 'length', 'max'=>255),
-			array('description, text', 'safe'),
+			array('description, text, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('csv_id, language, code, concept, text', 'safe', 'on'=>'search'),
+			array('id, csv_id, language, code, label, concept, description, text, modified', 'safe', 'on'=>'search'),
 		);
+*/
+		return array();
 	}
 
 	/**
@@ -85,29 +85,34 @@ class BudgetDescCommon extends CActiveRecord
 		);
 	}
 
-	public function getBudgets()
+	public function getDescription($csv_id, $lang)
 	{
-		return Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id));
+		if($desc = $this->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$lang)))
+			return $desc;
+		if($desc = $this->findByAttributes(array('csv_id'=>$csv_id)))
+			return $desc;
+		return Null;
 	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
+/*
 	public function attributeLabels()
 	{
 		return array(
 			'id' => 'ID',
-			'csv_id' => 'Internal_code',
-			'language' => __('Language'),
-			'code' => __('Code'),
-			'label' => __('Label'),
-			'concept' => __('Concept'),
-			'description' => __('Description'),
+			'csv_id' => 'Csv',
+			'language' => 'Language',
+			'code' => 'Code',
+			'label' => 'Label',
+			'concept' => 'Concept',
+			'description' => 'Description',
 			'text' => 'Text',
-			'modified' => __('Modified'),
+			'modified' => 'Modified',
 		);
 	}
-
+*/
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -121,17 +126,19 @@ class BudgetDescCommon extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('language',$this->language,true);
-		$criteria->compare('code',$this->code);
+		$criteria->compare('code',$this->code,true);
+		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('text',$this->text,true);
+		$criteria->compare('modified',$this->modified,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));
 	}
 */
-
 }

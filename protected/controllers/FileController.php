@@ -107,7 +107,7 @@ class FileController extends Controller
 				$model->path='/files/'.$path;
 
 				if(!is_dir($model->getURI()))
-					mkdir($model->getURI(), 0700, true);
+					mkdir($model->getURI(), 0777, true);
 
 				$normalized_name = $model->normalize($model->file->name);
 				$model->path=$model->path.'/'.$normalized_name;
@@ -189,14 +189,25 @@ class FileController extends Controller
 		$file->path='/files/'.$file->model.'/'.$zip_name;
 		$file->name = $zip_name;
 
-		$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
+		$tmp_fn = tempnam(sys_get_temp_dir(), 'zip-');
+		$zip = new ZipArchive();
 
-		$output = NULL;
-		$return_var = NULL;
-		$command = 	'cd '.$file->baseDir.'/files/'.$file->model.';zip /tmp/'.$zip_name.' data/* docs/*';
+		if ($zip->open($tmp_fn, ZIPARCHIVE::CREATE)){
+			$source = $file->baseDir.'/files/'.$file->model;
+			
+			$zip->addEmptyDir('data');
+			$nodes = glob($source.'/data/*'); 
+			foreach($nodes as $node)
+				$zip->addFile($node, str_replace($source.'/', '/', $node));
 
-		exec($command, $output, $return_var);
-		if(!$return_var){
+			$zip->addEmptyDir('docs');
+			$nodes = glob($source.'/docs/*');
+			foreach($nodes as $node)
+				$zip->addFile($node, str_replace($source.'/', '/', $node));			
+
+			$zip->close();
+			
+			$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
 			$archive=Null;
 			if($old_zip){
 				$archive = Archive::model()->findByAttributes(array('path'=>$old_zip->path));
@@ -224,8 +235,9 @@ class FileController extends Controller
 			$archive->author = Yii::app()->user->getUserID();
 			$archive->save();
 			
-			copy('/tmp/'.$zip_name, $file->getURI());
-			unlink('/tmp/'.$zip_name);		
+			copy($tmp_fn, $file->getURI());
+			unlink($tmp_fn);		
+				
 			$file->save();
 			Yii::app()->user->setFlash('success',__('Zip file updated'));
 		}else{

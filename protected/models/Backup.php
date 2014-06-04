@@ -26,11 +26,15 @@ class Backup
 	{
 		$error='';
 		$backupDir = Yii::app()->basePath.'/runtime/';
-		foreach(glob($backupDir.'backup-*') as $f) {
-			unlink($f);
+		if($glob = glob($backupDir.'backup-*')){
+			foreach($glob as $f) {
+				unlink($f);
+			}
 		}
-		foreach(glob($backupDir.'*-backup.sql') as $f) {
-			unlink($f);
+		if($glob = glob($backupDir.'*-backup.sql')){
+			foreach($glob as $f) {
+				unlink($f);
+			}
 		}
 		$baseDir = dirname(Yii::app()->request->scriptFile);
 		$filesDir = $baseDir.'/files';

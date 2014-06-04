@@ -86,7 +86,7 @@ function requestNewPasswd(){
 <div class="right">
 <p style="font-size:1.5em;margin-bottom:10px;"><?php echo __('Still haven\'t got an account?');?></p>
 <p>
-	<a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register"><?php echo __('Sign up');?></a>
+	<h1 style="margin-top:-15px"><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/register"><?php echo __('Sign up');?></a></h1>
 </p>
 <br/>
 <p style="font-size:1.5em;margin-bottom:10px;"><?php echo __('Forgotten your password?');?></p>
