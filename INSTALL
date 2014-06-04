@@ -4,8 +4,13 @@ http://wiki.ocax.net/
 
 This software is BETA.
 
+** Preinstallation concerns
+
 Directory structure.
-You need to replicate this structure on you web server.
+index.php is in the app/ directory. So, your domain ocax.example.com -> app/
+There are two possible directory structures.
+
+1. This is default. (Remember to make the app/ directory your webroot).
 
 |
 - app
@@ -14,8 +19,19 @@ You need to replicate this structure on you web server.
 |
 - framework	(YII, http://www.yiiframework.com/ (tested with 1.1.14))
 
+2. If your server provider only gives you access to the webroot directory.
+ 
+- app
+  |
+  - protected
+  |
+  - framework
+  
+You can change the name of 'app' to another name like eg. 'public_html'
+If you use this directory structure, you need to edit app/index.php See intructions there.
 
-Installation
+
+** Installation
 
 1. Database
 * Create database and user
@@ -44,9 +60,13 @@ $ cp app/htaccess app/.htaccess
 
 That's it. You should be able to browse to your site now.
 
-5. See Post Installation instructions here http://wiki.ocax.net/en:install
 
-Help
+** Post Installation
+
+1. Follow the instructions here http://wiki.ocax.net/en:install
+
+
+** Help
 
 If you are having trouble installing OCAx, or any other OCAx related problems,
 Please subscribe to our mailing list and ask there.

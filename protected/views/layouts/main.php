@@ -44,6 +44,18 @@
 			}
 		?>
 	</li>
+	<?php
+		$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
+		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
+		if($fbURL || $twURL){
+			echo '<li>';
+			if($fbURL)
+				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/facebook.png"/></a> ';
+			if($twURL)
+				echo '<a href="'.$twURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/twitter.png"/></a> ';
+			echo '</li>';
+		}
+	?>	
 	<li>	
 	<?php
 		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/newsletter'));
@@ -119,18 +131,7 @@
 		<?php echo __('Email').': '.Config::model()->findByPk('emailContactAddress')->value;?><br />
 		<?php if($telf = Config::model()->findByPk('telephone')->value)
 			echo __('Telephone').': '.$telf.'<br />';
-
-		$fbURL = Config::model()->findByPk('socialFacebookURL')->value;
-		$twURL = Config::model()->findByPk('socialTwitterURL')->value;
-		echo '<div style="margin-top:10px">';
-		if($fbURL || $twURL){
-			if($fbURL)
-				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->baseUrl.'/images/facebook.png"/></a> ';
-			if($twURL)
-				echo '<a style="margin-right:10px" href="'.$twURL.'"><img src="'.Yii::app()->baseUrl.'/images/twitter.png"/></a> ';
-		}
-		echo '</div>';
-	?>  
+		?>  
 	</div>
 	<div style="width: 250px; float:right; margin:10px 0 10px 0;">
 		<div style="float: left;">
