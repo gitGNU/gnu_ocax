@@ -6,16 +6,17 @@ Before upgrading, read INSTALL to refresh your memory.
 4. Overwrite app/ and protected/ with new version
 5. Check file permissions # chown -R www-data app/assets/ app/files/ protected/runtime/
 
-Note: If, for example you are on version 1.1.0 and you are upgrading to version 1.1.3,
-      you cannot jump to the 1.1.3 instructions.
-      You must follow all upgrade instructions in ascending order. 1.1.1 then 1.1.2 then 1.1.3
+PLEASE README!
+If, for example you are on version 1.1.0 and you are upgrading to version 1.1.3,
+you cannot jump to the 1.1.3 instructions.
+You must follow all upgrade instructions in ascending order. 1.1.1 then 1.1.2 then 1.1.3
 
 
 OCAX 1.1.4
 Upgrade instructions.
 1. Follow steps 1-5 above.
 
-2. If you use spain_budget_description.sql, you need to download the updated version from
+2. Do you use spain_budget_description.sql? You need to download the updated version from
 http://ocax.net/download/budgetdescriptions/spain_budget_description.sql
 and import it into your database.
 
@@ -120,6 +121,8 @@ Follow steps 1-5 above.
 
 This version of OCAX come with some database changes. You need to update the database.
 
+/* ---------- start copying ---------- */
+
 RENAME TABLE budget_description TO budget_desc_common;
 ALTER TABLE budget_desc_common DROP common;
 ALTER TABLE budget_desc_common MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
@@ -145,6 +148,8 @@ UPDATE config SET parameter='observatoryName1' WHERE parameter='observatoryName'
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
 
+/* ---------- stop copying ---------- */
+
 
 Have you modified budget descriptions?
 If you have created or modified budget_descriptions, you need to do this.
@@ -161,16 +166,20 @@ $ mysql -uuser_name -p db_name < spain_budget_descriptions.sql
 Follow steps 1-6 above.
 
 We've got a new Global Parameter.
-INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
 
-Made database field for csv internal code longer
+/* ---------- start copying ---------- */
+
+INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
 ALTER TABLE budget MODIFY `csv_id` varchar(100) DEFAULT NULL;
 ALTER TABLE budget MODIFY `csv_parent_id` varchar(100) DEFAULT NULL;
 
+/* ---------- stop copying ---------- */
 
 1.1.0
 Follow steps 1-6 above.
 Create a new table in the database
+
+/* ---------- start copying ---------- */
 
 CREATE TABLE IF NOT EXISTS archive (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -184,9 +193,12 @@ CREATE TABLE IF NOT EXISTS archive (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+/* ---------- stop copying ---------- */
+
 
 1.0.4
 Nothing special to do. Follow steps 1-4 above.
+
 
 1.0.3
 1. Save your app/files folder
@@ -201,12 +213,16 @@ Database changes
 We changed two feilds in the database table intro_page from TINYINT(3) to INT(3)
 You need to do this.
 
+/* ---------- start copying ---------- */
+
 ALTER TABLE intro_page MODIFY toppos INT(3);
 ALTER TABLE intro_page MODIFY leftpos INT(3);
 ALTER TABLE intro_page ADD color varchar(6) NOT NULL DEFAULT '222222' AFTER leftpos;
 ALTER TABLE intro_page ADD bgcolor varchar(6) NOT NULL DEFAULT 'FFFFFF' AFTER color;
 ALTER TABLE intro_page ADD opacity TINYINT(1) NOT NULL DEFAULT '8' AFTER bgcolor;
-
-There is a new GLobal parameter.
-
 INSERT INTO config(parameter, value, required, description) VALUES ('membership', '0', '1', 'Does your Observatory encourage membership? (0 or 1)');
+
+/* ---------- stop copying ---------- */
+
+
+
