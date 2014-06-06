@@ -314,6 +314,7 @@ CREATE TABLE IF NOT EXISTS config (
   value varchar(255) NOT NULL ,
   can_edit TINYINT(1) DEFAULT 1,
   required TINYINT(1) DEFAULT 1,
+  can_edit TINYINT(1) DEFAULT 1,
   description varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
