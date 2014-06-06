@@ -24,30 +24,21 @@
 Yii::import('application.includes.*');
 require_once('runSQL.php');
 
-class MigrateSchema{
+class Migrate
+{
 	protected $MIGRATIONS_DIR;
-	protected $MIGRATE_VERSION_FILE;
-	protected $link = Null;
-	protected $version = 0;
+	protected $version = Null;
 	protected $MIGRATE_FILE_PREFIX = 'migrate-version-';
 	protected $MIGRATE_FILE_POSTFIX = '.sql';
 
-    public function __construct( /*...*/ ) {
-    	$this->MIGRATIONS_DIR = Yii::app()->basePath.'/migrations/';
-    	$this->MIGRATE_VERSION_FILE = Yii::app()->basePath.'/runtime/mysql.migrate.version';
-		if ($f = @fopen($this->MIGRATE_VERSION_FILE, 'r')) {
-			$this->version = intval(fgets($f));
-			fclose($f);
-		}
-    }
+	public function __construct( /*...*/ ) {
+		$this->MIGRATIONS_DIR = Yii::app()->basePath.'/migrations/';
+		$this->version = Config::model()->findByPk('schemaVersion');
+	}
 
 	public function migrate()
 	{
-		// Find the latest version or start at 0.
-		echo "Current database version is: $this->version\n";
-
 		$files = $this->get_migrations();
-		print_r($files);
 
 		// Check to make sure there are no conflicts such as 2 files under the same version.
 		$errors = array();
@@ -56,61 +47,37 @@ class MigrateSchema{
 		foreach ($files as $file) {
 			$file_version = $this->get_version_from_file($file);
 			if ($last_version !== false && $last_version === $file_version) {
-				$errors[] = "$last_file --- $file";
+				$errors[] = "Duplicate file version: $last_file --- $file";
 			}
 			$last_version = $file_version;
 			$last_file = $file;
 		}
-		if (count($errors) > 0) {
-			echo "Error: You have multiple files using the same version. " .
-				"To resolve, move some of the files up so each one gets a unique version.\n";
-			foreach ($errors as $error) {
-				echo "  $error\n";
-			}
-			exit;
-		}
-		
+		if (count($errors) > 0)
+			return $errors;
+
 		// Run all the new files.
-		$found_new = false;
 		foreach ($files as $file) {
 			$file_version = $this->get_version_from_file($file);
-			if ($file_version <= $this->version) {
+			if ($file_version <= $this->version->value)
 				continue;
-			}
 
-			echo "Running: $file\n";
 			$result = runSQLFile($this->MIGRATIONS_DIR.$file);
 			if(!$result)
 				return "Migrating file:".$this->MIGRATIONS_DIR.$file." failed";
-			echo "Done.\n";
 
-			$this->version = $file_version;
-			$found_new = true;
-
-			// Output the new version number.
-			$f = @fopen($this->MIGRATE_VERSION_FILE, 'w');
-			if ($f) {
-				fputs($f, $this->version);
-				fclose($f);
-			}else{
-				echo "Failed to output new version to " . $this->MIGRATION_VERSION_FILE . "\n";
-			}
+			$this->version->value = $file_version;
+			$this->version->save();
 		}
-		
-		if ($found_new)
-			echo "Migration complete.\n";
-		else
-			echo "Your database is up-to-date.\n";
+		return 0;
 	}
 
 	protected function get_migrations() {
-		// Find all the migration files in the directory and return the sorted.
+		// Find all the migration files in the directory and return sorted.
 		$files = array();
 		$dir = opendir($this->MIGRATIONS_DIR);
 		while ($file = readdir($dir)) {
-		if (substr($file, 0, strlen($this->MIGRATE_FILE_PREFIX)) == $this->MIGRATE_FILE_PREFIX) {
-			$files[] = $file;
-			}
+			if (substr($file, 0, strlen($this->MIGRATE_FILE_PREFIX)) == $this->MIGRATE_FILE_PREFIX)
+				$files[] = $file;
 		}
 		asort($files);
 		return $files;
@@ -140,4 +107,4 @@ class MigrateSchema{
 	}
 */
 }
-?>
+
