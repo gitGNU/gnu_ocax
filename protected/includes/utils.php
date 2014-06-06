@@ -91,13 +91,6 @@ function getOCAXVersion(){
 	fclose($handle);
 	return $version;
 }
-function getMSQLSchemaVersion(){
-	$path = Yii::app()->basePath.'/runtime/mysql.migrate.version';
-	$handle = @fopen($path, "r");
-	$version = rtrim(fgets($handle),"\n");
-	fclose($handle);
-	return $version;
-}	
 
 function getInlineHelpURL($path){
 	return 'http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
