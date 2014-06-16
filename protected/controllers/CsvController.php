@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -49,7 +49,7 @@ class CsvController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
 				'addMissingValues','checkCSVTotals','importCSVData',
-				'download','showYears','regenerateCSV','importDescriptions'),
+				'download','showYears','regenerateCSV','updateCommonDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -207,18 +207,6 @@ class CsvController extends Controller
 											'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']
 											));		
 	}
-
-/*
-	public function actionCheckInternalCodeSanity()
-	{
-		if(!isset($_GET['csv_file'])){
-			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
-			Yii::app()->end();
-		}
-		$model = new ImportCSV;
-		$model->csv = $model->path.$_GET['csv_file'];
-	}
-*/
 
 	public function actionCheckCSVTotals()
 	{
@@ -447,11 +435,80 @@ class CsvController extends Controller
 		}
 	}
 
+	private function strip_single_tag($tag,$string)
+	{
+		$string=preg_replace('/<'.$tag.'[^>]*>/i', '', $string);
+		$string=preg_replace('/<\/'.$tag.'>/i', '', $string);
+		return $string;
+	} 
+
 	/**
-	 * import budget descriptions
-	 * upload csv to app/files/csv/descriptions.csv and call url csv/importDescriptions
+	 * import new data into common budget descriptions
+	 * upload csv to app/files/csv/descriptions.csv and call url csv/updateCommonDescriptions
+	 * REMEMBER to add a empty column to the beginning of the csv before importing.!!
 	 */
-	public function actionImportDescriptions()
+	public function actionUpdateCommonDescriptions()
+	{
+		$text_delimiter='¬';
+		$field_delimiter='|';
+		$model = new ImportCSV;
+
+		$mega_array = explode('|', file_get_contents($model->path.'descriptions.csv'));
+		array_shift($mega_array);
+		$header=1;
+		$new_desc=0;
+		$updated_desc=0;
+
+		while($mega_array){
+			$field_cnt=0;
+			$row=array();
+			while($field_cnt < 7){
+				$row[] = array_shift($mega_array);
+				//echo $field_cnt.': '.$row[$field_cnt].'<br />';
+				$field_cnt++;
+			}
+			if($header){
+				$header=Null;
+				continue;	
+			}
+
+			$csv_id = trim(trim($row[0], $text_delimiter));
+			$language = trim(trim($row[1], $text_delimiter));
+
+			if(!$budget = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
+				$budget=new BudgetDescCommon;
+				$budget->csv_id = $csv_id;
+				$budget->language = $language;
+				++$new_desc;
+			}else
+				++$updated_desc;
+				
+			$budget->code = trim(trim($row[2], $text_delimiter));
+			$budget->label = trim(trim($row[3], $text_delimiter));
+			$budget->concept = trim(trim($row[4], $text_delimiter));
+			$budget->description = trim(trim($row[5], $text_delimiter));
+			$budget->description = $this->strip_single_tag('strong', $budget->description);
+			
+			$budget->text = trim(trim(trim($row[6], $text_delimiter)), $text_delimiter);
+			$budget->modified = date('c');
+				
+			//$budget->validate();
+			if(!$budget->save()){
+				echo CHtml::errorSummary($budget);
+				echo "<p>New: $new_desc, Updated: $updated_desc</p>";
+				Yii::app()->end();
+			}
+		}
+		echo "<p>New: $new_desc, Updated: $updated_desc</p>";
+	}
+
+
+	/**
+	 * create common budget descriptions. (use for new country).
+	 * upload csv to app/files/csv/descriptions.csv and call url csv/createCommonDescriptions
+	 * REMEMBER to add a empty column to the beginning of the csv before importing.!!
+	 */
+	public function actionCreateCommonDescriptions()
 	{
 		$model = new ImportCSV;
 		$mega_array = explode('|', file_get_contents($model->path.'descriptions.csv'));
@@ -466,7 +523,7 @@ class CsvController extends Controller
 				$field_cnt++;
 			}
 			if(!$header){
-					$budget=new BudgetDescription;	
+					$budget=new BudgetDescCommon;	
 					$budget->csv_id = trim(trim($row[0], '"'));
 					$budget->language = trim(trim($row[2], '"'));
 					$budget->code = trim(trim($row[3], '"'));
@@ -476,7 +533,6 @@ class CsvController extends Controller
 					$description=trim($description);
 					$budget->description = nl2br($description);
 					$budget->text = $description;
-					$budget->common = 1;
 										
 					//$budget->validate();
 					
