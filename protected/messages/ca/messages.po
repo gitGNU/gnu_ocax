@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-22 09:13+0100\n"
+"PO-Revision-Date: 2014-06-25 08:54+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1843,7 +1843,7 @@ msgstr "Les meves consultes"
 
 #: protected/views/user/panel.php:212
 msgid "I am subscribed to these enquirytions"
-msgstr "Estic escrit a aquestes consultes"
+msgstr "Estic subscrit a aquestes consultes"
 
 #: protected/views/user/panel.php:213
 msgid "You will be sent an email when these enquiries are updated"
