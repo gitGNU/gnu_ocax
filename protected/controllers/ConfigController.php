@@ -92,6 +92,7 @@ class ConfigController extends Controller
 										'header'  => 'Content-type: application/x-www-form-urlencoded',
 										'ignore_errors' => '1',
 										'timeout' => 0.5,
+										'user_agent' => 'ocax-'.getOCAXVersion(),
 									));
 				$url = Yii::app()->request->hostInfo.Yii::app()->baseUrl;
 				$url = str_replace("/", "|", $url);

@@ -33,11 +33,24 @@ $this->menu=array(
 </style>
 
 <script>
+$(function() {
+	if( $("#vault-form input[type='radio']:checked").val() == 0)
+		$("#schedule").show();	
+});
 function toggleSchedule(){
 	if( $("#vault-form input[type='radio']:checked").val() == 0)
 		$("#schedule").show();
 	else
 		$("#schedule").hide();
+}
+function updateSchedule(el, day){
+	schedule = $('#Vault_schedule').val();
+	if($(el).is(':checked'))
+		checked = '1';
+	else
+		checked = '0';
+	schedule = schedule.substring(0, day) + checked + schedule.substring(day+1);
+	$('#Vault_schedule').val(schedule);
 }
 </script>
 
@@ -72,7 +85,25 @@ function toggleSchedule(){
 <div id="schedule" class="row" style="display:none;">
 <h2><?php echo __('When can they make backups?');?></h2>
 <p>
-hello
+<?php
+	echo $form->hiddenField($model, 'schedule');
+	$schedule = $model->getAvailableSchedule();
+	$day = 0;
+	while($day < 7){
+		if($schedule[$day] == 1){
+			echo '<span style="color:lightgrey">';
+			echo $model->getHumanDays($day);
+			echo '<input type="checkbox" disabled="disabled">';
+		}else{
+			echo '<span>';
+			echo $model->getHumanDays($day);
+			echo '<input type="checkbox" onclick="js:updateSchedule(this, '.$day.')">';
+		}
+		echo '</span><br />';
+		$day++;
+	}
+	echo $form->error($model,'schedule');
+?>
 </p>
 </div>
 

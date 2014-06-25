@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS vault (
   host varchar(255) NOT NULL,
   name varchar(255) NOT NULL, /* name of the directory where backups are kept */
   type TINYINT(1) NOT NULL,	/* 0 = copies are on localhost, 1 = copies are on remotehost */
-  schedule TINYINT(3) NOT NULL,	/* how often to make the copy */
+  schedule varchar(7) NOT NULL,	/* which day(s) to make the copy seven digit char, starts on Monday 0000000 */
   created DATETIME NOT NULL,
   state int(11) DEFAULT 0,
   PRIMARY KEY (id)

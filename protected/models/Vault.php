@@ -26,7 +26,7 @@
  * @property string $host
  * @property string $name
  * @property integer $type
- * @property integer $schedule
+ * @property string $schedule
  * @property string $created
  * @property integer $state
  *
@@ -76,11 +76,13 @@ class Vault extends CActiveRecord
 		return array(
 			array('host, type, schedule, created', 'required'),
 			array('host', 'url'),
-			array('host', 'unique', 'className' => 'Vault'),
-			array('type, schedule, state', 'numerical', 'integerOnly'=>true),
+			//array('host', 'unique', 'className' => 'Vault'),
+			array('type, state', 'numerical', 'integerOnly'=>true),
 			array('host', 'length', 'max'=>255),
 			array('key', 'length', 'max'=>32),
+			array('schedule', 'length', 'max'=>7),
 			array('key', 'validateKey', 'on'=>'newKey'),
+			array('schedule', 'validateSchedule'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, host, type, schedule, created, state', 'safe', 'on'=>'search'),
@@ -93,16 +95,23 @@ class Vault extends CActiveRecord
 			$this->addError($attribute, __('Not a valid key'));
 	}
 
+	public function validateSchedule($attribute,$params)
+	{
+		if ($this->type == LOCAL && $this->schedule == '0000000')
+			$this->addError($attribute, __('Please choose at least one day'));
+	}
+
 	public function beforeSave()
 	{
 		if($this->isNewRecord){
 			$this->name = $this->host2VaultName($this->host);
-			mkdir($this->vaultDir.$this->name, 0777, true);
-			if($this->type == LOCAL){
-				$length = 32;
-				$this->key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-				//$this->key = strtoupper(substr(md5(rand(0, 1000000)), 0, 45));
-				file_put_contents($this->vaultDir.$this->name.'/key.txt', $this->key);
+			if(!is_dir($this->vaultDir.$this->name)){
+				mkdir($this->vaultDir.$this->name, 0777, true);
+				if($this->type == LOCAL){
+					$length = 32;
+					$this->key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+					file_put_contents($this->vaultDir.$this->name.'/key.txt', $this->key);
+				}
 			}
 		}
 		return parent::beforeSave();
@@ -110,7 +119,11 @@ class Vault extends CActiveRecord
 
 	public function host2VaultName($host)
 	{
-		return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
+		$name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
+		if($this->type == LOCAL)
+			return $name.'-local';
+		else
+			return $name.'-remote';
 	}
 
 	/**
@@ -146,8 +159,25 @@ class Vault extends CActiveRecord
 		$humanStateValues=array(
 				0		=>__('Created'),
 				1		=>__('Verified'),
+				2		=>__('Agreed'),
 		);
 		return $humanStateValues[$state];
+	}
+
+	public static function getHumanDays($day = Null)
+	{
+		$humanDayValues=array(
+				0		=>__('Monday'),
+				1		=>__('Tuesday'),
+				2		=>__('Wednesday'),
+				3		=>__('Thursday'),
+				4		=>__('Friday'),
+				5		=>__('Saturday'),
+				6		=>__('Sunday'),
+		);
+		if($day !== Null)
+			return $humanDayValues[$day];
+		return $humanDayValues;
 	}
 
 	public function loadKey()
@@ -159,7 +189,35 @@ class Vault extends CActiveRecord
 	public function saveKey()
 	{
 		file_put_contents($this->vaultDir.$this->name.'/key.txt', $this->key);
-	}	
+	}
+
+	public function getAvailableSchedule()
+	{
+		$schedule = '0000000';
+		foreach($this->findAll() as $vault){
+			$day = 0;	// Monday
+			while($day < 7){
+				if($vault->schedule[$day] == 1)
+					$schedule[$day] = 1;
+				$day++;
+			}
+		}
+		return $schedule;
+	}
+
+	public function getHumanSchedule()
+	{
+		//return $this->schedule;
+		
+		$result='';
+		$day=0;
+		while($day < 7){
+			if($this->schedule[$day] === '1')
+				$result = $result.' '.$this->getHumanDays($day).',';
+			$day++;
+		}
+		return rtrim($result,',');
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

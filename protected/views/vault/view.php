@@ -44,7 +44,7 @@ if($model->type == 0){
 <div>
 <div style="float: left; width:49%;">
 <?php
-if($model->type == LOCAL && $model->state == 0){
+if($model->type == LOCAL && $model->state == CREATED){
 	$text = __('Tell the Admin at %s that the vault has been created and the key is:');
 	$text = str_replace("%s", $model->host, $text);
 	echo "<h2>You need to:</h2><p>$text ".$model->key."</p>";
@@ -57,6 +57,16 @@ if($model->type == REMOTE && $model->state == CREATED){
 	$this->renderPartial('//vault/_updateKey', array('model'=>$model));
 }
 
+if($model->type == LOCAL && $model->state == VERIFIED){
+	$text = __('You are waiting for the admin at %s to choose one or more of the following days').'.';
+	$text = str_replace("%s", $model->host, $text);
+	echo "<h2>".__('Waiting...')."</h2>";
+	echo "<p>".$text."</p>";
+	echo "<p>".$model->getHumanSchedule()."</p>";
+}
+if($model->type == REMOTE && $model->state == VERIFIED){
+	$this->renderPartial('//vault/_updateSchedule', array('model'=>$model));
+}
 ?>
 
 </div>
@@ -70,21 +80,20 @@ if($model->type == REMOTE && $model->state == CREATED){
 			'type' => 'raw',
 			'value'=> $model->getHumanStates($model->state),
 		),
-		'schedule',
-		/*
+		//'schedule',
 		array(
-	        'label'=>__('Key'),
+	        'label'=>__('Schedule'),
 			'type' => 'raw',
-			'value'=> ($model->state == CREATED && $model->type == REMOTE)? '': $model->key,
+			'value'=> ($model->state == AGREED)? $model->getHumanSchedule() : __('Pending'),
 		),
-		*/
+
 	),
 )); ?>
 </div>
 </div>
 <div class="clear"></div>
 
-<?php if($model->state > 0){
+<?php if($model->state == AGREED){
 	echo '<h1>'.__('Backups').'</h1>';
 
 	$this->widget('zii.widgets.grid.CGridView', array(

@@ -46,7 +46,7 @@ class VaultController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('verifyKey'),
+				'actions'=>array('verifyKey', 'getSchedule'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -91,12 +91,13 @@ class VaultController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		$model->schedule='0000000';
 		if(isset($_POST['Vault']))
 		{
 			$model->attributes=$_POST['Vault'];
+			$model->host = rtrim($model->host, '/');
 			$model->created = date('c');
 			$model->state=0;
-			$model->schedule=0;
 			if($model->save()){
 				//$backups = Backup::model()->getDataproviderByVault($model->id);
 				//$this->render('view',array('model'=>$model,'backups'=>$backups));
@@ -128,15 +129,17 @@ class VaultController extends Controller
 			if($model->state == CREATED && $model->key){
 				$model->setScenario('newKey');
 				if($model->validate()){
-					if($model->type == REMOTE){
+					if($model->type == REMOTE && $model->state < VERIFIED){
 						$opts = array('http' => array(
 												'method'  => 'GET',
 												'header'  => 'Content-type: application/x-www-form-urlencoded',
 												'ignore_errors' => '1',
 												'timeout' => 2.5,
+												'user_agent' => 'ocax-'.getOCAXVersion(),
 											));
-						$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true));
+						$vaultName = rtrim($model->host2VaultName(Yii::app()->getBaseUrl(true)), '-remote');
 						$context = stream_context_create($opts);
+						
 						$reply=Null;
 						$reply = @file_get_contents($model->host.'/vault/verifyKey?key='.$model->key.'&vault='.$vaultName, false, $context);
 						if($reply == 1){
@@ -151,7 +154,6 @@ class VaultController extends Controller
 			elseif($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
 		$this->render('view',array(
 			'model'=>$model,
 		));
@@ -164,7 +166,8 @@ class VaultController extends Controller
 	public function actionVerifyKey()
 	{
 		if(isset($_GET['key']) && isset($_GET['vault'])){
-			if($model = Vault::model()->findByAttributes(array('name'=>$_GET['vault']))){
+			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
+			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
 				$model->loadKey();
 				if($model->key && $model->key == $_GET['key']){
 					if($model->state == CREATED){
@@ -172,6 +175,23 @@ class VaultController extends Controller
 						$model->save();
 					}
 					echo 1;
+					Yii::app()->end();
+				}		
+			}
+		}
+		echo 0;
+		Yii::app()->end();
+	}
+
+
+	public function actionGetSchedule()
+	{
+		if(isset($_GET['key']) && isset($_GET['vault'])){
+			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
+			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
+				$model->loadKey();
+				if($model->key && $model->key == $_GET['key']){
+					echo $model->schedule;
 					Yii::app()->end();
 				}		
 			}
