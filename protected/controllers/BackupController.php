@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 
 class BackupController extends Controller
 {
@@ -45,7 +46,7 @@ class BackupController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create'),
+				'actions'=>array('admin', 'index', 'create'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -55,32 +56,140 @@ class BackupController extends Controller
 	}
 
 	/**
-	 * Creates a backup.
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
 		$model=new Backup;
-		list($path, $file, $dump_error) = $model->backupSite();
-		
-	
-		if (file_exists($path.$file)) {
-			header("Pragma: public");
-			header("Expires: 0");
-			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-			header("Cache-Control: public");
-			header("Content-Description: File Transfer");
-			header("Content-type: application/octet-stream");
-			header("Content-Disposition: attachment; filename=\"".$file."\"");
-			header("Content-Transfer-Encoding: binary");
-			header("Content-Length: ".filesize($path.$file));
-			ob_end_flush();
-			@readfile($path.$file);
-			exit;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Backup']))
+		{
+			$model->attributes=$_POST['Backup'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
-		if($dump_error){
-			Yii::app()->user->setFlash('error', __($dump_error));
-			$this->redirect(array('/user/panel'));
+
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Backup']))
+		{
+			$model->attributes=$_POST['Backup'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+		$this->loadModel($id)->delete();
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		$dataProvider=new CActiveDataProvider('Backup');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin()
+	{
+		$model=new Backup('search');
+		$model->unsetAttributes();  // clear any default values
 		
+		$localVaults=new CActiveDataProvider('Vault', array(
+			'criteria'=>array(
+				'condition'=>"type=0",
+			),
+		));
+		$remoteVaults=new CActiveDataProvider('Vault', array(
+			'criteria'=>array(
+				'condition'=>"type=1",
+			),
+		));
+				
+		if(isset($_GET['Backup']))
+			$model->attributes=$_GET['Backup'];
+
+		$this->render('admin',array(
+			'model'=>$model, 'localVaults'=>$localVaults, 'remoteVaults'=>$remoteVaults
+		));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return Backup the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=Backup::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param Backup $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='backup-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
 	}
 }

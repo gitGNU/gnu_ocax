@@ -34,7 +34,7 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 /***** GLOBAL VARIABLES *****/
 
-// Enquiry states
+// Enquiry->state
 define ('ENQUIRY_PENDING_VALIDATION', 1);
 define ('ENQUIRY_ASSIGNED', 2);
 define ('ENQUIRY_REJECTED', 3);
@@ -46,6 +46,16 @@ define ('ENQUIRY_REPLY_INSATISFACTORY', 8);
 
 define ('ADMINISTRATION', 0);
 define ('OBSERVATORY', 1);
+
+// Vault->type
+define ('LOCAL', 0);
+define ('REMOTE', 1);
+// Vault->state
+define ('CREATED', 0);
+define ('VERIFIED', 1);
+define ('CONFIGURED', 2);
+
+
 
 require_once($yii);
 Yii::createWebApplication($config)->run();

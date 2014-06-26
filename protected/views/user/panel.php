@@ -154,7 +154,7 @@ if($model->is_admin){
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
 		echo CHtml::link(__('Global parameters'),array('config/admin')).'<br />';
-		echo CHtml::link(__('Backup'),array('backup/create')).'<br />';
+		echo CHtml::link(__('Backup'),array('backup/admin')).'<br />';
  
 	echo '</p></div>';
 	echo '</div>';
