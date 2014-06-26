@@ -80,7 +80,7 @@ class Vault extends CActiveRecord
 			array('type, state', 'numerical', 'integerOnly'=>true),
 			array('host', 'length', 'max'=>255),
 			array('key', 'length', 'max'=>32),
-			array('schedule', 'length', 'max'=>7),
+			array('schedule', 'length', 'is'=>7),
 			array('key', 'validateKey', 'on'=>'newKey'),
 			array('schedule', 'validateSchedule'),
 			// The following rule is used by search().
@@ -159,7 +159,8 @@ class Vault extends CActiveRecord
 		$humanStateValues=array(
 				0		=>__('Created'),
 				1		=>__('Verified'),
-				2		=>__('Agreed'),
+				2		=>__('Configured'),
+				3		=>__('Broken'),
 		);
 		return $humanStateValues[$state];
 	}

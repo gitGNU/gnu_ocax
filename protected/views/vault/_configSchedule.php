@@ -22,6 +22,18 @@
 /* @var $form CActiveForm */
 ?>
 
+<script>
+function updateSchedule(el, day){
+	schedule = $('#Vault_schedule').val();
+	if($(el).is(':checked'))
+		checked = '1';
+	else
+		checked = '0';
+	schedule = schedule.substring(0, day) + checked + schedule.substring(day+1);
+	$('#Vault_schedule').val(schedule);
+}
+</script>
+
 <?php
 	// get the available days for backups specified by remote admin	
 	$opts = array('http' => array(
@@ -37,22 +49,40 @@
 	$reply=Null;
 	$reply = @file_get_contents($model->host.'/vault/getSchedule?key='.$model->key.'&vault='.$vaultName, false, $context);
 	if($reply !== Null && strlen($reply) == 7){
-		$model->schedule = $reply;
-	}else
-		$model->schedule = 'error!'
+		$availableDays = $reply;
+	}
 ?>
 
 <div class="form" style="margin-top:-20px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'vault-form',
-	'action' => Yii::app()->createUrl('vault/update/'.$model->id),
+	'id'=>'remote-vault-schedule-form',
+	'action' => Yii::app()->createUrl('vault/configureSchedule/'.$model->id),
 	'enableAjaxValidation'=>false,
 )); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'schedule'); ?>
-		<?php echo $form->textField($model,'schedule',array('size'=>20,'maxlength'=>45)); ?>
+		<?php /* echo $form->labelEx($model,'schedule'); */ ?>
+		<p><?php
+			$text = __('The admin at %s offers you these days');
+			echo str_replace("%s", $model->host, $text).'. ';
+			echo __('Select the day(s) you want to make the copy').'.';
+		?></p>
+
+		<?php
+			echo $form->hiddenField($model, 'schedule');
+			$day = 0;
+			while($day < 7){
+				if($availableDays[$day] == 1){
+					echo '<span>';
+					echo $model->getHumanDays($day);
+					echo '<input type="checkbox" onclick="js:updateSchedule(this, '.$day.')">';
+					echo '</span><br />';
+				}
+				$day++;
+			}
+			echo $form->error($model,'schedule');
+		?>
 		<?php echo $form->error($model,'schedule'); ?>
 	</div>
 

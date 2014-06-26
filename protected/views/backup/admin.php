@@ -18,27 +18,15 @@
  */
 
 /* @var $this BackupController */
-/* @var $model Backup */
 
 $this->menu=array(
-	array('label'=>__('Create Vault'), 'url'=>array('vault/create')),
+	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>__('Manual backup'), 'url'=>array('create')),
+	array('label'=>__('Create Vault'), 'url'=>array('vault/create')),
 );
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#backup-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function getVaultDetails(id){
 	
@@ -57,7 +45,28 @@ function getVaultDetails(id){
 		}
 	});
 }
-
+function showSchedule(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/schedule',
+		type: 'GET',
+		beforeSend: function(){ /* */ },
+		success: function(html){
+			if(html != 0){
+				$("#schedule_body").html(html);
+				$('#schedule').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+					, speed: 10
+                });
+			}
+		},
+		error: function() {
+			alert("Error on show schedule");
+		}
+	});
+}
 </script>
 <style>           
 	#vaults { font-size: 1.2em; width:100%; }
@@ -72,7 +81,7 @@ function getVaultDetails(id){
 
 <div id="vaults">
 <div class="left">
-<div class="sub_title">Local Vaults</div>
+<div class="sub_title"><?php echo __('Local vaults');?></div>
 <?php echo __('They save their copies on your server');?>
 <?php $this->widget('PGridView', array(
 	'id'=>'localvault-grid',
@@ -85,14 +94,17 @@ function getVaultDetails(id){
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		'host',
-		'state',
+		array(
+	        'type'=>'raw',
+	        'value'=>function($data,$row){return Vault::getHumanStates($data->state);},
+		),
 		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	),
 )); ?>
 
 </div>
 <div class="right">
-<div class="sub_title">Remote Vaults</div>
+<div class="sub_title"><?php echo __('Remote vaults');?></div>
 <?php echo __('You save your copies on their server');?>
 <?php $this->widget('PGridView', array(
 	'id'=>'remotevault-grid',
@@ -105,7 +117,10 @@ function getVaultDetails(id){
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		'host',
-		'state',
+		array(
+	        'type'=>'raw',
+	        'value'=>function($data,$row){return Vault::getHumanStates($data->state);},
+		),
 		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	),
 )); ?>
@@ -137,4 +152,9 @@ function getVaultDetails(id){
 		),
 	),
 )); ?>
+</div>
+
+<div id="schedule" class="modal" style="width:800px;">
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="schedule_body"></div>
 </div>

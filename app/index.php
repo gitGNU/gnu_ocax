@@ -53,7 +53,7 @@ define ('REMOTE', 1);
 // Vault->state
 define ('CREATED', 0);
 define ('VERIFIED', 1);
-define ('AGREED', 2);
+define ('CONFIGURED', 2);
 
 
 

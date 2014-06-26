@@ -46,11 +46,12 @@ class VaultController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('verifyKey', 'getSchedule'),
+				'actions'=>array('verifyKey', 'getSchedule', 'setSchedule'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view', 'admin', 'index', 'create', 'update', 'delete'),
+				'actions'=>array(	'view', 'admin', 'index', 'schedule', 'create',
+									'update', 'configureSchedule', 'delete'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -97,11 +98,10 @@ class VaultController extends Controller
 			$model->attributes=$_POST['Vault'];
 			$model->host = rtrim($model->host, '/');
 			$model->created = date('c');
-			$model->state=0;
+			$model->state=CREATED;
+			if($model->type == REMOTE)
+				$model->schedule='0000000';
 			if($model->save()){
-				//$backups = Backup::model()->getDataproviderByVault($model->id);
-				//$this->render('view',array('model'=>$model,'backups'=>$backups));
-				//$backups = Backup::model()->getDataproviderByVault($model->id);
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -119,9 +119,6 @@ class VaultController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Vault']))
 		{
@@ -158,6 +155,65 @@ class VaultController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	public function actionConfigureSchedule($id)
+	{
+		$model=$this->loadModel($id);
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Vault']))
+		{
+			$model->attributes=$_POST['Vault'];
+			if($model->type == REMOTE && $model->state == VERIFIED){
+				$opts = array('http' => array(
+										'method'  => 'POST',
+										'header'  => 'Content-type: application/x-www-form-urlencoded',
+										'ignore_errors' => '1',
+										'timeout' => 10,
+										'user_agent' => 'ocax-'.getOCAXVersion(),
+									));
+				$vaultName = rtrim($model->host2VaultName(Yii::app()->getBaseUrl(true)), '-remote');
+				$context = stream_context_create($opts);
+						
+				$reply = Null;
+				$reply = @file_get_contents($model->host.'/vault/setSchedule?key='.$model->key.
+																			'&vault='.$vaultName.
+																			'&schedule='.$model->schedule, false, $context);
+				if($reply == 1){
+					$model->state = CONFIGURED;
+					$model->save();
+					$this->redirect(array('view','id'=>$model->id));
+				}
+			}
+		}
+		$this->render('view',array(
+			'model'=>$model,
+		));
+	}
+	
+	/**
+	 * 
+	 * Show all configured Vault schedules
+	 */
+	public function actionSchedule()
+	{
+		$localVaults = Vault::model()->findAllByAttributes(array('type'=>LOCAL, 'state'=>CONFIGURED));
+		$remoteVaults = Vault::model()->findAllByAttributes(array('type'=>REMOTE, 'state'=>CONFIGURED));
+		if(Yii::app()->request->isAjaxRequest){
+			$layout='//layouts/column1';
+			echo $this->renderPartial('schedule',array(
+										'localVaults' =>$localVaults,
+										'remoteVaults'=>$remoteVaults),
+									true,true);
+		}else{
+			$this->render('schedule',array(
+					'localVaults' =>$localVaults,
+					'remoteVaults'=>$remoteVaults,
+			));
+		}
+	}
+
 	
 	/**
 	 * Part of the vault handshake
@@ -183,7 +239,10 @@ class VaultController extends Controller
 		Yii::app()->end();
 	}
 
-
+	/**
+	 * Part of the vault handshake
+	 * Remote ocax instalation calls this
+	 */
 	public function actionGetSchedule()
 	{
 		if(isset($_GET['key']) && isset($_GET['vault'])){
@@ -199,6 +258,31 @@ class VaultController extends Controller
 		echo 0;
 		Yii::app()->end();
 	}
+
+	/**
+	 * Part of the vault handshake
+	 * Remote ocax instalation calls this
+	 */
+	public function actionSetSchedule()
+	{
+		if(isset($_POST['key']) && isset($_POST['vault'])){
+			$vaultName = $_POST['vault'].'-local';	// check the key of local vault
+			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
+				$model->loadKey();
+				if($model->key && $model->key == $_POST['key']){
+					$model->schedule = $_POST['schedule'];
+					$model->state = CONFIGURED;
+					if($model->save()){
+						echo 1;
+						Yii::app()->end();
+					}
+				}		
+			}
+		}
+		echo 0;
+		Yii::app()->end();
+	}
+
 
 	/**
 	 * Deletes a particular model.
@@ -219,10 +303,7 @@ class VaultController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Vault');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$this->redirect(array('/backup/admin'));
 	}
 
 	/**
@@ -230,14 +311,7 @@ class VaultController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Vault('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Vault']))
-			$model->attributes=$_GET['Vault'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+		$this->redirect(array('/backup/admin'));
 	}
 
 	/**
@@ -269,44 +343,3 @@ class VaultController extends Controller
 		}
 	}
 }
-
-
-/*
-					// contact remote server
-						//$model->state = INITIATED;
-
-					/*
-						$data = array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)));
-						$url = $model->host.'/vault/verifyKey';
-						$options = array(
-							'http' => array(
-								'method'  => 'GET',
-								'content' => json_encode( $data ),
-								'header'=>  "Content-Type: application/json\r\n" .
-											"Accept: application/json\r\n"
-							  )
-						);
-						$context     = stream_context_create($options);
-						$result      = file_get_contents($url, false, $context);
-						$response    = json_decode($result);
-						//file_put_contents('/tmp/verify.txt', $result);
-						//var_dump($response);
-					*/
-/*
-					$postdata = http_build_query(
-						array('key'=>$model->key, 'host'=>$model->normalizeHost(Yii::app()->getBaseUrl(true)))
-					);
-
-					$opts = array('http' =>
-						array(
-							'method'  => 'POST',
-							'header'  => 'Content-type: application/x-www-form-urlencoded',
-							'content' => $postdata
-						)
-					);
-					$context  = stream_context_create($opts);
-					$result = file_get_contents($model->host.'/vault/verifyKey', false, $context);
-
-
-					file_put_contents('/tmp/verify.txt', $response);
-*/

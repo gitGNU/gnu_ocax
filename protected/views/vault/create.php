@@ -20,8 +20,8 @@
 /* @var $this VaultController */
 /* @var $model Vault */
 
-
 $this->menu=array(
+	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>'Manage Backups', 'url'=>array('backup/admin')),
 );
 ?>
@@ -32,6 +32,7 @@ $this->menu=array(
 	.step p { margin-bottom: 0px }
 </style>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 $(function() {
 	if( $("#vault-form input[type='radio']:checked").val() == 0)
@@ -39,9 +40,9 @@ $(function() {
 });
 function toggleSchedule(){
 	if( $("#vault-form input[type='radio']:checked").val() == 0)
-		$("#schedule").show();
+		$("#schedule_select").show();
 	else
-		$("#schedule").hide();
+		$("#schedule_select").hide();
 }
 function updateSchedule(el, day){
 	schedule = $('#Vault_schedule').val();
@@ -51,6 +52,28 @@ function updateSchedule(el, day){
 		checked = '0';
 	schedule = schedule.substring(0, day) + checked + schedule.substring(day+1);
 	$('#Vault_schedule').val(schedule);
+}
+function showSchedule(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/schedule',
+		type: 'GET',
+		beforeSend: function(){ /* */ },
+		success: function(html){
+			if(html != 0){
+				$("#schedule_body").html(html);
+				$('#schedule').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+					, speed: 10
+                });
+			}
+		},
+		error: function() {
+			alert("Error on show schedule");
+		}
+	});
 }
 </script>
 
@@ -82,7 +105,7 @@ function updateSchedule(el, day){
 </p>
 </div>
 
-<div id="schedule" class="row" style="display:none;">
+<div id="schedule_select" class="row" style="display:none;">
 <h2><?php echo __('When can they make backups?');?></h2>
 <p>
 <?php
@@ -91,13 +114,13 @@ function updateSchedule(el, day){
 	$day = 0;
 	while($day < 7){
 		if($schedule[$day] == 1){
-			echo '<span style="color:lightgrey">';
+			echo '<span style="color:grey">';
+			echo '<input type="checkbox" disabled="disabled" style="margin-right:10px">';
 			echo $model->getHumanDays($day);
-			echo '<input type="checkbox" disabled="disabled">';
 		}else{
 			echo '<span>';
+			echo '<input type="checkbox" style="margin-right:10px" onclick="js:updateSchedule(this, '.$day.')">';
 			echo $model->getHumanDays($day);
-			echo '<input type="checkbox" onclick="js:updateSchedule(this, '.$day.')">';
 		}
 		echo '</span><br />';
 		$day++;
@@ -121,6 +144,7 @@ function updateSchedule(el, day){
 <?php $this->endWidget(); ?>
 </div>
 
-<?php
-//echo $this->renderPartial('_form', array('model'=>$model));
-?>
+<div id="schedule" class="modal" style="width:800px;">
+<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="schedule_body"></div>
+</div>

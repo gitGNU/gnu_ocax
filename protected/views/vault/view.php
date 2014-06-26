@@ -20,9 +20,7 @@
 /* @var $this VaultController */
 /* @var $model Vault */
 
-
 $this->menu=array(
-	//array('label'=>'Update Vault', 'url'=>array('update', 'id'=>$model->id)),
 	//array('label'=>'Delete Vault', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Backups', 'url'=>array('backup/admin')),
 );
@@ -30,7 +28,7 @@ $this->menu=array(
 ?>
 
 <?php
-if($model->type == 0){
+if($model->type == LOCAL){
 	echo '<h1>'.__('Local vault').'</h1>';
 	echo '<div class="sub_title" style="margin-bottom:5px;">'.$model->host.' &rarr; '.Yii::app()->getBaseUrl(true).'</div>';
 	echo '<p>'.__('They save their copies on your server').'</p>';
@@ -54,7 +52,7 @@ if($model->type == REMOTE && $model->state == CREATED){
 	$text = str_replace("%s", $model->host, $text);
 	echo "<h2>You need to:</h2><p>$text</p>";
 	echo '<p>'.str_replace("%s", $model->host, __('%s will send you a key')).'</p>';
-	$this->renderPartial('//vault/_updateKey', array('model'=>$model));
+	$this->renderPartial('//vault/_configKey', array('model'=>$model));
 }
 
 if($model->type == LOCAL && $model->state == VERIFIED){
@@ -65,7 +63,8 @@ if($model->type == LOCAL && $model->state == VERIFIED){
 	echo "<p>".$model->getHumanSchedule()."</p>";
 }
 if($model->type == REMOTE && $model->state == VERIFIED){
-	$this->renderPartial('//vault/_updateSchedule', array('model'=>$model));
+	echo "<h2>".__('Choose day(s) to backup')."</h2>";
+	$this->renderPartial('//vault/_configSchedule', array('model'=>$model));
 }
 ?>
 
@@ -84,7 +83,7 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 		array(
 	        'label'=>__('Schedule'),
 			'type' => 'raw',
-			'value'=> ($model->state == AGREED)? $model->getHumanSchedule() : __('Pending'),
+			'value'=> ($model->state == CONFIGURED)? $model->getHumanSchedule() : __('Pending'),
 		),
 
 	),
@@ -93,7 +92,7 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 </div>
 <div class="clear"></div>
 
-<?php if($model->state == AGREED){
+<?php if($model->state >= CONFIGURED){
 	echo '<h1>'.__('Backups').'</h1>';
 
 	$this->widget('zii.widgets.grid.CGridView', array(
