@@ -167,7 +167,7 @@ class VaultController extends Controller
 			$model->attributes=$_POST['Vault'];
 			if($model->type == REMOTE && $model->state == VERIFIED){
 				$opts = array('http' => array(
-										'method'  => 'POST',
+										'method'  => 'GET',	// POST doesn't work ??!!
 										'header'  => 'Content-type: application/x-www-form-urlencoded',
 										'ignore_errors' => '1',
 										'timeout' => 10,
@@ -205,7 +205,7 @@ class VaultController extends Controller
 			echo $this->renderPartial('schedule',array(
 										'localVaults' =>$localVaults,
 										'remoteVaults'=>$remoteVaults),
-									true,true);
+									true,false);
 		}else{
 			$this->render('schedule',array(
 					'localVaults' =>$localVaults,
@@ -265,12 +265,16 @@ class VaultController extends Controller
 	 */
 	public function actionSetSchedule()
 	{
-		if(isset($_POST['key']) && isset($_POST['vault'])){
-			$vaultName = $_POST['vault'].'-local';	// check the key of local vault
+		if(isset($_GET['key']) && isset($_GET['vault'])){
+			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
 			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
 				$model->loadKey();
-				if($model->key && $model->key == $_POST['key']){
-					$model->schedule = $_POST['schedule'];
+				if($model->key && $model->key == $_GET['key']){
+					if($model->state >= CONFIGURED){
+						echo 0;
+						Yii::app()->end();	
+					}
+					$model->schedule = $_GET['schedule'];
 					$model->state = CONFIGURED;
 					if($model->save()){
 						echo 1;

@@ -22,10 +22,19 @@
 
 $this->menu=array(
 	//array('label'=>'Delete Vault', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>'Manage Backups', 'url'=>array('backup/admin')),
 );
-
 ?>
+
+<?php
+if(Yii::app()->request->isAjaxRequest){
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
+} else { ?>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
+<?php } ?>
 
 <?php
 if($model->type == LOCAL){
@@ -116,3 +125,10 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 	));
 }
 ?>
+
+<?php if(Yii::app()->request->isAjaxRequest){ ?>
+	<div id="schedule" class="modal" style="width:800px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="schedule_body"></div>
+	</div>
+<?php } ?>

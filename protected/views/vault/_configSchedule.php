@@ -56,7 +56,7 @@ function updateSchedule(el, day){
 <div class="form" style="margin-top:-20px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'remote-vault-schedule-form',
+	'id'=>'vault-form',
 	'action' => Yii::app()->createUrl('vault/configureSchedule/'.$model->id),
 	'enableAjaxValidation'=>false,
 )); ?>
@@ -75,8 +75,8 @@ function updateSchedule(el, day){
 			while($day < 7){
 				if($availableDays[$day] == 1){
 					echo '<span>';
+					echo '<input type="checkbox" style="margin-right:10px;" onclick="js:updateSchedule(this, '.$day.')">';
 					echo $model->getHumanDays($day);
-					echo '<input type="checkbox" onclick="js:updateSchedule(this, '.$day.')">';
 					echo '</span><br />';
 				}
 				$day++;

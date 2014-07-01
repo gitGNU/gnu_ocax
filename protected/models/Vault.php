@@ -32,6 +32,7 @@
  *
  * The followings are the available model relations:
  * @property Backup[] $backups
+ * @property VaultSchedule[] $vaultSchedules
  */
  
 //FILTER_SANITIZE_URL
@@ -114,6 +115,22 @@ class Vault extends CActiveRecord
 				}
 			}
 		}
+		if($this->state == CONFIGURED){
+			// this 'if' shouldn't be necessary 'cause once CONFIGURED, you can't modify schedule
+			// just incase..
+			if(!$this->vaultSchedules){
+				$day = 0;
+				while($day < 7){
+					if($this->schedule[$day] == 1){
+						$schedule = new VaultSchedule;
+						$schedule->vault = $this->id;
+						$schedule->day = $day;
+						$schedule->save();
+					}
+					$day++;
+				}
+			}
+		}
 		return parent::beforeSave();
     }
 
@@ -135,6 +152,7 @@ class Vault extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'backups' => array(self::HAS_MANY, 'Backup', 'vault'),
+			'vaultSchedules' => array(self::HAS_MANY, 'VaultSchedule', 'vault'),
 		);
 	}
 
