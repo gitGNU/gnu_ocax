@@ -115,9 +115,8 @@ class Vault extends CActiveRecord
 				}
 			}
 		}
-		if($this->state == CONFIGURED){
-			// this 'if' shouldn't be necessary 'cause once CONFIGURED, you can't modify schedule
-			// just incase..
+		// a host asks REMOTE vault to start backups
+		if($this->state >= READY && $this->type == REMOTE){
 			if(!$this->vaultSchedules){
 				$day = 0;
 				while($day < 7){
@@ -177,8 +176,9 @@ class Vault extends CActiveRecord
 		$humanStateValues=array(
 				0		=>__('Created'),
 				1		=>__('Verified'),
-				2		=>__('Configured'),
-				3		=>__('Broken'),
+				2		=>__('Ready'),
+				3		=>__('Loaded'),
+				4		=>__('Busy'),
 		);
 		return $humanStateValues[$state];
 	}
@@ -199,12 +199,20 @@ class Vault extends CActiveRecord
 		return $humanDayValues;
 	}
 
+	public function afterFind()	// load key into newly found model
+	{
+		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
+			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
+	}
+
+/*
 	public function loadKey()
 	{
 		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
 			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
 	}
-	
+*/
+
 	public function saveKey()
 	{
 		file_put_contents($this->vaultDir.$this->name.'/key.txt', $this->key);
@@ -238,6 +246,16 @@ class Vault extends CActiveRecord
 		return rtrim($result,',');
 	}
 
+	public function findByIncomingCreds($name, $key)
+	{
+		$vaultName = $name.'-local';	// check the key of local vault
+		if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
+			if($model->key && $model->key == $key)
+				return $model;
+		}
+		return Null;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -259,5 +277,17 @@ class Vault extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public protected getStreamContext($timeout = 1)
+	{
+		$opts = array('http' => array(
+								'method'  => 'GET',
+								'header'  => 'Content-type: application/x-www-form-urlencoded',
+								'ignore_errors' => '1',
+								'timeout' => $timeout,
+								'user_agent' => 'ocax-'.getOCAXVersion(),
+							));
+		return stream_context_create($opts);
 	}
 }

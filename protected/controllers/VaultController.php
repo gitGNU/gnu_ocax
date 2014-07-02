@@ -46,7 +46,10 @@ class VaultController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('verifyKey', 'getSchedule', 'setSchedule'),
+				'actions'=>array('verifyKey', 'getSchedule', 'setSchedule',
+								'remoteWaitingToStartCopyingBackup',
+								'startCopyingBackup',
+								),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -127,18 +130,14 @@ class VaultController extends Controller
 				$model->setScenario('newKey');
 				if($model->validate()){
 					if($model->type == REMOTE && $model->state < VERIFIED){
-						$opts = array('http' => array(
-												'method'  => 'GET',
-												'header'  => 'Content-type: application/x-www-form-urlencoded',
-												'ignore_errors' => '1',
-												'timeout' => 2.5,
-												'user_agent' => 'ocax-'.getOCAXVersion(),
-											));
 						$vaultName = rtrim($model->host2VaultName(Yii::app()->getBaseUrl(true)), '-remote');
-						$context = stream_context_create($opts);
-						
 						$reply=Null;
-						$reply = @file_get_contents($model->host.'/vault/verifyKey?key='.$model->key.'&vault='.$vaultName, false, $context);
+						$reply = @file_get_contents($model->host.'/vault/verifyKey'.
+																	'?key='.$model->key.
+																	'&vault='.$vaultName,
+																	false,
+																	$model->getStreamContext(3)
+													);
 						if($reply == 1){
 							$model->state = VERIFIED;
 							$model->saveKey();
@@ -166,22 +165,17 @@ class VaultController extends Controller
 		{
 			$model->attributes=$_POST['Vault'];
 			if($model->type == REMOTE && $model->state == VERIFIED){
-				$opts = array('http' => array(
-										'method'  => 'GET',	// POST doesn't work ??!!
-										'header'  => 'Content-type: application/x-www-form-urlencoded',
-										'ignore_errors' => '1',
-										'timeout' => 10,
-										'user_agent' => 'ocax-'.getOCAXVersion(),
-									));
 				$vaultName = rtrim($model->host2VaultName(Yii::app()->getBaseUrl(true)), '-remote');
-				$context = stream_context_create($opts);
-						
 				$reply = Null;
-				$reply = @file_get_contents($model->host.'/vault/setSchedule?key='.$model->key.
-																			'&vault='.$vaultName.
-																			'&schedule='.$model->schedule, false, $context);
+				$reply = @file_get_contents($model->host.'/vault/setSchedule'.
+															'?key='.$model->key.
+															'&vault='.$vaultName.
+															'&schedule='.$model->schedule,
+															false,
+															$model->getStreamContext()
+											);
 				if($reply == 1){
-					$model->state = CONFIGURED;
+					$model->state = READY;
 					$model->save();
 					$this->redirect(array('view','id'=>$model->id));
 				}
@@ -198,22 +192,22 @@ class VaultController extends Controller
 	 */
 	public function actionSchedule()
 	{
-		$localVaults = Vault::model()->findAllByAttributes(array('type'=>LOCAL, 'state'=>CONFIGURED));
-		$remoteVaults = Vault::model()->findAllByAttributes(array('type'=>REMOTE, 'state'=>CONFIGURED));
+		$localVaults = Vault::model()->findAllByAttributes(array('type'=>LOCAL, 'state'=>READY));
+		$remoteVaults = Vault::model()->findAllByAttributes(array('type'=>REMOTE, 'state'=>READY));
 		if(Yii::app()->request->isAjaxRequest){
 			$layout='//layouts/column1';
 			echo $this->renderPartial('schedule',array(
-										'localVaults' =>$localVaults,
-										'remoteVaults'=>$remoteVaults),
-									true,false);
+												'localVaults' =>$localVaults,
+												'remoteVaults'=>$remoteVaults
+												),
+										true,false);
 		}else{
 			$this->render('schedule',array(
-					'localVaults' =>$localVaults,
-					'remoteVaults'=>$remoteVaults,
-			));
+								'localVaults' =>$localVaults,
+								'remoteVaults'=>$remoteVaults,
+						));
 		}
 	}
-
 	
 	/**
 	 * Part of the vault handshake
@@ -265,28 +259,78 @@ class VaultController extends Controller
 	 */
 	public function actionSetSchedule()
 	{
-		if(isset($_GET['key']) && isset($_GET['vault'])){
-			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
-			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-				$model->loadKey();
-				if($model->key && $model->key == $_GET['key']){
-					if($model->state >= CONFIGURED){
-						echo 0;
-						Yii::app()->end();	
-					}
-					$model->schedule = $_GET['schedule'];
-					$model->state = CONFIGURED;
-					if($model->save()){
-						echo 1;
-						Yii::app()->end();
-					}
-				}		
-			}
+		if(isset($_GET['vault'] && isset($_GET['key']))){
+			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
+				if($model->state >= READY){
+					echo 0;
+					Yii::app()->end();	
+				}
+				$model->schedule = $_GET['schedule'];
+				$model->state = READY;
+				if($model->save()){
+					echo 1;
+					Yii::app()->end();
+				}
+			}	
 		}
 		echo 0;
 		Yii::app()->end();
 	}
 
+
+	public function actionRemoteWaitingToStartCopyingBackup()
+	{
+		if(isset($_GET['vault'] && isset($_GET['key']))){
+			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
+				if($model->state == READY){
+					/*
+					if(we have already copied today){
+						echo 0;
+						Yii::app()->end();
+					}
+					*/
+					
+					/*
+					prepare bakup
+					$model->state = LOADED;
+					$model->save;
+					echo 0;
+					Yii::app()->end();
+					*/
+				}
+				if($model->state == LOADED){
+					/*
+					create backup model
+					$model->state = BUSY;
+					$model->save();
+					*/
+
+					$vaultName = rtrim($model->name, '-remote');
+					@file_get_contents($model->host.'/vault/startCopyingBackup'.
+													'?key='.$model->key.
+													'&vault='.$vaultName,
+													false,
+													$model->getStreamContext()
+										);
+				}
+			}
+		}
+	}
+
+	public function actionStartCopyingBackup()
+	{
+		if(isset($_GET['vault'] && isset($_GET['key']))){
+			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
+				/*
+				create backup model
+				$model->state = BUSY;
+				$model->save();	
+				start coping file to $model->vaultDir.$model->name.backupname
+				*/
+			}
+		}
+		
+	}
 
 	/**
 	 * Deletes a particular model.
@@ -330,7 +374,7 @@ class VaultController extends Controller
 		$model=Vault::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
-		$model->loadKey();
+		//$model->loadKey();
 		return $model;
 	}
 

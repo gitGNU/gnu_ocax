@@ -147,15 +147,11 @@ class BackupController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		
 		$localVaults=new CActiveDataProvider('Vault', array(
-			'criteria'=>array(
-				'condition'=>"type=0",
-			),
-		));
+							'criteria'=>array('condition'=>"type=0")
+						));
 		$remoteVaults=new CActiveDataProvider('Vault', array(
-			'criteria'=>array(
-				'condition'=>"type=1",
-			),
-		));
+							'criteria'=>array('condition'=>"type=1")
+						));
 				
 		if(isset($_GET['Backup']))
 			$model->attributes=$_GET['Backup'];

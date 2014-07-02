@@ -92,7 +92,7 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 		array(
 	        'label'=>__('Schedule'),
 			'type' => 'raw',
-			'value'=> ($model->state == CONFIGURED)? $model->getHumanSchedule() : __('Pending'),
+			'value'=> ($model->state == READY)? $model->getHumanSchedule() : __('Pending'),
 		),
 
 	),
@@ -101,7 +101,7 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 </div>
 <div class="clear"></div>
 
-<?php if($model->state >= CONFIGURED){
+<?php if($model->state >= READY){
 	echo '<h1>'.__('Backups').'</h1>';
 
 	$this->widget('zii.widgets.grid.CGridView', array(
