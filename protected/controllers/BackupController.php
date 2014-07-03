@@ -46,7 +46,7 @@ class BackupController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin', 'index', 'create'),
+				'actions'=>array('admin', 'index', 'manualCreate'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -87,6 +87,34 @@ class BackupController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * Creates a backup.
+	 */
+	public function actionManualCreate()
+	{
+		$model=new Backup;
+		list($path, $file, $dump_error) = $model->backupSite();
+	
+		if (file_exists($path.$file)) {
+			header("Pragma: public");
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Cache-Control: public");
+			header("Content-Description: File Transfer");
+			header("Content-type: application/octet-stream");
+			header("Content-Disposition: attachment; filename=\"".$file."\"");
+			header("Content-Transfer-Encoding: binary");
+			header("Content-Length: ".filesize($path.$file));
+			ob_end_flush();
+			@readfile($path.$file);
+			exit;
+		}
+		if($dump_error){
+			Yii::app()->user->setFlash('error', __($dump_error));
+			$this->redirect(array('/user/panel'));
+		}
 	}
 
 	/**
