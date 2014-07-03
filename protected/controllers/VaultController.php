@@ -279,37 +279,44 @@ class VaultController extends Controller
 	public function actionRemoteWaitingToStartCopyingBackup()
 	{
 		if(isset($_GET['vault']) && isset($_GET['key'])){
-			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
+			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'], REMOTE)){
 				if($model->state == READY){
-					/*
-					if(we have already copied today){
+					// Don't start another backup if we've already created one today.
+					if(Backup::model()->findByDay(date('Y-m-d'), $model->id )){
 						echo 0;
 						Yii::app()->end();
 					}
-					*/
+					$backup = new Backup;
+					$backup->vault = $model->id;
+					$backup->filename = '/tmp/sitedump.txt';
+					$backup->filesize = filesize($backup->filename);
+					$backup->created = date('c');
+					$backup->state = CREATED;
 					
-					/*
-					prepare bakup
-					$model->state = LOADED;
-					$model->save;
+					if($backup->save()){
+						$model->state = LOADED;
+						$model->save();
+					}
 					echo 0;
 					Yii::app()->end();
-					*/
 				}
-				if($model->state == LOADED){
-					/*
-					create backup model
-					$model->state = BUSY;
-					$model->save();
-					*/
-
-					$vaultName = rtrim($model->name, '-remote');
-					@file_get_contents($model->host.'/vault/startCopyingBackup'.
-													'?key='.$model->key.
-													'&vault='.$vaultName,
-													false,
-													$model->getStreamContext()
-										);
+				// LOADED	We've got the backup file ready for copying.
+				// BUSY		Maybe remote host didn't recieve /vault/StartCopyingBackup. Let's send it again.
+				if($model->state == LOADED || $model->state == BUSY){
+					if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+						$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+						@file_get_contents($model->host.'/vault/startCopyingBackup'.
+														'?key='.$model->key.
+														'&vault='.$vaultName.
+														'&filename='.$backup->filename,
+														false,
+														$model->getStreamContext()
+											);
+						$model->state = BUSY;
+						$model->save();
+					}
+					echo 0;
+					Yii::app()->end();
 				}
 			}
 		}

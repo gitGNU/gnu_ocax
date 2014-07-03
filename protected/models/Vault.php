@@ -133,13 +133,16 @@ class Vault extends CActiveRecord
 		return parent::beforeSave();
     }
 
-	public function host2VaultName($host)
+	public function host2VaultName($host, $appendType = 1)
 	{
 		$name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
-		if($this->type == LOCAL)
-			return $name.'-local';
-		else
-			return $name.'-remote';
+		if($appendType){
+			if($this->type == LOCAL)
+				return $name.'-local';
+			else
+				return $name.'-remote';
+		}else
+			return $name;
 	}
 
 	/**
@@ -246,9 +249,12 @@ class Vault extends CActiveRecord
 		return rtrim($result,',');
 	}
 
-	public function findByIncomingCreds($name, $key)
+	public function findByIncomingCreds($name, $key, $vaultType = LOCAL)
 	{
-		$vaultName = $name.'-local';	// check the key of local vault
+		if($vaultType == LOCAL)
+			$vaultName = $name.'-local';
+		if($vaultType == REMOTE)
+			$vaultName = $name.'-remote';
 		if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
 			if($model->key && $model->key == $key)
 				return $model;

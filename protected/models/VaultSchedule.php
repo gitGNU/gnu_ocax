@@ -46,7 +46,7 @@ L = R will save my copies on his server
  
 class VaultSchedule extends CActiveRecord
 {
-	public $backupHour = 12;
+	public $backupHour = 15;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -111,23 +111,20 @@ class VaultSchedule extends CActiveRecord
 	 */
 	public function runVaultSchedule()
 	{
-		if(date('G') != $this->backupHour)
-			return;
+		//if(date('G') != $this->backupHour)
+		//	return;
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
-			if($schedule->vault0->state == BUSY)
-				return;
 			if($schedule->vault0->state == READY){
 				//if(have we made a backup today?)
 				//	return;
 
-				$vaultName = rtrim($this->vault0->name, '-remote');
-				@file_get_contents($this->vault0->host.'/vault/remoteWaitingToStartCopyingBackup'.
-														'?key='.$this->vault0->key.
+				$vaultName = $schedule->vault0->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+				@file_get_contents($schedule->vault0->host.'/vault/remoteWaitingToStartCopyingBackup'.
+														'?key='.$schedule->vault0->key.
 														'&vault='.$vaultName,
 														false,
-														$this->vault0->getStreamContext()
+														$schedule->vault0->getStreamContext()
 									);
-				return;
 			}
 		}
 		return;

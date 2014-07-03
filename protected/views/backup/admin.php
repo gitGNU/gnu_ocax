@@ -145,8 +145,7 @@ function showSchedule(){
 		'filename',
 		'initiated',
 		'completed',
-		'checksum',
-		'state',
+		'filesize',
 		array(
 			'class'=>'CButtonColumn',
 		),

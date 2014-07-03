@@ -25,10 +25,10 @@
  * @property integer $id
  * @property integer $vault
  * @property string $filename
+ * @property string $created
  * @property string $initiated
  * @property string $completed
- * @property string $checksum
- * @property integer $state
+ * @property string $filesize
  *
  * The followings are the available model relations:
  * @property Vault $vault0
@@ -64,13 +64,13 @@ class Backup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('vault, initiated', 'required'),
-			array('vault, state', 'numerical', 'integerOnly'=>true),
-			array('filename, checksum', 'length', 'max'=>255),
-			array('completed', 'safe'),
+			array('vault, created', 'required'),
+			array('vault', 'numerical', 'integerOnly'=>true),
+			array('filename, filesize', 'length', 'max'=>255),
+			array('initiated, completed', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, vault, filename, initiated, completed, checksum, state', 'safe', 'on'=>'search'),
+			array('id, vault, filename, initiated, completed, filesize', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,10 +95,10 @@ class Backup extends CActiveRecord
 			'id' => 'ID',
 			'vault' => 'Vault',
 			'filename' => 'Filename',
+			'created' => 'Created',
 			'initiated' => 'Initiated',
 			'completed' => 'Completed',
-			'checksum' => 'Checksum',
-			'state' => 'State',
+			'filesize' => 'Filesize',
 		);
 	}
 
@@ -209,6 +209,16 @@ class Backup extends CActiveRecord
 	}
 
 
+	public function findByDay($day, $vault)
+	{
+		//$day = YYY-MM-DD
+		//$sql = "SELECT * FROM tablename WHERE columname BETWEEN '".$day." 00:00:00' AND '".$day." 23:59:59'";
+		$criteria=new CDbCriteria;
+		$criteria->compare('vault', $vault);
+		$criteria->addBetweenCondition('created', $day.' 00:00:00', $day.' 23:59:59');
+		return $this->find($criteria);
+	}
+
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -226,8 +236,7 @@ class Backup extends CActiveRecord
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('initiated',$this->initiated,true);
 		$criteria->compare('completed',$this->completed,true);
-		$criteria->compare('checksum',$this->checksum,true);
-		$criteria->compare('state',$this->state);
+		$criteria->compare('filesize',$this->filesize,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
