@@ -218,7 +218,6 @@ class VaultController extends Controller
 		if(isset($_GET['key']) && isset($_GET['vault'])){
 			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
 			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-				$model->loadKey();
 				if($model->key && $model->key == $_GET['key']){
 					if($model->state == CREATED){
 						$model->state = VERIFIED;
@@ -242,7 +241,6 @@ class VaultController extends Controller
 		if(isset($_GET['key']) && isset($_GET['vault'])){
 			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
 			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-				$model->loadKey();
 				if($model->key && $model->key == $_GET['key']){
 					echo $model->schedule;
 					Yii::app()->end();
@@ -259,7 +257,7 @@ class VaultController extends Controller
 	 */
 	public function actionSetSchedule()
 	{
-		if(isset($_GET['vault'] && isset($_GET['key']))){
+		if(isset($_GET['vault']) && isset($_GET['key'])){
 			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
 				if($model->state >= READY){
 					echo 0;
@@ -280,7 +278,7 @@ class VaultController extends Controller
 
 	public function actionRemoteWaitingToStartCopyingBackup()
 	{
-		if(isset($_GET['vault'] && isset($_GET['key']))){
+		if(isset($_GET['vault']) && isset($_GET['key'])){
 			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
 				if($model->state == READY){
 					/*
@@ -319,7 +317,7 @@ class VaultController extends Controller
 
 	public function actionStartCopyingBackup()
 	{
-		if(isset($_GET['vault'] && isset($_GET['key']))){
+		if(isset($_GET['vault']) && isset($_GET['key'])){
 			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
 				/*
 				create backup model
@@ -374,7 +372,6 @@ class VaultController extends Controller
 		$model=Vault::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
-		//$model->loadKey();
 		return $model;
 	}
 

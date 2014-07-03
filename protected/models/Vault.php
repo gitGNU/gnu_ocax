@@ -115,8 +115,8 @@ class Vault extends CActiveRecord
 				}
 			}
 		}
-		// a host asks REMOTE vault to start backups
-		if($this->state >= READY && $this->type == REMOTE){
+		// a host asks LOCAL vault to start backups
+		if($this->state >= READY && $this->type == LOCAL){
 			if(!$this->vaultSchedules){
 				$day = 0;
 				while($day < 7){
@@ -279,7 +279,7 @@ class Vault extends CActiveRecord
 		));
 	}
 	
-	public protected getStreamContext($timeout = 1)
+	public function getStreamContext($timeout = 1)
 	{
 		$opts = array('http' => array(
 								'method'  => 'GET',

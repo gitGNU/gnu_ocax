@@ -32,9 +32,15 @@
 
 /**
 
+R = I will save L's copies on my server
+L = R will save my copies on his server
+
 0. R runVaultSchedule();
-1. R -> L Have you got your dump ready? R calls L's vault/remoteWaitingToStartCopyingBackup
-2. L -> R Yes. start copying. L calls R's valut/startCopyingBackup
+1.	R -> L Have you got your dump ready?
+	R calls L's vault/remoteWaitingToStartCopyingBackup
+	
+2.	L -> R Yes. start copying.
+	L calls R's valut/startCopyingBackup
 
  */
  
