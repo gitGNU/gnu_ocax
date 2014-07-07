@@ -249,6 +249,11 @@ class Vault extends CActiveRecord
 		return rtrim($result,',');
 	}
 
+	public function getVaultDir()
+	{
+		return $this->vaultDir.$this->name;
+	}
+
 	public function findByIncomingCreds($name, $key, $vaultType = LOCAL)
 	{
 		if($vaultType == LOCAL)

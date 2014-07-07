@@ -18,6 +18,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+/**
+
+R = I will save L's copies on my server
+L = R will save my copies on his server
+
+0. R runVaultSchedule();
+1.	R -> L Have you got your dump ready?
+	R calls L's vault/remoteWaitingToStartCopyingBackup
+	
+2.	L -> R Yes. start copying.
+	L calls R's vault/startCopyingBackup
+	
+3.	R -> L Ok. Give me the file
+	R calls L's vault/startTransfer
+
+4.	R -> L Ok. We've finished copying
+	R calls L's vault/transferComplete
+
+ */
+
 class VaultController extends Controller
 {
 	/**
@@ -49,6 +70,8 @@ class VaultController extends Controller
 				'actions'=>array('verifyKey', 'getSchedule', 'setSchedule',
 								'remoteWaitingToStartCopyingBackup',
 								'startCopyingBackup',
+								'startTransfer',
+								'transferComplete',
 								),
 				'users'=>array('*'),
 			),
@@ -288,12 +311,11 @@ class VaultController extends Controller
 					}
 					$backup = new Backup;
 					$backup->vault = $model->id;
-					$backup->filename = '/tmp/sitedump.txt';
-					$backup->filesize = filesize($backup->filename);
-					$backup->created = date('c');
-					$backup->state = CREATED;
-					
-					if($backup->save()){
+					//$backup->filename = '/tmp/sitedump.txt';
+					if($backup->buildBackupFile()){
+						$backup->filesize = filesize($backup->filename);
+						$backup->created = date('c');
+						
 						$model->state = LOADED;
 						$model->save();
 					}
@@ -312,8 +334,6 @@ class VaultController extends Controller
 														false,
 														$model->getStreamContext()
 											);
-						$model->state = BUSY;
-						$model->save();
 					}
 					echo 0;
 					Yii::app()->end();
@@ -326,16 +346,89 @@ class VaultController extends Controller
 	{
 		if(isset($_GET['vault']) && isset($_GET['key'])){
 			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key'])){
-				/*
-				create backup model
-				$model->state = BUSY;
-				$model->save();	
-				start coping file to $model->vaultDir.$model->name.backupname
-				*/
+				if(Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+					echo 0;
+					Yii::app()->end();						
+				}
+				$backup = new Backup;
+				$backup->vault = $model->id;
+				$backup->filename = $_GET['filename'];
+				$backup->created = date('c');
+				$backup->initiated = date('c');
+				if($backup->save()){
+					$model->state = BUSY;
+					$model->save();
+					$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+					@file_get_contents($model->host.'/vault/startTransfer'.
+								'?key='.$model->key.
+								'&vault='.$vaultName.
+								false,
+								$model->getStreamContext()
+					);
+					
+					//$backup->filesize = filesize($backup->filename);
+					$backup->completed = date('c');
+					if($backup->save()){
+						$model->state = READY;
+						$model->save();
+						$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+						@file_get_contents($model->host.'/vault/transferComplete'.
+									'?key='.$model->key.
+									'&vault='.$vaultName.
+									false,
+									$model->getStreamContext()
+						);									
+					}
+				}
 			}
 		}
-		
 	}
+
+	public function actionStartTransfer()
+	{
+		if(isset($_GET['vault']) && isset($_GET['key'])){
+			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key']), REMOTE){
+				if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+					if($backup->initiated){
+						echo 0;
+						Yii::app()->end();						
+					}
+					$backup->initiated = date('c');
+					if($backup->save()){
+						$model->state = BUSY;
+						$model->save();
+
+						header("Pragma: public");
+						header("Expires: 0");
+						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+						header("Cache-Control: public");
+						header("Content-Description: File Transfer");
+						header("Content-type: application/octet-stream");
+						header("Content-Disposition: attachment; filename=\"".$file."\"");
+						header("Content-Transfer-Encoding: binary");
+						header("Content-Length: ".$backup->filesize);
+						ob_end_flush();
+						@readfile($path.$file);
+						exit;
+					}
+				}
+			}
+		}
+	}
+
+	public function actionTransferComplete()
+	{
+		if(isset($_GET['vault']) && isset($_GET['key'])){
+			if($model = Vault::model()->findByIncomingCreds($_GET['vault'], $_GET['key']), REMOTE){
+				if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+					$backup->completed = date('c');
+					$model->state = READY;
+					$model->save();
+				}
+			}
+		}		
+	}
+
 
 	/**
 	 * Deletes a particular model.

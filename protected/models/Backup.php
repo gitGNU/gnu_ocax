@@ -114,10 +114,24 @@ class Backup extends CActiveRecord
 		));
 	}
 
-	public function backupSite()
+	public function buildBackupFile()
+	{
+		list($path, $file, $dump_error) = $this->siteBackup($this->vault0->getVaultDir());
+		if($dump_error)
+			return Null;
+		$this->filename = $file;
+		return 1;
+	}
+
+	public function siteBackup($dir=Null)
 	{
 		$error='';
-		$backupDir = Yii::app()->basePath.'/runtime/';
+		if(!$backupDir)
+			$backupDir = Yii::app()->basePath.'/runtime/tmp/';
+		
+		if(!is_dir($backupDir))
+			mkdir($backupDir, 0777, true);
+				
 		if($glob = glob($backupDir.'backup-*')){
 			foreach($glob as $f) {
 				unlink($f);
@@ -137,7 +151,7 @@ class Backup extends CActiveRecord
 			return array(null, null, __('Cannot create zip file'));
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
-		if($error = $this->dumpDatabase($dump_file)){
+		if($error = $this->_dumpDatabase($dump_file)){
 			if(file_exists($dump_file))
 				unlink($dump_file);
 		}
@@ -150,7 +164,7 @@ class Backup extends CActiveRecord
 		return array($backupDir, $backupFileName, $error);
 	}
 
-	public function dumpDatabase($filePath, $table=Null)
+	private function _dumpDatabase($filePath, $table=Null)
 	{
 		$params = getMySqlParams();
 		$method = Config::model()->findByPk('databaseDumpMethod')->value;
