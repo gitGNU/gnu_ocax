@@ -100,16 +100,17 @@ class VaultSchedule extends CActiveRecord
 		//if(date('G') != $this->backupHour)
 		//	return;
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
+		//if($schedule = $this->findByAttributes(array('day'=>6))){
 			if($schedule->vault0->state == READY){
-				//if(have we made a backup today?)
-				//	return;
+				if(Backup::model()->findByDay(date('Y-m-d'), $schedule->vault0->id ))
+					return;
 
 				$vaultName = $schedule->vault0->host2VaultName(Yii::app()->getBaseUrl(true), 0);
 				@file_get_contents($schedule->vault0->host.'/vault/remoteWaitingToStartCopyingBackup'.
 														'?key='.$schedule->vault0->key.
 														'&vault='.$vaultName,
 														false,
-														$schedule->vault0->getStreamContext()
+														$schedule->vault0->getStreamContext(1)
 									);
 			}
 		}

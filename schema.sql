@@ -334,6 +334,7 @@ CREATE TABLE IF NOT EXISTS backup (
   initiated DATETIME NULL,
   completed DATETIME NULL,
   filesize varchar(255) NULL,
+  state TINYINT(1) NOT NULL DEFAULT 0,	/* 0=failed 1=success */
   FOREIGN KEY (vault) REFERENCES vault(id),
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;

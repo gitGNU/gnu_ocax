@@ -75,7 +75,7 @@ class Vault extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('host, type, schedule, created', 'required'),
+			array('host, type, schedule, created, state', 'required'),
 			array('host', 'url'),
 			//array('host', 'unique', 'className' => 'Vault'),
 			array('type, state', 'numerical', 'integerOnly'=>true),
@@ -251,7 +251,7 @@ class Vault extends CActiveRecord
 
 	public function getVaultDir()
 	{
-		return $this->vaultDir.$this->name;
+		return $this->vaultDir.$this->name.'/';
 	}
 
 	public function findByIncomingCreds($name, $key, $vaultType = LOCAL)

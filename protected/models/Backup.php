@@ -65,7 +65,7 @@ class Backup extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('vault, created', 'required'),
-			array('vault', 'numerical', 'integerOnly'=>true),
+			array('vault, state', 'numerical', 'integerOnly'=>true),
 			array('filename, filesize', 'length', 'max'=>255),
 			array('initiated, completed', 'safe'),
 			// The following rule is used by search().
@@ -99,6 +99,7 @@ class Backup extends CActiveRecord
 			'initiated' => 'Initiated',
 			'completed' => 'Completed',
 			'filesize' => 'Filesize',
+			'state' => 'State',
 		);
 	}
 
@@ -123,7 +124,7 @@ class Backup extends CActiveRecord
 		return 1;
 	}
 
-	public function siteBackup($dir=Null)
+	public function siteBackup($backupDir=Null)
 	{
 		$error='';
 		if(!$backupDir)
@@ -198,8 +199,6 @@ class Backup extends CActiveRecord
 	// http://stackoverflow.com/questions/1334613/how-to-recursively-zip-a-directory-in-php/1334949#1334949
 	private function Zip($source, $zip)
 	{
-		//$source = str_replace('\\', '/', realpath($source));
-		//$source = realpath($source);
 		if (is_dir($source) === true){
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
 			$zip->addEmptyDir('files/');
