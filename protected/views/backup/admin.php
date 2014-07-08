@@ -21,7 +21,7 @@
 
 $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
-	array('label'=>__('Manual backup'), 'url'=>array('create')),
+	array('label'=>__('Manual backup'), 'url'=>array('manualCreate')),
 	array('label'=>__('Create Vault'), 'url'=>array('vault/create')),
 );
 ?>
@@ -145,8 +145,7 @@ function showSchedule(){
 		'filename',
 		'initiated',
 		'completed',
-		'checksum',
-		'state',
+		'filesize',
 		array(
 			'class'=>'CButtonColumn',
 		),

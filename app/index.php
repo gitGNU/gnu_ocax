@@ -53,9 +53,9 @@ define ('REMOTE', 1);
 // Vault->state
 define ('CREATED', 0);
 define ('VERIFIED', 1);
-define ('CONFIGURED', 2);
-
-
+define ('READY', 2);
+define ('LOADED', 3);
+define ('BUSY', 4);
 
 require_once($yii);
 Yii::createWebApplication($config)->run();

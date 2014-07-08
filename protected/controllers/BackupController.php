@@ -46,7 +46,7 @@ class BackupController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin', 'index', 'create'),
+				'actions'=>array('admin', 'index', 'manualCreate'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -66,10 +66,64 @@ class BackupController extends Controller
 		));
 	}
 
+
+	/**
+	 * Creates a backup.
+	 */
+	public function actionManualCreate()
+	{
+		$model=new Backup;
+		list($path, $file, $dump_error) = $model->siteBackup();
+	
+		if (file_exists($path.$file)) {
+			header("Pragma: public");
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Cache-Control: public");
+			header("Content-Description: File Transfer");
+			header("Content-type: application/octet-stream");
+			header("Content-Disposition: attachment; filename=\"".$file."\"");
+			header("Content-Transfer-Encoding: binary");
+			header("Content-Length: ".filesize($path.$file));
+			ob_end_flush();
+			@readfile($path.$file);
+			exit;
+		}
+		if($dump_error){
+			Yii::app()->user->setFlash('error', __($dump_error));
+			$this->redirect(array('/user/panel'));
+		}
+	}
+
+
+	/**
+	 * Manages all vaults.
+	 */
+	public function actionAdmin()
+	{
+		$model=new Backup('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		$localVaults=new CActiveDataProvider('Vault', array(
+							'criteria'=>array('condition'=>"type=0")
+						));
+		$remoteVaults=new CActiveDataProvider('Vault', array(
+							'criteria'=>array('condition'=>"type=1")
+						));
+				
+		if(isset($_GET['Backup']))
+			$model->attributes=$_GET['Backup'];
+
+		$this->render('admin',array(
+			'model'=>$model, 'localVaults'=>$localVaults, 'remoteVaults'=>$remoteVaults
+		));
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+/*
 	public function actionCreate()
 	{
 		$model=new Backup;
@@ -88,12 +142,14 @@ class BackupController extends Controller
 			'model'=>$model,
 		));
 	}
+*/
 
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
+/*
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
@@ -112,6 +168,7 @@ class BackupController extends Controller
 			'model'=>$model,
 		));
 	}
+*/
 
 	/**
 	 * Deletes a particular model.
@@ -135,33 +192,6 @@ class BackupController extends Controller
 		$dataProvider=new CActiveDataProvider('Backup');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Backup('search');
-		$model->unsetAttributes();  // clear any default values
-		
-		$localVaults=new CActiveDataProvider('Vault', array(
-			'criteria'=>array(
-				'condition'=>"type=0",
-			),
-		));
-		$remoteVaults=new CActiveDataProvider('Vault', array(
-			'criteria'=>array(
-				'condition'=>"type=1",
-			),
-		));
-				
-		if(isset($_GET['Backup']))
-			$model->attributes=$_GET['Backup'];
-
-		$this->render('admin',array(
-			'model'=>$model, 'localVaults'=>$localVaults, 'remoteVaults'=>$remoteVaults
 		));
 	}
 

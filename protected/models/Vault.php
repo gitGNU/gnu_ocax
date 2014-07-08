@@ -32,6 +32,7 @@
  *
  * The followings are the available model relations:
  * @property Backup[] $backups
+ * @property VaultSchedule[] $vaultSchedules
  */
  
 //FILTER_SANITIZE_URL
@@ -74,7 +75,7 @@ class Vault extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('host, type, schedule, created', 'required'),
+			array('host, type, schedule, created, state', 'required'),
 			array('host', 'url'),
 			//array('host', 'unique', 'className' => 'Vault'),
 			array('type, state', 'numerical', 'integerOnly'=>true),
@@ -114,16 +115,34 @@ class Vault extends CActiveRecord
 				}
 			}
 		}
+		// a host asks LOCAL vault to start backups
+		if($this->state >= READY && $this->type == LOCAL){
+			if(!$this->vaultSchedules){
+				$day = 0;
+				while($day < 7){
+					if($this->schedule[$day] == 1){
+						$schedule = new VaultSchedule;
+						$schedule->vault = $this->id;
+						$schedule->day = $day;
+						$schedule->save();
+					}
+					$day++;
+				}
+			}
+		}
 		return parent::beforeSave();
     }
 
-	public function host2VaultName($host)
+	public function host2VaultName($host, $appendType = 1)
 	{
 		$name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
-		if($this->type == LOCAL)
-			return $name.'-local';
-		else
-			return $name.'-remote';
+		if($appendType){
+			if($this->type == LOCAL)
+				return $name.'-local';
+			else
+				return $name.'-remote';
+		}else
+			return $name;
 	}
 
 	/**
@@ -135,6 +154,7 @@ class Vault extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'backups' => array(self::HAS_MANY, 'Backup', 'vault'),
+			'vaultSchedules' => array(self::HAS_MANY, 'VaultSchedule', 'vault'),
 		);
 	}
 
@@ -159,8 +179,9 @@ class Vault extends CActiveRecord
 		$humanStateValues=array(
 				0		=>__('Created'),
 				1		=>__('Verified'),
-				2		=>__('Configured'),
-				3		=>__('Broken'),
+				2		=>__('Ready'),
+				3		=>__('Loaded'),
+				4		=>__('Busy'),
 		);
 		return $humanStateValues[$state];
 	}
@@ -181,12 +202,20 @@ class Vault extends CActiveRecord
 		return $humanDayValues;
 	}
 
+	public function afterFind()	// load key into newly found model
+	{
+		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
+			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
+	}
+
+/*
 	public function loadKey()
 	{
 		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
 			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
 	}
-	
+*/
+
 	public function saveKey()
 	{
 		file_put_contents($this->vaultDir.$this->name.'/key.txt', $this->key);
@@ -220,6 +249,24 @@ class Vault extends CActiveRecord
 		return rtrim($result,',');
 	}
 
+	public function getVaultDir()
+	{
+		return $this->vaultDir.$this->name.'/';
+	}
+
+	public function findByIncomingCreds($name, $key, $vaultType = LOCAL)
+	{
+		if($vaultType == LOCAL)
+			$vaultName = $name.'-local';
+		if($vaultType == REMOTE)
+			$vaultName = $name.'-remote';
+		if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
+			if($model->key && $model->key == $key)
+				return $model;
+		}
+		return Null;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -241,5 +288,17 @@ class Vault extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function getStreamContext($timeout = 1)
+	{
+		$opts = array('http' => array(
+								'method'  => 'GET',
+								'header'  => 'Content-type: application/x-www-form-urlencoded',
+								'ignore_errors' => '1',
+								'timeout' => $timeout,
+								'user_agent' => 'ocax-'.getOCAXVersion(),
+							));
+		return stream_context_create($opts);
 	}
 }
