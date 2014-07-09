@@ -105,21 +105,20 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 	echo '<h1>'.__('Backups').'</h1>';
 
 	$this->widget('zii.widgets.grid.CGridView', array(
-		'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
+		'htmlOptions'=>array('class'=>'pgrid-view'),
 		'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 		'loadingCssClass'=>'pgrid-view-loading',
 		'id'=>'backup-grid',
 		'dataProvider'=>$backups,
-		//'filter'=>$model,
 		'columns'=>array(
-			'vault',
 			'filename',
 			'initiated',
 			'completed',
-			'checksum',
-			'state',
+			'filesize',
 			array(
-				'class'=>'CButtonColumn',
+				'header'=>__('State'),
+				'type' => 'raw',
+				'value'=>'$data->getHumanState()',
 			),
 		),
 	));

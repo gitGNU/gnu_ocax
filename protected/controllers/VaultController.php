@@ -56,6 +56,7 @@ class VaultController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public $defaultAction = 'admin';
 
 	/**
 	 * @return array action filters
@@ -329,7 +330,6 @@ class VaultController extends Controller
 						Yii::app()->end();
 					}
 					$backup = new Backup;
-					$backup->state = 0;
 					$backup->vault = $model->id;
 					$backup->created = date('c');
 					//save it now because buildBackupFile() can take time and we don't want do to run it twice.
@@ -376,7 +376,6 @@ class VaultController extends Controller
 				}
 				$backup = new Backup;
 				$backup->vault = $model->id;
-				$backup->state = 0;
 				$backup->filename = $_GET['filename'];
 				$backup->created = date('c');
 				$backup->initiated = date('c');
@@ -399,12 +398,15 @@ class VaultController extends Controller
 							
 					$dest = $model->getVaultDir().$backup->filename;
 					copy($source, $dest);
+
+					$backup->completed = date('c');
+					$backup->save();
+					$model->state = READY;
+					$model->save();
+					
+					$backup->state = 0;	// failed
 					
 					if($backup->filesize = filesize($model->getVaultDir().$backup->filename)){
-						$backup->completed = date('c');
-						$backup->save();
-						$model->state = READY;
-						$model->save();
 						$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
 						$confirmation = Null;
 						$confirmation = @file_get_contents($model->host.'/vault/transferComplete'.
@@ -415,10 +417,9 @@ class VaultController extends Controller
 												$model->getStreamContext(3)
 									);
 						if($confirmation == 1)
-							$a=1;
-						
+							$backup->state = 1; // success!!
 					}
-					//else{	transfer failed }								
+					$backup->save();
 				}
 			}
 		}
@@ -467,11 +468,10 @@ class VaultController extends Controller
 					$model->save();
 					
 					if(isset($_GET['filesize']) && $_GET['filesize'] == $backup->filesize)
-						$success=1;
+						$backup->state=1;
 					else
-						$success=0;
+						$backup->state=0;
 
-					$backup->state = $success;
 					$backup->completed = date('c');
 					$backup->save();				
 					echo $backup->state;

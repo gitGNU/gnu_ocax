@@ -202,6 +202,16 @@ class Vault extends CActiveRecord
 		return $humanDayValues;
 	}
 
+	public static function getHumanType($type = Null)
+	{
+		if(!$type)
+			$type = $this->type;
+		if($type == 0)
+			return __('Local');
+		else
+			return __('Remote');
+	}
+
 	public function afterFind()	// load key into newly found model
 	{
 		if(file_exists($this->vaultDir.$this->name.'/key.txt'))

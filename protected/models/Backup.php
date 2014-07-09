@@ -29,6 +29,7 @@
  * @property string $initiated
  * @property string $completed
  * @property string $filesize
+ * @property integer $state
  *
  * The followings are the available model relations:
  * @property Vault $vault0
@@ -93,16 +94,24 @@ class Backup extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'vault' => 'Vault',
-			'filename' => 'Filename',
-			'created' => 'Created',
-			'initiated' => 'Initiated',
-			'completed' => 'Completed',
-			'filesize' => 'Filesize',
-			'state' => 'State',
+			'vault' => __('Vault'),
+			'filename' => __('Filename'),
+			'created' => __('Created'),
+			'initiated' => __('Initiated'),
+			'completed' => __('Completed'),
+			'filesize' => __('Filesize'),
+			'state' => __('State'),
 		);
 	}
 
+	public function getHumanState()
+	{
+		if($this->state === 0)
+			return '<span style="color:red">'.__('Failed').'</span>';
+		if($this->state === 1)
+			return __('Success');
+		return __('Not finished');
+	}
 
 	public function getDataproviderByVault($vault_id)
 	{

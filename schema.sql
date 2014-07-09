@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS config (
   can_edit TINYINT(1) DEFAULT 1,
   required TINYINT(1) DEFAULT 1,
   description varchar(255) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE INE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
