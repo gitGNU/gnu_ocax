@@ -27,7 +27,7 @@ $this->menu=array(
 );
 $this->inlineHelp=':profiles:cms_editor';
 ?>
-<h1><?php echo _('Manage Introduction pages');?></h1>
+<h1><?php echo __('Manage Introduction pages');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

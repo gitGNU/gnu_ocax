@@ -161,14 +161,15 @@ class CsvController extends Controller
 			$ids[]=$id;
 
 		}
-		$error = array_merge($error, $model->checkInternalCodeSanity());
+		if(!$error)
+			$error = $model->checkInternalCodeSanity();
+
 		if(!$error){
 			$model->orderCSV();	
-		}
-		if($error)
-			echo CJavaScript::jsonEncode(array('error'=>$error));
-		else
 			echo count($lines) - 1;
+		}else
+			echo CJavaScript::jsonEncode(array('error'=>$error));
+
 	}
 
 	public function actionAddMissingValues()
