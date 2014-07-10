@@ -12,6 +12,12 @@ you cannot jump to the 1.1.3 instructions.
 You must follow all upgrade instructions in ascending order. 1.1.1 then 1.1.2 then 1.1.3
 
 
+OCAX 1.2
+Upgrade instructions.
+1. Follow steps 1-5 above.
+INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor. 0 = No, 1 = Yes.");
+
+
 OCAX 1.1.4
 Upgrade instructions.
 1. Follow steps 1-5 above.
@@ -110,8 +116,6 @@ CALL mod_newsletter();
 
 ALTER TABLE user MODIFY COLUMN activationcode varchar(45) NOT NULL;
 ALTER TABLE reset_password MODIFY COLUMN code varchar(45) NOT NULL;
-INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
-INSERT INTO config(parameter, value, required, des(45) NOT NULL;
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
 INSERT INTO config(parameter, value, required, description) VALUES ('databaseDumpMethod', 'native', '1', 'Method for database backups: native or alternative');
 
