@@ -113,6 +113,21 @@ class Backup extends CActiveRecord
 		return __('Not finished');
 	}
 
+	public function formatBytes($precision = 2) {
+		$bytes= $this->filesize;
+		$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
+
+		$bytes = max($bytes, 0); 
+		$pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
+		$pow = min($pow, count($units) - 1); 
+
+		// Uncomment one of the following alternatives
+		//$bytes /= pow(1024, $pow);
+		$bytes /= (1 << (10 * $pow)); 
+
+		return round($bytes, $precision) . ' ' . $units[$pow]; 
+	}
+
 	public function getDataproviderByVault($vault_id)
 	{
 		$criteria=new CDbCriteria;
@@ -258,6 +273,12 @@ class Backup extends CActiveRecord
 		return $this->find($criteria);
 	}
 
+	protected function beforeDelete()
+	{
+		if(file_exists($this->vault0->getVaultDir().$this->filename))
+			unlink($this->vault0->getVaultDir().$this->filename);
+		return parent::beforeDelete();
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

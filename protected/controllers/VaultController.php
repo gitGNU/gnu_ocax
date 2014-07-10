@@ -104,7 +104,7 @@ class VaultController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'view', 'viewSchedule', 'admin', /*'index',*/
+				'actions'=>array(	'view', 'viewSchedule', 'admin',
 									'create',
 									'configureKey', 'configureSchedule',
 									'delete'),
@@ -494,7 +494,15 @@ class VaultController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model= $this->loadModel($id);
+
+		foreach($model->backups as $backup)
+			$backup->delete();
+			
+		foreach($model->vaultSchedules as $schedules)
+			$schedules->delete();
+			
+		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -524,9 +532,6 @@ class VaultController extends Controller
 							'criteria'=>array('condition'=>"type=1")
 						));
 				
-		//if(isset($_GET['Backup']))
-		//	$model->attributes=$_GET['Backup'];
-
 		$this->render('admin',array(
 			'model'=>$model, 'localVaults'=>$localVaults, 'remoteVaults'=>$remoteVaults
 		));

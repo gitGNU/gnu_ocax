@@ -30,13 +30,13 @@ $this->menu=array(
 <script>
 function showSchedule(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/schedule',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/viewSchedule',
 		type: 'GET',
 		beforeSend: function(){ /* */ },
 		success: function(html){
 			if(html != 0){
 				$("#schedule_body").html(html);
-				$('#schedule').bPopup({
+				$('#schedule_modal').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, positionStyle: 'absolute'
@@ -113,7 +113,7 @@ function showSchedule(){
 </div>
 <div class="clear"></div>
 
-<h1><?php echo __('All Backups');?></h1>
+<div class="sub_title"><?php echo __('All Backups');?></div>
 
 <?php $this->widget('PGridView', array(
 	'id'=>'backup-grid',
@@ -135,7 +135,11 @@ function showSchedule(){
 		),
 		'initiated',
 		'completed',
-		'filesize',
+		array(
+			'header'=>__('Filesize'),
+			'type' => 'raw',
+			'value'=>'$data->formatBytes()',
+		),	
 		array(
 			'header'=>__('State'),
 			'type' => 'raw',
@@ -146,7 +150,7 @@ function showSchedule(){
 )); ?>
 
 
-<div id="schedule" class="modal" style="width:800px;">
+<div id="schedule_modal" class="modal" style="width:800px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="schedule_body"></div>
 </div>

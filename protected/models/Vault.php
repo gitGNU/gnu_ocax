@@ -133,6 +133,16 @@ class Vault extends CActiveRecord
 		return parent::beforeSave();
     }
 
+	protected function beforeDelete()
+	{
+		if(file_exists($this->getVaultDir().'key.txt'))
+			unlink($this->getVaultDir().'key.txt');
+			
+		rmdir($this->getVaultDir());
+		return parent::beforeDelete();
+	}
+
+
 	public function host2VaultName($host, $appendType = 1)
 	{
 		$name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
@@ -219,14 +229,6 @@ class Vault extends CActiveRecord
 		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
 			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
 	}
-
-/*
-	public function loadKey()
-	{
-		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
-			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
-	}
-*/
 
 	public function saveKey()
 	{
