@@ -21,8 +21,8 @@
 
 $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
-	array('label'=>__('Manual backup'), 'url'=>array('manualCreate')),
-	array('label'=>__('Create Vault'), 'url'=>array('vault/create')),
+	array('label'=>__('Manual backup'), 'url'=>array('backup/manualCreate')),
+	array('label'=>__('Create Vault'), 'url'=>array('create')),
 );
 ?>
 
@@ -88,6 +88,7 @@ function showSchedule(){
 </div>
 <div class="right">
 <div class="sub_title"><?php echo __('Remote vaults');?></div>
+
 <?php echo __('You save your copies on their server');?>
 <?php $this->widget('PGridView', array(
 	'id'=>'remotevault-grid',
@@ -104,7 +105,7 @@ function showSchedule(){
 	        'type'=>'raw',
 	        'value'=>function($data,$row){return Vault::getHumanStates($data->state);},
 		),
-		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+		array('class'=>'PHiddenColumn','value'=>'$data->id'),
 	),
 )); ?>
 
@@ -116,7 +117,7 @@ function showSchedule(){
 
 <?php $this->widget('PGridView', array(
 	'id'=>'backup-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>Backup::model()->search(),
     'onClick'=>array(
         'type'=>'url',
         'call'=>Yii::app()->request->baseUrl.'/vault/view',

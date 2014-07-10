@@ -35,9 +35,14 @@ $this->menu=array(
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 $(function() {
+	/*
 	if( $("#vault-form input[type='radio']:checked").val() == 0)
 		$("#schedule").show();	
+	*/
+	if($('#Vault_type_0').is(':checked'))
+		$('#schedule_select').show();
 });
+
 function toggleSchedule(){
 	if( $("#vault-form input[type='radio']:checked").val() == 0)
 		$("#schedule_select").show();

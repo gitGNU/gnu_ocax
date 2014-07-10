@@ -104,24 +104,50 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 <?php if($model->state >= READY){
 	echo '<h1>'.__('Backups').'</h1>';
 
-	$this->widget('zii.widgets.grid.CGridView', array(
-		'htmlOptions'=>array('class'=>'pgrid-view'),
-		'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-		'loadingCssClass'=>'pgrid-view-loading',
-		'id'=>'backup-grid',
-		'dataProvider'=>$backups,
-		'columns'=>array(
-			'filename',
-			'initiated',
-			'completed',
-			'filesize',
-			array(
-				'header'=>__('State'),
-				'type' => 'raw',
-				'value'=>'$data->getHumanState()',
+	if($model->type == LOCAL){
+		$this->widget('PGridView', array(
+			'id'=>'backup-grid',
+			'dataProvider'=>$backups,
+			'onClick'=>array(
+				'type'=>'url',
+				'call'=>Yii::app()->request->baseUrl.'/backup/downloadBackup',
 			),
-		),
-	));
+			'columns'=>array(
+				'filename',
+				'initiated',
+				'completed',
+				'filesize',
+				array(
+					'header'=>__('State'),
+					'type' => 'raw',
+					'value'=>'$data->getHumanState()',
+				),
+				array('class'=>'PHiddenColumn','value'=>'$data->id'),
+			),
+			
+		));
+	}
+	if($model->type == REMOTE){
+		$this->widget('zii.widgets.grid.CGridView', array(
+			'htmlOptions'=>array('class'=>'pgrid-view'),
+			'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+			'loadingCssClass'=>'pgrid-view-loading',
+			'id'=>'backup-grid',
+			'dataProvider'=>$backups,
+			'columns'=>array(
+				'filename',
+				'initiated',
+				'completed',
+				'filesize',
+				array(
+					'header'=>__('State'),
+					'type' => 'raw',
+					'value'=>'$data->getHumanState()',
+				),
+			),
+			
+		));
+	}
 }
 ?>
 

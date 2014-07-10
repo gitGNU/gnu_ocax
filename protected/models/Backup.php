@@ -108,7 +108,7 @@ class Backup extends CActiveRecord
 	{
 		if($this->state === 0)
 			return '<span style="color:red">'.__('Failed').'</span>';
-		if($this->state === 1)
+		if($this->state == 1)
 			return __('Success');
 		return __('Not finished');
 	}
@@ -161,15 +161,16 @@ class Backup extends CActiveRecord
 			return array(null, null, __('Cannot create zip file'));
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
-		if($error = $this->_dumpDatabase($dump_file)){
-			if(file_exists($dump_file))
-				unlink($dump_file);
-		}
+		$error = $this->_dumpDatabase($dump_file);
+
 		$this->Zip($filesDir, $zip);
 		$zip->addFile($dump_file, 'database.sql');
 		$zip->addFile(Yii::app()->basePath.'/data/RESTORE','RESTORE');
 		$zip->addFile(Yii::app()->basePath.'/data/ocax.version','VERSION');
 		$zip->close();
+
+		if(file_exists($dump_file))
+			unlink($dump_file);
 
 		return array($backupDir, $backupFileName, $error);
 	}
@@ -228,6 +229,22 @@ class Backup extends CActiveRecord
 		}
 		else if (is_file($source) === true)
 			$zip->addFromString(basename($source), file_get_contents($source));
+	}
+
+	public function download()
+	{
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=\"".$this->filename."\"");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".$this->filesize);
+		ob_end_flush();
+		@readfile($this->vault0->getVaultDir().$this->filename);
+		exit;
 	}
 
 

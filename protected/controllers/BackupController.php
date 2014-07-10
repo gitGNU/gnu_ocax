@@ -47,7 +47,7 @@ class BackupController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin', 'manualCreate'),
+				'actions'=>array('admin', 'manualCreate', 'downloadBackup'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -84,29 +84,24 @@ class BackupController extends Controller
 		}
 	}
 
-
 	/**
 	 * Manages all vaults.
 	 */
 	public function actionAdmin()
 	{
-		$model=new Backup('search');
-		$model->unsetAttributes();  // clear any default values
-		
-		$localVaults=new CActiveDataProvider('Vault', array(
-							'criteria'=>array('condition'=>"type=0")
-						));
-		$remoteVaults=new CActiveDataProvider('Vault', array(
-							'criteria'=>array('condition'=>"type=1")
-						));
-				
-		if(isset($_GET['Backup']))
-			$model->attributes=$_GET['Backup'];
-
-		$this->render('admin',array(
-			'model'=>$model, 'localVaults'=>$localVaults, 'remoteVaults'=>$remoteVaults
-		));
+		$this->redirect(array('/vault/admin'));
 	}
+
+	/**
+	 * Admin can download the copy made on this server
+	 */
+
+	public function actionDownloadBackup($id)
+	{
+		$model=$this->loadModel($id);
+		$model->download();	
+	}
+
 
 	/**
 	 * Deletes a particular model.

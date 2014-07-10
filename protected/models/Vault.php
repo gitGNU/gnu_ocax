@@ -204,12 +204,14 @@ class Vault extends CActiveRecord
 
 	public static function getHumanType($type = Null)
 	{
-		if(!$type)
+		if(!$type && isset($this) && is_object($this))
 			$type = $this->type;
 		if($type == 0)
 			return __('Local');
-		else
+		if($type == 1)
 			return __('Remote');
+			
+		return __('Not defined');
 	}
 
 	public function afterFind()	// load key into newly found model
@@ -264,15 +266,20 @@ class Vault extends CActiveRecord
 		return $this->vaultDir.$this->name.'/';
 	}
 
-	public function findByIncomingCreds($name, $key, $vaultType = LOCAL)
+	public function findByIncomingCreds($vaultType = LOCAL)
 	{
-		if($vaultType == LOCAL)
-			$vaultName = $name.'-local';
-		if($vaultType == REMOTE)
-			$vaultName = $name.'-remote';
-		if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-			if($model->key && $model->key == $key)
-				return $model;
+		if(isset($_GET['vault']) && isset($_GET['key'])){
+			$name = $_GET['vault'];
+			$key = $_GET['key'];
+			
+			if($vaultType == LOCAL)
+				$vaultName = $name.'-local';
+			if($vaultType == REMOTE)
+				$vaultName = $name.'-remote';
+			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
+				if($model->key && $model->key == $key)
+					return $model;
+			}
 		}
 		return Null;
 	}

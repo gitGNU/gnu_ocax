@@ -26,7 +26,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'vault-form',
-	'action' => Yii::app()->createUrl('vault/update/'.$model->id),
+	'action' => Yii::app()->createUrl('vault/configureKey/'.$model->id),
 	'enableAjaxValidation'=>false,
 )); ?>
 
