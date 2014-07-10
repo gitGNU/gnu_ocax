@@ -29,6 +29,7 @@
  * @property string $initiated
  * @property string $completed
  * @property string $filesize
+ * @property integer $state
  *
  * The followings are the available model relations:
  * @property Vault $vault0
@@ -93,16 +94,39 @@ class Backup extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'vault' => 'Vault',
-			'filename' => 'Filename',
-			'created' => 'Created',
-			'initiated' => 'Initiated',
-			'completed' => 'Completed',
-			'filesize' => 'Filesize',
-			'state' => 'State',
+			'vault' => __('Vault'),
+			'filename' => __('Filename'),
+			'created' => __('Created'),
+			'initiated' => __('Initiated'),
+			'completed' => __('Completed'),
+			'filesize' => __('Filesize'),
+			'state' => __('State'),
 		);
 	}
 
+	public function getHumanState()
+	{
+		if($this->state === 0)
+			return '<span style="color:red">'.__('Failed').'</span>';
+		if($this->state == 1)
+			return __('Success');
+		return __('Not finished');
+	}
+
+	public function formatBytes($precision = 2) {
+		$bytes= $this->filesize;
+		$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
+
+		$bytes = max($bytes, 0); 
+		$pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
+		$pow = min($pow, count($units) - 1); 
+
+		// Uncomment one of the following alternatives
+		//$bytes /= pow(1024, $pow);
+		$bytes /= (1 << (10 * $pow)); 
+
+		return round($bytes, $precision) . ' ' . $units[$pow]; 
+	}
 
 	public function getDataproviderByVault($vault_id)
 	{
@@ -152,15 +176,16 @@ class Backup extends CActiveRecord
 			return array(null, null, __('Cannot create zip file'));
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
-		if($error = $this->_dumpDatabase($dump_file)){
-			if(file_exists($dump_file))
-				unlink($dump_file);
-		}
+		$error = $this->_dumpDatabase($dump_file);
+
 		$this->Zip($filesDir, $zip);
 		$zip->addFile($dump_file, 'database.sql');
 		$zip->addFile(Yii::app()->basePath.'/data/RESTORE','RESTORE');
 		$zip->addFile(Yii::app()->basePath.'/data/ocax.version','VERSION');
 		$zip->close();
+
+		if(file_exists($dump_file))
+			unlink($dump_file);
 
 		return array($backupDir, $backupFileName, $error);
 	}
@@ -221,6 +246,22 @@ class Backup extends CActiveRecord
 			$zip->addFromString(basename($source), file_get_contents($source));
 	}
 
+	public function download()
+	{
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=\"".$this->filename."\"");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".$this->filesize);
+		ob_end_flush();
+		@readfile($this->vault0->getVaultDir().$this->filename);
+		exit;
+	}
+
 
 	public function findByDay($day, $vault)
 	{
@@ -232,6 +273,12 @@ class Backup extends CActiveRecord
 		return $this->find($criteria);
 	}
 
+	protected function beforeDelete()
+	{
+		if(file_exists($this->vault0->getVaultDir().$this->filename))
+			unlink($this->vault0->getVaultDir().$this->filename);
+		return parent::beforeDelete();
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

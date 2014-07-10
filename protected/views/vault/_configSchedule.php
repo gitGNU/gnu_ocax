@@ -36,18 +36,14 @@ function updateSchedule(el, day){
 
 <?php
 	// get the available days for backups specified by remote admin	
-	$opts = array('http' => array(
-							'method'  => 'GET',
-							'header'  => 'Content-type: application/x-www-form-urlencoded',
-							'ignore_errors' => '1',
-							'timeout' => 15,
-							'user_agent' => 'ocax-'.getOCAXVersion(),
-						));			
-	$vaultName = rtrim($model->host2VaultName(Yii::app()->getBaseUrl(true)), '-remote');				
-	$context = stream_context_create($opts);
-	
+	$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true),0);
 	$reply=Null;
-	$reply = @file_get_contents($model->host.'/vault/getSchedule?key='.$model->key.'&vault='.$vaultName, false, $context);
+	$reply = @file_get_contents($model->host.'/vault/getSchedule'.
+												'?key='.$model->key.
+												'&vault='.$vaultName,
+												false,
+												$model->getStreamContext(3)
+								);
 	if($reply !== Null && strlen($reply) == 7){
 		$availableDays = $reply;
 	}
@@ -58,7 +54,7 @@ function updateSchedule(el, day){
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'vault-form',
 	'action' => Yii::app()->createUrl('vault/configureSchedule/'.$model->id),
-	'enableAjaxValidation'=>false,
+	//'enableAjaxValidation'=>true,
 )); ?>
 
 	<div class="row">
@@ -81,7 +77,7 @@ function updateSchedule(el, day){
 				}
 				$day++;
 			}
-			echo $form->error($model,'schedule');
+			//echo $form->error($model,'schedule');
 		?>
 		<?php echo $form->error($model,'schedule'); ?>
 	</div>
@@ -93,3 +89,4 @@ function updateSchedule(el, day){
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+

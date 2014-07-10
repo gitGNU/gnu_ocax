@@ -133,6 +133,16 @@ class Vault extends CActiveRecord
 		return parent::beforeSave();
     }
 
+	protected function beforeDelete()
+	{
+		if(file_exists($this->getVaultDir().'key.txt'))
+			unlink($this->getVaultDir().'key.txt');
+			
+		rmdir($this->getVaultDir());
+		return parent::beforeDelete();
+	}
+
+
 	public function host2VaultName($host, $appendType = 1)
 	{
 		$name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
@@ -202,19 +212,23 @@ class Vault extends CActiveRecord
 		return $humanDayValues;
 	}
 
+	public static function getHumanType($type = Null)
+	{
+		if(!$type && isset($this) && is_object($this))
+			$type = $this->type;
+		if($type == 0)
+			return __('Local');
+		if($type == 1)
+			return __('Remote');
+			
+		return __('Not defined');
+	}
+
 	public function afterFind()	// load key into newly found model
 	{
 		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
 			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
 	}
-
-/*
-	public function loadKey()
-	{
-		if(file_exists($this->vaultDir.$this->name.'/key.txt'))
-			$this->key = file_get_contents($this->vaultDir.$this->name.'/key.txt');
-	}
-*/
 
 	public function saveKey()
 	{
@@ -254,15 +268,20 @@ class Vault extends CActiveRecord
 		return $this->vaultDir.$this->name.'/';
 	}
 
-	public function findByIncomingCreds($name, $key, $vaultType = LOCAL)
+	public function findByIncomingCreds($vaultType = LOCAL)
 	{
-		if($vaultType == LOCAL)
-			$vaultName = $name.'-local';
-		if($vaultType == REMOTE)
-			$vaultName = $name.'-remote';
-		if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-			if($model->key && $model->key == $key)
-				return $model;
+		if(isset($_GET['vault']) && isset($_GET['key'])){
+			$name = $_GET['vault'];
+			$key = $_GET['key'];
+			
+			if($vaultType == LOCAL)
+				$vaultName = $name.'-local';
+			if($vaultType == REMOTE)
+				$vaultName = $name.'-remote';
+			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
+				if($model->key && $model->key == $key)
+					return $model;
+			}
 		}
 		return Null;
 	}

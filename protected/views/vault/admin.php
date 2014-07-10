@@ -21,39 +21,22 @@
 
 $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
-	array('label'=>__('Manual backup'), 'url'=>array('manualCreate')),
-	array('label'=>__('Create Vault'), 'url'=>array('vault/create')),
+	array('label'=>__('Manual backup'), 'url'=>array('backup/manualCreate')),
+	array('label'=>__('Create Vault'), 'url'=>array('create')),
 );
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
-function getVaultDetails(id){
-	
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/view/'+id,
-		type: 'GET',
-		success: function(data){
-			if(data != 0){
-				$('#all_backups').hide();
-				$('#vault_details').html(data);
-				$('#vault_details').fadeIn('fast');
-		}
-		},
-		error: function() {
-			alert("Error on vault/view");
-		}
-	});
-}
 function showSchedule(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/schedule',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/viewSchedule',
 		type: 'GET',
 		beforeSend: function(){ /* */ },
 		success: function(html){
 			if(html != 0){
 				$("#schedule_body").html(html);
-				$('#schedule').bPopup({
+				$('#schedule_modal').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, positionStyle: 'absolute'
@@ -88,8 +71,8 @@ function showSchedule(){
 	'dataProvider'=>$localVaults,
 	'template' => '{items}',
     'onClick'=>array(
-        'type'=>'javascript',
-        'call'=>'getVaultDetails',
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/vault/view',
     ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(
@@ -105,14 +88,15 @@ function showSchedule(){
 </div>
 <div class="right">
 <div class="sub_title"><?php echo __('Remote vaults');?></div>
+
 <?php echo __('You save your copies on their server');?>
 <?php $this->widget('PGridView', array(
 	'id'=>'remotevault-grid',
 	'dataProvider'=>$remoteVaults,
 	'template' => '{items}',
     'onClick'=>array(
-        'type'=>'javascript',
-        'call'=>'getVaultDetails',
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/vault/view',
     ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(
@@ -121,7 +105,7 @@ function showSchedule(){
 	        'type'=>'raw',
 	        'value'=>function($data,$row){return Vault::getHumanStates($data->state);},
 		),
-		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+		array('class'=>'PHiddenColumn','value'=>'$data->id'),
 	),
 )); ?>
 
@@ -129,31 +113,44 @@ function showSchedule(){
 </div>
 <div class="clear"></div>
 
-<div id="vault_details"></div>
+<div class="sub_title"><?php echo __('All Backups');?></div>
 
-<div id="all_backups">
-<h1><?php echo __('All Backups');?></h1>
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
-	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'loadingCssClass'=>'pgrid-view-loading',
+<?php $this->widget('PGridView', array(
 	'id'=>'backup-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'dataProvider'=>Backup::model()->search(),
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/vault/view',
+    ),
 	'columns'=>array(
-		'vault',
-		'filename',
+		array(
+			'header'=>__('Vault'),
+			'type' => 'raw',
+			'value'=>'$data->vault0->host',
+		),
+		array(
+			'header'=>__('Type'),
+			'type' => 'raw',
+			'value'=>'$data->vault0->getHumanType($data->vault0->type)',
+		),
 		'initiated',
 		'completed',
-		'filesize',
 		array(
-			'class'=>'CButtonColumn',
+			'header'=>__('Filesize'),
+			'type' => 'raw',
+			'value'=>'$data->formatBytes()',
+		),	
+		array(
+			'header'=>__('State'),
+			'type' => 'raw',
+			'value'=>'$data->getHumanState()',
 		),
+		array('class'=>'PHiddenColumn','value'=>'$data->vault0->id'),
 	),
 )); ?>
-</div>
 
-<div id="schedule" class="modal" style="width:800px;">
+
+<div id="schedule_modal" class="modal" style="width:800px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="schedule_body"></div>
 </div>
