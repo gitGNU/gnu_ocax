@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -92,8 +92,21 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($content,'body'); ?>
-		<?php /* echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); */ ?>
+		<?php
+			echo $form->labelEx($content,'body');
+			if(!Config::model()->findByPk('safeHTMLeditor')->value){
+				echo '<label>'.__('Warning! Safe HTML editing is off. Copy/paste can create problems').'.</label>';
+				$htmlButton = ",|,code";
+				$valid_elements = "*[*]";
+				//http://www.tinymce.com/wiki.php/configuration:valid_children
+				$valid_children = "+body[style]";
+			}else{
+				$htmlButton = "";
+				$valid_elements = "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]";
+				$valid_children = "";
+			}
+		?>
+	
 <?php
 $this->widget('ext.tinymce.TinyMce', array(
     'model' => $content,
@@ -106,7 +119,7 @@ $this->widget('ext.tinymce.TinyMce', array(
 	'settings' => array(
 						'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
 													justifyright,|,bullist,numlist,|,outdent,indent,|,
-													undo,redo,|,link,unlink,|,image,|,code",
+													undo,redo,|,link,unlink,|,image".$htmlButton,
 						'convert_urls'=>true,
 						'relative_urls'=>false,
 						'remove_script_host'=>false,
@@ -114,7 +127,8 @@ $this->widget('ext.tinymce.TinyMce', array(
 						'theme_advanced_resize_vertical' => 0,
 						'theme_advanced_resizing_use_cookie' => false,
 						'width'=>'100%',
-						'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
+						'valid_elements' => $valid_elements,
+						'valid_children' => $valid_children,
 		),
 ));
 ?>

@@ -330,6 +330,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('membership'
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
+INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor. 0 = No, 1 = Yes.");
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'Database schema version');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
