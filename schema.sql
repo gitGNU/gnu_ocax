@@ -340,6 +340,7 @@ INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '0'
 INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '0', 'SMTP Port');
 INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
 INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '0', 'SMTP Username');
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets. 0 = No, 1 = Yes.");
 INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");

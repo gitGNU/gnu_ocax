@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-22 09:10+0100\n"
+"PO-Revision-Date: 2014-07-15 13:00+0100\n"
 "Last-Translator: buttle <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: protected/models/Email.php:99
 #: protected/models/Enquiry.php:216
-#: protected/views/enquiry/view.php:188
+#: protected/views/enquiry/view.php:189
 #: protected/views/enquiry/_detailsForTeam.php:43
 msgid "Type"
 msgstr "Tipo"
@@ -94,7 +94,7 @@ msgstr "Contraseña repetida"
 
 #: protected/models/RegisterForm.php:90
 #: protected/models/User.php:130
-#: protected/views/layouts/main.php:119
+#: protected/views/layouts/main.php:138
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -133,8 +133,8 @@ msgstr "Publicada"
 #: protected/models/Newsletter.php:109
 #: protected/models/Enquiry.php:218
 #: protected/models/Emailtext.php:113
-#: protected/views/emailtext/admin.php:46
-#: protected/views/enquiry/view.php:192
+#: protected/views/emailtext/admin.php:45
+#: protected/views/enquiry/view.php:193
 #: protected/views/enquiry/index.php:143
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/_detailsForTeam.php:27
@@ -443,7 +443,7 @@ msgstr "Gestionar años"
 
 #: protected/models/Enquiry.php:211
 #: protected/views/budget/view.php:189
-#: protected/views/enquiry/view.php:178
+#: protected/views/enquiry/view.php:179
 #: protected/views/enquiry/index.php:138
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/user/panel.php:193
@@ -456,13 +456,13 @@ msgid "Assigned"
 msgstr "Asignada"
 
 #: protected/models/Enquiry.php:213
-#: protected/views/enquiry/view.php:208
+#: protected/views/enquiry/view.php:209
 #: protected/views/enquiry/_detailsForTeam.php:66
 msgid "Submitted"
 msgstr "Entregada"
 
 #: protected/models/Enquiry.php:214
-#: protected/views/enquiry/view.php:203
+#: protected/views/enquiry/view.php:204
 #: protected/views/enquiry/_detailsForTeam.php:59
 msgid "Registry number"
 msgstr "Nº de registro"
@@ -595,7 +595,7 @@ msgid "Budgetary enquiries for"
 msgstr "Consultas presupuestarias del"
 
 #: protected/views/budget/index.php:174
-#: protected/views/layouts/main.php:78
+#: protected/views/layouts/main.php:97
 #: protected/views/user/panel.php:66
 #: protected/controllers/BudgetController.php:476
 msgid "Budgets"
@@ -700,7 +700,7 @@ msgstr "Euros por persona"
 #: protected/views/budget/_budgetDetails.php:122
 #: protected/views/budget/_budgetDetails.php:145
 #: protected/views/enquiry/index.php:133
-#: protected/views/layouts/main.php:79
+#: protected/views/layouts/main.php:98
 #: protected/views/user/view.php:127
 #: protected/views/user/panel.php:188
 #: protected/views/user/panel.php:225
@@ -731,13 +731,13 @@ msgid "defined budgets"
 msgstr "Partidas definidas"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:152
+#: protected/views/cmsPage/_form.php:166
 #: protected/views/introPage/_form.php:159
 msgid "Create"
 msgstr "Crear"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:152
+#: protected/views/cmsPage/_form.php:166
 #: protected/views/enquiry/changeType.php:104
 #: protected/views/introPage/_form.php:159
 #: protected/views/user/updateRoles.php:109
@@ -779,6 +779,14 @@ msgstr "obligatorio"
 #: protected/views/config/update.php:45
 msgid "optional"
 msgstr "opcional"
+
+#: protected/views/site/cookieAlert.php:13
+msgid "uses Twitter and Facebook cookies that collect statistics. By using this web site you accept this."
+msgstr "emplea cookies de Twitter y Facebook que recogen estadísticas. Si navegas este sitio web es porque estás de acuerdo."
+
+#: protected/views/site/cookieAlert.php:15
+msgid "Ok"
+msgstr ""
 
 #: protected/views/site/register.php:2
 #: protected/views/site/register.php:27
@@ -947,6 +955,10 @@ msgstr "Actualizar página"
 msgid "Content"
 msgstr "Contenido"
 
+#: protected/views/cmsPage/_form.php:98
+msgid "Warning! Safe HTML editing is off. Copy/paste can create problems"
+msgstr "Aviso! La edición segura de HTML está desactivada. Copia/pegar puede causar problemas."
+
 #: protected/views/csv/importCSV.php:26
 msgid "Edit"
 msgstr "Editar"
@@ -955,7 +967,7 @@ msgstr "Editar"
 msgid "Upload CSV again"
 msgstr "Subir el CSV de nuevo"
 
-#: protected/views/csv/importCSV.php:186
+#: protected/views/csv/importCSV.php:194
 msgid "Import csv into"
 msgstr "Importar csv a"
 
@@ -1033,7 +1045,7 @@ msgstr "Nombre que se usará para el enlace"
 msgid "Upload"
 msgstr "Subir"
 
-#: protected/views/emailtext/admin.php:28
+#: protected/views/emailtext/admin.php:27
 #: protected/views/user/panel.php:155
 msgid "Email text templates"
 msgstr "Plantillas de correo-e"
@@ -1089,21 +1101,21 @@ msgstr "Entrega"
 msgid "Add document"
 msgstr "Añadir documento"
 
-#: protected/views/enquiry/view.php:73
+#: protected/views/enquiry/view.php:74
 msgid "Please login to subscribe"
 msgstr "Por favor, inicia una sesión para participar"
 
-#: protected/views/enquiry/view.php:181
 #: protected/views/enquiry/view.php:182
+#: protected/views/enquiry/view.php:183
 msgid "by"
 msgstr "por"
 
-#: protected/views/enquiry/view.php:189
+#: protected/views/enquiry/view.php:190
 #: protected/views/enquiry/_detailsForTeam.php:44
 msgid "reformulated"
 msgstr "reformulada"
 
-#: protected/views/enquiry/view.php:244
+#: protected/views/enquiry/view.php:245
 msgid "Keep me informed via email when there are changes"
 msgstr "Mantenme informado por correo cuando hayan cambios"
 
@@ -1115,27 +1127,27 @@ msgstr "Enlace"
 msgid "Subscribe"
 msgstr "Subscritos"
 
-#: protected/views/enquiry/view.php:296
+#: protected/views/enquiry/view.php:298
 msgid "You can"
 msgstr "Puedes"
 
-#: protected/views/enquiry/view.php:297
+#: protected/views/enquiry/view.php:299
 msgid "edit the enquiry"
 msgstr "edita la consulta"
 
-#: protected/views/enquiry/view.php:297
+#: protected/views/enquiry/view.php:299
 msgid "and even"
 msgstr "e incluso"
 
-#: protected/views/enquiry/view.php:298
+#: protected/views/enquiry/view.php:300
 msgid "delete it"
 msgstr "borrarlo"
 
-#: protected/views/enquiry/view.php:302
+#: protected/views/enquiry/view.php:304
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: protected/views/enquiry/view.php:303
+#: protected/views/enquiry/view.php:305
 msgid "until it has been accepted by the observatory."
 msgstr "hasta que haya sido aceptado por el observatorio."
 
@@ -1554,7 +1566,7 @@ msgid "Translations"
 msgstr "Traducciones"
 
 #: protected/views/layouts/column2.php:19
-#: protected/views/layouts/main.php:94
+#: protected/views/layouts/main.php:113
 msgid "My page"
 msgstr "Mi página"
 
@@ -1570,28 +1582,28 @@ msgstr "Opciones"
 msgid "Logout"
 msgstr "Logout"
 
-#: protected/views/layouts/main.php:50
+#: protected/views/layouts/main.php:62
 #: protected/views/newsletter/index.php:26
 #: protected/views/user/panel.php:149
 #: protected/controllers/NewsletterController.php:85
 msgid "Newsletters"
 msgstr "Boletines"
 
-#: protected/views/layouts/main.php:56
+#: protected/views/layouts/main.php:68
 #: protected/views/archive/index.php:83
 #: protected/controllers/ArchiveController.php:184
 msgid "Archive"
 msgstr "Archivo"
 
-#: protected/views/layouts/main.php:62
+#: protected/views/layouts/main.php:74
 msgid "Home"
 msgstr "Inicio"
 
-#: protected/views/layouts/main.php:115
+#: protected/views/layouts/main.php:134
 msgid "Contact information"
 msgstr "Datos de contacto"
 
-#: protected/views/layouts/main.php:121
+#: protected/views/layouts/main.php:140
 msgid "Telephone"
 msgstr "Teléfono"
 
@@ -2116,7 +2128,7 @@ msgstr "El enlace para recuperar tu contraseña se ha caducado"
 msgid "Please change your password now"
 msgstr "Por favor, cambia tu contraseña ahora"
 
-#: protected/controllers/SiteController.php:416
+#: protected/controllers/SiteController.php:415
 msgid "activity"
 msgstr "actividad"
 

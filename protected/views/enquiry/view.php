@@ -41,6 +41,7 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 #enquiryDetails tr:first-child th{border:none;}
 </style>
 
+<?php if(Config::model()->findByPk('socialActivateNonFree')->value) { ?>
 <script>
 !function(d,s,id){
 	var js,fjs=d.getElementsByTagName(s)[0];
@@ -64,7 +65,7 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-
+<?php } ?>
 
 <script>
 function subscribe(el){
@@ -254,7 +255,6 @@ if($model->budget)
 			/>
 	</div>
 
-
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
 		echo '<span style="float:left;margin-right:10px" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.
@@ -263,28 +263,30 @@ if($model->budget)
 		'<i class="icon-mail"></i>'.__('Subscribe').'</span>';
 		echo '<span style="float:left" class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
 
-		echo '<div style="float:left;margin-left:10px;width:80px;">
-			  <a	href="https://twitter.com/share"
-					class="twitter-share-button"
-					data-url="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
-					data-counturl="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
-					data-text="'.trim($model->title).'"
-					data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
-					data-lang="en"
-					>
-			</a>
-			</div>';	
+		if(Config::model()->findByPk('socialActivateNonFree')->value){
+			echo '<div style="float:left;margin-left:10px;width:80px;">
+				  <a	href="https://twitter.com/share"
+						class="twitter-share-button"
+						data-url="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
+						data-counturl="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
+						data-text="'.trim($model->title).'"
+						data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
+						data-lang="en"
+						>
+				</a>
+				</div>';	
 
-		echo '<div style="float:left;margin-left:10px;">
-			  <div	class="fb-like"
-					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-					data-send="false"
-					data-layout="button_count"
-					data-width="80px"
-					data-show-faces="false"
-					data-font="arial">
-			</div>
-			</div>';
+			echo '<div style="float:left;margin-left:10px;">
+				  <div	class="fb-like"
+						data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+						data-send="false"
+						data-layout="button_count"
+						data-width="80px"
+						data-show-faces="false"
+						data-font="arial">
+				</div>
+				</div>';
+		}
 	}?>
 
 </div>

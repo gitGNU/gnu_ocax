@@ -39,8 +39,14 @@ class ApplicationConfigBehavior extends CBehavior
 		
 		if(!isset(Yii::app()->request->cookies['lang'])){
 			$cookie = new CHttpCookie('lang', $this->owner->language);
-			$cookie->expire = time()+60*60*24*180; 
+			$cookie->expire = time()+60*60*24*180;
 			Yii::app()->request->cookies['lang'] = $cookie;
+		}
+		if(Config::model()->findByPk('socialActivateNonFree')->value){
+			if(!isset(Yii::app()->request->cookies['cookiesAccepted']))
+				$this->owner->user->setState('cookiesAccepted', 0);
+			else
+				$this->owner->user->setState('cookiesAccepted', 1);
 		}
 	}
 }

@@ -74,8 +74,15 @@
 		echo CHtml::link(__('Home'), array('/site/index'));
 	?>
 	</li>
-</ul> 
-</div>   
+</ul>
+
+</div>
+
+<?php
+if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->user->getState('cookiesAccepted')){
+	$this->renderPartial('//site/cookieAlert', array());
+}
+?>
 
 <div id="header" >
 	<div id="logo">

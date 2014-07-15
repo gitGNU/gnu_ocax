@@ -1,8 +1,4 @@
 
-CREATE TABLE IF NOT EXISTS pox (
-  parameter VARCHAR(64) PRIMARY KEY,
-  value varchar(255) NOT NULL ,
-  required TINYINT(1) DEFAULT 1,
-  description varchar(255) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor. 0 = No, 1 = Yes.");
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets. 0 = No, 1 = Yes.");
 
