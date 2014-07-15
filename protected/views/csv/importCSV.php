@@ -65,7 +65,14 @@ function checkFormat(el, next){
 						$('#step_'+next).show();
 					}
 		},
-		error: function() { alert("error on checkFormat"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/checkCSVFormat?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on checkFormat. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 
@@ -90,7 +97,14 @@ function addMissingValues(el, next){
 						$(el).replaceWith('<span class="success">'+data.msg+'</span> '+download);
 					}
 		},
-		error: function() { alert("error on checkMissingValues"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/addMissingValues?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on checkMissingValues. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 function checkTotals(el,next_step){
@@ -113,36 +127,16 @@ function checkTotals(el,next_step){
 						$('#step_'+next_step).show();
 					}
 		},
-		error: function() { alert("error on checkTotals"); },
-	});
-}
-/*
-function checkMissingConcepts(el, next_step){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingDescriptions',
-		type: 'GET',
-		dataType: 'json',
-		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
-		success: function(data){
-					if(data.error){
-						$(el).replaceWith('<span class="error">'+data.error+'</span>');
-					}else{
-						if(data.updated == 0){
-							$(el).replaceWith('<span class="success">All concepts are defined</span>');
-							$('#step_'+next_step).show();
-						}else{
-							download = '<a href="'+data.file+'">'+data.file+'</a>';
-							$(el).replaceWith(	'<span class="warn">Made '+data.updated+' changes.</span><br />'+
-												'<span class="success">Download updated CSV</span> '+download);
-						}
-					}
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/checkCSVTotals?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on checkTotals. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
 		},
-		error: function() { alert("error on checkMissingConcepts"); },
 	});
 }
-*/
 function dumpBudgets(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/dumpBudgets',
@@ -158,7 +152,14 @@ function dumpBudgets(el,next_step){
 					}
 					$('#step_'+next_step).show();
 		},
-		error: function() { alert("error on dump Budgets"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/budget/dumpBudgets';
+				echo	'<span class=\"error\"><br />error on dump Budgets. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 function importData(el,next_step){
@@ -178,7 +179,14 @@ function importData(el,next_step){
 						$('#step_'+next_step).show();
 					}
 		},
-		error: function() { alert("error on importData"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/importCSVData/'.$model->year.'?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on importData. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 </script>
@@ -251,5 +259,3 @@ $year=Budget::model()->find($criteria);
 echo '<p id="step_7" style="display:none">Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>
-
-
