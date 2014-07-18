@@ -196,14 +196,18 @@ class FileController extends Controller
 			$source = $file->baseDir.'/files/'.$file->model;
 			
 			$zip->addEmptyDir('data');
-			$nodes = glob($source.'/data/*'); 
+			//$nodes = glob($source.'/data/*'); 
+			$nodes = scandir($source.'/data');
 			foreach($nodes as $node)
-				$zip->addFile($node, str_replace($source.'/', '/', $node));
+				//$zip->addFile($node, str_replace($source.'/', '/', $node));
+				$zip->addFile($source.'/data/'.$node, 'data/'.$node);
 
 			$zip->addEmptyDir('docs');
-			$nodes = glob($source.'/docs/*');
+			//$nodes = glob($source.'/docs/*');
+			$nodes = scandir($source.'/docs');
 			foreach($nodes as $node)
-				$zip->addFile($node, str_replace($source.'/', '/', $node));			
+				//$zip->addFile($node, str_replace($source.'/', '/', $node));	
+				$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);		
 
 			$zip->close();
 			
