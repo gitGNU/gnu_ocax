@@ -353,14 +353,14 @@ class ImportCSV extends CFormModel
 						'|'.$b->label.'|'.$b->concept.PHP_EOL;
 		
 		ksort($csv);
-		$tmp_fn = tempnam(sys_get_temp_dir(), 'csv-');
-		//$tmp_fn = '/tmp/csv-' . mt_rand(10000,99999);
+		$tmpDir = Yii::app()->basePath.'/runtime/';
+		$tmp_fn = tempnam($tmpDir, 'csv-');
 		$fh = fopen($tmp_fn, 'w');
 		fwrite($fh, $this->getHeader());
 		foreach($csv as $line)
 			fwrite($fh, $line);
 		fclose($fh);
-		
+	
 		$content = file_get_contents($tmp_fn);
 		//file_put_contents($tmp_fn, "\xEF\xBB\xBF".  $content);
 
