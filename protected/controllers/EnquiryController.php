@@ -101,6 +101,7 @@ class EnquiryController extends Controller
 			$model->attributes=$_GET['Enquiry'];
 
 		$this->render('index',array(
+			'dataProvider'=>$model->publicSearch(),
 			'model'=>$model,
 		));
 	}

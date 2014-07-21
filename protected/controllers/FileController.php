@@ -106,8 +106,11 @@ class FileController extends Controller
 				$path=$this->getPath($model->model,$model->model_id);
 				$model->path='/files/'.$path;
 
-				if(!is_dir($model->getURI()))
-					mkdir($model->getURI(), 0777, true);
+				if(!is_dir($model->getURI())){
+					$oldmask = umask(0);
+					mkdir($model->getURI(), 0755, true);
+					umask($oldmask);
+				}
 
 				$normalized_name = $model->normalize($model->file->name);
 				$model->path=$model->path.'/'.$normalized_name;

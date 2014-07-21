@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -44,6 +44,18 @@ function changeColumn()
 }
 ?>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
+<script>
+function showWorkflow(){
+	$('#workflow_popup').bPopup({
+		modalClose: false
+		, follow: ([false,false])
+		, speed: 10
+		, positionStyle: 'absolute'
+		, modelColor: '#ae34d5'
+	});
+}
+</script>
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
 	.clear{clear:both;}
@@ -164,9 +176,18 @@ if($model->is_admin){
 
 <?php /*$this->widget('InlineHelp');*/ ?>
 
-<div class="horizontalRule" style="padding-top:20px;margin-top:20px;float:right;"></div>
+<div class="outer">
+<div class="horizontalRule" style="padding-top:10px;margin-top:20px;float:right;"></div>
 <div id="panelMyEnquiries"></div>
+
+		<div class="sub_title" style="float:right;">
+		<span class="link" style="font-size: 16pt;" onclick="js:showWorkflow();">
+		<?php echo __('enquiry states');?>
+		</span>
+</div>
+</div>
 <div class="clear"></div>
+
 <?php
 $noEnquiries=1;
 
@@ -298,3 +319,14 @@ if($noEnquiries){
 		echo '<button onclick="$(\'.flash-notice\').slideUp(\'fast\')">'.__('No').'</button>';
 	echo '</div>';
 } ?>
+
+<div id="workflow_popup" class="modal" style="width:360px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div class="title"><?php echo __('enquiry states');?></div>
+	<div id="workflow_popup_body">
+		<p style="text-align:center">
+		<?php echo __('What are the different states of an enquiry?');?>
+		</p>
+		<?php $this->renderPartial('//enquiry/workflow'); ?>
+	</div>
+</div>

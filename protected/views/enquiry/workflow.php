@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,8 @@
 
 if(!isset($addressed_to))
 	$addressed_to = ADMINISTRATION;
+if(!isset($model))
+	$model = new Enquiry;
 ?>
 
 <style>

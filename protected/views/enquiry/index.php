@@ -27,7 +27,7 @@ $('#search-options-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('enquiry-grid', {
+	$.fn.yiiListView.update('enquiry-list', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -36,16 +36,21 @@ $('.search-form form').submit(function(){
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.sticky-kit.min.js"></script>
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 60%; float: left;  margin: 0px;}
-	.right{width: 38%; float: left; margin: 0px;}
+	.left{width: 38%; float: left;  margin: 0px;}
+	.right{width: 60%; float: left; margin: 0px;}
 	.clear{clear:both;}
 	.tag_enquiry_row_as_subscribed td:first-child { font-weight: bold }
 </style>
 
 <script>
+$(function() {
+	$(".left").stick_in_parent();
+});
+
 function toggleAddressedTo(el){
 	if(!($(el).prop('checked'))){
 		$('#Enquiry_addressed_to').val('');
@@ -62,6 +67,21 @@ function toggleAddressedTo(el){
 	$("#search_enquiries").submit();
 }
 
+function toggleState(el){
+	if(!($(el).prop('checked'))){
+		$('#Enquiry_addressed_to').val('');
+	}
+	else if($(el).val() == 0){
+		$(':checkbox').not(el).attr('checked', false);
+		$('#Enquiry_addressed_to').val(0);
+		$('#addressed_to').html($('#addressed_to_administration').html());	// workflow diagram
+	}else{
+		$(':checkbox').not(el).attr('checked', false);
+		$('#Enquiry_addressed_to').val(1);
+		$('#addressed_to').html($('#addressed_to_observatory').html());	// workflow diagram
+	}
+	$("#search_enquiries").submit();
+}
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
@@ -106,48 +126,14 @@ function showEnquiry(enquiry_id){
 	</div><!-- search-form -->
 <?php } ?>
 
-<?php
-$this->widget('PGridView', array(
-	'id'=>'enquiry-grid',
-	'dataProvider'=>$model->publicSearch(),
-	'rowCssClassExpression'=>function($row, $data){
-						if(Yii::app()->user->isGuest)
-							return $row % 2 ? 'even' : 'odd';
-						if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
-							return 'tag_enquiry_row_as_subscribed';
-						else
-							return $row % 2 ? 'even' : 'odd';
-					},
-    'onClick'=>array(
-        'type'=>'javascript',
-        'call'=>'showEnquiry',
-    ),
-	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
-	'columns'=>array(
-			array(
-				'header'=>__('Enquiries'),
-				'name'=>'title',
-				'value'=>'$data[\'title\']',
-			),
-			array(
-				'header'=>__('Formulated'),
-				'name'=>'created',
-				'value'=>'format_date($data[\'created\'])',
-			),
-			array(
-				'header'=>__('State'),
-				'name'=>'state',
-				'type' => 'raw',
-				'value'=>'$data->getHumanStates($data[\'state\'],$data[\'addressed_to\'])'
-			),
-			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
-)));
-?>
+<div id="workflow" style="padding-bottom:5px;">
+	<p style="text-align:center;margin-top:30px;">
+	<?php echo __('What are the different states of an enquiry?');?>
+	</p>
+	<div>
+	<?php $this->renderPartial('workflow',array('model'=>$model));?>
+	</div>
+</div>
 
 </div>
 <div class="right">
@@ -162,13 +148,14 @@ $this->widget('PGridView', array(
 	//}
 ?>
 
-<p style="text-align:center;margin-top:30px;">
-<?php echo __('What are the different states of an enquiry?');?>
-</p>
-
-<div style="margin-left:8px;">
-<?php $this->renderPartial('workflow',array('model'=>$model));?>
-</div>
+<?php
+$this->widget('zii.widgets.CListView', array(
+	'id'=>'enquiry-list',
+	//'template'=>'{items}<div style="clear:both"></div>{pager}',
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_preview',
+));
+?>
 
 </div>
 </div>
