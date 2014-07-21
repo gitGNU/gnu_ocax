@@ -101,7 +101,7 @@ class FileController extends Controller
 		{
 			$model->attributes=$_POST['File'];
 			$model->file=CUploadedFile::getInstance($model,'file');
-			
+
 			if($model->file){
 				$path=$this->getPath($model->model,$model->model_id);
 				$model->path='/files/'.$path;
@@ -142,7 +142,7 @@ class FileController extends Controller
 					$this->redirect(array('enquiry/submit','id'=>$model->model_id));
 
 				}elseif($model->model == 'wallpaper'){
-					$this->redirect(array('file/wallpaper'));				
+					$this->redirect(array('file/wallpaper'));
 
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
@@ -168,7 +168,7 @@ class FileController extends Controller
 		if(isset($_GET['file_name']))
 		{
 			$file_name = $model->normalize($_GET['file_name']);
-			$path=$model->baseDir.'/files/'.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;			
+			$path=$model->baseDir.'/files/'.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;
 
 			if(!$file_name)
 				echo 'File required.';
@@ -192,14 +192,16 @@ class FileController extends Controller
 		$file->path='/files/'.$file->model.'/'.$zip_name;
 		$file->name = $zip_name;
 
-		$tmp_fn = tempnam(sys_get_temp_dir(), 'zip-');
+		//$tmp_fn = tempnam(sys_get_temp_dir(), 'zip-');
+		$tmpDir = Yii::app()->basePath.'/runtime/tmp/';
+		$tmp_fn = $tmpDir.'zip-'.mt_rand(10000,99999);
 		$zip = new ZipArchive();
 
 		if ($zip->open($tmp_fn, ZIPARCHIVE::CREATE)){
 			$source = $file->baseDir.'/files/'.$file->model;
-			
+
 			$zip->addEmptyDir('data');
-			//$nodes = glob($source.'/data/*'); 
+			//$nodes = glob($source.'/data/*');
 			$nodes = scandir($source.'/data');
 			foreach($nodes as $node)
 				//$zip->addFile($node, str_replace($source.'/', '/', $node));
@@ -209,11 +211,11 @@ class FileController extends Controller
 			//$nodes = glob($source.'/docs/*');
 			$nodes = scandir($source.'/docs');
 			foreach($nodes as $node)
-				//$zip->addFile($node, str_replace($source.'/', '/', $node));	
-				$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);		
+				//$zip->addFile($node, str_replace($source.'/', '/', $node));
+				$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);
 
 			$zip->close();
-			
+
 			$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
 			$archive=Null;
 			if($old_zip){
@@ -231,20 +233,20 @@ class FileController extends Controller
 
 			$archive->name = $file->name;
 			$archive->path = $file->path;
-			
+
 			$language = Yii::app()->language;
 			Yii::app()->language = getDefaultLanguage();
 			$archive->description = __('MSG_ZIP_DESCRIPTION');
-			Yii::app()->language = $language;			
+			Yii::app()->language = $language;
 
 			$archive->extension = 'zip';
 			$archive->created = date('Y-m-d');
 			$archive->author = Yii::app()->user->getUserID();
 			$archive->save();
-			
+
 			copy($tmp_fn, $file->getURI());
-			unlink($tmp_fn);		
-				
+			unlink($tmp_fn);
+
 			$file->save();
 			Yii::app()->user->setFlash('success',__('Zip file updated'));
 		}else{
@@ -288,7 +290,7 @@ class FileController extends Controller
 	{
 		echo $this->render('wallpaper');
 	}
-	
+
 	public function actionAdminArchive()
 	{
 		$model=new File('search');
@@ -296,13 +298,13 @@ class FileController extends Controller
 
 		if(isset($_GET['File']))
 			$model->attributes=$_GET['File'];
-			
+
 		$model->model='archive';
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
-	}	
+	}
 
 	/**
 	 * Manages all models.

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -49,14 +49,14 @@ class ImportCSV extends CFormModel
 			'csv' => __('CSV file'),
 		);
 	}
-	
+
 	public function getHeader()
-	{	
+	{
 		return 'internal code|code|initial provision|actual provision|trimester 1|trimester 2|trimester 3|trimester 4|label|concept'.PHP_EOL;
 	}
 
 	public function getParentCode($internal_code)
-	{	
+	{
 		if($isChild = strrpos($internal_code, "-"))
 			return substr($internal_code, 0, $isChild);
 		else
@@ -64,7 +64,7 @@ class ImportCSV extends CFormModel
 	}
 
 	public function register2array($register)
-	{	
+	{
 		list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $register);
 		return array(
 				'csv_id'=>$id,
@@ -95,7 +95,7 @@ class ImportCSV extends CFormModel
 					'concept' => Null,
 				);
 	}
-	
+
 	public function array2register($b)
 	{
 		return 	$b['csv_id'].'|'.$b['code'].'|'.$b['initial_prov'].'|'.$b['actual_prov'].
@@ -107,13 +107,13 @@ class ImportCSV extends CFormModel
 	{
 		$result= array();
 		$lines = file($this->csv);
-		
+
 		foreach ($lines as $line_num => $line) {
 			if($line_num==0)
 				continue;
 			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 			$result[$csv_id]=$line;
-			
+
 		}
 		return $result;
 	}
@@ -124,7 +124,7 @@ class ImportCSV extends CFormModel
 		$content = file_get_contents($this->csv);
 
 		//$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
-		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);		
+		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);
 		if($original_encoding != 'UTF-8')
 			return 0;
 		else
@@ -135,7 +135,7 @@ class ImportCSV extends CFormModel
 	public function orderCSV(){
 		$ordered = $this->csv2array($this->csv);
 		ksort($ordered);
-				
+
 		$fh = fopen($this->csv, 'w');
 		fwrite($fh, $this->getHeader());
 		foreach($ordered as $line){
@@ -145,7 +145,7 @@ class ImportCSV extends CFormModel
 		}
 		fclose($fh);
 	}
-	
+
 	protected function __addMissignRegisters(& $registers)
 	{
 		$cnt = 0;
@@ -157,21 +157,21 @@ class ImportCSV extends CFormModel
 					$newRegister = $this->createEmptyBudgetArray();
 					$newRegister['internal_code'] = $parent_id;
 					$reg = implode ( '|' , $newRegister );
-					$registers[$parent_id]=$reg.PHP_EOL;				
+					$registers[$parent_id]=$reg.PHP_EOL;
 				}
 			}
 		}
-		return $cnt;	
-		
+		return $cnt;
+
 	}
-	
+
 	public function addMissignRegisters()
 	{
 		$registers = $this->csv2array();
 		$newRegisterCnt = 0;
 		$wild_loop = 0;
 		$cnt=0;
-		
+
 		while($cnt = $this->__addMissignRegisters($registers)){
 			$newRegisterCnt += $cnt;
 			$wild_loop += 1;
@@ -179,7 +179,7 @@ class ImportCSV extends CFormModel
 				break;
 			reset($registers);
 		}
-		
+
 		if($newRegisterCnt){
 			ksort($registers);
 			$fh = fopen($this->csv, 'w');
@@ -212,12 +212,12 @@ class ImportCSV extends CFormModel
 		}
 		return $msg;
 	}
-	
+
 	public function addMissingTotals()
 	{
 		$registers = $this->csv2array();
 		$registers = array_reverse($registers, true);
-		
+
 		$budgets = array();
 		foreach($registers as $internal_code => $register){
 			$budgets[$internal_code] = $this->register2array($register);
@@ -255,7 +255,7 @@ class ImportCSV extends CFormModel
 				}
 			}
 			$budgetID_parent = $this->getParentCode($internal_code);
-			
+
 			if($budgetID_parent != $parentID_placeholder){
 					if(!isset($totals[$budgetID_parent]))
 						$totals[$budgetID_parent]=$this->createEmptyBudgetArray();
@@ -267,7 +267,7 @@ class ImportCSV extends CFormModel
 			$totals[$budgetID_parent]['t2'] += $budget['t2'];
 			$totals[$budgetID_parent]['t3'] += $budget['t3'];
 			$totals[$budgetID_parent]['t4'] += $budget['t4'];
-		}	
+		}
 		$budgets = array_reverse($budgets, true);
 
 		if($updated){
@@ -275,7 +275,7 @@ class ImportCSV extends CFormModel
 			fwrite($fh, $this->getHeader());
 			foreach($budgets as $budget){
 				$line = $this->array2register($budget);
-				fwrite($fh, $line.PHP_EOL);	
+				fwrite($fh, $line.PHP_EOL);
 			}
 			fclose($fh);
 		}
@@ -303,7 +303,7 @@ class ImportCSV extends CFormModel
 					if(!$budgets[$internal_code]['concept']){
 						$budgets[$internal_code]['concept'] = $description->concept;
 						if($budgets[$internal_code]['concept'] !== '')
-							$updated++;	
+							$updated++;
 					}
 				}
 				if($budgets[$internal_code]['concept'] === ''){
@@ -312,7 +312,7 @@ class ImportCSV extends CFormModel
 				}
 				if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
 					//echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 2nd<br />';
-					if($isChild = strrpos($internal_code, "-"))			
+					if($isChild = strrpos($internal_code, "-"))
 						$budgets[$internal_code]['code'] = substr($internal_code, $isChild+1);
 					else
 						$budgets[$internal_code]['code'] = 'UNKNOWN';
@@ -326,7 +326,7 @@ class ImportCSV extends CFormModel
 			fwrite($fh, $this->getHeader());
 			foreach($budgets as $budget){
 				$line = $this->array2register($budget);
-				fwrite($fh, $line.PHP_EOL);	
+				fwrite($fh, $line.PHP_EOL);
 			}
 			fclose($fh);
 		}
@@ -351,24 +351,24 @@ class ImportCSV extends CFormModel
 			$csv[$b->csv_id] = $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
 						'|'.$b->trimester_1.'|'.$b->trimester_2.'|'.$b->trimester_3.'|'.$b->trimester_4.
 						'|'.$b->label.'|'.$b->concept.PHP_EOL;
-		
+
 		ksort($csv);
-		$tmpDir = Yii::app()->basePath.'/runtime/';
-		$tmp_fn = tempnam($tmpDir, 'csv-');
+		$tmpDir = Yii::app()->basePath.'/runtime/tmp/';
+		$tmp_fn = $tmpDir.'csv-'.mt_rand(10000,99999);
 		$fh = fopen($tmp_fn, 'w');
 		fwrite($fh, $this->getHeader());
 		foreach($csv as $line)
 			fwrite($fh, $line);
 		fclose($fh);
-	
+
 		$content = file_get_contents($tmp_fn);
 		//file_put_contents($tmp_fn, "\xEF\xBB\xBF".  $content);
 
 		$fh = fopen($tmp_fn, 'w');
-        # Now UTF-8 - Add byte order mark 
-        fwrite($fh, pack("CCC",0xef,0xbb,0xbf)); 
-        fwrite($fh,$content); 
-        fclose($fh); 
+        # Now UTF-8 - Add byte order mark
+        fwrite($fh, pack("CCC",0xef,0xbb,0xbf));
+        fwrite($fh,$content);
+        fclose($fh);
 
 		if (copy($tmp_fn, $file->getURI())) {
 			unlink($tmp_fn);
