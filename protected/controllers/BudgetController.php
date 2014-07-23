@@ -80,7 +80,7 @@ class BudgetController extends Controller
 	 */
 	public function actionView($id)
 	{
-		
+
 		$model=$this->loadModel($id);
 		$this->pageTitle=CHtml::encode(__('Budget').': '.$model->title);
 		$this->render('view',array(
@@ -150,7 +150,7 @@ class BudgetController extends Controller
 			$goBackID = Null;
 		if(($model->parent0->id == $rootBudget_id) && !$isParent)
 			$goBackID = Null;
-		
+
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>$graphThisModel->getConcept(),
 						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
@@ -185,18 +185,18 @@ class BudgetController extends Controller
 
 	/**
 	 * team_member uses this to change enquiry type.
-	 */	
+	 */
 	public function actionGetBudgetDetails($id)
 	{
 		if(!Yii::app()->request->isAjaxRequest)
 		  Yii::app()->end();
-		  
+
  		$model=$this->loadModel($id);
 		if($model){
 			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
 		}else
 			echo 0;
-	} 
+	}
 
 	public function actionGetAnualComparison($id)
 	{
@@ -304,7 +304,7 @@ class BudgetController extends Controller
 		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,true)));
 	}
 	*/
-	
+
 	/**
 	 * List budgets without corresponding budgetDescription.
 	 */
@@ -395,7 +395,7 @@ class BudgetController extends Controller
 		if(!$model->budgets){
 			echo 1;
 			return;
-		}	
+		}
 		if($model->featured)
 			$model->featured=0;
 		else
@@ -478,7 +478,11 @@ class BudgetController extends Controller
 
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['year'])){
-			$model->year = $_GET['year'];
+			if(is_numeric($_GET['year']))
+				$model->year = $_GET['year'];
+			else
+				$model->year = Config::model()->findByPk('year')->value;
+
 			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
 		}
 		elseif(isset(Yii::app()->request->cookies['year']))
