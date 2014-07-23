@@ -85,6 +85,6 @@ function validate(){
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
 		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
+		<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl;?>/enquiry/managed'">No</button>
     </div>
 <?php endif; ?>

@@ -346,11 +346,12 @@ class Enquiry extends CActiveRecord
 								' AND state != '.ENQUIRY_ASSIGNED.
 								' AND state != '.ENQUIRY_REJECTED);
 								
-		//$criteria->compare('type',$this->type);
-		//$criteria->compare('state',$this->state);
-		//$criteria->compare('title',$search_text);
+		$criteria->compare('type',$this->type);
+		$criteria->compare('state',$this->state);
+		$criteria->compare('title',$search_text);
 		$criteria->compare('addressed_to',$this->addressed_to, true);
 		$criteria->compare('body',$search_text,true);
+		
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

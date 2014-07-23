@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -265,20 +265,20 @@ foreach($replys as $reply)
 ?>
 <div class="clear"></div>
 
-
-
 <div id="comment_form" style="display:none"></div>
 
 <div id="budget_popup" class="modal" style="width:900px;">
 	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 	<div id="budget_popup_body"></div>
 </div>
+
 <?php if (!Yii::app()->user->isGuest) : ?>
 	<div id="contact_petition" class="modal" style="width:700px;">
 		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 		<div id="contact_petition_content" style="margin:-10px"></div>
 	</div>
-<? endif ?>
+<?php endif ?>
+
 <?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
 <script>
 function uploadFile(model,model_id){
@@ -318,8 +318,9 @@ function deleteFile(file_id){
 	});
 }
 </script>
+
 <div id="files_popup" class="modal" style="width:500px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="files_popup_content" style="margin:-10px;"></div>
 </div>
-<? endif ?>
+<?php endif ?>

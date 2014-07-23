@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -35,6 +35,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.sticky-kit.min.js"></script>
 
@@ -46,10 +47,24 @@ $('.search-form form').submit(function(){
 	.tag_enquiry_row_as_subscribed td:first-child { font-weight: bold }
 </style>
 
-<script>
+<script>	
 $(function() {
 	$(".left").stick_in_parent();
+
+	$(".workflowText").on('click', function() {
+		if( $(this).attr('state') ){
+			changeState($(this).attr('state'));
+		}
+	});
 });
+
+function changeState(state){
+	humanStates = <?php echo json_encode($model->getHumanStates()) ?>;
+	$("#Enquiry_state").val(state);
+	$("#search_enquiries").submit();
+	
+	$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
+}
 
 function toggleAddressedTo(el){
 	if(!($(el).prop('checked'))){
@@ -67,6 +82,7 @@ function toggleAddressedTo(el){
 	$("#search_enquiries").submit();
 }
 
+/*
 function toggleState(el){
 	if(!($(el).prop('checked'))){
 		$('#Enquiry_addressed_to').val('');
@@ -82,6 +98,8 @@ function toggleState(el){
 	}
 	$("#search_enquiries").submit();
 }
+*/
+
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
@@ -110,34 +128,23 @@ function showEnquiry(enquiry_id){
 		}
 	});
 }
+function resetForm(){
+	$('#Enquiry_addressed_to').val('');
+	$("#Enquiry_state").val('');
+	$("#search_enquiries").submit();
+}
+function togglePane(el, pane){
+	//resetForm();
+	$('#pane_items').find('div').removeClass('active');
+	$('.pane').hide();
+	$(el).addClass('active');
+	$('#'+pane).show();
+}
 </script>
 
 <div class="outer" style="position:relative">
 
 <div class="left">
-<h1><?php echo __('Enquiries made to date');?></h1>
-<p><?php echo __('This is a list of enquiries made by citizens like you.');?></p>
-
-<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
-	<div class="search-form">
-		<?php $this->renderPartial('_searchPublic',array(
-			'model'=>$model,
-		)); ?>
-	</div><!-- search-form -->
-<?php } ?>
-
-<div id="workflow" style="padding-bottom:5px;">
-	<p style="text-align:center;margin-top:30px;">
-	<?php echo __('What are the different states of an enquiry?');?>
-	</p>
-	<div>
-	<?php $this->renderPartial('workflow',array('model'=>$model));?>
-	</div>
-</div>
-
-</div>
-<div class="right">
-
 <?php
 	//if(Yii::app()->user->isGuest){
 		echo '<h1>'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</h1>';
@@ -145,8 +152,63 @@ function showEnquiry(enquiry_id){
 			 '<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
 			 '<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
 			 '</p>';
+
 	//}
 ?>
+
+<style>
+.filterPaneMenuItem{
+	cursor:pointer;
+	float:left;
+	background-color: #f5f1ed;
+	font-size: 16px;
+	margin-left:30px;
+	padding: 0 8px 0 8px;
+
+
+
+}
+.filterPaneMenuItem.active{
+	border: 1px solid lightgrey;
+	margin-bottom:-1px;
+	border-bottom:0px;	
+}
+</style>
+
+<div id="pane_items" style="border-bottom: 1px solid lightgrey;">
+<div class="filterPaneMenuItem active" onclick="js:togglePane(this, 'states_pane');"><?php echo __('States');?></div>
+<div class="filterPaneMenuItem" onclick="js:togglePane(this, 'search_pane');"><?php echo __('Search');?></div>
+<div class="clear"></div>
+</div>
+
+<div id="states_pane" class="pane">
+	<div id="workflow" style="padding-bottom:5px;">
+		<p style="text-align:center;margin-top:30px;">
+		<?php echo __('What are the different states of an enquiry?');?>
+		</p>
+		<div>
+		<?php $this->renderPartial('workflow',array('model'=>$model));?>
+		</div>
+	</div>
+</div>
+
+<div id="search_pane" class="pane" style="display:none">
+	<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
+		<div class="search-form">
+			<?php $this->renderPartial('_searchPublic',array(
+				'model'=>$model,
+			)); ?>
+		</div><!-- search-form -->
+	<?php } ?>
+</div>
+
+</div>
+<div class="right">
+<h1><?php echo __('Enquiries made to date');?></h1>
+<p style="margin-top:-15px;margin-bottom:0px;"><?php echo __('This is a list of enquiries made by citizens like you.');?>
+<br /><br />
+<span id="humanStateTitle"></span>
+</p>
 
 <?php
 $this->widget('zii.widgets.CListView', array(
@@ -154,6 +216,7 @@ $this->widget('zii.widgets.CListView', array(
 	//'template'=>'{items}<div style="clear:both"></div>{pager}',
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_preview',
+	'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
 ));
 ?>
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven MObservatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -23,13 +23,6 @@
 
 ?>
 
-<style>
-.enquiryPreview { margin-top:10px; border: solid 1px red; padding:2px; }
-.enquiryPreview:hover { background-color:white; cursor: pointer; }
-
-.enquiryPreview > .title { border-bottom: solid 1px red; font-size: 1.1em }
-</style>
-
 
 <div class="enquiryPreview" onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
 
@@ -42,3 +35,4 @@
 </div>
 
 </div>
+

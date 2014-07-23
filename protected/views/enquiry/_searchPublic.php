@@ -31,6 +31,7 @@
 	<div style="margin-left:-10px" class="row">
 		<?php
 			echo $form->hiddenField($model,'addressed_to');
+			echo $form->hiddenField($model,'state');
 			echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255));
 			echo ' '.CHtml::submitButton(__('Search')).'<br />';
 // search options
