@@ -66,22 +66,6 @@ function changeState(state){
 	$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
 }
 
-function toggleAddressedTo(el){
-	if(!($(el).prop('checked'))){
-		$('#Enquiry_addressed_to').val('');
-	}
-	else if($(el).val() == 0){
-		$(':checkbox').not(el).attr('checked', false);
-		$('#Enquiry_addressed_to').val(0);
-		$('#addressed_to').html($('#addressed_to_administration').html());	// workflow diagram
-	}else{
-		$(':checkbox').not(el).attr('checked', false);
-		$('#Enquiry_addressed_to').val(1);
-		$('#addressed_to').html($('#addressed_to_observatory').html());	// workflow diagram
-	}
-	$("#search_enquiries").submit();
-}
-
 /*
 function toggleState(el){
 	if(!($(el).prop('checked'))){

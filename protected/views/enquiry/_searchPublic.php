@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,30 +23,32 @@
 /* @var $form CActiveForm */
 ?>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'search_enquiries',
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
-	<div style="margin-left:-10px" class="row">
-		<?php
-			echo $form->hiddenField($model,'addressed_to');
-			echo $form->hiddenField($model,'state');
-			echo $form->textField($model,'body',array('size'=>30,'maxlength'=>255));
-			echo ' '.CHtml::submitButton(__('Search')).'<br />';
-// search options
-echo '<span id="search-options-button" class="link" style="font-size:1.1em">'.__('search options').'</span>';
-echo '<div id="search-options" style="display:none">';
-	echo '<p style="margin-top:15px; margin-bottom:-10px">';
-	echo '<span style="float:left">'.__('Enquiries addressed to').'</span>';
-	echo '<span style="float:left">';
-	foreach($model->getHumanAddressedTo() as $key=>$value){
-		echo '<input type="checkbox" value="'.$key.'" onclick="toggleAddressedTo(this)">'.$value.'<br>';
-	}
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'id'=>'search_enquiries',
+		'action'=>Yii::app()->createUrl($this->route),
+		'method'=>'get',
+	));
+	?>
 
-	echo '</span></p><div style="clear:both;margin-bottom:-5px;"></div>';
-echo '</div>';
+	<?php
+	echo '<p>';
+	echo '<span>'.__('Text').'</span><br />';
+	echo $form->textField($model,'body',array('width'=>'180px','maxlength'=>255)).' '.CHtml::submitButton(__('Search'));
+	echo '</p>';
 
-?>
-</div>
+	// search options
+	?>
+	<p>
+	<?php echo $form->label($model,'addressed_to'); ?><br />
+	<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
+	</p>
+	<p>
+		<?php echo $form->label($model,'type'); ?><br />
+		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+	</p>
+	<p>
+	<?php echo $form->label($model,'state'); ?><br />
+	<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
+	</p>
+
 <?php $this->endWidget(); ?>

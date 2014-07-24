@@ -132,6 +132,11 @@ class BudgetController extends Controller
 		else
 			$rootBudget_id = $id;
 
+		if( !(is_numeric($id) && is_numeric($rootBudget_id)) ){
+				echo 0;
+				Yii::app()->end();
+		}
+
 		$model=$this->loadModel($id);
 		$graphThisModel=$model;
 		$goBackID=$model->parent0->id;
