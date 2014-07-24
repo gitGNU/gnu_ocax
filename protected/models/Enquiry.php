@@ -339,19 +339,16 @@ class Enquiry extends CActiveRecord
 		$stats['pending'] = $this->count(array('condition' => 
 												'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
 												'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100;
-		$stats['rejected'] = $this->count(array('condition' => 'state = '.ENQUIRY_REJECTED))/$stats['total']*100;
-		$stats['accepted'] = $this->count(array('condition' => 'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100;
-		$stats['waiting_reply'] = $this->count(array('condition' => 'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100;
-		$stats['pending_assesment'] = $this->count(array('condition' => 'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100;
-		$stats['reply_satisfactory'] = $this->count(array('condition' => 'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100;
-		$stats['reply_insatisfactory'] = $this->count(array('condition' => 'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100;
-		
+		$stats['pending'] = round($stats['pending']);				
+		$stats['rejected'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REJECTED))/$stats['total']*100);
+		$stats['accepted'] = round($this->count(array('condition' => 'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100);
+		$stats['waiting_reply'] = round($this->count(array('condition' => 'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100);
+		$stats['pending_assesment'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100);
+		$stats['reply_satisfactory'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100);
+		$stats['reply_insatisfactory'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100);
 		
 		return $stats;
 		
-		$criteria = new CDbCriteria();
-		$criteria->condition = 'id != NULL';
-		return Enquiry::model()->count($criteria);
 	}
 
 	public function getEnquiriesForRSS()
