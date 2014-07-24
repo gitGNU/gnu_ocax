@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 class BackupController extends Controller
 {
 	/**
@@ -24,6 +25,7 @@ class BackupController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public $defaultAction = 'admin';
 
 	/**
 	 * @return array action filters
@@ -45,7 +47,7 @@ class BackupController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('create'),
+				'actions'=>array('admin', 'manualCreate', 'downloadBackup'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -57,11 +59,10 @@ class BackupController extends Controller
 	/**
 	 * Creates a backup.
 	 */
-	public function actionCreate()
+	public function actionManualCreate()
 	{
 		$model=new Backup;
-		list($path, $file, $dump_error) = $model->backupSite();
-		
+		list($path, $file, $dump_error) = $model->siteBackup();
 	
 		if (file_exists($path.$file)) {
 			header("Pragma: public");
@@ -81,6 +82,66 @@ class BackupController extends Controller
 			Yii::app()->user->setFlash('error', __($dump_error));
 			$this->redirect(array('/user/panel'));
 		}
-		
+	}
+
+	/**
+	 * Manages all vaults.
+	 */
+	public function actionAdmin()
+	{
+		$this->redirect(array('/vault/admin'));
+	}
+
+	/**
+	 * Admin can download the copy made on this server
+	 */
+
+	public function actionDownloadBackup($id)
+	{
+		$model=$this->loadModel($id);
+		$model->download();	
+	}
+
+
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+		$this->loadModel($id)->delete();
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return Backup the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=Backup::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param Backup $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='backup-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
 	}
 }

@@ -297,7 +297,6 @@ CREATE TABLE IF NOT EXISTS archive (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-
 CREATE TABLE IF NOT EXISTS reset_password (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,
@@ -308,6 +307,37 @@ CREATE TABLE IF NOT EXISTS reset_password (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS vault (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  host varchar(255) NOT NULL,
+  name varchar(255) NOT NULL, /* name of the directory where backups are kept */
+  type TINYINT(1) NOT NULL,	/* 0 = copies are on LOCAL host, 1 = copies are on REMOTE host */
+  schedule varchar(7) NOT NULL,	/* which day(s) to make the copy seven digit char, starts on Monday 0000000 */
+  created DATETIME NOT NULL,
+  state TINYINT(2) DEFAULT 0,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS vault_schedule (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  vault int(11) NOT NULL,
+  day TINYINT(7) NOT NULL,	/* 0 - 6 */
+  FOREIGN KEY (vault) REFERENCES vault(id),
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS backup (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  vault int(11) NOT NULL,
+  filename varchar(255) NULL,
+  created DATETIME NOT NULL,
+  initiated DATETIME NULL,
+  completed DATETIME NULL,
+  filesize varchar(255) NULL,
+  state TINYINT(1) NULL,	/* null=not_finished 0=failed 1=success */
+  FOREIGN KEY (vault) REFERENCES vault(id),
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS config (
   parameter VARCHAR(64) PRIMARY KEY,
@@ -316,7 +346,7 @@ CREATE TABLE IF NOT EXISTS config (
   required TINYINT(1) DEFAULT 1,
   can_edit TINYINT(1) DEFAULT 1,
   description varchar(255) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
