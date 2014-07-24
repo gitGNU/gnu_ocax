@@ -23,32 +23,69 @@
 /* @var $form CActiveForm */
 ?>
 
-	<?php $form=$this->beginWidget('CActiveForm', array(
-		'id'=>'search_enquiries',
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
-	));
-	?>
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'search_enquiries',
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
+));
+?>
 
-	<?php
-	echo '<p>';
-	echo '<span>'.__('Text').'</span><br />';
-	echo $form->textField($model,'body',array('width'=>'180px','maxlength'=>255)).' '.CHtml::submitButton(__('Search'));
-	echo '</p>';
-
-	// search options
-	?>
-	<p>
-	<?php echo $form->label($model,'addressed_to'); ?><br />
-	<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-	</p>
-	<p>
-		<?php echo $form->label($model,'type'); ?><br />
-		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
-	</p>
-	<p>
+<p>
+	<span><?php echo __('Text');?></span><br />
+	<?php echo $form->textField($model,'body',array('width'=>'180px','maxlength'=>255)).' '.CHtml::submitButton(__('Search'));?>
+</p>
+<p>
 	<?php echo $form->label($model,'state'); ?><br />
 	<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
-	</p>
+</p>
+<p>
+	<?php echo $form->label($model,'addressed_to'); ?><br />
+	<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
+</p>
+<p>
+	<?php echo $form->label($model,'type'); ?><br />
+	<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+</p>
+
+<p>
+<span><?php echo __('Filter between dates');?></span>
+<br />
+<?php
+$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+	'model' => $model,
+	'attribute' => 'searchDate_min',
+	'language' => Yii::app()->language,
+	'options' => array(
+		'dateFormat'=>'dd/mm/yy',
+		//'minDate' => '2000-01-01',
+		//'maxDate' => '2099-12-31',
+	),
+	'htmlOptions' => array(
+		'style'=>'width:100px; margin-right:10px;',
+		'readonly'=>'readonly',
+	),
+));
+?>
+<span><?php echo __('Minimum date');?></span>
+<br />
+<?php
+$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+	'model' => $model,
+	'attribute' => 'searchDate_max',
+	'language' => Yii::app()->language,
+	'options' => array(
+		'dateFormat'=>'dd/mm/yy',
+		//'minDate' => '2000-01-01',
+		//'maxDate' => '2099-12-31',
+	),
+	'htmlOptions' => array(
+		'style'=>'width:100px; margin-right:10px;',
+		'readonly'=>'readonly',
+	),
+));
+?>
+<span><?php echo __('Maximum date');?></span>
+</p>
+
 
 <?php $this->endWidget(); ?>

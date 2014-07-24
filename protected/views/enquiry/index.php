@@ -66,24 +66,6 @@ function changeState(state){
 	$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
 }
 
-/*
-function toggleState(el){
-	if(!($(el).prop('checked'))){
-		$('#Enquiry_addressed_to').val('');
-	}
-	else if($(el).val() == 0){
-		$(':checkbox').not(el).attr('checked', false);
-		$('#Enquiry_addressed_to').val(0);
-		$('#addressed_to').html($('#addressed_to_administration').html());	// workflow diagram
-	}else{
-		$(':checkbox').not(el).attr('checked', false);
-		$('#Enquiry_addressed_to').val(1);
-		$('#addressed_to').html($('#addressed_to_observatory').html());	// workflow diagram
-	}
-	$("#search_enquiries").submit();
-}
-*/
-
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
@@ -118,7 +100,9 @@ function resetForm(){
 	$("#search_enquiries").submit();
 }
 function togglePane(el, pane){
-	//resetForm();
+	if(pane == 'states_pane'){
+		resetForm();
+	}
 	$('#pane_items').find('div').removeClass('active');
 	$('.pane').hide();
 	$(el).addClass('active');
@@ -139,25 +123,6 @@ function togglePane(el, pane){
 
 	//}
 ?>
-
-<style>
-.filterPaneMenuItem{
-	cursor:pointer;
-	float:left;
-	background-color: #f5f1ed;
-	font-size: 16px;
-	margin-left:30px;
-	padding: 0 8px 0 8px;
-
-
-
-}
-.filterPaneMenuItem.active{
-	border: 1px solid lightgrey;
-	margin-bottom:-1px;
-	border-bottom:0px;	
-}
-</style>
 
 <div id="pane_items" style="border-bottom: 1px solid lightgrey;">
 <div class="filterPaneMenuItem active" onclick="js:togglePane(this, 'states_pane');"><?php echo __('States');?></div>

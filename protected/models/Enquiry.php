@@ -28,6 +28,7 @@
  * @property integer $team_member
  * @property integer $manager
  * @property string $created
+ * @property string $modified
  * @property string $assigned
  * @property string $submitted
  * @property string $registry_number
@@ -52,8 +53,9 @@
  */
 class Enquiry extends CActiveRecord
 {
-
 	public $username=Null;
+	public $searchDate_min=Null;
+	public $searchDate_max=Null;
 
 	public function getHumanTypes($type=Null)
 	{
@@ -165,7 +167,11 @@ class Enquiry extends CActiveRecord
 			array('addressed_to, assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('related_to, user, username, team_member, manager, created, assigned, type, state, title, body', 'safe', 'on'=>'search'),
+			array( 'related_to, user, username, team_member,
+					manager, created,
+					assigned, type, state,
+					title, body, searchDate_min, searchDate_max',
+					'safe', 'on'=>'search'),
 		);
 	}
 
@@ -345,13 +351,37 @@ class Enquiry extends CActiveRecord
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
 								' AND state != '.ENQUIRY_ASSIGNED.
 								' AND state != '.ENQUIRY_REJECTED);
-								
+
+		$searchDate_min=Null;
+		$searchDate_max=Null;
+		
+		if($this->searchDate_min){
+			$searchDate_min = DateTime::createFromFormat('d/m/Y', $this->searchDate_min);
+			$searchDate_min->modify('-1 day');
+			$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
+			if(!$this->searchDate_max){
+				$searchDate_max = new DateTime('c');
+				$searchDate_max->modify('+1 day');
+				$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');
+			}
+		}
+		if($this->searchDate_max){
+			$searchDate_max = DateTime::createFromFormat('d/m/Y', $this->searchDate_max);
+			$searchDate_max->modify('+1 day');
+			$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');			
+			if(!$this->searchDate_min){
+				$searchDate_min = new DateTime("2012-12-12");	// this is the past
+				$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
+			}
+		}
+		if($searchDate_min && $searchDate_max)
+			$criteria->condition = 'modified BETWEEN "'.$searchDate_min.'" AND "'.$searchDate_max.'"';
+		
 		$criteria->compare('type',$this->type);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$search_text);
 		$criteria->compare('addressed_to',$this->addressed_to, true);
-		$criteria->compare('body',$search_text,true);
-		
+		$criteria->compare('body',$search_text,true);	
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

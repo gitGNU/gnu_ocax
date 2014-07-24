@@ -67,6 +67,7 @@ function deleteDoc(){
 					'model' => $model,
 					'name'=>'Enquiry[submitted]',
 					'value'=>$model->submitted,
+					'language' => Yii::app()->language,
 					'options'=>array(
 						'showAnim'=>'fold',
 						'dateFormat'=>'yy-mm-dd',
