@@ -356,17 +356,15 @@ class Enquiry extends CActiveRecord
 		$searchDate_max=Null;
 		if($this->searchDate_min){
 			$searchDate_min = DateTime::createFromFormat('d/m/Y', $this->searchDate_min);
-			//$searchDate_min->modify('-1 day');
+			$searchDate_min->modify('-1 day');
 			$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
 			if(!$this->searchDate_max){
 				$searchDate_max = new DateTime('c');
-				//$searchDate_max->modify('+1 day');
 				$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');
 			}
 		}
 		if($this->searchDate_max){
 			$searchDate_max = DateTime::createFromFormat('d/m/Y', $this->searchDate_max);
-			//$searchDate_max->modify('+1 day');
 			$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');			
 			if(!$this->searchDate_min){
 				$searchDate_min = new DateTime("2012-12-12");	// this is the past
