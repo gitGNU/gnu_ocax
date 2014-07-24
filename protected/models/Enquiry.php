@@ -56,6 +56,7 @@ class Enquiry extends CActiveRecord
 	public $username=Null;
 	public $searchDate_min=Null;
 	public $searchDate_max=Null;
+	public $searchText=Null;
 
 	public function getHumanTypes($type=Null)
 	{
@@ -170,7 +171,8 @@ class Enquiry extends CActiveRecord
 			array( 'related_to, user, username, team_member,
 					manager, created,
 					assigned, type, state,
-					title, body, searchDate_min, searchDate_max',
+					title, body,
+					searchText, searchDate_min, searchDate_max',
 					'safe', 'on'=>'search'),
 		);
 	}
@@ -345,8 +347,6 @@ class Enquiry extends CActiveRecord
 
 	public function publicSearch()
 	{
-		$search_text=$this->body;
-
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
 								' AND state != '.ENQUIRY_ASSIGNED.
@@ -354,20 +354,19 @@ class Enquiry extends CActiveRecord
 
 		$searchDate_min=Null;
 		$searchDate_max=Null;
-		
 		if($this->searchDate_min){
 			$searchDate_min = DateTime::createFromFormat('d/m/Y', $this->searchDate_min);
-			$searchDate_min->modify('-1 day');
+			//$searchDate_min->modify('-1 day');
 			$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
 			if(!$this->searchDate_max){
 				$searchDate_max = new DateTime('c');
-				$searchDate_max->modify('+1 day');
+				//$searchDate_max->modify('+1 day');
 				$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');
 			}
 		}
 		if($this->searchDate_max){
 			$searchDate_max = DateTime::createFromFormat('d/m/Y', $this->searchDate_max);
-			$searchDate_max->modify('+1 day');
+			//$searchDate_max->modify('+1 day');
 			$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');			
 			if(!$this->searchDate_min){
 				$searchDate_min = new DateTime("2012-12-12");	// this is the past
@@ -375,13 +374,15 @@ class Enquiry extends CActiveRecord
 			}
 		}
 		if($searchDate_min && $searchDate_max)
-			$criteria->condition = 'modified BETWEEN "'.$searchDate_min.'" AND "'.$searchDate_max.'"';
+			$criteria->condition = 'created BETWEEN "'.$searchDate_min.'" AND "'.$searchDate_max.'"';
 		
+		if($this->searchText){
+			$text = mysql_real_escape_string($this->searchText);
+			$criteria->addCondition("title LIKE '%$text%' OR body LIKE '%$text%'");
+		}
 		$criteria->compare('type',$this->type);
 		$criteria->compare('state',$this->state);
-		$criteria->compare('title',$search_text);
 		$criteria->compare('addressed_to',$this->addressed_to, true);
-		$criteria->compare('body',$search_text,true);	
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

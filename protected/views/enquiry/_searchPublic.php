@@ -32,7 +32,7 @@
 
 <p>
 	<span><?php echo __('Text');?></span><br />
-	<?php echo $form->textField($model,'body',array('width'=>'180px','maxlength'=>255)).' '.CHtml::submitButton(__('Search'));?>
+	<?php echo $form->textField($model,'searchText',array('width'=>'180px','maxlength'=>255)).' '.CHtml::submitButton(__('Search'));?>
 </p>
 <p>
 	<?php echo $form->label($model,'state'); ?><br />

@@ -95,8 +95,12 @@ function showEnquiry(enquiry_id){
 	});
 }
 function resetForm(){
-	$('#Enquiry_addressed_to').val('');
+	$('#Enquiry_searchText').val('');
 	$("#Enquiry_state").val('');
+	$('#Enquiry_addressed_to').val('');
+	$('#Enquiry_type').val('');
+	$('#Enquiry_searchDate_min').val('');
+	$('#Enquiry_searchDate_max').val('');
 	$("#search_enquiries").submit();
 }
 function togglePane(el, pane){
