@@ -276,7 +276,7 @@ class Enquiry extends CActiveRecord
 	}
 
 
-	public function countObjects()
+	public function countObjects()	// for mega delete
 	{
 		$object_count = array(
 							'reforumulated'=>-1,
@@ -330,6 +330,28 @@ class Enquiry extends CActiveRecord
 		$comments = Comment::model()->findAllByAttributes(array('model'=>'Enquiry','model_id'=>$this->id));
 		foreach($comments as $comment)
 			$comment->delete();
+	}
+
+	public function getStatistics()
+	{
+		$stats = array();
+		$stats['total'] = $this->count();
+		$stats['pending'] = $this->count(array('condition' => 
+												'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
+												'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100;
+		$stats['rejected'] = $this->count(array('condition' => 'state = '.ENQUIRY_REJECTED))/$stats['total']*100;
+		$stats['accepted'] = $this->count(array('condition' => 'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100;
+		$stats['waiting_reply'] = $this->count(array('condition' => 'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100;
+		$stats['pending_assesment'] = $this->count(array('condition' => 'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100;
+		$stats['reply_satisfactory'] = $this->count(array('condition' => 'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100;
+		$stats['reply_insatisfactory'] = $this->count(array('condition' => 'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100;
+		
+		
+		return $stats;
+		
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'id != NULL';
+		return Enquiry::model()->count($criteria);
 	}
 
 	public function getEnquiriesForRSS()

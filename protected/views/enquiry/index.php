@@ -140,7 +140,7 @@ function togglePane(el, pane){
 		<?php echo __('What are the different states of an enquiry?');?>
 		</p>
 		<div>
-		<?php $this->renderPartial('workflow',array('model'=>$model));?>
+		<?php $this->renderPartial('workflow',array('model'=>$model,'showStats'=>1));?>
 		</div>
 	</div>
 </div>
