@@ -34,21 +34,24 @@
  * @property Backup[] $backups
  * @property VaultSchedule[] $vaultSchedules
  */
- 
+
 //FILTER_SANITIZE_URL
 //CUrlValidator
 class Vault extends CActiveRecord
 {
 	public $vaultDir;
 	public $key='';
-	
+
 	public function init()
 	{
 		$this->vaultDir = Yii::app()->basePath.'/runtime/vaults/';
-		if(!is_dir($this->vaultDir))
-			mkdir($this->vaultDir, 0777, true);
+		if(!is_dir($this->vaultDir)){
+			$oldmask = umask(0);
+			mkdir($this->vaultDir, 0755, true);
+			umask($oldmask);
+		}
 	}
-	
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -107,7 +110,9 @@ class Vault extends CActiveRecord
 		if($this->isNewRecord){
 			$this->name = $this->host2VaultName($this->host);
 			if(!is_dir($this->vaultDir.$this->name)){
-				mkdir($this->vaultDir.$this->name, 0777, true);
+				$oldmask = umask(0);
+				mkdir($this->vaultDir.$this->name, 0755, true);
+				umask($oldmask);
 				if($this->type == LOCAL){
 					$length = 32;
 					$this->key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
@@ -137,7 +142,7 @@ class Vault extends CActiveRecord
 	{
 		if(file_exists($this->getVaultDir().'key.txt'))
 			unlink($this->getVaultDir().'key.txt');
-			
+
 		rmdir($this->getVaultDir());
 		return parent::beforeDelete();
 	}
@@ -220,7 +225,7 @@ class Vault extends CActiveRecord
 			return __('Local');
 		if($type == 1)
 			return __('Remote');
-			
+
 		return __('Not defined');
 	}
 
@@ -252,7 +257,7 @@ class Vault extends CActiveRecord
 	public function getHumanSchedule()
 	{
 		//return $this->schedule;
-		
+
 		$result='';
 		$day=0;
 		while($day < 7){
@@ -273,7 +278,7 @@ class Vault extends CActiveRecord
 		if(isset($_GET['vault']) && isset($_GET['key'])){
 			$name = $_GET['vault'];
 			$key = $_GET['key'];
-			
+
 			if($vaultType == LOCAL)
 				$vaultName = $name.'-local';
 			if($vaultType == REMOTE)
@@ -308,7 +313,7 @@ class Vault extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+
 	public function getStreamContext($timeout = 1)
 	{
 		$opts = array('http' => array(

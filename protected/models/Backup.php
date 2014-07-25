@@ -39,6 +39,8 @@ use Clouddueling\Mysqldump\Mysqldump;
 
 class Backup extends CActiveRecord
 {
+	public $filenamePrefix = 'backup-';
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -148,28 +150,10 @@ class Backup extends CActiveRecord
 		return 1;
 	}
 
-	public function siteBackup($backupDir=Null)
+	public function siteBackup($backupDir)
 	{
 		$error='';
-		if(!$backupDir)
-			$backupDir = Yii::app()->basePath.'/runtime/tmp/';
-		
-		if(!is_dir($backupDir))
-			mkdir($backupDir, 0777, true);
-				
-		if($glob = glob($backupDir.'backup-*')){
-			foreach($glob as $f) {
-				unlink($f);
-			}
-		}
-		if($glob = glob($backupDir.'*-backup.sql')){
-			foreach($glob as $f) {
-				unlink($f);
-			}
-		}
-		$baseDir = dirname(Yii::app()->request->scriptFile);
-		$filesDir = $baseDir.'/files';
-		$backupFileName = 'backup-'.date('d-m-Y-H-i-s').'.zip';
+		$backupFileName = $this->filenamePrefix.date('d-m-Y-H-i-s').'.zip';
 
 		$zip = new ZipArchive();
 		if (!$zip->open($backupDir.$backupFileName, ZIPARCHIVE::CREATE))
@@ -177,6 +161,8 @@ class Backup extends CActiveRecord
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
 		$error = $this->_dumpDatabase($dump_file);
+
+		$filesDir = dirname(Yii::app()->request->scriptFile).'/files';
 
 		$this->Zip($filesDir, $zip);
 		$zip->addFile($dump_file, 'database.sql');

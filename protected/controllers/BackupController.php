@@ -62,8 +62,21 @@ class BackupController extends Controller
 	public function actionManualCreate()
 	{
 		$model=new Backup;
-		list($path, $file, $dump_error) = $model->siteBackup();
-	
+		$backupDir = Yii::app()->basePath.'/runtime/manualbackup/';
+
+		if(!is_dir($backupDir)){
+			$oldmask = umask(0);
+			mkdir($backupDir, 0755, true);
+			umask($oldmask);
+		}else{
+			if($glob = glob($backupDir.$model->filenamePrefix.'*')){
+				foreach($glob as $f){
+					unlink($f);
+				}
+			}
+		}
+		list($path, $file, $dump_error) = $model->siteBackup($backupDir);
+
 		if (file_exists($path.$file)) {
 			header("Pragma: public");
 			header("Expires: 0");
@@ -99,7 +112,7 @@ class BackupController extends Controller
 	public function actionDownloadBackup($id)
 	{
 		$model=$this->loadModel($id);
-		$model->download();	
+		$model->download();
 	}
 
 

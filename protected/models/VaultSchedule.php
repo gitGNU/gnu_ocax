@@ -32,7 +32,7 @@
 
 class VaultSchedule extends CActiveRecord
 {
-	public $backupHour = 15;
+	public $backupHour = 1;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -93,14 +93,13 @@ class VaultSchedule extends CActiveRecord
 	}
 
 	/**
-	 * Does this LOCAL vault initiate the backup process?
+	 * LOCAL vault initiates the backup process
 	 */
 	public function runVaultSchedule()
 	{
-		//if(date('G') != $this->backupHour)
-		//	return;
+		if(date('G') != $this->backupHour)
+			return;
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
-		//if($schedule = $this->findByAttributes(array('day'=>6))){
 			if($schedule->vault0->state == READY){
 				if(Backup::model()->findByDay(date('Y-m-d'), $schedule->vault0->id ))
 					return;

@@ -44,11 +44,11 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-
+		// run automated backups
 		VaultSchedule::model()->runVaultSchedule();
 
+		// renders the view file 'protected/views/site/index.php'
+		// using the default layout 'protected/views/layouts/main.php'
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
 			$this->changeLanguage($_GET['lang']);
 			$this->redirect(array('index'));
@@ -376,6 +376,7 @@ class SiteController extends Controller
 		$this->redirect(array('/site/index'));
 	}
 
+
 	public function actionFeed()
 	{
 		Yii::import('application.vendors.*');
@@ -420,18 +421,6 @@ class SiteController extends Controller
 			'entries' => $entries,      
 			), 'rss');
 		$feed->send();  
-	}
-
-	/*
-	 * The user accepts cookies
-	 */
-	public function actionAcceptCookies()
-	{
-		$cookie = new CHttpCookie('cookiesAccepted', 1);
-		$cookie->expire = time() + (10 * 365 * 24 * 60 * 60);
-		Yii::app()->request->cookies['cookiesAccepted'] = $cookie;
-		echo 1;
-		Yii::app()->end();
 	}
 
 	/**
