@@ -7,8 +7,16 @@
 	font-size:2em;
 	color:lightgrey;
 }
-.workflowText { color:grey; }
-.workflowText:hover { cursor:pointer; color:black; }
+
+
+/* workflow */
+
+#workflow_diagram > div {
+	position:absolute;
+	font-size:0.95em; line-height:95%; width:150px;
+}
+.workflowText {  }
+.workflowFilter:hover { cursor:pointer; color:black; }
 
 /* pane menu */
 
@@ -17,7 +25,7 @@
 	float:left;
 	background-color: #f5f1ed;
 	font-size: 16px;
-	margin-left:30px;
+	margin-left:15px;
 	padding: 0 8px 0 8px;
 }
 .filterPaneMenuItem.active{

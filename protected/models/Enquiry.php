@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -336,19 +336,22 @@ class Enquiry extends CActiveRecord
 	{
 		$stats = array();
 		$stats['total'] = $this->count();
-		$stats['pending'] = $this->count(array('condition' => 
-												'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
-												'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100;
-		$stats['pending'] = round($stats['pending']);				
-		$stats['rejected'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REJECTED))/$stats['total']*100);
-		$stats['accepted'] = round($this->count(array('condition' => 'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100);
-		$stats['waiting_reply'] = round($this->count(array('condition' => 'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100);
-		$stats['pending_assesment'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100);
-		$stats['reply_satisfactory'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100);
-		$stats['reply_insatisfactory'] = round($this->count(array('condition' => 'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100);
-		
+		$stats['pending'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
+													'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100);
+		$stats['rejected'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_REJECTED))/$stats['total']*100);
+		$stats['accepted'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100);
+		$stats['waiting_reply'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100);
+		$stats['pending_assesment'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100);
+		$stats['reply_satisfactory'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100);
+		$stats['reply_insatisfactory'] = round($this->count(array('condition' =>
+													'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100);
 		return $stats;
-		
 	}
 
 	public function getEnquiriesForRSS()
@@ -368,7 +371,7 @@ class Enquiry extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
-								' AND state != '.ENQUIRY_ASSIGNED.
+								//' AND state != '.ENQUIRY_ASSIGNED.
 								' AND state != '.ENQUIRY_REJECTED);
 
 		$searchDate_min=Null;

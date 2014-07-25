@@ -41,7 +41,7 @@ $('.search-form form').submit(function(){
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 38%; float: left;  margin: 0px;}
+	.left {width: 38%; float: left; margin: 0px;}
 	.right{width: 60%; float: left; margin: 0px;}
 	.clear{clear:both;}
 	.tag_enquiry_row_as_subscribed td:first-child { font-weight: bold }
@@ -49,12 +49,9 @@ $('.search-form form').submit(function(){
 
 <script>	
 $(function() {
-	$(".left").stick_in_parent();
-
-	$(".workflowText").on('click', function() {
-		if( $(this).attr('state') ){
+	//$(".left").stick_in_parent();
+	$(".workflowFilter").on('click', function() {
 			changeState($(this).attr('state'));
-		}
 	});
 });
 
@@ -114,23 +111,16 @@ function togglePane(el, pane){
 }
 </script>
 
-<div class="outer" style="position:relative">
+<div class="outer">
 
 <div class="left">
-<?php
-	//if(Yii::app()->user->isGuest){
-		echo '<h1>'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</h1>';
-		echo '<p style="line-height:90%">'.__('Remember you must first').' '.
-			 '<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
-			 '<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
-			 '</p>';
 
-	//}
-?>
-
-<div id="pane_items" style="border-bottom: 1px solid lightgrey;">
-<div class="filterPaneMenuItem active" onclick="js:togglePane(this, 'states_pane');"><?php echo __('States');?></div>
+<div id="pane_items" style="margin-left:-15px; border-bottom: 1px solid lightgrey;">
+<div class="filterPaneMenuItem active" onclick="js:togglePane(this, 'states_pane');"><?php echo __('Enquiries');?></div>
 <div class="filterPaneMenuItem" onclick="js:togglePane(this, 'search_pane');"><?php echo __('Search');?></div>
+<?php if(Yii::app()->user->isGuest) {
+	echo '<div class="filterPaneMenuItem" onclick="js:togglePane(this, \'newenquiry_pane\');">'.__('New enquiry').'</div>';
+} ?>
 <div class="clear"></div>
 </div>
 
@@ -155,8 +145,36 @@ function togglePane(el, pane){
 	<?php } ?>
 </div>
 
+<?php if(Yii::app()->user->isGuest){
+	echo '<div id="newenquiry_pane" class="pane" style="display:none">';
+		echo '<p></p>';
+		echo '<p>'.__('Haz una consulta y aporta tu granito de arena.').'</p>';
+		echo '<p>'.__('Más consultas significa más cooperación entre ciudadanos').'</p>';
+		echo '<p>'.__('Aqui en el Observatorio nos encargamos de todo el papelaeo').'</p>';
+			echo '<p style="line-height:90%">'.__('Remember you must first').' '.
+				'<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
+				'<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
+				'</p>';
+	echo '</div>';
+} ?>
+
 </div>
 <div class="right">
+
+<?php
+	//if(Yii::app()->user->isGuest){
+	/*
+		echo '<h1>'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</h1>';
+		echo '<p style="line-height:90%">'.__('Remember you must first').' '.
+			 '<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
+			 '<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
+			 '</p>';
+	*/
+	//}
+?>
+
+
+
 <h1><?php echo __('Enquiries made to date');?></h1>
 <p style="margin-top:-15px;margin-bottom:0px;"><?php echo __('This is a list of enquiries made by citizens like you.');?>
 <br /><br />
@@ -175,7 +193,6 @@ $this->widget('zii.widgets.CListView', array(
 
 </div>
 </div>
-
 <div class="clear"></div>
 
 <div id="enquiry" class="modal" style="width:870px;">
@@ -185,3 +202,4 @@ $this->widget('zii.widgets.CListView', array(
 
 <div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
 <div id="addressed_to_observatory" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,OBSERVATORY);?></div>
+

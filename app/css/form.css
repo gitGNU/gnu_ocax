@@ -168,3 +168,10 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
+
+div.search-form
+{
+	padding: 10px;
+	margin: 10px 0;
+	border-bottom: 2px dashed #555555;
+}
