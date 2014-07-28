@@ -381,8 +381,8 @@ class SiteController extends Controller
 	{
 		Yii::import('application.vendors.*');
 		require_once 'Zend/Loader/Autoloader.php';
-		spl_autoload_unregister(array('YiiBase','autoload')); 
-		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		spl_autoload_register(array('Zend_Loader_Autoloader','autoload'));
 		spl_autoload_register(array('YiiBase','autoload'));
 
 		$entries=array();
@@ -418,9 +418,21 @@ class SiteController extends Controller
 			'title'   => Config::model()->findByPk('siglas')->value.' '.__('activity'),
 			'link'    => Yii::app()->createUrl('site'),
 			'charset' => 'UTF-8',
-			'entries' => $entries,      
+			'entries' => $entries,
 			), 'rss');
-		$feed->send();  
+		$feed->send();
+	}
+
+	/*
+	* The user accepts cookies
+	*/
+	public function actionAcceptCookies()
+	{
+		$cookie = new CHttpCookie('cookiesAccepted', 1);
+		$cookie->expire = time() + (10 * 365 * 24 * 60 * 60);
+		Yii::app()->request->cookies['cookiesAccepted'] = $cookie;
+		echo 1;
+		Yii::app()->end();
 	}
 
 	/**

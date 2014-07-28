@@ -89,7 +89,7 @@ class Enquiry extends CActiveRecord
 		}
 		return __($humanAddressValues[$address]);
 	}
-	
+
 	public static function getHumanStates($state=Null, $addressed_to=ADMINISTRATION)
 	{
 		$humanStateValues=array(
@@ -228,7 +228,7 @@ class Enquiry extends CActiveRecord
 			'body' => __('Body'),
 		);
 	}
-	
+
 	public function getEmailRecipients()
 	{
 		if($this->state == ENQUIRY_ASSIGNED){ 	// internal email to team_member
@@ -362,16 +362,17 @@ class Enquiry extends CActiveRecord
 								' AND state != '.ENQUIRY_REJECTED);
 		$criteria->order = 'created DESC';
 		$criteria->limit = '20';
-		
+
 		return $this->findAll($criteria);
 	}
-	
+
 
 	public function publicSearch()
 	{
 		$criteria=new CDbCriteria;
+		$my_params = array();
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
-								//' AND state != '.ENQUIRY_ASSIGNED.
+								' AND state != '.ENQUIRY_ASSIGNED.
 								' AND state != '.ENQUIRY_REJECTED);
 
 		$searchDate_min=Null;
@@ -387,23 +388,27 @@ class Enquiry extends CActiveRecord
 		}
 		if($this->searchDate_max){
 			$searchDate_max = DateTime::createFromFormat('d/m/Y', $this->searchDate_max);
-			$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');			
+			$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');
 			if(!$this->searchDate_min){
 				$searchDate_min = new DateTime("2012-12-12");	// this is the past
 				$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
 			}
 		}
-		if($searchDate_min && $searchDate_max)
-			$criteria->condition = 'created BETWEEN "'.$searchDate_min.'" AND "'.$searchDate_max.'"';
-		
+		if($searchDate_min && $searchDate_max){
+			$criteria->condition = 'created BETWEEN :min_date AND :max_date';
+			$my_params[':min_date'] = "$searchDate_min";
+			$my_params[':max_date'] = "$searchDate_max";
+		}
 		if($this->searchText){
-			$text = mysql_real_escape_string($this->searchText);
-			$criteria->addCondition("title LIKE '%$text%' OR body LIKE '%$text%'");
+			$text = $this->searchText;
+			$criteria->addCondition("title LIKE :match OR body LIKE :match");
+			$my_params[':match'] = "%$text%";
 		}
 		$criteria->compare('type',$this->type);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('addressed_to',$this->addressed_to, true);
 
+		$criteria->params = array_merge($criteria->params, $my_params);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'modified DESC'),
@@ -422,7 +427,7 @@ class Enquiry extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->with=array('user0');
 		$criteria->compare('user0.username', $this->username, true);
-		
+
 		$criteria->compare('team_member',Yii::app()->user->getUserID());
 		$criteria->compare('type',$this->type);
 		$criteria->compare('addressed_to',$this->addressed_to);
@@ -433,7 +438,7 @@ class Enquiry extends CActiveRecord
 		//$criteria->compare('created',$this->created,true);
 		//$criteria->compare('assigned',$this->assigned,true);
 		//$criteria->compare('budget',$this->budget);
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'created DESC'),
@@ -465,7 +470,7 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('body',$this->body,true);
 		//$criteria->compare('related_to',$this->related_to);
 		//$criteria->compare('created',$this->created,true);
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'created DESC'),
