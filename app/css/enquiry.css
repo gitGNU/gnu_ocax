@@ -41,24 +41,32 @@
 /* preview */
 
 .enquiryPreview {
-	margin-top:-7px;
-	margin-bottom:35px;
-	padding-bottom:2px;
-	font-size:initial;
-
-	background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-	background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-	background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-	background-image: -o-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-	background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-}
-
-.enquiryPreview:hover {
-	background-color:white;
 	cursor: pointer;
+	position: relative;
+	border:1px solid rgb(228, 222, 215);
+	background-color: rgb(228, 222, 215);
+	width:430px;
+	height:300px;
+	margin: 15px 15px 75px 15px;
+	float:left;
 }
-
-.enquiryPreview > .title {
-	background-color:white;
-	font-size: 1.1em
+.enquiryPreview .created {
+	position: absolute;
+	border:1px solid rgb(228, 222, 215);
+	padding: 0 5px 0 5px;
+	height: 18px;
+	width: 62px;
+	top: -20px;
+	left: -1px;
+	color:grey;
+	background-color: rgb(228, 222, 215);
+}
+.enquiryPreview .title {
+	padding: 3px 3px 0px 0px;
+	font-size: 1.15em;
+}
+.enquiryPreview .body {
+	background-color: white;
+	height: 300px;
+	overflow: hidden;
 }

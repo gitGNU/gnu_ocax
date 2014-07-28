@@ -32,8 +32,14 @@
 
 class VaultSchedule extends CActiveRecord
 {
-	public $backupHour = 1;
-	
+	/**
+	 * $backupHour = 18
+	 * $backupWindow = 3
+	 * We will run VaultSchedule between 18:00 and 21:00hrs
+	 */
+	public $backupHour = 18;	// 24hr When to start backup proceedure
+	public $backupWindow = 3;	// period (in hours) to respond to backup proceedure.
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -97,7 +103,7 @@ class VaultSchedule extends CActiveRecord
 	 */
 	public function runVaultSchedule()
 	{
-		if(date('G') != $this->backupHour)
+		if(date('G') < $this->backupHour || date('G') > $this->backupHour+$this->backupWindow )
 			return;
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
 			if($schedule->vault0->state == READY){

@@ -28,6 +28,7 @@
  * @property integer $type
  * @property string $schedule
  * @property string $created
+ * @property string $count
  * @property integer $state
  *
  * The followings are the available model relations:
@@ -81,7 +82,7 @@ class Vault extends CActiveRecord
 			array('host, type, schedule, created, state', 'required'),
 			array('host', 'url'),
 			//array('host', 'unique', 'className' => 'Vault'),
-			array('type, state', 'numerical', 'integerOnly'=>true),
+			array('type, state, count', 'numerical', 'integerOnly'=>true),
 			array('host', 'length', 'max'=>255),
 			array('key', 'length', 'max'=>32),
 			array('schedule', 'length', 'is'=>7),
@@ -89,7 +90,7 @@ class Vault extends CActiveRecord
 			array('schedule', 'validateSchedule'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, host, type, schedule, created, state', 'safe', 'on'=>'search'),
+			array('id, host, type, schedule, created, count, state', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -184,6 +185,7 @@ class Vault extends CActiveRecord
 			'type' => __('Type'),
 			'schedule' => __('Schedule'),
 			'created' => __('Created'),
+			'count' => __('Count'),
 			'state' => __('State'),
 			'key' => __('Key'),
 		);

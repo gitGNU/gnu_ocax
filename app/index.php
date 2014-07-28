@@ -57,5 +57,9 @@ define ('READY', 2);
 define ('LOADED', 3);
 define ('BUSY', 4);
 
+// Backup->state
+define ('FAIL', 0);
+define ('SUCCESS', 1);
+
 require_once($yii);
 Yii::createWebApplication($config)->run();

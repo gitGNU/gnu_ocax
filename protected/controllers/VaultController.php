@@ -183,6 +183,7 @@ class VaultController extends Controller
 			$model->attributes=$_POST['Vault'];
 			$model->host = rtrim($model->host, '/');
 			$model->created = date('c');
+			$model->count = 0;
 			$model->state=CREATED;
 			if($model->type == REMOTE)
 				$model->schedule='0000000';
@@ -400,14 +401,6 @@ class VaultController extends Controller
 				$model->save();
 					
 				$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
-				/*
-				$copy = @file_get_contents($model->host.'/vault/startTransfer'.
-														'?key='.$model->key.
-														'&vault='.$vaultName,
-														false,
-														$model->getStreamContext(3)
-						);
-				*/
 				$source = $model->host.'/vault/startTransfer'.
 										'?key='.$model->key.
 										'&vault='.$vaultName;
@@ -416,11 +409,10 @@ class VaultController extends Controller
 				copy($source, $dest);
 
 				$backup->completed = date('c');
+				$backup->state = FAIL;
 				$backup->save();
 				$model->state = READY;
 				$model->save();
-					
-				$backup->state = 0;	// failed
 					
 				if($backup->filesize = filesize($model->getVaultDir().$backup->filename)){
 					$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
@@ -432,8 +424,11 @@ class VaultController extends Controller
 											false,
 											$model->getStreamContext(3)
 								);
-					if($confirmation == 1)
-						$backup->state = 1; // success!!
+					if($confirmation == 1){
+						$backup->state = SUCCESS;
+						$model->count = $model->count+1;
+						$model->save();
+					}
 				}
 				$backup->save();
 			}
@@ -464,18 +459,23 @@ class VaultController extends Controller
 	public function actionTransferComplete()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
-			if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+			if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id)){
+				if($backup->state == SUCCESS ){
+					echo $backup->state;
+					Yii::app()->end();				
+				}
 				$model->state = READY;
-				$model->save();
-					
-				if(isset($_GET['filesize']) && $_GET['filesize'] == $backup->filesize)
-					$backup->state=1;
-				else
-					$backup->state=0;
-
 				$backup->completed = date('c');
+				
+				if(isset($_GET['filesize']) && $_GET['filesize'] == $backup->filesize){
+					$backup->state = SUCCESS;
+					$model->count = $model->count+1;
+				}else
+					$backup->state = FAIL;
+
 				$backup->save();
-					
+				$model->save();
+				
 				if($model->type == REMOTE)	// condition shouldn't be necessary
 					unlink($model->getVaultDir().$backup->filename);
 						

@@ -26,13 +26,9 @@
 
 <div class="enquiryPreview" onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
 
-<div class="title">
-<?php echo $data->created.': '.$data->title; ?>
-</div>
-
-<div style="height:150px;overflow:hidden">
-<?php echo $data->body; ?>
-</div>
+<span class="created"><?php echo format_date($data->created);?></span>
+<div class="title"><?php echo $data->title; ?></div>
+<div class="body"><?php echo $data->body; ?></div>
 
 </div>
 

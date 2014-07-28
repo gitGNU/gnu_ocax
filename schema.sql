@@ -314,6 +314,7 @@ CREATE TABLE IF NOT EXISTS vault (
   type TINYINT(1) NOT NULL,	/* 0 = copies are on LOCAL host, 1 = copies are on REMOTE host */
   schedule varchar(7) NOT NULL,	/* which day(s) to make the copy seven digit char, starts on Monday 0000000 */
   created DATETIME NOT NULL,
+  count INT(11) NOT NULL DEFAULT 0,	/* number for backups made (historical stats) */
   state TINYINT(2) DEFAULT 0,
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
