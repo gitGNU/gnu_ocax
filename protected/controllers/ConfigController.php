@@ -87,6 +87,7 @@ class ConfigController extends Controller
 				$model->value = ltrim($model->value, '@');
 
 			if(Yii::app()->params['ocaxnetwork']){
+				/*
 				$opts = array('http' => array(
 										'method'  => 'POST',
 										'header'  => 'Content-type: application/x-www-form-urlencoded',
@@ -98,15 +99,21 @@ class ConfigController extends Controller
 				$url = str_replace("/", "|", $url);
 				$context = stream_context_create($opts);
 				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
+				*/
 			}
 
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				echo '1';
+				Yii::app()->end();
+				//$this->redirect(array('admin'));
+			}
 		}
-
+		echo 0;
+		/*
 		$this->render('update',array(
 			'model'=>$model,
 		));
+		*/
 	}
 
 	/**

@@ -94,7 +94,7 @@ function showBudgetDetails(){
 	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().'</div>';
 
 	$modify_link = Null;
-	if(Yii::app()->user->isAdmin()){
+	if(Yii::app()->user->isPrivileged()){
 		$modify_link=CHtml::link('+',array('budgetDescription/modify','budget'=>$model->id),array('style'=>'text-decoration:none'));
 		$modify_link=' <span style="font-size:0.8em;">'.$modify_link.'</span>';
 	}
