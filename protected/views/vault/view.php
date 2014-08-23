@@ -22,7 +22,7 @@
 
 $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
-	array('label'=>'Manage Backups', 'url'=>array('backup/admin')),
+	array('label'=>__('Manage backups'), 'url'=>array('backup/admin')),
 	array(	'label'=>'Delete Vault',
 			'url'=>'#',
 			'linkOptions'=>array('submit'=>array(	'delete',
@@ -99,6 +99,11 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 	echo "<h2>".__('Choose day(s) to backup')."</h2>";
 	$this->renderPartial('//vault/_configSchedule', array('model'=>$model));
 }
+if($model->state >= READY){
+	echo '<p>'.__('Total copies made').': '.$model->count.'<br />';
+	echo __('Capacity').': '.$model->capacity.' '.__('copies').'</p>';
+}
+
 ?>
 
 </div>

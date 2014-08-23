@@ -105,6 +105,8 @@ class VaultSchedule extends CActiveRecord
 	{
 		if(date('G') < $this->backupHour || date('G') > $this->backupHour+$this->backupWindow )
 			return;
+		if(!Config::model()->findByPk('siteAutoBackup')->value)
+			return;
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
 			if($schedule->vault0->state == READY){
 				if(Backup::model()->findByDay(date('Y-m-d'), $schedule->vault0->id ))

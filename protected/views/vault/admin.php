@@ -22,7 +22,7 @@
 $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>__('Manual backup'), 'url'=>array('backup/manualCreate')),
-	array('label'=>__('Create Vault'), 'url'=>array('create')),
+	array('label'=>__('Create vault'), 'url'=>array('create')),
 );
 ?>
 
@@ -60,11 +60,12 @@ function showSchedule(){
 
 </style>
 
-<h1>Manage Backups</h1>
+<h1><?php echo __('Manage').' '.__('Backups');?></h1>
+<br />
 
 <div id="vaults">
 <div class="left">
-<div class="sub_title"><?php echo __('Local vaults');?></div>
+<div class="sub_title" style="font-size:1.6em"><?php echo __('Local vaults');?></div>
 <?php echo __('They save their copies on your server');?>
 <?php $this->widget('PGridView', array(
 	'id'=>'localvault-grid',
@@ -87,7 +88,7 @@ function showSchedule(){
 
 </div>
 <div class="right">
-<div class="sub_title"><?php echo __('Remote vaults');?></div>
+<div class="sub_title" style="font-size:1.6em"><?php echo __('Remote vaults');?></div>
 
 <?php echo __('You save your copies on their server');?>
 <?php $this->widget('PGridView', array(

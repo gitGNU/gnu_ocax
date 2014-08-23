@@ -20,6 +20,7 @@ mkdir protected/runtime/tmp
 mkdir protected/runtime/html
 chown -R www-data protected/runtime/
 
+INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Activate automated site backup');
 INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor. 0 = No, 1 = Yes.");
 INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets. 0 = No, 1 = Yes.");
 

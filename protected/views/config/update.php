@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -25,25 +25,25 @@ $this->menu=array(
 	array('label'=>__('List all parameters'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':profiles:admin:global_parameters';
+
+if(isset($returnURL))
+	$returnURL='?returnURL='.$returnURL;
+else
+	$returnURL=Null;
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'config-form',
+	'action' => Yii::app()->createUrl('config/update/'.$model->parameter.$returnURL),
 	'enableAjaxValidation'=>false,
 )); ?>
 
 	<div class="title"><?php echo __('Change global parameter'); ?></div>
 
 	<p class="row" style="margin:30px 0px 30px 0px">
-		<?php
-			echo $model->description.' ';
-			if($model->required)
-				echo '('.__('required').')<br />';
-			else
-				echo '('.__('optional').')<br />';
-		?>
+		<?php echo $model->description.'<br />';	?>
 		<?php echo $form->textField($model,'value',array('size'=>40,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'value'); ?>
 	</p>

@@ -22,7 +22,7 @@
 
 $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
-	array('label'=>'Manage Backups', 'url'=>array('backup/admin')),
+	array('label'=>__('Manage backups'), 'url'=>array('backup/admin')),
 );
 ?>
 
@@ -60,7 +60,7 @@ function updateSchedule(el, day){
 }
 function showSchedule(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/schedule',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/viewSchedule',
 		type: 'GET',
 		beforeSend: function(){ /* */ },
 		success: function(html){

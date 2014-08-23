@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -45,7 +45,9 @@ class ConfigController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('update','admin'),
+				'actions'=>array(	'index','update','admin',
+									'email','observatory','social','administration','locale','misc',
+								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -54,9 +56,51 @@ class ConfigController extends Controller
 		);
 	}
 
+	public function actionIndex()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model));		
+	}
+
+	public function actionEmail()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'email'));		
+	}
+	
+	public function actionObservatory()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'observatory'));		
+	}
+
+	public function actionSocial()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'social'));		
+	}
+
+	public function actionAdministration()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'administration'));		
+	}
+
+	public function actionLocale()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'locale'));		
+	}
+
+	public function actionMisc()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'misc'));		
+	}
+			
 	/**
 	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * If update is successful, the browser will be redirected to the 'returnURL' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
@@ -67,6 +111,11 @@ class ConfigController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+
+		$returnURL=Null;
+		if(isset($_GET['returnURL']))
+			$returnURL=$_GET['returnURL'];	
+
 
 		if(isset($_POST['Config']))
 		{
@@ -103,17 +152,22 @@ class ConfigController extends Controller
 			}
 
 			if($model->save()){
-				echo '1';
+				if(Yii::app()->request->isAjaxRequest)
+					echo '1';
+				else{
+					if($returnURL)
+						$this->redirect(array($returnURL));
+					else
+						$this->redirect(array('admin'));
+				}
 				Yii::app()->end();
-				//$this->redirect(array('admin'));
 			}
 		}
-		echo 0;
-		/*
-		$this->render('update',array(
-			'model'=>$model,
-		));
-		*/
+		
+		if(Yii::app()->request->isAjaxRequest)
+			echo 0;
+		else
+			$this->render('update',array('model'=>$model,'returnURL'=>$returnURL));
 	}
 
 	/**

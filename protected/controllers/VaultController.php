@@ -94,14 +94,15 @@ class VaultController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+			array('allow',  // allow automated backups
 				'actions'=>array(	'verifyKey', 'getSchedule', 'setSchedule',
 									'remoteWaitingToStartCopyingBackup',
 									'startCopyingBackup',
 									'startTransfer',
 									'transferComplete',
+									'deleteBackup',
 								),
-				'users'=>array('*'),
+				'expression'=>"Config::model()->findByPk('siteAutoBackup')->value",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'view', 'viewSchedule', 'admin',
@@ -184,6 +185,7 @@ class VaultController extends Controller
 			$model->host = rtrim($model->host, '/');
 			$model->created = date('c');
 			$model->count = 0;
+			$model->capacity = 2;
 			$model->state=CREATED;
 			if($model->type == REMOTE)
 				$model->schedule='0000000';
@@ -409,7 +411,7 @@ class VaultController extends Controller
 				copy($source, $dest);
 
 				$backup->completed = date('c');
-				$backup->state = FAIL;
+				$backup->state = FAIL;	// let's check the filesize before we say SUCCESS
 				$backup->save();
 				$model->state = READY;
 				$model->save();
@@ -428,6 +430,19 @@ class VaultController extends Controller
 						$backup->state = SUCCESS;
 						$model->count = $model->count+1;
 						$model->save();
+						if(count($backup->findByAttributes(array('vault'=>$backup->vault))) > $model->capacity){
+							$oldestBackup = $model->getOldestBackup();
+							$confirmation=Null;
+							$confirmation = @file_get_contents($model->host.'/vault/deleteBackup'.
+											'?key='.$model->key.
+											'&vault='.$vaultName.
+											'&filename='.$oldestBackup->filename,
+											false,
+											$model->getStreamContext(3)
+								);
+							if($confirmation == 1)
+								$oldestBackup->delete();
+						}
 					}
 				}
 				$backup->save();
@@ -485,6 +500,18 @@ class VaultController extends Controller
 		}
 		echo 0;
 		Yii::app()->end();	
+	}
+
+	public function actionDeleteBackup()
+	{
+		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
+			if(isset($_GET['filename'])){
+				$backup = Backup::model()->findByAttributes(array('vault'=>$model->id,'filename'=>$_GET['filename']));
+				if($backup)
+					$backup->delete();
+			}
+		}
+		echo 1;
 	}
 
 	/**

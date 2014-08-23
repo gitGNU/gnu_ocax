@@ -153,8 +153,9 @@ if($model->is_admin){
 	echo '<div style="float:right"><p>';
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
-		echo CHtml::link(__('Global parameters'),array('config/admin')).'<br />';
-		echo CHtml::link(__('Backup'),array('vault/admin')).'<br />';
+		echo CHtml::link(__('Site configuration'),array('/config')).'<br />';
+		echo CHtml::link(__('Manual Backup'),array('backup/manualCreate')).'<br />';
+		echo CHtml::link(__('Auto Backup'),array('vault/admin')).'<br />';
  
 	echo '</p></div>';
 	echo '</div>';

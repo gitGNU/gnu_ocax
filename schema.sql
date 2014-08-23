@@ -315,6 +315,7 @@ CREATE TABLE IF NOT EXISTS vault (
   schedule varchar(7) NOT NULL,	/* which day(s) to make the copy seven digit char, starts on Monday 0000000 */
   created DATETIME NOT NULL,
   count INT(11) NOT NULL DEFAULT 0,	/* number for backups made (historical stats) */
+  capacity SMALLINT(2) NOT NULL DEFAULT 2,	/* number for backups per safe */
   state TINYINT(2) DEFAULT 0,
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
@@ -345,7 +346,6 @@ CREATE TABLE IF NOT EXISTS config (
   value varchar(255) NOT NULL ,
   can_edit TINYINT(1) DEFAULT 1,
   required TINYINT(1) DEFAULT 1,
-  can_edit TINYINT(1) DEFAULT 1,
   description varchar(255) NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
@@ -357,21 +357,22 @@ INSERT INTO config(parameter, value, required, description) VALUES ('databaseDum
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailNoReply', 'no-reply@ocax.es', '1', 'no-reply email address');
 INSERT INTO config(parameter, value, required, description) VALUES ('languages', 'es,ca,en', '1', 'Available languages on this site');
-INSERT INTO config(parameter, value, required, description) VALUES ('membership', '1', '1', 'Does your Observatory encourage membership? (0 or 1)');
+INSERT INTO config(parameter, value, required, description) VALUES ('membership', '1', '1', 'Does your Observatory encourage membership?'); /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
-INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor. 0 = No, 1 = Yes.");
+INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
+INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup');
 INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'Database schema version');
-INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'SMTP Method ( 0=SMTP, 1=Sendmail )');
-INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth (0 or 1)');
+INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'Email server'); /* 0=SMTP, 1=Sendmail */
+INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth'); /*  0=No, 1=Yes */
 INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '0', 'SMTP Server');
 INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '0', 'SMTP Password');
 INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '0', 'SMTP Port');
 INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
 INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '0', 'SMTP Username');
-INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets. 0 = No, 1 = Yes.");
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets"); /* 0=no 1=yes */
 INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");

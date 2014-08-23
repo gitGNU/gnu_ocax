@@ -55,14 +55,14 @@ function updateBool(el){
 </script>
 
 <style>
-.globalParamSet {
+.parameterGroup {
 	float:left;
 	padding:3px;
 	margin-right:10px;
 	margin-bottom:15px;
 	border: solid 1px grey;
 }
-.globalParamSet > .parmaSetTitle {
+.parameterGroup > .parameterGroupTitle {
 	font-size:1.2em;
 }
 .param {
@@ -90,8 +90,8 @@ function updateBool(el){
 
 
 
-<div class="globalParamSet">
-	<div class="parmaSetTitle"><?php echo __('Administration');?></div>
+<div class="parameterGroup">
+	<div class="parameterGroupTitle"><?php echo __('Administration');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('administrationName'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -112,8 +112,8 @@ function updateBool(el){
 	</div>
 </div>
 
-<div class="globalParamSet">
-	<div class="parmaSetTitle"><?php echo __('Locale');?></div>
+<div class="parameterGroup">
+	<div class="parameterGroupTitle"><?php echo __('Locale');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('currencySymbol'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -128,8 +128,8 @@ function updateBool(el){
 	</div>
 </div>
 
-<div class="globalParamSet">
-	<div class="parmaSetTitle"><?php echo __('SMTP');?></div>
+<div class="parameterGroup">
+	<div class="parameterGroupTitle"><?php echo __('SMTP');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpMethod'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -183,8 +183,8 @@ function updateBool(el){
 </div>
 <div class="clear"></div>
 
-<div class="globalParamSet">
-	<div class="parmaSetTitle"><?php echo __('Observatory');?></div>
+<div class="parameterGroup">
+	<div class="parameterGroupTitle"><?php echo __('Observatory');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('observatoryName1'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -223,8 +223,8 @@ function updateBool(el){
 	</div>
 </div>
 
-<div class="globalParamSet">
-	<div class="parmaSetTitle"><?php echo __('Social networks');?></div>
+<div class="parameterGroup">
+	<div class="parameterGroupTitle"><?php echo __('Social networks');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('socialFacebookURL'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -252,8 +252,8 @@ function updateBool(el){
 	</div>
 </div>
 
-<div class="globalParamSet">
-	<div class="parmaSetTitle"><?php echo __('Misc');?></div>
+<div class="parameterGroup">
+	<div class="parameterGroupTitle"><?php echo __('Misc');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('databaseDumpMethod'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -263,21 +263,23 @@ function updateBool(el){
 	<div class="param">
 		<?php $param = Config::model()->findByPk('membership'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input type="radio" name="membership" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />SMTP
-		<input type="radio" name="membership" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Sendmail
+		<input type="radio" name="membership" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
+		<input type="radio" name="membership" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('siteAutoBackup'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input type="radio" name="siteAutoBackup" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
+		<input type="radio" name="siteAutoBackup" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('safeHTMLeditor'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
-	</div>
-	<div class="param">
-		<?php $param = Config::model()->findByPk('year'); ?>
-		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<input type="radio" name="safeHTMLeditor" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
+		<input type="radio" name="safeHTMLeditor" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
 	</div>
 </div>
 
