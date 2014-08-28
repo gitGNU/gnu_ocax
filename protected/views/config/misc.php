@@ -22,8 +22,9 @@
 /* @var $model Config */
 ?>
 
+<?php $this->renderPartial('_title', array('paramGroup'=>__('Misc')));?>
+
 <div class="parameterGroup">
-	<div class="parameterGroupTitle"><?php echo __('Misc');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('databaseDumpMethod'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />

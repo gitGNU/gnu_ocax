@@ -28,13 +28,13 @@
 	padding:3px;
 	margin-right:10px;
 	margin-bottom:15px;
-	border: solid 1px grey;
+	/* border: solid 1px grey; */
 }
 .parameterGroup > .parameterGroupTitle {
 	font-size:1.2em;
 }
 .param { margin-top: 10px; }
-.param > .paramDescription { color: grey; }
+.param > .paramDescription { font-size: 1.25em;}
 .param > label { color: green; }
 
 .param > .progress {

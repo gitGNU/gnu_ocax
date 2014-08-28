@@ -20,10 +20,24 @@ mkdir protected/runtime/tmp
 mkdir protected/runtime/html
 chown -R www-data protected/runtime/
 
-INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Activate automated site backup');
-INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor. 0 = No, 1 = Yes.");
-INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets. 0 = No, 1 = Yes.");
+/* ---------- start copying ---------- */
 
+INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Activate automated site backup');
+INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor");
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets");
+
+UPDATE config SET description='Name of the Administration' WHERE parameter='administrationName';
+UPDATE config SET description='Does your Observatory encourage membership?' WHERE parameter='membership';
+UPDATE config SET description='Email server' WHERE parameter='smtpMethod';
+UPDATE config SET description='SMTP Auth' WHERE parameter='smtpAuth';
+
+UPDATE config SET required=0 WHERE parameter='smtpHost';
+UPDATE config SET required=0 WHERE parameter='smtpPassword';
+UPDATE config SET required=0 WHERE parameter='smtpPort';
+UPDATE config SET required=0 WHERE parameter='smtpSecure';
+UPDATE config SET required=0 WHERE parameter='smtpUsername';
+
+/* ---------- stop copying ---------- */
 
 OCAX 1.1.4
 Upgrade instructions.

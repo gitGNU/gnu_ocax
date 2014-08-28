@@ -137,6 +137,9 @@ class ConfigController extends Controller
 
 			elseif($model->parameter == 'emailContactAddress' || $model->parameter == 'emailNoReply')
 				$model->setScenario('email');
+
+			elseif($model->parameter == 'year')
+				$model->setScenario('number');
 				
 			elseif($model->required)
 				$model->setScenario('cannotBeEmpty');
@@ -164,11 +167,14 @@ class ConfigController extends Controller
 					else
 						$this->redirect(array('admin'));
 				}
-			}else
-				echo CJavaScript::jsonEncode($model->getErrors());
-			Yii::app()->end();
+				Yii::app()->end();
+			}else{
+				if(Yii::app()->request->isAjaxRequest){
+					echo CJavaScript::jsonEncode($model->getErrors());
+					Yii::app()->end();
+				}
+			}
 		}
-		
 		if(Yii::app()->request->isAjaxRequest)
 			echo 0;
 		else

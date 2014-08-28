@@ -36,11 +36,9 @@ function changeSMTPMethod(el){
 }
 </script>
 
-
-<h1><?php echo __('Configure').' '.__('Email');?></h1>
+<?php $this->renderPartial('_title', array('paramGroup'=>__('Email')));?>
 
 <div class="parameterGroup">
-	<div class="parameterGroupTitle"><?php echo __('Email');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpMethod'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -58,7 +56,6 @@ function changeSMTPMethod(el){
 	</div>
 </div>
 <div id="smtp_params" class="parameterGroup">
-	<div class="parameterGroupTitle"><?php echo __('SMTP parameters');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpAuth'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />

@@ -22,10 +22,9 @@
 /* @var $model Config */
 ?>
 
-<h1><?php echo __('Configure').' '.__('Social networks');?></h1>
+<?php $this->renderPartial('_title', array('paramGroup'=>__('Social networks')));?>
 
 <div class="parameterGroup">
-	<div class="parameterGroupTitle"><?php echo __('Social networks');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('socialFacebookURL'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />

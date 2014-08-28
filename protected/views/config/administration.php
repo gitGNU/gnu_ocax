@@ -22,7 +22,7 @@
 /* @var $model Config */
 ?>
 
-<h1><?php echo __('Configure').' '.__('Administration');?></h1>
+<?php $this->renderPartial('_title', array('paramGroup'=>__('Administration')));?>
 
 <div class="parameterGroup">
 	<div class="param">
@@ -32,6 +32,8 @@
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>
+</div>
+<div class="parameterGroup">
 	<div class="param">
 		<?php $param = Config::model()->findByPk('administrationLatitude'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
@@ -46,4 +48,8 @@
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>
+	<p>
+<a href="http://gll.petschge.de/"><?php echo __('Find coordinates here');?></a>
+</p>
 </div>
+

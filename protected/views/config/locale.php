@@ -22,7 +22,7 @@
 /* @var $model Config */
 ?>
 
-<h1><?php echo __('Configure').' '.__('Locale');?></h1>
+<?php $this->renderPartial('_title', array('paramGroup'=>__('Locale')));?>
 
 <div class="parameterGroup">
 	<div class="param">

@@ -22,11 +22,9 @@
 /* @var $model Config */
 ?>
 
-<h1><?php echo __('Configure').' '.__('Observatory');?></h1>
-
+<?php $this->renderPartial('_title', array('paramGroup'=>__('Observatory')));?>
 
 <div class="parameterGroup">
-	<div class="parameterGroupTitle"><?php echo __('Observatory');?></div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('observatoryName1'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />

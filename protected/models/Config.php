@@ -61,6 +61,7 @@ class Config extends CActiveRecord
 			array('value', 'url', 'on'=>'URL', 'allowEmpty'=>true),
 			array('value','validateCurrenyCollocation', 'on'=>'currenyCollocation'),
 			array('value', 'email', 'on'=>'email', 'allowEmpty'=>false),
+			array('value', 'numerical', 'on'=>'number', 'allowEmpty'=>false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('parameter, value, description', 'safe', 'on'=>'search'),
