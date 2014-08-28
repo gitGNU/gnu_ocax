@@ -24,6 +24,7 @@
 
 <h1><?php echo __('Configure').' '.__('Observatory');?></h1>
 
+
 <div class="parameterGroup">
 	<div class="parameterGroupTitle"><?php echo __('Observatory');?></div>
 	<div class="param">
@@ -31,18 +32,44 @@
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('observatoryName2'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('observatoryBlog'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('emailContactAddress'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('telephone'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+</div>
+<div class="parameterGroup">
 	<div class="param">
 		<?php $param = Config::model()->findByPk('siglas'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('membership'); ?>
@@ -50,23 +77,11 @@
 		<input type="radio" name="membership" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
 		<input type="radio" name="membership" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
-	</div>
-	<div class="param">
-		<?php $param = Config::model()->findByPk('observatoryBlog'); ?>
-		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
-	</div>
-	<div class="param">
-		<?php $param = Config::model()->findByPk('emailContactAddress'); ?>
-		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
-	</div>
-	<div class="param">
-		<?php $param = Config::model()->findByPk('telephone'); ?>
-		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 </div>
+
+<div style="clear:both"></div>
+<p>
+<?php echo __('After saving').' ';?><a href="/config/observatory"><?php echo __('refresh the page');?></a><?php echo ' '.__('to see the results');?>
+</p>

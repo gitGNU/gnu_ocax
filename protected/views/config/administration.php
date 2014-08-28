@@ -30,17 +30,20 @@
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('administrationLatitude'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('administrationLongitude'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 </div>

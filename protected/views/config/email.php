@@ -47,12 +47,14 @@ function changeSMTPMethod(el){
 		<input type="radio" name="smtpMethod" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />Remote SMTP
 		<input type="radio" name="smtpMethod" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Local Sendmail
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:changeSMTPMethod(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('emailNoReply'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 </div>
 <div id="smtp_params" class="parameterGroup">
@@ -63,35 +65,41 @@ function changeSMTPMethod(el){
 		<input type="radio" name="smtpAuth" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
 		<input type="radio" name="smtpAuth" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpHost'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpPassword'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpPort'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpSecure'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpUsername'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
 	</div>
 </div>

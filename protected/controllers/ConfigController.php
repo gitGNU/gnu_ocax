@@ -119,9 +119,6 @@ class ConfigController extends Controller
 
 		if(isset($_POST['Config']))
 		{
-			if(!$model->required)
-				$model->setScenario('canBeEmpty');
-				
 			$model->attributes=$_POST['Config'];
 			
 			if($model->parameter == 'languages'){
@@ -129,14 +126,23 @@ class ConfigController extends Controller
 				$model->value = rtrim($model->value, ',');
 				$model->setScenario('language');
 			}
-			if($model->parameter == 'currencySymbol')
+			elseif($model->parameter == 'observatoryBlog' || $model->parameter == 'socialFacebookURL' || $model->parameter == 'socialTwitterURL')
+				$model->setScenario('URL');
+				
+			elseif($model->parameter == 'currencySymbol')
 				$model->setScenario('currenyCollocation');
 				
-			if($model->parameter == 'socialTwitterUsername')
+			elseif($model->parameter == 'socialTwitterUsername')
 				$model->value = ltrim($model->value, '@');
 
+			elseif($model->parameter == 'emailContactAddress' || $model->parameter == 'emailNoReply')
+				$model->setScenario('email');
+				
+			elseif($model->required)
+				$model->setScenario('cannotBeEmpty');
+
+
 			if(Yii::app()->params['ocaxnetwork']){
-				/*
 				$opts = array('http' => array(
 										'method'  => 'POST',
 										'header'  => 'Content-type: application/x-www-form-urlencoded',
@@ -148,9 +154,7 @@ class ConfigController extends Controller
 				$url = str_replace("/", "|", $url);
 				$context = stream_context_create($opts);
 				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
-				*/
 			}
-
 			if($model->save()){
 				if(Yii::app()->request->isAjaxRequest)
 					echo '1';
@@ -160,8 +164,9 @@ class ConfigController extends Controller
 					else
 						$this->redirect(array('admin'));
 				}
-				Yii::app()->end();
-			}
+			}else
+				echo CJavaScript::jsonEncode($model->getErrors());
+			Yii::app()->end();
 		}
 		
 		if(Yii::app()->request->isAjaxRequest)

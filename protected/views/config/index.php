@@ -33,14 +33,16 @@
 .parameterGroup > .parameterGroupTitle {
 	font-size:1.2em;
 }
-.param {
-		height:55px;
+.param { margin-top: 10px; }
+.param > .paramDescription { color: grey; }
+.param > label { color: green; }
+
+.param > .progress {
+	display:inline-block;
+	width:18px;
 }
-.param > .paramDescription {
-	color: grey;
-}
-.param > label {
-	color: green;
+.param > .error {
+	color: red;
 }
 </style>
 <script>
@@ -50,14 +52,20 @@ function submitChange(el, id){
 		type: 'POST',
 		data: $('#config-form').serialize(),
 		beforeSend: function(){
-						$(el).hide();
-						$(el).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
+						$(el).next('.progress').append('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 					},
-		complete: function(){
-						$('.loading_gif').hide();
-						$(el).show();
-					},
+		complete: function(){ },
 		success: function(data){
+			$(el).next('.progress').empty();
+			$(el).parent().find('.error').remove();
+			if(data == 1){
+						$(el).next('.progress').append('<img style="vertical-align:middle;" id="tick_png" src="<?php echo Yii::app()->request->baseUrl;?>/images/tick.png" />');
+						$("#tick_png").fadeOut('slow', function() {
+							$(el).next('.progress').empty();
+						});				
+			}else{
+				$(el).next('.progress').after('<div class="error">'+JSON.parse(data)['value']+'</div>');
+			}
 			return 1;
 		},
 		error: function() { alert("error on config/udapte"); },

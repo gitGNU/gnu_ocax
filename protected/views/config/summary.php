@@ -22,4 +22,11 @@
 /* @var $model Config */
 ?>
 
-<h1><?php echo __('Configure').' OCAx';?></h1>
+<h1><?php echo __('Configure');?></h1>
+
+<p>
+
+<?php echo __('This site is running OCAx version').' '.getOCAXVersion();?>
+
+
+</p>

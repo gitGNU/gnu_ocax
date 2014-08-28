@@ -54,11 +54,13 @@ class Config extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value', 'required', 'except'=>'canBeEmpty'),
+			array('value', 'required', 'on'=>'cannotBeEmpty'),
 			array('parameter, description', 'required'),
 			array('value', 'length', 'max'=>255),
 			array('value','validateLanguage', 'on'=>'language'),
+			array('value', 'url', 'on'=>'URL', 'allowEmpty'=>true),
 			array('value','validateCurrenyCollocation', 'on'=>'currenyCollocation'),
+			array('value', 'email', 'on'=>'email', 'allowEmpty'=>false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('parameter, value, description', 'safe', 'on'=>'search'),
@@ -68,7 +70,10 @@ class Config extends CActiveRecord
 
 	public function validateLanguage($attribute,$params)
 	{
-		//$available_langs = Yii::app()->coreMessages->basePath;
+		if($this->$attribute === ""){
+				$this->addError($attribute, __('Please define a language'));
+				return;
+		}
 		$available_langs = Yiibase::getPathOfAlias('application.messages');
 		$languages = explode(',', $this->$attribute);
 		foreach($languages as $language){
@@ -80,6 +85,10 @@ class Config extends CActiveRecord
 
 	public function validateCurrenyCollocation($attribute,$params)
 	{
+		if($this->$attribute === ""){
+				$this->addError($attribute, __('Missing value'));
+				return;
+		}
 		$this->$attribute = trim($this->$attribute);
 		if(stristr($this->$attribute, 'n') === FALSE) {
 			$this->addError($attribute, __("Character 'n' is missing."));
@@ -125,6 +134,7 @@ class Config extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -141,4 +151,5 @@ class Config extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+*/
 }
