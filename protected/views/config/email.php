@@ -34,6 +34,9 @@ function changeSMTPMethod(el){
 	else
 		$('#smtp_params').find('input').prop('disabled',false);
 }
+function sendTestEmail(){
+	location.href='<?php echo $this->createUrl('email/test/');?>/'+$('#subject').val();
+}
 </script>
 
 <?php $this->renderPartial('_title', array('paramGroup'=>__('Email')));?>
@@ -54,7 +57,23 @@ function changeSMTPMethod(el){
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>
+	
+	<?php
+	$user = User::model()->findByPk(Yii::app()->user->getUserID());
+	?>
+	<div class="param" style="margin-top:30px">
+	<span class="paramDescription">Test parameters</span>
+	<p style="margin-top:15px">
+	<?php echo __('Send as').':&ensp;&ensp;'.Config::model()->findByPk('emailNoReply')->value;?><br />
+	<?php echo __('Send to').':&ensp;&ensp;'.$user->email;?><br />
+	Subject:&ensp;&ensp;<input style="width:120px" id="subject" type="text" value = "test_1"/>
+	<input type="button" value="test" onClick="js:sendTestEmail(); return false;"/>
+	</p>
+	</div>
+	
 </div>
+
+
 <div id="smtp_params" class="parameterGroup">
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpAuth'); ?>
@@ -100,3 +119,25 @@ function changeSMTPMethod(el){
 		<div class="progress"></div>
 	</div>
 </div>
+
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { 
+			$(".flash-success").slideDown('fast');		
+			setTimeout(function() {
+				$('.flash-success').slideUp('fast');
+    		}, 4500);
+		});
+	</script>
+    <div class="flash-success" style="display:none">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>
+
+
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
+    </div>
+<?php endif; ?>

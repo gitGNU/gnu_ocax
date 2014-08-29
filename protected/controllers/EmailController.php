@@ -54,8 +54,8 @@ class EmailController extends Controller
 				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working? check this.
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(/*'admin','delete'*/),
-				'users'=>array('admin'),
+				'actions'=>array('test'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -210,6 +210,26 @@ class EmailController extends Controller
 			echo $this->renderPartial('_contactPetition', array('model'=>$model, 'recipient'=>$recipient, false,true));
 		}else
 			echo 0;
+	}
+
+	/**
+	 * Admin can test email parameters.
+	 */
+	public function actionTest($id)
+	{
+		$user = User::model()->findByPk(Yii::app()->user->getUserID());
+		
+		$mailer = new Mailer();
+		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+		$mailer->AddAddress($user->email);
+		$mailer->Subject=$id;
+		$mailer->Body='<p>This is a test</p>';
+
+		if($mailer->send())
+			Yii::app()->user->setFlash('success',__('Email sent OK'));
+		else
+			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
+		$this->redirect(array('/config/email'));
 	}
 
 	/**
