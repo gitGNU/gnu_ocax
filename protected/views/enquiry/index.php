@@ -22,14 +22,11 @@
 /* @var $model Enquiry */
 
 Yii::app()->clientScript->registerScript('search', "
-$('#search-options-button').click(function(){
-	$('#search-options').toggle();
-	return false;
-});
 $('.search-form form').submit(function(){
 	$.fn.yiiListView.update('enquiry-list', {
 		data: $(this).serialize()
 	});
+	resetFormElements=1;
 	return false;
 });
 ");
@@ -37,41 +34,42 @@ $('.search-form form').submit(function(){
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.sticky-kit.min.js"></script>
 
-<style>   
-	#options { display:none }   
-	.outer{width:100%; padding: 0px; float: left;}
-	.left {width: 38%; float: left; margin: 0px;}
-	.right{width: 60%; float: left; margin: 0px;}
-	.clear{clear:both;}
-	.tag_enquiry_row_as_subscribed td:first-child { font-weight: bold }
+<style>
+	 
 </style>
 
-<script>	
+<script>
+var resetFormElements = 0;
+
 $(function() {
-	//$(".left").stick_in_parent();
 	$(".workflowFilter").on('click', function() {
-			changeState($(this).attr('state'));
+			filterByDiagram($(this).attr('state'));
 	});
 });
-
-function changeState(state){
+function basicFilter(el, filter){
+	$(el).parent().find('li').removeClass('activeItem');
+	$(el).addClass('activeItem');
+	$("#Enquiry_basicFilter").val(filter);
+	$("#search_enquiries").submit();
+}
+function filterByDiagram(state){
 	humanStates = <?php echo json_encode($model->getHumanStates()) ?>;
 	$("#Enquiry_state").val(state);
 	$("#search_enquiries").submit();
 	
-	$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
+	//$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
 }
-
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
 		type: 'GET',
 		dataType: 'json',
-		beforeSend: function(){ $('#enquiry-grid').addClass('pgrid-view-loading'); },
+		beforeSend: function(){
+						$('#preview_'+enquiry_id).find('.loading').show();
+					},
 		complete: function(){ 
-						$('#enquiry-grid').removeClass('pgrid-view-loading');
+						$('#preview_'+enquiry_id).find('.loading').hide();
 						FB.XFBML.parse();
 						twttr.widgets.load();
 					},
@@ -93,50 +91,59 @@ function showEnquiry(enquiry_id){
 	});
 }
 function toggleOptions(){
-	if ( $("#options").is(":visible") ){
-		$("#options").slideUp('fast');
-		
+	resetForm();
+	if ($("#advancedFilterOptions").is(":visible")){
+		$("#advancedFilterOptions").hide();
+		$("#basicFilterOptions").show();
+		$('#filterLabel').html("<?php echo __('advanced filter');?>");
 	}else{
-		$("#options").slideDown('fast');
-		
+		$("#Enquiry_basicFilter").val('');
+		$("#advancedFilterOptions").show();
+		$("#basicFilterOptions").hide();
+		$('#filterLabel').html("<?php echo __('close');?>");
 	}
 }
-
 function resetForm(){
+	if(resetFormElements == 0)
+		return;
 	$('#Enquiry_searchText').val('');
 	$("#Enquiry_state").val('');
 	$('#Enquiry_addressed_to').val('');
 	$('#Enquiry_type').val('');
 	$('#Enquiry_searchDate_min').val('');
 	$('#Enquiry_searchDate_max').val('');
+	$("#Enquiry_basicFilter").val('');
 	$("#search_enquiries").submit();
-}
-function togglePane(el, pane){
-	if(pane == 'states_pane'){
-		resetForm();
-	}
-	$('#pane_items').find('div').removeClass('active');
-	$('.pane').hide();
-	$(el).addClass('active');
-	$('#'+pane).show();
+	resetFormElements = 0;
 }
 </script>
 
-<h1>Big_button_1 Big_button_2 Big_button_3 Big_button_4</h1>
-<?php if(Yii::app()->user->isGuest){
-	echo '<div>';
-		echo '<p></p>';
-		echo '<p>'.__('Haz una consulta y aporta tu granito de arena.').' ';
-		echo __('Más consultas significa más cooperación entre ciudadanos').' ';
-		echo __('Aqui en el Observatorio nos encargamos de todo el papelaeo').' ';
-			echo __('Remember you must first').' '.
-				'<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
-				'<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
-				'</p>';
-	echo '</div>';
-} ?>
+<div id="enquiryPageTitle">
+	<div style="float:left;margin-top:-10px;">
+		<h1><?php echo __('Enquiries made to date');?></h1>
+		<p style="margin-top:-15px;margin-bottom:0px;">
+			<?php echo __('This is a list of enquiries made by citizens like you.');?>
+		</p>
+	</div>
+	<div style="float:right">
+		<div id="filterLabel" class="link" onCLick="js:toggleOptions();return false;">
+			<?php echo __('advanced filter');?>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
 
-<div id="options">
+
+<div id="basicFilterOptions">
+<ul>
+<li onClick="js:basicFilter(this, 'noreply')">Consultas sin respuesta</li>
+<li onClick="js:basicFilter(this, 'pending')">Respuestas sin valorar</li>
+<li onClick="js:basicFilter(this, 'assessed')">Respuestas valoradas</li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<div id="advancedFilterOptions">
 
 <div style="float:left; width:360px; margin-right:120px;">
 	<div id="workflow" style="padding-bottom:5px;">
@@ -156,18 +163,14 @@ function togglePane(el, pane){
 		</div><!-- search-form -->
 	<?php } ?>
 </div>
+
 <div class="clear"></div>
+<div class="horizontalRule"></div>
 </div>	<!-- options end -->
 
-<div class="link" style="text-align:right" onCLick="js:toggleOptions();return false;">more options</div>
-<div class="horizontalRule"></div>
 
 
-<h1><?php echo __('Enquiries made to date');?></h1>
-<p style="margin-top:-15px;margin-bottom:0px;"><?php echo __('This is a list of enquiries made by citizens like you.');?>
-<br /><br />
 <span id="humanStateTitle"></span>
-</p>
 
 <?php
 $this->widget('zii.widgets.CListView', array(
@@ -187,3 +190,16 @@ $this->widget('zii.widgets.CListView', array(
 <div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
 <div id="addressed_to_observatory" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,OBSERVATORY);?></div>
 
+<?php if(Yii::app()->user->isGuest){
+	echo '<div class="clear"></div>';
+	echo '<div>';
+		echo '<p>'.__('Haz una consulta y aporta tu granito de arena.').' ';
+		echo __('Más consultas significa más cooperación entre ciudadanos').'. ';
+		echo __('Aqui en el Observatorio nos encargamos de todo el papelaeo').'. ';
+			echo __('Remember you must first').' '.
+				'<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
+				'<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
+				'</p>';
+	echo '</div>';
+} ?>
+<div class="clear"></div>

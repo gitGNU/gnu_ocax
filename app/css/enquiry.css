@@ -2,7 +2,8 @@
 
 #noEnquiriesHere
 {
-	margin-top:100px;
+	margin-top:50px;
+	height:90px;
 	text-align:center;
 	font-size:2em;
 	color:lightgrey;
@@ -18,25 +19,43 @@
 .workflowText {  }
 .workflowFilter:hover { cursor:pointer; color:black; }
 
-/* pane menu */
-
-.filterPaneMenuItem{
-	cursor:pointer;
-	float:left;
-	background-color: #f5f1ed;
-	font-size: 16px;
-	margin-left:15px;
-	padding: 0 8px 0 8px;
-}
-.filterPaneMenuItem.active{
-	border: 1px solid lightgrey;
-	margin-bottom:-1px;
-	border-bottom:0px;	
-}
+#filterLabel { margin-top: -25px; margin-right: -10px; text-align:right; }
 
 /* search form */
 #search_enquiries { margin-left:-10px }
 #search_enquiries > p { margin-bottom:10px }
+
+/* state menu */
+#advancedFilterOptions { display:none }
+
+#basicFilterOptions {
+	margin: 0px 0px 20px 0px;
+	border-bottom: 2px solid  rgb(228, 222, 215);
+}
+
+#basicFilterOptions > ul
+{
+
+}
+
+#basicFilterOptions > ul > li
+{
+	cursor:pointer;
+	list-style-type:none;
+	font-weight:200;
+	font-size: 25px;
+	padding: 0px 17px 3px 17px;
+	margin: 0px 0px 3px 0px;
+	height:29px;
+	float:left;
+	/*border-bottom: 2px solid blue;*/
+}
+
+#basicFilterOptions > ul > .activeItem
+{
+border: 2px solid rgb(228, 222, 215);
+margin: 0px 0px 0px 0px;
+}
 
 /* preview */
 
@@ -46,8 +65,8 @@
 	border:1px solid rgb(228, 222, 215);
 	background-color: rgb(228, 222, 215);
 	width:430px;
-	height:300px;
-	margin: 15px 15px 75px 15px;
+	height:250px;
+	margin: 15px 15px 50px 15px;
 	float:left;
 }
 .enquiryPreview .created {
@@ -55,18 +74,28 @@
 	border:1px solid rgb(228, 222, 215);
 	padding: 0 5px 0 5px;
 	height: 18px;
-	width: 62px;
+	width: 64px;
 	top: -20px;
 	left: -1px;
 	color:grey;
 	background-color: rgb(228, 222, 215);
 }
+.enquiryPreview .loading {
+	position: absolute;
+	height: 19px;
+	width: 60px;
+	top: -22px;
+	right: 0px;
+	background: url("../images/preloader.gif") repeat-x scroll 0 0;
+	display:none;
+}
 .enquiryPreview .title {
-	padding: 3px 3px 0px 0px;
+	padding: 3px 0px 0px 3px;
 	font-size: 1.15em;
 }
 .enquiryPreview .body {
+	padding: 2px 3px 0 3px;
 	background-color: white;
-	height: 300px;
+	height: 222px;
 	overflow: hidden;
 }

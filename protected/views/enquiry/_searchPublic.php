@@ -28,12 +28,9 @@
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 ));
+echo $form->hiddenField($model,'basicFilter');
 ?>
 
-<p>
-	<span><?php echo __('Text');?></span><br />
-	<?php echo $form->textField($model,'searchText',array('width'=>'180px','maxlength'=>255)).' '.CHtml::submitButton(__('Search'));?>
-</p>
 <p>
 	<?php echo $form->label($model,'state'); ?><br />
 	<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
@@ -87,5 +84,11 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 <span><?php echo __('Maximum date');?></span>
 </p>
 
+<p>
+	<span><?php echo __('Text');?></span><br />
+	<?php echo $form->textField($model,'searchText',array('width'=>'180px','maxlength'=>255));?>
+</p>
+
+<?php echo CHtml::submitButton(__('Search'));?>
 
 <?php $this->endWidget(); ?>

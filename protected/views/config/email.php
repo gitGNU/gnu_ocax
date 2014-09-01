@@ -61,9 +61,9 @@ function sendTestEmail(){
 	<?php
 	$user = User::model()->findByPk(Yii::app()->user->getUserID());
 	?>
-	<div class="param" style="margin-top:30px">
-	<span class="paramDescription">Test parameters</span>
-	<p style="margin-top:15px">
+	<div class="param" style="margin-top:40px">
+	<span class="paramDescription" style="font-size:1.4em"><?php echo __('Send a test email');?></span>
+	<p style="margin-top:10px">
 	<?php echo __('Send as').':&ensp;&ensp;'.Config::model()->findByPk('emailNoReply')->value;?><br />
 	<?php echo __('Send to').':&ensp;&ensp;'.$user->email;?><br />
 	Subject:&ensp;&ensp;<input style="width:120px" id="subject" type="text" value = "test_1"/>

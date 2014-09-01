@@ -23,12 +23,11 @@
 
 ?>
 
-
-<div class="enquiryPreview" onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
+<div id="preview_<?php echo $data->id;?>" class="enquiryPreview" onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
 
 <span class="created"><?php echo format_date($data->created);?></span>
+<span class="loading"></span>
 <div class="title"><?php echo $data->title; ?></div>
 <div class="body"><?php echo $data->body; ?></div>
 
 </div>
-

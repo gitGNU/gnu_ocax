@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -229,6 +229,7 @@ class EmailController extends Controller
 			Yii::app()->user->setFlash('success',__('Email sent OK'));
 		else
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
+		
 		$this->redirect(array('/config/email'));
 	}
 

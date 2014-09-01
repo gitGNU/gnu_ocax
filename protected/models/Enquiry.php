@@ -54,9 +54,12 @@
 class Enquiry extends CActiveRecord
 {
 	public $username=Null;
+	
+	/* used at enquiry/_searchPublic searchform */
 	public $searchDate_min=Null;
 	public $searchDate_max=Null;
 	public $searchText=Null;
+	public $basicFilter=Null;
 
 	public function getHumanTypes($type=Null)
 	{
@@ -172,7 +175,7 @@ class Enquiry extends CActiveRecord
 					manager, created,
 					assigned, type, state,
 					title, body,
-					searchText, searchDate_min, searchDate_max',
+					searchText, searchDate_min, searchDate_max, basicFilter',
 					'safe', 'on'=>'search'),
 		);
 	}
@@ -336,21 +339,32 @@ class Enquiry extends CActiveRecord
 	{
 		$stats = array();
 		$stats['total'] = $this->count();
-		$stats['pending'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
-													'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100);
-		$stats['rejected'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_REJECTED))/$stats['total']*100);
-		$stats['accepted'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100);
-		$stats['waiting_reply'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100);
-		$stats['pending_assesment'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100);
-		$stats['reply_satisfactory'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100);
-		$stats['reply_insatisfactory'] = round($this->count(array('condition' =>
-													'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100);
+		if($stats['total']){
+			$stats['pending'] = round($this->count(array('condition' =>
+														'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
+														'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100);
+			
+			$stats['rejected']=
+					round($this->count(array('condition' =>'state = '.ENQUIRY_REJECTED))/$stats['total']*100);
+			
+			$stats['accepted']=
+					round($this->count(array('condition' =>'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100);
+			
+			$stats['waiting_reply']=
+					round($this->count(array('condition' =>'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100);
+			
+			$stats['pending_assesment']=
+					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100);
+			
+			$stats['reply_satisfactory']=
+					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100);
+			
+			$stats['reply_insatisfactory']=
+					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100);
+		}else{
+			$stats['pending']=$stats['rejected']=$stats['accepted']=$stats['waiting_reply']=0;
+			$stats['pending_assesment']=$stats['reply_satisfactory']=$stats['reply_insatisfactory']=0;
+		}
 		return $stats;
 	}
 
@@ -375,6 +389,20 @@ class Enquiry extends CActiveRecord
 								' AND state != '.ENQUIRY_ASSIGNED.
 								' AND state != '.ENQUIRY_REJECTED);
 
+		if($this->basicFilter){
+			if($this->basicFilter == 'noreply')
+				$criteria->addCondition('state <= '.ENQUIRY_AWAITING_REPLY);
+			if($this->basicFilter == 'pending')
+				$criteria->addCondition('state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT);		
+			if($this->basicFilter == 'assessed')
+				$criteria->addCondition('state = '.ENQUIRY_REPLY_SATISFACTORY.
+										' OR state = '.ENQUIRY_REPLY_INSATISFACTORY);		
+			return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'sort'=>array('defaultOrder'=>'modified DESC'),
+			));
+		}
+		
 		$searchDate_min=Null;
 		$searchDate_max=Null;
 		if($this->searchDate_min){
