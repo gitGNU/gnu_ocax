@@ -100,7 +100,17 @@ class EnquiryController extends Controller
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
 
+		if(isset($_GET['display'])){
+			$displayType = $_GET['display'];
+			Yii::app()->request->cookies['enquiry_display_type'] = new CHttpCookie('enquiry_display_type', $displayType);
+		}
+		elseif(isset(Yii::app()->request->cookies['enquiry_display_type']))
+			$displayType=Yii::app()->request->cookies['enquiry_display_type']->value;
+		else
+			$displayType='list';
+			
 		$this->render('index',array(
+			'displayType'=>$displayType,
 			'dataProvider'=>$model->publicSearch(),
 			'model'=>$model,
 		));

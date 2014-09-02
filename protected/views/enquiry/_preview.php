@@ -29,5 +29,6 @@
 <span class="loading"></span>
 <div class="title"><?php echo $data->title; ?></div>
 <div class="body"><?php echo $data->body; ?></div>
+<div class="fadeout"></div>
 
 </div>

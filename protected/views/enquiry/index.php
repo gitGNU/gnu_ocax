@@ -21,15 +21,27 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-	$.fn.yiiListView.update('enquiry-list', {
-		data: $(this).serialize()
+if($displayType == 'grid'){
+	Yii::app()->clientScript->registerScript('search', "
+	$('.search-form form').submit(function(){
+		$.fn.yiiGridView.update('enquiry-grid', {
+			data: $(this).serialize()
+		});
+		resetFormElements=1;
+		return false;
 	});
-	resetFormElements=1;
-	return false;
-});
-");
+	");
+}else{
+	Yii::app()->clientScript->registerScript('search', "
+	$('.search-form form').submit(function(){
+		$.fn.yiiListView.update('enquiry-list', {
+			data: $(this).serialize()
+		});
+		resetFormElements=1;
+		return false;
+	});
+	");
+	}
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
@@ -95,12 +107,12 @@ function toggleOptions(){
 	if ($("#advancedFilterOptions").is(":visible")){
 		$("#advancedFilterOptions").hide();
 		$("#basicFilterOptions").show();
-		$('#filterLabel').html("<?php echo __('advanced filter');?>");
+		$('#filterLabel').html("<?php echo __('search options');?>");
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
 		$("#basicFilterOptions").hide();
-		$('#filterLabel').html("<?php echo __('close');?>");
+		$('#filterLabel').html("<?php echo __('close options');?>");
 	}
 }
 function resetForm(){
@@ -127,7 +139,11 @@ function resetForm(){
 	</div>
 	<div style="float:right">
 		<div id="filterLabel" class="link" onCLick="js:toggleOptions();return false;">
-			<?php echo __('advanced filter');?>
+			<?php echo __('search options');?>
+		</div>
+		<div style="text-align:right">
+		<span class="link" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'" />List</span>
+		<span class="link" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'" />Grid</span>
 		</div>
 	</div>
 </div>
@@ -136,9 +152,9 @@ function resetForm(){
 
 <div id="basicFilterOptions">
 <ul>
-<li onClick="js:basicFilter(this, 'noreply')">Consultas sin respuesta</li>
-<li onClick="js:basicFilter(this, 'pending')">Respuestas sin valorar</li>
-<li onClick="js:basicFilter(this, 'assessed')">Respuestas valoradas</li>
+<li onClick="js:basicFilter(this, 'noreply')"><?php echo __('Waiting for reply');?></li>
+<li onClick="js:basicFilter(this, 'pending')"><?php echo __('Replies not yet assessed');?></li>
+<li onClick="js:basicFilter(this, 'assessed')"><?php echo __('Assessed replies');?></li>
 </ul>
 <div class="clear"></div>
 </div>
@@ -168,24 +184,76 @@ function resetForm(){
 <div class="horizontalRule"></div>
 </div>	<!-- options end -->
 
-
-
+<div id="enquiryList">
 <span id="humanStateTitle"></span>
-
 <?php
-$this->widget('zii.widgets.CListView', array(
-	'id'=>'enquiry-list',
-	//'template'=>'{items}<div style="clear:both"></div>{pager}',
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_preview',
-	'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
-));
+if($displayType == 'grid'){
+	$this->widget('PGridView', array(
+		'id'=>'enquiry-grid',
+		'dataProvider'=>$model->publicSearch(),
+		'rowCssClassExpression'=>function($row, $data){
+			if(Yii::app()->user->isGuest)
+				return $row % 2 ? 'even' : 'odd';
+			if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
+				return 'tag_enquiry_row_as_subscribed';
+			else
+				return $row % 2 ? 'even' : 'odd';
+		},
+		//'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
+		'onClick'=>array(
+			'type'=>'javascript',
+			'call'=>'showEnquiry',
+		),
+		'ajaxUpdate'=>true,
+		'pager'=>array(
+			'class'=>'CLinkPager',
+			'header'=>'',
+			'maxButtonCount'=>6,
+			'prevPageLabel'=>'< Prev',
+		),
+		'template' => "{summary}{items}{pager}",
+		'columns'=>array(
+		array(
+			'header'=>__('Enquiries'),
+			'name'=>'title',
+			'value'=>'$data[\'title\']',
+		),
+		array(
+			'header'=>__('Formulated'),
+			'name'=>'created',
+			'value'=>'format_date($data[\'created\'])',
+		),
+		array(
+			'header'=>__('State'),
+			'name'=>'state',
+			'type' => 'raw',
+			'value'=>'$data->getHumanStates($data[\'state\'],$data[\'addressed_to\'])'
+		),
+	array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+	)));
+}else{
+	$this->widget('zii.widgets.CListView', array(
+		'id'=>'enquiry-list',
+		//'template'=>'{items}<div style="clear:both"></div>{pager}',
+		'dataProvider'=>$dataProvider,
+		'afterAjaxUpdate'=>'function(){
+							$("html, body").animate({scrollTop: $("#scrollTop").position().top }, 100);
+							}',
+		'itemView'=>'_preview',
+		'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
+	));
+}
 ?>
+</div>
 
 <div id="enquiry" class="modal" style="width:870px;">
 <img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 <div id="enquiry_body"></div>
 </div>
+
+
+
+
 
 <div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
 <div id="addressed_to_observatory" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,OBSERVATORY);?></div>

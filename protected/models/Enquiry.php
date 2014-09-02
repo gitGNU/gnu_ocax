@@ -439,6 +439,11 @@ class Enquiry extends CActiveRecord
 		$criteria->params = array_merge($criteria->params, $my_params);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			/*
+			'Pagination' => array (
+				'PageSize' => 4, //edit your number items per page here
+			),
+			*/
 			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 	}
