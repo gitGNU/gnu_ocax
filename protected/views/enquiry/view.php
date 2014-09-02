@@ -136,13 +136,22 @@ function showBudget(budget_id, element){
 		}
 	});
 }
+function enquiryModal2Page(){
+	$('#enquiry_popup').bPopup().close();
+	window.open('<?php echo $this->createAbsoluteUrl('/enquiry/'.$model->id); ?>',  '_blank');
+}
 </script>
 
-<?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
-	$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
+<?php 
+	if(Yii::app()->request->isAjaxRequest)
+		echo '<div class="modalTitle">'.__('Enquiry').'</div>';
+		
+	if($reformulatedDataprovider = $model->getReformulatedEnquires()){
+		$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
 															'model'=>$model,
 															'onClick'=>'/enquiry/view'));
-}?>
+	}
+?>
 
 <h1 style="margin-bottom:-2px;"><?php echo $model->title?></h1>
 

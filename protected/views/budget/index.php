@@ -293,8 +293,9 @@ if(count($years) > 1){
 </div>
 
 <div id="budget_popup" class="modal" style="width:900px;">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-		<div id="budget_popup_body"></div>
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+	<img class="bModal2Page" onclick="js:budgetModal2Page();" src="<?php echo Yii::app()->request->baseUrl; ?>/images/modal2page.png" />
+	<div id="budget_popup_body"></div>
 </div>
 
 <style>

@@ -88,13 +88,22 @@ function showBudgetDetails(){
 	$('#compareYearsLink').show();
 	$('#budget_details').show();
 }
+function budgetModal2Page(){
+	$('#budget_popup').bPopup().close();
+	window.open('<?php echo $this->createAbsoluteUrl('/budget/'.$model->id); ?>',  '_blank');
+}
 </script>
 
 <?php
-	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().'</div>';
+	$category=$model->getCategory();
+	//if($model->getTitle() != $category)
+	if(Yii::app()->request->isAjaxRequest)
+		echo '<div class="modalTitle">'.__('Budget').': '.$category.'</div>';
+	else
+		echo '<div class="budgetCategory">'.$category.'</div>';
 
 	$modify_link = Null;
-	if(Yii::app()->user->isPrivileged()){
+	if(Yii::app()->user->isAdmin()){
 		$modify_link=CHtml::link('+',array('budgetDescription/modify','budget'=>$model->id),array('style'=>'text-decoration:none'));
 		$modify_link=' <span style="font-size:0.8em;">'.$modify_link.'</span>';
 	}

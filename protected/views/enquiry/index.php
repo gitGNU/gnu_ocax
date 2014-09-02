@@ -88,7 +88,7 @@ function showEnquiry(enquiry_id){
 		success: function(data){
 			if(data != 0){
 				$("#enquiry_body").html(data.html);
-				$('#enquiry').bPopup({
+				$('#enquiry_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, positionStyle: 'absolute'
@@ -107,6 +107,7 @@ function toggleOptions(){
 	if ($("#advancedFilterOptions").is(":visible")){
 		$("#advancedFilterOptions").hide();
 		$("#basicFilterOptions").show();
+		$("#basicFilterOptions").find('li').removeClass('activeItem');
 		$('#filterLabel').html("<?php echo __('search options');?>");
 	}else{
 		$("#Enquiry_basicFilter").val('');
@@ -131,7 +132,7 @@ function resetForm(){
 </script>
 
 <div id="enquiryPageTitle">
-	<div style="float:left;margin-top:-10px;">
+	<div style="float:left;">
 		<h1><?php echo __('Enquiries made to date');?></h1>
 		<p style="margin-top:-15px;margin-bottom:0px;">
 			<?php echo __('This is a list of enquiries made by citizens like you.');?>
@@ -246,13 +247,11 @@ if($displayType == 'grid'){
 ?>
 </div>
 
-<div id="enquiry" class="modal" style="width:870px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<div id="enquiry_popup" class="modal" style="width:870px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+	<img class="bModal2Page" onclick="js:enquiryModal2Page();" src="<?php echo Yii::app()->request->baseUrl; ?>/images/modal2page.png" />
 <div id="enquiry_body"></div>
 </div>
-
-
-
 
 
 <div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
