@@ -28,8 +28,9 @@ Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
 
-<h1><?php echo __('(Re)generate CSV files to include in zip').' ';?></h1>
+<div class="modalTitle"><?php echo __('(Re)generate CSV files to include in zip').' ';?></div>
 
+<div style="margin: 10px -10px 0 -10px">
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
@@ -59,6 +60,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	),
 ));
 ?>
+</div>
 
 <div id="loading" style="display:none;text-align:center;">
 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />

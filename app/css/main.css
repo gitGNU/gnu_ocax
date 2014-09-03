@@ -120,7 +120,7 @@ body
 	line-height: 90%;
 	letter-spacing:-0.5pt;
 	font-weight:100;
-	padding: 15px 20px 30px 0px;
+	padding: 15px 20px 25px 0px;
 }
 
 #nombre_ocax
@@ -177,13 +177,19 @@ body
 	width:950px;
 	margin:0 auto;
 	padding: 6px 20px 05px 10px;
+	font-size: 1.1em;
 }
 #footer div
 {
 	margin-top: 0px;
 	margin-bottom:0px;
 }
-#footer div a { color: lightgrey }
+
+#footer a { color: #e4ded7; }
+#footer span { color: #e4ded7;}
+
+#observatoryFooterDetails { float:left; }
+#observatoryFooterName { display: inline-block; margin-top:-4px; font-weight: bold; }
 
 #logo {
 	width:75px; height:75px; vertical-align:middle;
@@ -191,7 +197,6 @@ body
 	border: 3px solid #d0cdcd;
 	border-radius:5px;
 }
-
 #pacd_logo {
   width: 75px;
   height: 75px;
@@ -200,7 +205,6 @@ body
 }
 
 #postFooterRSSLink { float:right; }
-
 #postFooterRSSLink > a {
 	vertical-align: middle;
 	margin-left:5px;

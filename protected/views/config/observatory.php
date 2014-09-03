@@ -105,7 +105,6 @@
 <a href="http://gll.petschge.de/"><?php echo __('Find coordinates here');?></a>
 </p>
 </div>
-
 <div style="clear:both"></div>
 <p>
 	<?php echo __('After saving').' ';?><a href="/config/observatory"><?php echo __('refresh the page');?></a><?php echo ' '.__('to see the results');?>

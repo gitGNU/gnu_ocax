@@ -41,8 +41,8 @@ function uploadFile(){
 		type: 'POST',
 		success: function(data){
 			if(data != 0){
-				$("#files_content").html(data);
-				$('#files').bPopup({
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -79,8 +79,8 @@ function showYears(){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#csvs_content").html(data);
-				$('#csvs').bPopup({
+				$("#csvs_popup_content").html(data);
+				$('#csvs_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -100,7 +100,7 @@ function regenCSV(id){
 		type: 'GET',
 		beforeSend: function(){ $('#years-grid').replaceWith($('#loading')); $('#loading').show(); },
 		success: function(data){
-			$('#csvs').bPopup().close();
+			$('#csvs_popup').bPopup().close();
 			$.fn.yiiGridView.update('file-grid');
 		},
 		error: function() {
@@ -147,15 +147,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ));
 ?>
 
-<div id="csvs" class="modal" style="width:500px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="csvs_content" style="margin:-10px;"></div>
+<div id="csvs_popup" class="modal" style="width:500px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+	<div id="csvs_popup_content"></div>
 </div>
 
-<div id="files" class="modal" style="width:500px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="margin:-10px;"></div>
-</div>
+
+<?php echo $this->renderPartial('//file/modal'); ?>
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
