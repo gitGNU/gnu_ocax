@@ -1,7 +1,7 @@
 <div id="footer">
 	<div style="width: 680px; float:left; margin:10px 0 10px 5px;">
 		<?php
-			echo '<img id="avatar" style="float:left;" src="'.Yii::app()->request->baseUrl.'/files/logo.png" />';
+			echo '<img id="logo" style="float:left;" src="'.Yii::app()->request->baseUrl.'/files/logo.png" />';
 		?>
 		<div style="float:left;">
 			<?php

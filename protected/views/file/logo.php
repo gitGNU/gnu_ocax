@@ -80,7 +80,7 @@ function deleteLogo(id){
 <br />
 2. <a href="#" onclick="js:uploadFile()"><?php echo __('Upload the file');?></a>
 <br />
-3. <?php echo __('Refresh the page by pressing the key').' F5';?>
+3. <?php echo __('Repeat the steps 1 and 2').' ';?>
 </p>
 <p>
 <?php
@@ -91,15 +91,19 @@ echo '<span style="background-color:'.$siteColor.';display:inline-block;width:80
 */
 ?>
 </p>
+
 <?php
+/*
 if($logo){
 	echo '<p style="margin-top:50px">';
 	echo __('You can repeat the steps above or').' ';
 	echo '<a href="#" onclick="js:deleteLogo('.$logo->id.')">'.__('delete the logo').'</a>';
 	echo '</p>';
 }
+*/
 ?>
 </div>
+
 <div class="right">
 <?php
 if($logo){

@@ -85,7 +85,7 @@ if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->use
 ?>
 
 <div id="header" >
-	<div id="logo">
+	<div id="observatoryTitle">
 		<span style="cursor:pointer" onclick="window.location='<?php echo Yii::app()->baseUrl;?>/';">
 		<?php echo Config::model()->getSiteTitle(); ?>
 		</span>
