@@ -17,6 +17,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// this is a mess !!!
+
 class FileController extends Controller
 {
 	/**
@@ -45,7 +47,7 @@ class FileController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('showCMSfiles','wallpaper'),
+				'actions'=>array('showCMSfiles'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('allow',
@@ -53,7 +55,8 @@ class FileController extends Controller
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember() || Yii::app()->user->isAdmin()",
 			),
 			array('allow',
-				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
+				'actions'=>array(	'wallpaper','logo',
+									'showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -103,22 +106,30 @@ class FileController extends Controller
 			$model->file=CUploadedFile::getInstance($model,'file');
 
 			if($model->file){
-				$path=$this->getPath($model->model,$model->model_id);
+				if($model->model == 'logo')
+					$path = '';
+				else
+					$path=$this->getPath($model->model,$model->model_id);
+				
 				$model->path='/files/'.$path;
 
-				if(!is_dir($model->getURI())){
-					$oldmask = umask(0);
-					mkdir($model->getURI(), 0755, true);
-					umask($oldmask);
+				if(!is_dir($model->getURI()))
+					createDirectory($model->getURI());
+
+				if($model->model == 'logo'){
+					$ext = pathinfo($model->file->name, PATHINFO_EXTENSION);
+					$model->path = $model->path.'logo.'.$ext;
+				}else{
+					$normalized_name = $model->normalize($model->file->name);
+					$model->path=$model->path.'/'.$normalized_name;
 				}
-
-				$normalized_name = $model->normalize($model->file->name);
-				$model->path=$model->path.'/'.$normalized_name;
-
 				if(!$model->name)
 					$model->name=$model->file->name;
-
-
+					
+				if($model->model == 'logo'){
+					if($logo = $model->findByAttributes(array('model'=>'logo')))
+						$logo->delete();
+				}
 				if($file_saved = $model->file->saveAs($model->getURI()))
 					$model->save();
 
@@ -146,6 +157,10 @@ class FileController extends Controller
 
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
+
+				}elseif($model->model == 'logo'){
+					resizeLogo($model->getURI());
+					$this->redirect(array('file/logo'));
 
 				}else
 					$this->redirect(array('site/index'));
@@ -290,7 +305,11 @@ class FileController extends Controller
 	{
 		echo $this->render('wallpaper');
 	}
-
+	public function actionLogo()
+	{
+		echo $this->render('logo');
+	}
+	
 	public function actionAdminArchive()
 	{
 		$model=new File('search');

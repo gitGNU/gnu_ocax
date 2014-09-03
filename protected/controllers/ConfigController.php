@@ -46,7 +46,7 @@ class ConfigController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'index','update','admin',
-									'email','observatory','social','administration','locale','misc',
+									'email','observatory','social','locale','misc',
 								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -78,12 +78,6 @@ class ConfigController extends Controller
 	{
 		$model = new Config;
 		$this->render('index',array('model'=>$model, 'page'=>'social'));		
-	}
-
-	public function actionAdministration()
-	{
-		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'administration'));		
 	}
 
 	public function actionLocale()
@@ -159,6 +153,7 @@ class ConfigController extends Controller
 				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
 			}
 			if($model->save()){
+				$this->generateFoot();
 				if(Yii::app()->request->isAjaxRequest)
 					echo '1';
 				else{
@@ -179,6 +174,20 @@ class ConfigController extends Controller
 			echo 0;
 		else
 			$this->render('update',array('model'=>$model,'returnURL'=>$returnURL));
+	}
+
+	private function generateFoot()
+	{
+		if(!file_exists(Yii::app()->basePath.'/runtime/html/foot/'))
+			createDirectory(Yii::app()->basePath.'/runtime/html/foot/');
+
+		$user_lang = Yii::app()->language;
+		$languages=explode(',', Config::model()->findByPk('languages')->value);
+		foreach($languages as $lang){
+			Yii::app()->language=$lang;
+			file_put_contents(Yii::app()->basePath.'/runtime/html/foot/'.$lang.'.html', $this->renderPartial('//layouts/foot',false,true));
+		}
+		Yii::app()->language=$user_lang;
 	}
 
 	/**

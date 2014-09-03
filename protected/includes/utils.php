@@ -110,5 +110,44 @@ function getMySqlParams()
 	return $result;
 }
 
+function createDirectory($path)
+{
+	if(!file_exists($path)){
+		$oldmask = umask(0);
+		mkdir($path, 0777, true);	// some servers have strange permision setups.
+		umask($oldmask);
+	}
+}
+
+function resizeLogo($fn){
+	$ext = pathinfo($fn, PATHINFO_EXTENSION);
+	if(!($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg'))		
+		return Null;
+	if(!extension_loaded('gd'))
+		return Null;
+
+	$gdInfo=gd_info();
+	if(!isset($gdInfo))
+		return Null;
+	if($ext == 'png' && !$gdInfo['PNG Support'])
+		return Null;
+	if(($ext == 'jpg' || $ext == 'jpeg') && !$gdInfo['JPEG Support'])
+		return Null;
+
+	list($width, $height) = getimagesize($fn);
+	$new_width = 75;
+	$new_height = 75;
+
+	$image_p = imagecreatetruecolor($new_width, $new_height);
+	if($ext == 'png')
+		$image = imagecreatefrompng($fn);
+	else
+		$image = imagecreatefromjpeg($fn);
+	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+	if($ext == 'png')
+		imagepng($image_p, $fn, 9);
+	else
+		imagejpeg($image_p, $fn, 100);
+}
 
 ?>

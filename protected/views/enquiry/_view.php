@@ -275,8 +275,8 @@ foreach($replys as $reply)
 
 <?php if (!Yii::app()->user->isGuest) : ?>
 	<div id="contact_petition" class="modal" style="width:700px;">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-		<div id="contact_petition_content" style="margin:-10px"></div>
+		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+		<div id="contact_petition_content"></div>
 	</div>
 <?php endif ?>
 

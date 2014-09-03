@@ -120,9 +120,6 @@ if($model->is_editor){
 		echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
 		echo CHtml::link(__('Site pages'), array('/cmsPage/admin'));
 	echo '</p></div>';
-	echo '<div style="margin-left:50px;float:left"><p>';
-		echo CHtml::link(__('Wallpaper'), array('/file/wallpaper'));
-	echo '</p></div>';
 	echo '</div>';
 }
 
@@ -146,18 +143,19 @@ if($model->is_admin){
 	}
 	echo '<div style="float:left"><p>';
 		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
+		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 		echo CHtml::link(__('Newsletters'),array('newsletter/admin')).'<br />';
 		echo CHtml::link(__('Zip file'),array('file/databaseDownload')).'<br />';
-		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
+		echo CHtml::link(__('Manual Backup'),array('backup/manualCreate')).'<br />';
+		echo CHtml::link(__('Auto Backup'),array('vault/admin')).'<br />';
 	echo '</p></div>';
 	echo '<div style="float:right"><p>';
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
+		echo CHtml::link(__('Wallpaper'), array('/file/wallpaper')).'<br />';
+		echo CHtml::link(__('Observatory\'s logo'), array('/file/logo')).'<br />';
 		echo CHtml::link(__('Site configuration'),array('/config')).'<br />';
-		echo CHtml::link(__('Manual Backup'),array('backup/manualCreate')).'<br />';
-		echo CHtml::link(__('Auto Backup'),array('vault/admin')).'<br />';
- 
-	echo '</p></div>';
+ 	echo '</p></div>';
 	echo '</div>';
 	echo '</div>';
 }

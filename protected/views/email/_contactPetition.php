@@ -23,7 +23,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form" style="padding:10px">
+<div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'email-form',
 	//'enableAjaxValidation'=>true,
@@ -31,7 +31,7 @@
 	//'action'=>Yii::app()->baseUrl.'/email/create',
 )); ?>
 
-	<div class="title" style="padding-bottom:10px"><?php echo __('Petition to make contact via email')?></div>
+	<div class="modalTitle"><?php echo __('Petition to make contact via email')?></div>
 
 	<?php
 		echo $form->hiddenField($model,'enquiry');
@@ -49,14 +49,12 @@
 						__('would like to contact you privately via email').'.<br />'.
 						__('However, we do not share users\' email addresses').'.</p><p>'.
 						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p><p>'.
-						__('If you think this user is spamming you, you can block future petitions at this link').'<br />'.
+						__('If you think this user is spamming you, you can block future petitions at this link').': '.
 						$block.'</p>'.
 						'<p>'.__('Kind regards').',<br />'.Config::model()->getObservatoryName().'</p>';
 
 		echo '<div style="	background-color:white;
-							margin:-10px;
-							margin-top:-15px;
-							margin-bottom:0px;
+							margin:0px -10px 0px -10px;
 							padding:5px">'.$model->title.'</div>';		
 		echo $form->hiddenField($model,'title');
 

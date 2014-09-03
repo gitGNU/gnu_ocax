@@ -91,7 +91,6 @@ function updateBool(el){
 <?php
 $this->menu=array(
 	array('label'=>__('Observatory'), 'url'=>array('observatory')),
-	array('label'=>__('Administration'), 'url'=>array('administration')),	
 	array('label'=>__('Email'), 'url'=>array('email')),
 	array('label'=>__('Locale'), 'url'=>array('locale')),
 	array('label'=>__('Social network'), 'url'=>array('social')),

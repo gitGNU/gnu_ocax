@@ -79,7 +79,34 @@
 	</div>
 </div>
 
+<div class="parameterGroup">
+	<div class="param">
+		<?php $param = Config::model()->findByPk('administrationName'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('administrationLatitude'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('administrationLongitude'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<p>
+<a href="http://gll.petschge.de/"><?php echo __('Find coordinates here');?></a>
+</p>
+</div>
+
 <div style="clear:both"></div>
 <p>
-<?php echo __('After saving').' ';?><a href="/config/observatory"><?php echo __('refresh the page');?></a><?php echo ' '.__('to see the results');?>
+	<?php echo __('After saving').' ';?><a href="/config/observatory"><?php echo __('refresh the page');?></a><?php echo ' '.__('to see the results');?>
 </p>

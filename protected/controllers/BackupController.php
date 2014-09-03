@@ -65,9 +65,7 @@ class BackupController extends Controller
 		$backupDir = Yii::app()->basePath.'/runtime/manualbackup/';
 
 		if(!is_dir($backupDir)){
-			$oldmask = umask(0);
-			mkdir($backupDir, 0755, true);
-			umask($oldmask);
+			createDirectory($backupDir);
 		}else{
 			if($glob = glob($backupDir.$model->filenamePrefix.'*')){
 				foreach($glob as $f){
