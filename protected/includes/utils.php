@@ -1,8 +1,8 @@
 <?php
 
 /**
-OCAX -- Citizen driven Municipal Observatory software
-Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+OCAX -- Citizen driven Observatory software
+Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -117,6 +117,38 @@ function createDirectory($path)
 		mkdir($path, 0777, true);	// some servers have strange permision setups.
 		umask($oldmask);
 	}
+}
+
+// fix this. make a class http://pmav.eu/stuff/php-disk-status/source.html
+function getDiskUsageStatistics($dir = Null)
+{
+	if(!$dir)
+		$dir = Yii::app()->basePath;
+
+	$total = @disk_total_space ($dir);
+	$free = @disk_free_space($dir);
+	$used = $total - $free;
+	$percent = round($used/$total * 100, 0);
+
+	return array(	'total'=>bytesForHumans($total),
+					'free'=>bytesForHumans($free),
+					'used'=>bytesForHumans($used),
+					'percent_used'=>$percent);
+}
+
+function bytesForHumans($bytes, $precision = 2)
+{
+	$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
+
+	$bytes = max($bytes, 0); 
+	$pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
+	$pow = min($pow, count($units) - 1); 
+
+	// Uncomment one of the following alternatives
+	//$bytes /= pow(1024, $pow);
+	$bytes /= (1 << (10 * $pow)); 
+
+	return round($bytes, $precision) . ' ' . $units[$pow]; 
 }
 
 function resizeLogo($fn){

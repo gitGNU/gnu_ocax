@@ -292,31 +292,6 @@ class Vault extends CActiveRecord
 		
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	 /*
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('host',$this->host,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('schedule',$this->schedule);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('state',$this->state);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-	*/
-
 	public function getStreamContext($timeout = 1)
 	{
 		$opts = array('http' => array(
