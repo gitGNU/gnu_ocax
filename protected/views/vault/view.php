@@ -81,7 +81,6 @@ function updateCapacity(){
 }
 </script>
 
-
 <?php
 if($model->type == LOCAL){
 	echo '<h1>'.__('Local vault').'</h1>';
@@ -147,9 +146,8 @@ if($model->state >= READY){
 		array(
 	        'label'=>__('Schedule'),
 			'type' => 'raw',
-			'value'=> ($model->state == READY)? $model->getHumanSchedule() : __('Pending'),
+			'value'=> ($model->state >= READY)? $model->getHumanSchedule() : __('Pending'),
 		),
-
 	),
 )); ?>
 </div>
@@ -182,8 +180,7 @@ if($model->state >= READY){
 					'value'=>'$data->getHumanState()',
 				),
 				array('class'=>'PHiddenColumn','value'=>'$data->id'),
-			),
-			
+			),	
 		));
 	}
 	if($model->type == REMOTE){
@@ -207,8 +204,7 @@ if($model->state >= READY){
 					'type' => 'raw',
 					'value'=>'$data->getHumanState()',
 				),
-			),
-			
+			),	
 		));
 	}
 }

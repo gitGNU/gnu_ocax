@@ -37,8 +37,8 @@
  * @property VaultSchedule[] $vaultSchedules
  */
 
-//FILTER_SANITIZE_URL
-//CUrlValidator
+//Look into FILTER_SANITIZE_URL and CUrlValidator
+
 class Vault extends CActiveRecord
 {
 	public $vaultDir;
@@ -77,17 +77,15 @@ class Vault extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('host, type, schedule, created, state', 'required'),
+			array('host, type, schedule, created, state, capacity', 'required'),
 			//array('host', 'url'),
-			array('type, state, count, capacity', 'numerical', 'integerOnly'=>true),
+			array('type, state, count', 'numerical', 'integerOnly'=>true),
+			array('capacity', 'numerical', 'integerOnly'=>true, 'min'=>1),
 			array('host', 'length', 'max'=>255),
 			array('key', 'length', 'max'=>32),
 			array('schedule', 'length', 'is'=>7),
 			array('key', 'validateKey', 'on'=>'newKey'),
 			array('schedule', 'validateSchedule'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, host, type, schedule, created, state', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -253,8 +251,6 @@ class Vault extends CActiveRecord
 
 	public function getHumanSchedule()
 	{
-		//return $this->schedule;
-
 		$result='';
 		$day=0;
 		while($day < 7){
@@ -300,6 +296,7 @@ class Vault extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	 /*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -318,6 +315,7 @@ class Vault extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	*/
 
 	public function getStreamContext($timeout = 1)
 	{

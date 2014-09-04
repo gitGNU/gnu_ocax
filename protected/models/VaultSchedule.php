@@ -37,7 +37,7 @@ class VaultSchedule extends CActiveRecord
 	 * $backupWindow = 3
 	 * We will run VaultSchedule between 18:00 and 21:00hrs
 	 * 
-	 * Warning! $backupHour+$backupWindow cannot be equal or greater than 24
+	 * Warning! $backupHour+$backupWindow cannot be equal to or greater than 24
 	 * 
 	 */
 	public $backupHour = 1;	// 24hr When to start backup proceedure
@@ -71,9 +71,6 @@ class VaultSchedule extends CActiveRecord
 		return array(
 			array('vault, day', 'required'),
 			array('vault, day', 'numerical', 'integerOnly'=>true),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			//array('id, vault, day', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,22 +104,23 @@ class VaultSchedule extends CActiveRecord
 	public function runVaultSchedule()
 	{
 		$hour = date('G');
-
 		if($hour < $this->backupHour || $hour > $this->backupHour+$this->backupWindow )
 			return;
 		if(!Config::model()->findByPk('siteAutoBackup')->value)
 			return;
 		
-		//file_put_contents('/tmp/nada.txt',date('N')-1);	
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
-			
+			if(count(Backup::model()->findByAttributes(array('vault'=>$schedule->vault0->id))) > $schedule->vault0->capacity)
+				// we are over the vault capacity limit. Dont initiate a copy.
+				return;
+				
 			if($schedule->vault0->state == READY){
 				// only backup each vault once per day
 				if(Backup::model()->findByDay(date('Y-m-d'), $schedule->vault0->id ))
 					return;
 
 				$vaultName = $schedule->vault0->host2VaultName(Yii::app()->getBaseUrl(true), 0);
-				@file_get_contents($schedule->vault0->host.'/vault/remoteWaitingToStartCopyingBackup'.
+				@file_get_contents($schedule->vault0->host.'/vault/localWaitingToStartCopyingBackup'.
 														'?key='.$schedule->vault0->key.
 														'&vault='.$vaultName,
 														false,
@@ -132,26 +130,4 @@ class VaultSchedule extends CActiveRecord
 		}
 		return;
 	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	/*
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('vault',$this->vault);
-		$criteria->compare('day',$this->day);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-	*/
 }

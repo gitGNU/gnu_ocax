@@ -133,7 +133,7 @@ class ConfigController extends Controller
 				$model->setScenario('email');
 
 			elseif($model->parameter == 'year' || $model->parameter == 'vaultDefaultCapacity')
-				$model->setScenario('number');
+				$model->setScenario('positiveNumber');
 				
 			elseif($model->required)
 				$model->setScenario('cannotBeEmpty');

@@ -18,51 +18,53 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**
 
 #### The vault creation proceedure ####
 
-Andy = I will save Dave's copies on my server
-Dave = Andy will save my copies on his server
+Andy = I will save Dave's copies on my server. I am LOCAL-Andy.
+Dave = Andy will save my copies on his server. I am REMOTE-Dave.
 
-0.	Andy = I create a local vault because I will save Dave's copies on my server
-	vault->create() Andy defines available schedule
+0.	LOCAL-Andy = I create a LOCAL vault because I will save REMOTE-Dave's copies on my server
+	vault->create() LOCAL-Andy defines available schedule.
 	vault->beforeSave() generates key for local vault.
 	
-0.	Dave = I create a remote vault becuase I want to save my copies on Andy's server
+0.	REMOTE-Dave = I create a REMOTE vault becuase I will save my copies on LOCAL-Andy's server
 
-1.	Andy -> Dave. Hey Dave, here is the vault key.
-	Andy tells Dave the key. This step is not done via OCAx. It is via email or telf.
+1.	concept:	LOCAL-Andy says to REMOTE-Dave. "Hey Dave, here is the vault key."
+				!! This step is not done via OCAx software. This is human communication VIA EMAIL OR TELF. !!
+	human:		Andy tells Dave the key.
 	
-2.	Dave. configureKey
-	Dave calls Andy's vault/verifyKey
+2.	concept:	REMOTE-Dave submits the key
+	function:	REMOTE-Dave actionConfigureKey();
+	function:	REMOTE-Dave calls LOCAL-Andy's vault/verifyKey
 
 	// Key exchange completed //
 
-3.	Dave selectes backup schedule
-	Dave calls Andy's vault/getSchedule
-	Dave calls Andy's vault/setSchedule
+3.	concept:	REMOTE-Dave chooses a subset of avaibable days to make copies
+	function:	REMOTE-Dave calls LOCAL-Andy's vault/getSchedule
+	function:	REMOTE-Dave selectes backup schedule. actionConfigureSchedule()
+	function:	REMOTE-Dave calls LOCAL-Andy's vault/setSchedule
 
 
 #### The backup transfer proceedure #####
 
-Andy = I will save Dave's copies on my server
-Dave = Andy will save my copies on his server
+LOCAL-Andy = I will save REMOTE-Dave's copies on my server
+REMOTE-Dave = LOCAL-Andy will save my copies on his server
 
-0.	Andy runVaultSchedule();
+0.	function:	LOCAL-Andy's server runs VaultSchedule::model()->runVaultSchedule();	// sort of a cronjob
 
-1.	Andy -> Dave Have you got your dump ready?
-	Andy calls Dave's vault/remoteWaitingToStartCopyingBackup
+1.	concept:	LOCAL-Andy asks REMOTE-Dave "Hey, Dave, have you got your dump ready?"
+	function:	LOCAL-Andy's server calls REMOTE-Dave's vault/localWaitingToStartCopyingBackup
 	
-2.	Dave -> Andy Yes. start copying.
-	Dave calls Andy's vault/startCopyingBackup
+2.	concept:	REMOTE-Dave replies to LOCAL-Andy "Yes. start copying."
+	function:	REMOTE-Dave's server calls LOCAL-Andy's vault/startCopyingBackup
 	
-3.	Andy -> Dave Ok. Give me the file
-	Andy calls Dave's vault/startTransfer
+3.	concept:	LOCAL-Andy says to REMOTE-Dave "Ok. Give me the file"
+	function:	LOCAL-Andy's server calls REMOTE-Dave's vault/startTransfer
 
-4.	Andy -> Dave Ok. We've finished copying.
-	Andy calls Dave's vault/transferComplete
+4.	concept:	LOCAL-Andy informs REMOTE-Dave "Ok. We've finished copying."
+	function:	LOCAL-Andy's server calls REMOTE-Dave's vault/transferComplete
 
  */
 
@@ -96,7 +98,7 @@ class VaultController extends Controller
 		return array(
 			array('allow',  // allow automated backups
 				'actions'=>array(	'verifyKey', 'getSchedule', 'setSchedule',
-									'remoteWaitingToStartCopyingBackup',
+									'localWaitingToStartCopyingBackup',
 									'startCopyingBackup',
 									'startTransfer',
 									'transferComplete',
@@ -125,19 +127,9 @@ class VaultController extends Controller
 	 */
 	public function actionView($id)
 	{
-		//if(!Yii::app()->request->isAjaxRequest)
-		//	Yii::app()->end();
-
 		$model=$this->loadModel($id);
-		if($model){
-			$backups = Backup::model()->getDataproviderByVault($model->id);
-			if(Yii::app()->request->isAjaxRequest)
-				echo $this->renderPartial('view',array('model'=>$model,'backups'=>$backups),true,true);
-			else
-				$this->render('view',array('model'=>$model,'backups'=>$backups));
-		}
-		else
-			echo 0;
+		$backups = Backup::model()->getDataproviderByVault($model->id);
+		$this->render('view',array('model'=>$model,'backups'=>$backups));
 	}
 
 	/**
@@ -163,10 +155,7 @@ class VaultController extends Controller
 		}
 	}
 
-// ####
 // #### The vault creation proceedure ####
-// ####
-
 
 	/**
 	 * Creates a new model.
@@ -176,13 +165,9 @@ class VaultController extends Controller
 	{
 		$model=new Vault;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		$model->schedule='0000000';
+		$model->schedule='0000000';	// seven 0's = seven days in a week. starts on monday.
 		if(isset($_POST['Vault']))
 		{
-			//file_put_contents('/tmp/sch.txt', '---'.$model->schedule.'---');
 			$model->attributes=$_POST['Vault'];
 			$model->host = rtrim($model->host, '/');
 			$model->created = date('c');
@@ -195,16 +180,14 @@ class VaultController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
-
 		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
 
 	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
+	 * REMOTE-Dave submits the key (LOCAL-Andy told him the key on the phone)
+	 * Executed on REMOTE-Dave's server
 	 */
 	public function actionConfigureKey($id)
 	{
@@ -219,15 +202,17 @@ class VaultController extends Controller
 					if($model->type == REMOTE && $model->state < VERIFIED){
 						$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true),0);
 						$reply=Null;
+						// REMOTE-Dave calls LOCAL-Andy's vault/verifyKey
 						$reply = @file_get_contents($model->host.'/vault/verifyKey'.
 																	'?key='.$model->key.
 																	'&vault='.$vaultName,
 																	false,
 																	$model->getStreamContext(3)
 													);
-						if($reply == 1){
+						if(is_numeric($reply) && $reply > 0){	// positive reply = key is ok. $reply is LOCAL-Andy's vault capacity
 							$model->state = VERIFIED;
 							$model->saveKey();
+							$model->capacity = $reply;
 							$model->save();
 							Yii::app()->user->setFlash('success', $model->host.' '.__('verifies the key ok'));
 							$this->redirect(array('view','id'=>$model->id));
@@ -245,32 +230,41 @@ class VaultController extends Controller
 	}
 
 	/**
-	 * Part of the vault handshake
-	 * Remote ocax instalation calls this
+	 * REMOTE-Dave sends a key to LOCAL-Andy to be verified
+	 * Executed on LOCAL-Andy's server
 	 */
 	public function actionVerifyKey()
 	{
-		if(isset($_GET['key']) && isset($_GET['vault'])){
-			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
-			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-				if($model->key && $model->key == $_GET['key']){
-					if($model->state == CREATED){
-						$model->state = VERIFIED;
-						$model->save();
-					}
-					echo 1;
-					Yii::app()->end();
-				}		
+		if($model = Vault::model()->findByIncomingCreds(LOCAL)){
+			if($model->state == CREATED){
+				$model->state = VERIFIED;
+				$model->save();
 			}
-		}
-		echo 0;
+			// Yes. the key is ok. LOCAL-Andy sends REMOTE-Dave the vault capacity as an answer.
+			echo Config::model()->findByPk('vaultDefaultCapacity')->value;
+		}else		
+			echo 0;
 	}
 
+	/**
+	 * REMOTE-Dave asks for available days
+	 * Executed on LOCAL-Andy's server
+	 */
+	public function actionGetSchedule()
+	{
+		if($model = Vault::model()->findByIncomingCreds(LOCAL))
+			echo $model->schedule;
+		else
+			echo 0;
+	}
+
+	/**
+	 * REMOTE-Dave submits his choice of days (a subset of available days)
+	 * Executed on REMOTE-Dave's server
+	 */
 	public function actionConfigureSchedule($id)
 	{
 		$model=$this->loadModel($id);
-		// Uncomment the following line if AJAX validation is needed
-		//$this->performAjaxValidation($model);
 
 		if(isset($_POST['Vault']))
 		{
@@ -292,37 +286,16 @@ class VaultController extends Controller
 				}
 			}
 		}
-		$this->render('view',array(
-			'model'=>$model,
-		));
+		$this->render('view',array('model'=>$model));
 	}
 	
 	/**
-	 * Part of the vault handshake
-	 * Remote ocax instalation calls this
-	 */
-	public function actionGetSchedule()
-	{
-		if(isset($_GET['key']) && isset($_GET['vault'])){
-			$vaultName = $_GET['vault'].'-local';	// check the key of local vault
-			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
-				if($model->key && $model->key == $_GET['key']){
-					echo $model->schedule;
-					Yii::app()->end();
-				}		
-			}
-		}
-		echo 0;
-		Yii::app()->end();
-	}
-
-	/**
-	 * Part of the vault handshake
-	 * Remote ocax instalation calls this
+	 * REMOTE-Dave sends his choice of days (a subset of available days) to LOCAL-Andy
+	 * Executed on LOCAL-Andy's server
 	 */
 	public function actionSetSchedule()
 	{
-		if($model = Vault::model()->findByIncomingCreds()){
+		if($model = Vault::model()->findByIncomingCreds(LOCAL)){
 			if($model->state >= READY){
 				echo 0;
 				Yii::app()->end();
@@ -338,14 +311,14 @@ class VaultController extends Controller
 		Yii::app()->end();
 	}
 
-// ####
 // #### The backup transfer proceedure #####
-// ####
 
-	// Andy tells Dave to get the copy ready
-	public function actionRemoteWaitingToStartCopyingBackup()
+	/*
+	 * LOCAL-Andy tells REMOTE-Dave to get the copy ready
+	 * Executed on REMOTE-Dave's server
+	 */
+	public function actionLocalWaitingToStartCopyingBackup()
 	{
-
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
 			if($model->state == READY){
 				// Don't start another backup if we've already created one today.
@@ -356,9 +329,9 @@ class VaultController extends Controller
 				$backup = new Backup;
 				$backup->vault = $model->id;
 				$backup->created = date('c');
-				//save it now because buildBackupFile() can take time and we don't want do to run it twice.
+				// save it now because buildBackupFile() can take time and we don't want do to run it twice.
 				$backup->save();
-					
+				
 				if($backup->buildBackupFile()){
 					$backup->filesize = filesize($model->getVaultDir().$backup->filename);	
 					$backup->save();	
@@ -370,11 +343,11 @@ class VaultController extends Controller
 				echo 0;
 				Yii::app()->end();
 			}
-			// LOADED	We've got the backup file ready for copying.
-			// BUSY		Maybe remote host didn't recieve /vault/StartCopyingBackup. Let's send it again.
+			// LOADED	We've got the backup file ready for copying. Tell LOCAL-Andy.
+			// BUSY		Maybe LOCAL-Andy didn't recieve vault/StartCopyingBackup. Let's send it again.
 			if($model->state == LOADED || $model->state == BUSY){
 				if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id )){
-					// Dave has the copy ready and tells Andy to start the transfer
+					// REMOTE-Dave has the copy ready and tells LOCAL-Andy to start the transfer
 					$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
 					@file_get_contents($model->host.'/vault/startCopyingBackup'.
 													'?key='.$model->key.
@@ -392,11 +365,11 @@ class VaultController extends Controller
 
 	/*
 	 * Main copying procedure.
-	 * Andy's server runs this
+	 * Executed on LOCAL-Andy's server
 	 */
 	public function actionStartCopyingBackup()
 	{
-		if($model = Vault::model()->findByIncomingCreds()){
+		if($model = Vault::model()->findByIncomingCreds(LOCAL)){
 			if(Backup::model()->findByDay(date('Y-m-d'), $model->id )){
 				echo 0;
 				Yii::app()->end();
@@ -457,7 +430,7 @@ class VaultController extends Controller
 			}
 		}
 	}
-
+	// Executed on REMOTE-Dave's server
 	public function actionStartTransfer()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
@@ -478,7 +451,7 @@ class VaultController extends Controller
 		echo 0;
 		Yii::app()->end();
 	}
-
+	// Executed on REMOTE-Dave's server
 	public function actionTransferComplete()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
@@ -511,10 +484,13 @@ class VaultController extends Controller
 	}
 
 // #####
-// Other admin actions
+// ##### Other admin actions #####
 // #####
 
-	# Andy initiates this
+	/*
+	 * LOCAL-Andy changes this vaults capacity. Andy is storing the backups, so Andy decides.
+	 * Executed on LOCAL-Andy's server
+	 */
 	public function actionUpdateCapacity($id)
 	{
 		$model= $this->loadModel($id);
@@ -525,6 +501,7 @@ class VaultController extends Controller
 			if($model->save()){
 				$confirmation = Null;
 				$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+				// Tell REMOTE-Dave that the vault capacity has changed
 				$confirmation = @file_get_contents($model->host.'/vault/changeCapacity'.
 										'?key='.$model->key.
 										'&vault='.$vaultName.
@@ -544,7 +521,10 @@ class VaultController extends Controller
 		}
 		echo $this->renderPartial('_capacity',array('model'=>$model),true,true);
 	}
-	// Dave's server replies
+	/*
+	 * LOCAL-Andy tells REMOTE-Dave the vault capacity has changed
+	 * Executed on REMOTE-Dave's server
+	 */
 	public function actionChangeCapacity()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
@@ -559,8 +539,7 @@ class VaultController extends Controller
 		echo 0;
 	}
 
-	# Andy initiates this
-	
+	# LOCAL-Andy initiates this
 	
 	public function actionDeleteBackup()
 	{

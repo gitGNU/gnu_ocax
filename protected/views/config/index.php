@@ -44,6 +44,8 @@
 .param > .error {
 	color: red;
 }
+#preload-01 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/tick.png); display:none; }
+#preload-02 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif); display:none; }
 </style>
 <script>
 function submitChange(el, id){
