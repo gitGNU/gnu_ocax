@@ -22,9 +22,11 @@ chown -R www-data protected/runtime/
 
 /* ---------- start copying ---------- */
 
-INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Activate automated site backup');
-INSERT INTO config(parameter, value, required, description) VALUES ('safeHTMLeditor', '1', '1', "Safe HTML editor");
+INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
+INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorSafe', '1', '1', "Safe HTML editor");
+INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor"); 
 INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets");
+INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
 
 UPDATE config SET description='Name of the Administration' WHERE parameter='administrationName';
 UPDATE config SET description='Does your Observatory encourage membership?' WHERE parameter='membership';

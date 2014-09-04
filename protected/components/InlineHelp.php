@@ -1,7 +1,7 @@
 <?php
 
 /**
-OCAX -- Citizen driven Municipal Observatory software
+OCAX -- Citizen driven Observatory software
 Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
@@ -44,9 +44,9 @@ function showHelp(url){
 		});
 }
 </script>
-<div id="help" class="modal" style="width:900px;scrolling:auto;padding:0px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="helpContent"></div>
+<div id="help" class="modalContextHelp" style="width:900px;scrolling:auto;padding:0px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="helpContent"></div>
 </div>
 <!-- help widget stop -->
 <?php

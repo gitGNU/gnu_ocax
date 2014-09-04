@@ -16,7 +16,7 @@
 		</div>
 	</div>
 
-	<div style="width: 250px; float:right; margin:10px -5px 10px 0;">
+	<div style="width: 260px; float:right; margin:10px -5px 10px 0;">
 		<div style="float: left;">
 			<?php $lang=Yii::app()->language; ?>
 			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a>

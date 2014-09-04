@@ -35,6 +35,20 @@
 	<?php echo $form->hiddenField($model,'state'); ?>
 	<div class="row">
 		<?php
+		$settings = array(	'convert_urls'=>true,
+							'relative_urls'=>false,
+							'remove_script_host'=>false,
+							'theme_advanced_resize_horizontal' => 0,
+							'theme_advanced_resize_vertical' => 0,
+							'theme_advanced_resizing_use_cookie' => false,
+							'width'=>'100%',
+							'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
+						);
+		if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+			$settings['useCompression']=true;
+		else
+			$settings['useCompression']=false;
+			
 		$this->widget('ext.tinymce.TinyMce', array(
 		    'model' => $model,
 		    'attribute' => 'body',
@@ -43,15 +57,7 @@
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-			'settings' => array('convert_urls'=>true,
-								'relative_urls'=>false,
-								'remove_script_host'=>false,
-								'theme_advanced_resize_horizontal' => 0,
-								'theme_advanced_resize_vertical' => 0,
-								'theme_advanced_resizing_use_cookie' => false,
-								'width'=>'100%',
-								'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
-							),
+			'settings' => $settings,
 		    'htmlOptions' => array(
 		        'rows' => 6,
 		        'cols' => 80,

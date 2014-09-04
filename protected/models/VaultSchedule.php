@@ -36,9 +36,12 @@ class VaultSchedule extends CActiveRecord
 	 * $backupHour = 18
 	 * $backupWindow = 3
 	 * We will run VaultSchedule between 18:00 and 21:00hrs
+	 * 
+	 * Warning! $backupHour+$backupWindow cannot be equal or greater than 24
+	 * 
 	 */
-	public $backupHour = 18;	// 24hr When to start backup proceedure
-	public $backupWindow = 3;	// period (in hours) to respond to backup proceedure.
+	public $backupHour = 1;	// 24hr When to start backup proceedure
+	public $backupWindow = 22;	// period (in hours) to respond to backup proceedure.
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -70,7 +73,7 @@ class VaultSchedule extends CActiveRecord
 			array('vault, day', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, vault, day', 'safe', 'on'=>'search'),
+			//array('id, vault, day', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -103,12 +106,18 @@ class VaultSchedule extends CActiveRecord
 	 */
 	public function runVaultSchedule()
 	{
-		if(date('G') < $this->backupHour || date('G') > $this->backupHour+$this->backupWindow )
+		$hour = date('G');
+
+		if($hour < $this->backupHour || $hour > $this->backupHour+$this->backupWindow )
 			return;
 		if(!Config::model()->findByPk('siteAutoBackup')->value)
 			return;
+		
+		//file_put_contents('/tmp/nada.txt',date('N')-1);	
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
+			
 			if($schedule->vault0->state == READY){
+				// only backup each vault once per day
 				if(Backup::model()->findByDay(date('Y-m-d'), $schedule->vault0->id ))
 					return;
 
@@ -128,6 +137,7 @@ class VaultSchedule extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -143,4 +153,5 @@ class VaultSchedule extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	*/
 }

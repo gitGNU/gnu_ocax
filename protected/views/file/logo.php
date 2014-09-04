@@ -80,7 +80,7 @@ function deleteLogo(id){
 <br />
 2. <a href="#" onclick="js:uploadFile()"><?php echo __('Upload the file');?></a>
 <br />
-3. <?php echo __('Repeat the steps 1 and 2').' ';?>
+3. <?php echo __('Refresh the page pressing F5');?>
 </p>
 <p>
 <?php

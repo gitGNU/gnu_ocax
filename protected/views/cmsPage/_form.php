@@ -94,7 +94,7 @@
 	<div class="row">
 		<?php
 			echo $form->labelEx($content,'body');
-			if(!Config::model()->findByPk('safeHTMLeditor')->value){
+			if(!Config::model()->findByPk('HTMLeditorSafe')->value){
 				echo '<label>'.__('Warning! Safe HTML editing is off. Copy/paste can create problems').'.</label>';
 				$htmlButton = ",|,code";
 				$valid_elements = "*[*]";
@@ -108,6 +108,24 @@
 		?>
 	
 <?php
+$settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
+												justifyright,|,bullist,numlist,|,outdent,indent,|,
+												undo,redo,|,link,unlink,|,image".$htmlButton,
+					'convert_urls'=>true,
+					'relative_urls'=>false,
+					'remove_script_host'=>false,
+					'theme_advanced_resize_horizontal' => 0,
+					'theme_advanced_resize_vertical' => 0,
+					'theme_advanced_resizing_use_cookie' => false,
+					'width'=>'100%',
+					'valid_elements' => $valid_elements,
+					'valid_children' => $valid_children,
+		);
+if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+	$settings['useCompression']=true;
+else
+	$settings['useCompression']=false;
+
 $this->widget('ext.tinymce.TinyMce', array(
     'model' => $content,
     'attribute' => 'body',
@@ -116,20 +134,7 @@ $this->widget('ext.tinymce.TinyMce', array(
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-	'settings' => array(
-						'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
-													justifyright,|,bullist,numlist,|,outdent,indent,|,
-													undo,redo,|,link,unlink,|,image".$htmlButton,
-						'convert_urls'=>true,
-						'relative_urls'=>false,
-						'remove_script_host'=>false,
-						'theme_advanced_resize_horizontal' => 0,
-						'theme_advanced_resize_vertical' => 0,
-						'theme_advanced_resizing_use_cookie' => false,
-						'width'=>'100%',
-						'valid_elements' => $valid_elements,
-						'valid_children' => $valid_children,
-		),
+	'settings' => $settings,
 ));
 ?>
 		<?php echo $form->error($content,'body'); ?>

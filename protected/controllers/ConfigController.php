@@ -132,7 +132,7 @@ class ConfigController extends Controller
 			elseif($model->parameter == 'emailContactAddress' || $model->parameter == 'emailNoReply')
 				$model->setScenario('email');
 
-			elseif($model->parameter == 'year')
+			elseif($model->parameter == 'year' || $model->parameter == 'vaultDefaultCapacity')
 				$model->setScenario('number');
 				
 			elseif($model->required)

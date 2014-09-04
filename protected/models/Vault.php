@@ -47,11 +47,8 @@ class Vault extends CActiveRecord
 	public function init()
 	{
 		$this->vaultDir = Yii::app()->basePath.'/runtime/vaults/';
-		if(!is_dir($this->vaultDir)){
-			$oldmask = umask(0);
-			mkdir($this->vaultDir, 0755, true);
-			umask($oldmask);
-		}
+		if(!is_dir($this->vaultDir))
+			createDirectory($this->vaultDir);
 	}
 
 	/**
@@ -111,9 +108,7 @@ class Vault extends CActiveRecord
 		if($this->isNewRecord){
 			$this->name = $this->host2VaultName($this->host);
 			if(!is_dir($this->vaultDir.$this->name)){
-				$oldmask = umask(0);
-				mkdir($this->vaultDir.$this->name, 0755, true);
-				umask($oldmask);
+				createDirectory($this->vaultDir.$this->name);
 				if($this->type == LOCAL){
 					$length = 32;
 					$this->key = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
@@ -121,7 +116,7 @@ class Vault extends CActiveRecord
 				}
 			}
 		}
-		// a host asks LOCAL vault to start backups
+		// create vaultSchedules
 		if($this->state >= READY && $this->type == LOCAL){
 			if(!$this->vaultSchedules){
 				$day = 0;

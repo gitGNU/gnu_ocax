@@ -65,6 +65,15 @@ $this->inlineHelp=':profiles:team_member';
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
+		$settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
+														justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
+														undo,redo,|,link,unlink",
+					);
+		if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+			$settings['useCompression']=true;
+		else
+			$settings['useCompression']=false;
+			
 		$this->widget('ext.tinymce.TinyMce', array(
 		    'model' => $model,
 		    'attribute' => 'body',
@@ -73,11 +82,7 @@ $this->inlineHelp=':profiles:team_member';
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-			'settings' => array(
-				'theme_advanced_buttons1' => "	bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
-												justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
-												undo,redo,|,link,unlink",
-			),
+			'settings' => $settings,
 		    'htmlOptions' => array(
 		        'rows' => 6,
 		        'cols' => 80,

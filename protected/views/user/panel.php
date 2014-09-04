@@ -146,8 +146,11 @@ if($model->is_admin){
 		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 		echo CHtml::link(__('Newsletters'),array('newsletter/admin')).'<br />';
 		echo CHtml::link(__('Zip file'),array('file/databaseDownload')).'<br />';
-		echo CHtml::link(__('Manual Backup'),array('backup/manualCreate')).'<br />';
-		echo CHtml::link(__('Auto Backup'),array('vault/admin')).'<br />';
+		if(Config::model()->findByPk('siteAutoBackup')->value)
+			echo CHtml::link(__('Backups'),array('vault/admin')).'<br />';
+		else
+			echo CHtml::link(__('Manual Backup'),array('backup/manualCreate')).'<br />';
+		
 	echo '</p></div>';
 	echo '<div style="float:right"><p>';
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';

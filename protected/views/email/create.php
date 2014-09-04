@@ -113,18 +113,23 @@ function submitForm(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
+		$settings = array(	'convert_urls'=>true,
+							'relative_urls'=>false,
+							'remove_script_host'=>false
+						);
+		if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+			$settings['useCompression']=true;
+		else
+			$settings['useCompression']=false;
+			
 		$this->widget('ext.tinymce.TinyMce', array(
 		    'model' => $model,
 		    'attribute' => 'body',
-		    // Optional config
 		    'compressorRoute' => 'tinyMce/compressor',
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-			'settings' => array('convert_urls'=>true,
-								'relative_urls'=>false,
-								'remove_script_host'=>false
-								),
+			'settings' => $settings,
 		    'htmlOptions' => array(
 		        'rows' => 6,
 		        'cols' => 80,

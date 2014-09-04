@@ -585,8 +585,6 @@ span.ocaxButtonCount {
 	margin: -10px -10px 0 -10px;
 	border-bottom: 1px solid #cdcbc9;
 }
-
-
 .bClose{ /* close popup window icon */
 	cursor: pointer;
 	position: absolute;
@@ -605,12 +603,20 @@ span.ocaxButtonCount {
 	opacity: 1 !important;
 }
 
-.bCloseWikiHelp{
+.modalContextHelp
+{
+	display:none;
+	background-color: rgb(245,241,237);
+	padding:10px;
+	margin-left:-20px;
+	margin-top:30px; /* did this for new bPopup version 0.9.4 */
+}
+.modalContextHelp > .bClose{ /* close popup window icon */
 	cursor: pointer;
 	position: absolute;
-	right: -5px;
-	top: -5px;
-}
+	right: -21px;
+	top: -21px;
+	}
 
 
 /*Cookie alert */
@@ -695,4 +701,4 @@ div.reply > .title{
 }
 
 .link { cursor:pointer; text-decoration:underline; font-size:16px; }
-.clear{clear:both;}
+

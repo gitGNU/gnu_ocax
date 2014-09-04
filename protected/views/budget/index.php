@@ -185,12 +185,12 @@ function afterSearch(){
 
 	<div class="row">
 		<?php echo $form->label($model,'concept'); ?> 
-		<?php echo $form->textField($model,'concept',array('size'=>13,'maxlength'=>200)); ?>
+		<?php echo $form->textField($model,'concept',array('maxlength'=>200,'style'=>'width:160px;')); ?>
 		<span style="margin-left:13px;">
 		<?php echo $form->label($model,'code'); ?> 
-		<?php echo $form->textField($model,'code',array('size'=>5,'maxlength'=>15)); ?>
+		<?php echo $form->textField($model,'code',array('maxlength'=>15,'style'=>'width:50px;')); ?>
 		</span>
-		<span style="margin-left:15px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
+		<span style="margin-left:10px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
 		<img id="search_loader_gif" style="vertical-align:middle;display:none" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />
 	</div>
 

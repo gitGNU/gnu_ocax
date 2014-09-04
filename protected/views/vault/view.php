@@ -57,6 +57,28 @@ function showSchedule(){
 		}
 	});
 }
+function updateCapacity(){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/updateCapacity/<?php echo $model->id;?>',
+		type: 'GET',
+		beforeSend: function(){ /* */ },
+		success: function(html){
+			if(html != 0){
+				$("#capacity_popup_body").html(html);
+				$('#capacity_popup').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+					, speed: 10
+                });
+			}
+		},
+		error: function() {
+			alert("Error on update capacity");
+		}
+	});
+}
 </script>
 
 
@@ -101,7 +123,12 @@ if($model->type == REMOTE && $model->state == VERIFIED){
 }
 if($model->state >= READY){
 	echo '<p>'.__('Total copies made').': '.$model->count.'<br />';
-	echo __('Capacity').': '.$model->capacity.' '.__('copies').'</p>';
+	echo __('Capacity').': ';
+	if($model->type == LOCAL)
+		echo '<span class="link" onClick="js:updateCapacity();">'.$model->capacity.' '.__('copies').'</span>';
+	else
+		echo $model->capacity.' '.__('copies');
+	echo '</p>';
 }
 
 ?>
@@ -117,7 +144,6 @@ if($model->state >= READY){
 			'type' => 'raw',
 			'value'=> $model->getHumanStates($model->state),
 		),
-		//'schedule',
 		array(
 	        'label'=>__('Schedule'),
 			'type' => 'raw',
@@ -192,3 +218,38 @@ if($model->state >= READY){
 	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
 	<div id="schedule_body"></div>
 </div>
+
+<div id="capacity_popup" class="modal" style="width:500px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<div id="capacity_popup_body"></div>
+</div>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-success').slideUp('fast');
+    	}, 3000);
+		});
+	</script>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('notice')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-notice').slideUp('fast');
+    	}, 5000);
+		});
+	</script>
+    <div class="flash-notice">
+		<?php echo Yii::app()->user->getFlash('notice');?>
+    </div>
+<?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
+    </div>
+<?php endif; ?>

@@ -100,6 +100,7 @@ class VaultController extends Controller
 									'startCopyingBackup',
 									'startTransfer',
 									'transferComplete',
+									'changeCapacity',
 									'deleteBackup',
 								),
 				'expression'=>"Config::model()->findByPk('siteAutoBackup')->value",
@@ -108,6 +109,7 @@ class VaultController extends Controller
 				'actions'=>array(	'view', 'viewSchedule', 'admin',
 									'create',
 									'configureKey', 'configureSchedule',
+									'updateCapacity',
 									'delete'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -185,7 +187,7 @@ class VaultController extends Controller
 			$model->host = rtrim($model->host, '/');
 			$model->created = date('c');
 			$model->count = 0;
-			$model->capacity = 2;
+			$model->capacity = Config::model()->findByPk('vaultDefaultCapacity')->value;
 			$model->state=CREATED;
 			if($model->type == REMOTE)
 				$model->schedule='0000000';
@@ -227,8 +229,10 @@ class VaultController extends Controller
 							$model->state = VERIFIED;
 							$model->saveKey();
 							$model->save();
+							Yii::app()->user->setFlash('success', $model->host.' '.__('verifies the key ok'));
 							$this->redirect(array('view','id'=>$model->id));
-						}
+						}else
+							Yii::app()->user->setFlash('error', $model->host.' '.__('rejects the key'));
 					}
 				}
 			}
@@ -260,7 +264,6 @@ class VaultController extends Controller
 			}
 		}
 		echo 0;
-		Yii::app()->end();
 	}
 
 	public function actionConfigureSchedule($id)
@@ -339,7 +342,7 @@ class VaultController extends Controller
 // #### The backup transfer proceedure #####
 // ####
 
-	
+	// Andy tells Dave to get the copy ready
 	public function actionRemoteWaitingToStartCopyingBackup()
 	{
 
@@ -371,6 +374,7 @@ class VaultController extends Controller
 			// BUSY		Maybe remote host didn't recieve /vault/StartCopyingBackup. Let's send it again.
 			if($model->state == LOADED || $model->state == BUSY){
 				if($backup = Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+					// Dave has the copy ready and tells Andy to start the transfer
 					$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
 					@file_get_contents($model->host.'/vault/startCopyingBackup'.
 													'?key='.$model->key.
@@ -386,6 +390,10 @@ class VaultController extends Controller
 		}
 	}
 
+	/*
+	 * Main copying procedure.
+	 * Andy's server runs this
+	 */
 	public function actionStartCopyingBackup()
 	{
 		if($model = Vault::model()->findByIncomingCreds()){
@@ -499,9 +507,61 @@ class VaultController extends Controller
 			}
 		}
 		echo 0;
-		Yii::app()->end();	
+		Yii::app()->end();
 	}
 
+// #####
+// Other admin actions
+// #####
+
+	# Andy initiates this
+	public function actionUpdateCapacity($id)
+	{
+		$model= $this->loadModel($id);
+		if(isset($_POST['Vault']))
+		{
+			$oldCapacity=$model->capacity;
+			$model->attributes=$_POST['Vault'];
+			if($model->save()){
+				$confirmation = Null;
+				$vaultName = $model->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+				$confirmation = @file_get_contents($model->host.'/vault/changeCapacity'.
+										'?key='.$model->key.
+										'&vault='.$vaultName.
+										'&capacity='.$model->capacity,
+										false,
+										$model->getStreamContext(3)
+							);
+				if($confirmation == 1)		
+					Yii::app()->user->setFlash('success', $model->host.' '.__('notified. Updated correctly'));
+				else{
+					$model->capacity=$oldCapacity;
+					$model->save();
+					Yii::app()->user->setFlash('notice', $model->host.' '.__('does not reply'));
+				}
+			}
+			$this->redirect(array('view','id'=>$model->id));
+		}
+		echo $this->renderPartial('_capacity',array('model'=>$model),true,true);
+	}
+	// Dave's server replies
+	public function actionChangeCapacity()
+	{
+		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
+			if(isset($_GET['capacity'])){
+				$model->capacity = $_GET['capacity'];
+				if($model->save()){
+					echo 1;
+					Yii::app()->end();
+				}
+			}
+		}
+		echo 0;
+	}
+
+	# Andy initiates this
+	
+	
 	public function actionDeleteBackup()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
