@@ -110,9 +110,9 @@ class VaultSchedule extends CActiveRecord
 			return;
 		
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
-			if(count(Backup::model()->findByAttributes(array('vault'=>$schedule->vault0->id))) > $schedule->vault0->capacity)
+			//if(count(Backup::model()->findByAttributes(array('vault'=>$schedule->vault0->id))) > $schedule->vault0->capacity)
 				// we are over the vault capacity limit. Dont initiate a copy.
-				return;
+			//	return;
 				
 			if($schedule->vault0->state == READY){
 				// only backup each vault once per day

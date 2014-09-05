@@ -119,23 +119,6 @@ function createDirectory($path)
 	}
 }
 
-// fix this. make a class http://pmav.eu/stuff/php-disk-status/source.html
-function getDiskUsageStatistics($dir = Null)
-{
-	if(!$dir)
-		$dir = Yii::app()->basePath;
-
-	$total = @disk_total_space ($dir);
-	$free = @disk_free_space($dir);
-	$used = $total - $free;
-	$percent = round($used/$total * 100, 0);
-
-	return array(	'total'=>bytesForHumans($total),
-					'free'=>bytesForHumans($free),
-					'used'=>bytesForHumans($used),
-					'percent_used'=>$percent);
-}
-
 function bytesForHumans($bytes, $precision = 2)
 {
 	$units = array('B', 'KB', 'MB', 'GB', 'TB'); 

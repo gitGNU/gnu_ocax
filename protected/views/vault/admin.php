@@ -26,6 +26,23 @@ $this->menu=array(
 );
 ?>
 
+<?php
+Yii::import('application.includes.*');
+require_once('diskStatus.php');
+
+try {
+	$diskStatus = new DiskStatus(Yii::app()->basePath);
+ 
+	$freeSpace = $diskStatus->freeSpace();
+	$totalSpace = $diskStatus->totalSpace();
+}
+catch (Exception $e) {
+	//echo 'Error ('.$e->getMessage().')';
+	//exit();
+	$noDiskStatus = 1;
+}
+?>
+
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function showSchedule(){
@@ -61,7 +78,17 @@ function showSchedule(){
 </style>
 
 <h1><?php echo __('Manage').' '.__('Backups');?></h1>
-<br />
+
+<?php
+if(!isset($noDiskStatus)){
+	echo '<p style="margin: -15px 0 10px 0;">';
+	echo	__('Total disk space').': '.$totalSpace.',&nbsp;&nbsp;&nbsp;Free: '.
+			$freeSpace.' ('.round($freeSpace/$totalSpace * 100, 0).'%)';
+	echo '</p>';
+}
+?>
+
+
 
 <div id="vaults">
 <div class="left">

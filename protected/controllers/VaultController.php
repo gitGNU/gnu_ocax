@@ -411,6 +411,7 @@ class VaultController extends Controller
 						$backup->state = SUCCESS;
 						$model->count = $model->count+1;
 						$model->save();
+						/*
 						if(count($backup->findByAttributes(array('vault'=>$backup->vault))) > $model->capacity){
 							$oldestBackup = $model->getOldestBackup();
 							$confirmation=Null;
@@ -424,6 +425,7 @@ class VaultController extends Controller
 							if($confirmation == 1)
 								$oldestBackup->delete();
 						}
+						*/
 					}
 				}
 				$backup->save();

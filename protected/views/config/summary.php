@@ -20,6 +20,22 @@
 
 /* @var $this ConfigController */
 /* @var $model Config */
+
+Yii::import('application.includes.*');
+require_once('diskStatus.php');
+
+try {
+	$diskStatus = new DiskStatus(Yii::app()->basePath);
+ 
+	$freeSpace = $diskStatus->freeSpace();
+	$totalSpace = $diskStatus->totalSpace();
+	$usedSpace = $totalSpace - $freeSpace;
+}
+catch (Exception $e) {
+	//echo 'Error ('.$e->getMessage().')';
+	//exit();
+	$noDiskStatus = 1;
+}
 ?>
 
 <style>
@@ -44,17 +60,18 @@
 	echo '</p>';
 ?>
 </div>
-<div style="float:left">
+
 <?php
-	echo '<div class="sub_title">'.__('Disk usage (approx)').'</div>';
-	$stats = getDiskUsageStatistics();
-	echo '<p>';
-	echo __('Used').': '.$stats['used'].' ('.$stats['percent_used'].'%)<br />';
-	echo __('Total').': '.$stats['total'].'<br />';	
-	echo '</p>';
+	if(!isset($noDiskStatus)){
+		echo '<div style="float:left">';
+		echo '<div class="sub_title">'.__('Disk usage (approx)').'</div>';
+		echo '<p>';
+		echo __('Free').': '.$freeSpace.' ('.round($freeSpace/$totalSpace * 100, 0).'%)<br />';
+		echo __('Total').': '.$totalSpace.'<br />';	
+		echo '</p>';
+		echo '</div><div class="clear"></div>';
+	}
 ?>
-</div>
-<div class="clear"></div>
 
 <div style="float:left; width:400px;">
 <?php
@@ -68,16 +85,6 @@
 		$criteria->condition = 'year = '.$root_budget->year.' AND parent is not NULL';
 		echo $root_budget->year.': '.count($root_budget->findAll($criteria)).' '.__('budgets').'<br />';
 	}
-	echo '</p>';
-?>
-</div>
-<div style="float:left">
-<?php
-	echo '<div class="sub_title">'.__('Disk usage (approx)').'</div>';
-	$stats = getDiskUsageStatistics();
-	echo '<p>';
-	echo __('Used').': '.$stats['used'].' ('.$stats['percent_used'].'%)<br />';
-	echo __('Total').': '.$stats['total'].'<br />';	
 	echo '</p>';
 ?>
 </div>
