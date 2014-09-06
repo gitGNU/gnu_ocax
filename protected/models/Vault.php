@@ -283,13 +283,46 @@ class Vault extends CActiveRecord
 		}
 		return Null;
 	}
-	
+
+	public function isVaultFull()
+	{
+		$totalBackups = count(Backup::model()->findAllByAttributes(array('vault'=>$this->id)));
+		file_put_contents('/tmp/total',$totalBackups);
+		if($totalBackups > $this->capacity)
+			return 1;
+		else
+			return 0;
+	}
+
 	public function getOldestBackup()
 	{
 		$criteria=new CDbCriteria;
+		$criteria->addCondition('vault ='.$this->id);
+		$criteria->order = 'created ASC';
+		$backups = Backup::model()->findAll($criteria);
+		if($backups)
+			return $backups[0];
+		else
+			return Null;
+	}
 	
-		
-		
+	public function deleteOldestBackup()
+	{
+		if(!$this->isVaultFull() || $this->type == REMOTE)
+			return;
+		if($oldestBackup = $this->getOldestBackup()){
+			$confirmation=Null;
+			$vaultName = $this->host2VaultName(Yii::app()->getBaseUrl(true), 0);
+			$confirmation = @file_get_contents($this->host.'/vault/deleteBackup'.
+								'?key='.$this->key.
+								'&vault='.$vaultName.
+								'&filename='.$oldestBackup->filename,
+								false,
+								$this->getStreamContext(3)
+							);
+			if($confirmation == 1)
+				$oldestBackup->delete();
+		}
 	}
 
 	public function getStreamContext($timeout = 1)

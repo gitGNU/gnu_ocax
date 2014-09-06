@@ -411,21 +411,9 @@ class VaultController extends Controller
 						$backup->state = SUCCESS;
 						$model->count = $model->count+1;
 						$model->save();
-						/*
-						if(count($backup->findByAttributes(array('vault'=>$backup->vault))) > $model->capacity){
-							$oldestBackup = $model->getOldestBackup();
-							$confirmation=Null;
-							$confirmation = @file_get_contents($model->host.'/vault/deleteBackup'.
-											'?key='.$model->key.
-											'&vault='.$vaultName.
-											'&filename='.$oldestBackup->filename,
-											false,
-											$model->getStreamContext(3)
-								);
-							if($confirmation == 1)
-								$oldestBackup->delete();
-						}
-						*/
+
+						if($model->isVaultFull())
+							$model->deleteOldestBackup();	// calls REMOTE-Dave's server first. Then delete LOCAL copy.
 					}
 				}
 				$backup->save();
@@ -540,19 +528,25 @@ class VaultController extends Controller
 		}
 		echo 0;
 	}
-
-	# LOCAL-Andy initiates this
 	
+	/*
+	 * LOCAL-Andy tells REMOTE-Dave the vault capacity is full. LOCAL-Andy wants to delete a backup
+	 * Executed on REMOTE-Dave's server
+	 */
 	public function actionDeleteBackup()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
 			if(isset($_GET['filename'])){
 				$backup = Backup::model()->findByAttributes(array('vault'=>$model->id,'filename'=>$_GET['filename']));
-				if($backup)
-					$backup->delete();
+				if($backup){
+					if($backup->delete()){
+						echo 1;
+						Yii::app()->end();
+					}
+				}
 			}
 		}
-		echo 1;
+		echo 0;
 	}
 
 	/**

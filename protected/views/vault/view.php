@@ -35,6 +35,9 @@ $this->menu=array(
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
+function copyNotHere(){
+	alert("<?php echo __('The copy was saved on '.$model->host);?>");
+}
 function showSchedule(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/vault/viewSchedule',
@@ -158,57 +161,40 @@ if($model->state >= READY){
 	echo '<h1>'.__('Backups').'</h1>';
 
 	if($model->type == LOCAL){
-		$this->widget('PGridView', array(
-			'id'=>'backup-grid',
-			'dataProvider'=>$backups,
-			'onClick'=>array(
-				'type'=>'url',
-				'call'=>Yii::app()->request->baseUrl.'/backup/downloadBackup',
+		$onClick = array(
+					'type'=>'url',
+					'call'=>Yii::app()->request->baseUrl.'/backup/downloadBackup',
+					);
+	}else{
+		$onClick = array(
+					'type'=>'javascript',
+					'call'=>'copyNotHere',
+					);
+	}
+	$this->widget('PGridView', array(
+		'id'=>'backup-grid',
+		'dataProvider'=>$backups,
+		'onClick'=>$onClick,
+		'columns'=>array(
+			'filename',
+			'initiated',
+			'completed',
+			array(
+				'header'=>__('Filesize'),
+				'type' => 'raw',
+				'value'=>'$data->formatBytes()',
 			),
-			'columns'=>array(
-				'filename',
-				'initiated',
-				'completed',
-				array(
-					'header'=>__('Filesize'),
-					'type' => 'raw',
-					'value'=>'$data->formatBytes()',
-				),
-				array(
-					'header'=>__('State'),
-					'type' => 'raw',
-					'value'=>'$data->getHumanState()',
-				),
-				array('class'=>'PHiddenColumn','value'=>'$data->id'),
-			),	
-		));
-	}
-	if($model->type == REMOTE){
-		$this->widget('zii.widgets.grid.CGridView', array(
-			'htmlOptions'=>array('class'=>'pgrid-view'),
-			'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-			'loadingCssClass'=>'pgrid-view-loading',
-			'id'=>'backup-grid',
-			'dataProvider'=>$backups,
-			'columns'=>array(
-				'filename',
-				'initiated',
-				'completed',
-				array(
-					'header'=>__('Filesize'),
-					'type' => 'raw',
-					'value'=>'$data->formatBytes()',
-				),
-				array(
-					'header'=>__('State'),
-					'type' => 'raw',
-					'value'=>'$data->getHumanState()',
-				),
-			),	
-		));
-	}
+			array(
+				'header'=>__('State'),
+				'type' => 'raw',
+				'value'=>'$data->getHumanState()',
+			),
+			array('class'=>'PHiddenColumn','value'=>'$data->id'),
+		),	
+	));
 }
 ?>
+
 
 <div id="schedule_modal" class="modal" style="width:800px;">
 	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />

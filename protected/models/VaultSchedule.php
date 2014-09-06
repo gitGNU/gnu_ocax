@@ -108,13 +108,16 @@ class VaultSchedule extends CActiveRecord
 			return;
 		if(!Config::model()->findByPk('siteAutoBackup')->value)
 			return;
-		
+
 		if($schedule = $this->findByAttributes(array('day'=>date('N')-1))){
-			//if(count(Backup::model()->findByAttributes(array('vault'=>$schedule->vault0->id))) > $schedule->vault0->capacity)
-				// we are over the vault capacity limit. Dont initiate a copy.
-			//	return;
-				
+
 			if($schedule->vault0->state == READY){
+		
+				if($schedule->vault0->isVaultFull()){
+					$schedule->vault0->deleteOldestBackup();
+					return;
+				}
+				
 				// only backup each vault once per day
 				if(Backup::model()->findByDay(date('Y-m-d'), $schedule->vault0->id ))
 					return;

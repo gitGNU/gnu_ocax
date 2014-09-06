@@ -32,13 +32,10 @@ require_once('diskStatus.php');
 
 try {
 	$diskStatus = new DiskStatus(Yii::app()->basePath);
- 
 	$freeSpace = $diskStatus->freeSpace();
 	$totalSpace = $diskStatus->totalSpace();
 }
 catch (Exception $e) {
-	//echo 'Error ('.$e->getMessage().')';
-	//exit();
 	$noDiskStatus = 1;
 }
 ?>
@@ -87,8 +84,6 @@ if(!isset($noDiskStatus)){
 	echo '</p>';
 }
 ?>
-
-
 
 <div id="vaults">
 <div class="left">
