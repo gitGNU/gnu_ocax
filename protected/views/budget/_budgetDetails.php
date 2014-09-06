@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -62,7 +62,6 @@ if(isset($showLinks)){
 	}else
 		$enquiries = '0 '.__('enquiries made').' '.$create_enquiry_link;
 
-	//$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), $budgetModal);
 	$budget_concept= CHtml::link($model->getConcept(), $this->createAbsoluteUrl('budget/view',array('id'=>$model->id)), $budgetModal);
 }else{
 	if($enquiry_count){
@@ -77,20 +76,6 @@ if(isset($showLinks)){
 
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
 $attributes=array(
-/*
-		array(
-	        'label'=>($model->code)? __('Year / Code'):__('Year'),
-	        'type'=>'raw',
-	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears : $model->getYearString().$compareYears,
-		),
-*/
-/*
-		array(
-	        'label'=>($model->code)? __('Code'):'',
-	        'type'=>'raw',
-	        'value'=>($model->code)? $model->code.$compareYears : $compareYears,
-		),
-*/
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
 	        'type'=>'raw',
@@ -132,23 +117,31 @@ $this->widget('zii.widgets.CDetailView', array(
 ));
 
 if(isset($showMore)){
-	$this->widget('zii.widgets.CDetailView', array(
-	
-	'data'=>$model,
-	'attributes'=>array(
-					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
-					array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1)),
-					array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2)),
-					array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3)),
-					array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4)),
-					array(
-	        			'label'=>__('Enquiries'),
+	$attributes=array(
+				array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
+			);
+	if($model->getExecuted()){
+		$attributes[]=array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1));
+		$attributes[]=array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2));
+		$attributes[]=array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3));
+		$attributes[]=array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4));
+	}else{
+		$attributes[]=array(
+						'label'=>__('Executed'),
 						'type'=>'raw',
-						'value'=>$enquiries,
-					),
-				),
+						'value'=>__('Unknown'),
+					);
+	}
+	$attributes[]=array(
+	       			'label'=>__('Enquiries'),
+					'type'=>'raw',
+					'value'=>$enquiries,
+				);
+	
+	$this->widget('zii.widgets.CDetailView', array(
+		'data'=>$model,
+		'attributes'=>$attributes,
 	));
-
 }
 ?>
 
