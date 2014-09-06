@@ -16,6 +16,7 @@ OCAX 1.2
 Upgrade instructions.
 1. Follow steps 1-5 above.
 
+remove the directory app/files/csv and all the content
 mkdir protected/runtime/tmp
 mkdir protected/runtime/html
 chown -R www-data protected/runtime/
@@ -32,6 +33,7 @@ UPDATE config SET description='Name of the Administration' WHERE parameter='admi
 UPDATE config SET description='Does your Observatory encourage membership?' WHERE parameter='membership';
 UPDATE config SET description='Email server' WHERE parameter='smtpMethod';
 UPDATE config SET description='SMTP Auth' WHERE parameter='smtpAuth';
+UPDATE config SET description='Database backup method' WHERE parameter='databaseDumpMethod';
 
 UPDATE config SET required=0 WHERE parameter='smtpHost';
 UPDATE config SET required=0 WHERE parameter='smtpPassword';

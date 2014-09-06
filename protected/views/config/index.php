@@ -44,8 +44,8 @@
 .param > .error {
 	color: red;
 }
-#preload-01 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/tick.png); display:none; }
-#preload-02 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif); display:none; }
+#preload-01 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/tick.png); z-index: -999999; }
+#preload-02 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif); z-index: -999999; }
 </style>
 <script>
 function submitChange(el, id){
@@ -54,6 +54,7 @@ function submitChange(el, id){
 		type: 'POST',
 		data: $('#config-form').serialize(),
 		beforeSend: function(){
+						$(el).prop("disabled", true);
 						$(el).next('.progress').append('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 					},
 		complete: function(){ },
@@ -62,6 +63,7 @@ function submitChange(el, id){
 			$(el).parent().find('.error').remove();
 			if(data == 1){
 						$(el).next('.progress').append('<img style="vertical-align:middle;" id="tick_png" src="<?php echo Yii::app()->request->baseUrl;?>/images/tick.png" />');
+						$(el).prop("disabled", false);
 						$("#tick_png").fadeOut('slow', function() {
 							$(el).next('.progress').empty();
 						});				
@@ -88,6 +90,13 @@ function updateBool(el){
 	$('#Config_value').val(value);
 	submitChange(el, param);
 }
+function updateMultiple(el){
+	param = $(el).attr('param');
+	value = $('#value_'+param).find('option:selected').val();
+	$('#Config_parameter').val(param);
+	$('#Config_value').val(value);
+	submitChange(el, param);
+}
 </script>
 
 <?php
@@ -96,6 +105,7 @@ $this->menu=array(
 	array('label'=>__('Email'), 'url'=>array('email')),
 	array('label'=>__('Locale'), 'url'=>array('locale')),
 	array('label'=>__('Social network'), 'url'=>array('social')),
+	array('label'=>__('Backups'), 'url'=>array('backups')),
 	array('label'=>__('Misc'), 'url'=>array('misc')),
 );
 $this->inlineHelp=':profiles:cms_editor';

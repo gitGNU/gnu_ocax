@@ -46,7 +46,8 @@ class ConfigController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'index','update','admin',
-									'email','observatory','social','locale','misc',
+									'email','observatory','social','locale',
+									'backups','misc',
 								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -86,6 +87,12 @@ class ConfigController extends Controller
 		$this->render('index',array('model'=>$model, 'page'=>'locale'));		
 	}
 
+	public function actionBackups()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'backups'));		
+	}
+
 	public function actionMisc()
 	{
 		$model = new Config;
@@ -100,6 +107,7 @@ class ConfigController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+
 		if(!$model->can_edit)
 			$this->redirect(array('admin'));
 
@@ -109,7 +117,6 @@ class ConfigController extends Controller
 		$returnURL=Null;
 		if(isset($_GET['returnURL']))
 			$returnURL=$_GET['returnURL'];	
-
 
 		if(isset($_POST['Config']))
 		{
