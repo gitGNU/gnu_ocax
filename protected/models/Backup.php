@@ -150,7 +150,7 @@ class Backup extends CActiveRecord
 			return array(null, null, __('Cannot create zip file'));
 
 		$dump_file = $backupDir.date('d-m-Y-H-i-s').'-backup.sql';
-		$error = $this->_dumpDatabase($dump_file);
+		$error = $this->dumpDatabase($dump_file);
 
 		$filesDir = dirname(Yii::app()->request->scriptFile).'/files';
 
@@ -166,7 +166,7 @@ class Backup extends CActiveRecord
 		return array($backupDir, $backupFileName, $error);
 	}
 
-	private function _dumpDatabase($filePath, $table=Null)
+	public function dumpDatabase($filePath, $table=Null)
 	{
 		$params = getMySqlParams();
 		$method = Config::model()->findByPk('databaseDumpMethod')->value;

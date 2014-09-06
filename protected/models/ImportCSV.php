@@ -27,7 +27,9 @@ class ImportCSV extends CFormModel
 
 	public function init()
 	{
-		$this->path = dirname(Yii::app()->request->scriptFile).'/files/csv/';
+		$this->path = Yii::app()->basePath.'/runtime/tmp/csv';
+		if(!is_dir($this->path))
+			createDirectory($this->path);
 	}
 
 	/**

@@ -287,7 +287,6 @@ class Vault extends CActiveRecord
 	public function isVaultFull()
 	{
 		$totalBackups = count(Backup::model()->findAllByAttributes(array('vault'=>$this->id)));
-		file_put_contents('/tmp/total',$totalBackups);
 		if($totalBackups > $this->capacity)
 			return 1;
 		else

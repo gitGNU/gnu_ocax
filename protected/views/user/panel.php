@@ -157,7 +157,7 @@ if($model->is_admin){
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
 		echo CHtml::link(__('Wallpaper'), array('/file/wallpaper')).'<br />';
 		echo CHtml::link(__('Observatory\'s logo'), array('/file/logo')).'<br />';
-		echo CHtml::link(__('Site configuration'),array('/config')).'<br />';
+		echo CHtml::link(__('Global parameters'),array('/config')).'<br />';
  	echo '</p></div>';
 	echo '</div>';
 	echo '</div>';
