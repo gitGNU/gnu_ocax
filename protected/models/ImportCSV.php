@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -94,12 +94,12 @@ class ImportCSV extends CFormModel
 		return array(
 					'internal_code'=>Null,
 					'code'=>Null,
-					'initial_prov' => Null,
-					'actual_prov' => Null,
-					't1' => Null,
-					't2' => Null,
-					't3' => Null,
-					't4' => Null,
+					'initial_prov' => 0,
+					'actual_prov' => 0,
+					't1' => 0,
+					't2' => 0,
+					't3' => 0,
+					't4' => 0,
 					'label' => Null,
 					'concept' => Null,
 				);
@@ -138,7 +138,6 @@ class ImportCSV extends CFormModel
 			return 1;
 	}
 
-
 	public function orderCSV(){
 		$ordered = $this->csv2array($this->csv);
 		ksort($ordered);
@@ -169,7 +168,6 @@ class ImportCSV extends CFormModel
 			}
 		}
 		return $cnt;
-
 	}
 
 	public function addMissignRegisters()
@@ -182,11 +180,10 @@ class ImportCSV extends CFormModel
 		while($cnt = $this->__addMissignRegisters($registers)){
 			$newRegisterCnt += $cnt;
 			$wild_loop += 1;
-			if($wild_loop == 2000)
+			if($wild_loop == 20000)
 				break;
 			reset($registers);
 		}
-
 		if($newRegisterCnt){
 			ksort($registers);
 			$fh = fopen($this->csv, 'w');
@@ -220,6 +217,54 @@ class ImportCSV extends CFormModel
 		return $msg;
 	}
 
+	public function addMissingConcepts()
+	{
+		$registers = $this->csv2array();
+		$budgets = array();
+		$lang=getDefaultLanguage();
+		$updated=0;
+		
+		foreach($registers as $internal_code => $register){
+			$budgets[$internal_code] = $this->register2array($register);
+
+			if(($budgets[$internal_code]['code'] === '') || ($budgets[$internal_code]['concept'] === '')){
+				if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$internal_code, 'language'=>$lang))){
+					if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
+						$budgets[$internal_code]['code'] = $description->code;
+						if($budgets[$internal_code]['code'] !== '')
+							$updated++;
+					}
+					if($budgets[$internal_code]['concept'] === ''){
+						$budgets[$internal_code]['concept'] = $description->concept;
+						if($budgets[$internal_code]['concept'] !== '')
+							$updated++;
+					}
+				}
+				if($budgets[$internal_code]['concept'] === ''){
+					$budgets[$internal_code]['concept'] = 'UNKNOWN';
+					$updated++;
+				}
+				if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
+					if($isChild = strrpos($internal_code, "-"))
+						$budgets[$internal_code]['code'] = substr($internal_code, $isChild+1);
+					else
+						$budgets[$internal_code]['code'] = 'UNKNOWN';
+					$updated++;
+				}
+			}
+		}
+		if($updated){
+			$fh = fopen($this->csv, 'w');
+			fwrite($fh, $this->getHeader());
+			foreach($budgets as $budget){
+				$line = $this->array2register($budget);
+				fwrite($fh, $line.PHP_EOL);
+			}
+			fclose($fh);
+		}
+		return $updated;
+	}
+
 	public function addMissingTotals()
 	{
 		$registers = $this->csv2array();
@@ -235,37 +280,50 @@ class ImportCSV extends CFormModel
 		$totals = array();
 		$updated=0;
 		
+		$updated_initial_prov = 0;
+		$updated_actual_prov = 0;
+		$updated_t1 = 0;
+		$updated_t2 = 0;
+		$updated_t3 = 0;
+		$updated_t4 = 0;
+		
 		foreach($budgets as $internal_code => & $budget){
 			if(isset($totals[$internal_code])){
-				if($budget['initial_prov'] === '0' || !is_numeric($budget['initial_prov'])){
+				$initial_prov = $budget['initial_prov'];
+				if($initial_prov == 0){
 					$budget['initial_prov'] = $totals[$internal_code]['initial_prov'];
-					if($totals[$internal_code]['initial_prov'] !== 0)
-						$updated += 1;
+					if($totals[$internal_code]['initial_prov'] != $initial_prov)
+						$updated_initial_prov += 1;
 				}
-				if($budget['actual_prov'] === '0' || !is_numeric($budget['actual_prov'])){
+				$actual_prov = $budget['actual_prov'];
+				if($actual_prov == 0){
 					$budget['actual_prov'] = $totals[$internal_code]['actual_prov'];
-					if($totals[$internal_code]['actual_prov'] !== 0)
-						$updated += 1;
+					if($totals[$internal_code]['actual_prov'] != $actual_prov)
+						$updated_actual_prov += 1;
 				}
-				if($budget['t1'] === '0' || !is_numeric($budget['t1'])){
+				$t1 = $budget['t1'];
+				if($t1 == 0){
 					$budget['t1'] = $totals[$internal_code]['t1'];
-					if($totals[$internal_code]['t1'] !== 0)
-						$updated += 1;
+					if($budget['t1'] != $t1)
+						$updated_t1 += 1;
 				}
-				if($budget['t2'] === '0' || !is_numeric($budget['t2'])){
+				$t2 = $budget['t2'];
+				if($t2 == 0){
 					$budget['t2'] = $totals[$internal_code]['t2'];
-					if($totals[$internal_code]['t2'] !== 0)
-						$updated += 1;
+					if($budget['t2'] != $t2)
+						$updated_t2 += 1;
 				}
-				if($budget['t3'] === '0' || !is_numeric($budget['t3'])){
+				$t3 = $budget['t3'];
+				if($t3 == 0){
 					$budget['t3'] = $totals[$internal_code]['t3'];
-					if($totals[$internal_code]['t3'] !== 0)
-						$updated += 1;
+					if($budget['t3'] != $t3)
+						$updated_t3 += 1;
 				}
-				if($budget['t4'] === '0' || !is_numeric($budget['t4'])){
+				$t4 = $budget['t4'];
+				if($t4 == 0){
 					$budget['t4'] = $totals[$internal_code]['t4'];
-					if($totals[$internal_code]['t4'] !== 0)
-						$updated += 1;
+					if($budget['t4'] != $t4)
+						$updated_t4 += 1;
 				}
 			}
 			$budgetID_parent = $this->getParentCode($internal_code);
@@ -284,6 +342,7 @@ class ImportCSV extends CFormModel
 		}
 		$budgets = array_reverse($budgets, true);
 
+		$updated = $initial_prov + $actual_prov + $t1 + $t2 + $t3 + $t4;
 		if($updated){
 			$fh = fopen($this->csv, 'w');
 			fwrite($fh, $this->getHeader());
@@ -293,59 +352,7 @@ class ImportCSV extends CFormModel
 			}
 			fclose($fh);
 		}
-		return $updated;
-	}
-
-	public function addMissingConcepts()
-	{
-		$registers = $this->csv2array();
-		$budgets = array();
-		$lang=getDefaultLanguage();
-		$updated=0;
-		
-		foreach($registers as $internal_code => $register){
-			$budgets[$internal_code] = $this->register2array($register);
-
-			if(($budgets[$internal_code]['code'] === '') || ($budgets[$internal_code]['concept'] === '')){
-				//echo '<p>'.$internal_code.' -'.$budgets[$internal_code]['code'].'- '.$budgets[$internal_code]['concept'].'<br />';
-				if($description = BudgetDescCommon::model()->findByPk($lang.$internal_code)){
-					if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
-						//echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 1st<br />';
-						$budgets[$internal_code]['code'] = $description->code;
-						if($budgets[$internal_code]['code'] !== '')
-							$updated++;
-					}
-					if(!$budgets[$internal_code]['concept']){
-						$budgets[$internal_code]['concept'] = $description->concept;
-						if($budgets[$internal_code]['concept'] !== '')
-							$updated++;
-					}
-				}
-				if($budgets[$internal_code]['concept'] === ''){
-					$budgets[$internal_code]['concept'] = 'UNKNOWN';
-					$updated++;
-				}
-				if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
-					//echo $budgets[$internal_code]['csv_id'].' -'.strlen($budgets[$internal_code]['csv_id']).'- is grt 3 2nd<br />';
-					if($isChild = strrpos($internal_code, "-"))
-						$budgets[$internal_code]['code'] = substr($internal_code, $isChild+1);
-					else
-						$budgets[$internal_code]['code'] = 'UNKNOWN';
-					$updated++;
-				}
-				//echo $internal_code.' -'.$budgets[$internal_code]['code'].'- '.$budgets[$internal_code]['concept'].'</p>';
-			}
-		}
-		if($updated){
-			$fh = fopen($this->csv, 'w');
-			fwrite($fh, $this->getHeader());
-			foreach($budgets as $budget){
-				$line = $this->array2register($budget);
-				fwrite($fh, $line.PHP_EOL);
-			}
-			fclose($fh);
-		}
-		return $updated;
+		return array($updated_initial_prov, $updated_actual_prov, $updated_t1, $updated_t2, $updated_t3, $updated_t4);
 	}
 
 	public function createCSV($year)

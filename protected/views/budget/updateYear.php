@@ -28,7 +28,7 @@ $this->menu=array(
 if($totalBudgets){
 	$featured = array( array('label'=>__('Featured budgets'), 'url'=>array('budget/featured', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $featured );
-	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/download', 'id'=>$model->year)));
+	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/export', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $downloadCsv );
 	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );

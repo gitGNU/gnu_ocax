@@ -49,7 +49,7 @@ class CsvController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
 				'addMissingValues','checkCSVTotals','importCSVData',
-				'download','showYears','regenerateCSV','updateCommonDescriptions',
+				'export','showYears','regenerateCSV','updateCommonDescriptions',
 				'downloadUpdatedCSV'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -184,29 +184,40 @@ class CsvController extends Controller
 		
 		$msg=Null;
 		$newRegisterCnt = $model->addMissignRegisters();
-		
-		//$new_concepts = 0;
-		if($newRegisterCnt > 0){
-			$msg='<br /><span class="warn">'.$newRegisterCnt.' new registers added.</span>';
-			//$new_concepts = $model->addMissingConcepts();
-		}	
-		if($new_totals = $model->addMissingTotals()){
-			if($newRegisterCnt)
-				$new_totals = $new_totals - (6 * $newRegisterCnt); // 6 because the are 6 number columns in csv
-			if($new_totals)
-				$msg = $msg.'<br /><span class="warn"> '.$new_totals.' missing totals added</span>';
-		}
 		$new_concepts = $model->addMissingConcepts();
+		
+		if($newRegisterCnt > 0)
+			$msg = '<br /><span class="warn">'.$newRegisterCnt.' new registers added</span>';		
 		if($new_concepts)
-			$msg = $msg.'<br /><span class="warn"> '.$new_concepts.' codes/concepts added.</span>';
-			
+			$msg = $msg.'<span class="warn"> ('.$new_concepts.' codes/concepts included)</span>';
+		
+		if(list($initial,$actual,$t1,$t2,$t3,$t4) = $model->addMissingTotals()){
+			$total_newTotals = $initial+$actual+$t1+$t2+$t3+$t4;
+			if($newRegisterCnt)
+				$total_newTotals = $total_newTotals - (6 * $newRegisterCnt); // 6 because the are 6 number columns in csv. WTF?
+			if($total_newTotals){
+				$msg = $msg.'<br /><span class="warn" style="text-decoration:underline"> '.$total_newTotals.' missing totals added:</span>';
+				if($initial)
+					$msg = $msg.'<br /><span class="warn">initial_provision: '.$initial.'</span>';
+				if($actual)
+					$msg = $msg.'<br /><span class="warn">actual_provision: '.$actual.'</span>';
+				if($t1)
+					$msg = $msg.'<br /><span class="warn">trimester_1: '.$t1.'</span>';
+				if($t2)
+					$msg = $msg.'<br /><span class="warn">trimester_2: '.$t2.'</span>';
+				if($t3)
+					$msg = $msg.'<br /><span class="warn">trimester_3: '.$t3.'</span>';
+				if($t4)
+					$msg = $msg.'<br /><span class="warn">trimester_4: '.$t4.'</span>';
+			}
+		}
 		if(!$msg)
 			$msg='No missing values';
 			
 		echo CJavaScript::jsonEncode(array(	'updated'=>$newRegisterCnt,
+											'new_totals'=>$total_newTotals,
 											'new_concepts'=>$new_concepts,
 											'msg'=>$msg,
-											//'filename'=>$_GET['csv_file'],
 											));		
 	}
 
@@ -321,6 +332,9 @@ class CsvController extends Controller
 			echo count($lines) - 1;
 	}
 
+	/*
+	 * Import a CSV into the database
+	 */
 	public function actionImportCSVData($id)
 	{
 		if(!$id){
@@ -423,13 +437,15 @@ class CsvController extends Controller
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
 	}
 
-
-	public function actionDownload($id)
+	/*
+	 * Admin can export a csv
+	 */
+	public function actionExport($id)
 	{
 		$model = new ImportCSV;
 		if(list($file, $budgets) = $model->createCSV($id)){
 			$download='<a href="'.$file->getWebPath().'">'.$file->getWebPath().'</a>';
-			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported.<br />'.$download);
+			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported<br />'.$download);
 
 			$criteria=new CDbCriteria;
 			$criteria->condition='parent IS NULL AND year='.$id;
