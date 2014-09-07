@@ -89,7 +89,8 @@ function addMissingValues(el, next){
 						$(el).replaceWith('<span class="error">'+data.error+'</span>');
 					}else{
 						if(data.updated > 0 || data.new_concepts > 0 ){
-							download = '<br /><span class="success">Download updated CSV</span> <a href="'+data.file+'">'+data.file+'</a>';
+							download = '<?php echo Yii::app()->request->baseUrl; ?>/csv/downloadUpdatedCSV/<?php echo $model->year;?>';
+							download = '<br /><span class="success">Download updated CSV:</span> <a href="'+download+'"><?php echo $model->csv;?></a>';
 						}else{
 							download = '';
 							$('#step_'+next).show();

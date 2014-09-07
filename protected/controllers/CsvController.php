@@ -49,7 +49,8 @@ class CsvController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
 				'addMissingValues','checkCSVTotals','importCSVData',
-				'download','showYears','regenerateCSV','updateCommonDescriptions'),
+				'download','showYears','regenerateCSV','updateCommonDescriptions',
+				'downloadUpdatedCSV'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -92,7 +93,7 @@ class CsvController extends Controller
 			$model->attributes=$_POST['ImportCSV'];
 
 			$model->csv=CUploadedFile::getInstance($model,'csv');
-			$filename = $model->year.'-'.Yii::app()->user->id.'.csv';
+			$filename = $model->getTmpCSVFilename();
 
 			$model->csv->saveAs($model->path.$filename);
 			$model->csv = $filename;
@@ -186,18 +187,18 @@ class CsvController extends Controller
 		
 		//$new_concepts = 0;
 		if($newRegisterCnt > 0){
-			$msg='<span class="warn">'.$newRegisterCnt.' new registers added.</span>';
+			$msg='<br /><span class="warn">'.$newRegisterCnt.' new registers added.</span>';
 			//$new_concepts = $model->addMissingConcepts();
 		}	
 		if($new_totals = $model->addMissingTotals()){
 			if($newRegisterCnt)
 				$new_totals = $new_totals - (6 * $newRegisterCnt); // 6 because the are 6 number columns in csv
 			if($new_totals)
-				$msg = $msg.'<span class="warn"> '.$new_totals.' missing totals added</span>';
+				$msg = $msg.'<br /><span class="warn"> '.$new_totals.' missing totals added</span>';
 		}
 		$new_concepts = $model->addMissingConcepts();
 		if($new_concepts)
-			$msg = $msg.'<span class="warn"> '.$new_concepts.' codes/concepts added.</span>';
+			$msg = $msg.'<br /><span class="warn"> '.$new_concepts.' codes/concepts added.</span>';
 			
 		if(!$msg)
 			$msg='No missing values';
@@ -205,7 +206,7 @@ class CsvController extends Controller
 		echo CJavaScript::jsonEncode(array(	'updated'=>$newRegisterCnt,
 											'new_concepts'=>$new_concepts,
 											'msg'=>$msg,
-											'file'=>Yii::app()->request->baseUrl.'/files/csv/'.$_GET['csv_file']
+											//'filename'=>$_GET['csv_file'],
 											));		
 	}
 
@@ -435,6 +436,31 @@ class CsvController extends Controller
 			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 		}
 	}
+
+	/*
+	 * Part of the import CSV process
+	 * The CSV import process may update the CSV with missing values
+	 */
+	public function actionDownloadUpdatedCSV($id)
+	{
+		$year=$id;
+		$model = new ImportCSV;
+		$path = $model->path;
+		$filename = $model->getTmpCSVFilename($year);
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=\"".$filename."\"");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".filesize($path.$filename));
+		ob_end_flush();
+		@readfile($path.$filename);
+		exit;
+	}
+
 
 	private function strip_single_tag($tag,$string)
 	{

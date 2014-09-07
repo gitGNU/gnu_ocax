@@ -27,7 +27,7 @@ class ImportCSV extends CFormModel
 
 	public function init()
 	{
-		$this->path = Yii::app()->basePath.'/runtime/tmp/csv';
+		$this->path = Yii::app()->basePath.'/runtime/tmp/csv/';
 		if(!is_dir($this->path))
 			createDirectory($this->path);
 	}
@@ -50,6 +50,13 @@ class ImportCSV extends CFormModel
 		return array(
 			'csv' => __('CSV file'),
 		);
+	}
+
+	public function getTmpCSVFilename($year=Null)
+	{
+		if(!$year)
+			$year=$this->year;
+		return $year.'-'.Yii::app()->user->id.'.csv';
 	}
 
 	public function getHeader()
@@ -124,8 +131,6 @@ class ImportCSV extends CFormModel
 	public function checkEncoding()
 	{
 		$content = file_get_contents($this->csv);
-
-		//$original_encoding = mb_detect_encoding($content, 'UTF-8, iso-8859-1, iso-8859-15', true);
 		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);
 		if($original_encoding != 'UTF-8')
 			return 0;
@@ -229,31 +234,38 @@ class ImportCSV extends CFormModel
 		$budgetID_parent=Null;
 		$totals = array();
 		$updated=0;
+		
 		foreach($budgets as $internal_code => & $budget){
 			if(isset($totals[$internal_code])){
-				if(!is_numeric($budget['initial_prov'])){
+				if($budget['initial_prov'] === '0' || !is_numeric($budget['initial_prov'])){
 					$budget['initial_prov'] = $totals[$internal_code]['initial_prov'];
-					$updated += 1;
+					if($totals[$internal_code]['initial_prov'] !== 0)
+						$updated += 1;
 				}
-				if(!is_numeric($budget['actual_prov'])){
+				if($budget['actual_prov'] === '0' || !is_numeric($budget['actual_prov'])){
 					$budget['actual_prov'] = $totals[$internal_code]['actual_prov'];
-					$updated += 1;
+					if($totals[$internal_code]['actual_prov'] !== 0)
+						$updated += 1;
 				}
-				if(!is_numeric($budget['t1'])){
+				if($budget['t1'] === '0' || !is_numeric($budget['t1'])){
 					$budget['t1'] = $totals[$internal_code]['t1'];
-					$updated += 1;
+					if($totals[$internal_code]['t1'] !== 0)
+						$updated += 1;
 				}
-				if(!is_numeric($budget['t2'])){
+				if($budget['t2'] === '0' || !is_numeric($budget['t2'])){
 					$budget['t2'] = $totals[$internal_code]['t2'];
-					$updated += 1;
+					if($totals[$internal_code]['t2'] !== 0)
+						$updated += 1;
 				}
-				if(!is_numeric($budget['t3'])){
+				if($budget['t3'] === '0' || !is_numeric($budget['t3'])){
 					$budget['t3'] = $totals[$internal_code]['t3'];
-					$updated += 1;
+					if($totals[$internal_code]['t3'] !== 0)
+						$updated += 1;
 				}
-				if(!is_numeric($budget['t4'])){
+				if($budget['t4'] === '0' || !is_numeric($budget['t4'])){
 					$budget['t4'] = $totals[$internal_code]['t4'];
-					$updated += 1;
+					if($totals[$internal_code]['t4'] !== 0)
+						$updated += 1;
 				}
 			}
 			$budgetID_parent = $this->getParentCode($internal_code);
@@ -290,6 +302,7 @@ class ImportCSV extends CFormModel
 		$budgets = array();
 		$lang=getDefaultLanguage();
 		$updated=0;
+		
 		foreach($registers as $internal_code => $register){
 			$budgets[$internal_code] = $this->register2array($register);
 
