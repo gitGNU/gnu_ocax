@@ -1,0 +1,52 @@
+/* ******* CMS ******** */
+
+.cms_titulo
+{
+	font-size: 410%;
+	line-height: 100%;
+	letter-spacing:-0.5pt;
+	font-weight:100;
+	margin-bottom:20px;
+}
+.cms_content{ font-size: 18px; }
+.cms_content p { font-size: 1em; }
+
+#cmsOptions{
+	font-size:1.5em;
+	margin: -30px -25px 30px -25px;
+	padding: 10px 0 10px 0;
+	background-color:white;
+}
+#cmsOptions a{
+	padding: 12px 20px 12px 20px;
+}
+#cmsOptions a:hover{
+	background-color:#f5f1ed;
+}
+
+
+/* .activeMenuItem a {text-decoration:none;} */
+
+#cmsPageMenu
+{
+	/*border-top: 2px solid lightgrey;*/
+	border-bottom: 2px solid #e4ded7;
+	list-style: none;
+	padding: 3px 10px 3px 10px;
+	margin: -30px -25px 5px -25px;
+}
+#cmsPageMenu > li
+{
+	float: left;
+	margin: 0 0 0 0;
+	padding: 0 7px 0 7px;
+	cursor:pointer;
+	font-weight:200;
+	font-size: 20px;
+}
+
+#cmsPageMenu > .activeMenuItem
+{
+	/*background-color: lightgrey;*/
+}
+

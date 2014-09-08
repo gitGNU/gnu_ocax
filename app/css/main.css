@@ -528,38 +528,6 @@ span.ocaxButtonCount {
 	height:55px;
 }
 
-/* ******* CMS*/
-.activeMenuItem a {text-decoration:none;}
-
-.cms_titulo
-{
-	font-size: 410%;
-	line-height: 100%;
-	letter-spacing:-0.5pt;
-	font-weight:100;
-	margin-bottom:20px;
-}
-
-.cms_content
-{
-	font-size: 18px;
-}
-.cms_content p
-{
-	font-size: 1em;
-}
-
-#cmsPageMenu
-{
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;
-	/*width: 27%; */
-	/*float: right; */
-	padding:10px 0px 0px 0px;
-}
-.cmsPageMenuItem { font-size:1.6em; }
-
 /*bPopup Lightbox*/
 .modal
 {

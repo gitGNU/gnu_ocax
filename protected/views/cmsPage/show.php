@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,26 +21,15 @@
 $this->setPageTitle($content->pageTitle);
 ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/cmspage.css" />
+
 <?php if(isset($noLanguageLinks)){ ?>
-<style>
-#cmsOptions{
-	font-size:1.5em;
-	margin: -30px -25px 30px -25px;
-	padding: 10px 0 10px 0;
-	background-color:white;
-}
-#cmsOptions a{
-	padding: 12px 20px 12px 20px;
-}
-#cmsOptions a:hover{
-	background-color:#f5f1ed;
-}
-</style>
 <script>
-$(function() {
-	$('.language_link').hide();
-});
+	$(function() {
+		$('.language_link').hide();
+	});
 </script>
+
 <?php
 echo '<div id="cmsOptions">';
 	echo '<div style="width:50%; float: left; text-align: center;">';
@@ -57,45 +46,30 @@ echo '</div>';
 
 } ?>
 
-
 <!-- start page here -->
-
-<style>           
-	.outer{width:100%; padding: 0px;}
-	.left{width: 73%; float: left;  margin: 0px;}
-	.right{width: 25%; float: right; margin: 0px;}
-</style>
-
-<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
-<div class="outer">
-<div class="left">
-	<div class="cms_content"><?php echo $content->body; ?></div>
-</div>
-
-<div class="right">
-<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/cmsinfo.png" style="margin-bottom:5px"/>
-<div id="cmsPageMenu">
-
+<ul id="cmsPageMenu">
 <?php
 	$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block, 'published'=>1), array('order'=>'weight'));
 	foreach ($items as $menu_item) {
+		if($menu_item->weight == 0)
+			continue;
 		foreach($menu_item->cmsPageContents as $item){
-			if($item->language == $content->language){
-				break;	
-			}
+			if($item->language == $content->language)
+				break;
 		}
-		$itemclass='class="cmsPageMenuItem"';
+		$itemclass='';
 		if($content->pageURL == $item->pageURL)
-			$itemclass='class="cmsPageMenuItem activeMenuItem"';
-		echo '<div '.$itemclass.'>';
+			$itemclass='class="activeMenuItem"';
+		echo '<li '.$itemclass.'>';
 		echo CHtml::link(CHtml::encode($item->pageTitle),array('p/'.$item->pageURL));
-		echo '</div>';
-
+		echo '</li>';
 	}
 ?>
-</div>
-</div>
-</div>
+<div class="clear"></div>
+</ul>
 
-<div style="clear:both"></div>
+
+<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
+<div class="cms_content"><?php echo $content->body; ?></div>
+
 
