@@ -34,6 +34,10 @@ function changeSMTPMethod(el){
 	else
 		$('#smtp_params').find('input').prop('disabled',false);
 }
+function updateNoReply(text){
+		value = $('#value_emailNoReply').val();
+		$('#noReply').html("<?php echo __('Send as').':&ensp;&ensp;';?>"+value);
+}
 function sendTestEmail(){
 	location.href='<?php echo $this->createUrl('email/test/');?>/'+$('#subject').val();
 }
@@ -54,7 +58,7 @@ function sendTestEmail(){
 		<?php $param = Config::model()->findByPk('emailNoReply'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
 		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this, function(){ updateNoReply();}); return false;"/>
 		<div class="progress"></div>
 	</div>
 	
@@ -64,7 +68,7 @@ function sendTestEmail(){
 	<div class="param" style="margin-top:40px">
 	<span class="paramDescription" style="font-size:1.4em"><?php echo __('Send a test email');?></span>
 	<p style="margin-top:10px">
-	<?php echo __('Send as').':&ensp;&ensp;'.Config::model()->findByPk('emailNoReply')->value;?><br />
+	<span id="noReply"><?php echo __('Send as').':&ensp;&ensp;'.Config::model()->findByPk('emailNoReply')->value;?></span><br />
 	<?php echo __('Send to').':&ensp;&ensp;'.$user->email;?><br />
 	Subject:&ensp;&ensp;<input style="width:120px" id="subject" type="text" value = "test_1"/>
 	<input type="button" value="test" onClick="js:sendTestEmail(); return false;"/>

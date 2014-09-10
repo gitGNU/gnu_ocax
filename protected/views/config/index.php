@@ -48,7 +48,7 @@
 #preload-02 { background:url(<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif); z-index: -999999; }
 </style>
 <script>
-function submitChange(el, id){
+function submitChange(el, id, callback){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/config/update/'+id,
 		type: 'POST',
@@ -57,7 +57,7 @@ function submitChange(el, id){
 						$(el).prop("disabled", true);
 						$(el).next('.progress').append('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 					},
-		complete: function(){ },
+		complete: function(){ $(el).prop("disabled", false); },
 		success: function(data){
 			$(el).next('.progress').empty();
 			$(el).parent().find('.error').remove();
@@ -66,22 +66,24 @@ function submitChange(el, id){
 						$(el).prop("disabled", false);
 						$("#tick_png").fadeOut('slow', function() {
 							$(el).next('.progress').empty();
-						});				
+						});
+						if(typeof callback !== 'undefined'){
+							callback();
+						}						
 			}else{
 				$(el).next('.progress').after('<div class="error">'+JSON.parse(data)['value']+'</div>');
 			}
-			return 1;
 		},
 		error: function() { alert("error on config/udapte"); },
 	});
-	return 0;
+	return 1;
 }
-function updateParam(el){
+function updateParam(el, callback){
 	param = $(el).attr('param');
 	value = $('#value_'+param).val();
 	$('#Config_parameter').val(param);
 	$('#Config_value').val(value);
-	submitChange(el, param);
+	submitChange(el, param, callback);
 }
 function updateBool(el){
 	param = $(el).attr('param');
