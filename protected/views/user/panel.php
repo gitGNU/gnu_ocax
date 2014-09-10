@@ -42,12 +42,28 @@ function changeColumn()
 		$column=0;
 	}
 }
+
+$privilegedUser = Yii::app()->user->isPrivileged();
 ?>
 
 <style>           
-	.outer{width:100%; padding: 0px; float: left;}
+	.outer{ position:relative; width:100%; padding: 0px; float: left;}
 	.clear{clear:both;}
 </style>
+<script>
+<?php if($privilegedUser){ ?>
+function toggleBasicUserOptions(){
+	if ($("#basicUserOptions").is(":visible")){
+		$("#showBasicUserOptions").html("<?php echo __('show options');?> &#x25BC;");
+		$("#basicUserOptions").hide();
+	}else{
+		$("#showBasicUserOptions").html("<?php echo __('hide options');?> &#x25B2;");
+		$("#basicUserOptions").show();
+	}
+}
+<?php } ?>
+</script>
+
 
 <?php if(!$model->is_active){
 	echo '<div class="sub_title">'.__('Welcome').'</div>';
@@ -55,7 +71,17 @@ function changeColumn()
 	echo '<div class="horizontalRule"></div>';
 }?>
 
+
 <div class="outer">
+	<?php if($privilegedUser){ ?>
+	<div	id="showBasicUserOptions"
+			style="position:absolute; top:-20px; right: 0px; font-size: 2em; cursor:pointer;"
+			onCLick="js:toggleBasicUserOptions();return false;">
+			<?php echo __('show options');?> &#x25BC;
+	</div>
+	
+	<?php } ?>
+<div id="basicUserOptions" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>">
 <div class="panel_left">
 	<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
 	<div class="clear"></div>
@@ -77,6 +103,9 @@ function changeColumn()
 		<?php echo __('Change your password');?>
 	</p>
 </div>
+<div class="horizontalRule" style="float:right;padding-top:10px;"></div>
+
+</div>
 </div>
 
 <?php
@@ -87,16 +116,15 @@ function addPanelSeparator(){
 	if(!$panel_separator_added){
 		
 		echo '<div class="outer">';	
-		echo '<div class="horizontalRule" style="float:right;padding-top:10px;"></div>';
 		echo '<div id="control_panel"></div>';
 		
 		//echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
 		//echo '</div>';
-		echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
+		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
 		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">mailing list</a>';
 		echo '</div>';
-		echo '<div class="sub_title" style="float:right;font-size: 16pt;">';
+		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
 		echo '<a href="http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_manual">manual</a>';
 		echo '</div>';
 

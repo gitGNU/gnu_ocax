@@ -108,12 +108,12 @@ function toggleOptions(){
 		$("#advancedFilterOptions").hide();
 		$("#basicFilterOptions").show();
 		$("#basicFilterOptions").find('li').removeClass('activeItem');
-		$('#filterLabel').html("<?php echo __('search options');?>");
+		$('#filterLabel').html("<?php echo __('show options');?> &#x25BC;");
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
 		$("#basicFilterOptions").hide();
-		$('#filterLabel').html("<?php echo __('close options');?>");
+		$('#filterLabel').html("<?php echo __('hide options');?> &#x25B2;");
 	}
 }
 function resetForm(){
@@ -130,7 +130,6 @@ function resetForm(){
 	resetFormElements = 0;
 }
 </script>
-
 <div id="enquiryPageTitle">
 	<div style="float:left;">
 		<h1><?php echo __('Enquiries made to date');?></h1>
@@ -139,12 +138,12 @@ function resetForm(){
 		</p>
 	</div>
 	<div style="float:right">
-		<div id="filterLabel" class="link" onCLick="js:toggleOptions();return false;">
-			<?php echo __('search options');?>
+		<div id="filterLabel" class="moreOptionsArrow" style="font-size: 2em; cursor:pointer;" onCLick="js:toggleOptions();return false;">
+			<?php echo __('show options');?> &#x25BC;
 		</div>
 		<div style="text-align:right">
-		<span class="link" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'" />List</span>
-		<span class="link" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'" />Grid</span>
+			<div id="change_to_list" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></div>
+			<div id="change_to_grid" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></div>
 		</div>
 	</div>
 </div>

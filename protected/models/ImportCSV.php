@@ -76,16 +76,16 @@ class ImportCSV extends CFormModel
 	{
 		list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $register);
 		return array(
-				'csv_id'=>$id,
-				'code'=>$code,
-				'initial_prov'=>$initial_prov,
-				'actual_prov'=>$actual_prov,
-				't1'=>$t1,
-				't2'=>$t2,
-				't3'=>$t3,
-				't4'=>$t4,
-				'label'=>$label,
-				'concept'=>trim($concept),
+					'csv_id'=>$id,
+					'code'=>$code,
+					'initial_prov'=>$initial_prov,
+					'actual_prov'=>$actual_prov,
+					't1'=>$t1,
+					't2'=>$t2,
+					't3'=>$t3,
+					't4'=>$t4,
+					'label'=>$label,
+					'concept'=>trim($concept),
 				);
 	}
 
@@ -122,20 +122,8 @@ class ImportCSV extends CFormModel
 				continue;
 			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 			$result[$csv_id]=$line;
-
 		}
 		return $result;
-	}
-
-	// convert csv to UTF-8
-	public function checkEncoding()
-	{
-		$content = file_get_contents($this->csv);
-		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);
-		if($original_encoding != 'UTF-8')
-			return 0;
-		else
-			return 1;
 	}
 
 	public function orderCSV(){
@@ -150,6 +138,69 @@ class ImportCSV extends CFormModel
 			fwrite($fh, $line);
 		}
 		fclose($fh);
+	}
+
+	// convert csv to UTF-8
+	public function checkEncoding()
+	{
+		$content = file_get_contents($this->csv);
+		$original_encoding = mb_detect_encoding($content, 'UTF-8', true);
+		if($original_encoding != 'UTF-8')
+			return 0;
+		else
+			return 1;
+	}
+
+	/*
+	 * Check delimiter
+	 * Check column count
+	 * Check that fields that should be numbers, are numbers
+	 */
+	public function checkCSVFormat()
+	{
+		$error=array();
+		$correct_field_delimiter=0;
+		$ids = array();
+		$lines = file($this->csv);
+		foreach ($lines as $line_num => $line) {
+			if($line_num==0){
+				$delimiterCnt = substr_count($line, '|');
+				if ($delimiterCnt == 0){
+					$error[]='Delimiter | not found in file.';
+					break;
+				}
+				if ($delimiterCnt != 9){
+					$error[]=($delimiterCnt+1).' columns found. Expecting 10';
+					break;
+				}
+				continue;
+			}
+			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
+			$id = trim($id);
+			if(in_array($id, $ids)) {
+				$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
+			}
+			if(!is_numeric(trim($initial_prov))){
+				$error[]='<br />Register '. ($line_num) .': Initial provision is not numeric';
+			}
+			if(!is_numeric(trim($actual_prov))){
+				$error[]='<br />Register '. ($line_num) .': Actual provision is not numeric';
+			}
+			if(!is_numeric(trim($t1))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 1 is not numeric';
+			}
+			if(!is_numeric(trim($t2))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 2 is not numeric';
+			}
+			if(!is_numeric(trim($t3))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 3 is not numeric';
+			}
+			if(!is_numeric(trim($t4))){
+				$error[]='<br />Register '. ($line_num) .': Trimester 4 is not numeric';
+			}
+			$ids[]=$id;
+		}
+		return array($lines, $error);
 	}
 
 	protected function __addMissignRegisters(& $registers)
@@ -227,14 +278,19 @@ class ImportCSV extends CFormModel
 		foreach($registers as $internal_code => $register){
 			$budgets[$internal_code] = $this->register2array($register);
 
-			if(($budgets[$internal_code]['code'] === '') || ($budgets[$internal_code]['concept'] === '')){
-				if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$internal_code, 'language'=>$lang))){
+			if($budgets[$internal_code]['code'] === '' || $budgets[$internal_code]['concept'] === '' || $budgets[$internal_code]['concept'] === 'UNKNOWN'){
+				
+				$description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$internal_code, 'language'=>$lang));
+				if(!$description)
+					$description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$internal_code, 'language'=>$lang));
+
+				if($description){
 					if(($budgets[$internal_code]['code'] === '') && strlen($budgets[$internal_code]['csv_id']) > 3){
 						$budgets[$internal_code]['code'] = $description->code;
 						if($budgets[$internal_code]['code'] !== '')
 							$updated++;
 					}
-					if($budgets[$internal_code]['concept'] === ''){
+					if($budgets[$internal_code]['concept'] === '' || $budgets[$internal_code]['concept'] === 'UNKNOWN'){
 						$budgets[$internal_code]['concept'] = $description->concept;
 						if($budgets[$internal_code]['concept'] !== '')
 							$updated++;
@@ -248,7 +304,7 @@ class ImportCSV extends CFormModel
 					if($isChild = strrpos($internal_code, "-"))
 						$budgets[$internal_code]['code'] = substr($internal_code, $isChild+1);
 					else
-						$budgets[$internal_code]['code'] = 'UNKNOWN';
+						$budgets[$internal_code]['code'] = 'PLEASE FIX ME';
 					$updated++;
 				}
 			}

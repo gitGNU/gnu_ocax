@@ -25,6 +25,8 @@ div.form .title{ color:#a1a150; }
 /*ENQUIRIYS*/
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
+#change_to_list { background: url("./images/graph_type_pie.png") no-repeat scroll 0 0 transparent; }
+#change_to_grid { background: url("./images/graph_type_bar.png") no-repeat scroll 0 0 transparent; }
 
 /*PAGINA USUARIO*/
 #nueva_consulta {

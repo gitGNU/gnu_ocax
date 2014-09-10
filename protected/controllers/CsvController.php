@@ -68,6 +68,9 @@ class CsvController extends Controller
 		echo $this->renderPartial('regenCSV',array('dataProvider'=>$dataProvider),false,true);
 	}
 
+	/*
+	 * generate a CSV taking data from the database
+	 */
 	public function actionRegenerateCSV($id)
 	{
 		$model = new ImportCSV;
@@ -80,7 +83,7 @@ class CsvController extends Controller
 	public function actionImportCSV($id)
 	{
 		$model = new ImportCSV;
-		$model->year=$id; //$_GET['year'];
+		$model->year=$id;
 		$this->render('importCSV', array('model'=>$model));
 	}
 
@@ -102,77 +105,36 @@ class CsvController extends Controller
 		$this->render('importCSV', array('model'=>$model));
 	}
 
-
+	/* 
+	 * Make some preliminary checks
+	 */
 	public function actionCheckCSVFormat()
 	{
 		if(!isset($_GET['csv_file'])){
 			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));	
 			Yii::app()->end();
 		}
-		$error=array();
-
 		$model = new ImportCSV;
 		$model->csv = $model->path.$_GET['csv_file'];
 		
-		/* Test encoding */
 		if(!$model->checkEncoding()){
 			echo CJavaScript::jsonEncode(array('error'=>'This file has not been saved as UTF-8'));
 			Yii::app()->end();
 		}
-		
-		$correct_field_delimiter=0;
-		$ids = array();
-		$lines = file($model->csv);
-		foreach ($lines as $line_num => $line) {
-			if($line_num==0){
-				$delimiterCnt = substr_count($line, '|');
-				if ($delimiterCnt == 0){
-					$error[]='Delimiter | not found in file.';
-					break;
-				}
-				if ($delimiterCnt != 9){
-					$error[]=($delimiterCnt+1).' columns found. Expecting 10';
-					break;
-				}
-				continue;
-			}
-			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
-			$id = trim($id);
-			if(in_array($id, $ids)) {
-				$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
-			}
-			if(!is_numeric(trim($initial_prov))){
-				$error[]='<br />Register '. ($line_num) .': Initial provision is not numeric';
-			}
-			if(!is_numeric(trim($actual_prov))){
-				$error[]='<br />Register '. ($line_num) .': Actual provision is not numeric';
-			}
-			if(!is_numeric(trim($t1))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 1 is not numeric';
-			}
-			if(!is_numeric(trim($t2))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 2 is not numeric';
-			}
-			if(!is_numeric(trim($t3))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 3 is not numeric';
-			}
-			if(!is_numeric(trim($t4))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 4 is not numeric';
-			}
-			$ids[]=$id;
-
-		}
+		list($total_registers, $error) = $model->checkCSVFormat();
 		if(!$error)
 			$error = $model->checkInternalCodeSanity();
-
+			
 		if(!$error){
 			$model->orderCSV();	
-			echo count($lines) - 1;
+			echo count($total_registers) - 1;	// -1 to remove the first header line
 		}else
 			echo CJavaScript::jsonEncode(array('error'=>$error));
-
 	}
 
+	/*
+	 * Complete the CSV with missing registers, concepts, and totals
+	 */
 	public function actionAddMissingValues()
 	{
 		if(!isset($_GET['csv_file'])){
@@ -181,35 +143,34 @@ class CsvController extends Controller
 		}
 		$model = new ImportCSV;
 		$model->csv = $model->path.$_GET['csv_file'];
-		
 		$msg=Null;
-		$newRegisterCnt = $model->addMissignRegisters();
-		$new_concepts = $model->addMissingConcepts();
 		
+		$newRegisterCnt = $model->addMissignRegisters();	// rewrites the csv if needed
 		if($newRegisterCnt > 0)
-			$msg = '<br /><span class="warn">'.$newRegisterCnt.' new registers added</span>';		
+			$msg = '<br /><span class="warn">'.$newRegisterCnt.' new registers added</span>';
+			
+		$new_concepts = $model->addMissingConcepts();		// rewrites the csv if needed
 		if($new_concepts)
-			$msg = $msg.'<span class="warn"> ('.$new_concepts.' codes/concepts included)</span>';
+			$msg = $msg.'<br /><span class="warn">'.$new_concepts.' codes/concepts added</span>';
 		
-		if(list($initial,$actual,$t1,$t2,$t3,$t4) = $model->addMissingTotals()){
-			$total_newTotals = $initial+$actual+$t1+$t2+$t3+$t4;
-			if($newRegisterCnt)
-				$total_newTotals = $total_newTotals - (6 * $newRegisterCnt); // 6 because the are 6 number columns in csv. WTF?
-			if($total_newTotals){
-				$msg = $msg.'<br /><span class="warn" style="text-decoration:underline"> '.$total_newTotals.' missing totals added:</span>';
-				if($initial)
-					$msg = $msg.'<br /><span class="warn">initial_provision: '.$initial.'</span>';
-				if($actual)
-					$msg = $msg.'<br /><span class="warn">actual_provision: '.$actual.'</span>';
-				if($t1)
-					$msg = $msg.'<br /><span class="warn">trimester_1: '.$t1.'</span>';
-				if($t2)
-					$msg = $msg.'<br /><span class="warn">trimester_2: '.$t2.'</span>';
-				if($t3)
-					$msg = $msg.'<br /><span class="warn">trimester_3: '.$t3.'</span>';
-				if($t4)
-					$msg = $msg.'<br /><span class="warn">trimester_4: '.$t4.'</span>';
-			}
+		list($initial,$actual,$t1,$t2,$t3,$t4) = $model->addMissingTotals();	// rewrites the csv if needed
+		$total_newTotals = $initial+$actual+$t1+$t2+$t3+$t4;
+		if($total_newTotals){
+			$msg = $msg.'<br /><span class="warn"> '.$total_newTotals.' missing totals added:</span>';
+			$msg = $msg.'<blockquote style="margin-top:-25px;">';
+			if($initial)
+				$msg = $msg.'<br /><span class="warn">initial_provision: '.$initial.'</span>';
+			if($actual)
+				$msg = $msg.'<br /><span class="warn">actual_provision: '.$actual.'</span>';
+			if($t1)
+				$msg = $msg.'<br /><span class="warn">trimester_1: '.$t1.'</span>';
+			if($t2)
+				$msg = $msg.'<br /><span class="warn">trimester_2: '.$t2.'</span>';
+			if($t3)
+				$msg = $msg.'<br /><span class="warn">trimester_3: '.$t3.'</span>';
+			if($t4)
+				$msg = $msg.'<br /><span class="warn">trimester_4: '.$t4.'</span>';
+			$msg = $msg.'</blockquote>';
 		}
 		if(!$msg)
 			$msg='No missing values';
@@ -218,7 +179,7 @@ class CsvController extends Controller
 											'new_totals'=>$total_newTotals,
 											'new_concepts'=>$new_concepts,
 											'msg'=>$msg,
-											));		
+										));		
 	}
 
 	public function actionCheckCSVTotals()
@@ -333,7 +294,7 @@ class CsvController extends Controller
 	}
 
 	/*
-	 * Import a CSV into the database
+	 * Only after running the checks do we import a CSV into the database
 	 */
 	public function actionImportCSVData($id)
 	{
@@ -456,6 +417,7 @@ class CsvController extends Controller
 	/*
 	 * Part of the import CSV process
 	 * The CSV import process may update the CSV with missing values
+	 * Admin can download updated csv
 	 */
 	public function actionDownloadUpdatedCSV($id)
 	{
