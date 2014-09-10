@@ -138,8 +138,11 @@ function addPanelSeparator(){
 if($model->is_team_member){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed')).'</div>';
-	echo 	'<p><u>Team member</u><br />'.__('Manage the enquiries you are responsable for').'</p>';
+	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed'));
+	if(Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_ASSIGNED)))
+		echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';
+	echo '</div>';
+	echo '<p><u>Team member</u><br />'.__('Manage the enquiries you are responsable for').'</p>';
 	echo '</div>';
 }
 
@@ -157,7 +160,10 @@ if($model->is_editor){
 if($model->is_manager){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin')).'</div>';
+	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin'));
+	if(Enquiry::model()->findByAttributes(array('state'=>ENQUIRY_PENDING_VALIDATION)))
+		echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';	
+	echo '</div>';
 	echo 	'<p><u>Team manager</u><br />'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';
 }

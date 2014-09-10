@@ -34,7 +34,7 @@ function changeSMTPMethod(el){
 	else
 		$('#smtp_params').find('input').prop('disabled',false);
 }
-function updateNoReply(text){
+function updateNoReply(){
 		value = $('#value_emailNoReply').val();
 		$('#noReply').html("<?php echo __('Send as').':&ensp;&ensp;';?>"+value);
 }

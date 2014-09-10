@@ -102,12 +102,7 @@ function budgetModal2Page(){
 	else
 		echo '<div class="budgetCategory">'.$category.'</div>';
 
-	$modify_link = Null;
-	if(Yii::app()->user->isAdmin()){
-		$modify_link=CHtml::link('+',array('budgetDescription/modify','budget'=>$model->id),array('style'=>'text-decoration:none'));
-		$modify_link=' <span style="font-size:0.8em;">'.$modify_link.'</span>';
-	}
-	echo '<h1>'.$model->getTitle().$modify_link.'</h1>';
+	echo '<h1>'.$model->getTitle().'</h1>';
 
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';
@@ -138,6 +133,13 @@ function budgetModal2Page(){
 	
 	echo '<div style="margin-top:15px; font-size:1.2em">';	
 	if($description = $model->getDescription()){
+		if(Yii::app()->user->isPrivileged()){
+			echo CHtml::link(__('Can you improve this description?'),
+							array('budgetDescription/modify','budget'=>$model->id),
+							array('style'=>'font-size:16px;')
+							);
+			echo '<br />';
+		}
 		echo $description->description;
 		if($description->modified){
 			if($state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language)){
@@ -148,6 +150,14 @@ function budgetModal2Page(){
 				echo $state_description->description;
 				echo '</div>';
 			}	
+		}
+	}else{
+		if(Yii::app()->user->isPrivileged()){
+			echo CHtml::link(__('Please consider adding a description here'),
+							array('budgetDescription/modify','budget'=>$model->id),
+							array('style'=>'font-size:16px;')
+							);
+			echo '<br />';
 		}
 	}	
 	
