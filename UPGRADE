@@ -25,9 +25,17 @@ chown -R www-data protected/runtime/
 
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorSafe', '1', '1', "Safe HTML editor");
-INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor"); 
+INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");
 INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets");
 INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
+
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatus', '0', '1', 'Site configuration complete');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusBudgetDescriptionsImport', '0', '1', 'Budget descriptions have been imported');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmail', '0', '1', 'Site email configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmailTemplates', '0', '1', 'Site email configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusLanguage', '0', '1', 'Site language configuration status');
+
+ALTER TABLE emailtext ADD updated TINYINT(1) DEFAULT 0 NOT NULL;
 
 UPDATE config SET description='Name of the Administration' WHERE parameter='administrationName';
 UPDATE config SET description='Does your Observatory encourage membership?' WHERE parameter='membership';
@@ -40,6 +48,8 @@ UPDATE config SET required=0 WHERE parameter='smtpPassword';
 UPDATE config SET required=0 WHERE parameter='smtpPort';
 UPDATE config SET required=0 WHERE parameter='smtpSecure';
 UPDATE config SET required=0 WHERE parameter='smtpUsername';
+
+
 
 /* ---------- stop copying ---------- */
 

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -68,7 +68,6 @@ class Config extends CActiveRecord
 		);
 	}
 
-
 	public function validateLanguage($attribute,$params)
 	{
 		if($this->$attribute === ""){
@@ -96,6 +95,42 @@ class Config extends CActiveRecord
 		}
 	}
 
+	protected function afterSave()
+	{
+		if($this->parameter == 'languages'){
+			$record = $this->findByPk('siteConfigStatusLanguage');
+			$record->value = 1;
+			$record->save();
+			return $this->_updateSiteConfigurationStatus();
+		}
+	}
+
+	private function _updateSiteConfigurationStatus()
+	{
+		$siteConfigStatus = $this->findByPk('siteConfigStatus');
+		$params = array('siteConfigStatusLanguage',
+						'siteConfigStatusEmail',
+					);
+		foreach($params as $p){
+			if($this->findByPk($p)->value == 0){
+				$siteConfigStatus->value=0;
+				$siteConfigStatus->save();
+				return 0;
+			}
+		}
+		$siteConfigStatus->value=1;
+		$siteConfigStatus->save();
+		return 1;
+	}
+
+	public function updateSiteConfigurationStatus($param, $value)
+	{
+		$record = $this->findByPk($param);
+		$record->value = $value;
+		$record->save();
+		return $record->_updateSiteConfigurationStatus();
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -103,8 +138,7 @@ class Config extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return array();
 	}
 
 	/**
@@ -130,27 +164,4 @@ class Config extends CActiveRecord
 		$title=str_replace('%s', $this->findByPk('observatoryName2')->value, $this->findByPk('observatoryName1')->value);
 		return str_replace('#', ' ', $title);
 	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-/*
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('can_edit = 1');
-		
-		$criteria->compare('parameter',$this->parameter,true);
-		$criteria->compare('value',$this->value,true);
-		$criteria->compare('description',$this->description,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-*/
 }

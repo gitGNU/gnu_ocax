@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 /*
@@ -46,7 +46,7 @@ function changeColumn()
 $privilegedUser = Yii::app()->user->isPrivileged();
 ?>
 
-<style>           
+<style>
 	.outer{ position:relative; width:100%; padding: 0px; float: left;}
 	.clear{clear:both;}
 </style>
@@ -79,7 +79,7 @@ function toggleBasicUserOptions(){
 			onCLick="js:toggleBasicUserOptions();return false;">
 			<?php echo __('show options');?> &#x25BC;
 	</div>
-	
+
 	<?php } ?>
 <div id="basicUserOptions" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>">
 <div class="panel_left">
@@ -114,10 +114,10 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
-		
-		echo '<div class="outer">';	
+
+		echo '<div class="outer">';
 		echo '<div id="control_panel"></div>';
-		
+
 		//echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
 		//echo '</div>';
@@ -135,6 +135,11 @@ function addPanelSeparator(){
 	}
 }
 
+if($model->is_admin && !Config::model()->findByPk('siteConfigStatus')->value){
+	addPanelSeparator();
+	echo '<div class="clear"></div>';
+	$this->renderPartial('//config/pendingConfiguration');
+}
 if($model->is_team_member){
 	addPanelSeparator();
 	changeColumn();
@@ -162,7 +167,7 @@ if($model->is_manager){
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin'));
 	if(Enquiry::model()->findByAttributes(array('state'=>ENQUIRY_PENDING_VALIDATION)))
-		echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';	
+		echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';
 	echo '</div>';
 	echo 	'<p><u>Team manager</u><br />'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';
@@ -187,7 +192,7 @@ if($model->is_admin){
 			echo CHtml::link(__('Backups'),array('vault/admin')).'<br />';
 		else
 			echo CHtml::link(__('Manual Backup'),array('backup/manualCreate')).'<br />';
-		
+
 	echo '</p></div>';
 	echo '<div style="float:right"><p>';
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
@@ -296,8 +301,8 @@ if($noEnquiries){
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
 	<script>
-		$(function() { 
-			$(".flash-success").slideDown('fast');		
+		$(function() {
+			$(".flash-success").slideDown('fast');
 			setTimeout(function() {
 				$('.flash-success').slideUp('fast');
     		}, 4500);

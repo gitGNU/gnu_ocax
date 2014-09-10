@@ -187,17 +187,18 @@ CREATE TABLE IF NOT EXISTS vote (
 CREATE TABLE IF NOT EXISTS emailtext (
 	state int(11) NOT NULL,
 	body MEDIUMTEXT NOT NULL,
+	updated TINYINT(1) DEFAULT 0 NOT NULL,
 	PRIMARY KEY (state)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO emailtext(state, body) VALUES (1, '<p>Hola %name%,</p><p>ENQUIRY_PENDING_VALIDATION</p>');
-INSERT INTO emailtext(state, body) VALUES (2, '<p>Hola team_member,</p><p>This is an internal email.<br />ENQUIRY_ASSIGNED</p><p>%link%</p>');
-INSERT INTO emailtext(state, body) VALUES (3, '<p>Hola,</p><p>ENQUIRY_REJECTED</p>');
-INSERT INTO emailtext(state, body) VALUES (4, '<p>Hola,</p><p>ENQUIRY_ACCEPTED</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (5, '<p>Hola,</p><p>ENQUIRY_AWAITING_REPLY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (6, '<p>Hola,</p><p>ENQUIRY_REPLY_PENDING_ASSESSMENT</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (7, '<p>Hola,</p><p>ENQUIRY_REPLY_SATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, body) VALUES (8, '<p>Hola,</p><p>ENQUIRY_REPLY_INSATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (1, 0, '<p>Hola %name%,</p><p>ENQUIRY_PENDING_VALIDATION</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (2, 0, '<p>Hola team_member,</p><p>This is an internal email.<br />ENQUIRY_ASSIGNED</p><p>%link%</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (3, 0, '<p>Hola,</p><p>ENQUIRY_REJECTED</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (4, 0, '<p>Hola,</p><p>ENQUIRY_ACCEPTED</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (5, 0, '<p>Hola,</p><p>ENQUIRY_AWAITING_REPLY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (6, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_PENDING_ASSESSMENT</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (7, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_SATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO emailtext(state, updated, body) VALUES (8, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_INSATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
 
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,
@@ -365,6 +366,14 @@ INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorS
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
+
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatus', '0', '1', 'Site configuration complete');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusBudgetDescriptionsImport', '0', '1', 'Budget descriptions have been imported');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmail', '0', '1', 'Site email configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmailTemplates', '0', '1', 'Site email configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusLanguage', '0', '1', 'Site language configuration status');
+
+
 INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'Database schema version');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'Email server'); /* 0=SMTP, 1=Sendmail */
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth'); /*  0=No, 1=Yes */

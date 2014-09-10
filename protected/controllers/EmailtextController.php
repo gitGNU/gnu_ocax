@@ -84,10 +84,14 @@ class EmailtextController extends Controller
 		if(isset($_POST['Emailtext']))
 		{
 			$model->attributes=$_POST['Emailtext'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->state));
-		}
+			$model->updated=1;
+			if($model->save()){
+				if(!$model->findByAttributes(array('updated'=>0)))
+					Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmailTemplates', 1);
 
+				$this->redirect(array('view','id'=>$model->state));
+			}
+		}
 		$this->render('update',array(
 			'model'=>$model,
 		));

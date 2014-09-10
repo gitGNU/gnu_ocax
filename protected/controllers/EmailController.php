@@ -180,7 +180,7 @@ class EmailController extends Controller
 			$user_text = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
 			$user_text = nl2br($user_text);
 			$model->body = '<p>'.$model->title.'</p>';	//get the preamble from the title
-			
+
 			$model->title = str_replace("%s", Config::model()->findByPk('siglas')->value, __('Private email request from a user at the %s'));
 
 			if($model->save()){
@@ -218,18 +218,21 @@ class EmailController extends Controller
 	public function actionTest($id)
 	{
 		$user = User::model()->findByPk(Yii::app()->user->getUserID());
-		
+
 		$mailer = new Mailer();
 		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
 		$mailer->AddAddress($user->email);
 		$mailer->Subject=$id;
 		$mailer->Body='<p>This is a test</p>';
 
-		if($mailer->send())
+		if($mailer->send()){
 			Yii::app()->user->setFlash('success',__('Email sent OK'));
-		else
+			Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmail', 1);
+		}else{
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
-		
+			Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmail', 0);
+		}
+
 		$this->redirect(array('/config/email'));
 	}
 

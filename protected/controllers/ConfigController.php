@@ -60,45 +60,45 @@ class ConfigController extends Controller
 	public function actionIndex()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model));		
+		$this->render('index',array('model'=>$model));
 	}
 
 	public function actionEmail()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'email'));		
+		$this->render('index',array('model'=>$model, 'page'=>'email'));
 	}
-	
+
 	public function actionObservatory()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'observatory'));		
+		$this->render('index',array('model'=>$model, 'page'=>'observatory'));
 	}
 
 	public function actionSocial()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'social'));		
+		$this->render('index',array('model'=>$model, 'page'=>'social'));
 	}
 
 	public function actionLocale()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'locale'));		
+		$this->render('index',array('model'=>$model, 'page'=>'locale'));
 	}
 
 	public function actionBackups()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'backups'));		
+		$this->render('index',array('model'=>$model, 'page'=>'backups'));
 	}
 
 	public function actionMisc()
 	{
 		$model = new Config;
-		$this->render('index',array('model'=>$model, 'page'=>'misc'));		
+		$this->render('index',array('model'=>$model, 'page'=>'misc'));
 	}
-			
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'returnURL' page.
@@ -116,12 +116,12 @@ class ConfigController extends Controller
 
 		$returnURL=Null;
 		if(isset($_GET['returnURL']))
-			$returnURL=$_GET['returnURL'];	
+			$returnURL=$_GET['returnURL'];
 
 		if(isset($_POST['Config']))
 		{
 			$model->attributes=$_POST['Config'];
-			
+
 			if($model->parameter == 'languages'){
 				$model->value = str_replace(' ','',$model->value);
 				$model->value = rtrim($model->value, ',');
@@ -129,10 +129,10 @@ class ConfigController extends Controller
 			}
 			elseif($model->parameter == 'observatoryBlog' || $model->parameter == 'socialFacebookURL' || $model->parameter == 'socialTwitterURL')
 				$model->setScenario('URL');
-				
+
 			elseif($model->parameter == 'currencySymbol')
 				$model->setScenario('currenyCollocation');
-				
+
 			elseif($model->parameter == 'socialTwitterUsername')
 				$model->value = ltrim($model->value, '@');
 
@@ -141,7 +141,7 @@ class ConfigController extends Controller
 
 			elseif($model->parameter == 'year' || $model->parameter == 'vaultDefaultCapacity')
 				$model->setScenario('positiveNumber');
-				
+
 			elseif($model->required)
 				$model->setScenario('cannotBeEmpty');
 

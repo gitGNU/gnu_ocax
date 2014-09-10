@@ -56,7 +56,7 @@ class UserController extends Controller
 			array('allow',
 				'actions'=>array('disable'),
 				'expression'=>"Yii::app()->user->isManager()",
-			),			
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -98,31 +98,32 @@ class UserController extends Controller
 			$latest_version_file = Yii::app()->basePath.'/runtime/latest.ocax.version';
 			if (file_exists($latest_version_file)) {
 				$date = new DateTime();
-	
+
 				if( $date->getTimestamp() - filemtime($latest_version_file) > 86400 ){ //604800 a week
 					$context = stream_context_create(array(
 						'http' => array(
 						'header' => 'Content-type: application/x-www-form-urlencoded',
 						'method' => 'GET',
-						'timeout' => 5
+						'timeout' => 1
 					)));
 					if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
 						$new_version = json_decode($result);
 						if(isset($new_version->ocax))
 							file_put_contents($latest_version_file, $new_version->ocax);
 					}
+
 				}
 			}else
 				copy(Yii::app()->basePath.'/data/ocax.version', Yii::app()->basePath.'/runtime/latest.ocax.version');
 
 			$installed_version = getOCAXVersion();
 			$installed_version = str_replace('.','',$installed_version );
-			$installed_version = str_pad($installed_version, 10 , '0');			
-			
+			$installed_version = str_pad($installed_version, 10 , '0');
+
 			$latest_version = file_get_contents($latest_version_file);
 			$latest_version = str_replace('.','',$latest_version );
 			$latest_version = str_pad($latest_version, 10 , '0');
-			
+
 			if($latest_version > $installed_version)
 				$upgrade = file_get_contents($latest_version_file);
 		}
@@ -198,7 +199,7 @@ class UserController extends Controller
 			//if($language != $model->language){
 				Yii::app()->language = $model->language;
 				$cookie = new CHttpCookie('lang', $model->language);
-				$cookie->expire = time()+60*60*24*180; 
+				$cookie->expire = time()+60*60*24*180;
 				Yii::app()->request->cookies['lang'] = $cookie;
 			//}
 
@@ -225,7 +226,7 @@ class UserController extends Controller
 			if(isset($_GET['confirmed'])){
 				$block = new BlockUser;
 				if(! $block->findByAttributes(array('user'=>$userid, 'blocked_user'=>$blocked_user->id))){
-	
+
 					$block->user=$userid;
 					$block->blocked_user=$blocked_user->id;
 					$block->save();
@@ -280,15 +281,15 @@ class UserController extends Controller
 			Yii:app()->end();
 		}
 		$model=$this->loadModel(Yii::app()->user->getUserID());
-		
+
 		$model->scenario = 'opt_out';
 		$model->is_active = 0;
 		$model->is_disabled = 1;
 		$model->username = '░░░░░░░░░';
 		$model->fullname = '░░░░░░░░░';
 		$model->email = '░░░░░░░░░';
-		
-		$model->save();			
+
+		$model->save();
 		Yii::app()->user->logout();
 		//Yii::app()->user->setFlash('success', __('Your profile has been deleted.'));
 		$this->redirect(Yii::app()->homeUrl);
@@ -311,7 +312,7 @@ class UserController extends Controller
 			$subscription->delete();
 		foreach($model->resetPasswords as $resetPassword)
 			$resetPassword->delete();
-			
+
 		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
