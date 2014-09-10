@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 
@@ -44,7 +44,7 @@ $this->menu=array(
 );
 ?>
 
-<style>           
+<style>
 	.left{width: 48%; float: left;  margin: 0px;}
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
@@ -74,6 +74,14 @@ $this->menu=array(
 <div>
 	<?php changeColumn();?>
 	<div class="row">
+		<?php echo $form->labelEx($model,'is_description_editor'); ?>
+		<?php echo $form->checkBox($model,'is_description_editor', array('checked'=>$model->is_description_editor)); ?>
+		<?php echo __('Can create and edit Budget descriptions').'.';?>
+	</div>
+	</div>
+
+	<?php changeColumn();?>
+	<div class="row">
 		<?php echo $form->labelEx($model,'is_team_member'); ?>
 		<?php echo $form->checkBox($model,'is_team_member', array('checked'=>$model->is_team_member)); ?>
 		<?php echo __('Manage the enquiries you are responsable for').'.';?>
@@ -90,7 +98,7 @@ $this->menu=array(
 
 	<?php changeColumn();?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'is_manager'); ?> 
+		<?php echo $form->labelEx($model,'is_manager'); ?>
 		<?php echo $form->checkBox($model,'is_manager', array('checked'=>$model->is_manager)); ?>
 		<?php echo __('Assign enquiries to team members and check status').'.';?>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,12 +19,8 @@
 
 class UserController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column1';
 
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -188,7 +184,7 @@ class UserController extends Controller
 
 				if(!$model->validate()){
 					$this->render('update',array('model'=>$model,));
-					yii:app()->end();
+					Yii:app()->end();
 				}
 				$model->salt=$model->generateSalt();
 				$model->password = $model->hashPassword($model->new_password,$model->salt);
@@ -196,14 +192,13 @@ class UserController extends Controller
 			if($email != $model->email)
 				$model->is_active=0;
 
-			//if($language != $model->language){
+			if($model->save()){
+
 				Yii::app()->language = $model->language;
 				$cookie = new CHttpCookie('lang', $model->language);
 				$cookie->expire = time()+60*60*24*180;
 				Yii::app()->request->cookies['lang'] = $cookie;
-			//}
 
-			if($model->save()){
 				Yii::app()->user->setFlash('success', __('Changes saved Ok'));
 				if(!$model->is_active)
 					$this->redirect(array('/site/sendActivationCode'));
@@ -251,6 +246,10 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+			/*
+			if($model->is_team_member || $model->is_editor || $model->is_manager)
+				$model->is_description_editor = 1;
+			*/
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -274,6 +273,10 @@ class UserController extends Controller
 		echo 1;
 	}
 
+	/*
+	 * The user deletes his account
+	 * We don't delete the database entry because it might be referenced by other models
+	 */
 	public function actionOptout()
 	{
 		if(Yii::app()->user->isGuest){

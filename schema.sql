@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS user (
   is_active TINYINT(1) DEFAULT 0,
   is_disabled TINYINT(1) DEFAULT 0,
   is_socio TINYINT(1) DEFAULT 0,
+  is_description_editor TINYINT(1) DEFAULT 0,
   is_team_member TINYINT(1) DEFAULT 0,
   is_editor TINYINT(1) DEFAULT 0,
   is_manager TINYINT(1) DEFAULT 0,

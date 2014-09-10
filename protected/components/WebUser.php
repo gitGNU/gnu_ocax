@@ -1,8 +1,8 @@
 <?php
 
 /**
-OCAX -- Citizen driven Municipal Observatory software
-Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+OCAX -- Citizen driven Observatory software
+Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -19,89 +19,97 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 // http://www.yiiframework.com/wiki/60/
- 
+
 
 class WebUser extends CWebUser {
- 
-  // Store model to not repeat query.
-  private $_model;
- 
-  // Return first name.
-  // access it by Yii::app()->user->first_name
-  function getFirst_Name(){
-    $user = $this->loadUser(Yii::app()->user->id);
-    return $user->first_name;
-  }
 
-  function getUserID(){
-	if(Yii::app()->user->isGuest)
-		return 0;
-    $user = $this->loadUser(Yii::app()->user->id);
-	return intval($user->id);
-  }
- 
-  function getFullname(){
-	if(Yii::app()->user->isGuest)
-		return '';
-    $user = $this->loadUser(Yii::app()->user->id);
-	return $user->fullname;
-  }
+	// Store model to not repeat query.
+	private $_model;
 
+	function getUserID()
+	{
+		if(Yii::app()->user->isGuest)
+			return 0;
+		$user = $this->loadUser(Yii::app()->user->id);
+		return intval($user->id);
+	}
 
-  // access it by Yii::app()->user->isAdmin()
-  function isPrivileged(){
-	if(Yii::app()->user->isGuest)
-		return 0;
-    $user = $this->loadUser(Yii::app()->user->id);
-    if($user->is_team_member)
-    	return 1;
-    if($user->is_editor)
-    	return 1;
-    if($user->is_manager)
-    	return 1;
-    if($user->is_admin)
-    	return 1; 	
-	return 0;
-  }
-  
-  function isTeamMember(){
-	if(Yii::app()->user->isGuest)
-		return 0;
-    $user = $this->loadUser(Yii::app()->user->id);
-	return intval($user->is_team_member);
-  }
+	function getFullname()
+	{
+		if(Yii::app()->user->isGuest)
+			return '';
+		$user = $this->loadUser(Yii::app()->user->id);
+		return $user->fullname;
+	}
 
-  function isEditor(){
-	if(Yii::app()->user->isGuest)
+	// access it by Yii::app()->user->isAdmin()
+	function isPrivileged()
+	{
+		if(Yii::app()->user->isGuest)
+			return 0;
+		$user = $this->loadUser(Yii::app()->user->id);
+		if($user->is_team_member)
+			return 1;
+		if($user->is_editor)
+			return 1;
+		if($user->is_manager)
+			return 1;
+		if($user->is_admin)
+			return 1;
 		return 0;
-    $user = $this->loadUser(Yii::app()->user->id);
-	return intval($user->is_editor);
-  }
+	}
 
-  function isManager(){
-	if(Yii::app()->user->isGuest)
-		return 0;
-    $user = $this->loadUser(Yii::app()->user->id);
-	return intval($user->is_manager);
-  }
+	function canEditBudgetDescriptions()
+	{
+		if(Yii::app()->user->isGuest)
+			return 0;
+		$user = $this->loadUser(Yii::app()->user->id);
+		if($user->is_admin)
+			return 1;
+		return intval($user->is_description_editor);
+	}
 
-  // access it by Yii::app()->user->isAdmin()
-  function isAdmin(){
-	if(Yii::app()->user->isGuest)
+	function isTeamMember()
+	{
+		if(Yii::app()->user->isGuest)
+			return 0;
+		$user = $this->loadUser(Yii::app()->user->id);
+		return intval($user->is_team_member);
+	}
+
+	function isEditor()
+	{
+		if(Yii::app()->user->isGuest)
+			return 0;
+		$user = $this->loadUser(Yii::app()->user->id);
+		return intval($user->is_editor);
+	}
+
+	function isManager()
+	{
+		if(Yii::app()->user->isGuest)
 		return 0;
-    $user = $this->loadUser(Yii::app()->user->id);
-	return intval($user->is_admin);
-  }
- 
-  // Load user model.
-  protected function loadUser($id=null)
-    {
-        if($this->_model===null)
-        {
-            if($id!==null)
+		$user = $this->loadUser(Yii::app()->user->id);
+		return intval($user->is_manager);
+	}
+
+	// access it by Yii::app()->user->isAdmin()
+	function isAdmin()
+	{
+		if(Yii::app()->user->isGuest)
+			return 0;
+		$user = $this->loadUser(Yii::app()->user->id);
+		return intval($user->is_admin);
+	}
+
+	// Load user model.
+	protected function loadUser($id=null)
+	{
+		if($this->_model===null){
+			if($id!==null)
 				$this->_model = User::model()->findByAttributes(array('username'=>$id));
-        }
-        return $this->_model;
-    }
+		}
+		return $this->_model;
+	}
 }
 ?>

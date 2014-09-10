@@ -37,6 +37,7 @@
  * @property integer $is_active
  * @property integer $is_disabled
  * @property integer $is_socio
+ * @property integer $is_description_editor
  * @property integer $is_team_member
  * @property integer $is_editor
  * @property integer $is_manager
@@ -74,13 +75,15 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, fullname, password, salt, email, activationcode', 'required'),
-			array('is_socio, is_team_member, is_editor, is_manager, is_admin, is_active, is_disabled', 'numerical', 'integerOnly'=>true),
+			array('is_socio, is_description_editor, is_team_member, is_editor,
+					is_manager, is_admin, is_active, is_disabled', 'numerical',
+					'integerOnly'=>true),
 			array('username, fullname, password, salt, email', 'length', 'max'=>128),
 			array('email', 'email', 'except' => 'opt_out', 'allowEmpty'=>false),
 			array('email', 'unique', 'except' => 'opt_out', 'className' => 'User'),
 			//array('username', 'exist', 'except' => 'update'),
 			array('new_password, password_repeat', 'required', 'on'=>'change_password'),
-			array('new_password', 'length', 'min' => 6, 
+			array('new_password', 'length', 'min' => 6,
 				    'tooShort'=>Yii::t("translation", "{attribute} es muy corta (6 carácteres min)."),
 				    'tooLong'=>Yii::t("translation", "{attribute} is too long."),
 					'on'=>'change_password'),
@@ -163,7 +166,7 @@ class User extends CActiveRecord
 			$code = substr(md5(rand(0, 1000000)), 0, 45);
 		return $code;
 	}
- 
+
 	/**
 	 * Generates the password hash.
 	 * @param string password
@@ -174,7 +177,7 @@ class User extends CActiveRecord
 	{
 		return md5($salt.$password);
 	}
- 
+
 	/**
 	 * Generates a salt that can be used to generate a password hash.
 	 * @return string the salt
@@ -195,7 +198,7 @@ class User extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('is_disabled = 0');
-		
+
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('fullname',$this->fullname,true);

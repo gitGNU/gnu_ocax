@@ -106,7 +106,7 @@ function budgetModal2Page(){
 
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';
-		
+
 		if(count($model->getAllBudgetsWithCSV_ID()) > 1){
 			$compareYears = '<span id="compareYearsLink" class="link" style="float:right;font-size:1.1em" '.
 					'onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').
@@ -117,7 +117,7 @@ function budgetModal2Page(){
 			echo $showBudgetDetails;
 			echo $compareYears.'<div style="clear:both"></div>';
 		}
-		
+
 		echo '<div id="budget_details">';
 		$this->renderPartial('_budgetDetails',array('model'=>$model,
 													'showCreateEnquiry'=>1,
@@ -130,10 +130,10 @@ function budgetModal2Page(){
 		echo '</div>';
 		echo '<div id="budget_comparative" style="display:none"></div>';
 		echo '</div>';
-	
-	echo '<div style="margin-top:15px; font-size:1.2em">';	
+
+	echo '<div style="margin-top:15px; font-size:1.2em">';
 	if($description = $model->getDescription()){
-		if(Yii::app()->user->isPrivileged()){
+		if(Yii::app()->user->canEditBudgetDescriptions()){
 			echo CHtml::link(__('Can you improve this description?'),
 							array('budgetDescription/modify','budget'=>$model->id),
 							array('style'=>'font-size:16px;')
@@ -149,18 +149,18 @@ function budgetModal2Page(){
 				echo '<div class="sub_title">'.__('Official description').'</div>';
 				echo $state_description->description;
 				echo '</div>';
-			}	
+			}
 		}
 	}else{
-		if(Yii::app()->user->isPrivileged()){
+		if(Yii::app()->user->canEditBudgetDescriptions()){
 			echo CHtml::link(__('Please consider adding a description here'),
 							array('budgetDescription/modify','budget'=>$model->id),
 							array('style'=>'font-size:16px;')
 							);
 			echo '<br />';
 		}
-	}	
-	
+	}
+
 	echo '<p style="font-size:1.2em;margin-top:35px;">';
 	if(!$dataProvider->getData()){
 		echo '<span>'.__('No enquiries have been made about this budget yet').'.</span><br />'.

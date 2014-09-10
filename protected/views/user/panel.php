@@ -125,10 +125,10 @@ function addPanelSeparator(){
 		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">defunct mailing list</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
-		echo '<a href="http://agora.ocax.net/" target="_agora">agora</a>';
+		echo '<a href="http://agora.ocax.net/" target="_agora">'.__('Agora').'</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
-		echo '<a href="http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_wiki">wiki</a>';
+		echo '<a href="http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').':" target="_wiki">Wiki</a>';
 		echo '</div>';
 
 		$panel_separator_added=1;

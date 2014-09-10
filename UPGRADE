@@ -49,6 +49,9 @@ UPDATE config SET required=0 WHERE parameter='smtpPort';
 UPDATE config SET required=0 WHERE parameter='smtpSecure';
 UPDATE config SET required=0 WHERE parameter='smtpUsername';
 
+ALTER TABLE user ADD is_description_editor TINYINT(1) DEFAULT 0;
+
+
 
 
 /* ---------- stop copying ---------- */
