@@ -25,10 +25,10 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
-}
-if(!Yii::app()->request->isAjaxRequest){?>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
-<?php } ?>
+}else
+	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
+
+?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
 <style>
@@ -142,10 +142,10 @@ function enquiryModal2Page(){
 }
 </script>
 
-<?php 
+<?php
 	if(Yii::app()->request->isAjaxRequest)
 		echo '<div class="modalTitle">'.__('Enquiry').'</div>';
-		
+
 	if($reformulatedDataprovider = $model->getReformulatedEnquires()){
 		$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
 															'model'=>$model,
@@ -155,7 +155,7 @@ function enquiryModal2Page(){
 
 <h1 style="margin-bottom:-2px;"><?php echo $model->title?></h1>
 
-<div	id="states_diagram" 
+<div	id="states_diagram"
 		style="	display:none;
 				cursor:pointer;
 				padding:20px;
@@ -166,7 +166,7 @@ function enquiryModal2Page(){
 				margin-left:10px;
 				margin-top:10px;
 				width:350px"
-		onClick="$(this).toggle();return false;"		
+		onClick="$(this).toggle();return false;"
 >
 <img	style="	cursor: pointer;
 				position: absolute;
@@ -283,7 +283,7 @@ if($model->budget)
 						data-lang="en"
 						>
 				</a>
-				</div>';	
+				</div>';
 
 			echo '<div style="float:left;margin-left:10px;">
 				  <div	class="fb-like"

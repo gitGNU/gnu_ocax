@@ -135,6 +135,7 @@ class User extends CActiveRecord
 			'joined' => __('Joined'),
 			'is_active' => __('Active'),
 			'is_socio' => __('Is partner'),
+			'is_description_editor' => __('Budget description editor'),
 			'is_team_member' => 'Team Member',
 			'is_editor' => 'CMS Editor',
 			'is_manager' => 'Team Manager',
@@ -199,14 +200,10 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('is_disabled = 0');
 
-		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('fullname',$this->fullname,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('salt',$this->salt,true);
 		$criteria->compare('email',$this->email,true);
-		$criteria->compare('joined',$this->joined,true);
-		$criteria->compare('activationcode',$this->activationcode);
+		//$criteria->compare('joined',$this->joined,true);
 		$criteria->compare('is_active',$this->is_active);
 		$criteria->compare('is_disabled',$this->is_disabled);
 		$criteria->compare('is_socio',$this->is_socio);

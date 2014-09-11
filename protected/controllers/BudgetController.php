@@ -80,6 +80,7 @@ class BudgetController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$this->layout='//layouts/column1';
 
 		$model=$this->loadModel($id);
 		$this->pageTitle=CHtml::encode(__('Budget').': '.$model->title);

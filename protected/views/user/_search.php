@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 /* @var $form CActiveForm */
@@ -51,11 +51,6 @@
 		<?php echo $form->textField($model,'email',array('size'=>32,'maxlength'=>128)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'joined'); ?>
-		<?php echo $form->textField($model,'joined'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton(__('Search')); ?>
 	</div>
@@ -72,7 +67,7 @@
 		<?php echo $form->label($model,'is_manager'); ?>
 		<?php echo $form->textField($model,'is_manager',array('size'=>5)); ?>
 	</div>
-	
+
 	<div class="row">
 		<?php echo $form->label($model,'is_admin'); ?>
 		<?php echo $form->textField($model,'is_admin',array('size'=>5)); ?>
@@ -97,7 +92,7 @@
 		<?php echo $form->label($model,'is_editor'); ?>
 		<?php echo $form->textField($model,'is_editor',array('size'=>5)); ?>
 	</div>
-	
+
 </div>
 
 <?php $this->endWidget(); ?>

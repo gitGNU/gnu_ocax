@@ -21,6 +21,19 @@
 /* @var $this BudgetDescriptionController */
 /* @var $model BudgetDescription */
 /* @var $form CActiveForm */
+
+if(Yii::app()->request->isAjaxRequest){
+	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+
+	/*
+	if(Yii::app()->clientScript->isScriptRegistered('jquery.js'))
+		Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	if(Yii::app()->clientScript->isScriptRegistered('jquery.min.js'))
+		Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+	*/
+}
+
 ?>
 
 <div class="form">
@@ -28,9 +41,18 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'budget-description-form',
 	'enableAjaxValidation'=>false,
-)); ?>
+));
 
-	<div class="title"><?php echo $title;?></div>
+	if($model->description)
+		$title = __('Change budget description');
+	else
+		$title = __('Create budgetdescription');
+
+	if(Yii::app()->request->isAjaxRequest)
+		echo '<div class="modalTitle">'.$title.'</div>';
+	else
+		echo '<div class="title">'.$title.'</div>';
+?>
 
 <?php if($model->isNewRecord){ ?>
 
@@ -52,7 +74,7 @@
 			echo '</div>';
 		}else{
 			echo $form->hiddenField($model,'language');
-		}	
+		}
 	?>
 
 <?php }else{ ?>
@@ -63,7 +85,7 @@
 		'attributes'=>array(
 			'csv_id',
 			'language',
-			array(            
+			array(
 				'label'=>__('Used where'),
 				'type'=>'raw',
 				'value'=>$model->whereUsed(),
@@ -94,25 +116,35 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
+
+
 <?php
-$settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
+
+$settings=array('convert_urls'=>true,
+				'relative_urls'=>false,
+				'remove_script_host'=>false,
+				//'entity_encoding' => "raw",
+				'theme_advanced_resize_horizontal' => 0,
+				'theme_advanced_resize_vertical' => 0,
+				'theme_advanced_resizing_use_cookie' => false,
+				'width'=>'100%',
+				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
+				'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
 												justifyright,|,bullist,numlist,|,outdent,indent,|,
 												undo,redo,|,link,unlink,|,image,|,code",
-					'convert_urls'=>true,
-					'relative_urls'=>false,
-					'remove_script_host'=>false,
-					'theme_advanced_resize_horizontal' => 0,
-					'theme_advanced_resize_vertical' => 0,
-					'theme_advanced_resizing_use_cookie' => false,
-					'width'=>'100%',
-					'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
-		);
+			);
 if(Config::model()->findByPk('HTMLeditorUseCompressor'))
 	$settings['useCompression']=true;
 else
 	$settings['useCompression']=false;
-	
-$this->widget('ext.tinymce.TinyMce', array(
+
+if(Yii::app()->request->isAjaxRequest){
+	$settings['useCompression']=false;
+	$tinyMCEAssets = Yii::app()->getAssetManager()->getPublishedUrl(Yii::app()->basePath.'/extensions/tinymce/vendors/tinymce/jscripts/tiny_mce');
+	echo '<script>tinyMCE.baseURL = "'.$tinyMCEAssets.'"</script>';
+}
+
+$init = array(
     'model' => $model,
     'attribute' => 'description',
     // Optional config
@@ -121,7 +153,12 @@ $this->widget('ext.tinymce.TinyMce', array(
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 	'settings' => $settings,
-));
+);
+
+if(!Config::model()->findByPk('HTMLeditorUseCompressor') || Yii::app()->request->isAjaxRequest)
+	unset($init['compressorRoute']);
+
+$this->widget('ext.tinymce.TinyMce', $init);
 ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>

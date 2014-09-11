@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -21,13 +21,14 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
-/*
-if(Yii::app()->request->isAjaxRequest){
-	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
+
+if(!Yii::app()->request->isAjaxRequest)
+	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
+else{
+	//Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	//Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+	//Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 }
-*/
 
 if(Yii::app()->clientScript->isScriptRegistered('jquery.js'))
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
@@ -36,8 +37,6 @@ if(Yii::app()->clientScript->isScriptRegistered('jquery.min.js'))
 if(Yii::app()->clientScript->isScriptRegistered('jquery.ba-bbq.js'))
 	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 
-$this->layout='//layouts/column1';
-
 $root_budget = $model->findByAttributes(array('csv_id'=>$model->csv_id[0], 'year'=>$model->year));
 if(!$root_budget){
 	$this->render('//site/error',array('code'=>'Budget not found', 'message'=>__('Budget with internal code').' "'.$model->csv_id[0].'" '.__('is not defined')));
@@ -45,17 +44,18 @@ if(!$root_budget){
 }
 
 $dataProvider=new CActiveDataProvider('Enquiry', array(
-	'criteria'=>array(
-		'condition'=>'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED,
-		'order'=>'created DESC',
-	),
-	'pagination'=>array(
-		'pageSize'=>20,
-	),
-));
-
+				'criteria'=>array(
+					'condition'=>'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED,
+					'order'=>'created DESC',
+				),
+				'pagination'=>array(
+					'pageSize'=>20,
+				),
+		));
 ?>
+
 <script>
+
 function getAnualComparative(budget_id){
 	if($('#budget_comparative').html() != ''){
 		_showAnualComparative();
@@ -92,11 +92,43 @@ function budgetModal2Page(){
 	$('#budget_popup').bPopup().close();
 	window.open('<?php echo $this->createAbsoluteUrl('/budget/'.$model->id); ?>',  '_blank');
 }
+<?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
+function editBudgetDescription(budget_id, element){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budgetDescription/modify?budget='+budget_id,
+		type: 'GET',
+		datatype: 'json',
+		beforeSend: function(){
+						$('.loading_gif').remove();
+						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
+					},
+		complete: function(){ $('.loading_gif').remove(); },
+		success: function(data){
+			if($('#budget_popup').length && $('#budget_popup').bPopup)
+				$('#budget_popup').bPopup().close();
+			if(data != 0){
+				$("#description_popup_content").html('<div>'+data+'</div>');
+				$('#description_popup').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, speed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+
+		},
+		error: function() {
+			alert("Error on show budget");
+		}
+	});
+}
+<?php } ?>
 </script>
 
 <?php
 	$category=$model->getCategory();
-	//if($model->getTitle() != $category)
+
 	if(Yii::app()->request->isAjaxRequest)
 		echo '<div class="modalTitle">'.__('Budget').': '.$category.'</div>';
 	else
@@ -134,10 +166,8 @@ function budgetModal2Page(){
 	echo '<div style="margin-top:15px; font-size:1.2em">';
 	if($description = $model->getDescription()){
 		if(Yii::app()->user->canEditBudgetDescriptions()){
-			echo CHtml::link(__('Can you improve this description?'),
-							array('budgetDescription/modify','budget'=>$model->id),
-							array('style'=>'font-size:16px;')
-							);
+			echo '<span style="" class="link" onclick="js:editBudgetDescription('.$model->id.', this);return false;" >';
+			echo __('Can you improve this description?').'</span>';
 			echo '<br />';
 		}
 		echo $description->description;
@@ -153,10 +183,8 @@ function budgetModal2Page(){
 		}
 	}else{
 		if(Yii::app()->user->canEditBudgetDescriptions()){
-			echo CHtml::link(__('Please consider adding a description here'),
-							array('budgetDescription/modify','budget'=>$model->id),
-							array('style'=>'font-size:16px;')
-							);
+			echo '<span style="" class="link" onclick="js:editBudgetDescription('.$model->id.', this);return false;" >';
+			echo __('Please consider adding a description here').'</span>';
 			echo '<br />';
 		}
 	}
@@ -174,7 +202,6 @@ function budgetModal2Page(){
 <div style="clear:both"></div>
 
 <?php
-
 if(count($dataProvider->getData()) > 0){
 	echo '<p>';
 	if(count($dataProvider->getData()) == 1)
@@ -218,7 +245,13 @@ if(count($dataProvider->getData()) > 0){
     	        array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	)));
 }
-
 ?>
 </p>
+
+<?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
+<div id="description_popup" class="modal" style="width:800px;">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+	<div id="description_popup_content"></div>
+</div>
+<?php } ?>
 

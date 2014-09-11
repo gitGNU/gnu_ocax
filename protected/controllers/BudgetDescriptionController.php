@@ -49,24 +49,14 @@ class BudgetDescriptionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','create','update','translate','admin','delete','modify'/*,'newID'*/),
-				'expression'=>"Yii::app()->user->isAdmin()",
+				'actions'=>array('view','create','update','translate','modify','admin','delete'),
+				'expression'=>"Yii::app()->user->canEditBudgetDescriptions()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
-
-/*
-	// this is to convert the id field into a varchar.
-	public function actionNewID()
-	{
-		$rows = BudgetDescLocal::model()->findAll();
-		foreach($rows as $row)
-			$row->save();
-	}
-*/
 
 	/**
 	 * Displays a particular model.
@@ -99,21 +89,21 @@ class BudgetDescriptionController extends Controller
 	{
 		$model=new BudgetDescLocal;
 		$model->setScenario('create');
-		
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		
+
 		if(isset($_GET['budget'])){
 			$budget = Budget::model()->findByPk($_GET['budget']);
 			if($local = $model->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language))){
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$local->id));
 				Yii::app()->end();
 			}
-			
+
 			$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language));
 			if(!$common_desc)
 				$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id));
-			
+
 			if($common_desc){
 				$model->csv_id = $common_desc->csv_id;
 				$model->language = $common_desc->language;
@@ -121,7 +111,7 @@ class BudgetDescriptionController extends Controller
 				$model->code = $common_desc->code;
 				$model->label = $common_desc->label;
 				$model->description = $common_desc->description;
-			}else{			
+			}else{
 				$model->csv_id = $budget->csv_id;
 				$model->concept = $budget->concept;
 				$model->code = $budget->code;
@@ -143,11 +133,10 @@ class BudgetDescriptionController extends Controller
 			if($model->save())
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
 		}
-		
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
+		if(Yii::app()->request->isAjaxRequest)
+			echo $this->renderPartial('create',array('model'=>$model),false,true);
+		else
+			$this->render('create',array('model'=>$model));
 	}
 
 	/**
@@ -171,20 +160,21 @@ class BudgetDescriptionController extends Controller
 			if($model->save())
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
 		}
+		if(Yii::app()->request->isAjaxRequest)
+			echo $this->renderPartial('update',array('model'=>$model),false,true);
+		else
+			$this->render('update',array('model'=>$model));
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
 	}
 
 	public function actionTranslate()
 	{
 		if(!isset($_GET['lang']) && !isset($_GET['csv_id']))
 			$this->redirect(Yii::app()->createUrl('BudgetDescription/admin'));
-			
+
 		elseif($desc = BudgetDescLocal::model()->findbyAttributes(array('language'=>$_GET['lang'],'csv_id'=>$_GET['csv_id'])))
 			$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$desc->id));
-			
+
 		else{
 			$budget = Budget::model()->findByAttributes(array('csv_id'=>$_GET['csv_id']));
 			$this->redirect(Yii::app()->createUrl('BudgetDescription/create?budget='.$budget->id.'&lang='.$_GET['lang']));

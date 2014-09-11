@@ -61,7 +61,7 @@ class TinyMce extends CInputWidget
 		'forced_root_block' => FALSE,
 
         'plugins' => "autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,iespell,insertdatetime,contextmenu,paste,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
-        
+
         // Theme options
 /*
         'theme_advanced_buttons1' => "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
@@ -156,7 +156,7 @@ class TinyMce extends CInputWidget
     private function registerScripts($id)
     {
         $cs = Yii::app()->getClientScript();
-        $cs->registerCoreScript('jquery');
+		$cs->registerCoreScript('jquery');
         if ($this->compressorRoute === false) {
             $cs->registerScriptFile($this->assetsDir . '/tiny_mce.js');
             $cs->registerScriptFile($this->assetsDir . '/jquery.tinymce.js');

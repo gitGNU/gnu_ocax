@@ -31,7 +31,7 @@ if($wallpapers = File::model()->findAllByAttributes(array('model'=>'wallpaper'))
 	$files=array();
 	$images=array();
 	$dir = Yii::app()->theme->basePath.'/wallpaper/';
-	$files = glob($dir.'*.jpg',GLOB_BRACE);
+	$files = glob($dir.'*.jpg', (real)GLOB_BRACE);
 
 	foreach($files as $image)
 		$images[] = Yii::app()->theme->baseUrl.'/wallpaper/'.basename($image);
@@ -55,7 +55,7 @@ shuffle($images);
 }
 #wallpaper {
 	position:relative;
-	margin-left:-25px;	
+	margin-left:-25px;
 	margin-top:-30px;
 	margin-bottom:-10px;
 	height:728px;
@@ -69,7 +69,7 @@ $(function() {
 	$('.language_link').hide();
 });
 function nextPage(id){
-	alert('<?php echo __('You are in edit mode');?>');	
+	alert('<?php echo __('You are in edit mode');?>');
 }
 </script>
 <?php

@@ -59,6 +59,21 @@ Yii::app()->clientScript->registerScript('search', "
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budget.css" />
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
+
+
+<?php if(Yii::app()->user->canEditBudgetDescriptions()){
+	$tinyMCEAssets = Yii::app()->getAssetManager()->getPublishedPath(Yii::app()->basePath.'/extensions/tinymce/vendors/tinymce/jscripts/tiny_mce');
+	$tinyMCEAssets = str_replace(dirname(Yii::app()->request->scriptFile).'/assets/','',$tinyMCEAssets);
+	//echo $tinyMCEAssets;
+	?>
+	<script>
+	$(function() {
+		//document.tinyMCE.baseURL = '<?php echo $tinyMCEAssets;?>';
+	});
+	</script>
+	<?php
+} ?>
+
 <script>
 var budgetCache=new Array();
 
@@ -104,7 +119,7 @@ function _showBudget(budget_id){
 function showBudget(budget_id, element){
 	if(budgetCache[budget_id]){
 		_showBudget(budget_id);
-		return;	
+		return;
 	}
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
@@ -158,9 +173,10 @@ function afterSearch(){
 		$('#featured_menu_icon').show();
 	}
 }
+
 </script>
 
-<style>           
+<style>
 	.outer{width:100%; padding: 0px;}
 	.left{width: 49%; float: left;  margin: 0px;}
 	.right{width: 49%; float: left; margin: 0px;}
@@ -184,10 +200,10 @@ function afterSearch(){
 	<?php echo $form->hiddenField($model,'year'); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'concept'); ?> 
+		<?php echo $form->label($model,'concept'); ?>
 		<?php echo $form->textField($model,'concept',array('maxlength'=>200,'style'=>'width:160px;')); ?>
 		<span style="margin-left:13px;">
-		<?php echo $form->label($model,'code'); ?> 
+		<?php echo $form->label($model,'code'); ?>
 		<?php echo $form->textField($model,'code',array('maxlength'=>15,'style'=>'width:50px;')); ?>
 		</span>
 		<span style="margin-left:10px;"><?php echo CHtml::submitButton(__('Search')); ?></span>
@@ -248,7 +264,7 @@ if(count($years) > 1){
 			echo '</ul>';
 		}
 		echo '</div>';
-	
+
 		if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 			echo '<div class="budgetOptions" style="float:left; margin-bottom:-20px;">';
 			echo '<div id="download_database" onclick="window.location=\''.$zip->webPath.'\'"></div>';
@@ -306,4 +322,5 @@ if(count($years) > 1){
 </style>
 <div class="budgetGoToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
 <div id="preloader" class="loading"></div>
+
 
