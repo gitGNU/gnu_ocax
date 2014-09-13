@@ -47,7 +47,7 @@ class ConfigController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'index','update','admin',
 									'email','observatory','social','locale',
-									'backups','misc',
+									'logo','backups','misc',
 								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -85,6 +85,12 @@ class ConfigController extends Controller
 	{
 		$model = new Config;
 		$this->render('index',array('model'=>$model, 'page'=>'locale'));
+	}
+
+	public function actionLogo()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'logo'));
 	}
 
 	public function actionBackups()

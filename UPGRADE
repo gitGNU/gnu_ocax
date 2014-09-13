@@ -34,6 +34,10 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigS
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmail', '0', '1', 'Site email configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmailTemplates', '0', '1', 'Site email configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusLanguage', '0', '1', 'Site language configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusInitials', '0', '1', 'Obseratory initials configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusObservatoryName', '0', '1', 'Obseratory name configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusAdministrationName', '0', '1', 'Administration name configuration status');
+
 
 ALTER TABLE emailtext ADD updated TINYINT(1) DEFAULT 0 NOT NULL;
 

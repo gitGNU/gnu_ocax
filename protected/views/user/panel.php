@@ -156,8 +156,10 @@ if($model->is_editor){
 	changeColumn();
 	echo '<div class="sub_title">'.__('CMS editor options').'</div>';
 	echo '<div style="float:left"><p>';
-		echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
-		echo CHtml::link(__('Site pages'), array('/cmsPage/admin'));
+		if(Config::model()->findByPk('siteConfigStatusLanguage')->value){
+			echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
+			echo CHtml::link(__('Site pages'), array('/cmsPage/admin'));
+		}
 	echo '</p></div>';
 	echo '</div>';
 }
@@ -184,8 +186,10 @@ if($model->is_admin){
 			 '</p>';
 	}
 	echo '<div style="float:left"><p>';
-		echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
-		echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
+		if(Config::model()->findByPk('siteConfigStatusBudgetDescriptionsImport')->value){
+			echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
+			echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
+		}
 		echo CHtml::link(__('Newsletters'),array('newsletter/admin')).'<br />';
 		echo CHtml::link(__('Zip file'),array('file/databaseDownload')).'<br />';
 		if(Config::model()->findByPk('siteAutoBackup')->value)
@@ -198,7 +202,6 @@ if($model->is_admin){
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
 		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
 		echo CHtml::link(__('Wallpaper'), array('/file/wallpaper')).'<br />';
-		echo CHtml::link(__('Observatory\'s logo'), array('/file/logo')).'<br />';
 		echo CHtml::link(__('Global parameters'),array('/config')).'<br />';
  	echo '</p></div>';
 	echo '</div>';

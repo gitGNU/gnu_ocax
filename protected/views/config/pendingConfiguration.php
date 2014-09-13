@@ -6,28 +6,48 @@
 <p>
 <?php
 $cnt =1;
+$config = Config::model();
+$config->updateSiteConfigurationStatus();
 
-$sql = "SELECT COUNT(*) FROM budget_desc_common";
-$descriptions = intval(Yii::app()->db->createCommand($sql)->queryScalar());
-if($descriptions == 0){
-	echo $cnt.'. '.__('Budget descriptions table is empty. Please read INSTALL');
+if(!$config->findByPk('siteConfigStatusBudgetDescriptionsImport')->value){
+	echo $cnt.'. <span style="color:red">'.
+				__('Installation is incomplete').'.</span> '.
+				__('Budget descriptions table is empty. Please read INSTALL');
 	$cnt +=1;
 	echo '<br />';
 }
 
-if(!Config::model()->findByPk('siteConfigStatusEmail')->value){
+if(!$config->findByPk('siteConfigStatusInitials')->value){
+	echo $cnt.'. '.CHtml::link(__("The Observatory's initials have not been configured"),array('config/observatory'));
+	$cnt +=1;
+	echo '<br />';
+}
+
+if(!$config->findByPk('siteConfigStatusEmail')->value){
 	echo $cnt.'. '.CHtml::link(__('Email has not been configured'),array('config/email'));
 	$cnt +=1;
 	echo '<br />';
 }
 
-if(!Config::model()->findByPk('siteConfigStatusLanguage')->value){
+if(!$config->findByPk('siteConfigStatusObservatoryName')->value){
+	echo $cnt.'. '.CHtml::link(__("The Observatory's name has not been configured"),array('config/observatory'));
+	$cnt +=1;
+	echo '<br />';
+}
+
+if(!$config->findByPk('siteConfigStatusLanguage')->value){
 	echo $cnt.'. '.CHtml::link(__('Language(s) have not been configured'),array('config/locale'));
 	$cnt +=1;
 	echo '<br />';
 }
 
-if(!Config::model()->findByPk('siteConfigStatusEmailTemplates')->value){
+if(!$config->findByPk('siteConfigStatusAdministrationName')->value){
+	echo $cnt.'. '.CHtml::link(__('Administration name has not been configured'),array('config/observatory'));
+	$cnt +=1;
+	echo '<br />';
+}
+
+if(!$config->findByPk('siteConfigStatusEmailTemplates')->value){
 	echo $cnt.'. '.CHtml::link(__('Email templates need to be defined'),array('emailtext/admin'));
 	$cnt +=1;
 	echo '<br />';

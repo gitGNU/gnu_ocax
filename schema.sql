@@ -365,7 +365,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('observatory
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorSafe', '1', '1', "Safe HTML editor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");  /* 0=no 1=yes */
-INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCA(x)', '1', "Observatory's initials");
+INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCM_', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
 
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatus', '0', '1', 'Site configuration complete');
@@ -373,6 +373,9 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigS
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmail', '0', '1', 'Site email configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmailTemplates', '0', '1', 'Site email configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusLanguage', '0', '1', 'Site language configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusInitials', '0', '1', 'Obseratory initials configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusObservatoryName', '0', '1', 'Obseratory name configuration status');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusAdministrationName', '0', '1', 'Administration name configuration status');
 
 
 INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'Database schema version');

@@ -103,13 +103,44 @@ class Config extends CActiveRecord
 			$record->save();
 			return $this->_updateSiteConfigurationStatus();
 		}
+		elseif($this->parameter == 'siglas'){
+			$record = $this->findByPk('siteConfigStatusInitials');
+			$record->value = 1;
+			$record->save();
+			return $this->_updateSiteConfigurationStatus();
+		}
+		elseif($this->parameter == 'observatoryName1' || $this->parameter == 'observatoryName2'){
+			$record = $this->findByPk('siteConfigStatusObservatoryName');
+			$record->value = 1;
+			$record->save();
+			return $this->_updateSiteConfigurationStatus();
+		}
+		elseif($this->parameter == 'administrationName'){
+			$record = $this->findByPk('siteConfigStatusAministrationName');
+			$record->value = 1;
+			$record->save();
+			return $this->_updateSiteConfigurationStatus();
+		}
 	}
 
 	private function _updateSiteConfigurationStatus()
 	{
 		$siteConfigStatus = $this->findByPk('siteConfigStatus');
+
+		$sql = "SELECT COUNT(*) FROM budget_desc_common";
+		if(intval(Yii::app()->db->createCommand($sql)->queryScalar()) != 0){
+			$param = $this->findByPk('siteConfigStatusBudgetDescriptionsImport');
+			if($param->value != 1){
+				$param->value =1;
+				$param->save();
+			}
+		}
 		$params = array('siteConfigStatusLanguage',
 						'siteConfigStatusEmail',
+						'siteConfigStatusInitials',
+						'siteConfigStatusObservatoryName',
+						'siteConfigStatusAdministrationName',
+						'siteConfigStatusBudgetDescriptionsImport',
 					);
 		foreach($params as $p){
 			if($this->findByPk($p)->value == 0){
@@ -123,12 +154,14 @@ class Config extends CActiveRecord
 		return 1;
 	}
 
-	public function updateSiteConfigurationStatus($param, $value)
+	public function updateSiteConfigurationStatus($param=Null, $value=Null)
 	{
-		$record = $this->findByPk($param);
-		$record->value = $value;
-		$record->save();
-		return $record->_updateSiteConfigurationStatus();
+		if($param && $value){
+			$record = $this->findByPk($param);
+			$record->value = $value;
+			$record->save();
+		}
+		return $this->_updateSiteConfigurationStatus();
 	}
 
 	/**

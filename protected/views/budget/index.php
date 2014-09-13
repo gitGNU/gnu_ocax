@@ -61,19 +61,6 @@ Yii::app()->clientScript->registerScript('search', "
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.highlight.js"></script>
 
 
-<?php if(Yii::app()->user->canEditBudgetDescriptions()){
-	$tinyMCEAssets = Yii::app()->getAssetManager()->getPublishedPath(Yii::app()->basePath.'/extensions/tinymce/vendors/tinymce/jscripts/tiny_mce');
-	$tinyMCEAssets = str_replace(dirname(Yii::app()->request->scriptFile).'/assets/','',$tinyMCEAssets);
-	//echo $tinyMCEAssets;
-	?>
-	<script>
-	$(function() {
-		//document.tinyMCE.baseURL = '<?php echo $tinyMCEAssets;?>';
-	});
-	</script>
-	<?php
-} ?>
-
 <script>
 var budgetCache=new Array();
 
@@ -296,8 +283,8 @@ if(count($years) > 1){
 	echo '</div>';
 
 	echo '<div id="the_graphs">';
-	if(!$root_budget){
-		echo '<h1>'. __('No data available').'</h1>';
+	if(!$featured){
+		echo '<div class="sub_title">'. __('No data available').'</div>';
 	}else{
 		if($graph_type == 'bar')
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));

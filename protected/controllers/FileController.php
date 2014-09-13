@@ -55,7 +55,7 @@ class FileController extends Controller
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember() || Yii::app()->user->isAdmin()",
 			),
 			array('allow',
-				'actions'=>array(	'wallpaper','logo',
+				'actions'=>array(	'wallpaper',
 									'showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -110,7 +110,7 @@ class FileController extends Controller
 					$path = '';
 				else
 					$path=$this->getPath($model->model,$model->model_id);
-				
+
 				$model->path='/files/'.$path;
 
 				if(!is_dir($model->getURI()))
@@ -125,7 +125,7 @@ class FileController extends Controller
 				}
 				if(!$model->name)
 					$model->name=$model->file->name;
-					
+
 				if($model->model == 'logo'){
 					if($logo = $model->findByAttributes(array('model'=>'logo')))
 						$logo->delete();
@@ -160,7 +160,7 @@ class FileController extends Controller
 
 				}elseif($model->model == 'logo'){
 					resizeLogo($model->getURI());
-					$this->redirect(array('file/logo'));
+					$this->redirect(array('config/logo'));
 
 				}else
 					$this->redirect(array('site/index'));
@@ -305,11 +305,7 @@ class FileController extends Controller
 	{
 		echo $this->render('wallpaper');
 	}
-	public function actionLogo()
-	{
-		echo $this->render('logo');
-	}
-	
+
 	public function actionAdminArchive()
 	{
 		$model=new File('search');

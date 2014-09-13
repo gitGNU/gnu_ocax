@@ -69,7 +69,7 @@ function submitChange(el, id, callback){
 						});
 						if(typeof callback !== 'undefined'){
 							callback();
-						}						
+						}
 			}else{
 				$(el).next('.progress').after('<div class="error">'+JSON.parse(data)['value']+'</div>');
 			}
@@ -107,6 +107,7 @@ $this->menu=array(
 	array('label'=>__('Email'), 'url'=>array('email')),
 	array('label'=>__('Locale'), 'url'=>array('locale')),
 	array('label'=>__('Social network'), 'url'=>array('social')),
+	array('label'=>__('Logo'), 'url'=>array('logo')),
 	array('label'=>__('Backups'), 'url'=>array('backups')),
 	array('label'=>__('Misc'), 'url'=>array('misc')),
 );

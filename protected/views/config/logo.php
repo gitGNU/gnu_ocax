@@ -21,7 +21,7 @@
 /* @var $this FileController */
 /* @var $model File */
 
-$this->inlineHelp=':profiles:cms_editor';
+
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
