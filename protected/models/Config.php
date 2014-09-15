@@ -141,6 +141,7 @@ class Config extends CActiveRecord
 						'siteConfigStatusObservatoryName',
 						'siteConfigStatusAdministrationName',
 						'siteConfigStatusBudgetDescriptionsImport',
+						'siteConfigStatusZipFileCreated',
 					);
 		foreach($params as $p){
 			if($this->findByPk($p)->value == 0){

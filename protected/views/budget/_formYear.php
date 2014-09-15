@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,6 +26,18 @@
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
+
+<script>
+function makePublic(el){
+	if($(el).prop('checked') === true){
+		if(<?php echo Config::model()->findByPk('siteConfigStatusZipFileCreated')->value;?> == 0){
+			$(el).prop('checked', false);
+			$('#createZipWarning').show();
+		}else
+			$('#updateZipWarning').show();
+	}
+}
+</script>
 
 <div class="form">
 
@@ -59,9 +71,14 @@
 		?>
 	</div>
 	<div class="row">
-		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->dropDownList($model, 'code', array('0'=>__('Not published'),'1'=>__('Published')));?>
-		<?php echo $form->error($model,'code'); ?>
+		<label><?php echo __('Publish');?></label>
+		<?php echo $form->checkBox($model, 'code', array('onChange'=>'js:makePublic(this);')); ?>
+		<div id="createZipWarning" style="display:none; color:red;">
+		<?php echo __('You need to create the zip file before you can publish the budgets');?>
+		</div>
+		<div id="updateZipWarning" style="display:none; color:green;">
+		<?php echo __('Remember to update the zip file with csv files');?>
+		</div>
 	</div>
 
 
