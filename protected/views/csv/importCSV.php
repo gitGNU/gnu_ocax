@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -257,6 +257,9 @@ $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = '.$model->year;
 $year=Budget::model()->find($criteria);
 
-echo '<p id="step_7" style="display:none">Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
+echo '<p id="step_7" style="display:none">';
+if($year->code == 1) // this year has already been published
+	echo 'Remember to <b>update the zip file</b> with this csv.<br />';
+echo 'Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>

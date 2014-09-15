@@ -28,6 +28,15 @@
  */
 class Config extends CActiveRecord
 {
+	private $autoCheckParams = array(
+						'siteConfigStatusLanguage',
+						'siteConfigStatusEmail',
+						'siteConfigStatusInitials',
+						'siteConfigStatusObservatoryName',
+						'siteConfigStatusAdministrationName',
+						'siteConfigStatusBudgetDescriptionsImport',
+					);
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -135,15 +144,7 @@ class Config extends CActiveRecord
 				$param->save();
 			}
 		}
-		$params = array('siteConfigStatusLanguage',
-						'siteConfigStatusEmail',
-						'siteConfigStatusInitials',
-						'siteConfigStatusObservatoryName',
-						'siteConfigStatusAdministrationName',
-						'siteConfigStatusBudgetDescriptionsImport',
-						'siteConfigStatusZipFileCreated',
-					);
-		foreach($params as $p){
+		foreach($this->autoCheckParams as $p){
 			if($this->findByPk($p)->value == 0){
 				$siteConfigStatus->value=0;
 				$siteConfigStatus->save();
