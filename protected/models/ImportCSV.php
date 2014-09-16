@@ -178,25 +178,27 @@ class ImportCSV extends CFormModel
 			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 			$id = trim($id);
 			if(in_array($id, $ids)) {
-				$error[]='<br />Register '. ($line_num) .': Internal code "'.$id.'" is not unique';
+				$error[]='<br />Register '. ($line_num+1) .': Internal code "'.$id.'" is not unique';
 			}
 			if(!is_numeric(trim($initial_prov))){
-				$error[]='<br />Register '. ($line_num) .': Initial provision is not numeric';
+				$error[]='<br />Register '. ($line_num+1) .': Initial provision is not numeric';
+			}elseif($initial_prov == 0){
+				$error[]='<br />Register '. ($line_num+1) .': Initial provision equals 0';
 			}
 			if(!is_numeric(trim($actual_prov))){
-				$error[]='<br />Register '. ($line_num) .': Actual provision is not numeric';
+				$error[]='<br />Register '. ($line_num+1) .': Actual provision is not numeric';
 			}
 			if(!is_numeric(trim($t1))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 1 is not numeric';
+				$error[]='<br />Register '. ($line_num+1) .': Trimester 1 is not numeric';
 			}
 			if(!is_numeric(trim($t2))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 2 is not numeric';
+				$error[]='<br />Register '. ($line_num+1) .': Trimester 2 is not numeric';
 			}
 			if(!is_numeric(trim($t3))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 3 is not numeric';
+				$error[]='<br />Register '. ($line_num+1) .': Trimester 3 is not numeric';
 			}
 			if(!is_numeric(trim($t4))){
-				$error[]='<br />Register '. ($line_num) .': Trimester 4 is not numeric';
+				$error[]='<br />Register '. ($line_num+1) .': Trimester 4 is not numeric';
 			}
 			$ids[]=$id;
 		}
