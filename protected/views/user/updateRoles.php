@@ -50,6 +50,15 @@ $this->menu=array(
 	.clear{clear:both;}
 </style>
 
+<script>
+$(document).on('change', 'input[type="checkbox"]', function(e) {
+	if( $(this).prop('checked') ){
+		if($(this).attr('id') != 'User_is_description_editor')
+			$('#User_is_description_editor').prop('checked', true);
+	}
+});
+</script>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

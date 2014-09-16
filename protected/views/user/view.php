@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 
@@ -29,7 +29,7 @@ if(!$model->enquirys){
 	$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
 							'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
 					));
-	array_splice( $this->menu, 1, 0, $item );	
+	array_splice( $this->menu, 1, 0, $item );
 }
 ?>
 
@@ -96,6 +96,7 @@ function megaDelete(el){
 		'email',
 		'joined',
 		'is_socio',
+		'is_description_editor',
 		'is_team_member',
 		'is_editor',
 		'is_manager',

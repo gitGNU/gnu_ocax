@@ -30,6 +30,7 @@ else{
 	//Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 }
 
+
 if(Yii::app()->clientScript->isScriptRegistered('jquery.js'))
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 if(Yii::app()->clientScript->isScriptRegistered('jquery.min.js'))
@@ -99,13 +100,16 @@ function editBudgetDescription(budget_id, element){
 		type: 'GET',
 		datatype: 'json',
 		beforeSend: function(){
-						$('.loading_gif').remove();
-						$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
-					},
+					$('body').append('<div id="description_popup" class="modal" style="width:800px;">'+
+					'<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />'+
+					'<div id="description_popup_content"></div>'+
+					'</div>');
+
+					$('.loading_gif').remove();
+					$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
+				},
 		complete: function(){ $('.loading_gif').remove(); },
 		success: function(data){
-			if($('#budget_popup').length && $('#budget_popup').bPopup)
-				$('#budget_popup').bPopup().close();
 			if(data != 0){
 				$("#description_popup_content").html('<div>'+data+'</div>');
 				$('#description_popup').bPopup({
@@ -114,6 +118,9 @@ function editBudgetDescription(budget_id, element){
 					, speed: 10
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
+					, onClose: function(){
+						$('#description_popup').remove();
+					}
                 });
 			}
 
@@ -123,6 +130,7 @@ function editBudgetDescription(budget_id, element){
 		}
 	});
 }
+function closeBPopup(selector) { $(selector).bPopup().close() }
 <?php } ?>
 </script>
 
@@ -247,11 +255,3 @@ if(count($dataProvider->getData()) > 0){
 }
 ?>
 </p>
-
-<?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
-<div id="description_popup" class="modal" style="width:800px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
-	<div id="description_popup_content"></div>
-</div>
-<?php } ?>
-

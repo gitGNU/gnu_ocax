@@ -63,6 +63,7 @@ Yii::app()->clientScript->registerScript('search', "
 
 <script>
 var budgetCache=new Array();
+var showingBudgetDetails='';	// we got asked to show the budgetDetails of this budget->id
 
 $(function() {
 	$(window).scroll(function() {
@@ -102,8 +103,8 @@ function _showBudget(budget_id){
 		, modelColor: '#ae34d5'
 	});
 }
-
 function showBudget(budget_id, element){
+	showingBudgetDetails=budget_id;
 	if(budgetCache[budget_id]){
 		_showBudget(budget_id);
 		return;
@@ -160,7 +161,13 @@ function afterSearch(){
 		$('#featured_menu_icon').show();
 	}
 }
-
+<?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
+function budgetDetailsUpdated(){
+	delete budgetCache[showingBudgetDetails];
+	$('#description_popup').bPopup().close();
+	$('#budget_popup').bPopup().close();
+}
+<?php } ?>
 </script>
 
 <style>

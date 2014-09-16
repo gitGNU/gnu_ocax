@@ -130,8 +130,13 @@ class BudgetDescriptionController extends Controller
 			$model->csv_id = strtoupper($model->csv_id);
 			$model->language = strtolower($model->language);
 			$model->modified = date('c');
-			if($model->save())
-				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
+			if($model->save()){
+				if(Yii::app()->request->isAjaxRequest){
+					echo 1;
+					Yii::app()->end();
+				}else
+					$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
+			}
 		}
 		if(Yii::app()->request->isAjaxRequest)
 			echo $this->renderPartial('create',array('model'=>$model),false,true);
@@ -157,8 +162,13 @@ class BudgetDescriptionController extends Controller
 			$model->text = str_replace("<br />", " ", $model->description);
 			$model->text = trim(strip_tags($model->text));
 			$model->modified = date('c');
-			if($model->save())
-				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
+			if($model->save()){
+				if(Yii::app()->request->isAjaxRequest){
+					echo 1;
+					Yii::app()->end();
+				}else
+					$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
+			}
 		}
 		if(Yii::app()->request->isAjaxRequest)
 			echo $this->renderPartial('update',array('model'=>$model),false,true);

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,8 +33,28 @@ if(Yii::app()->request->isAjaxRequest){
 		Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	*/
 }
-
 ?>
+
+<script>
+function submitDescription()
+{
+	$.ajax({
+		type: 'POST',
+		url: '<?php echo ($model->isNewRecord) ?
+					Yii::app()->createAbsoluteUrl('budgetDescription/create') :
+					Yii::app()->createAbsoluteUrl('budgetDescription/update/'.$model->id) ?>',
+		data: $("#budget-description-form").serialize(),
+		complete: function() {
+					if(typeof budgetDetailsUpdated == 'function')
+						budgetDetailsUpdated();	//this function is in budget/index
+		},
+		success: function(result){	},
+		error: function() { // if error occured
+			alert("Error budgetDescription/update");
+		},
+	});
+}
+</script>
 
 <div class="form">
 
@@ -44,9 +64,9 @@ if(Yii::app()->request->isAjaxRequest){
 ));
 
 	if($model->description)
-		$title = __('Change budget description');
+		$title = __('Change the budget description');
 	else
-		$title = __('Create budgetdescription');
+		$title = __('Create a budget description');
 
 	if(Yii::app()->request->isAjaxRequest)
 		echo '<div class="modalTitle">'.$title.'</div>';
@@ -54,30 +74,19 @@ if(Yii::app()->request->isAjaxRequest){
 		echo '<div class="title">'.$title.'</div>';
 ?>
 
-<?php if($model->isNewRecord){ ?>
+<?php /*if($model->isNewRecord){*/ ?>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+<div>
+
+	<div class="row left" style="width:55%">
 		<?php echo $form->labelEx($model,'csv_id'); ?>
-		<?php echo $form->textField($model,'csv_id',array('size'=>20,'maxlength'=>100,'disabled'=>1)); ?>
+		<?php echo $form->textField($model,'csv_id',array('style'=>'width:350px','maxlength'=>100,'disabled'=>1)); ?>
 		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
 
-	<?php
-		if($listData = getLanguagesArray()){
-			echo '<div class="row">';
-			echo $form->labelEx($model,'language');
-			//echo '<div class="hint">'.__('Description language').'</div>';
-			echo $form->dropDownList($model, 'language', $listData, array('prompt'=>__('Select a language')));
-			echo $form->error($model,'language');
-			echo '</div>';
-		}else{
-			echo $form->hiddenField($model,'language');
-		}
-	?>
-
-<?php }else{ ?>
+<?php /*}else{ ?>
 	<p>
 	<?php $this->widget('zii.widgets.CDetailView', array(
 		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
@@ -91,28 +100,45 @@ if(Yii::app()->request->isAjaxRequest){
 				'value'=>$model->whereUsed(),
 			),
 		),
-	)); ?>
+	)); */?>
 	</p>
-<?php } ?>
+<?php /*}*/ ?>
 
-	<div class="row">
+	<div class="row left" style="width:160px">
 		<?php echo $form->labelEx($model,'code'); ?>
-		<?php echo $form->textField($model,'code',array('size'=>20,'maxlength'=>32)); ?>
+		<?php echo $form->textField($model,'code',array('style'=>'width:125px','maxlength'=>32,'disabled'=>1)); ?>
 		<?php echo $form->error($model,'code'); ?>
 	</div>
 
-	<div class="row">
+	<?php
+		if($listData = getLanguagesArray()){
+			echo '<div class="row left" style="width:170px">';
+			echo $form->labelEx($model,'language');
+			//echo '<div class="hint">'.__('Description language').'</div>';
+			echo $form->dropDownList($model, 'language', $listData, array('prompt'=>__('Select a language')));
+			echo $form->error($model,'language');
+			echo '</div>';
+		}else{
+			echo $form->hiddenField($model,'language');
+		}
+	?>
+
+<div class="clear"></div>
+	<div class="row left" style="width:220px">
 		<?php echo $form->labelEx($model,'label'); ?>
-		<div class="hint"><?php echo __('Examples are Concept, Subconcept, Article, etc');?></div>
-		<?php echo $form->textField($model,'label',array('size'=>60,'maxlength'=>255)); ?>
+		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
+		<?php echo $form->textField($model,'label',array('style'=>'width:200px','maxlength'=>255)); ?>
 		<?php echo $form->error($model,'label'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row left" style="width:505px">
 		<?php echo $form->labelEx($model,'concept'); ?>
-		<?php echo $form->textField($model,'concept',array('size'=>60,'maxlength'=>255)); ?>
+		<div class="hint"><?php echo __('Concept of this budget');?></div>
+		<?php echo $form->textField($model,'concept',array('style'=>'width:500px','maxlength'=>255)); ?>
 		<?php echo $form->error($model,'concept'); ?>
 	</div>
+</div>
+<div class="clear"></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
@@ -128,6 +154,7 @@ $settings=array('convert_urls'=>true,
 				'theme_advanced_resize_vertical' => 0,
 				'theme_advanced_resizing_use_cookie' => false,
 				'width'=>'100%',
+				'height' => 350,
 				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
 				'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
 												justifyright,|,bullist,numlist,|,outdent,indent,|,
@@ -159,15 +186,22 @@ if(!Config::model()->findByPk('HTMLeditorUseCompressor') || Yii::app()->request-
 	unset($init['compressorRoute']);
 
 $this->widget('ext.tinymce.TinyMce', $init);
+//echo $form->textField($model,'concept',array('style'=>'width:500px','maxlength'=>255));
 ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
 
-
+<?php if(Yii::app()->request->isAjaxRequest){ ?>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php  /* echo CHtml::submitButton($model->description ? 'ajax Create' : 'ajax Save'); */ ?>
+		<?php  echo CHtml::Button(__('Make changes'), array('onclick'=>'js:submitDescription();'));  ?>
 	</div>
+<?php } else { ?>
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->description ? 'Create' : 'Save'); ?>
+	</div>
+<? } ?>
 
 <?php $this->endWidget(); ?>
 
