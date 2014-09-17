@@ -27,6 +27,9 @@ div.form .title{ color:#ea6fa3; }
 #change_to_list { background: url("./images/graph_type_pie.png") no-repeat scroll 0 0 transparent; }
 #change_to_grid { background: url("./images/graph_type_bar.png") no-repeat scroll 0 0 transparent; }
 
+#basicFilterOptions { border-bottom: 1px solid #ea6fa3; }
+#basicFilterOptions li.activeItem {	border-bottom: 4px solid #ea6fa3; }
+
 /*PAGINA USUARIO*/
 #nueva_consulta {
 	color:#f00;

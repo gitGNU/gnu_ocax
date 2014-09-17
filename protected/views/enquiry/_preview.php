@@ -23,12 +23,21 @@
 
 ?>
 
-<div id="preview_<?php echo $data->id;?>" class="enquiryPreview" onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
-
-<span class="created"><?php echo format_date($data->created);?></span>
-<span class="loading"></span>
-<div class="title"><?php echo $data->title; ?></div>
-<div class="body"><?php echo $data->body; ?></div>
-<div class="fadeout"></div>
-
+<div id="preview_<?php echo $data->id;?>" class="enquiryPreview" >
+	<span class="created"><?php echo format_date($data->created);?></span>
+	<?php
+	$active="";
+	if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
+		$active = "active";
+	?>
+	<span id="subscribe-icon_<?php echo $data->id;?>" class="subscribe <?php echo $active;?>" onclick="js:showSubscriptionNotice(this, <?php echo $data->id;?>);"><i class="icon-mail"></i></span>
+	<span class="loading"></span>
+	<div class="subscription_notice"></div>
+	<div onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
+		<div class="title"><?php echo $data->title; ?></div>
+		<div class="body">
+			<?php echo $data->body; ?>
+		</div>
+		<div class="fadeout"></div>
+	</div>
 </div>

@@ -49,9 +49,8 @@
 #advancedFilterOptions { display:none }
 #basicFilterOptions{
 	margin-top: 20px;
-	border-bottom: 1px solid lightgrey;
+	
 }
-
 #basicFilterOptions ul
 {
 	list-style: none;
@@ -67,17 +66,12 @@
 	cursor:pointer;
 	font-weight:200;
 	font-size: 20px;
-	border: 1px solid #f5f1ed;
+}
+#basicFilterOptions li.activeItem
+{
+	margin-bottom: -4px;
 }
 
-#basicFilterOptions .activeItem
-{
-	border: 1px solid lightgrey;
-	border-bottom-width: 0;
-	background-color: #f5f1ed;
-	position: relative;
-	top: 2px;
-}
 
 /* preview */
 #enquiryList{
@@ -85,7 +79,6 @@
 }
 
 .enquiryPreview {
-	cursor: pointer;
 	position: relative;
 	border:1px solid rgb(228, 222, 215);
 	background-color: rgb(228, 222, 215);
@@ -106,6 +99,20 @@
 	color:grey;
 	background-color: rgb(228, 222, 215);
 }
+.enquiryPreview .subscribe {
+	cursor: pointer;
+	position: absolute;
+	padding: 0 5px 0 5px;
+	height: 18px;
+	width: 7px;
+	top: -23px;
+	left: 80px;
+	color: lightgrey;
+	font-size: 23px;
+}
+.enquiryPreview > .subscribe.active { color: grey; }
+.enquiryPreview > .subscribe:hover { color: grey; }
+
 .enquiryPreview .loading {
 	position: absolute;
 	height: 19px;
@@ -116,10 +123,12 @@
 	display:none;
 }
 .enquiryPreview .title {
+	cursor: pointer;
 	padding: 3px 0px 0px 3px;
 	font-size: 1.15em;
 }
 .enquiryPreview .body {
+	cursor: pointer;
 	position:relative;
 	padding: 2px 3px 0 3px;
 	background-color: white;
@@ -127,7 +136,26 @@
 	overflow: hidden;
 
 }
+
+.enquiryPreview .subscription_notice {
+	cursor: default;
+	display:none;
+	position: absolute;
+	background-color: white;
+	padding: 3px 0px 0px 3px;
+	width:417px;
+	z-index: 100;
+	left: 4px;
+	top: 30px;
+	-webkit-box-shadow: 0 0 0 4px white, 0 6px 4px grey;
+	-moz-box-shadow: 0 0 0 4px white, 0 6px 4px grey;
+	box-shadow: 0 0 0 4px white, 0 6px 4px grey;
+}
+.enquiryPreview .subscription_notice p {
+	padding: 5px;
+}
 .fadeout {
+	cursor: pointer;
     position: absolute; 
     bottom: 0em;
     width:100%;
