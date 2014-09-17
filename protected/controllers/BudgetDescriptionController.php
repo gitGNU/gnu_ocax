@@ -78,7 +78,7 @@ class BudgetDescriptionController extends Controller
 		if($model = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language)))
 			$this->redirect('update/'.$model->id);
 		else
-			$this->redirect('create/?budget='.$budget->id);
+			$this->redirect('create?budget='.$budget->id);
 	}
 
 	/**
@@ -139,9 +139,9 @@ class BudgetDescriptionController extends Controller
 			}
 		}
 		if(Yii::app()->request->isAjaxRequest)
-			echo $this->renderPartial('create',array('model'=>$model),false,true);
+			echo $this->renderPartial('create',array('model'=>$model,'budget_id'=>$budget->id),false,true);
 		else
-			$this->render('create',array('model'=>$model));
+			$this->render('create',array('model'=>$model,'budget_id'=>$budget->id));
 	}
 
 	/**

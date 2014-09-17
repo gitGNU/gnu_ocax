@@ -33,6 +33,9 @@ if(Yii::app()->request->isAjaxRequest){
 		Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	*/
 }
+if(!isset($budget_id))
+	$budget_id = Null;
+
 ?>
 
 <script>
@@ -41,15 +44,16 @@ function submitDescription()
 	$.ajax({
 		type: 'POST',
 		url: '<?php echo ($model->isNewRecord) ?
-					Yii::app()->createAbsoluteUrl('budgetDescription/create') :
+					Yii::app()->createAbsoluteUrl('budgetDescription/create?budget='.$budget_id) :
 					Yii::app()->createAbsoluteUrl('budgetDescription/update/'.$model->id) ?>',
 		data: $("#budget-description-form").serialize(),
+		//beforeSend: function(){ tinyMCE.triggerSave(); },
 		complete: function() {
 					if(typeof budgetDetailsUpdated == 'function')
 						budgetDetailsUpdated();	//this function is in budget/index
 		},
 		success: function(result){	},
-		error: function() { // if error occured
+		error: function() {
 			alert("Error budgetDescription/update");
 		},
 	});
@@ -140,12 +144,7 @@ function submitDescription()
 </div>
 <div class="clear"></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-
-
 <?php
-
 $settings=array('convert_urls'=>true,
 				'relative_urls'=>false,
 				'remove_script_host'=>false,
@@ -185,12 +184,12 @@ $init = array(
 if(!Config::model()->findByPk('HTMLeditorUseCompressor') || Yii::app()->request->isAjaxRequest)
 	unset($init['compressorRoute']);
 
-$this->widget('ext.tinymce.TinyMce', $init);
-//echo $form->textField($model,'concept',array('style'=>'width:500px','maxlength'=>255));
+echo '<div class="row">';
+	echo $form->labelEx($model,'description');
+	$this->widget('ext.tinymce.TinyMce', $init);
+	echo $form->error($model,'description');
+echo '</div>';
 ?>
-		<?php echo $form->error($model,'description'); ?>
-	</div>
-
 
 <?php if(Yii::app()->request->isAjaxRequest){ ?>
 	<div class="row buttons">
