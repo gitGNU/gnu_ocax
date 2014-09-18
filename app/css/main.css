@@ -423,6 +423,19 @@ div.breadcrumbs span
 	font-size: 1em;
 }
 
+span.ocaxButton {
+	border:1px solid #DEDEDE;
+	background-color: #EDEDED;
+	cursor:pointer;
+	padding: 0px 4px 0px 4px;
+	height: 18px;
+	font-size: 16px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+span.ocaxButton:hover { border:1px solid #BDBDBD; }
+
 /*USER PANEL*/
 .panel_left {
 	width: 60%;
@@ -433,42 +446,6 @@ div.breadcrumbs span
 	width: 38%;
 	float: right;
 	padding:10px 0px 0px 0px;
-}
-
-/* BUTTON en enquiry/view */
-span.ocaxButton {
-	border:1px solid #DEDEDE;
-	background-color: #EDEDED;
-	cursor:pointer;
-	padding: 0px 4px 0px 4px;
-    height: 18px;
-	font-size:0.9em;
-    -webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-span.ocaxButton:hover { border:1px solid #BDBDBD; }
-
-span.ocaxButtonCount {
-
-    height: 18px;
-	border:1px solid #DEDEDE;
-	background-color: white;
-	padding: 0px 4px 0px 4px;
-	margin-left:2px;
-}
-
-.social_popup {
-	font-size:1.1em;
-	display :none;
-	position: absolute;
-	margin-top:-5px;
-	padding:10px 5px 10px 5px;
-	border:1px solid #DEDEDE;
-	border-top:3px solid rgb(228, 222, 215);
-	border-bottom:3px solid rgb(228, 222, 215);
-	z-index: 1;
-	background-color: #EDEDED
 }
 
 #nueva_consulta {
@@ -667,6 +644,22 @@ div.reply > .title{
 	background-color:rgb(228, 222, 215);
 	border-bottom: 1px solid #cdcbc9;
 }
+
+/* alert popup box */
+.alert {
+	cursor: default;
+	display:none;
+	position: absolute;
+	background-color: #FEFEFE;
+	padding: 3px 0px 0px 3px;
+	width:420px;
+	z-index: 100;
+	/* http://www.css3.info/preview/box-shadow/ */
+	-moz-box-shadow: 10px 10px 5px #B8B8B8;
+	-webkit-box-shadow: 10px 10px 5px #B8B8B8;
+	box-shadow: 10px 10px 5px #B8B8B8;
+}
+
 
 .link { cursor:pointer; text-decoration:underline; font-size:16px; }
 

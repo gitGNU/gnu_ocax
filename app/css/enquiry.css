@@ -87,6 +87,7 @@
 	margin: 30px 15px 30px 15px;
 	float:left;
 }
+.enquiryPreview:hover {	border-top: 1px solid grey; }
 
 .enquiryPreview .created {
 	position: absolute;
@@ -99,19 +100,27 @@
 	color:grey;
 	background-color: rgb(228, 222, 215);
 }
-.enquiryPreview .subscribe {
+.email-subscribe {
 	cursor: pointer;
 	position: absolute;
-	padding: 0 5px 0 5px;
+	/*padding: 0 5px 0 5px;*/
 	height: 18px;
 	width: 7px;
-	top: -23px;
-	left: 80px;
 	color: lightgrey;
 	font-size: 23px;
 }
-.enquiryPreview > .subscribe.active { color: grey; }
-.enquiryPreview > .subscribe:hover { color: grey; }
+.email-subscribe.active { color: grey; }
+.email-subscribe:hover { color: grey; }
+.email-subscribe {
+	top: 0px;
+	left: 0px;
+}
+
+.enquiryPreview > .email-subscribe {
+	top: -23px;
+	left: 80px;
+}
+
 
 .enquiryPreview .loading {
 	position: absolute;
@@ -134,27 +143,17 @@
 	background-color: white;
 	height: 182px;
 	overflow: hidden;
-
 }
 
 .enquiryPreview .subscription_notice {
-	cursor: default;
-	display:none;
-	position: absolute;
-	background-color: white;
-	padding: 3px 0px 0px 3px;
-	width:417px;
-	z-index: 100;
-	left: 4px;
-	top: 30px;
-	-webkit-box-shadow: 0 0 0 4px white, 0 6px 4px grey;
-	-moz-box-shadow: 0 0 0 4px white, 0 6px 4px grey;
-	box-shadow: 0 0 0 4px white, 0 6px 4px grey;
+	left: 10px;
+	top: 20px;
+	width: 370px;
 }
 .enquiryPreview .subscription_notice p {
 	padding: 5px;
 }
-.fadeout {
+.enquiryPreview .fadeout {
 	cursor: pointer;
     position: absolute; 
     bottom: 0em;
@@ -181,4 +180,15 @@
         rgba(255, 255, 255, 1) 100%
     );
 } 
+
+/* BUTTON en enquiry/view */
+
+span.subscriptionCount {
+
+    height: 17px;
+	border:1px solid #DEDEDE;
+	background-color: white;
+	padding: 0px 4px 0px 4px;
+	margin: 0 2px 0 30px;
+}
 

@@ -27,12 +27,13 @@
 	<span class="created"><?php echo format_date($data->created);?></span>
 	<?php
 	$active="";
-	if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
-		$active = "active";
-	?>
-	<span id="subscribe-icon_<?php echo $data->id;?>" class="subscribe <?php echo $active;?>" onclick="js:showSubscriptionNotice(this, <?php echo $data->id;?>);"><i class="icon-mail"></i></span>
+	if($data->state >= ENQUIRY_ACCEPTED) {
+		if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
+			$active = "active";
+		echo '<span id="subscribe-icon_'.$data->id.'" class="email-subscribe '.$active.'" onclick="js:showSubscriptionNotice(this, '.$data->id.')"><i class="icon-mail"></i></span>';
+	} ?>
 	<span class="loading"></span>
-	<div class="subscription_notice"></div>
+	<div class="alert subscription_notice"></div>
 	<div onclick="js:showEnquiry(<?php echo $data->id;?>); return false;">
 		<div class="title"><?php echo $data->title; ?></div>
 		<div class="body">

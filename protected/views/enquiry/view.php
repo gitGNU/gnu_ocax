@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,18 +25,15 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
-}else
+}else{
+	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/css/enquiry.css" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
 	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
-
+	echo $this->renderPartial('javascript',array('model'=>$model),false,false);
+}
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
 <style>
-i[class^="icon-"]:before, i[class*=" icon-"]:before {
-	margin-top:0px;
-	margin-right:3px;
-	font-size:	17px;
-}
 #enquiryDetails tr:first-child td{border:none;}
 #enquiryDetails tr:first-child th{border:none;}
 </style>
@@ -68,7 +65,7 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 <?php } ?>
 
 <script>
-function subscribe(el){
+function subscribe_old(el){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
 		$(el).attr('checked', false);
 		alert("<?php echo __('Please login to subscribe')?>");
@@ -93,16 +90,6 @@ function subscribe(el){
 		error: function() { alert("error on subscribe"); },
 	});
 }
-function clickSocialIcon(el){
-	if( $(el).attr('social_icon') ){
-		$('#'+$(el).attr('social_icon')).show();
-	}
-}
-$(function() {
-	$('.social_popup').mouseleave(function() {
-		$('.social_popup').fadeOut('fast');
-	});
-});
 
 function toggleStatesDiagram(){
 	$('#states_diagram').toggle();
@@ -236,41 +223,26 @@ if($model->budget)
 <!-- socaial options start -->
 <div style="padding: 10px 00px 10px 0px; width:400px;margin-top:5px;">
 
+<!--
 	<div id="directlink" class="social_popup">
 		<?php
-		$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-		echo '<span style="cursor:pointer;" onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
+		//$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
+		//echo '<span style="cursor:pointer;" onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
 		?>
 	</div>
-
-	<div id="subscribe" class="social_popup">
-		<?php
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'enquiry = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
-			$checked = '';
-			if( EnquirySubscribe::model()->findAll($criteria) )
-				$checked = 'checked';
-		?>
-		<?php echo __('Keep me informed via email when there are changes')?>
-			<input	id="subscribe_checkbox"
-					type="checkbox"
-					onClick="js:subscribe(this);"
-					style="
-					    vertical-align: middle;
-					    position: relative;
-					    bottom: 1px;
-					"
-					<?php echo $checked; ?>
-			/>
-	</div>
+-->
 
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
-		echo '<span style="float:left;margin-right:10px" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.
-		'<i class="icon-link"></i>'.__('Direct link').'</span>';
-		echo '<span style="float:left" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="subscribe">'.
-		'<i class="icon-mail"></i>'.__('Subscribe').'</span>';
-		echo '<span style="float:left" class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+		$active='';
+		if(EnquirySubscribe::model()->isUserSubscribed($model->id, Yii::app()->user->getUserID()))
+			$active = "active";
+		echo '<div style="float:left; cursor:pointer; padding-bottom:5px; position:relative" onClick="js:showSubscriptionNotice(this, '.$model->id.');">';
+		echo '<div class="alert subscription_notice"></div>';
+		echo '<span id="subscribe-icon_'.$model->id.'" class="email-subscribe '.$active.'"><i class="icon-mail"></i></span>';
+		echo '<span class="subscriptionCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+		echo '<span>'.__('Subscribed').'</span>';
+		echo '</div>';
 
 		if(Config::model()->findByPk('socialActivateNonFree')->value){
 			echo '<div style="float:left;margin-left:10px;width:80px;">
@@ -314,6 +286,10 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 		 ' '.__('until it has been accepted by the observatory.').
 		 '</div>';
 }
+?>
+
+<?php
+
 ?>
 
 <?php echo $this->renderPartial('_view', array('model'=>$model)); ?>

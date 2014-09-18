@@ -47,10 +47,7 @@ if($displayType == 'grid'){
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
-
-<style>
-	 
-</style>
+<?php echo $this->renderPartial('javascript',array('model'=>$model),false,false); ?>
 
 <script>
 var resetFormElements = 0;
@@ -129,70 +126,6 @@ function resetForm(){
 	$("#Enquiry_basicFilter").val('');
 	$("#search_enquiries").submit();
 	resetFormElements = 0;
-}
-function showSubscriptionNotice(el, enquiry_id){
-	notice = $(el).parent().find('.subscription_notice');
-	$('.subscription_notice').not(notice).each(function(){
-		$(this).hide();
-	});
-	if($(notice).is(':visible')){
-		$(notice).slideUp('fast');
-	}else{
-		text = $('<p></p>');
-		$(text).append('<?php echo __('We can notify you by email when this enquiry gets updated');?>');
-		<?php if(Yii::app()->user->isGuest){ ?>
-			$(text).append('<?php echo '<br />'.__('Please login to subscribe');?>');
-		<?php } ?>
-		if (! $("#subscribe-icon_"+enquiry_id).hasClass('active') ){
-			$(text).append('<div style="text-align:center">'+
-							'<span class="link" onclick="js:subscribe('+enquiry_id+',1);">'+
-							'<?php echo __("Yes please");?>'+
-							'</span>'+
-							'&nbsp;&nbsp;&nbsp;&nbsp;'+
-							'<span class="link" onclick=$(".subscription_notice").slideUp("fast");>'+
-							'<?php echo __("Not right now");?>'+
-							'</span>'+
-							'</div>'
-						);
-		}else{
-			$(text).append('<div style="text-align:center">'+
-							'<span class="link" onclick="js:subscribe('+enquiry_id+',0);">'+
-							'<?php echo __("Cancel my subscription");?>'+
-							'</span>'+	
-							'</div>'					
-						);
-		}
-		$(notice).html(	text );
-		$(notice).slideDown('fast');
-	}
-}
-$(function() {
-	$('.enquiryPreview').mouseleave(function() {
-		$('.subscription_notice').slideUp('fast');
-	});
-});
-function subscribe(enquiry_id, subscribe){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/subscribe',
-		type: 'POST',
-		dataType: 'json',
-		data: { 'enquiry': enquiry_id,
-				'subscribe': subscribe,
-			  },
-		//beforeSend: function(){ },
-		//complete: function(){ },
-		success: function(data){
-				$('.subscription_notice').slideUp('fast', function(){
-					icon = $('#subscribe-icon_'+enquiry_id);
-					if(subscribe == 1)
-						$(icon).addClass('active');
-					else
-						$(icon).removeClass('active');
-				});
-
-		},
-		error: function() { alert("error on subscribe"); },
-	});
 }
 </script>
 <div id="enquiryPageTitle">

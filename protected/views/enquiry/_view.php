@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,17 +24,10 @@
 if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-}
+}else
+	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
-<style>
-i[class^="icon-"]:before, i[class*=" icon-"]:before {
-	margin-top:0px;
-	margin-right:3px;
-	font-size:	17px;
-}
-</style>
 <style>
 .comments { margin-top:15px; }
 .voteBlock { float:right;text-align:right; white-space:nowrap; }
