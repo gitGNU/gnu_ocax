@@ -239,7 +239,7 @@ if($model->budget)
 			$active = "active";
 		echo '<div style="float:left; cursor:pointer; padding-bottom:5px; position:relative" onClick="js:showSubscriptionNotice(this, '.$model->id.');">';
 		echo '<div class="alert subscription_notice"></div>';
-		echo '<span id="subscribe-icon_'.$model->id.'" class="email-subscribe '.$active.'"><i class="icon-mail"></i></span>';
+		echo '<span id="subscribe-icon_'.$model->id.'" class="email-subscribe subscribe-icon_'.$model->id.' '.$active.'"><i class="icon-mail"></i></span>';
 		echo '<span class="subscriptionCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
 		echo '<span>'.__('Subscribed').'</span>';
 		echo '</div>';

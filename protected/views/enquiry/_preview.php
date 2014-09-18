@@ -30,7 +30,7 @@
 	if($data->state >= ENQUIRY_ACCEPTED) {
 		if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
 			$active = "active";
-		echo '<span id="subscribe-icon_'.$data->id.'" class="email-subscribe '.$active.'" onclick="js:showSubscriptionNotice(this, '.$data->id.')"><i class="icon-mail"></i></span>';
+		echo '<span id="subscribe-icon_'.$data->id.'" class="email-subscribe subscribe-icon_'.$data->id.' '.$active.'" onclick="js:showSubscriptionNotice(this, '.$data->id.')"><i class="icon-mail"></i></span>';
 	} ?>
 	<span class="loading"></span>
 	<div class="alert subscription_notice"></div>

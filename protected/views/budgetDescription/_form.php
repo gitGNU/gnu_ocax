@@ -33,9 +33,6 @@ if(Yii::app()->request->isAjaxRequest){
 		Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	*/
 }
-if(!isset($budget_id))
-	$budget_id = Null;
-
 ?>
 
 <script>
@@ -47,7 +44,6 @@ function submitDescription()
 					Yii::app()->createAbsoluteUrl('budgetDescription/create?budget='.$budget_id) :
 					Yii::app()->createAbsoluteUrl('budgetDescription/update/'.$model->id) ?>',
 		data: $("#budget-description-form").serialize(),
-		//beforeSend: function(){ tinyMCE.triggerSave(); },
 		complete: function() {
 					if(typeof budgetDetailsUpdated == 'function')
 						budgetDetailsUpdated();	//this function is in budget/index
@@ -77,10 +73,9 @@ function submitDescription()
 	else
 		echo '<div class="title">'.$title.'</div>';
 ?>
+<?php echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>'; ?>
 
-<?php /*if($model->isNewRecord){*/ ?>
-
-	<?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model); ?>
 
 <div>
 
@@ -89,24 +84,6 @@ function submitDescription()
 		<?php echo $form->textField($model,'csv_id',array('style'=>'width:350px','maxlength'=>100,'disabled'=>1)); ?>
 		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
-
-<?php /*}else{ ?>
-	<p>
-	<?php $this->widget('zii.widgets.CDetailView', array(
-		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-		'data'=>$model,
-		'attributes'=>array(
-			'csv_id',
-			'language',
-			array(
-				'label'=>__('Used where'),
-				'type'=>'raw',
-				'value'=>$model->whereUsed(),
-			),
-		),
-	)); */?>
-	</p>
-<?php /*}*/ ?>
 
 	<div class="row left" style="width:160px">
 		<?php echo $form->labelEx($model,'code'); ?>
@@ -143,6 +120,7 @@ function submitDescription()
 	</div>
 </div>
 <div class="clear"></div>
+<!-- above this ok -->
 
 <?php
 $settings=array('convert_urls'=>true,
@@ -181,7 +159,7 @@ $init = array(
 	'settings' => $settings,
 );
 
-if(!Config::model()->findByPk('HTMLeditorUseCompressor') || Yii::app()->request->isAjaxRequest)
+if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value || Yii::app()->request->isAjaxRequest)
 	unset($init['compressorRoute']);
 
 echo '<div class="row">';
@@ -193,14 +171,14 @@ echo '</div>';
 
 <?php if(Yii::app()->request->isAjaxRequest){ ?>
 	<div class="row buttons">
-		<?php  /* echo CHtml::submitButton($model->description ? 'ajax Create' : 'ajax Save'); */ ?>
-		<?php  echo CHtml::Button(__('Make changes'), array('onclick'=>'js:submitDescription();'));  ?>
+		<?php  echo CHtml::Button(__('Update the description'), array('onclick'=>'js:submitDescription();'));  ?>
 	</div>
 <?php } else { ?>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->description ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton(__('Update the description')); ?>
 	</div>
-<? } ?>
+<?php } ?>
+
 
 <?php $this->endWidget(); ?>
 

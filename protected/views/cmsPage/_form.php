@@ -126,7 +126,7 @@ if(Config::model()->findByPk('HTMLeditorUseCompressor'))
 else
 	$settings['useCompression']=false;
 
-$this->widget('ext.tinymce.TinyMce', array(
+$init =  array(
     'model' => $content,
     'attribute' => 'body',
     // Optional config
@@ -135,9 +135,15 @@ $this->widget('ext.tinymce.TinyMce', array(
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 	'settings' => $settings,
-));
+);
+
+if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+	unset($init['compressorRoute']);
+
+$this->widget('ext.tinymce.TinyMce', $init);
+echo $form->error($content,'body');
 ?>
-		<?php echo $form->error($content,'body'); ?>
+
 	</div>
 
 <?php if(1 == 0){ ?>

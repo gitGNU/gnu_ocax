@@ -34,10 +34,10 @@ function showSubscriptionNotice(el, enquiry_id){
 		$(notice).fadeOut('fast');
 	}else{
 		text = $('<p></p>');
-		$(text).append('<?php echo __('We can notify you by email when this enquiry gets updated');?>');
+		$(text).append('<?php echo __('We can notify you by email when this enquiry gets updated');?>.');
 		<?php if(Yii::app()->user->isGuest){ ?>
-			$(text).append('<?php echo '<br />'.__('Please login to subscribe');?>');
-		<?php } ?>
+			$(text).append('<?php echo '<br />'.__('Please login to subscribe');?>.');
+		<?php } else { ?>
 		if (! $("#subscribe-icon_"+enquiry_id).hasClass('active') ){
 			$(text).append('<div style="text-align:center">'+
 							'<span class="link" onclick="js:subscribe('+enquiry_id+',true);">'+
@@ -57,6 +57,7 @@ function showSubscriptionNotice(el, enquiry_id){
 							'</div>'					
 						);
 		}
+		<?php } ?>
 		$(notice).html(	text );
 		$(notice).show();
 	}
@@ -78,9 +79,9 @@ function subscribe(enquiry_id, subscribe){
 				$('.subscription_notice').fadeOut('fast', function(){
 					icon = $('#subscribe-icon_'+enquiry_id);
 					if(subscribe == 1)
-						$(icon).addClass('active');
+						$('.subscribe-icon_'+enquiry_id).addClass('active');
 					else
-						$(icon).removeClass('active');
+						$('.subscribe-icon_'+enquiry_id).removeClass('active');
 				});
 
 		},

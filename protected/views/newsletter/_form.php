@@ -103,12 +103,12 @@ function showRecipients(){
 							'width'=>'100%',
 							'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
 				);
-		if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+		if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 			$settings['useCompression']=true;
 		else
 			$settings['useCompression']=false;
 			
-		$this->widget('ext.tinymce.TinyMce', array(
+		$init = array(
 		    'model' => $model,
 		    'attribute' => 'body',
 		    // Optional config
@@ -117,9 +117,13 @@ function showRecipients(){
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 			'settings' => $settings,
-		));
-		?>
-		<?php echo $form->error($model,'body'); ?>
+		);
+		if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+				unset($init['compressorRoute']);
+
+		$this->widget('ext.tinymce.TinyMce', $init);
+		echo $form->error($model,'body');
+	?>
 	</div>
 
 	<div class="row buttons">

@@ -69,12 +69,12 @@ $this->inlineHelp=':profiles:team_member';
 														justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
 														undo,redo,|,link,unlink",
 					);
-		if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+		if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 			$settings['useCompression']=true;
 		else
 			$settings['useCompression']=false;
 			
-		$this->widget('ext.tinymce.TinyMce', array(
+		$init = array(
 		    'model' => $model,
 		    'attribute' => 'body',
 		    // Optional config
@@ -83,13 +83,13 @@ $this->inlineHelp=':profiles:team_member';
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 			'settings' => $settings,
-		    'htmlOptions' => array(
-		        'rows' => 6,
-		        'cols' => 80,
-		    ),
-		));
+		);
+		if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+				unset($init['compressorRoute']);
+
+		$this->widget('ext.tinymce.TinyMce', $init);
+		echo $form->error($model,'body');
 		?>
-		<?php echo $form->error($model,'body'); ?>
 	</div>
 
 	<div class="row buttons">
