@@ -47,23 +47,21 @@ echo '</div>';
 } ?>
 
 <!-- start page here -->
-<ul id="cmsPageMenu">
+<ul id="cmsPageBreadcrumbs">
 <?php
-	$items = CmsPage::model()->findAllByAttributes(array('block'=>$model->block, 'published'=>1), array('order'=>'weight'));
-	foreach ($items as $menu_item) {
-		if($menu_item->weight == 0)
-			continue;
-		foreach($menu_item->cmsPageContents as $item){
-			if($item->language == $content->language)
-				break;
+	if($parent = CmsPage::model()->findByAttributes(array('block'=>$model->block, 'published'=>1, 'weight'=>0))){
+		//array('order'=>'weight')
+
+		echo '<a href="site/index">'.__('Home').'</a>';
+
+		if($parent->id != $model->id){
+			$parentContent = CmsPageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language));
+			echo ' &rarr; <a href="'.$parentContent->pageURL.'">'.$parentContent->pageTitle.'</a>';
 		}
-		$itemclass='';
-		if($content->pageURL == $item->pageURL)
-			$itemclass='class="activeMenuItem"';
-		echo '<li '.$itemclass.'>';
-		echo CHtml::link(CHtml::encode($item->pageTitle),array('p/'.$item->pageURL));
-		echo '</li>';
-	}
+		echo ' &rarr; <a href="'.$content->pageURL.'">'.$content->pageTitle.'</a>';
+			//$content page
+
+}
 ?>
 <div class="clear"></div>
 </ul>

@@ -39,7 +39,7 @@
 			$show_language=$listData[$content->language];
 		else
 			$show_language='';
-	?>	
+	?>
 
 	<div class="title"><?php echo $title;?></div>
 	<?php echo CHtml::errorSummary(array($model, $content)); ?>
@@ -54,7 +54,7 @@
 														'/cmsPage/update/'.$model->id.'?lang="+this.options[this.selectedIndex].value'
 									));
 			echo '</div>';
-		}	
+		}
 	?>
 
 
@@ -81,14 +81,15 @@
 	<div class="sub_title"><?php echo __('Content').' '.$show_language;?></div>
 
 	<div class="row">
-		<?php echo $form->labelEx($content,'pageURL'); ?>
-		<?php echo $form->textField($content,'pageURL',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($content,'pageURL'); ?>
+		<?php echo $form->labelEx($content,'pageTitle'); ?>
+		<?php echo $form->textField($content,'pageTitle',array('style'=>'width:450px')); ?>
+		<?php echo $form->error($content,'pageTitle'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($content,'pageTitle'); ?>
-		<?php echo $form->textField($content,'pageTitle',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($content,'pageTitle'); ?>
+		<?php echo $form->labelEx($content,'pageURL'); ?>
+		<?php echo Yii::app()->createAbsoluteUrl('/p').'/ '.
+					$form->textField($content,'pageURL',array('style'=>'width:300px')); ?>
+		<?php echo $form->error($content,'pageURL'); ?>
 	</div>
 
 	<div class="row">
@@ -106,7 +107,7 @@
 				$valid_children = "";
 			}
 		?>
-	
+
 <?php
 $settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
 												justifyright,|,bullist,numlist,|,outdent,indent,|,
@@ -142,6 +143,7 @@ if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 
 $this->widget('ext.tinymce.TinyMce', $init);
 echo $form->error($content,'body');
+
 ?>
 
 	</div>
