@@ -28,6 +28,10 @@
  */
 class Config extends CActiveRecord
 {
+	/* If any of these return 0, then
+	 * $this->findByPk('siteConfigStatus') is set to 1 and
+	 * config/pendingConfiguraton (aka Admin Tasks) is rendered on user/panel
+	 */
 	private $autoCheckParams = array(
 						'siteConfigStatusLanguage',
 						'siteConfigStatusEmail',
@@ -125,7 +129,7 @@ class Config extends CActiveRecord
 			return $this->_updateSiteConfigurationStatus();
 		}
 		elseif($this->parameter == 'administrationName'){
-			$record = $this->findByPk('siteConfigStatusAministrationName');
+			$record = $this->findByPk('siteConfigStatusAdministrationName');
 			$record->value = 1;
 			$record->save();
 			return $this->_updateSiteConfigurationStatus();

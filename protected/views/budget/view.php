@@ -94,43 +94,12 @@ function budgetModal2Page(){
 	window.open('<?php echo $this->createAbsoluteUrl('/budget/'.$model->id); ?>',  '_blank');
 }
 <?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
-function editBudgetDescription(budget_id, element){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/budgetDescription/modify?budget='+budget_id,
-		type: 'GET',
-		datatype: 'json',
-		beforeSend: function(){
-					$('body').append('<div id="description_popup" class="modal" style="width:800px;">'+
-					'<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />'+
-					'<div id="description_popup_content"></div>'+
-					'</div>');
-
-					$('.loading_gif').remove();
-					$(element).after('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
-				},
-		complete: function(){ $('.loading_gif').remove(); },
-		success: function(data){
-			if(data != 0){
-				$("#description_popup_content").html('<div>'+data+'</div>');
-				$('#description_popup').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, speed: 10
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-					, onClose: function(){
-						$('#description_popup').remove();
-					}
-                });
-			}
-
-		},
-		error: function() {
-			alert("Error on show budget");
-		}
-	});
+function editBudgetDescription(){
+	if(typeof budgetDetailsUpdated == 'function')
+		budgetDetailsUpdated();	//this function is in budget/index
+	$('#budget_popup').bPopup().close();
+	window.open("<?php echo Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id ?>",  '_blank');
 }
-function closeBPopup(selector) { $(selector).bPopup().close() }
 <?php } ?>
 </script>
 
@@ -174,8 +143,14 @@ function closeBPopup(selector) { $(selector).bPopup().close() }
 	echo '<div style="margin-top:15px; font-size:1.2em">';
 	if($description = $model->getDescription()){
 		if(Yii::app()->user->canEditBudgetDescriptions()){
+			if(Yii::app()->request->isAjaxRequest)
+				echo '<a href="#" onclick="js:editBudgetDescription()">'.__('Can you improve this description?').'</a>';
+			else
+				echo '<a href="'.Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id.'">'.__('Can you improve this description?').'</a>';
+			/*
 			echo '<span style="" class="link" onclick="js:editBudgetDescription('.$model->id.', this);return false;" >';
 			echo __('Can you improve this description?').'</span>';
+			*/
 			echo '<br />';
 		}
 		echo $description->description;
@@ -255,3 +230,8 @@ if(count($dataProvider->getData()) > 0){
 }
 ?>
 </p>
+
+<div id="description_popup" class="modal" style="width:800px;height:1000px">
+	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+	<div id="description_popup_content"></div>
+</div>

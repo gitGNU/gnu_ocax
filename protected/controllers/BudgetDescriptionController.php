@@ -93,34 +93,37 @@ class BudgetDescriptionController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_GET['budget'])){
-			$budget = Budget::model()->findByPk($_GET['budget']);
-			if($local = $model->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language))){
-				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$local->id));
-				Yii::app()->end();
-			}
-
-			$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language));
-			if(!$common_desc)
-				$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id));
-
-			if($common_desc){
-				$model->csv_id = $common_desc->csv_id;
-				$model->language = $common_desc->language;
-				$model->concept = $common_desc->concept;
-				$model->code = $common_desc->code;
-				$model->label = $common_desc->label;
-				$model->description = $common_desc->description;
-			}else{
-				$model->csv_id = $budget->csv_id;
-				$model->concept = $budget->concept;
-				$model->code = $budget->code;
-				$model->label = $budget->label;
-				if(isset($_GET['lang']))
-					$model->language = $_GET['lang'];
-				else $model->language = getDefaultLanguage();
-			}
+		if(!isset($_GET['budget']))
+			$this->redirect(Yii::app()->createUrl('site/index'));
+			
+		$budget = Budget::model()->findByPk($_GET['budget']);
+		if($local = $model->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language))){
+			$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$local->id));
+			Yii::app()->end();
 		}
+
+		$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>Yii::app()->language));
+		if(!$common_desc)
+			$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$budget->csv_id));
+
+		if($common_desc){
+			$model->csv_id = $common_desc->csv_id;
+			$model->language = $common_desc->language;
+			$model->concept = $common_desc->concept;
+			$model->code = $common_desc->code;
+			$model->label = $common_desc->label;
+			$model->description = $common_desc->description;
+		}else{
+			$model->csv_id = $budget->csv_id;
+			$model->concept = $budget->concept;
+			$model->code = $budget->code;
+			$model->label = $budget->label;
+			if(isset($_GET['lang']))
+				$model->language = $_GET['lang'];
+			else $model->language = getDefaultLanguage();
+		}
+
+		$this->pageTitle=CHtml::encode('Desc. '.$budget->csv_id);
 
 		if(isset($_POST['BudgetDescLocal']))
 		{
@@ -131,17 +134,10 @@ class BudgetDescriptionController extends Controller
 			$model->language = strtolower($model->language);
 			$model->modified = date('c');
 			if($model->save()){
-				if(Yii::app()->request->isAjaxRequest){
-					echo 1;
-					Yii::app()->end();
-				}else
-					$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
+				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
 			}
 		}
-		if(Yii::app()->request->isAjaxRequest)
-			echo $this->renderPartial('create',array('model'=>$model,'budget_id'=>$budget->id),false,true);
-		else
-			$this->render('create',array('model'=>$model,'budget_id'=>$budget->id));
+		$this->render('create',array('model'=>$model,'budget_id'=>$budget->id));
 	}
 
 	/**
@@ -163,17 +159,11 @@ class BudgetDescriptionController extends Controller
 			$model->text = trim(strip_tags($model->text));
 			$model->modified = date('c');
 			if($model->save()){
-				if(Yii::app()->request->isAjaxRequest){
-					echo 1;
-					Yii::app()->end();
-				}else
-					$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
+				$this->redirect(Yii::app()->createUrl('BudgetDescription/view/'.$model->id));
 			}
 		}
-		if(Yii::app()->request->isAjaxRequest)
-			echo $this->renderPartial('update',array('model'=>$model),false,true);
-		else
-			$this->render('update',array('model'=>$model));
+		$this->pageTitle=CHtml::encode('Desc. '.$model->csv_id);
+		$this->render('update',array('model'=>$model));
 
 	}
 
