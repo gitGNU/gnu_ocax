@@ -150,8 +150,8 @@ function resizeLogo($fn){
 		return Null;
 
 	list($width, $height) = getimagesize($fn);
-	$new_width = 75;
-	$new_height = 75;
+	$new_width = 90;
+	$new_height = 90;
 
 	$image_p = imagecreatetruecolor($new_width, $new_height);
 	if($ext == 'png')

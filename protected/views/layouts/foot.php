@@ -1,8 +1,6 @@
 <div id="footer">
-	<div style="width: 680px; float:left; margin:10px 0 10px 5px;">
-		<?php
-			echo '<img id="logo" style="float:left;" src="'.Yii::app()->request->baseUrl.'/files/logo.png" />';
-		?>
+	<div id="observatoryFooter">
+		<?php echo '<img id="logo" style="float:left;" src="'.Yii::app()->request->baseUrl.'/files/logo.png" />';?>
 		<div id="observatoryFooterDetails">
 		<?php
 			echo '<span id="observatoryFooterName">'.Config::model()->getObservatoryName().'</span><br />';
@@ -16,7 +14,7 @@
 		</div>
 	</div>
 
-	<div style="width: 260px; float:right; margin:10px -5px 10px 0;">
+	<div id="PACDFooter">
 		<div style="float: left;">
 			<?php $lang=Yii::app()->language; ?>
 			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a>
