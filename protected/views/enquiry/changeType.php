@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -114,7 +114,7 @@ function chooseBudget(budget_id){
 <div id="budget_details">
 <?php
 if($model->budget){
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0));
+	$this->renderPartial('_budgetDetails', array('model'=>$model->budget0));
 }
 ?>
 </div>

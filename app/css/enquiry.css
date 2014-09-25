@@ -1,4 +1,24 @@
 /* ENQUIRY */
+
+#enquiryTitle{
+	margin-bottom:0px;
+}
+
+#enquiryDetails {
+	float:right;
+	margin-top:5px;
+	text-align:left;
+	margin-left:5px;
+	padding:0px;
+	width:470px;
+}
+
+#socialOptions {
+	margin-left: -5px;
+	padding: 10px 0px 10px 0px;
+	width:400px;
+}
+
 #noEnquiriesHere
 {
 	margin-top:50px;
@@ -182,6 +202,16 @@
         rgba(255, 255, 255, 1) 100%
     );
 } 
+.enquiryPreview .thumbs {
+	cursor: pointer;
+	position: absolute;
+	/*padding: 0 5px 0 5px;*/
+	top: -20px;
+	left: 140px;
+	height: 16px;
+	color: grey;
+	font-size: 17px;
+}
 
 /* BUTTON en enquiry/view */
 

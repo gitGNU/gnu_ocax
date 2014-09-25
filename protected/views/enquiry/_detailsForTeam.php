@@ -73,7 +73,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATOR
 
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget,'showMore'=>1));
+	$this->renderPartial('_budgetDetails', array('model'=>$budget,'showMore'=>1));
 }
 
 ?>
