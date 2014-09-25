@@ -107,20 +107,16 @@ body
 	margin: 0;
 	padding: 0;
 }
-#header div
-{
-	width:950px;
-	margin:0 auto;
-}
-
 #observatoryTitle
 {
+	width:980px;
+	margin:0 auto;
 	color: #A6A29E;
 	font-size: 410%;
 	line-height: 90%;
 	letter-spacing:-0.5pt;
 	font-weight:100;
-	padding: 15px 20px 25px 0px;
+	padding: 15px 0px 25px 20px;
 }
 
 #nombre_ocax
@@ -169,60 +165,6 @@ body
 	padding: 20px 20px 20px 0;
 }
 
-
-/*FOOTER*/
-#footer
-{
-	margin:0;
-	width:980px;
-	height:90px;
-	margin:0 auto;
-	font-size: 1.1em;
-}
-#footer div
-{
-	margin-top: 0px;
-	margin-bottom:0px;
-}
-
-#footer a { color: #e4ded7; }
-#footer span { color: #e4ded7;}
-
-#observatoryFooter {
-width: 680px; float:left; margin:0px;
-}
-#observatoryFooterDetails { float:left; padding: 10px 0 5px 0;}
-#observatoryFooterName { display: inline-block; font-weight: bold; }
-
-
-#logo {
-	width:90px; height:90px; vertical-align:middle;
-	margin-right:15px;
-
-}
-
-#PACDFooter{
-	width: 270px; float:right;
-	padding:8px 5px 10px 0;
-}
-#pacd_logo {
-  width: 75px;
-  height: 75px;
-  background: url(../images/svg/logo-pacd.svg);
-  background-size: 75px 75px;
-}
-
-#postFooterRSSLink { float:right; text-align:right; }
-#postFooterRSSLink > a {
-	vertical-align: middle;
-	margin-left:5px;
-}
-
-.poweredBy
-{
-	padding-top:10px;
-	text-align:center;
-}
 
 /* FLASHES */
 div.flash-error, div.flash-notice, div.flash-success

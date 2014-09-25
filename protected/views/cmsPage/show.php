@@ -52,22 +52,16 @@ echo '</div>';
 	if($parent = CmsPage::model()->findByAttributes(array('block'=>$model->block, 'published'=>1, 'weight'=>0))){
 		//array('order'=>'weight')
 
-		echo '<a href="site/index">'.__('Home').'</a>';
-
+		echo '<a href="'.$this->createUrl('site/index').'">'.__('Home').'</a>';
 		if($parent->id != $model->id){
 			$parentContent = CmsPageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language));
 			echo ' &rarr; <a href="'.$parentContent->pageURL.'">'.$parentContent->pageTitle.'</a>';
 		}
 		echo ' &rarr; <a href="'.$content->pageURL.'">'.$content->pageTitle.'</a>';
-			//$content page
-
 }
 ?>
 <div class="clear"></div>
 </ul>
 
-
 <div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 <div class="cms_content"><?php echo $content->body; ?></div>
-
-

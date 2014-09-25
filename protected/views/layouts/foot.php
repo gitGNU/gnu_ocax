@@ -15,12 +15,12 @@
 	</div>
 
 	<div id="PACDFooter">
-		<div style="float: left;">
+		<div id="PACDdetails">
 			<?php $lang=Yii::app()->language; ?>
-			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a>
-			<div style="height:10px"></div>
+			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a><br />
 			<a href="http://ocax.net/?<?php echo $lang;?>">http://ocax.net</a><br />
 			AGPLv3 Copyright &copy; <?php echo date('Y'); ?><br />
+			<a href="https://gitorious.org/ocax/ocax">Source hosted on Gitorious</a>
 		</div>
 		<div style="float:right;margin-left:20px">
 			<a href="http://auditoriaciudadana.net"><div id="pacd_logo"></div></a>
@@ -32,7 +32,7 @@
 
 <div style="width:980px;margin:0 auto;margin-top:5px;">
 	<div id="postFooterRSSLink">
-	<?php 
+	<?php
 		echo Config::model()->getObservatoryName().' RSS feed ';
 		echo CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/rss-16x16.png"/>',array('/site/feed'));
 	?>

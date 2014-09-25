@@ -9,7 +9,9 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/mainmenu.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/foot.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/color.css" />
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
@@ -90,10 +92,8 @@ if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->use
 		<?php echo Config::model()->getSiteTitle(); ?>
 		</span>
 	</div>
-	<div class="clear"></div>
-	<?php $this->renderPartial('//layouts/mainmenu', array()); ?>
 </div>
-
+<?php $this->renderPartial('//layouts/mainmenu', array()); ?>
 
 <div class="container" id="page">
 	<?php echo $content; ?>

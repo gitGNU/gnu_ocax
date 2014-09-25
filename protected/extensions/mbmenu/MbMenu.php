@@ -117,6 +117,7 @@ class MbMenu extends CMenu
         $cs->registerScript('mbmenu_'.$this->getId(), $js, CClientScript::POS_READY);
     }
 
+/*
  	  public function registerCssFile($url=null)
 	  {
         // add the css
@@ -134,7 +135,7 @@ class MbMenu extends CMenu
 	  	    $cs->registerCssFile($url,'screen');
         }
 	  }
-
+*/
 	  protected function renderMenuRecursive($items)
 	  {
 	  	  foreach($items as $item)
@@ -204,17 +205,17 @@ class MbMenu extends CMenu
     */
     public function run()
     {
-          $this->publishAssets();
-          $this->registerClientScripts();
-			    $this->registerCssFile($this->cssFile);
-          $htmlOptions['id']='nav-container';
-          echo CHtml::openTag('div',$htmlOptions)."\n";
-          $htmlOptions['id']='nav-bar';
-          echo CHtml::openTag('div',$htmlOptions)."\n";
-          parent::run();
-          echo CHtml::closeTag('div');
-          echo CHtml::closeTag('div');
-          echo '<div class="clear"></div>';
+		$this->publishAssets();
+		$this->registerClientScripts();
+		//$this->registerCssFile($this->cssFile);
+		$htmlOptions['id']='nav-container';
+		echo CHtml::openTag('div',$htmlOptions)."\n";
+		$htmlOptions['id']='nav-bar';
+		echo CHtml::openTag('div',$htmlOptions)."\n";
+		parent::run();
+		echo CHtml::closeTag('div');
+		echo CHtml::closeTag('div');
+		echo '<div class="clear"></div>';
     }
 
 }

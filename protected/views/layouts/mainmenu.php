@@ -58,7 +58,6 @@
 						);
 				array_splice( $items, 0, 0, array($item) );
 			}
-			//$this->widget('zii.widgets.CMenu',array(
 			$this->widget('application.extensions.mbmenu.MbMenu',array(
 				'items'=>$items,
 			));
