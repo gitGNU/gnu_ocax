@@ -33,11 +33,6 @@ if(Yii::app()->request->isAjaxRequest){
 }
 ?>
 
-<style>
-#enquiryDetails tr:first-child td{border:none;}
-#enquiryDetails tr:first-child th{border:none;}
-</style>
-
 <?php if(Config::model()->findByPk('socialActivateNonFree')->value) { ?>
 <script>
 !function(d,s,id){
@@ -90,13 +85,6 @@ function subscribe_old(el){
 		error: function() { alert("error on subscribe"); },
 	});
 }
-
-function toggleStatesDiagram(){
-	$('#states_diagram').toggle();
-	return false;
-}
-
-
 function showBudget(budget_id, element){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
@@ -140,98 +128,60 @@ function enquiryModal2Page(){
 	}
 ?>
 
-<h1 style="margin-bottom:-2px;"><?php echo $model->title?></h1>
+<h1 id="enquiryTitle"><?php echo $model->title?></h1>
 
-<div	id="states_diagram"
-		style="	display:none;
-				cursor:pointer;
-				padding:20px;
-				border: 1px solid grey;
-				z-index:10;
-				position:absolute;
-				background-color:white;
-				margin-left:10px;
-				margin-top:10px;
-				width:350px"
-		onClick="$(this).toggle();return false;"
->
-<img	style="	cursor: pointer;
-				position: absolute;
-				right: -21px;
-				top: -21px;"
-		src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png";
-/>
-<?php $this->renderPartial('workflow',array('model'=>$model));?>
-
-</div>
-
-<div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'id' => 'enquiryDetails',
-	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-	'data'=>$model,
-	'attributes'=>array(
-		array(
-	        'label'=>__('Formulated'),
-			'type' => 'raw',
-	        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
-						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
-						format_date($model->created).' '.__('by').' '.CHtml::link(
+<div id="enquiryDetails">
+<?php
+$attribs = array();
+$attribs[] = array(
+        'label'=>__('Formulated'),
+		'type' => 'raw',
+        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
+					format_date($model->created).' '.__('by').' '.$model->user0->fullname :
+					format_date($model->created).' '.__('by').' '.CHtml::link(
 															CHtml::encode($model->user0->fullname), '#!',
 															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
 														),
-		),
-		array(
-	        'label'=>__('Type'),
-	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
-		),
-		array(
-	        'label'=>__('State'),
-			'type' => 'raw',
-			'value'=> CHtml::link(
-						CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)), 'javascript:void(0);',
-						array('onclick'=>'toggleStatesDiagram(); return false;')
-					),
-		),
-	),
-));
-
+	);
+$attribs[] = array(
+		'label'=>__('State'),
+		'type' => 'raw',
+		'value'=> CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)),
+	);
+		
 if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
 	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
 	if($model->documentation)
 		$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';
-	$attributes=array(
-					array(
-	        			'label'=>__('Submitted'),
+	$attribs[] = array(	'label'=>__('Submitted'),
 						'type'=>'raw',
 						'value'=>$submitted_info,
-					),
 				);
-	$this->widget('zii.widgets.CDetailView', array(
-		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-		'data'=>$model,
-		'attributes'=>$attributes,
-	));
 }
+$attribs[] = array(
+		'label'=>__('Type'),
+		'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
+	);
+$this->widget('zii.widgets.CDetailView', array(
+	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
+	'data'=>$model,
+	'attributes'=>$attribs,
+));
+
+
 if($model->budget)
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'showEnquiriesMadeLink'=>1, 'enquiry'=>$model));
+	$this->renderPartial('_budgetDetails', array(	'model'=>$model->budget0,
+													'showLinks'=>1,
+													'showEnquiriesMadeLink'=>1,
+													'enquiry'=>$model,
+												));
 ?>
 
-</div>	<!-- end float right -->
+</div>	<!-- end enquiryDetails -->
 <div>
 
 <!-- socaial options start -->
-<div style="padding: 10px 00px 10px 0px; width:400px;margin-top:5px;">
-
-<!--
-	<div id="directlink" class="social_popup">
-		<?php
-		//$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-		//echo '<span style="cursor:pointer;" onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
-		?>
-	</div>
--->
-
+<div id="socialOptions">
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
 		$active='';
@@ -256,7 +206,6 @@ if($model->budget)
 						>
 				</a>
 				</div>';
-
 			echo '<div style="float:left;margin-left:10px;">
 				  <div	class="fb-like"
 						data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
@@ -286,10 +235,6 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 		 ' '.__('until it has been accepted by the observatory.').
 		 '</div>';
 }
-?>
-
-<?php
-
 ?>
 
 <?php echo $this->renderPartial('_view', array('model'=>$model)); ?>

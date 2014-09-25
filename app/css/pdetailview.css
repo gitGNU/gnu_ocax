@@ -18,6 +18,14 @@ table.detail-view th, table.detail-view td
 	vertical-align: top;
 }
 
+table.detail-view th, table.detail-view td
+{
+	font-size: 14px;
+	border-top: 1px #B8B8B8 solid;
+	padding: 0.3em 0.6em;
+	vertical-align: top;
+}
+
 table.detail-view th
 {
 	text-align: left;

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -74,20 +74,12 @@ if(isset($showLinks)){
 	$budget_concept = $model->getConcept();
 }
 
-// compare years
-$compareYears = '';
-if(isset($showComparison)){
-	if(count($model->getAllBudgetsWithCSV_ID()) > 1)
-		$compareYears = '<span class="link" style="float:right;font-size:1em" onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').'</span>';
-}
-
-
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
 $attributes=array(
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
 	        'type'=>'raw',
-	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears : $model->getYearString().$compareYears,
+	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code : $model->getYearString(),
 		),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' '.$percentage),
 		array(
@@ -99,8 +91,6 @@ $attributes=array(
 
 if(!isset($hideConcept)){
 	$label=$model->getLabel();
-	//if(isset($showLinks))
-	//	$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->request->baseUrl.'/images/info_small.png" />';
 	$row =	array(
 				array(
 					'label'=>$label,
@@ -111,38 +101,35 @@ if(!isset($hideConcept)){
 	array_splice( $attributes, 0, 0, $row );
 }
 if(!isset($showMore)){
-	$row =	array(
+	$attributes[] =	array(
 	       		'label'=>__('Enquiries'),
 				'type'=>'raw',
 				'value'=>$enquiries,
 			);
-	$attributes[]=$row;
 }
-$this->widget('zii.widgets.CDetailView', array(
-	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-	'data'=>$model,
-	'attributes'=>$attributes,
-));
 
 if(isset($showMore)){
+	$moreAttribs = array(
+						array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
+						array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1)),
+						array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2)),
+						array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3)),
+						array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4)),
+						array(
+							'label'=>__('Enquiries'),
+							'type'=>'raw',
+							'value'=>$enquiries,
+						),
+					);
+	$attributes = array_merge($attributes, $moreAttribs);
+}
+
 	$this->widget('zii.widgets.CDetailView', array(
-	
-	'data'=>$model,
-	'attributes'=>array(
-					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
-					array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1)),
-					array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2)),
-					array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3)),
-					array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4)),
-					array(
-	        			'label'=>__('Enquiries'),
-						'type'=>'raw',
-						'value'=>$enquiries,
-					),
-				),
+		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
+		'data'=>$model,
+		'attributes'=>$attributes,
 	));
 
-}
 ?>
 
 
