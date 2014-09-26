@@ -9,6 +9,11 @@ $cnt =1;
 $config = Config::model();
 $config->updateSiteConfigurationStatus();
 
+if(!$config->findByPk('siteConfigStatusUptodate')->value){
+	echo $cnt.'. '.'<a href="'.getInlineHelpURL(':upgrade').'">'.__('New version available').'. '.__('Upgrade now').'</a>';
+	$cnt +=1;
+	echo '<br />';
+}
 if(!$config->findByPk('siteConfigStatusBudgetDescriptionsImport')->value){
 	echo $cnt.'. <span style="color:red">'.
 				__('Installation is incomplete').'.</span> '.

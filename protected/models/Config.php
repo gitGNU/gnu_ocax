@@ -39,6 +39,7 @@ class Config extends CActiveRecord
 						'siteConfigStatusObservatoryName',
 						'siteConfigStatusAdministrationName',
 						'siteConfigStatusBudgetDescriptionsImport',
+						'siteConfigStatusUptodate',
 					);
 	
 	/**
@@ -108,6 +109,12 @@ class Config extends CActiveRecord
 		}
 	}
 
+	/*
+	 * These are initial configuration parameters.
+	 * When OCAx is installed, they are set to 0
+	 * Admin user is alerted views/user/panel
+	 * Alert is removed when these params have been set.
+	 */ 
 	protected function afterSave()
 	{
 		if($this->parameter == 'languages'){
@@ -162,7 +169,7 @@ class Config extends CActiveRecord
 
 	public function updateSiteConfigurationStatus($param=Null, $value=Null)
 	{
-		if($param && $value){
+		if($param !==Null && $value !== NUll){
 			$record = $this->findByPk($param);
 			$record->value = $value;
 			$record->save();
@@ -202,5 +209,74 @@ class Config extends CActiveRecord
 	{
 		$title=str_replace('%s', $this->findByPk('observatoryName2')->value, $this->findByPk('observatoryName1')->value);
 		return str_replace('#', ' ', $title);
+	}
+
+
+	public function updateVersionInfo(){
+		$context = stream_context_create(array(
+			'http' => array(
+			'header' => 'Content-type: application/x-www-form-urlencoded',
+			'method' => 'GET',
+			'timeout' => 1,
+		)));
+		if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
+			$new_version = json_decode($result);
+			if(isset($new_version->ocax)){
+				$this->setLatestOCAXVersion($new_version->ocax);
+				return $new_version->ocax;
+			}
+		}
+		return $this->getOCAXVersion();
+	}
+
+	public function getOCAXVersion(){
+		$path = Yii::app()->basePath.'/data/ocax.version';
+		$handle = @fopen($path, "r");
+		$version = rtrim(fgets($handle),"\n");
+		fclose($handle);
+		return $version;
+	}
+
+	public function getLatestOCAXVersion(){
+		$path = Yii::app()->basePath.'/runtime/latest.ocax.version';
+		if (file_exists($path)) {
+			$handle = @fopen($path, "r");
+			$version = rtrim(fgets($handle),"\n");
+			fclose($handle);
+			return $version;
+		}else{
+			$context = stream_context_create(array(
+				'http' => array(
+				'header' => 'Content-type: application/x-www-form-urlencoded',
+				'method' => 'GET',
+				'timeout' => 1,
+			)));
+			if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
+				$new_version = json_decode($result);
+				if(isset($new_version->ocax)){
+					$this->setLatestOCAXVersion($new_version->ocax);
+					return $new_version->ocax;
+				}
+			}
+		}
+		return $this->getOCAXVersion();
+	}
+
+	public function setLatestOCAXVersion($version){
+		$version = trim($version);
+		file_put_contents(Yii::app()->basePath.'/runtime/latest.ocax.version', $version);
+	}
+
+	public function isOCAXUptodate(){
+		$installed_version = getOCAXVersion();
+		$installed_version = str_replace('.','',$installed_version );
+		$installed_version = str_pad($installed_version, 10 , '0');
+
+		$latest_version = $this->getLatestOCAXVersion();
+		$latest_version = str_replace('.','',$latest_version );
+		$latest_version = str_pad($latest_version, 10 , '0');
+		if($latest_version > $installed_version)
+			return 0;
+		return 1;
 	}
 }

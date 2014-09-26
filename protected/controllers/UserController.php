@@ -83,53 +83,31 @@ class UserController extends Controller
 								t.user != '.$userid.' AND
 								( t.team_member != '.$userid.' || t.team_member IS NULL )',
 				'together'=>true,
-				//'order'=>'t.id DESC',
 			),
 			'sort'=>array('defaultOrder'=>'t.modified DESC'),
 		));
 
 		// check for OCAx updates once a week
-		$upgrade = Null;
 		if(Yii::app()->user->isAdmin()){
+			$config = Config::model();
 			$latest_version_file = Yii::app()->basePath.'/runtime/latest.ocax.version';
-			if (file_exists($latest_version_file)) {
+			if (!file_exists($latest_version_file))
+				$config->updateVersionInfo();
+			else{
 				$date = new DateTime();
-
-				if( $date->getTimestamp() - filemtime($latest_version_file) > 86400 ){ //604800 a week
-					$context = stream_context_create(array(
-						'http' => array(
-						'header' => 'Content-type: application/x-www-form-urlencoded',
-						'method' => 'GET',
-						'timeout' => 1
-					)));
-					if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
-						$new_version = json_decode($result);
-						if(isset($new_version->ocax))
-							file_put_contents($latest_version_file, $new_version->ocax);
-					}
-
-				}
-			}else
-				copy(Yii::app()->basePath.'/data/ocax.version', Yii::app()->basePath.'/runtime/latest.ocax.version');
-
-			$installed_version = getOCAXVersion();
-			$installed_version = str_replace('.','',$installed_version );
-			$installed_version = str_pad($installed_version, 10 , '0');
-
-			$latest_version = file_get_contents($latest_version_file);
-			$latest_version = str_replace('.','',$latest_version );
-			$latest_version = str_pad($latest_version, 10 , '0');
-
-			if($latest_version > $installed_version)
-				$upgrade = file_get_contents($latest_version_file);
+				if( $date->getTimestamp() - filemtime($latest_version_file) > 86400 ) // 604800 a week
+					$config->updateVersionInfo();
+			}
+			if($config->isOCAXUptodate())
+				$config->updateSiteConfigurationStatus('siteConfigStatusUptodate', 1);
+			else
+				$config->updateSiteConfigurationStatus('siteConfigStatusUptodate', 0);
 		}
-
-
+		
 		$this->render('panel',array(
-			'model'=>$this->loadModel($user->id),
-			'enquirys'=>$enquirys,
-			'subscribed'=>$subscribed,
-			'upgrade'=>$upgrade,
+				'model'=>$this->loadModel($user->id),
+				'enquirys'=>$enquirys,
+				'subscribed'=>$subscribed,
 		));
 	}
 
@@ -246,10 +224,6 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			/*
-			if($model->is_team_member || $model->is_editor || $model->is_manager)
-				$model->is_description_editor = 1;
-			*/
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

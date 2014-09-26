@@ -84,6 +84,7 @@ function format_date($date, $hours=Null){
 		return $date->format('d-m-Y');
 }
 
+// moved this to model/config Remember to remove it from here.
 function getOCAXVersion(){
 	$path = Yii::app()->basePath.'/data/ocax.version';
 	$handle = @fopen($path, "r");

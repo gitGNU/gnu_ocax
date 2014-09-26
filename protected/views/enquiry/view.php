@@ -163,6 +163,7 @@ $attribs[] = array(
 		'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 	);
 $this->widget('zii.widgets.CDetailView', array(
+	'id' => 'e_details',
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
 	'data'=>$model,
 	'attributes'=>$attribs,

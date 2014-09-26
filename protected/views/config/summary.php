@@ -61,9 +61,22 @@ catch (Exception $e) {
 ?>
 </div>
 
+<div style="float:left;">
+	<?php
+	echo '<div class="sub_title">'.__('OCAx version').'</div>';
+	echo '<p>';
+	echo __('Installed').': '.getOCAXVersion().', ';
+	echo __('Available').': '.$model->getLatestOCAXVersion().'<br />';
+	if($model->isOCAXUptodate())
+		echo '<span style="color:green">'.__('You are up to date').'</span><br />';
+	else
+		echo '<span style="color:red">'.__('Please update').'</span><br />';
+	?>
+</div>
+
 <?php
 	if(!isset($noDiskStatus)){
-		echo '<div style="float:left">';
+		echo '<div style="float:left;width:400px;">';
 		echo '<div class="sub_title">'.__('Disk usage (approx)').'</div>';
 		echo '<p>';
 		echo __('Free').': '.$freeSpace.' ('.round($freeSpace/$totalSpace * 100, 0).'%)<br />';

@@ -107,5 +107,5 @@
 </div>
 <div style="clear:both"></div>
 <p>
-	<?php echo __('After saving').' ';?><a href="/config/observatory"><?php echo __('refresh the page');?></a><?php echo ' '.__('to see the results');?>
+	<?php echo __('Refresh the page pressing F5');?>
 </p>

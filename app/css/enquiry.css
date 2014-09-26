@@ -12,6 +12,9 @@
 	padding:0px;
 	width:470px;
 }
+#enquiryDetails #e_details tr:first-child td {border:none;}
+#enquiryDetails #e_details tr:first-child th {border:none;}
+
 
 #socialOptions {
 	margin-left: -5px;
@@ -155,15 +158,16 @@
 }
 .enquiryPreview .title {
 	cursor: pointer;
-	padding: 3px 0px 0px 3px;
-	font-size: 1.15em;
+	padding: 2px 0px 3px 6px;
+	font-size: 1.25em;
 }
 .enquiryPreview .body {
 	cursor: pointer;
 	position:relative;
-	padding: 2px 3px 0 3px;
+	padding: 10px 5px 0 6px;
 	background-color: white;
-	height: 182px;
+	font-size: 1.15em;
+	height: 165px;
 	overflow: hidden;
 }
 

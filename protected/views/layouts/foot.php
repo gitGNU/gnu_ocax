@@ -4,12 +4,11 @@
 		<div id="observatoryFooterDetails">
 		<?php
 			echo '<span id="observatoryFooterName">'.Config::model()->getObservatoryName().'</span><br />';
-			//echo '<u>'.__('Contact information').'</u><br />';
-			if($blog = Config::model()->findByPk('observatoryBlog')->value)
-				echo '<a href="'.$blog.'">'.$blog.'</a><br />';
 			echo '<span>'.__('Email').': '.Config::model()->findByPk('emailContactAddress')->value.'</span><br />';
 			if($telf = Config::model()->findByPk('telephone')->value)
 				echo '<span>'.__('Telephone').': '.$telf.'</span><br />';
+			if($blog = Config::model()->findByPk('observatoryBlog')->value)
+				echo '<a href="'.$blog.'">'.$blog.'</a><br />';
 		?>
 		</div>
 	</div>

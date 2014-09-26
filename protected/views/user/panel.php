@@ -179,12 +179,6 @@ if($model->is_admin){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.__('Administator\'s options').'</div>';
-	if($upgrade){
-		$url = getInlineHelpURL(':upgrade');
-		echo '<p>'.__('New version available').'. '.__('Upgrade now').' '.
-			 '<a href="'.$url.'" target="_upgrade">OCAx '.$upgrade.'</a>'.
-			 '</p>';
-	}
 	echo '<div style="float:left"><p>';
 		if(Config::model()->findByPk('siteConfigStatusBudgetDescriptionsImport')->value){
 			echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
