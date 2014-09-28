@@ -106,12 +106,14 @@ function toggleOptions(){
 		$("#advancedFilterOptions").hide();
 		$("#basicFilterOptions").show();
 		$("#basicFilterOptions").find('li').removeClass('activeItem');
-		$('#filterLabel').html("<?php echo __('show options');?> &#x25BC;");
+		$('#showSearchOptions').find('i').removeClass('icon-minus-circled');
+		$('#showSearchOptions').find('i').addClass('icon-plus-circled');
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
 		$("#basicFilterOptions").hide();
-		$('#filterLabel').html("<?php echo __('hide options');?> &#x25B2;");
+		$('#showSearchOptions').find('i').removeClass('icon-plus-circled');
+		$('#showSearchOptions').find('i').addClass('icon-minus-circled');
 	}
 }
 function resetForm(){
@@ -129,20 +131,16 @@ function resetForm(){
 }
 </script>
 <div id="enquiryPageTitle">
-	<div style="float:left;">
-		<h1><?php echo __('Enquiries made to date');?></h1>
-		<p style="margin-top:-15px;margin-bottom:0px;">
-			<?php echo __('This is a list of enquiries made by citizens like you.');?>
-		</p>
+	<h1><?php echo __('Enquiries made to date');?></h1>
+	<p style="margin-top:-15px;margin-bottom:0px;">
+		<?php echo __('This is a list of enquiries made by citizens like you.');?>
+	</p>
+	<div id="showSearchOptions" onCLick="js:toggleOptions();return false;">
+		<?php echo __('Search options');?> <i class="icon-plus-circled"></i>
 	</div>
-	<div style="float:right">
-		<div id="filterLabel" class="moreOptionsArrow" style="font-size: 2em; cursor:pointer;" onCLick="js:toggleOptions();return false;">
-			<?php echo __('show options');?> &#x25BC;
-		</div>
-		<div style="text-align:right">
-			<div id="change_to_list" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></div>
-			<div id="change_to_grid" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></div>
-		</div>
+	<div id="enquiryDisplayTypeIcons">
+		<div id="change_to_list" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></div>
+		<div id="change_to_grid" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></div>
 	</div>
 </div>
 <div class="clear"></div>

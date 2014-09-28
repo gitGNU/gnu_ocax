@@ -1,5 +1,7 @@
 
-.icon-mail:before { content: '\e802'; } /* '' */
-.icon-link:before { content: '\e803'; } /* '' */
 .icon-thumbs-up:before { content: '\e800'; } /* '' */
 .icon-thumbs-down:before { content: '\e801'; } /* '' */
+.icon-mail:before { content: '\e802'; } /* '' */
+.icon-search:before { content: '\e803'; } /* '' */
+.icon-plus-circled:before { content: '\e804'; } /* '' */
+.icon-minus-circled:before { content: '\e805'; } /* '' */
