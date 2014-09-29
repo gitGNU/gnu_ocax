@@ -1,5 +1,9 @@
 /* ENQUIRY */
 
+#enquiryPageTitle{
+	position: relative;
+}
+
 #enquiryTitle{
 	margin-bottom:0px;
 }
@@ -31,6 +35,23 @@
 	color:lightgrey;
 }
 
+#showSearchOptions
+{
+	position: absolute;
+	top: -25px;
+	right: -20px;
+	cursor:pointer;
+}
+#showSearchOptions i
+{
+	font-size: 2em;
+}
+#enquiryDisplayTypeIcons
+{
+	position: absolute;
+	top: 25px;
+	right: 30px;
+}
 /* Icons */
 
 #change_to_list
