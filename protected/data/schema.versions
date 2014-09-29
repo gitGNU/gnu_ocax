@@ -1,5 +1,5 @@
-This is a file to keep tabs on ocax version and corresponding mysql shema version
+This is a file to keep tabs on ocax version and corresponding mysql schema version
+OCAx version:schema version
+Order new first, older last
 
-ocax version : schema version
-
-1.1.4 : 0
+1.1.4:0

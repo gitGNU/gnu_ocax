@@ -377,8 +377,8 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigS
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusObservatoryName', '0', '1', 'Obseratory name configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusAdministrationName', '0', '1', 'Administration name configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusZipFileCreated', '0', '1', 'Zip file containing csv is ready to download');
-INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusUptodate', '0', '1', 'There is a software update available');
-INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusRequirementsCheck', '0', '1', 'Check ocax requirements on this server');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusUptodate', '0', '1', 'OCAx version is up to date');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusPostInstallChecked', '0', '1', 'Post installation check');
 
 INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '0', '0', 'Database schema version');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'Email server'); /* 0=SMTP, 1=Sendmail */

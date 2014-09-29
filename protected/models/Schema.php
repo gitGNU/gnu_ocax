@@ -24,7 +24,7 @@
 Yii::import('application.includes.*');
 require_once('runSQL.php');
 
-class Migrate
+class Schema
 {
 	protected $MIGRATIONS_DIR;
 	protected $version = Null;
@@ -86,6 +86,21 @@ class Migrate
 	protected function get_version_from_file($file) {
 		return intval(substr($file, strlen($this->MIGRATE_FILE_PREFIX)));
 	}
+
+	public function isSchemaUptodate($ocaxVersion)
+	{	
+		$lines = file(Yii::app()->basePath.'/data/schema.versions');
+		foreach ($lines as $lineNumber => $line) {
+			if (strpos($line, $ocaxVersion) !== false) {
+				$versions = explode(':',$line);
+				$schema = trim($versions[1]);
+				if($schema === Config::model()->findByPk('schemaVersion')->value)
+					return 1;
+			}
+		}
+		return 0;
+	}
+
 /*
 	public function add($fn)
 	{

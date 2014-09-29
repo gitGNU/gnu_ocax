@@ -48,7 +48,6 @@ class ConfigController extends Controller
 				'actions'=>array(	'index','update','admin',
 									'email','observatory','social','locale',
 									'logo','backups','misc',
-									'requirements',
 								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),

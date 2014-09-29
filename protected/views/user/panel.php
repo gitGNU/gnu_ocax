@@ -134,11 +134,19 @@ function addPanelSeparator(){
 		$panel_separator_added=1;
 	}
 }
-
-if($model->is_admin && !Config::model()->findByPk('siteConfigStatus')->value){
-	addPanelSeparator();
-	echo '<div class="clear"></div>';
-	$this->renderPartial('//config/pendingConfiguration');
+if($model->is_admin ){
+	if(!Config::model()->findByPk('siteConfigStatusPostInstallChecked')->value){
+		echo '<div style="font-size:1.3em">'.__('OCAx installation').'</div>';
+		$this->renderPartial('//config/versionSummary');
+		echo '<div style="font-size:1.3em">'.__('Check server requirements').'</div>';
+		$this->renderPartial('//config/postInstallCheck');
+	}
+	if(!Config::model()->findByPk('siteConfigStatus')->value){
+		addPanelSeparator();
+		echo '<div class="clear"></div>';
+		echo '<p></p>';
+		$this->renderPartial('//config/pendingConfiguration');
+	}
 }
 if($model->is_team_member){
 	addPanelSeparator();

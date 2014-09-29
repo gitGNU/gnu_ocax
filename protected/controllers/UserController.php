@@ -86,10 +86,19 @@ class UserController extends Controller
 			),
 			'sort'=>array('defaultOrder'=>'t.modified DESC'),
 		));
-
-		// check for OCAx updates once a week
+		
 		if(Yii::app()->user->isAdmin()){
 			$config = Config::model();
+			
+			// update schema.
+			$schema = new Schema;
+			if(!$schema->isSchemaUptodate($config->getOCAxVersion())){
+				$schema->migrate();
+				$postInstallChecked = $config->findByPk('siteConfigStatusPostInstallChecked');
+				$postInstallChecked->value = 0;
+				$postInstallChecked->save();			
+			}
+			// check for OCAx updates once a week
 			$latest_version_file = Yii::app()->basePath.'/runtime/latest.ocax.version';
 			if (!file_exists($latest_version_file))
 				$config->updateVersionInfo();
@@ -103,7 +112,6 @@ class UserController extends Controller
 			else
 				$config->updateSiteConfigurationStatus('siteConfigStatusUptodate', 0);
 		}
-		
 		$this->render('panel',array(
 				'model'=>$this->loadModel($user->id),
 				'enquirys'=>$enquirys,
