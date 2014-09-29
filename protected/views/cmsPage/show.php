@@ -55,9 +55,9 @@ echo '</div>';
 		echo '<a href="'.$this->createUrl('site/index').'">'.__('Home').'</a>';
 		if($parent->id != $model->id){
 			$parentContent = CmsPageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language));
-			echo ' &rarr; <a href="'.$parentContent->pageURL.'">'.$parentContent->pageTitle.'</a>';
+			echo ' &rarr; <a href="'.$this->createUrl('p/'.$parentContent->pageURL).'">'.$parentContent->pageTitle.'</a>';
 		}
-		echo ' &rarr; <a href="'.$content->pageURL.'">'.$content->pageTitle.'</a>';
+		echo ' &rarr; <a href="'.$this->createUrl('p/'.$content->pageURL).'">'.$content->pageTitle.'</a>';
 }
 ?>
 <div class="clear"></div>

@@ -387,7 +387,7 @@ class Enquiry extends CActiveRecord
 		$my_params = array();
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
 								' AND state != '.ENQUIRY_ASSIGNED.
-								' AND state != '.ENQUIRY_REJECTED);
+								' AND state != '.ENQUIRY_REJECTED); // not working properly. check filter by date index/enquiry
 
 		if($this->basicFilter){
 			if($this->basicFilter == 'noreply')
@@ -436,7 +436,7 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('state',$this->state);
 		$criteria->compare('addressed_to',$this->addressed_to, true);
 
-		$criteria->params = array_merge($criteria->params, $my_params);
+		$criteria->params = array_merge($criteria->params, $my_params);	// not working properly. check filter by date index/enquiry
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			/*

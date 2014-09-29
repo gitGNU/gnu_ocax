@@ -32,6 +32,7 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1><?php echo __('Entrusted enquiries');?></h1>
+<span><a href="http://wiki.ocax.net"><?php echo __('You are responsible for these enquiries');?></span></a>
 
 <div class="search-form">
 <?php $this->renderPartial('_memberSearch',array(

@@ -71,6 +71,9 @@ catch (Exception $e) {
 		echo '<span style="color:green">'.__('You are up to date').'</span><br />';
 	else
 		echo '<span style="color:red">'.__('Please update').'</span><br />';
+
+	if(!Config::model()->findByPk('siteConfigStatusRequirementsCheck')->value)
+		$this->renderPartial('//config/checkSystemRequirements');
 	?>
 </div>
 

@@ -1,14 +1,22 @@
 
+
+
+<?php
+$cnt =1;
+$config = Config::model();
+$config->updateSiteConfigurationStatus();
+
+if(!$config->findByPk('siteConfigStatusRequirementsCheck')->value){
+	$this->renderPartial('//config/checkSystemRequirements');
+}
+?>
+
 <div class="sub_title"><?php echo __('Admin tasks');?>
 <?php echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';?>
 </div>
 
 <p>
 <?php
-$cnt =1;
-$config = Config::model();
-$config->updateSiteConfigurationStatus();
-
 if(!$config->findByPk('siteConfigStatusUptodate')->value){
 	echo $cnt.'. '.'<a href="'.getInlineHelpURL(':upgrade').'">'.__('New version available').'. '.__('Upgrade now').'</a>';
 	$cnt +=1;

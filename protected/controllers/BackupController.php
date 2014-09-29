@@ -67,10 +67,10 @@ class BackupController extends Controller
 		if(!is_dir($backupDir)){
 			createDirectory($backupDir);
 		}else{
-			if($glob = glob($backupDir.$model->filenamePrefix.'*')){
-				foreach($glob as $f){
-					unlink($f);
-				}
+			$nodes = scandir($backupDir);
+			foreach($nodes as $node){
+				if(strpos($node, $model->filenamePrefix) !== FALSE)
+					unlink($backupDir.$node);
 			}
 		}
 		list($path, $file, $dump_error) = $model->siteBackup($backupDir);

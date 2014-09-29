@@ -48,6 +48,7 @@ class ConfigController extends Controller
 				'actions'=>array(	'index','update','admin',
 									'email','observatory','social','locale',
 									'logo','backups','misc',
+									'requirements',
 								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -97,6 +98,12 @@ class ConfigController extends Controller
 	{
 		$model = new Config;
 		$this->render('index',array('model'=>$model, 'page'=>'backups'));
+	}
+
+	public function actionRequirements()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'checkSystemRequirements'));
 	}
 
 	public function actionMisc()
