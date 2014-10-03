@@ -17,6 +17,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+
+/*
+ * Check basic installation sanity
+ */ 
+
 ?>
 
 <?php
@@ -25,7 +31,6 @@ $config = Config::model();
 $schema = new Schema;
 if(!$schema->isSchemaUptodate($config->getOCAXVersion()))
 	$schema->migrate();
-
 ?>
 
 <p>

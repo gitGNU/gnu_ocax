@@ -8,6 +8,7 @@
 	<!-- blueprint CSS framework -->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/mainmenu.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
@@ -41,7 +42,7 @@
 				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/login'));
 				echo CHtml::link(__('Login'), array('/site/login'));
 			}else{
-				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/logout'));
+				echo CHtml::link('<i class="icon-users header-icons"></i>', array('/site/logout'));
 				echo CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout'));
 			}
 		?>
@@ -60,19 +61,19 @@
 	?>
 	<li>
 	<?php
-		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/newsletter.png"/>', array('/newsletter'));
+		echo CHtml::link('<i class="icon-mail header-icons"></i>', array('/newsletter'));
 		echo CHtml::link(__('Newsletters'), array('/newsletter'));
 	?>
 	</li>
 	<li>
 	<?php
-		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/archive.png"/>', array('/archive'));
+		echo CHtml::link('<i class="icon-folder header-icons"></i>', array('/archive'));
 		echo CHtml::link(__('Archive'), array('/archive'));
 	?>
 	</li>
 	<li>
 	<?php
-		echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/home.png"/>', array('/site/index'));
+		echo CHtml::link('<i class="icon-home header-icons"></i>', array('/site/index'));
 		echo CHtml::link(__('Home'), array('/site/index'));
 	?>
 	</li>

@@ -86,9 +86,13 @@ class EmailtextController extends Controller
 			$model->attributes=$_POST['Emailtext'];
 			$model->updated=1;
 			if($model->save()){
-				if(!$model->findByAttributes(array('updated'=>0)))
-					Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmailTemplates', 1);
-
+				$configuredTemplatesTotal = count($model->findAllByAttributes(array('updated'=>1)));
+				$totalTemplates = count( $model->findAll() );
+				if( $configuredTemplatesTotal == $totalTemplates){
+					$config = Config::model()->findByPk('siteConfigStatusEmailTemplates');
+					$config->value = 1;
+					$config->save();
+				}
 				$this->redirect(array('view','id'=>$model->state));
 			}
 		}

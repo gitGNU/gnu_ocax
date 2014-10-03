@@ -50,7 +50,7 @@ if(!$config->findByPk('siteConfigStatusInitials')->value){
 }
 
 if(!$config->findByPk('siteConfigStatusEmail')->value){
-	echo $cnt.'. '.CHtml::link(__('Email has not been configured'),array('config/email'));
+	echo $cnt.'. '.CHtml::link(__("Email has not been configured"),array('config/email'));
 	$cnt +=1;
 	echo '<br />';
 }
@@ -74,10 +74,14 @@ if(!$config->findByPk('siteConfigStatusAdministrationName')->value){
 }
 
 if(!$config->findByPk('siteConfigStatusEmailTemplates')->value){
-	echo $cnt.'. '.CHtml::link(__('Email templates need to be defined'),array('emailtext/admin'));
-	$cnt +=1;
-	echo '<br />';
+	$configuredTemplatesTotal = count(Emailtext::model()->findAllByAttributes(array('updated'=>1)));
+	$totalTemplates = count( Emailtext::model()->findAll() );
+	if( $configuredTemplatesTotal < $totalTemplates){
+		$text = __('Email templates').' '.($totalTemplates-$configuredTemplatesTotal).' '.__('need to be defined');
+		echo $cnt.'. '.CHtml::link($text,array('emailtext/admin'));
+		$cnt +=1;
+		echo '<br />';
+	}
 }
-
 ?>
 </p>

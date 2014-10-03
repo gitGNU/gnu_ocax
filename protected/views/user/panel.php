@@ -54,11 +54,11 @@ $privilegedUser = Yii::app()->user->isPrivileged();
 <?php if($privilegedUser){ ?>
 function toggleBasicUserOptions(){
 	if ($("#basicUserOptions").is(":visible")){
-		$("#showBasicUserOptions").html("<?php echo __('show options');?> &#x25BC;");
-		$("#basicUserOptions").hide();
+		$("#showBasicUserOptions").html("<i class='icon-plus-circled'></i>");
+		$("#basicUserOptions").slideUp();
 	}else{
-		$("#showBasicUserOptions").html("<?php echo __('hide options');?> &#x25B2;");
-		$("#basicUserOptions").show();
+		$("#showBasicUserOptions").html("<i class='icon-minus-circled'></i>");
+		$("#basicUserOptions").slideDown();
 	}
 }
 <?php } ?>
@@ -77,7 +77,7 @@ function toggleBasicUserOptions(){
 	<div	id="showBasicUserOptions"
 			style="position:absolute; top:-20px; right: 0px; font-size: 2em; cursor:pointer;"
 			onCLick="js:toggleBasicUserOptions();return false;">
-			<?php echo __('show options');?> &#x25BC;
+			<?php echo 	'<i class="icon-plus-circled"></i>';?>
 	</div>
 
 	<?php } ?>

@@ -147,9 +147,9 @@ class Vault extends CActiveRecord
 		$name = preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $host);
 		if($appendType){
 			if($this->type == LOCAL)
-				return $name.'-local';
+				return $name.'local';
 			else
-				return $name.'-remote';
+				return $name.'remote';
 		}else
 			return $name;
 	}
@@ -273,9 +273,9 @@ class Vault extends CActiveRecord
 			$key = $_GET['key'];
 
 			if($vaultType == LOCAL)
-				$vaultName = $name.'-local';
+				$vaultName = $name.'local';
 			if($vaultType == REMOTE)
-				$vaultName = $name.'-remote';
+				$vaultName = $name.'remote';
 			if($model = Vault::model()->findByAttributes(array('name'=>$vaultName))){
 				if($model->key && $model->key == $key)
 					return $model;
@@ -291,6 +291,33 @@ class Vault extends CActiveRecord
 			return 1;
 		else
 			return 0;
+	}
+
+	/* The most recent backup may have failed.
+	 * Make the vault READY.
+	 */
+	public function makeReady()
+	{
+		$today = date('N')-1;
+		if($mostRecentBackup = $this->getMostRecentBackup()){
+			$datetime = new DateTime($mostRecentBackup->created);
+			if($datetime->format('N')-1 != $today){
+				$this->state = READY;
+				$this->save();
+			}
+		}
+	}
+
+	public function getMostRecentBackup()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('vault ='.$this->id);
+		$criteria->order = 'created DESC';
+		$backups = Backup::model()->findAll($criteria);
+		if($backups)
+			return $backups[0];
+		else
+			return Null;
 	}
 
 	public function getOldestBackup()

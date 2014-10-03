@@ -320,6 +320,7 @@ class VaultController extends Controller
 	public function actionLocalWaitingToStartCopyingBackup()
 	{
 		if($model = Vault::model()->findByIncomingCreds(REMOTE)){
+			$model->makeReady();
 			if($model->state == READY){
 				// Don't start another backup if we've already created one today.
 				if(Backup::model()->findByDay(date('Y-m-d'), $model->id )){
