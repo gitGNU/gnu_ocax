@@ -28,9 +28,11 @@
 <?php
 $config = Config::model();
 
+/*
 $schema = new Schema;
 if(!$schema->isSchemaUptodate($config->getOCAXVersion()))
 	$schema->migrate();
+*/
 ?>
 
 <p>
@@ -41,41 +43,41 @@ $errors = 0;
 // Check directory permisions
 $err_msg = '';
 if(!is_writable(Yii::app()->basePath.'/runtime/tmp')){
-	$err_msg = $err_msg.$cnt.'. '.'<span style="color:red">'.__('Error: protected/runtime/tmp ').'</span><br />';
+	$err_msg = $err_msg.$cnt.'. '.__('Error: protected/runtime/tmp ').' <i class="icon-attention"></i><br />';
 	$cnt +=1;
 }
 if(!is_writable(Yii::app()->basePath.'/runtime/html')){
-	$err_msg = $err_msg.$cnt.'. '.'<span style="color:red">'.__('Error: protected/runtime/html ').'</span><br />';
+	$err_msg = $err_msg.$cnt.'. '.__('Error: protected/runtime/html ').' <i class="icon-attention"></i><br />';
 	$cnt +=1;
 }
 if($err_msg){
 	echo $err_msg;
 	$errors +=1;
 }else{
-	echo $cnt.'. <span style="color:green">'.__('Directory permissions seem Ok').'</span><br />';
+	echo $cnt.'. '.__('Directory permissions seem Ok').' <i class="icon-ok-circled"></i><br />';
 	$cnt +=1;
 }
 
 
-echo $cnt.'. <span style="color:green">';
+echo $cnt.'. ';
 if(isExecAvailable() === false){
 	$dumpMethod = $config->findByPk('databaseDumpMethod');
 	$dumpMethod->value = 'alternative';
 	$dumpMethod->save();
-	echo __('Info: Native mysqldump not available. Using PHP alternative for backups. Ok');
+	echo __('Info: Native mysqldump not available. Using PHP alternative for backups');
 }else{
 	// need to add test for mysqldump
-	echo __('Using native mysqldump for backups. Ok');
+	echo __('Using native mysqldump for backups');
 }
-echo '</span><br />';
+echo '. <i class="icon-ok-circled"></i><br />';
 $cnt +=1;
 
 
 echo $cnt.'. ';
 if(class_exists('ZipArchive'))
-	echo '<span style="color:green">'.__('ZipArchive is installed. Ok').'</span>';
+	echo __('ZipArchive is installed').'. <i class="icon-ok-circled"></i>';
 else{
-	echo '<span style="color:red">'.__('Error: ZipArchive is not installed').'</span>';
+	echo __('Error: ZipArchive is not installed').' <i class="icon-attention"></i>';
 	$errors +=1;
 }
 echo '<br />';
@@ -83,12 +85,6 @@ $cnt +=1;
 
 
 $requirementsCheck = $config->findByPk('siteConfigStatusPostInstallChecked');
-if($errors){
-	$requirementsCheck->value = 0;
-	echo '<span style="background-color:red; color:white; font-size: 1.1em">'.__('Please fix these errors').'</span>';
-}else
-	$requirementsCheck->value = 1;
-
 $requirementsCheck->save();
 	
 ?>

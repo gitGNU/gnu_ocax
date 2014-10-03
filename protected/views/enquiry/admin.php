@@ -30,10 +30,25 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<script>
+function toggleSearchOptions(){
+	if ($("#searchOptions").is(":visible")){
+		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
+		$("#searchOptions").slideUp();
+	}else{
+		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
+		$("#searchOptions").slideDown();
+	}
+}
+</script>
+
+<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+	<i class="icon-search-circled"></i>
+</div>
 
 <h1><?php echo __('Manage enquiries');?></h1>
 
-<div class="search-form">
+<div id="searchOptions" class="search-form">
 <?php $this->renderPartial('_managerSearch',array(
 	'model'=>$model,
 )); ?>

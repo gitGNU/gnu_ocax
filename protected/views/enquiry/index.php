@@ -105,14 +105,14 @@ function toggleOptions(){
 		$("#advancedFilterOptions").hide();
 		$("#basicFilterOptions").show();
 		$("#basicFilterOptions").find('li').removeClass('activeItem');
-		$('#showSearchOptions').find('i').removeClass('icon-minus-circled');
-		$('#showSearchOptions').find('i').addClass('icon-plus-circled');
+		$('#searchOptionsToggle').find('i').removeClass('icon-cancel-circled');
+		$('#searchOptionsToggle').find('i').addClass('icon-search-circled');
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
 		$("#basicFilterOptions").hide();
-		$('#showSearchOptions').find('i').removeClass('icon-plus-circled');
-		$('#showSearchOptions').find('i').addClass('icon-minus-circled');
+		$('#searchOptionsToggle').find('i').removeClass('icon-search-circled');
+		$('#searchOptionsToggle').find('i').addClass('icon-cancel-circled');
 	}
 }
 function resetForm(){
@@ -129,14 +129,16 @@ function resetForm(){
 	resetFormElements = 0;
 }
 </script>
+
+	<div id="searchOptionsToggle" class="color" onCLick="js:toggleOptions();return false;">
+		<i class="icon-search-circled"></i>
+	</div>
+	
 <div id="enquiryPageTitle">
 	<h1><?php echo __('Enquiries made to date');?></h1>
 	<p style="margin-top:-15px;margin-bottom:0px;">
 		<?php echo __('This is a list of enquiries made by citizens like you.');?>
 	</p>
-	<div id="showSearchOptions" onCLick="js:toggleOptions();return false;">
-		<?php echo __('Search options');?> <i class="icon-plus-circled"></i>
-	</div>
 	<div id="enquiryDisplayTypeIcons">
 		<div id="change_to_list" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></div>
 		<div id="change_to_grid" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></div>
@@ -242,8 +244,8 @@ if($displayType == 'grid'){
 </div>
 
 <div id="enquiry_popup" class="modal" style="width:870px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
-	<img class="bModal2Page" onclick="js:enquiryModal2Page();" src="<?php echo Yii::app()->request->baseUrl; ?>/images/modal2page.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:enquiryModal2Page();"></i>
 <div id="enquiry_body"></div>
 </div>
 

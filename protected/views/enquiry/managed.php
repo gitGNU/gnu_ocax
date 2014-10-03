@@ -31,33 +31,26 @@ $('.search-form form').submit(function(){
 ");
 ?>
 <script>
-function toggleOptions(){
-	resetForm();
-	if ($("#search-form").is(":visible")){
-		$("#search-form").hide();
-		$("#search-form").show();
-		$("#basicFilterOptions").find('li').removeClass('activeItem');
-		$('#showSearchOptions').find('i').removeClass('icon-minus-circled');
-		$('#showSearchOptions').find('i').addClass('icon-plus-circled');
+function toggleSearchOptions(){
+	if ($("#searchOptions").is(":visible")){
+		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
+		$("#searchOptions").slideUp();
 	}else{
-		$("#advancedFilterOptions").show();
-		$("#search-form").hide();
-		$('#showSearchOptions').find('i').removeClass('icon-plus-circled');
-		$('#showSearchOptions').find('i').addClass('icon-minus-circled');
+		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
+		$("#searchOptions").slideDown();
 	}
 }
-
 </script>
 
-	<div id="enquiryPageTitle">
-<h1><?php echo __('Entrusted enquiries');?></h1>
-<span><a href="http://wiki.ocax.net"><?php echo __('You are responsible for these enquiries');?></span></a>
-	<div id="showSearchOptions" onCLick="js:toggleOptions();return false;">
-		<?php echo __('Search options');?> <i class="icon-plus-circled"></i>
-	</div>
+<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+	<i class="icon-search-circled"></i>
 </div>
 
-<div class="search-form">
+<div id="enquiryPageTitle">
+<h1><?php echo __('Entrusted enquiries');?></h1>
+</div>
+
+<div id="searchOptions" class="search-form">
 <?php $this->renderPartial('_memberSearch',array(
 	'model'=>$model,
 )); ?>

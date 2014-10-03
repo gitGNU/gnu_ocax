@@ -357,6 +357,11 @@ div.breadcrumbs span
 	letter-spacing:-0.5pt;
 	font-weight:200;
 }
+.sub_title > i{
+	font-size: 22px;
+}
+
+
 
 .horizontalRule
 {
@@ -485,17 +490,24 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	margin: -10px -10px 0 -10px;
 	border-bottom: 1px solid #cdcbc9;
 }
-.bClose{ /* close popup window icon */
+.modalWindowButton {
 	cursor: pointer;
+	position: absolute;
+	font-size:20px;
+	color: #7D7D7D;	
+}
+.modalWindowButton:hover {
+	color: #454545;	
+}
+.bClose{ /* close popup window icon */
 	position: absolute;
 	right: 5px;
-	top: 5px;
+	top: 7px;
 }
 .bModal2Page { /* expand popup 2 page icon */
-	cursor: pointer;
 	position: absolute;
-	right: 40px;
-	top: 5px;
+	right: 37px;
+	top: 7px;
 }
 /* https://github.com/dinbror/bpopup/issues/30 */
 .b-modal {
@@ -511,6 +523,7 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	margin-left:-20px;
 	margin-top:30px; /* did this for new bPopup version 0.9.4 */
 }
+
 .modalContextHelp > .bClose{ /* close popup window icon */
 	cursor: pointer;
 	position: absolute;
@@ -518,6 +531,45 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	top: -21px;
 	}
 
+/* Some pages have an icon to toggle More Options */
+#moreOptionsToggle {
+	position:absolute;
+	top: 8px;
+	right: 3px;
+	font-size: 2em;
+	cursor:pointer;
+}
+#moreOptionsToggle > .icon-plus-circled {
+	top: 7px;
+	right: 2px;
+}
+
+#moreOptions, #searchOptions {
+	display:none;
+}
+
+/* search Options toggle icons */
+#searchOptionsToggle
+{
+	position: absolute;
+	top: 8px;
+	right: 3px;
+	cursor:pointer;
+}
+#searchOptionsToggle i
+{
+	font-size: 2em;
+}
+
+/* attention and OK icons */
+.icon-attention{
+	font-size: 1.1em;
+	color: #CD0000;
+}
+.icon-ok-circled{
+	font-size: 1.1em;
+	color: #2E8B57;
+}
 
 /*Cookie alert */
 .cookieAlert {

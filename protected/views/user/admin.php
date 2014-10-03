@@ -21,10 +21,6 @@
 /* @var $model User */
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
 $('.search-form form').submit(function(){
 	$.fn.yiiGridView.update('user-grid', {
 		data: $(this).serialize()
@@ -33,11 +29,26 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<script>
+function toggleSearchOptions(){
+	if ($("#searchOptions").is(":visible")){
+		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
+		$("#searchOptions").slideUp();
+	}else{
+		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
+		$("#searchOptions").slideDown();
+	}
+}
+</script>
+
+<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+	<i class="icon-search-circled"></i>
+</div>
 
 <h1><?php echo __('Users and roles');?></h1>
 
-<?php echo CHtml::link(__('Advanced Search'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+
+<div id="searchOptions" class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>

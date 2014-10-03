@@ -25,9 +25,9 @@
 	echo __('Installed').': '.$config->getOCAXVersion().'&nbsp;&nbsp;&nbsp;';
 	echo __('Available').': '.$config->getLatestOCAXVersion();
 	if($config->isOCAXUptodate())
-		echo '&nbsp;&nbsp;&nbsp;<span style="background-color:green;color:white">Ok</span>';
+		echo '<i class="icon-ok-circled"></i>';
 	else
-		echo '&nbsp;&nbsp;&nbsp;<span style="background-color:red;color:white">'.__('Please update').'</span>';
+		echo '<br />'.__('Please update').' <i class="icon-attention"></i>';
 	echo '</span><br />';
 
 	echo 'Database schema: version '.$config->findByPk('schemaVersion')->value.'<br />';

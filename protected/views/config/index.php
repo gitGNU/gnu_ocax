@@ -62,9 +62,11 @@ function submitChange(el, id, callback){
 			$(el).next('.progress').empty();
 			$(el).parent().find('.error').remove();
 			if(data == 1){
-						$(el).next('.progress').append('<img style="vertical-align:middle;" id="tick_png" src="<?php echo Yii::app()->request->baseUrl;?>/images/tick.png" />');
+//						$(el).next('.progress').append('<img style="vertical-align:middle;" id="tick_png" src="<?php echo Yii::app()->request->baseUrl;?>/images/tick.png" />');
+						$(el).next('.progress').append('<i class="icon-ok-circled"></i>');
+
 						$(el).prop("disabled", false);
-						$("#tick_png").fadeOut('slow', function() {
+						$(".icon-ok-circled").fadeOut(1600, function() {
 							$(el).next('.progress').empty();
 						});
 						if(typeof callback !== 'undefined'){

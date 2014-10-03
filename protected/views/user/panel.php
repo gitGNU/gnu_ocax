@@ -52,13 +52,13 @@ $privilegedUser = Yii::app()->user->isPrivileged();
 </style>
 <script>
 <?php if($privilegedUser){ ?>
-function toggleBasicUserOptions(){
-	if ($("#basicUserOptions").is(":visible")){
-		$("#showBasicUserOptions").html("<i class='icon-plus-circled'></i>");
-		$("#basicUserOptions").slideUp();
+function toggleMoreOptions(){
+	if ($("#moreOptions").is(":visible")){
+		$("#moreOptionsToggle").html("<i class='icon-plus-circled'></i>");
+		$("#moreOptions").slideUp();
 	}else{
-		$("#showBasicUserOptions").html("<i class='icon-minus-circled'></i>");
-		$("#basicUserOptions").slideDown();
+		$("#moreOptionsToggle").html("<i class='icon-minus-circled'></i>");
+		$("#moreOptions").slideDown();
 	}
 }
 <?php } ?>
@@ -71,17 +71,16 @@ function toggleBasicUserOptions(){
 	echo '<div class="horizontalRule"></div>';
 }?>
 
+<?php if($privilegedUser){ ?>
+<div	id="moreOptionsToggle" class="color"
+		onCLick="js:toggleMoreOptions();return false;">
+		<?php echo 	'<i class="icon-plus-circled"></i>';?>
+</div>
+<?php } ?>
 
 <div class="outer">
-	<?php if($privilegedUser){ ?>
-	<div	id="showBasicUserOptions"
-			style="position:absolute; top:-20px; right: 0px; font-size: 2em; cursor:pointer;"
-			onCLick="js:toggleBasicUserOptions();return false;">
-			<?php echo 	'<i class="icon-plus-circled"></i>';?>
-	</div>
 
-	<?php } ?>
-<div id="basicUserOptions" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>">
+<div id="moreOptions" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>">
 <div class="panel_left">
 	<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
 	<div class="clear"></div>
@@ -153,7 +152,7 @@ if($model->is_team_member){
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed'));
 	if(Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_ASSIGNED)))
-		echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';
+		echo '<i class="icon-attention"></i>';
 	echo '</div>';
 	echo '<p><u>Team member</u><br />'.__('Manage the enquiries you are responsable for').'</p>';
 	echo '</div>';
@@ -177,7 +176,7 @@ if($model->is_manager){
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin'));
 	if(Enquiry::model()->findByAttributes(array('state'=>ENQUIRY_PENDING_VALIDATION)))
-		echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';
+		echo '<i class="icon-attention"></i>';
 	echo '</div>';
 	echo 	'<p><u>Team manager</u><br />'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';

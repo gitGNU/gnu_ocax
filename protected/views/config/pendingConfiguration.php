@@ -25,7 +25,7 @@ $config->updateSiteConfigurationStatus();
 ?>
 
 <div class="sub_title"><?php echo __('Admin tasks');?>
-<?php echo '<img src="'.Yii::app()->request->baseUrl.'/images/alert.png" />';?>
+<i class="icon-attention"></i>
 </div>
 
 <p>

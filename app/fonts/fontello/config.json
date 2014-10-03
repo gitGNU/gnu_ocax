@@ -37,6 +37,24 @@
       "src": "typicons"
     },
     {
+      "uid": "937f4db8b6ff3348a1d9fcd5e12fd2fe",
+      "css": "mail-1",
+      "code": 59402,
+      "src": "iconic"
+    },
+    {
+      "uid": "188e881b2e2f2b1eb350eb7697aabafd",
+      "css": "cancel-circle",
+      "code": 59403,
+      "src": "iconic"
+    },
+    {
+      "uid": "971be54c1452e2558926d36786e6b1d7",
+      "css": "popup",
+      "code": 59404,
+      "src": "iconic"
+    },
+    {
       "uid": "05ef9b5e8742971aa85b23cfcbe71594",
       "css": "users",
       "code": 59398,
@@ -49,16 +67,40 @@
       "src": "mfglabs"
     },
     {
+      "uid": "189edfc41118cccbeb25788fcbb403da",
+      "css": "attention",
+      "code": 59407,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "81385e5f1fe091f3d9a20d215d444622",
+      "css": "search-circled",
+      "code": 59395,
+      "src": "elusive"
+    },
+    {
+      "uid": "67a9d2e5512b8aa812eff7da6d36bffc",
+      "css": "ok-circled",
+      "code": 59405,
+      "src": "elusive"
+    },
+    {
+      "uid": "fd32deda7b2f5b8cad46d13897c19ae8",
+      "css": "cancel-circled",
+      "code": 59401,
+      "src": "elusive"
+    },
+    {
+      "uid": "0be76e79cf83a68ecb961121c00b9f2d",
+      "css": "attach",
+      "code": 59406,
+      "src": "elusive"
+    },
+    {
       "uid": "9eece2885134734c5bc085fdd4955af1",
       "css": "folder",
       "code": 59399,
       "src": "elusive"
-    },
-    {
-      "uid": "221947bea81f49a11b863c686a7bd235",
-      "css": "search",
-      "code": 59395,
-      "src": "websymbols"
     }
   ]
 }
