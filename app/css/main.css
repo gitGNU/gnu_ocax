@@ -533,32 +533,41 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 
 /* Some pages have an icon to toggle More Options */
 #moreOptionsToggle {
+	color: #7D7D7D;	
 	position:absolute;
-	top: 8px;
-	right: 3px;
+	top: -20px;
+	right: -20px;
 	font-size: 2em;
 	cursor:pointer;
+}
+#moreOptionsToggle:hover {
+	color: #454545;	
 }
 #moreOptionsToggle > .icon-plus-circled {
 	top: 7px;
 	right: 2px;
 }
 
-#moreOptions, #searchOptions {
-	display:none;
-}
-
 /* search Options toggle icons */
 #searchOptionsToggle
 {
+	color: #7D7D7D;	
 	position: absolute;
-	top: 8px;
-	right: 3px;
+	top: -20px;
+	right: -20px;
 	cursor:pointer;
+}
+#searchOptionsToggle:hover {
+	color: #454545;	
 }
 #searchOptionsToggle i
 {
 	font-size: 2em;
+}
+
+/* Hidden options div revealed by the optionsToggle */
+#moreOptions, #searchOptions {
+	display:none;
 }
 
 /* attention and OK icons */

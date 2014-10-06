@@ -130,9 +130,11 @@ function resetForm(){
 }
 </script>
 
-	<div id="searchOptionsToggle" class="color" onCLick="js:toggleOptions();return false;">
+<div style="position:relative;">
+	<div id="searchOptionsToggle" onCLick="js:toggleOptions();return false;">
 		<i class="icon-search-circled"></i>
 	</div>
+</div>
 	
 <div id="enquiryPageTitle">
 	<h1><?php echo __('Enquiries made to date');?></h1>

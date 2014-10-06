@@ -113,7 +113,7 @@ function showBudget(budget_id, element){
 }
 function enquiryModal2Page(){
 	$('#enquiry_popup').bPopup().close();
-	window.open('<?php echo $this->createAbsoluteUrl('/enquiry/'.$model->id); ?>',  '_blank');
+	window.open('<?php echo $this->createAbsoluteUrl('/e/'.$model->id); ?>',  '_blank');
 }
 </script>
 
@@ -199,8 +199,8 @@ if($model->budget)
 			echo '<div style="float:left;margin-left:10px;width:80px;">
 				  <a	href="https://twitter.com/share"
 						class="twitter-share-button"
-						data-url="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
-						data-counturl="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
+						data-url="'.trim($this->createAbsoluteUrl('/e/'.$model->id)).'"
+						data-counturl="'.trim($this->createAbsoluteUrl('/e/'.$model->id)).'"
 						data-text="'.trim($model->title).'"
 						data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
 						data-lang="en"
@@ -209,7 +209,7 @@ if($model->budget)
 				</div>';
 			echo '<div style="float:left;margin-left:10px;">
 				  <div	class="fb-like"
-						data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
+						data-href="'.$this->createAbsoluteUrl('/e/'.$model->id).'"
 						data-send="false"
 						data-layout="button_count"
 						data-width="80px"

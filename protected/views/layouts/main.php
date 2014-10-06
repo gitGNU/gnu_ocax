@@ -96,7 +96,7 @@ if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->use
 </div>
 <?php $this->renderPartial('//layouts/mainmenu', array()); ?>
 
-<div class="container" id="page" style="position:relative;">
+<div class="container" id="page">
 	<?php echo $content; ?>
 	<div class="clear"></div>
 </div><!-- page -->

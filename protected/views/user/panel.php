@@ -64,19 +64,20 @@ function toggleMoreOptions(){
 <?php } ?>
 </script>
 
+<?php if($privilegedUser){ ?>
+<div style="position:relative;">
+	<div	id="moreOptionsToggle"
+			onCLick="js:toggleMoreOptions();return false;">
+			<?php echo 	'<i class="icon-plus-circled"></i>';?>
+	</div>
+</div>
+<?php } ?>
 
 <?php if(!$model->is_active){
 	echo '<div class="sub_title">'.__('Welcome').'</div>';
 	$this->renderPartial('_notActiveInfo', array('model'=>$model));
 	echo '<div class="horizontalRule"></div>';
 }?>
-
-<?php if($privilegedUser){ ?>
-<div	id="moreOptionsToggle" class="color"
-		onCLick="js:toggleMoreOptions();return false;">
-		<?php echo 	'<i class="icon-plus-circled"></i>';?>
-</div>
-<?php } ?>
 
 <div class="outer">
 
@@ -134,12 +135,20 @@ function addPanelSeparator(){
 	}
 }
 if($model->is_admin ){
+	/* Site has just been installed/updated */
 	if(!Config::model()->findByPk('siteConfigStatusPostInstallChecked')->value){
+		echo '<div style="float:left;">';
 		echo '<div style="font-size:1.3em">'.__('OCAx installation').'</div>';
 		$this->renderPartial('//config/versionSummary');
+		echo '</div>';
+		echo '<div style="float:left;margin-left:60px;">';
 		echo '<div style="font-size:1.3em">'.__('Check server requirements').'</div>';
 		$this->renderPartial('//config/postInstallCheck');
+		echo '</div>';
+		echo '<div class="clear"></div>';
+		echo '<div class="horizontalRule"></div>';
 	}
+	/* Configuration not complete */
 	if(!Config::model()->findByPk('siteConfigStatus')->value){
 		addPanelSeparator();
 		echo '<div class="clear"></div>';

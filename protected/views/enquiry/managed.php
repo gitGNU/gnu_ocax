@@ -41,9 +41,10 @@ function toggleSearchOptions(){
 	}
 }
 </script>
-
-<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
-	<i class="icon-search-circled"></i>
+<div style="position:relative;">
+	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+		<i class="icon-search-circled"></i>
+	</div>
 </div>
 
 <div id="enquiryPageTitle">

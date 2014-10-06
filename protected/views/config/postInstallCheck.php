@@ -42,12 +42,20 @@ $errors = 0;
 
 // Check directory permisions
 $err_msg = '';
+if(!is_writable(Yii::app()->basePath.'/runtime')){
+	$err_msg = $err_msg.$cnt.'. '.__('Error: Cannot write to').'  protected/runtime <i class="icon-attention"></i><br />';
+	$cnt +=1;
+}
 if(!is_writable(Yii::app()->basePath.'/runtime/tmp')){
-	$err_msg = $err_msg.$cnt.'. '.__('Error: protected/runtime/tmp ').' <i class="icon-attention"></i><br />';
+	$err_msg = $err_msg.$cnt.'. '.__('Error: Cannot write to').'  protected/runtime/tmp <i class="icon-attention"></i><br />';
 	$cnt +=1;
 }
 if(!is_writable(Yii::app()->basePath.'/runtime/html')){
-	$err_msg = $err_msg.$cnt.'. '.__('Error: protected/runtime/html ').' <i class="icon-attention"></i><br />';
+	$err_msg = $err_msg.$cnt.'. '.__('Error: Cannot write to').' protected/runtime/html <i class="icon-attention"></i><br />';
+	$cnt +=1;
+}
+if(!is_writable(dirname(Yii::app()->request->scriptFile).'/files')){
+	$err_msg = $err_msg.$cnt.'. '.__('Error: Cannot write to').'  app/files <i class="icon-attention"></i><br />';
 	$cnt +=1;
 }
 if($err_msg){
@@ -75,9 +83,9 @@ $cnt +=1;
 
 echo $cnt.'. ';
 if(class_exists('ZipArchive'))
-	echo __('ZipArchive is installed').'. <i class="icon-ok-circled"></i>';
+	echo __('PHP ZipArchive lib is installed').'. <i class="icon-ok-circled"></i>';
 else{
-	echo __('Error: ZipArchive is not installed').' <i class="icon-attention"></i>';
+	echo __('PHP ZipArchive ib is not installed').' <i class="icon-attention"></i>';
 	$errors +=1;
 }
 echo '<br />';

@@ -37,18 +37,18 @@
 <div style="float:left;width:50%">
 
 	<div class="row">
-		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->label($model,'username',array('style'=>'white-space: nowrap;')); ?>
+		<?php echo $form->textField($model,'username',array('style'=>'width:200px')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'fullname'); ?>
-		<?php echo $form->textField($model,'fullname',array('size'=>32,'maxlength'=>64)); ?>
+		<?php echo $form->label($model,'fullname',array('style'=>'white-space: nowrap;')); ?>
+		<?php echo $form->textField($model,'fullname',array('style'=>'width:200px')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>32,'maxlength'=>128)); ?>
+		<?php echo $form->label($model,'email',array('style'=>'white-space: nowrap;')); ?>
+		<?php echo $form->textField($model,'email',array('style'=>'width:200px')); ?>
 	</div>
 
 	<div class="row buttons">

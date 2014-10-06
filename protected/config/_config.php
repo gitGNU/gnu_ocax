@@ -61,7 +61,7 @@ return array(
 				array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
 				
 				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
-				//'e/<id:\d+>'=>'enquiry/view',
+				'e/<id:\d+>'=>'enquiry/view',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>', // comment out for Gii
