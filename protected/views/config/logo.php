@@ -69,7 +69,7 @@ function deleteLogo(id){
 	.clear{clear:both;}
 </style>
 
-<h1><?php echo __('Observatory logo');?></h1>
+<h1><?php echo __('Observatory color and logo');?></h1>
 <?php $logo = File::model()->findByAttributes(array('model'=>'logo'));?>
 
 <div class="outer">
@@ -81,15 +81,6 @@ function deleteLogo(id){
 2. <a href="#" onclick="js:uploadFile()"><?php echo __('Upload the file');?></a>
 <br />
 3. <?php echo __('Refresh the page pressing F5');?>
-</p>
-<p>
-<?php
-/*
-$siteColor = Config::model()->findByPk('siteColor')->value;
-echo __('Your site color is').' '.$siteColor.' ';
-echo '<span style="background-color:'.$siteColor.';display:inline-block;width:80px;margin-left:10px;">&nbsp;</span>';
-*/
-?>
 </p>
 
 <?php
@@ -115,5 +106,17 @@ if($logo){
 </div>
 </div>
 <div class="clear"></div>
+
+<div class="parameterGroup">
+	<div class="param">
+		<?php $param = Config::model()->findByPk('siteColor'); ?>
+		<span class="paramDescription"><?php echo __('Your site color is').' ';?>
+		<span style="background-color:#<?php echo $param->value;?> ;display:inline-block;width:50px;margin:0 10px 0 10px;">&nbsp;</span>
+		#</span>
+		<input id="value_<?php echo $param->parameter;?>" type="text" style="width:80px" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+</div>
 
 <?php echo $this->renderPartial('//file/modal'); ?>

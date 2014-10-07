@@ -408,36 +408,6 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	padding:10px 0px 0px 0px;
 }
 
-#nueva_consulta {
-	float:left;
-	margin-right: 8px;
-	margin-bottom:8px;
-	outline: none;
-	text-indent: -5000px;
-	display:block;
-	width:55px;
-	height:51px;
-	cursor:pointer;
-}
-#nueva_consulta:hover {
-	background-position: -55px 0;
-}
-
-#datos_usuario {
-	float:left;
-	margin-right: 8px;
-	margin-bottom:10px;
-	outline: none;
-	text-indent: -5000px;
-	display:block;
-	width:46px;
-	height:46px;
-	cursor:pointer;
-}
-#datos_usuario:hover {
-	background-position: -46px 0;
-}
-
 
 #control_panel {
 	float:left;

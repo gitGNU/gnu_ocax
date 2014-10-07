@@ -58,6 +58,10 @@ if(!is_writable(dirname(Yii::app()->request->scriptFile).'/files')){
 	$err_msg = $err_msg.$cnt.'. '.__('Error: Cannot write to').'  app/files <i class="icon-attention"></i><br />';
 	$cnt +=1;
 }
+if(!is_writable(dirname(Yii::app()->request->scriptFile).'/css')){
+	$err_msg = $err_msg.$cnt.'. '.__('Error: Cannot write to').'  app/css <i class="icon-attention"></i><br />';
+	$cnt +=1;
+}
 if($err_msg){
 	echo $err_msg;
 	$errors +=1;

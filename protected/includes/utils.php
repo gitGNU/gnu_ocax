@@ -135,6 +135,10 @@ function bytesForHumans($bytes, $precision = 2)
 	return round($bytes, $precision) . ' ' . $units[$pow]; 
 }
 
+function svgDir(){
+	return dirname(Yii::app()->request->scriptFile).'/images/svg/';
+}
+
 function resizeLogo($fn){
 	$ext = pathinfo($fn, PATHINFO_EXTENSION);
 	if(!($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg'))		

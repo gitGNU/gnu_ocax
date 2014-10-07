@@ -83,7 +83,11 @@ function toggleMoreOptions(){
 
 <div id="moreOptions" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>">
 <div class="panel_left">
-	<div id="nueva_consulta" onclick="location.href='<?php echo $this->createUrl('enquiry/create/');?>'"></div>
+	<?php
+		echo '<span style="cursor:pointer" onclick="location.href=\''.$this->createUrl('enquiry/create/').'\'">';
+		include(svgDir().'newenquiry.svg');
+		echo '</span>';
+	?>
 	<div class="clear"></div>
 	<div class="sub_title"><?php echo CHtml::link(__('New enquiry'),array('enquiry/create/'));?></div>
 	<p>
@@ -94,7 +98,11 @@ function toggleMoreOptions(){
 	</p>
 </div>
 <div class="panel_right">
-	<div id="datos_usuario" onclick="location.href='<?php echo $this->createUrl('user/update/');?>'"></div>
+	<?php
+		echo '<span style="cursor:pointer" onclick="location.href=\''.$this->createUrl('user/update/').'\'">';
+		include(svgDir().'userprofile.svg');
+		echo '</span>';
+	?>
 	<div class="clear"></div>
 	<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
 	<p>
@@ -116,7 +124,11 @@ function addPanelSeparator(){
 	if(!$panel_separator_added){
 
 		echo '<div class="outer">';
-		echo '<div id="control_panel"></div>';
+
+		// echo '<div id="control_panel"></div>';
+		echo '<div style="float:left">';
+		include(svgDir().'controlpanel.svg');
+		echo '</div>';
 
 		//echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
@@ -222,7 +234,11 @@ if($model->is_admin){
 <?php /*$this->widget('InlineHelp');*/ ?>
 
 <div class="horizontalRule" style="padding-top:20px;margin-top:20px;float:right;"></div>
-<div id="panelMyEnquiries"></div>
+<?php
+	echo '<span>';
+	include(svgDir().'myenquiries.svg');
+	echo '</span>';
+?>
 <div class="clear"></div>
 <?php
 $noEnquiries=1;

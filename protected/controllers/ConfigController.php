@@ -151,12 +151,14 @@ class ConfigController extends Controller
 			elseif($model->parameter == 'emailContactAddress' || $model->parameter == 'emailNoReply')
 				$model->setScenario('email');
 
+			elseif($model->parameter == 'siteColor')
+				$model->setScenario('siteColor');
+
 			elseif($model->parameter == 'year' || $model->parameter == 'vaultDefaultCapacity')
 				$model->setScenario('positiveNumber');
 
 			elseif($model->required)
 				$model->setScenario('cannotBeEmpty');
-
 
 			if(Yii::app()->params['ocaxnetwork']){
 				$opts = array('http' => array(
@@ -172,6 +174,10 @@ class ConfigController extends Controller
 				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
 			}
 			if($model->save()){
+				if($model->getScenario('siteColor'))
+					file_put_contents(dirname(Yii::app()->request->scriptFile).'/css/color.css', $this->renderPartial('//layouts/color',false,true));
+					//$this->renderPartial('//layouts/color',false,true)
+
 				$this->generateFoot();
 				if(Yii::app()->request->isAjaxRequest)
 					echo '1';

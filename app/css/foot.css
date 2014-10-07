@@ -12,14 +12,14 @@
 #footer span { color: #e4ded7;}
 
 #observatoryFooter {
-width: 680px; float:left; margin:0px;
+width: 660px; float:left; margin:0px;
 }
 #observatoryFooterDetails { float:left; line-height: 1.4em; padding: 5px 0 5px 0;}
 #observatoryFooterDetails #observatoryFooterName { display: inline-block; font-weight: bold; }
 
 
 #PACDFooter{
-	width: 270px; float:right;
+	width: 290px; float:right;
 	margin:0px;
 }
 

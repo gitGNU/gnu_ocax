@@ -367,6 +367,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorS
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCM_', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteColor', 'a1a150', '1', "The colour of your site eg: #a1a150");
 
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatus', '0', '1', 'Site configuration complete');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusBudgetDescriptionsImport', '0', '1', 'Budget descriptions have been imported');

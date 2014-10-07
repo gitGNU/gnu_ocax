@@ -142,9 +142,15 @@ function resetForm(){
 		<?php echo __('This is a list of enquiries made by citizens like you.');?>
 	</p>
 	<div id="enquiryDisplayTypeIcons">
-		<div id="change_to_list" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></div>
-		<div id="change_to_grid" onClick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></div>
-	</div>
+		<?php
+		echo '<span style="cursor:pointer" onclick="js:location.href="'.Yii::app()->request->baseUrl.'/enquiry?display=list">';
+		include(svgDir().'graph-type-pie.svg');
+		echo '</span>';
+		echo '<span style="cursor:pointer" onclick="js:location.href="'.Yii::app()->request->baseUrl.'/enquiry?display=grid">';
+		include(svgDir().'graph-type-bar.svg');
+		echo '</span>';
+		?>
+		</div>
 </div>
 <div class="clear"></div>
 

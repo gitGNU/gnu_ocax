@@ -1,0 +1,75 @@
+<?php
+header("Content-type: text/css; charset: UTF-8");
+header("Pragma: cache");
+header("Cache-Control: must-revalidate");
+$offset = strtotime('+42 hours'); // same as time() + 42 * 60 * 60
+$ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", $offset) . " GMT";
+header($ExpStr);
+		
+$color = '#'.Config::model()->getSiteColor();
+?>
+
+body {color: #555; background-color: #e4ded7; }
+h1, h2, h3, h4, h5, h6 { color:<?php echo $color;?>; }
+
+a { color:<?php echo $color;?>; }
+a:hover { color:#676767; }
+
+.link { color:<?php echo $color;?>;}
+.link:hover {color:#676767;}
+
+#page { background-color: #f5f1ed; }
+
+#mainmenu ul li a {	color:#f5f1ed; background-color:<?php echo $color;?>; }
+#mainmenu ul li a:hover, #mainmenu ul li.active a {	color: <?php echo $color;?>; background-color:#f5f1ed; }
+
+#header_bar > ul > li > a:hover { color:<?php echo $color;?>; }
+
+#logo { color:#a6a29e; }
+#nombre_ocax { color: <?php echo $color;?>; }
+
+#footer { color:#1F1F1F; background-color:#676767; }
+#footer div { color:#a6a6a6; }
+#footer div b {	color:#ffffff; }
+
+div.form .title{ color:<?php echo $color;?>; }
+.bigTitle { color: <?php echo $color;?>; }
+
+/* Mainmenu */
+#mainMbMenu #nav-bar li a { color:#f5f1ed; background-color: <?php echo $color;?>; }
+#mainMbMenu #nav-bar li.active a { color: <?php echo $color;?>; background-color:#f5f1ed; }
+#mainMbMenu #nav-bar li a:hover { color: <?php echo $color;?>; background-color:white; }
+
+#mainMbMenu #nav-bar #nav ul li a {
+	color:<?php echo $color;?>;
+	background-color:rgba(255, 255, 255, 0.9);
+}
+#mainMbMenu #nav-bar #nav ul li a:hover, #mainmenu ul li.active a {
+	color: white;
+	background-color:<?php echo $color;?>;
+}
+
+/*ENQUIRIYS*/
+.enquirys b { color:#00CADC; }
+.enquirys_titular {	color:#929292; }
+
+#basicFilterOptions { border-bottom: 1px solid <?php echo $color;?>; }
+#basicFilterOptions li.activeItem {	border-bottom: 4px solid <?php echo $color;?>; }
+
+/*CMS Pages*/
+.cms_titulo { color:<?php echo $color;?>; }
+.activeMenuItem a { color: #676767; }
+
+/*Budgets*/
+#budget_titulo_j { color: <?php echo $color;?>; }
+
+.svg-color-fill { fill:<?php echo $color;?>; }
+.svg-color-stroke { stroke: <?php echo $color;?>; }
+
+#featured_menu > li:hover {color:white; background-color:<?php echo $color;?>; }
+
+.prev_budget_arrow{	background-image:url('./images/prev_budget.png'); }
+
+/*graph bar*/
+.actual_provision_bar{ background-color:<?php echo $color;?>; }
+

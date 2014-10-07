@@ -53,11 +53,6 @@
 	padding:5px 8px;
 }
 
-#mainMbMenu #nav-bar #nav li a { color:#f5f1ed; background-color: #62b5cf; }
-#mainMbMenu #nav-bar #nav li.active a { color: #62b5cf; background-color:#f5f1ed; }
-#mainMbMenu #nav-bar #nav li a:hover { color: #62b5cf; background-color:white; }
-
-
 /************ 2ND LEVEL ************/
 #mainMbMenu #nav-bar #nav ul {
 	list-style-position:outside;
@@ -79,18 +74,13 @@
 }
 
 #mainMbMenu #nav-bar #nav ul li a {
-	color:#62b5cf;
-	background-color:rgba(255, 255, 255, 0.9);
 	font-size:16px;
 	font-weight:bold;
 	text-decoration:none;
 	padding: 0;
 	margin: 0;
 }
-#mainMbMenu #nav-bar #nav ul li a:hover, #mainmenu ul li.active a {
-	color: white;
-	background-color:#62b5cf;
-}
+
 
 /* Show menu */
 #mainMbMenu #nav-bar #nav li.over ul { left:-2px; }

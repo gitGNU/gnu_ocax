@@ -109,7 +109,7 @@ $this->menu=array(
 	array('label'=>__('Email'), 'url'=>array('email')),
 	array('label'=>__('Locale'), 'url'=>array('locale')),
 	array('label'=>__('Social network'), 'url'=>array('social')),
-	array('label'=>__('Logo'), 'url'=>array('logo')),
+	array('label'=>__('Color and Logo'), 'url'=>array('logo')),
 	array('label'=>__('Backups'), 'url'=>array('backups')),
 	array('label'=>__('Misc'), 'url'=>array('misc')),
 );

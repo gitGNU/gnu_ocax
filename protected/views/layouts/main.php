@@ -13,8 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/mainmenu.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/foot.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/color.css" />
-
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/color.css" />
+	
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
 
 	<title><?php echo (($this->pageTitle) ? $this->pageTitle : Config::model()->findByPk('siglas')->value); ?></title>
@@ -39,7 +39,7 @@
     <li>
 		<?php
 			if(Yii::app()->user->isGuest){
-				echo CHtml::link('<img src="'.Yii::app()->theme->baseUrl.'/images/user.png"/>', array('/site/login'));
+				echo CHtml::link('<i class="icon-users header-icons"></i>', array('/site/login'));
 				echo CHtml::link(__('Login'), array('/site/login'));
 			}else{
 				echo CHtml::link('<i class="icon-users header-icons"></i>', array('/site/logout'));

@@ -74,6 +74,7 @@ class Config extends CActiveRecord
 			array('value','validateLanguage', 'on'=>'language'),
 			array('value', 'url', 'on'=>'URL', 'allowEmpty'=>true),
 			array('value','validateCurrenyCollocation', 'on'=>'currenyCollocation'),
+			array('value','validateSiteColor', 'on'=>'siteColor'),
 			array('value', 'email', 'on'=>'email', 'allowEmpty'=>false),
 			array('value', 'numerical', 'on'=>'positiveNumber', 'allowEmpty'=>false, 'min'=>1),
 			// The following rule is used by search().
@@ -107,6 +108,14 @@ class Config extends CActiveRecord
 		if(stristr($this->$attribute, 'n') === FALSE) {
 			$this->addError($attribute, __("Character 'n' is missing."));
 		}
+	}
+
+	public function validateSiteColor($attribute,$params)
+	{
+		$color = $this->$attribute;
+		if(!(preg_match('/^[a-f0-9]{6}$/i', $color) && strlen($color)==6))
+			$this->addError($attribute, __("Expecting a 6 digit web color"));
+		return;
 	}
 
 	/*
@@ -211,6 +220,12 @@ class Config extends CActiveRecord
 		return str_replace('#', ' ', $title);
 	}
 
+	public function getSiteColor()
+	{
+		if($color = Config::model()->findByPk('siteColor')->value)
+			return $color;
+		return 'a1a150';
+	}
 
 	public function updateVersionInfo(){
 		$context = stream_context_create(array(
