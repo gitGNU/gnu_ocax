@@ -58,7 +58,7 @@ class EnquiryController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
-				'actions'=>array('adminView','admin','manage'),
+				'actions'=>array('adminView','admin','manage','changeAddressedTo'),
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('allow',
@@ -564,6 +564,16 @@ class EnquiryController extends Controller
 		));		
 	}
 
+	public function actionChangeAddressedTo($id)
+	{
+		$model=$this->loadModel($id);
+		if(isset($_POST['addressed_to'])){
+			$model->addressed_to = $_POST['addressed_to'];
+			$model->save();
+			echo 1;
+		}else
+			echo 0;
+	}
 
 	public function actionManage($id)
 	{

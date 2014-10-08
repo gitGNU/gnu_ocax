@@ -85,10 +85,10 @@ body
 {
 	list-style-type:none;
 	font-weight:600;
-	padding: 1px 17px 0 17px;
+	padding: 3px 15px 0 15px;
 	border-right: 2px solid #d0cdcd;
 	border-left: 2px solid #fbfbfb;
-	height:29px;
+	height:27px;
 	float:right;
 }
 
