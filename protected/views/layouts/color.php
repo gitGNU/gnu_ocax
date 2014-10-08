@@ -26,7 +26,7 @@ a:hover { color:#676767; }
 #header_bar > ul > li > a:hover { color:<?php echo $color;?>; }
 
 #logo { color:#a6a29e; }
-#nombre_ocax { color: <?php echo $color;?>; }
+#observatoryName2 { color: <?php echo $color;?>; }
 
 #footer { color:#1F1F1F; background-color:#676767; }
 #footer div { color:#a6a6a6; }
@@ -68,7 +68,7 @@ div.form .title{ color:<?php echo $color;?>; }
 
 #featured_menu > li:hover {color:white; background-color:<?php echo $color;?>; }
 
-.prev_budget_arrow{	background-image:url('./images/prev_budget.png'); }
+.prev_budget_arrow{	color:<?php echo $color;?>; }
 
 /*graph bar*/
 .actual_provision_bar{ background-color:<?php echo $color;?>; }

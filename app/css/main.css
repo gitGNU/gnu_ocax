@@ -101,7 +101,12 @@ body
 	border-left: none;
 }
 
-#header_bar .header-icons
+#header_bar > ul > li > span
+{
+display:inline-block; vertical-align:top
+}
+
+i.header-icons
 {
 	font-size: 24px;
 }
@@ -124,7 +129,7 @@ body
 	padding: 15px 0px 25px 20px;
 }
 
-#nombre_ocax
+#observatoryName2
 {
 	text-decoration:underline;
 }

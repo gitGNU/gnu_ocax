@@ -26,7 +26,7 @@
 .ocaxjqplot .budget_details > a {
 	margin-top:-15px;
 }
-.ocaxjqplot .prev_budget_arrow{
+.prev_budget_arrow{
 	width:69px;
 	height:69px;
 	position:absolute;
@@ -34,6 +34,7 @@
 	left:0px;
 	padding:0px;
 	cursor:pointer;
+	font-size:60px;
 }
 .ocaxjqplot .prev_budget_arrow:hover
 {

@@ -7,6 +7,12 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "ccc2329632396dc096bb638d4b46fb98",
+      "css": "mail-alt",
+      "code": 59414,
+      "src": "fontawesome"
+    },
+    {
       "uid": "4ba33d2607902cf690dd45df09774cb0",
       "css": "plus-circled",
       "code": 59396,
@@ -22,6 +28,18 @@
       "uid": "e335adbc2d898c7d85d40c507796e7b4",
       "css": "mail",
       "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "d090355c31f497b61d676416c1fd39fb",
+      "css": "twitter",
+      "code": 59410,
+      "src": "entypo"
+    },
+    {
+      "uid": "47bd87a650e95b97f947d275ed968efe",
+      "css": "facebook-squared",
+      "code": 59409,
       "src": "entypo"
     },
     {
@@ -55,8 +73,20 @@
       "src": "iconic"
     },
     {
-      "uid": "05ef9b5e8742971aa85b23cfcbe71594",
-      "css": "users",
+      "uid": "a263473d2d406881ea08f991c1b38694",
+      "css": "left-circle",
+      "code": 59411,
+      "src": "iconic"
+    },
+    {
+      "uid": "am79573ydakwiicuct1odx7f2e9zv8lv",
+      "css": "left-dir",
+      "code": 59412,
+      "src": "modernpics"
+    },
+    {
+      "uid": "a6c0e3fce2fbe9ccf9b1c54c8f399106",
+      "css": "user-female",
       "code": 59398,
       "src": "mfglabs"
     },
@@ -73,9 +103,21 @@
       "src": "mfglabs"
     },
     {
+      "uid": "c21d309f797d3644dc8d28c4617738ce",
+      "css": "left",
+      "code": 59408,
+      "src": "mfglabs"
+    },
+    {
       "uid": "81385e5f1fe091f3d9a20d215d444622",
       "css": "search-circled",
       "code": 59395,
+      "src": "elusive"
+    },
+    {
+      "uid": "b6ef4443ecc502136135437837d9724b",
+      "css": "mail-2",
+      "code": 59413,
       "src": "elusive"
     },
     {
@@ -97,9 +139,9 @@
       "src": "elusive"
     },
     {
-      "uid": "9eece2885134734c5bc085fdd4955af1",
-      "css": "folder",
-      "code": 59399,
+      "uid": "3a9aa648fce45a316e70e1613bda57ac",
+      "css": "folder-close",
+      "code": 59415,
       "src": "elusive"
     }
   ]

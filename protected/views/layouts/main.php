@@ -39,11 +39,11 @@
     <li>
 		<?php
 			if(Yii::app()->user->isGuest){
-				echo CHtml::link('<i class="icon-users header-icons"></i>', array('/site/login'));
-				echo CHtml::link(__('Login'), array('/site/login'));
+				echo CHtml::link('<i class="icon-user-female header-icons"></i>', array('/site/login'));
+				echo '<span>'.CHtml::link(__('Login'), array('/site/login')).'</span>';
 			}else{
-				echo CHtml::link('<i class="icon-users header-icons"></i>', array('/site/logout'));
-				echo CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout'));
+				echo CHtml::link('<i class="icon-user-female header-icons"></i>', array('/site/logout'));
+				echo '<span>'.CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout')).'</span>';
 			}
 		?>
 	</li>
@@ -53,28 +53,28 @@
 		if($fbURL || $twURL){
 			echo '<li>';
 			if($fbURL)
-				echo '<a style="margin-right:10px" href="'.$fbURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/facebook.png"/></a> ';
+				echo '<a href="'.$fbURL.'"><i class="icon-facebook-squared header-icons"></i></a> ';
 			if($twURL)
-				echo '<a href="'.$twURL.'"><img src="'.Yii::app()->theme->baseUrl.'/images/twitter.png"/></a> ';
+				echo '<a href="'.$twURL.'"><i class="icon-twitter header-icons"></i></a> ';
 			echo '</li>';
 		}
 	?>
 	<li>
 	<?php
-		echo CHtml::link('<i class="icon-mail header-icons"></i>', array('/newsletter'));
-		echo CHtml::link(__('Newsletters'), array('/newsletter'));
+		echo CHtml::link('<i class="icon-mail-2 header-icons"></i>', array('/newsletter'));
+		echo '<span>'.CHtml::link(__('Newsletters'), array('/newsletter')).'</span>';
 	?>
 	</li>
 	<li>
 	<?php
-		echo CHtml::link('<i class="icon-folder header-icons"></i>', array('/archive'));
-		echo CHtml::link(__('Archive'), array('/archive'));
+		echo CHtml::link('<i class="icon-folder-close header-icons"></i>', array('/archive'));
+		echo '<span>'.CHtml::link(__('Archive'), array('/archive')).'</span>';
 	?>
 	</li>
 	<li>
 	<?php
 		echo CHtml::link('<i class="icon-home header-icons"></i>', array('/site/index'));
-		echo CHtml::link(__('Home'), array('/site/index'));
+		echo '<span>'.CHtml::link(__('Home'), array('/site/index')).'</span>';
 	?>
 	</li>
 </ul>
