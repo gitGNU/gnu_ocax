@@ -5,7 +5,7 @@
 	cursor: pointer;
 }
 
-.pgrid-view-loading
+.grid-view-loading
 {
 	background: url("../images/pgridview/loading.gif") no-repeat;
 }

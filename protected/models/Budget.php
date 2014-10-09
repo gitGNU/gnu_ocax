@@ -555,6 +555,24 @@ class Budget extends CActiveRecord
 		));
 	}
 
+	/*
+	 * budgets displayed in the grid for deletetion
+	 */
+	public function deleteTreeSearch()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = '.$this->year.' AND parent IS NOT NULL';
+		
+		$criteria->compare('code', $this->code);
+		$criteria->compare('concept', $this->concept, true);
+		$criteria->compare('csv_id', $this->csv_id, true);
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'csv_id ASC'),
+		));		
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

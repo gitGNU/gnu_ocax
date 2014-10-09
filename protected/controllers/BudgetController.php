@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete, restoreBudgets', // we only allow deletion via POST request
+			'postOnly + delete, restoreBudgets, delTree', // we only allow deletion via POST request
 		);
 	}
 
@@ -54,9 +54,11 @@ class BudgetController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'getTotalYearlyBudgets','adminYears','deleteYearsBudgets',
-									'createYear','updateYear','featured','feature',/*'update',*/'delete',
-									'dumpBudgets','restoreBudgets',
+				'actions'=>array(	'getTotalYearlyBudgets','adminYears',/*'deleteYearsBudgets',*/
+									'createYear','updateYear',
+									'featured','feature',
+									'deleteTree','delTree',
+									'delete','dumpBudgets','restoreBudgets',
 									'noDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -410,6 +412,59 @@ class BudgetController extends Controller
 		echo 1;
 	}
 
+	/*
+	 * Show a grid of budgets
+	 */
+	public function actionDeleteTree($id)
+	{
+		$model=new Budget('deleteTreeSearch');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($id))
+			$model->year=$id;
+		else
+			$model->year=Config::model()->findByPk('year')->value;
+		if(isset($_GET['Budget']))
+			$model->attributes=$_GET['Budget'];
+
+		$this->render('deleteTree',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionDelTree($id)
+	{
+		$model = $this->loadModel($id);
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = '.$model->year.' AND parent IS NOT NULL';
+		$criteria->addCondition("csv_id LIKE :match");
+		$criteria->params[':match'] = $model->csv_id.'%';
+		$criteria->order = 'csv_id DESC';	// delete sub budgets before parent budgets
+		$budgets = $model->findAll($criteria);
+		$budgetCount=count($budgets);
+		$enquiryCount=0;
+		foreach($budgets as $budget){
+			if($budget->enquirys)
+				++$enquiryCount;
+		}
+		if(!$enquiryCount){
+			$total = $budgetCount;
+			while($budgets){
+				foreach($budgets as $budget){
+					//if(Enquiry::model()->findByAttributes(array('budget'=>$budget->id)))
+					//	continue;
+					//if(!$model->findByAttributes(array('parent'=>$budget->id)))
+						$budget->delete();
+				}
+				$budgets = $model->findAll($criteria);
+				$new_total=count($budgets);
+				if($total == $new_total)
+					break;
+				else
+					$total = $new_total;
+			}			
+		}
+		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
+	}
 
 	public function actionAdminYears()
 	{
@@ -420,6 +475,7 @@ class BudgetController extends Controller
 		$this->render('adminYears',array('years'=>$years,));
 	}
 
+/*	// replaced this function with deleteTree
 
 	public function actionDeleteYearsBudgets($id)
 	{
@@ -448,6 +504,7 @@ class BudgetController extends Controller
 		}
 		$this->redirect(array('updateYear','id'=>$model->id));
 	}
+*/
 
 	/**
 	 * Deletes a particular model.

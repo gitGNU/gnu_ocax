@@ -30,8 +30,10 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $featured );
 	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/export', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $downloadCsv );
-	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
-	array_splice( $this->menu, 1, 0, $deleteDatos );
+	//$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
+	//array_splice( $this->menu, 1, 0, $deleteDatos );
+	$delTree = array( array('label'=>__('Delete budgets'), 'url'=>array('budget/deleteTree', 'id'=>$model->year)));
+	array_splice( $this->menu, 1, 0, $delTree );
 }elseif($model->year != Config::model()->findByPk('year')->value){
 	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
 								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
@@ -42,11 +44,13 @@ $this->inlineHelp=':profiles:admin:budgets';
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
+/*
 function deleteBudgets(){
 	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
 	if (ans)
 		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/deleteYearsBudgets/<?php echo $model->id ;?>';
 }
+*/
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
@@ -125,11 +129,9 @@ $this->widget('PGridView', array(
 }
 ?>
 <div id="mega_delete" class="modal" style="width:850px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="mega_delete_content"></div>
 </div>
-
-<?php /*echo $this->renderPartial('//enquiry/_megaDelete');*/ ?>
 
 <?php if(Yii::app()->user->hasFlash('csv_generated')):?>
     <div class="flash-success" id="csv_generated_ok">
