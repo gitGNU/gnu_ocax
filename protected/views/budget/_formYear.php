@@ -27,18 +27,6 @@
 	.clear{clear:both;}
 </style>
 
-<script>
-function makePublic(el){
-	if($(el).prop('checked') === true){
-		if(<?php echo Config::model()->findByPk('siteConfigStatusZipFileCreated')->value;?> == 0){
-			$(el).prop('checked', false);
-			$('#createZipWarning').show();
-		}else
-			$('#updateZipWarning').show();
-	}
-}
-</script>
-
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -72,12 +60,9 @@ function makePublic(el){
 	</div>
 	<div class="row">
 		<label><?php echo __('Publish');?></label>
-		<?php echo $form->checkBox($model, 'code', array('onChange'=>'js:makePublic(this);')); ?>
-		<div id="createZipWarning" style="display:none; color:red;">
-		<?php echo __('You need to create the zip file before you can publish the budgets');?>
-		</div>
-		<div id="updateZipWarning" style="display:none; color:green;">
-		<?php echo __('Remember to update the zip file with csv files');?>
+		<?php echo $form->checkBox($model, 'code', array('onChange'=>'js:$("#updateZipWarning").show();')); ?>
+		<div id="updateZipWarning" style="display:none;">
+		<i class="icon-attention"></i> <?php echo __('Remember to update the zip file with the new data');?>
 		</div>
 	</div>
 

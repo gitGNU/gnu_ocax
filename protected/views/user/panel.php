@@ -213,7 +213,10 @@ if($model->is_admin){
 			echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 		}
 		echo CHtml::link(__('Newsletters'),array('newsletter/admin')).'<br />';
-		echo CHtml::link(__('Zip file'),array('file/databaseDownload')).'<br />';
+		echo CHtml::link(__('Zip file'),array('file/databaseDownload'));
+		if(!Config::model()->isZipFileUpdated())
+			echo ' <i class="icon-attention"></i>';
+		echo '<br />';
 		if(Config::model()->findByPk('siteAutoBackup')->value)
 			echo CHtml::link(__('Backups'),array('vault/admin')).'<br />';
 		else

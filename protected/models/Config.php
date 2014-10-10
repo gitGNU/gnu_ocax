@@ -294,4 +294,14 @@ class Config extends CActiveRecord
 			return 0;
 		return 1;
 	}
+	
+	public function isZipFileUpdated($state = Null){
+		$zipStatus = $this->findByPk('siteConfigStatusZipFileUpdated');
+		if($state !== Null){
+			$zipStatus->value = $state;
+			$zipStatus->save();
+			return $zipStatus->value;
+		}
+		return $zipStatus->value;
+	}
 }

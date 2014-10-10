@@ -263,7 +263,7 @@ class FileController extends Controller
 			unlink($tmp_fn);
 
 			$file->save();
-			Config::model()->updateSiteConfigurationStatus('siteConfigStatusZipFileCreated', 1);
+			Config::model()->updateSiteConfigurationStatus('siteConfigStatusZipFileUpdated', 1);
 			Yii::app()->user->setFlash('success',__('Zip file updated'));
 		}else{
 			Yii::app()->user->setFlash('error',__('Error: zip file not created'));

@@ -394,8 +394,11 @@ class CsvController extends Controller
 		}
 		if($error)
 			echo CJavaScript::jsonEncode(array('error'=>$error));
-		else
+		else{
+			if($yearly_budget->isPublished())
+				Config::model()->isZipFileUpdated(0);
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
+		}
 	}
 
 	/*

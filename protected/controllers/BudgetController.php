@@ -338,12 +338,15 @@ class BudgetController extends Controller
 
 		if(isset($_POST['Budget']))
 		{
+			$wasPublished = $model->code;
 			$model->attributes=$_POST['Budget'];
 			if($model->save()){
 				$years=new CActiveDataProvider('Budget',array(
 					'criteria'=>array('condition'=>'parent IS NULL',
 					'order'=>'year DESC'),
 				));
+				if($wasPublished != $model->code)
+					Config::model()->isZipFileUpdated(0);
 				$this->redirect(array('adminYears'));
 			}
 		}
@@ -450,10 +453,7 @@ class BudgetController extends Controller
 			$total = $budgetCount;
 			while($budgets){
 				foreach($budgets as $budget){
-					//if(Enquiry::model()->findByAttributes(array('budget'=>$budget->id)))
-					//	continue;
-					//if(!$model->findByAttributes(array('parent'=>$budget->id)))
-						$budget->delete();
+					$budget->delete();
 				}
 				$budgets = $model->findAll($criteria);
 				$new_total=count($budgets);
@@ -461,7 +461,9 @@ class BudgetController extends Controller
 					break;
 				else
 					$total = $new_total;
-			}			
+			}
+			if($model->isPublished())
+				Config::model()->isZipFileUpdated(0);		
 		}
 		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
 	}
