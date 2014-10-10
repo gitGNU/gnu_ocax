@@ -78,6 +78,7 @@ class TinyMce extends CInputWidget
         'theme_advanced_toolbar_location' => "top",
         'theme_advanced_toolbar_align' => "left",
         'theme_advanced_statusbar_location' => "bottom",
+        'theme_advanced_blockformats' => 'h1,h2,h3',
         'theme_advanced_resizing' => true,
         'height' => '400px',
         'relative_urls' => false,
@@ -86,7 +87,7 @@ class TinyMce extends CInputWidget
 
 
         // Example content CSS (should be your site CSS)
-        'content_css' => "/css/tinyMCE.css",
+        'content_css' => "/css/tiny-mce.css",
 
         // Drop lists for link/image/media/template dialogs
         //'template_external_list_url' => "lists/template_list.js",
@@ -107,6 +108,7 @@ class TinyMce extends CInputWidget
         $dir = dirname(__FILE__) . '/vendors/tinymce/jscripts/tiny_mce';
         $this->assetsDir = Yii::app()->assetManager->publish($dir);
         $this->settings = array_merge(self::$defaultSettings, $this->settings);
+        //echo '<pre>'.print_r($this->settings).'</pre>';
         if ($this->language === false)
             $this->settings['language'] = Yii::app()->language;
         else

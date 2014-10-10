@@ -103,15 +103,16 @@
 				$valid_children = "+body[style]";
 			}else{
 				$htmlButton = "";
-				$valid_elements = "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]";
+				$valid_elements = "h1,h2,h3,@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]";
 				$valid_children = "";
 			}
 		?>
 
 <?php
-$settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
-												justifyright,|,bullist,numlist,|,outdent,indent,|,
-												undo,redo,|,link,unlink,|,image".$htmlButton,
+$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,strikethrough,|,formatselect,|,
+												justifyleft,justifycenter,justifyright,|,
+												bullist,numlist,|,outdent,indent,|,
+												link,unlink,|,image".$htmlButton,
 					'convert_urls'=>true,
 					'relative_urls'=>false,
 					'remove_script_host'=>false,
@@ -121,7 +122,8 @@ $settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethro
 					'width'=>'100%',
 					'valid_elements' => $valid_elements,
 					'valid_children' => $valid_children,
-		);
+				);
+
 if(Config::model()->findByPk('HTMLeditorUseCompressor'))
 	$settings['useCompression']=true;
 else

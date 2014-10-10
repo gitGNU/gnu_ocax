@@ -8,8 +8,33 @@
 	font-weight:100;
 	margin-bottom:20px;
 }
-.cms_content{ font-size: 18px; }
-.cms_content p { font-size: 1em; }
+.cms_content{ font-size: 18px; 	}
+
+p { font-size: 1em; }
+
+h1 {
+	line-height: 90%;
+	font-size: 36pt;
+	letter-spacing:-0.5pt;
+	font-weight:200;
+	margin-bottom:15px;
+}
+
+h2 {
+	line-height: 90%;
+	font-size: 28pt;
+	letter-spacing:-0.5pt;
+	font-weight:300;
+	margin: 10px 0 13px 0;
+}
+
+h3 {
+	line-height: 90%;
+	font-size: 20pt;
+	letter-spacing:-0.5pt;
+	font-weight:300;
+	margin: 8px 0 6px 0;
+}
 
 #cmsOptions{
 	font-size:1.5em;

@@ -61,8 +61,8 @@
 	<div class="row">
 		<label><?php echo __('Publish');?></label>
 		<?php echo $form->checkBox($model, 'code', array('onChange'=>'js:$("#updateZipWarning").show();')); ?>
-		<div id="updateZipWarning" style="display:none;">
-		<i class="icon-attention"></i> <?php echo __('Remember to update the zip file with the new data');?>
+		<div id="updateZipWarning" style="font-size:16px; display:none;">
+		<?php echo ' '.__('Remember to update the zip file');?> <i class="icon-attention"></i>
 		</div>
 	</div>
 
