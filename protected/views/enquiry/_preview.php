@@ -24,7 +24,7 @@
 ?>
 
 <div id="preview_<?php echo $data->id;?>" class="enquiryPreview" >
-	<span class="created"><?php echo format_date($data->created);?></span>
+	<div class="created"><?php echo format_date($data->created);?></div>
 	<?php
 	$active="";
 	if($data->state >= ENQUIRY_ACCEPTED) {

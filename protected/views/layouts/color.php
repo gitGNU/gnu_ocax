@@ -73,3 +73,7 @@ div.form .title{ color:<?php echo $color;?>; }
 /*graph bar*/
 .actual_provision_bar{ background-color:<?php echo $color;?>; }
 
+.highlightWithColor{
+	color: white;
+	background-color: <?php echo $color;?> !important;
+}

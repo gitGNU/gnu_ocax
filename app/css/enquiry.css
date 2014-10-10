@@ -114,24 +114,22 @@
 .enquiryPreview {
 	position: relative;
 	border:1px solid rgb(228, 222, 215);
-	background-color: rgb(228, 222, 215);
+	background-color: #8F8F8F;
 	width:430px;
 	height:210px;
 	margin: 30px 15px 30px 15px;
 	float:left;
 }
-.enquiryPreview:hover {	border-top: 1px solid grey; }
 
 .enquiryPreview .created {
 	position: absolute;
-	border:1px solid rgb(228, 222, 215);
 	padding: 0 5px 0 5px;
-	height: 18px;
+	height: 23px;
 	width: 64px;
-	top: -20px;
-	left: -1px;
-	color:grey;
-	background-color: rgb(228, 222, 215);
+	top: -23px;
+	font-size: 14px;
+	color:white;
+	background-color: #8F8F8F;
 }
 .email-subscribe {
 	cursor: pointer;
@@ -167,6 +165,7 @@
 	display:none;
 }
 .enquiryPreview .title {
+	color: white;
 	cursor: pointer;
 	padding: 2px 0px 3px 6px;
 	font-size: 1.25em;

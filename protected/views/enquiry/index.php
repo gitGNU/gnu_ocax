@@ -55,6 +55,14 @@ $(function() {
 	$(".workflowFilter").on('click', function() {
 			filterByDiagram($(this).attr('state'));
 	});
+	$( document ).on( "mouseenter", ".enquiryPreview", function() {
+		$(this).find('.title').addClass('highlightWithColor');
+		$(this).find('.created').addClass('highlightWithColor');
+	});
+	$( document ).on( "mouseleave", ".enquiryPreview", function() {
+		$(this).find('.title').removeClass('highlightWithColor');
+		$(this).find('.created').removeClass('highlightWithColor');
+	});
 });
 function basicFilter(el, filter){
 	$(el).parent().find('li').removeClass('activeItem');

@@ -63,3 +63,7 @@ div.form .title{ color:#6E8B3D; }
 /*graph bar*/
 .actual_provision_bar{ background-color:#6E8B3D; }
 
+.highlightWithColor{
+	color: white;
+	background-color: #6E8B3D !important;
+}
