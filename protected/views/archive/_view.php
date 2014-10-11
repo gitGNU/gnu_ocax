@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@
 
 		echo '<a href="'.$data->getWebPath().'">';
 		echo '<div style="padding-left:3px;overflow:hidden;">';
-		echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.$data->extension.'.png"/>';
+		echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.strtolower($data->extension).'.png"/>';
 		echo '<span class="name">'.CHtml::encode($data->name).'</span>';
 		echo '</div>';
 		echo '<div style="clear:both"></div>';

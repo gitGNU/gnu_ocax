@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -148,10 +148,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 
 <div id="csvs_popup" class="modal" style="width:500px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="csvs_popup_content"></div>
 </div>
-
 
 <?php echo $this->renderPartial('//file/modal'); ?>
 

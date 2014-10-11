@@ -30,7 +30,7 @@
 	'method'=>'get',
 )); ?>
 
-<div style="float:left;width:33%;margin-left:-20px;">
+<div style="float:left;width:250px;">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
@@ -76,7 +76,7 @@
 </div>
 <div style="clear:both"></div>
 
-<div style="float:left;width:33%;margin-left:-20px;">
+<div style="float:left;width:250px;">
 	<div class="row">
 		<?php echo $form->label($model,'body'); ?>
 		<?php echo $form->textField($model,'body',array('size'=>14,'maxlength'=>255)); ?>

@@ -112,7 +112,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <div id="budget_dumps" class="modal" style="600px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="budget_dumps_content"></div>
 </div>
 

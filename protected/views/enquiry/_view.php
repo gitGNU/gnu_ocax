@@ -261,8 +261,8 @@ foreach($replys as $reply)
 <div id="comment_form" style="display:none"></div>
 
 <div id="budget_popup" class="modal" style="width:900px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
-	<img class="bModal2Page" onclick="js:budgetModal2Page();" src="<?php echo Yii::app()->request->baseUrl; ?>/images/modal2page.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:budgetModal2Page();"></i>
 	<div id="budget_popup_body"></div>
 </div>
 

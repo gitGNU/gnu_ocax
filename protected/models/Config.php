@@ -222,8 +222,8 @@ class Config extends CActiveRecord
 
 	public function getSiteColor()
 	{
-		if($color = Config::model()->findByPk('siteColor')->value)
-			return $color;
+		if($color = Config::model()->findByPk('siteColor'))
+			return $color->value;
 		return 'a1a150';
 	}
 

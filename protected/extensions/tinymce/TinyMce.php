@@ -39,16 +39,11 @@ class TinyMce extends CInputWidget
     public $fileManager = false;
 
     /** @var array Supported languages */
-    private static $languages = array(
-        'ar', 'az', 'be', 'bg', 'bn', 'br', 'bs', 'ca', 'ch', 'cn', 'cs', 'cy', 'da', 'de', 'dv', 'el', 'en', 'eo',
-        'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gl', 'gu', 'he', 'hi', 'hr', 'hu', 'hy', 'ia', 'id', 'is',
-        'it', 'ja', 'ka', 'kl', 'km', 'ko', 'lb', 'lt', 'lv', 'mk', 'ml', 'mn', 'ms', 'my', 'nb', 'nl',
-        'nn', 'no', 'pl', 'ps', 'pt', 'ro', 'ru', 'sc', 'se', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'sy',
-        'ta', 'te', 'th', 'tn', 'tr', 'tt', 'tw', 'uk', 'ur', 'vi', 'zh_cn', 'zh_tw', 'zh', 'zu',); // widget supported languages
+    private static $languages = array('ca','de','el', 'en','es','fr','gl','it','pt',); // widget supported languages
 
 
     private static $defaultSettings = array(
-        'language' => 'ru',
+        'language' => 'en',
         // General options
         'theme' => "advanced",
 //        'skin' => 'o2k7',
@@ -60,7 +55,9 @@ class TinyMce extends CInputWidget
 		//http://www.midwesternmac.com/blogs/jeff-geerling/line-breaks-instead-paragraphs
 		'forced_root_block' => FALSE,
 
-        'plugins' => "autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,iespell,insertdatetime,contextmenu,paste,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+        'plugins' =>	"autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,iespell,
+						insertdatetime,contextmenu,paste,noneditable,visualchars,nonbreaking,
+						xhtmlxtras,template,advlist",
 
         // Theme options
 /*
@@ -108,7 +105,6 @@ class TinyMce extends CInputWidget
         $dir = dirname(__FILE__) . '/vendors/tinymce/jscripts/tiny_mce';
         $this->assetsDir = Yii::app()->assetManager->publish($dir);
         $this->settings = array_merge(self::$defaultSettings, $this->settings);
-        //echo '<pre>'.print_r($this->settings).'</pre>';
         if ($this->language === false)
             $this->settings['language'] = Yii::app()->language;
         else
@@ -175,6 +171,7 @@ class TinyMce extends CInputWidget
             /** @var $fm TinyMceFileManager */
             $fm = Yii::createComponent($this->fileManager);
             $fm->init();
+            // https://github.com/Studio-42/elFinder/wiki/Integration-with-TinyMCE-3.x
             $this->settings['file_browser_callback'] = $fm->getFileBrowserCallback();
         }
 

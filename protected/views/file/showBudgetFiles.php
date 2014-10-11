@@ -27,7 +27,8 @@ Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
 <div>
-<div class="sub_title"><?php echo __('Restore all budgets from a backup');?></div>
+	<div class="modalTitle"><?php echo __('Restore all budgets from a backup');?></div>
+
 
 <?php
 	echo '<div style="font-size:1.2em;margin-bottom:15px;">'.

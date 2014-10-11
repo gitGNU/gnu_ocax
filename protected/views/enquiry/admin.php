@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -75,8 +75,12 @@ function toggleSearchOptions(){
 		array(
 			'name'=>'state',
 			'type'=>'raw',
-			//'value'=>'Enquiry::getHumanStates($data->state)',
-            'value'=>function($data,$row){return $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);},
+            'value'=>function($data,$row){
+				$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);
+				if( $data->state == ENQUIRY_PENDING_VALIDATION )
+					$value = $value.' <i class="icon-attention"></i>';
+				return $value;
+				},
 		),
 	),
 )); ?>
