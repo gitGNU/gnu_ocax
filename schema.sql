@@ -299,6 +299,14 @@ CREATE TABLE IF NOT EXISTS archive (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+CREATE TABLE IF NOT EXISTS log (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  created int(11) NOT NULL,	/* unix time stamp */
+  prefix varchar(255) NOT NULL,
+  message varchar(1024) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
 CREATE TABLE IF NOT EXISTS reset_password (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NOT NULL,

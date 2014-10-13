@@ -31,6 +31,7 @@ if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))
 	array_splice( $this->menu, 3, 0, $download );
 }
 $this->inlineHelp=':profiles:admin:zip';
+$this->viewLog="zipfile,budget";
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

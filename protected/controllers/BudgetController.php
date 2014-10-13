@@ -345,8 +345,14 @@ class BudgetController extends Controller
 					'criteria'=>array('condition'=>'parent IS NULL',
 					'order'=>'year DESC'),
 				));
-				if($wasPublished != $model->code)
+				if($wasPublished != $model->code){
 					Config::model()->isZipFileUpdated(0);
+					if($model->code == 0)
+						$word = 'unpublished';
+					else
+						$word = 'published';
+					Log::model()->write('budget', 'Year '.$model->year.'. Year '.$word.' by '.Yii::app()->user->id);
+				}
 				$this->redirect(array('adminYears'));
 			}
 		}
@@ -463,7 +469,8 @@ class BudgetController extends Controller
 					$total = $new_total;
 			}
 			if($model->isPublished())
-				Config::model()->isZipFileUpdated(0);		
+				Config::model()->isZipFileUpdated(0);
+			Log::model()->write('budget', 'Year '.$model->year.'. Budget '.$model->csv_id.' deleted by '.Yii::app()->user->id);
 		}
 		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
 	}
@@ -524,6 +531,7 @@ class BudgetController extends Controller
 			$model->delete();
 			if($root_budget){
 				Yii::app()->user->setFlash('success',__('Year deleted'));
+				Log::model()->write('budget', 'Year '.$model->year.'. Year deleted by '.Yii::app()->user->id);
 				$this->redirect(array('adminYears'));
 			}
 		}
@@ -590,6 +598,7 @@ class BudgetController extends Controller
 		$result = Budget::model()->restoreBudgets($id);
 		if($result === true){
 			Yii::app()->user->setFlash('success',__('Database restored correctly'));
+			Log::model()->write('budget', 'Budget table restored by '.Yii::app()->user->id);
 		}
 		return $result;
 	}

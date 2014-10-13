@@ -40,6 +40,7 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $deleteYear );
 }
 $this->inlineHelp=':profiles:admin:budgets';
+$this->viewLog="budget";
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

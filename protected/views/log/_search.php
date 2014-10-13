@@ -18,40 +18,38 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this ConfigController */
-/* @var $model Config */
+/* @var $this LogController */
+/* @var $model Log */
+/* @var $form CActiveForm */
 
-$this->menu=array(
-	array('label'=>__('Global parameters'), 'url'=>array('index')),
-);
-$this->inlineHelp=':profiles:admin:global_parameters';
-
-if(isset($returnURL))
-	$returnURL='?returnURL='.$returnURL;
-else
-	$returnURL=Null;
 ?>
 
-<div class="form">
+<div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'config-form',
-	'action' => Yii::app()->createUrl('config/update/'.$model->parameter.$returnURL),
-	'enableAjaxValidation'=>false,
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
 )); ?>
 
-	<div class="title"><?php echo __('Change global parameter'); ?></div>
+	<div class="row">
+		<?php echo $form->label($model,'created'); ?>
+		<?php echo $form->textField($model,'created'); ?>
+	</div>
 
-	<p class="row" style="margin:30px 0px 30px 0px">
-		<?php echo $model->description.'<br />';	?>
-		<?php echo $form->textField($model,'value',array('size'=>40,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'value'); ?>
-	</p>
+	<div class="row">
+		<?php echo $form->label($model,'prefix'); ?>
+		<?php echo $form->textField($model,'prefix',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'message'); ?>
+		<?php echo $form->textField($model,'message',array('size'=>60,'maxlength'=>1024)); ?>
+	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Save'); ?>
+		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->
+</div><!-- search-form -->

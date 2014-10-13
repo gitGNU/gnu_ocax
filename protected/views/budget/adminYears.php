@@ -21,6 +21,8 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
+//print_r(Yii::app()->clientScript->scripts);
+
 $this->menu=array(
 	array('label'=>__('Create Year'), 'url'=>array('createYear')),
 	array('label'=>__('Budgets without description'), 'url'=>array('noDescriptions')),
@@ -31,6 +33,7 @@ if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	array_splice( $this->menu, 1, 0, $restore );
 }
 $this->inlineHelp=':profiles:admin:budgets';
+$this->viewLog="budget";
 ?>
 
 <script>

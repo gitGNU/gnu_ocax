@@ -27,8 +27,13 @@ class Controller extends CController
 	public $inlineHelp='';
 
 	/**
+	 * help text to display in right column under operations menu
+	 */
+	public $viewLog='';
+
+	/**
 	 * text to display in sidebar
 	 */
-	public $sidebarText='';
+	//public $sidebarText='';
 
 }

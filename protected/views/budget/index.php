@@ -35,11 +35,7 @@ if($root_budget){
 	if(!Yii::app()->user->isAdmin() && !$model->isPublished())
 		$featured = array();
 	else{
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('featured = 1');
-		$criteria->addCondition('year = '.$model->year);
-		$criteria->order = 'csv_id ASC';
-		$featured=$model->findAll($criteria);
+		$featured=$root_budget->getFeatured();
 	}
 	if(count($featured) > 2)
 		$showFeaturedMenu=1;

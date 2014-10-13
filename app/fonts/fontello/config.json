@@ -25,9 +25,21 @@
       "src": "fontawesome"
     },
     {
+      "uid": "17ebadd1e3f274ff0205601eef7b9cc4",
+      "css": "help-circled",
+      "code": 59399,
+      "src": "fontawesome"
+    },
+    {
       "uid": "e335adbc2d898c7d85d40c507796e7b4",
       "css": "mail",
       "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "48b79f27e4798f23bafa07b55dbe5b73",
+      "css": "book",
+      "code": 59417,
       "src": "entypo"
     },
     {

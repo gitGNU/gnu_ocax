@@ -65,6 +65,14 @@ class Budget extends CActiveRecord
 	}
 
 	/**
+	 * @return string this models log prefix
+	 */
+	public function logPrefix()
+	{
+		return 'budget';
+	}
+
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -243,6 +251,17 @@ class Budget extends CActiveRecord
 	public function getPublicYears()
 	{
 		return $this->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
+	}
+
+	public function getFeatured()
+	{
+		if(!$this->year)
+			return Null;
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('featured = 1');
+		$criteria->addCondition('year = '.$this->year);
+		$criteria->order = 'csv_id ASC';
+		return $this->findAll($criteria);
 	}
 
 	/**

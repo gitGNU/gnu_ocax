@@ -60,7 +60,13 @@ UPDATE config SET required=0 WHERE parameter='smtpUsername';
 
 ALTER TABLE user ADD is_description_editor TINYINT(1) DEFAULT 0;
 
-
+CREATE TABLE IF NOT EXISTS log (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  created int(11) NOT NULL,	/* unix time stamp */
+  prefix varchar(255) NOT NULL,
+  message varchar(1024) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
 
 /* ---------- stop copying ---------- */

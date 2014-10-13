@@ -134,6 +134,9 @@ function addPanelSeparator(){
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
 		//echo '</div>';
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
+		echo '<a href="'.Yii::app()->createAbsoluteUrl('/log/index').'" target="_agora">'.__('Log').'</a>';
+		echo '</div>';		
+		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
 		echo '<a href="http://agora.ocax.net/" target="_agora">'.__('Agora').'</a>';
 		echo '</div>';
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';

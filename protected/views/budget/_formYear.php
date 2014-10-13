@@ -22,8 +22,8 @@
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
+	.left{width: 38%; float: left;  margin: 0px;}
+	.right{width: 58%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
@@ -69,10 +69,22 @@
 
 </div>
 <div class="right">
-
+	<?php $featuredCount = count($model->getFeatured());?>
 	<div class="row" style="font-size:1.4em">
-		<?php echo $totalBudgets.' '.__('defined budgets');?>
+		<?php echo $totalBudgets.' '.__('defined budgets');
+		if($featuredCount == 0 && $model->year)
+			echo ' <i class="icon-ok-circled"></i>';
+		?>
 	</div>
+	<div class="row" style="font-size:1.4em">
+		<?php	
+		if($model->code == 1 && $featuredCount == 0)
+			echo __('You need to feature budgets to generate graphics').' <i class="icon-attention"></i>'; 
+		else
+			echo $featuredCount.' '.__('Featured budgets');
+		?>
+	</div>
+
 
 </div>
 </div>
