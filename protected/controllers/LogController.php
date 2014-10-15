@@ -78,10 +78,35 @@ class LogController extends Controller
 	public function actionModalIndex()
 	{
 		$prefixes = Null;
-		if(isset($_GET['prefixes']))
+		$id = Null;
+		if(isset($_GET['prefixes']))	// a prefix is may be a model name
 			$prefixes = $_GET['prefixes'];
+		if(isset($_GET['id']))			// if defined, it is a model id
+			$id = $_GET['id'];
+
+		$title = $prefixes;
+		if($id)
+			$title = $title.' '.$id;
+			
+		$criteria = new CDbCriteria;
+		$prefixes = explode(',', $prefixes);
+
+		if(!$id){
+			$condition = 'prefix = "'.trim(array_shift($prefixes)).'"';
+			foreach($prefixes as $prefix)
+				$condition = $condition.' OR prefix = "'.$prefix.'"';
+			$criteria->addCondition($condition);
+		}else{
+			// we are displaying an object's log
+			$criteria->addCondition('prefix = "'.trim($prefixes[0]).'" AND model_id ='.$id);
+		}
+		$criteria->order = 'created DESC';
+		$criteria->limit = 20;
+
+		$logs = Log::model()->findAll($criteria);
+			
 		//echo CJavaScript::jsonEncode($this->renderPartial('ajaxIndex',array('prefixes'=>$prefixes),false,false));
-		echo $this->renderPartial('modalIndex',array('prefixes'=>$prefixes),false,false);
+		echo $this->renderPartial('modalIndex',array('title'=>$title, 'logs'=>$logs),false,false);
 	}
 	
 	public function actionIndex()

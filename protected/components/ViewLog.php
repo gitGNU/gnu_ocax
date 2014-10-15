@@ -28,11 +28,12 @@ class ViewLog extends CWidget
 <script src="<?php echo Yii::app()->request->baseUrl;?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <script>
-function viewLog(prefixes){
+function viewLog(prefixes,id){
+	id = (typeof id === "undefined") ? 0 : id;
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/log/modalIndex',
 		type: 'GET',
-		data: { 'prefixes' : prefixes },
+		data: { 'prefixes' : prefixes, 'id' : id },
 		beforeSend: function(){ },
 		complete: function(){ },
 		success: function(data){

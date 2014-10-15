@@ -523,8 +523,8 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	right: 2px;
 }
 
-/* search Options toggle icons */
-#searchOptionsToggle
+/* team menu */
+#teamMenu, #searchOptionsToggle
 {
 	color: #7D7D7D;	
 	position: absolute;
@@ -532,10 +532,11 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	right: -20px;
 	cursor:pointer;
 }
-#searchOptionsToggle:hover {
+
+#teamMenu i:hover, #searchOptionsToggle:hover {
 	color: #454545;	
 }
-#searchOptionsToggle i
+#teamMenu i, #searchOptionsToggle i
 {
 	font-size: 2em;
 }

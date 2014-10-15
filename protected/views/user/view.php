@@ -31,6 +31,8 @@ if(!$model->enquirys){
 					));
 	array_splice( $this->menu, 1, 0, $item );
 }
+$this->inlineHelp=':profiles';
+$this->viewLog='User|'.$model->id;
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

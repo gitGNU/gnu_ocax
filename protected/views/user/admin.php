@@ -45,6 +45,12 @@ function toggleSearchOptions(){
 		<i class="icon-search-circled"></i>
 	</div>
 </div>
+<div style="position:relative; right:40px" >
+	<div id="teamMenu" class="color" onCLick="js:viewLog('User');return false;">
+		<i class="icon-book"></i>
+	</div>
+</div>
+<?php $this->widget('ViewLog'); ?>
 
 <h1><?php echo __('Users and roles');?></h1>
 

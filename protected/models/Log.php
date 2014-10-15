@@ -23,8 +23,10 @@
  *
  * The followings are the available columns in table 'log':
  * @property integer $id
- * @property integer $created  // unix timestamp
+ * @property integer $user
+ * @property integer $created
  * @property string $prefix
+ * @property integer $model_id
  * @property string $message
  */
 class Log extends CActiveRecord
@@ -46,12 +48,12 @@ class Log extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created, prefix, message', 'required'),
+			array('user, created, model_id', 'numerical', 'integerOnly'=>true),
 			array('prefix', 'length', 'max'=>255),
 			array('message', 'length', 'max'=>1024),
-			array('created',  'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, created, prefix, message', 'safe', 'on'=>'search'),
+			array('id, user, created, prefix, model_id, message', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,16 +74,23 @@ class Log extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'user' => __('User'),
 			'created' => __('Created'),
 			'prefix' => __('Type'),
-			'message' => __('Message'),
+			'model_id' => 'Model',
+			'message' => 'Message',
 		);
 	}
 
-	public function write($prefix, $msg){
+	public function write($prefix, $message, $model_id=Null)
+	{
 		$model = new Log;
+		$model->message = $message;
 		$model->prefix = $prefix;
-		$model->message = $msg;
+		if($model_id)
+			$model->model_id = $model_id;
+		if(!Yii::app()->user->isGuest)
+			$model->user = Yii::app()->user->getUserID();
 		$date = new DateTime();
 		$model->created = $date->getTimestamp();
 		$model->save();
@@ -105,13 +114,15 @@ class Log extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('created',$this->created,true);
+		$criteria->compare('user',$this->user);
+		$criteria->compare('created',$this->created);
 		$criteria->compare('prefix',$this->prefix,true);
+		$criteria->compare('model_id',$this->model_id);
 		$criteria->compare('message',$this->message,true);
+		$criteria->order = 'id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'created DESC')
 		));
 	}
 

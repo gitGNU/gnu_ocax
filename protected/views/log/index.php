@@ -71,6 +71,15 @@ function toggleSearchOptions(){
 				return date("Y-m-d H:i:s", $data->created);
 			},
 		),
+		array(
+			'name'=>'user',
+			'type'=>'raw',
+            'value'=>function($data,$row){
+				if($user = User::model()->findByPk($data->user))
+					return $user->username;
+				return 'system';
+			},
+		),
 		'prefix',
 		'message',
 	),

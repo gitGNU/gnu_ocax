@@ -29,6 +29,7 @@ $this->menu=array(
 );
 
 $this->inlineHelp=':profiles:team_member';
+$this->viewLog='Enquiry|'.$related_enquiry->id;
 ?>
 
 <?php

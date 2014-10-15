@@ -122,6 +122,8 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
+		
+		//$this->widget('TeamMenu');
 
 		echo '<div class="outer">';
 

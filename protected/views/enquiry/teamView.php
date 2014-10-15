@@ -55,6 +55,7 @@ if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
 }
 
 $this->inlineHelp=':profiles:team_member';
+$this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <?php echo $this->renderPartial('_teamView', array('model'=>$model)); ?>

@@ -235,6 +235,8 @@ class EnquiryController extends Controller
 				$email->recipients=$recipients;
 				$email->enquiry=$model->id;
 
+				Log::model()->write('Enquiry', __('Enquiry').'. '.__('New enquiry ').' '.$model->id, $model->id);
+
 				if($mailer->send()){
 					$email->sent=1;
 					$email->save();
@@ -557,6 +559,11 @@ class EnquiryController extends Controller
 				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){
 					// somehow send an email to manager
 				}
+				if($model->state == ENQUIRY_REJECTED)
+					Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('rejected by team member'), $model->id);
+				else
+					Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('accepted by team member'), $model->id);
+				
 			}			
 		}		
 		$this->render('validate',array(
@@ -592,6 +599,7 @@ class EnquiryController extends Controller
 				$model->state = ENQUIRY_REJECTED;
 				$model->assigned = Null;
 				$model->team_member = Null;
+				Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('rejected by team manager'), $model->id);
 			}
 			elseif(!$model->team_member){
 				Yii::app()->user->setFlash('notice', __('You must assign a team member'));
@@ -604,6 +612,7 @@ class EnquiryController extends Controller
 					$model->modified=date('c');
 					if($model->state <= ENQUIRY_REJECTED) // maybe enquiry was already accepted and has higher state.
 						$model->state=ENQUIRY_ASSIGNED;
+					Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('assigned to team member').' '.User::model()->findByPk($model->team_member)->username, $model->id);
 				}else{
 					Yii::app()->user->setFlash('notice', __('You must assign a team member'));
 					$saveMe=Null;
@@ -702,6 +711,7 @@ class EnquiryController extends Controller
 		$user=Yii::app()->user->getUserID();
 		if($model->state==ENQUIRY_PENDING_VALIDATION && ($model->user == $user || Yii::app()->user->isManager()) ){
 			$model->delete();
+			Log::model()->write('Enquiry',__('Enquiry deleted'),$model->id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])){

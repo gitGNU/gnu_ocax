@@ -397,7 +397,7 @@ class CsvController extends Controller
 		else{
 			if($yearly_budget->isPublished())
 				Config::model()->isZipFileUpdated(0);
-			Log::model()->write('budget', 'Year '.$yearly_budget->year.'. CSV import. New budgets '.$new_budgets.', Updated budgets '.$updated_budgets.' by '.Yii::app()->user->id);
+			Log::model()->write('Budget', 'Year '.$yearly_budget->year.'. CSV import. New budgets '.$new_budgets.', Updated budgets '.$updated_budgets);
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
 		}
 	}

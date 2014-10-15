@@ -141,7 +141,6 @@ class Budget extends CActiveRecord
 	public function getYearString()
 	{
 		return CHtml::encode($this->year);
-		//return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
 	}
 
 	public function getLabel()

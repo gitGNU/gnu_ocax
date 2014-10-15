@@ -72,13 +72,13 @@
 	<?php $featuredCount = count($model->getFeatured());?>
 	<div class="row" style="font-size:1.4em">
 		<?php echo $totalBudgets.' '.__('defined budgets');
-		if($featuredCount == 0 && $model->year)
+		if($totalBudgets > 0 && $featuredCount == 0)
 			echo ' <i class="icon-ok-circled"></i>';
 		?>
 	</div>
 	<div class="row" style="font-size:1.4em">
 		<?php	
-		if($model->code == 1 && $featuredCount == 0)
+		if($totalBudgets > 0 && $featuredCount == 0)
 			echo __('You need to feature budgets to generate graphics').' <i class="icon-attention"></i>'; 
 		else
 			echo $featuredCount.' '.__('Featured budgets');

@@ -28,28 +28,19 @@ function logModal2Page(){
 }
 </script>
 
-<div class="modalTitle"><?php echo __('OCAx logs');?>: <?php echo $prefixes;?></div>
+<div class="modalTitle">
+<?php echo __('OCAx logs').': '.$title;?></div>
+
 <?php
-
-$criteria = new CDbCriteria;
-
-$prefixes = explode(',', $prefixes);
-
-$condition = 'prefix = "'.trim(array_shift($prefixes)).'"';
-foreach($prefixes as $prefix)
-	$condition = $condition.' OR prefix = "'.$prefix.'"';
-	
-$criteria->addCondition($condition);
-$criteria->order = 'created DESC';
-$criteria->limit = 20;
-
-$logs = Log::model()->findAll($criteria);
-
 foreach($logs as $log){
-	echo '<div style="margin: 0 -10px 0 -10px; border-bottom: 1px solid #cdcbc9; font-size: 16px">';
+	echo '<div style="
+			margin: 0 -10px 0 -10px;
+			padding: 2px 0 2px 0;
+			border-bottom: 1px solid #cdcbc9;
+			font-size: 16px"
+		>';
 	echo '<span style="display:inline; margin: 0 30px 0 5px">'.date("Y-m-d H:i:s", $log->created).'</span>';
 	echo $log->message;
 	echo '</div>';
 }
-
 ?>

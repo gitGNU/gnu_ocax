@@ -264,7 +264,7 @@ class FileController extends Controller
 
 			$file->save();
 			Config::model()->updateSiteConfigurationStatus('siteConfigStatusZipFileUpdated', 1);
-			Log::model()->write('zipFile', 'Zip file updated by '.Yii::app()->user->id);
+			Log::model()->write('ZipFile', 'Zip file updated');
 			Yii::app()->user->setFlash('success',__('Zip file updated'));
 		}else{
 			Yii::app()->user->setFlash('error',__('Error: zip file not created'));

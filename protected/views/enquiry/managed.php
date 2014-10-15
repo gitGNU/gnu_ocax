@@ -41,11 +41,18 @@ function toggleSearchOptions(){
 	}
 }
 </script>
+
 <div style="position:relative;">
 	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
 		<i class="icon-search-circled"></i>
 	</div>
 </div>
+<div style="position:relative; right:40px" >
+	<div id="teamMenu" class="color" onCLick="js:viewLog('enquiry');return false;">
+		<i class="icon-book"></i>
+	</div>
+</div>
+<?php $this->widget('ViewLog'); ?>
 
 <div id="enquiryPageTitle">
 <h1><?php echo __('Entrusted enquiries');?></h1>

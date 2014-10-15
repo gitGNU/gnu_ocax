@@ -232,8 +232,10 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			if($model->save())
+			if($model->save()){
+				Log::model()->write('User',__('User permissiones changed for').' "'.$model->username.'"',$model->id);
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('updateRoles',array(
@@ -251,6 +253,7 @@ class UserController extends Controller
 		$model->is_active = 0;
 		$model->is_disabled = 1;
 		$model->save();
+		Log::model()->write('User', __('User').' "'.$model->username.'" (id = '.$model->id.') '.__('disabled'), $model->id);
 		Yii::app()->user->setFlash('success', __('User disabled'));
 		echo 1;
 	}
@@ -275,6 +278,7 @@ class UserController extends Controller
 		$model->email = '░░░░░░░░░';
 
 		$model->save();
+		Log::model()->write('User',__('User').' "'.$model->username.'" '.__('deleted account'),$model->id);
 		Yii::app()->user->logout();
 		//Yii::app()->user->setFlash('success', __('Your profile has been deleted.'));
 		$this->redirect(Yii::app()->homeUrl);

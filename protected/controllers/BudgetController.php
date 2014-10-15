@@ -275,6 +275,7 @@ class BudgetController extends Controller
 		{
 			$model->attributes=$_POST['Budget'];
 			if($model->save()){
+				Log::model()->write('Budget','Year '.$model->year.' created');
 				$this->redirect(array('adminYears'));
 			}
 		}
@@ -351,7 +352,7 @@ class BudgetController extends Controller
 						$word = 'unpublished';
 					else
 						$word = 'published';
-					Log::model()->write('budget', 'Year '.$model->year.'. Year '.$word.' by '.Yii::app()->user->id);
+					Log::model()->write('Budget', 'Year '.$model->year.' '.$word);
 				}
 				$this->redirect(array('adminYears'));
 			}
@@ -470,7 +471,7 @@ class BudgetController extends Controller
 			}
 			if($model->isPublished())
 				Config::model()->isZipFileUpdated(0);
-			Log::model()->write('budget', 'Year '.$model->year.'. Budget '.$model->csv_id.' deleted by '.Yii::app()->user->id);
+			Log::model()->write('Budget', 'Year '.$model->year.'. Budget "'.$model->csv_id.'" deleted');
 		}
 		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
 	}
@@ -531,7 +532,7 @@ class BudgetController extends Controller
 			$model->delete();
 			if($root_budget){
 				Yii::app()->user->setFlash('success',__('Year deleted'));
-				Log::model()->write('budget', 'Year '.$model->year.'. Year deleted by '.Yii::app()->user->id);
+				Log::model()->write('Budget', 'Year '.$model->year.' deleted');
 				$this->redirect(array('adminYears'));
 			}
 		}
@@ -598,7 +599,7 @@ class BudgetController extends Controller
 		$result = Budget::model()->restoreBudgets($id);
 		if($result === true){
 			Yii::app()->user->setFlash('success',__('Database restored correctly'));
-			Log::model()->write('budget', 'Budget table restored by '.Yii::app()->user->id);
+			Log::model()->write('Budget', 'Budget table restored');
 		}
 		return $result;
 	}

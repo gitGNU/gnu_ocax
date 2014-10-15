@@ -37,10 +37,14 @@
 			$title=$title.$help;
 		}
 		if($this->viewLog){
+			$params = explode('|',$this->viewLog);
+			$param = '"'.$params[0].'"';
+			if(isset($params[1]))
+				$param = $param.','.$params[1];
 			$log = CHtml::link(
 				'<i style="float:right;font-size:23px;color:#f5f1ed;" class="icon-book"></i>', 
 				'#',
-				array('onClick'=>'js:viewLog("'.$this->viewLog.'");')
+				array('onClick'=>'js:viewLog('.$param.');')
 			);			
 			$title=$title.$log;
 		}

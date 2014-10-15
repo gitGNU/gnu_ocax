@@ -42,6 +42,8 @@ $this->menu=array(
 	array('label'=>__('View User'), 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>__('Manage Users'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':profiles';
+$this->viewLog='User|'.$model->id;
 ?>
 
 <style>

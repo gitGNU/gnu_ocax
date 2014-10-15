@@ -215,6 +215,7 @@ class SiteController extends Controller
 
 			if ($model->validate() && $newUser->save())
 			{
+				Log::model()->write('User',__('New user').' "'.$newUser->username.'"', $newUser->id);
 				//if want to go login, just uncomment this below
 				$identity=new UserIdentity($newUser->username,$model->password);
 				//$identity->authenticate();
@@ -236,8 +237,10 @@ class SiteController extends Controller
 			$model = User::model()->findByAttributes(array('activationcode'=>$code));
 			if($model && !$model->is_disabled){
 				$model->is_active=1;
-				if($model->save())
+				if($model->save()){
+					Log::model()->write('User',__('User account activated'),$model->id);
 					Yii::app()->user->setFlash('success',__('Your account is active'));
+				}
 			}else
 				$this->redirect(array('/site/index'));
 		}
