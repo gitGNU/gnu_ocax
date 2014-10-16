@@ -23,6 +23,12 @@
 /* @var $form CActiveForm */
 ?>
 
+<style>
+#search_enquiries { margin-bottom:15px }	
+#search_enquiries div { font-size: 16px; }
+
+</style>
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'search_enquiries',
 	'action'=>Yii::app()->createUrl($this->route),
@@ -31,21 +37,19 @@
 echo $form->hiddenField($model,'basicFilter');
 ?>
 
-<p>
+<div>	<!-- outer start -->
+<div style="float:left; width:350px;">	<!-- column 1 start -->
 	<?php echo $form->label($model,'state'); ?><br />
 	<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
-</p>
-<p>
+<br />
 	<?php echo $form->label($model,'addressed_to'); ?><br />
 	<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-</p>
-<p>
-	<?php echo $form->label($model,'type'); ?><br />
-	<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
-</p>
+</div>	<!-- column 1 end -->
 
-<p>
-<span><?php echo __('Filter between dates');?></span>
+<div style="float:left; width:300px;">	<!-- column 2 start -->
+
+<div style="float:left">
+<span><?php echo __('Minimum date');?></span>
 <br />
 <?php
 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -63,7 +67,10 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 	),
 ));
 ?>
-<span><?php echo __('Minimum date');?></span>
+</div>
+
+<div style="float:left">
+<span><?php echo __('Maximum date');?></span>
 <br />
 <?php
 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -81,14 +88,24 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 	),
 ));
 ?>
-<span><?php echo __('Maximum date');?></span>
-</p>
+</div>
+<div class="clear"></div>
+<?php echo $form->label($model,'type'); ?><br />
+<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+</div>	<!-- column 2 end -->
 
-<p>
-	<span><?php echo __('Text');?></span><br />
-	<?php echo $form->textField($model,'searchText',array('width'=>'180px','maxlength'=>255));?>
-</p>
-
+<div style="float:left; width:250px;">	<!-- column 3 start -->
+<span><?php echo __('Text');?></span><br />
+<?php echo $form->textField($model,'searchText',array('width'=>'180px','maxlength'=>255));?>
+<br />
+<br />
 <?php echo CHtml::submitButton(__('Search'));?>
+</div>	<!-- column 3 end -->
+</div>	<!-- close outer -->
+
+<div class="clear"></div>
 
 <?php $this->endWidget(); ?>
+
+
+

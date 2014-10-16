@@ -151,12 +151,9 @@ function resetForm(){
 	</p>
 	<div id="enquiryDisplayTypeIcons">
 		<?php
-		echo '<span style="cursor:pointer" onclick="js:location.href="'.Yii::app()->request->baseUrl.'/enquiry?display=list">';
-		include(svgDir().'graph-type-pie.svg');
-		echo '</span>';
-		echo '<span style="cursor:pointer" onclick="js:location.href="'.Yii::app()->request->baseUrl.'/enquiry?display=grid">';
-		include(svgDir().'graph-type-bar.svg');
-		echo '</span>';
+		echo '<i class="icon-th-large color" onclick="js:location.href=\''.Yii::app()->request->baseUrl.'/enquiry?display=list\'"></i>';
+		echo '<i class="icon-th-list color" onclick="js:location.href=\''.Yii::app()->request->baseUrl.'/enquiry?display=grid\'"></i>';
+		echo '<i class="icon-flow-tree color" onclick="js:location.href=\''.Yii::app()->request->baseUrl.'/enquiry?display=grid\'"></i>';
 		?>
 		</div>
 </div>
@@ -173,15 +170,6 @@ function resetForm(){
 </div>
 
 <div id="advancedFilterOptions">
-
-<div style="float:left; width:360px; margin-right:120px;">
-	<div id="workflow" style="padding-bottom:5px;">
-		<!-- <p style="text-align:center;margin-top:30px;"> -->
-		<?php /* echo __('What are the different states of an enquiry?'); */ ?>
-		<!-- </p> -->
-		<div><?php $this->renderPartial('workflow',array('model'=>$model,'showStats'=>1));?></div>
-	</div>
-</div>
 
 <div style="float:left">
 	<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>

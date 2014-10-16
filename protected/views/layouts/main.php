@@ -61,7 +61,8 @@
 	?>
 	<li>
 	<?php
-		echo CHtml::link('<i class="icon-mail-2 header-icons"></i>', array('/newsletter'));
+		//echo CHtml::link('<i class="icon-mail-2 header-icons"></i>', array('/newsletter'));
+		echo CHtml::link('<i class="icon-megaphone header-icons"></i>', array('/newsletter'));
 		echo '<span>'.CHtml::link(__('Newsletters'), array('/newsletter')).'</span>';
 	?>
 	</li>

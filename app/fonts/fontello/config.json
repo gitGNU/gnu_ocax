@@ -31,6 +31,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "b035c28eba2b35c6ffe92aee8b0df507",
+      "css": "attention-circled",
+      "code": 59422,
+      "src": "fontawesome"
+    },
+    {
       "uid": "e335adbc2d898c7d85d40c507796e7b4",
       "css": "mail",
       "code": 59394,
@@ -40,6 +46,18 @@
       "uid": "48b79f27e4798f23bafa07b55dbe5b73",
       "css": "book",
       "code": 59417,
+      "src": "entypo"
+    },
+    {
+      "uid": "489090690d8bd1745e365485946e20a8",
+      "css": "megaphone",
+      "code": 59416,
+      "src": "entypo"
+    },
+    {
+      "uid": "8a1d446e5555e76f82ddb1c8b526f579",
+      "css": "flow-tree",
+      "code": 59418,
       "src": "entypo"
     },
     {
@@ -79,6 +97,12 @@
       "src": "iconic"
     },
     {
+      "uid": "b13a27d19dd739e29cbc7926085386d9",
+      "css": "folder",
+      "code": 59412,
+      "src": "iconic"
+    },
+    {
       "uid": "971be54c1452e2558926d36786e6b1d7",
       "css": "popup",
       "code": 59404,
@@ -89,12 +113,6 @@
       "css": "left-circle",
       "code": 59411,
       "src": "iconic"
-    },
-    {
-      "uid": "am79573ydakwiicuct1odx7f2e9zv8lv",
-      "css": "left-dir",
-      "code": 59412,
-      "src": "modernpics"
     },
     {
       "uid": "a6c0e3fce2fbe9ccf9b1c54c8f399106",
@@ -115,12 +133,6 @@
       "src": "mfglabs"
     },
     {
-      "uid": "c21d309f797d3644dc8d28c4617738ce",
-      "css": "left",
-      "code": 59408,
-      "src": "mfglabs"
-    },
-    {
       "uid": "81385e5f1fe091f3d9a20d215d444622",
       "css": "search-circled",
       "code": 59395,
@@ -130,6 +142,12 @@
       "uid": "b6ef4443ecc502136135437837d9724b",
       "css": "mail-2",
       "code": 59413,
+      "src": "elusive"
+    },
+    {
+      "uid": "630d3c819e595abc344053e18872017b",
+      "css": "view-mode",
+      "code": 59408,
       "src": "elusive"
     },
     {
@@ -155,6 +173,24 @@
       "css": "folder-close",
       "code": 59415,
       "src": "elusive"
+    },
+    {
+      "uid": "46cacfc5030a225f338323a3538a18e8",
+      "css": "th-large",
+      "code": 59420,
+      "src": "websymbols"
+    },
+    {
+      "uid": "84d19120538dd143b9cf5433f2417f48",
+      "css": "th-list",
+      "code": 59421,
+      "src": "websymbols"
+    },
+    {
+      "uid": "beb54ffa9c4b49c62af6fa72354d1740",
+      "css": "indent-left",
+      "code": 59419,
+      "src": "websymbols"
     }
   ]
 }

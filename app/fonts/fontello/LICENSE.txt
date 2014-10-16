@@ -55,12 +55,12 @@ Font license info
    Homepage:  http://somerandomdude.com/work/iconic/
 
 
-## Modern Pictograms
+## Web Symbols
 
-   Copyright (c) 2012 by John Caserta. All rights reserved.
+   Copyright (c) 2011 by Just Be Nice studio. All rights reserved.
 
-   Author:    John Caserta
+   Author:    Just Be Nice studio
    License:   SIL (http://scripts.sil.org/OFL)
-   Homepage:  http://thedesignoffice.org/project/modern-pictograms/
+   Homepage:  http://www.justbenicestudio.com/
 
 

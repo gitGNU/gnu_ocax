@@ -9,6 +9,8 @@ header($ExpStr);
 $color = '#'.Config::model()->getSiteColor();
 ?>
 
+.color { color:<?php echo $color;?>; }
+
 body {color: #555; background-color: #e4ded7; }
 h1, h2, h3, h4, h5, h6 { color:<?php echo $color;?>; }
 

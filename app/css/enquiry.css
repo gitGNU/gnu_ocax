@@ -40,29 +40,15 @@
 	position: absolute;
 	top: 25px;
 	right: 30px;
+	font-size:32px;
 }
-/* Icons */
-
-#change_to_list
+#enquiryDisplayTypeIcons i
 {
-	width:46px;
-	height:46px;
-	float:left;
-	cursor:pointer;
-	margin-right:15px;
-}
-#change_to_list:hover { background-position: -46px 0; }
-	
-#change_to_grid
-{
-	width:46px;
-	height:46px;
-	float:left;
 	cursor:pointer;
 	margin-right:10px;
-
 }
-#change_to_grid:hover { background-position: -46px 0; }
+
+
 
 /* workflow */
 #workflow_diagram {  }

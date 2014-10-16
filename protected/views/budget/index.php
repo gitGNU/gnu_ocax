@@ -178,7 +178,7 @@ function budgetDetailsUpdated(){
 <div class="left" style="height:140px">
 
 <div>
-	<div class="bigTitle" style=""><?php echo __('Budgets');?></div>
+	<div class="bigTitle"><?php echo __('Budgets');?></div>
 </div>
 
 <div id="budgetSearchForm" style="margin-top:30px"><!-- search-form start -->
@@ -255,8 +255,9 @@ if(count($years) > 1){
 		include(svgDir().'graph-type-bar.svg');
 		echo '</span>';
 		if($showFeaturedMenu){
-			echo '<img id="featured_menu_icon" src="'.
-				Yii::app()->theme->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
+			//echo '<img id="featured_menu_icon" src="'.
+			//	Yii::app()->theme->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
+			echo '<i id="featured_menu_icon" class="icon-indent-left color" style="font-size:38px" onclick="js:toggleFeaturedMenu()"></i>';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
 				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
