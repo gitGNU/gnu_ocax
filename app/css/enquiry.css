@@ -65,10 +65,8 @@
 #change_to_grid:hover { background-position: -46px 0; }
 
 /* workflow */
-#workflow_diagram > div {
-	position:absolute;
-	font-size:0.95em; line-height:95%; width:150px;
-}
+#workflow_diagram {  }
+
 .workflowText {  }
 .workflowFilter:hover { cursor:pointer; color:black; }
 

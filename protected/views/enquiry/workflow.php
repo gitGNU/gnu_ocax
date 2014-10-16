@@ -28,6 +28,13 @@ if(!isset($model))
 	$model = new Enquiry;
 ?>
 
+<style>
+#workflow_diagram > div {
+	position:absolute;
+	font-size:0.95em; line-height:95%; width:150px;
+}
+</style>
+
 <div id="workflow_diagram" style="background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow.png'); height:415px; position:relative;">
 <div style="top:25px;left:120px;"><?php echo $model->getHumanStates(ENQUIRY_PENDING_VALIDATION);?></div>
 <div class="workflowFilter" style="top:107px;left:0px;width:140px;" state="<?php echo ENQUIRY_ACCEPTED;?>"><?php echo $model->getHumanStates(ENQUIRY_ACCEPTED);?></div>

@@ -263,6 +263,7 @@ class Enquiry extends CActiveRecord
 		sort($related_models);
 		return new CArrayDataProvider(array_values($related_models));
 	}
+
 	public function _getReformulatedEnquires($result)
 	{
 		if(!array_key_exists($this->id, $result))
@@ -278,6 +279,20 @@ class Enquiry extends CActiveRecord
 		return $result;
 	}
 
+	/* Are there enquiries that require the attention of the team manager? */
+	public function alertTeamManager()
+	{
+		if($this->findByAttributes(array('state'=>ENQUIRY_PENDING_VALIDATION)))
+			return 1;	// a new enquiry
+
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('state = '.ENQUIRY_REJECTED);
+		$criteria->addCondition('team_member IS NOT NULL');
+		if($this->find($criteria))
+			return 1; // the team member rejected the enquiry
+			
+		return 0;
+	}
 
 	public function countObjects()	// for mega delete
 	{

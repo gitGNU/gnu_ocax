@@ -55,7 +55,7 @@ body
 	width:950px;
 	margin-top: 0px;
 	margin-bottom: 0px;
-	padding: 25px 20px 0px 10px;
+	padding: 25px 20px 25px 10px;
 	border-top: 0px;
 	border-bottom: 0px;
 }
@@ -542,7 +542,7 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 }
 
 /* Hidden options div revealed by the optionsToggle */
-#moreOptions, #searchOptions {
+#searchOptions {
 	display:none;
 }
 

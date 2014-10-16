@@ -42,7 +42,6 @@ function changeColumn()
 		$column=0;
 	}
 }
-
 $privilegedUser = Yii::app()->user->isPrivileged();
 ?>
 
@@ -112,7 +111,6 @@ function toggleMoreOptions(){
 	</p>
 </div>
 <div class="horizontalRule" style="float:right;padding-top:10px;"></div>
-
 </div>
 </div>
 
@@ -201,7 +199,7 @@ if($model->is_manager){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin'));
-	if(Enquiry::model()->findByAttributes(array('state'=>ENQUIRY_PENDING_VALIDATION)))
+	if(Enquiry::model()->alertTeamManager())
 		echo '<i class="icon-attention"></i>';
 	echo '</div>';
 	echo 	'<p><u>Team manager</u><br />'.__('Assign enquiries to team members and check status').'</p>';
@@ -239,20 +237,27 @@ if($model->is_admin){
 }
 ?>
 
-<?php /*$this->widget('InlineHelp');*/ ?>
+<div class="clear"></div>
+<?php if($privilegedUser)
+	echo '<div class="horizontalRule" style="padding-top:20px;margin-top:20px;"></div>';
+?>
 
-<div class="horizontalRule" style="padding-top:20px;margin-top:20px;float:right;"></div>
 <?php
 	echo '<span>';
 	include(svgDir().'myenquiries.svg');
 	echo '</span>';
 ?>
-<div class="clear"></div>
+
+
 <?php
-$noEnquiries=1;
+$showEnquiryGrid=0;
+if($enquirys->getData() || $subscribed->getData()){
+	$showEnquiryGrid=1;
+	echo '<div>';	// open outer
+	echo '<div style="float:left;margin-right:30px;width:550px">';	// open left
+}
 
 if($enquirys->getData()){
-$noEnquiries=0;
 echo '<div class="sub_title">'.__('My enquiries').'</div>';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
@@ -289,7 +294,6 @@ echo '<p></p>';
 <?php
 
 if($subscribed->getData()){
-$noEnquiries=0;
 echo '<div class="sub_title">'.__('I am subscribed to these enquirytions').'</div>';
 echo '<span class="hint">'.__('You will be sent an email when these enquiries are updated').'</span>';
 $this->widget('PGridView', array(
@@ -320,10 +324,17 @@ $this->widget('PGridView', array(
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
-echo '<p></p>';
-}
 
-if($noEnquiries){
+}
+if($showEnquiryGrid){
+	echo '</div>'; // close left
+	echo '<div style="float:left;width:350px;">';
+	$this->renderPartial('//enquiry/workflow');
+	echo '</div>'; // close right
+	echo '</div>'; // close outer
+	echo '<div class="clear"></div>';
+}
+if(!$showEnquiryGrid){
 	echo '<div class="sub_title">';
 	echo __('Enquiries of your interest will be displayed here');
 	echo '</div>';

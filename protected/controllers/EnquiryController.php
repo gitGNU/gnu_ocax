@@ -235,7 +235,7 @@ class EnquiryController extends Controller
 				$email->recipients=$recipients;
 				$email->enquiry=$model->id;
 
-				Log::model()->write('Enquiry', __('Enquiry').'. '.__('New enquiry ').' '.$model->id, $model->id);
+				Log::model()->write('Enquiry', __('New enquiry').'. id='.$model->id, $model->id);
 
 				if($mailer->send()){
 					$email->sent=1;
@@ -648,8 +648,10 @@ class EnquiryController extends Controller
 		$model=$this->loadModel($id);
 		if($model->state == ENQUIRY_PENDING_VALIDATION)
 			$this->redirect(array('manage','id'=>$model->id));
-		else
-			$this->render('adminView',array('model'=>$model));
+		if($model->state == ENQUIRY_REJECTED && $model->team_member != Null)
+			$this->redirect(array('manage','id'=>$model->id));
+		
+		$this->render('adminView',array('model'=>$model));
 	}
 
 	/**

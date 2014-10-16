@@ -66,15 +66,14 @@ class UserController extends Controller
 	{
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
 
-		$id=Yii::app()->user->getUserID();
+		$userid=Yii::app()->user->getUserID();
 		$enquirys=new CActiveDataProvider('Enquiry', array(
 			'criteria'=>array(
-				'condition'=>"user=$id",
+				'condition'=>"user=$userid",
 			),
 			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 
-		$userid=Yii::app()->user->getUserID();
 		$subscribed=new CActiveDataProvider('Enquiry',array(
 			'criteria'=>array(
 				'with'=>array('subscriptions'),
@@ -273,12 +272,13 @@ class UserController extends Controller
 		$model->scenario = 'opt_out';
 		$model->is_active = 0;
 		$model->is_disabled = 1;
+		$username = $model->username;
 		$model->username = '░░░░░░░░░';
 		$model->fullname = '░░░░░░░░░';
 		$model->email = '░░░░░░░░░';
 
 		$model->save();
-		Log::model()->write('User',__('User').' "'.$model->username.'" '.__('deleted account'),$model->id);
+		Log::model()->write('User',__('User').' "'.$username.'" '.__('deleted account'),$model->id);
 		Yii::app()->user->logout();
 		//Yii::app()->user->setFlash('success', __('Your profile has been deleted.'));
 		$this->redirect(Yii::app()->homeUrl);

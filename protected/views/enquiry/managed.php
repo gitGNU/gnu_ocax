@@ -84,7 +84,12 @@ $this->widget('PGridView', array(
 			array(
 				'name'=>'state',
 				'type'=>'raw',
-    	        'value'=>function($data,$row){return $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);},
+    	        'value'=>function($data,$row){
+					$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);
+					if($data->state == ENQUIRY_ASSIGNED)
+						$value = $value.' <i class="icon-attention"></i>';
+					return $value;
+				},
 			),
             array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));

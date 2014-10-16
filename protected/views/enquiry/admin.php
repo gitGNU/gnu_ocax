@@ -86,8 +86,8 @@ function toggleSearchOptions(){
 				$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);
 				if($data->state == ENQUIRY_PENDING_VALIDATION)
 					$value = $value.' <i class="icon-attention"></i>';
-				//if($data->state == ENQUIRY_REJECTED && $data->team_member)
-				//	$value = $value.' <i class="icon-attention"></i>';
+				if($data->state == ENQUIRY_REJECTED && $data->team_member)
+					$value = $value.' <i class="icon-attention"></i>';
 				return $value;
 				},
 		),

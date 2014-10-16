@@ -78,10 +78,11 @@
 	</div>
 	<div class="row" style="font-size:1.4em">
 		<?php	
-		if($totalBudgets > 0 && $featuredCount == 0)
-			echo __('You need to feature budgets to generate graphics').' <i class="icon-attention"></i>'; 
-		else
-			echo $featuredCount.' '.__('Featured budgets');
+		echo $featuredCount.' '.__('Featured budgets');
+		if($totalBudgets > 0 && $featuredCount == 0){
+			echo ' <i class="icon-attention"></i><br />';
+			echo '<span class="hint">'.__('Featured budgets generate graphics').'</span>';
+		}
 		?>
 	</div>
 
