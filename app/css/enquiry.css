@@ -59,13 +59,12 @@
 #filterLabel { margin-top: -25px; margin-right: -10px; text-align:right; }
 
 /* search form */
-#search_enquiries { margin-left:-10px }
-#search_enquiries > p { margin-bottom:10px }
+
 
 /* state menu */
 #advancedFilterOptions { display:none }
 #basicFilterOptions{
-	margin-top: 20px;
+	
 	
 }
 #basicFilterOptions ul

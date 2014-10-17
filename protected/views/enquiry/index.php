@@ -143,7 +143,8 @@ function resetForm(){
 		<i class="icon-search-circled"></i>
 	</div>
 </div>
-	
+
+
 <div id="enquiryPageTitle">
 	<h1><?php echo __('Enquiries made to date');?></h1>
 	<p style="margin-top:-15px;margin-bottom:0px;">
@@ -159,19 +160,27 @@ function resetForm(){
 </div>
 <div class="clear"></div>
 
+<div id="filterOptions" style="margin-top:25px; height:110px;"> <!-- filter options start -->
 
-<div id="basicFilterOptions">
+<div id="basicFilterOptions" style="height:95px;">
+<?php
+	echo '<div style="font-size:16px; height:50px; margin-bottom: 15px;">';
+		echo __('Haz una consulta y participa.').'<br />';
+		//echo __('Más consultas significa más cooperación entre ciudadanos').'.<br />';
+		echo __('Aqui en el Observatorio nos encargamos de todo el papelaeo');
+	echo '</div>';
+?>
 <ul>
 <li onClick="js:basicFilter(this, 'noreply')"><?php echo __('Waiting for reply');?></li>
 <li onClick="js:basicFilter(this, 'pending')"><?php echo __('Replies not yet assessed');?></li>
 <li onClick="js:basicFilter(this, 'assessed')"><?php echo __('Assessed replies');?></li>
 </ul>
-<div class="clear"></div>
+
 </div>
 
-<div id="advancedFilterOptions">
+<div id="advancedFilterOptions" style="height:95px;">
 
-<div style="float:left">
+<div>
 	<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
 		<div class="search-form">
 			<?php $this->renderPartial('_searchPublic',array(
@@ -181,9 +190,9 @@ function resetForm(){
 	<?php } ?>
 </div>
 
-<div class="clear"></div>
-<div class="horizontalRule"></div>
-</div>	<!-- options end -->
+</div>
+</div>	<!-- filter options end -->
+
 
 <div id="enquiryList">
 <span id="humanStateTitle"></span>

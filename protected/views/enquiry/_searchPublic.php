@@ -24,7 +24,7 @@
 ?>
 
 <style>
-#search_enquiries { margin-bottom:15px }	
+#search_enquiries { }	
 #search_enquiries div { font-size: 16px; }
 
 </style>
