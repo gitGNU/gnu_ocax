@@ -103,7 +103,7 @@
 				$valid_children = "+body[style]";
 			}else{
 				$htmlButton = "";
-				$valid_elements = "h1,h2,h3,@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]";
+				$valid_elements = "@[style],h1,h2,h3,p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[*]";
 				$valid_children = "";
 			}
 		?>

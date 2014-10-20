@@ -65,13 +65,13 @@ var showingBudgetDetails='';	// we got asked to show the budgetDetails of this b
 $(function() {
 	$(window).scroll(function() {
 		if($(this).scrollTop() > 300)
-			$('.budgetGoToTop').fadeIn(500);
+			$('.goToTop').fadeIn(500);
 		else
-			$('.budgetGoToTop').fadeOut(500);
+			$('.goToTop').fadeOut(500);
 	});
-	$(".budgetGoToTop").click(function(){
+	$(".goToTop").click(function(){
 		$("html, body").animate({ scrollTop: 0 }, 0);
-		$('.budgetGoToTop').hide();
+		$('.goToTop').hide();
 	});
 	$('#Budget_concept').focus(function () {
 		$('#Budget_code').val('');
@@ -322,7 +322,7 @@ if(count($years) > 1){
 	opacity: .6;
 }
 </style>
-<div class="budgetGoToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
+<div class="goToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
 <div id="preloader" class="loading"></div>
 
 

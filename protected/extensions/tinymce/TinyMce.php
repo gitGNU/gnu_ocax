@@ -70,8 +70,11 @@ class TinyMce extends CInputWidget
 	'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink",
 
 	//chris. stop pasting most styles into editor
-	'valid_styles' => array('*' => 'text-decoration,text-align,display,margin-left,margin-right'),
-
+	'valid_styles' => array('*' => 'text-decoration,text-align,display,margin,padding,float,margin-left,margin-right'),
+	
+	// https://www.drupal.org/node/126216#comment-1224981
+	'extended_valid_elements' =>  'img[style|class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]',
+	
         'theme_advanced_toolbar_location' => "top",
         'theme_advanced_toolbar_align' => "left",
         'theme_advanced_statusbar_location' => "bottom",

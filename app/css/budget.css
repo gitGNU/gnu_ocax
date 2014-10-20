@@ -78,19 +78,6 @@
 	margin:0px;
 	padding:0px;
 }
-.budgetGoToTop{
-	position:fixed;
-	right:0px;
-	bottom:0px;
-	height:auto;
-	width:auto;
-	padding:2px 8px 2px 8px;
-	color:#e4ded7;
-	background-color:#6E6E6E;
-	font-size:13pt;
-	display:none;
-	cursor:pointer;
-}
 
 .graph_pie_group{
 	background-image:url('../images/bar.gif');

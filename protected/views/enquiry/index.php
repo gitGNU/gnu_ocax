@@ -63,6 +63,16 @@ $(function() {
 		$(this).find('.title').removeClass('highlightWithColor');
 		$(this).find('.created').removeClass('highlightWithColor');
 	});
+	$(window).scroll(function() {
+		if($(this).scrollTop() > 300)
+			$('.goToTop').fadeIn(500);
+		else
+			$('.goToTop').fadeOut(500);
+	});
+	$(".goToTop").click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 0);
+		$('.goToTop').hide();
+	});
 });
 function basicFilter(el, filter){
 	$(el).parent().find('li').removeClass('activeItem');
@@ -319,3 +329,4 @@ if($displayType == 'grid'){
 	echo '</div>';
 } ?>
 <div class="clear"></div>
+<div class="goToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
