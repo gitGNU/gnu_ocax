@@ -107,20 +107,44 @@ function showEnquiry(enquiry_id){
 		}
 	});
 }
-function toggleOptions(){
+function resetToggleIcons(){
+	$('#searchOptionsToggle').find('i').removeClass('icon-cancel-circled');
+	$('#workflowOptionsToggle').find('i').removeClass('icon-cancel-circled');
+	$('#searchOptionsToggle').find('i').addClass('icon-search-circled');
+	$('#workflowOptionsToggle').find('i').addClass('icon-flow-tree');
+}
+function toggleSearchOptions(){
 	resetForm();
+	resetToggleIcons();
 	if ($("#advancedFilterOptions").is(":visible")){
 		$("#advancedFilterOptions").hide();
 		$("#basicFilterOptions").show();
 		$("#basicFilterOptions").find('li').removeClass('activeItem');
-		$('#searchOptionsToggle').find('i').removeClass('icon-cancel-circled');
-		$('#searchOptionsToggle').find('i').addClass('icon-search-circled');
+		
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
 		$("#basicFilterOptions").hide();
+		$("#workflowFilterOptions").hide();
 		$('#searchOptionsToggle').find('i').removeClass('icon-search-circled');
 		$('#searchOptionsToggle').find('i').addClass('icon-cancel-circled');
+	}
+}
+function toggleWorkflowOptions(){
+	resetForm();
+	resetToggleIcons();
+	if ($("#workflowFilterOptions").is(":visible")){
+		$("#workflowFilterOptions").hide();
+		$("#basicFilterOptions").show();
+		$("#basicFilterOptions").find('li').removeClass('activeItem');
+		
+	}else{
+		$("#Enquiry_basicFilter").val('');
+		$("#workflowFilterOptions").show();
+		$("#basicFilterOptions").hide();
+		$("#advancedFilterOptions").hide();
+		$('#workflowOptionsToggle').find('i').removeClass('icon-flow-tree');
+		$('#workflowOptionsToggle').find('i').addClass('icon-cancel-circled');
 	}
 }
 function resetForm(){
@@ -138,29 +162,24 @@ function resetForm(){
 }
 </script>
 
-<div style="position:relative;">
-	<div id="searchOptionsToggle" onCLick="js:toggleOptions();return false;">
+<div id="toggleIcons" style="position:relative;">
+	<div id="searchOptionsToggle" onCLick="js:toggleSearchOptions();return false;">
 		<i class="icon-search-circled"></i>
 	</div>
+	<div id="workflowOptionsToggle" style="right:30px" onCLick="js:toggleWorkflowOptions();return false;">
+			<i class="icon-flow-tree"></i>
+	</div>
 </div>
-
 
 <div id="enquiryPageTitle">
 	<h1><?php echo __('Enquiries made to date');?></h1>
 	<p style="margin-top:-15px;margin-bottom:0px;">
 		<?php echo __('This is a list of enquiries made by citizens like you.');?>
 	</p>
-	<div id="enquiryDisplayTypeIcons">
-		<?php
-		echo '<i class="icon-th-large color" onclick="js:location.href=\''.Yii::app()->request->baseUrl.'/enquiry?display=list\'"></i>';
-		echo '<i class="icon-th-list color" onclick="js:location.href=\''.Yii::app()->request->baseUrl.'/enquiry?display=grid\'"></i>';
-		echo '<i class="icon-flow-tree color" onclick="js:location.href=\''.Yii::app()->request->baseUrl.'/enquiry?display=grid\'"></i>';
-		?>
-		</div>
 </div>
 <div class="clear"></div>
 
-<div id="filterOptions" style="margin-top:25px; height:110px;"> <!-- filter options start -->
+<div id="filterOptions" style="margin-top:25px; margin-bottom: 5px; height:110px;"> <!-- filter options start -->
 
 <div id="basicFilterOptions" style="height:95px;">
 <?php
@@ -179,7 +198,6 @@ function resetForm(){
 </div>
 
 <div id="advancedFilterOptions" style="height:95px;">
-
 <div>
 	<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
 		<div class="search-form">
@@ -189,14 +207,29 @@ function resetForm(){
 		</div><!-- search-form -->
 	<?php } ?>
 </div>
-
 </div>
+
+<div id="workflowFilterOptions" style="height:95px;">
+	<img style="" src="<?php echo Yii::app()->request->baseUrl;?>/images/horizontal-workflow.png" />
+</div>
+
 </div>	<!-- filter options end -->
 
+<div id="enquiryDisplayTypeIcons">
+<i class="icon-th-large" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></i>
+<i class="icon-th-list" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></i>
+</div>
 
-<div id="enquiryList">
+<div id="enquiryList" style="position:relative">
 <span id="humanStateTitle"></span>
 <?php
+
+$template = '<div style="height:20px;">'.
+			'<div style="float:left; position:absolute; top: -20px; left: 60px;">{summary}</div>'.
+			'<div style="float:right; position:absolute; top: -20px; right:0px; ">{pager}</div><div class="clear">'.
+			'</div></div>'.
+			'{items}';
+
 if($displayType == 'grid'){
 	$this->widget('PGridView', array(
 		'id'=>'enquiry-grid',
@@ -221,7 +254,7 @@ if($displayType == 'grid'){
 			'maxButtonCount'=>6,
 			'prevPageLabel'=>'< Prev',
 		),
-		'template' => "{summary}{items}{pager}",
+		'template' => $template,
 		'columns'=>array(
 		array(
 			'header'=>__('Enquiries'),
@@ -244,13 +277,20 @@ if($displayType == 'grid'){
 }else{
 	$this->widget('zii.widgets.CListView', array(
 		'id'=>'enquiry-list',
-		//'template'=>'{items}<div style="clear:both"></div>{pager}',
 		'dataProvider'=>$dataProvider,
 		'afterAjaxUpdate'=>'function(){
 							$("html, body").animate({scrollTop: $("#scrollTop").position().top }, 100);
 							}',
 		'itemView'=>'_preview',
 		'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
+		'pager'=>array(
+			'class'=>'CLinkPager',
+			'header'=>'',
+			'maxButtonCount'=>6,
+			'prevPageLabel'=>'< Prev',
+		),
+		'template' => $template,
+
 	));
 }
 ?>

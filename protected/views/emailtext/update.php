@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -27,10 +27,11 @@ $this->menu=array(
 	array('label'=>'Create Emailtext', 'url'=>array('create')),
 	
 */
-	array('label'=>'View text', 'url'=>array('view', 'id'=>$model->state)),
-	array('label'=>'Manage texts', 'url'=>array('admin')),
+	array('label'=>__('View text'), 'url'=>array('view', 'id'=>$model->state)),
+	array('label'=>__('Manage texts'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:admin';
+$this->inlineHelp=':workflow:emails';
+$this->viewLog='EmailTemplate';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

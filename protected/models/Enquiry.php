@@ -451,15 +451,15 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('type',$this->type);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('addressed_to',$this->addressed_to, true);
-
+		
 		$criteria->params = array_merge($criteria->params, $my_params);	// not working properly. check filter by date index/enquiry
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			/*
+
 			'Pagination' => array (
 				'PageSize' => 4, //edit your number items per page here
 			),
-			*/
+
 			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 	}

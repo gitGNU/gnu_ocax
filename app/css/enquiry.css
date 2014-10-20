@@ -37,15 +37,12 @@
 
 #enquiryDisplayTypeIcons
 {
-	position: absolute;
-	top: 25px;
-	right: 30px;
-	font-size:32px;
+	font-size:16px;
 }
 #enquiryDisplayTypeIcons i
 {
 	cursor:pointer;
-	margin-right:10px;
+	
 }
 
 
@@ -62,11 +59,25 @@
 
 
 /* state menu */
-#advancedFilterOptions { display:none }
-#basicFilterOptions{
-	
-	
+#workflowOptionsToggle
+{
+	color: #7D7D7D;	
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	cursor:pointer;
 }
+
+#workflowOptionsToggle:hover {
+	color: #454545;	
+}
+#workflowOptionsToggle i
+{
+	font-size: 2em;
+}
+
+#advancedFilterOptions, #workflowFilterOptions { display:none }
+#basicFilterOptions{ }
 #basicFilterOptions ul
 {
 	list-style: none;

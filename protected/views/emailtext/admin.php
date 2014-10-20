@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -21,10 +21,11 @@
 /* @var $this EmailtextController */
 /* @var $model Emailtext */
 
-$this->inlineHelp=':profiles:admin';
+$this->inlineHelp=':workflow:emails';
+$this->viewLog='EmailTemplate';
 ?>
 
-<h1><?php echo __('Email text templates');?></h1>
+<h1><?php echo __('Email templates');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

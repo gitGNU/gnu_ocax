@@ -93,6 +93,7 @@ class EmailtextController extends Controller
 					$config->value = 1;
 					$config->save();
 				}
+				Log::model()->write('EmailTemplate', __('Template').' "'.Enquiry::model()->getHumanStates($model->state).'" '.__('updated'));
 				$this->redirect(array('view','id'=>$model->state));
 			}
 		}
