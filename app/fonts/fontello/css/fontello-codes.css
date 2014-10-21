@@ -15,7 +15,7 @@
 .icon-ok-circled:before { content: '\e80d'; } /* '' */
 .icon-attach:before { content: '\e80e'; } /* '' */
 .icon-attention:before { content: '\e80f'; } /* '' */
-.icon-view-mode:before { content: '\e810'; } /* '' */
+.icon-circle:before { content: '\e810'; } /* '' */
 .icon-facebook-squared:before { content: '\e811'; } /* '' */
 .icon-twitter:before { content: '\e812'; } /* '' */
 .icon-left-circle:before { content: '\e813'; } /* '' */
@@ -29,4 +29,4 @@
 .icon-indent-left:before { content: '\e81b'; } /* '' */
 .icon-th-large:before { content: '\e81c'; } /* '' */
 .icon-th-list:before { content: '\e81d'; } /* '' */
-.icon-attention-circled:before { content: '\e81e'; } /* '' */
+.icon-circle-empty:before { content: '\e81e'; } /* '' */

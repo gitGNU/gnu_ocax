@@ -22,7 +22,28 @@
 /* @var $model BudgetDescription */
 /* @var $form CActiveForm */
 
+$criteria=new CDbCriteria;
+$criteria->addCondition('csv_id = "'.$model->csv_id.'" AND language = "'.$model->language.'" AND modified IS NOT NULL');
+$common_desc = BudgetDescCommon::model()->find($criteria);
+$state_desc = BudgetDescState::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language));
 ?>
+
+<script>
+function tabMenu(el, div_id){
+	$(el).parent().find('li').removeClass('activeItem');
+	$(el).addClass('activeItem');
+	$('.tabMenuContent').hide();
+	$('#'+div_id).show();
+}
+function changeLanguage(lang){
+	<?php
+	if($model->id)
+		echo 'location.href="'.Yii::app()->request->baseUrl.'/budgetDescription/update/'.$model->id.'?lang="+lang;';
+	else
+		echo 'location.href="'.Yii::app()->request->baseUrl.'/budgetDescription/create?csv_id='.$model->csv_id.'&lang="+lang;';
+	?>
+}
+</script>
 
 <div class="form">
 
@@ -31,41 +52,68 @@
 	'enableAjaxValidation'=>false,
 ));
 
-	if($model->description)
-		$title = __('Change the budget description');
-	else
-		$title = __('Create a budget description');
-
-	echo '<div class="title">'.$title.'</div>';
+echo '<div class="title">'.__('Budget description').'</div>';
+echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 ?>
-<?php echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>'; ?>
 
 <div>
 	<div class="row left" style="width:350px">
 		<?php echo $form->labelEx($model,'csv_id'); ?>
 		<?php echo $form->textField($model,'csv_id',array('style'=>'width:330px','disabled'=>1)); ?>
+		<?php echo $form->hiddenField($model,'csv_id'); ?>
 		<?php echo $form->error($model,'csv_id'); ?>
 	</div>
 
 	<div class="row left" style="width:160px">
 		<?php echo $form->labelEx($model,'code'); ?>
 		<?php echo $form->textField($model,'code',array('style'=>'width:125px','maxlength'=>32,'disabled'=>1)); ?>
+		<?php echo $form->hiddenField($model,'code'); ?>
 		<?php echo $form->error($model,'code'); ?>
 	</div>
 	<?php
 		if($listData = getLanguagesArray()){
 			echo '<div class="row left" style="width:170px">';
 			echo $form->labelEx($model,'language');
-			//echo '<div class="hint">'.__('Description language').'</div>';
-			echo $form->dropDownList($model, 'language', $listData, array('prompt'=>__('Select a language')));
-			echo $form->error($model,'language');
+			echo $form->dropDownList($model, 'language', $listData,	array('onChange'=>'js:changeLanguage(this.value);'));
 			echo '</div>';
 		}else{
 			echo $form->hiddenField($model,'language');
 		}
 	?>
-
+</div>
 <div class="clear"></div>
+
+<div class="tabMenu" style="margin-bottom:15px">
+	<ul>
+	<li onClick="js:tabMenu(this, 'state_desc');">
+		<?php echo __('State description');
+		if($state_desc && $state_desc->description)
+			echo '<i class="icon-circle green"></i>';
+		else
+			echo '<i class="icon-circle red"></i>';
+		?>
+	</li>
+	<li onClick="js:tabMenu(this, 'common_desc');">
+		<?php echo __('Common description');
+		if($common_desc && $common_desc->description)
+			echo '<i class="icon-circle green"></i>';
+		else
+			echo '<i class="icon-circle red"></i>';
+		?>
+	</li>
+	<li class="activeItem" onClick="js:tabMenu(this, 'local_desc');">
+		<?php echo __('Local description');
+		if($model->id && $model->description)
+			echo '<i class="icon-circle green"></i>';
+		else
+			echo '<i class="icon-circle red"></i>';		
+		?>
+	</li>
+	</ul>
+</div>
+
+<div id="local_desc" class="tabMenuContent" style="display:block;"> <!-- local_desc start -->
+<div>
 	<div class="row left" style="width:220px">
 		<?php echo $form->labelEx($model,'label'); ?>
 		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
@@ -81,7 +129,6 @@
 	</div>
 </div>
 <div class="clear"></div>
-<!-- above this ok -->
 
 <?php
 $settings=array('convert_urls'=>true,
@@ -128,6 +175,96 @@ echo '</div>';
 	<?php echo CHtml::submitButton(__('Update the description')); ?>
 </div>
 
-<?php $this->endWidget(); ?>
+</div><!-- local_desc end -->
 
+<div id="common_desc" class="tabMenuContent"> <!-- common_desc start -->
+<?php
+	if($common_desc)
+	{
+?>
+	<div class="row left" style="width:220px">
+		<?php echo $form->labelEx($model,'label'); ?>
+		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
+		<span style="font-size:18px"><?php echo $common_desc->label;?></span>
+		
+	</div>
+
+	<div class="row left" style="width:505px">
+		<?php echo $form->labelEx($model,'concept'); ?>
+		<div class="hint"><?php echo __('Concept of this budget');?></div>
+		<span style="font-size:18px"><?php echo $common_desc->concept;?></span>
+		
+	</div>
+	<div class="clear"></div>
+	<div class="row">
+	<?php echo $form->labelEx($model,'description');?>
+	<?php
+		if(!$common_desc->description)
+			echo '<i class="icon-circle red"></i>';
+		else
+			echo '<div style="font-size:16px">'.$common_desc->description.'</div>';
+	?>
+	</div>
+
+	<div class="clear"></div>
+<?php
+	}else
+		echo '<div class="sub_title" style="margin-top:60px;">'.__("No common description in the database").'.</div>';
+?>
+
+</div><!-- common_desc end -->
+
+<div id="state_desc" class="tabMenuContent"> <!-- state_desc start -->
+<?php
+	if($state_desc)
+	{
+?>
+	<div class="row left" style="width:220px">
+		<?php echo $form->labelEx($model,'label'); ?>
+		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
+		<span style="font-size:18px"><?php echo $state_desc->label;?></span>
+		
+	</div>
+
+	<div class="row left" style="width:505px">
+		<?php echo $form->labelEx($model,'concept'); ?>
+		<div class="hint"><?php echo __('Concept of this budget');?></div>
+		<span style="font-size:18px"><?php echo $state_desc->concept;?></span>
+		
+	</div>
+	<div class="clear"></div>
+	<div class="row">
+	<?php echo $form->labelEx($model,'description');?>
+	<?php
+		if(!$state_desc->description)
+			echo '<i class="icon-circle red"></i>';
+		else
+			echo '<div style="font-size:16px">'.$state_desc->description.'</div>';
+	?>
+	</div>
+
+	<div class="clear"></div>
+<?php
+	}else
+		echo '<div class="sub_title" style="margin-top:60px;">'.__('No entry in the database').'</div>';
+?>
+
+</div><!-- state_desc end -->
+
+<?php $this->endWidget(); ?>
 </div><!-- form -->
+
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() {
+			$(".flash-success").slideDown('fast');
+			setTimeout(function() {
+				$('.flash-success').slideUp('fast');
+    		}, 4500);
+		});
+	</script>
+    <div class="flash-success" style="display:none">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>

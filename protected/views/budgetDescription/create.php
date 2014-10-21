@@ -26,5 +26,4 @@ $this->menu=array(
 );
 $this->inlineHelp=':budget_descriptions';
 ?>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model,'budget_id'=>$budget_id,'title'=>__('Create description'))); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -529,7 +529,7 @@ class Budget extends CActiveRecord
 		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
 		foreach($root_budgets as $budget){
 			if($budget->code == 0)	// this year not published
-				$criteria->addCondition('year != '.$budget->year);			
+				$criteria->addCondition('year != '.$budget->year);
 		}
 		$criteria->addCondition('parent is not null');	// dont show year budget
 

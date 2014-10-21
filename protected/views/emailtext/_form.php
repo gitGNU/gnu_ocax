@@ -35,14 +35,18 @@
 	<?php echo $form->hiddenField($model,'state'); ?>
 	<div class="row">
 		<?php
-		$settings = array(	'convert_urls'=>true,
+		$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,
+														justifyleft,justifycenter,justifyright,|,
+														bullist,numlist,|,outdent,indent,|,
+														link,unlink,|,image",
+							'convert_urls'=>true,
 							'relative_urls'=>false,
 							'remove_script_host'=>false,
 							'theme_advanced_resize_horizontal' => 0,
 							'theme_advanced_resize_vertical' => 0,
 							'theme_advanced_resizing_use_cookie' => false,
 							'width'=>'100%',
-							'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
+							'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[*]",
 						);
 		if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 			$settings['useCompression']=true;

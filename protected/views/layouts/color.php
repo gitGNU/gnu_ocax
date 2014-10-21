@@ -51,12 +51,12 @@ div.form .title{ color:<?php echo $color;?>; }
 	background-color:<?php echo $color;?>;
 }
 
+.tabMenu { border-bottom: 1px solid <?php echo $color;?>; }
+.tabMenu li.activeItem {	border-bottom: 4px solid <?php echo $color;?>; }
+
 /*ENQUIRIYS*/
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
-
-#basicFilterOptions { border-bottom: 1px solid <?php echo $color;?>; }
-#basicFilterOptions li.activeItem {	border-bottom: 4px solid <?php echo $color;?>; }
 
 /*CMS Pages*/
 .cms_titulo { color:<?php echo $color;?>; }

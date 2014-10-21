@@ -155,7 +155,8 @@ function editBudgetDescription(){
 		}
 		echo $description->description;
 		if($description->modified){
-			if($state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language)){
+			$state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language);
+			if($state_description && $state_description->description){
 				echo '<div class="link" style="margin-top:15px;" onClick="js:$(\'#state_desc\').slideDown();$(this).empty();return false">'.
 					  __('Read the administration\'s description').'</div>';
 				echo '<div id="state_desc" style="display:none;margin-top:10px;">';

@@ -41,12 +41,12 @@ div.form .title{ color:#6E8B3D; }
 	background-color:#6E8B3D;
 }
 
+.tabMenu { border-bottom: 1px solid #6E8B3D; }
+.tabMenu li.activeItem {	border-bottom: 4px solid #6E8B3D; }
+
 /*ENQUIRIYS*/
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
-
-#basicFilterOptions { border-bottom: 1px solid #6E8B3D; }
-#basicFilterOptions li.activeItem {	border-bottom: 4px solid #6E8B3D; }
 
 /*CMS Pages*/
 .cms_titulo { color:#6E8B3D; }

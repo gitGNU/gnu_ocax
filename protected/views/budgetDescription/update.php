@@ -28,5 +28,4 @@ $this->menu=array(
 );
 $this->inlineHelp=':budget_descriptions';
 ?>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model,'title'=>__('Update description'))); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

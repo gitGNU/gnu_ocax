@@ -278,6 +278,29 @@ div.breadcrumbs span
 }
 */
 
+.tabMenu{ height: 30px; }
+.tabMenu ul
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-left: 20px;
+}
+.tabMenu li
+{
+	float: left;
+	margin: 0px 15px 0 0;
+	padding: 0 3px 0 3px;
+	cursor:pointer;
+	font-weight:200;
+	font-size: 20px;
+}
+.tabMenu li:hover { background-color: white }
+
+.tabMenu li.activeItem { margin-bottom: -4px; }
+.tabMenu i { font-size: 16px }
+.tabMenuContent { display:none; }
+
 .portlet
 {
 	margin-top:-45px;
@@ -569,6 +592,8 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 	font-size: 1.1em;
 	color: #2E8B57;
 }
+.red { color: #CD0000; }
+.green { color: #2E8B57; }
 
 /*Cookie alert */
 .cookieAlert {

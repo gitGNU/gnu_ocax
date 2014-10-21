@@ -191,7 +191,7 @@ function resetForm(){
 
 <div id="filterOptions" style="margin-top:25px; margin-bottom: 5px; height:110px;"> <!-- filter options start -->
 
-<div id="basicFilterOptions" style="height:95px;">
+<div id="basicFilterOptions" class="tabMenu" style="height:95px;">
 <?php
 	echo '<div style="font-size:16px; height:50px; margin-bottom: 15px;">';
 		echo __('Haz una consulta y participa.').'<br />';
