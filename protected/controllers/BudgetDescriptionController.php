@@ -64,7 +64,7 @@ class BudgetDescriptionController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+		$this->render('update',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -110,6 +110,10 @@ class BudgetDescriptionController extends Controller
 			$model->language = strtolower($model->language);
 			$model->modified = date('c');
 			if($model->save()){
+				$word = Null;
+				if(Config::model()->isSiteMultilingual())
+					$word = 'language "'.$model->language.'" ';
+				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('created'),$model->id);
 				Yii::app()->user->setFlash('success', __('Budget description saved Ok'));
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
@@ -119,7 +123,11 @@ class BudgetDescriptionController extends Controller
 			$language = $_GET['lang'];
 		else
 			$language = Yii::app()->language;
-			
+
+		// user may have changed language at create _form. Check to see if translation exists.
+		if($local_desc = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$_GET['csv_id'],'language'=>$language)))
+			$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$local_desc->id));
+		
 		$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$_GET['csv_id'],'language'=>$language));
 		if(!$common_desc)
 			$common_desc = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$_GET['csv_id']));
@@ -162,6 +170,10 @@ class BudgetDescriptionController extends Controller
 			$model->text = trim(strip_tags($model->text));
 			$model->modified = date('c');
 			if($model->save()){
+				$word = Null;
+				if(Config::model()->isSiteMultilingual())
+					$word = 'language "'.$model->language.'" ';
+				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('updated'),$model->id);
 				Yii::app()->user->setFlash('success', __('Budget description saved Ok'));
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
@@ -205,7 +217,12 @@ class BudgetDescriptionController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model=$this->loadModel($id);
+		$model->delete();
+		$word = Null;
+		if(Config::model()->isSiteMultilingual())
+			$word = 'language "'.$model->language.'" ';
+		Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('deleted'),$model->id);
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

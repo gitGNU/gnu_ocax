@@ -227,6 +227,14 @@ class Config extends CActiveRecord
 		return 'a1a150';
 	}
 
+	public function isSiteMultilingual()
+	{
+		$languages=explode(',', $this->findByPk('languages')->value);
+		if(isset($languages[1]))
+			return 1;
+		return 0;
+	}
+
 	public function updateVersionInfo(){
 		$context = stream_context_create(array(
 			'http' => array(
