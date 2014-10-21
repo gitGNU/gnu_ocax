@@ -61,7 +61,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'text',array('rows'=>5, 'cols'=>35)); ?>
+		<?php echo $form->textField($model,'text',array('size'=>40,'maxlength'=>255)); ?>
 	</div>
 
 </div>

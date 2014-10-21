@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,13 +21,9 @@
 /* @var $this BudgetDescriptionController */
 /* @var $model BudgetDescription */
 
-$this->menu=array(
-	array('label'=>__('View description'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewDescription();')),
-	array('label'=>__('Delete description'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
-);
-$this->inlineHelp=':budget_descriptions';
-$this->viewLog='BudgetDescription|'.$model->id;
-$this->extraText = $this->renderPartial('_legend',null,true,false);
 ?>
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+
+<i class="icon-circle green"></i> <?php echo __('Complete');?><br />
+<i class="icon-dot-circled green"></i> <?php echo __('Incomplete');?><br />
+<i class="icon-circle-empty green"></i> <?php echo __('Empty');?><br />
+<i class="icon-circle red"></i> <?php echo __('Missing');?><br />

@@ -327,10 +327,15 @@ div.breadcrumbs span
 
 .portlet-content
 {
-	font-size:1.9em;
+	font: 15px SansPro;
 	/*margin: 0 0 15px 0;*/
 	/*padding: 5px 8px;*/
 	/*background:#EFFDFF;*/
+}
+
+.portlet-content #extraText
+{
+	padding: 15px 0 15px 5px;
 }
 
 .portlet-content ul
@@ -375,6 +380,8 @@ div.breadcrumbs span
 {
 	background-color:rgb(228, 222, 215);
 }
+
+
 
 /* TITLES */
 .veryBigTitle
@@ -594,6 +601,7 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 }
 .red { color: #CD0000; }
 .green { color: #2E8B57; }
+.orange { color: #FF8000; }
 
 /*Cookie alert */
 .cookieAlert {

@@ -99,6 +99,7 @@ function editBudgetDescription(){
 		budgetDetailsUpdated();	//this function is in budget/index
 	$('#budget_popup').bPopup().close();
 	window.open("<?php echo Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id ?>",  '_blank');
+	return null;
 }
 <?php } ?>
 </script>

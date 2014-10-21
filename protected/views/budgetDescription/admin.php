@@ -26,6 +26,7 @@ $this->menu=array(
 	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
 );
 $this->inlineHelp=':budget_descriptions';
+$this->viewLog='BudgetDescription';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -40,35 +41,48 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
+<script>
+function toggleSearchOptions(){
+	if ($("#searchOptions").is(":visible")){
+		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
+		$("#searchOptions").slideUp();
+	}else{
+		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
+		$("#searchOptions").slideDown();
+	}
+}
+</script>
+<div style="position:relative;">
+	<div id="searchOptionsToggle" style="top:-9px; right: 0" onCLick="js:toggleSearchOptions();return false;">
+		<i class="icon-search-circled"></i>
+	</div>
+</div>
 <h1><?php echo __('Manage Budget descriptions');?></h1>
 
 
-<?php echo CHtml::link(__('Advanced Search'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+<div id="searchOptions" class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+$this->widget('PGridView', array(
+	'id'=>'budget-description-grid',
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'id'=>'budget-description-grid',
 	'dataProvider'=>$model->search(),
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/budgetDescription/update',
+    ),
 	'filter'=>$model,
 	'columns'=>array(
 		'csv_id',
 		'language',
 		'code',
 		'concept',
-		array(
-			'class'=>'CButtonColumn',
-			'buttons'=>array(
-				'view' => array(
-					'url'=>'Yii::app()->createUrl("budgetDescription/view/".$data->id)',
-				),
-			),
-		),
+		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	),
-)); ?>
+));
+?>

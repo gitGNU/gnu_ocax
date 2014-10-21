@@ -30,8 +30,6 @@ $this->inlineHelp=':budget_descriptions';
 <h1><?php echo __('Budgets without description');?></h1>
 
 <?php
-	
-
 	$this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -43,24 +41,12 @@ $this->inlineHelp=':budget_descriptions';
         'csv_id',
         'code',
         'year',
-        /*
-		array(
-			'header'=>__('Internal code'),
-			'value'=>'$data[\'csv_id\']',
-			'type'=>'raw',
-        ),
-        array(
-			'name'=>__('Year'),
-			'value'=>'$data[\'year\']',
-			'type'=>'raw',
-        ),
-		*/
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{create}',
 			'buttons'=>array(
 				'create' => array(
-					'url'=>'Yii::app()->createUrl("budgetDescription/create", array("budget"=>$data[\'id\']))',
+					'url'=>'Yii::app()->createUrl("budgetDescription/modify", array("budget"=>$data[\'id\']))',
 					'imageUrl' => Yii::app()->request->baseUrl.'/images/insert_icon.png',
 				),
 			),

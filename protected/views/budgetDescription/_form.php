@@ -28,6 +28,7 @@ $common_desc = BudgetDescCommon::model()->find($criteria);
 $state_desc = BudgetDescState::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language));
 ?>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function tabMenu(el, div_id){
 	$(el).parent().find('li').removeClass('activeItem');
@@ -42,6 +43,15 @@ function changeLanguage(lang){
 	else
 		echo 'location.href="'.Yii::app()->request->baseUrl.'/budgetDescription/create?csv_id='.$model->csv_id.'&lang="+lang;';
 	?>
+}
+function viewDescription(){
+	$('#description_popup').bPopup({
+		  modalClose: false
+		, follow: ([false,false])
+		, positionStyle: 'absolute'
+		, modelColor: '#ae34d5'
+		, speed: 10
+	});
 }
 </script>
 
@@ -89,6 +99,8 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 		<?php echo __('State description');
 		if($state_desc && $state_desc->description)
 			echo '<i class="icon-circle green"></i>';
+		elseif($state_desc)
+			echo '<i class="icon-dot-circled green"></i>';
 		else
 			echo '<i class="icon-circle red"></i>';
 		?>
@@ -97,6 +109,8 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 		<?php echo __('Common description');
 		if($common_desc && $common_desc->description)
 			echo '<i class="icon-circle green"></i>';
+		elseif($common_desc)
+			echo '<i class="icon-dot-circled green"></i>';
 		else
 			echo '<i class="icon-circle red"></i>';
 		?>
@@ -105,8 +119,10 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 		<?php echo __('Local description');
 		if($model->id && $model->description)
 			echo '<i class="icon-circle green"></i>';
+		elseif($model->id)
+			echo '<i class="icon-dot-circled green"></i>';
 		else
-			echo '<i class="icon-circle red"></i>';		
+			echo '<i class="icon-circle-empty green"></i>';
 		?>
 	</li>
 	</ul>
@@ -165,7 +181,13 @@ if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 	unset($init['compressorRoute']);
 
 echo '<div class="row">';
-	echo $form->labelEx($model,'description');
+	if($model->id && !$model->description)
+		echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle-empty green"></i>'));
+	elseif($model->id && $model->description)
+		echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle green"></i>'));
+	else
+		echo $form->label($model,'description');
+	
 	$this->widget('ext.tinymce.TinyMce', $init);
 	echo $form->error($model,'description');
 echo '</div>';
@@ -196,16 +218,16 @@ echo '</div>';
 		
 	</div>
 	<div class="clear"></div>
-	<div class="row">
-	<?php echo $form->labelEx($model,'description');?>
+	<div class="row">	
 	<?php
 		if(!$common_desc->description)
-			echo '<i class="icon-circle red"></i>';
-		else
+			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-dot-circled green"></i>'));	
+		else{
+			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle green"></i>'));	
 			echo '<div style="font-size:16px">'.$common_desc->description.'</div>';
+		}
 	?>
 	</div>
-
 	<div class="clear"></div>
 <?php
 	}else
@@ -234,25 +256,42 @@ echo '</div>';
 	</div>
 	<div class="clear"></div>
 	<div class="row">
-	<?php echo $form->labelEx($model,'description');?>
 	<?php
 		if(!$state_desc->description)
-			echo '<i class="icon-circle red"></i>';
-		else
+			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle-empty green"></i>'));	
+		else{
+			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle green"></i>'));	
 			echo '<div style="font-size:16px">'.$state_desc->description.'</div>';
+		}
 	?>
 	</div>
-
 	<div class="clear"></div>
 <?php
 	}else
-		echo '<div class="sub_title" style="margin-top:60px;">'.__('No entry in the database').'</div>';
+		echo '<div class="sub_title" style="margin-top:60px;">'.__('No state description in the database').'</div>';
 ?>
 
 </div><!-- state_desc end -->
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+<div id="description_popup" class="modal" style="width:750px;">
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<div>
+	<?php
+	if($model->id)
+		$display_desc = $model;
+	elseif($common_desc)
+		$display_desc = $common_desc;
+	elseif($state_desc)
+		$display_desc = $state_desc;
+	// display to the Budget_description_editor the values that will be displayed to end users
+	if(isset($display_desc))
+		$this->renderPartial('_view',array('model'=>$display_desc));
+	?>
+	</div>
+</div>
 
 
 <?php if(Yii::app()->user->hasFlash('success')):?>

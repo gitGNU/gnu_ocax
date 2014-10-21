@@ -19,8 +19,8 @@
 	<div id="sidebar">
 	<?php
 
-		$validate = array( array('label'=>__('My page'), 'url'=>array('/user/panel')) );
-		$this->menu = array_merge( $this->menu, $validate );
+		$mypage = array( array('label'=>__('My page'), 'url'=>array('/user/panel')) );
+		$this->menu = array_merge( $this->menu, $mypage );
 		/*
 		if($this->inlineHelp){
 			$help= array( array('label'=>__('Context help'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");')));
@@ -57,6 +57,8 @@
 			'items'=>$this->menu,
 			'htmlOptions'=>array('class'=>'operations'),
 		));
+		if($this->extraText)
+			echo '<div id="extraText">'.$this->extraText.'</div>';		
 		$this->endWidget();
 
 		

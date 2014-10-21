@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,38 +19,12 @@
  */
 
 /* @var $this BudgetDescriptionController */
-/* @var $data BudgetDescription */
+/* @var $model BudgetDescription */
+
 ?>
 
-<div class="view">
+<div class="modalTitle"><?php echo __('Budget description');?></div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<h1><?php echo $model->label;?>: <?php echo $model->concept;?></h1>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('csv_id')); ?>:</b>
-	<?php echo CHtml::encode($data->csv_id); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('language')); ?>:</b>
-	<?php echo CHtml::encode($data->language); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('code')); ?>:</b>
-	<?php echo CHtml::encode($data->code); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('concept')); ?>:</b>
-	<?php echo CHtml::encode($data->concept); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('text')); ?>:</b>
-	<?php echo CHtml::encode($data->text); ?>
-	<br />
-
-
-</div>
+<div style="font-size:16px"><?php echo $model->description;?></div>

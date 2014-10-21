@@ -34,6 +34,6 @@ class Controller extends CController
 	/**
 	 * text to display in sidebar
 	 */
-	//public $sidebarText='';
+	public $extraText='';
 
 }
