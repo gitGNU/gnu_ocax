@@ -229,9 +229,11 @@ class Budget extends CActiveRecord
 	{
 		if(!$this->budgets)
 			return null;
-			
+		
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent = '.$this->id.' and actual_provision != 0');
+		$criteria->order = "csv_id ASC";
+		
 		return $this->findAll($criteria);
 	}
 	
