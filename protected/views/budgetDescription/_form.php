@@ -26,6 +26,7 @@ $criteria=new CDbCriteria;
 $criteria->addCondition('csv_id = "'.$model->csv_id.'" AND language = "'.$model->language.'" AND modified IS NOT NULL');
 $common_desc = BudgetDescCommon::model()->find($criteria);
 $state_desc = BudgetDescState::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language));
+
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -62,7 +63,19 @@ function viewDescription(){
 	'enableAjaxValidation'=>false,
 ));
 
+$fieldsForDisplay = $model->getDescriptionFieldsForDisplay();
+
 echo '<div class="title">'.__('Budget description').'</div>';
+
+echo '<div style="font-size:16px; margin-top:-10px">';
+echo __('Label');
+echo ($fieldsForDisplay['label']) ? '<i class="icon-circle green"></i>' : '<i class="icon-circle-empty green"></i>';
+echo __('Concept');
+echo ($fieldsForDisplay['concept']) ? '<i class="icon-circle green"></i>' : '<i class="icon-circle red"></i>';
+echo __('Description');
+echo ($fieldsForDisplay['description']) ? '<i class="icon-circle green"></i>' : '<i class="icon-circle red"></i>';
+echo '</div>';
+
 echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 ?>
 
@@ -129,6 +142,12 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 </div>
 
 <div id="local_desc" class="tabMenuContent" style="display:block;"> <!-- local_desc start -->
+	<?php
+	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
+		if($model->label || $model->concept)
+			echo '<div style="font-size:16px;margin-top:-10px;">'.__('Using data imported with CSV files').'.</div>';
+	}
+	?>
 <div>
 	<div class="row left" style="width:220px">
 		<?php echo $form->labelEx($model,'label'); ?>
@@ -279,17 +298,7 @@ echo '</div>';
 <div id="description_popup" class="modal" style="width:750px;">
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div>
-	<?php
-	if($model->id)
-		$display_desc = $model;
-	elseif($common_desc)
-		$display_desc = $common_desc;
-	elseif($state_desc)
-		$display_desc = $state_desc;
-	// display to the Budget_description_editor the values that will be displayed to end users
-	if(isset($display_desc))
-		$this->renderPartial('_view',array('model'=>$display_desc));
-	?>
+	<?php $this->renderPartial('_view',array('model'=>$model,'fieldsForDisplay'=>$fieldsForDisplay));?>
 	</div>
 </div>
 

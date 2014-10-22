@@ -104,9 +104,19 @@ class Budget extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'parent0' => array(self::BELONGS_TO, 'Budget', 'parent'),
-			'budgets' => array(self::HAS_MANY, 'Budget', 'parent'),
+			'budgets'=>array(self::HAS_MANY, 'Budget', 'parent', 'order'=>'budgets.csv_id ASC'),
 			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'budget'),
 		);
+	}
+
+	public function orderChildBudgets()
+	{
+		$budgtes = $this->with(array(
+			'budget'=>array(
+					'order'=>'budget.id',
+			),
+		));
+		$this->budgets = $budgets;
 	}
 
 	public function behaviors()  {
@@ -236,9 +246,11 @@ class Budget extends CActiveRecord
 	{
 		if(!$this->budgets)
 			return null;
-			
+		
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('parent = '.$this->id.' and actual_provision != 0');
+		$criteria->order = "csv_id ASC";
+		
 		return $this->findAll($criteria);
 	}
 	

@@ -68,7 +68,6 @@ class BudgetController extends Controller
 		);
 	}
 
-
 	public function actionGetTotalYearlyBudgets($id)
 	{
 		$model=$this->loadModel($id);
@@ -150,7 +149,9 @@ class BudgetController extends Controller
 			$graphThisModel=$model->parent0;
 			$goBackID=$model->parent0->parent0->id;
 			$hideConcept=Null;
-		}
+		}//else
+			//$model->orderChildBudgets();
+			
 		if(!$model->parent0->parent)
 			$goBackID = Null;
 

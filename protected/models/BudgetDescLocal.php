@@ -94,6 +94,45 @@ class BudgetDescLocal extends CActiveRecord
 		);
 	}
 
+	public function getDescriptionFieldsForDisplay($language = null)
+	{
+		if(!$language)
+			$language = Yii::app()->language;
+		
+		$fields = array('label'=>null, 'concept'=>null, 'description'=>null);
+		
+		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$language))){
+			if($description->label)
+				$fields['label'] = $description->label;
+			if($description->concept)
+				$fields['concept'] = $description->concept;
+			if($description->description)
+				$fields['description'] = $description->description;
+			if($fields['label'] && $fields['concept'] && $fields['description'])
+				return $fields;
+		}
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$language))){
+			if(!$fields['label'] && $description->label)
+				$fields['label'] = $description->label;
+			if(!$fields['concept'] && $description->concept)
+				$fields['concept'] = $description->concept;
+			if(!$fields['description'] && $description->description)
+				$fields['description'] = $description->description;
+			if($fields['label'] && $fields['concept'] && $fields['description'])
+				return $fields;
+		}		
+		if($description = BudgetDescState::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$language))){
+			if(!$fields['label'] && $description->label)
+				$fields['label'] = $description->label;
+			if(!$fields['concept'] && $description->concept)
+				$fields['concept'] = $description->concept;
+			if(!$fields['description'] && $description->description)
+				$fields['description'] = $description->description;
+			return $fields;
+		}			
+	}
+
+
 	/* years that have budgets that use a local description */
 	public function whereUsed()
 	{	

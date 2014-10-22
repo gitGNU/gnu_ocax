@@ -23,8 +23,22 @@
 
 ?>
 
-<div class="modalTitle"><?php echo __('Budget description');?></div>
+<?php
+if(!$fieldsForDisplay['label'] && $model->label)
+	$fieldsForDisplay['label'] = $model->label;
+if(!$fieldsForDisplay['concept'] && $model->concept)
+	$fieldsForDisplay['concept'] = $model->concept;
+?>
 
-<h1><?php echo $model->label;?>: <?php echo $model->concept;?></h1>
+<div class="modalTitle"><?php echo __('Budget description');?>
+	<?php
+	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
+		if($model->label || $model->concept)
+			echo ': '.__('Using data imported with CSV files');
+	}
+	?>
+</div>
 
-<div style="font-size:16px"><?php echo $model->description;?></div>
+<h1><?php echo $fieldsForDisplay['label'];?>: <?php echo $fieldsForDisplay['concept'];?></h1>
+
+<div style="font-size:16px"><?php echo $fieldsForDisplay['description'];?></div>
