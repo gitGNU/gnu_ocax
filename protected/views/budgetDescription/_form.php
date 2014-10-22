@@ -63,7 +63,7 @@ function viewDescription(){
 	'enableAjaxValidation'=>false,
 ));
 
-$fieldsForDisplay = $model->getDescriptionFieldsForDisplay();
+$fieldsForDisplay = $model->getDescriptionFieldsForEditor();
 
 echo '<div class="title">'.__('Budget description').'</div>';
 

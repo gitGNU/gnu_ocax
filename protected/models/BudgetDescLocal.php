@@ -94,7 +94,7 @@ class BudgetDescLocal extends CActiveRecord
 		);
 	}
 
-	public function getDescriptionFieldsForDisplay($language = null)
+	public function getDescriptionFieldsForEditor($language = null)
 	{
 		if(!$language)
 			$language = Yii::app()->language;
@@ -128,8 +128,8 @@ class BudgetDescLocal extends CActiveRecord
 				$fields['concept'] = $description->concept;
 			if(!$fields['description'] && $description->description)
 				$fields['description'] = $description->description;
-			return $fields;
 		}			
+		return $fields;
 	}
 
 

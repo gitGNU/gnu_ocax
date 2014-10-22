@@ -23,21 +23,21 @@
 
 ?>
 
-<?php
-if(!$fieldsForDisplay['label'] && $model->label)
-	$fieldsForDisplay['label'] = $model->label;
-if(!$fieldsForDisplay['concept'] && $model->concept)
-	$fieldsForDisplay['concept'] = $model->concept;
-?>
-
 <div class="modalTitle"><?php echo __('Budget description');?>
-	<?php
+<?php
 	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
 		if($model->label || $model->concept)
 			echo ': '.__('Using data imported with CSV files');
 	}
-	?>
+?>
 </div>
+
+<?php
+	if(!$fieldsForDisplay['label'] && $model->label)
+		$fieldsForDisplay['label'] = $model->label;
+	if(!$fieldsForDisplay['concept'] && $model->concept)
+		$fieldsForDisplay['concept'] = $model->concept;
+?>
 
 <h1><?php echo $fieldsForDisplay['label'];?>: <?php echo $fieldsForDisplay['concept'];?></h1>
 
