@@ -266,9 +266,9 @@ CREATE TABLE IF NOT EXISTS intro_page_content (
 
 CREATE TABLE IF NOT EXISTS cms_page (
 	id int(11) NOT NULL AUTO_INCREMENT,
-	block int( 10 ) NOT NULL,
-	weight int( 10 ) NOT NULL,
-	published tinyint( 1 ) NOT NULL DEFAULT '0',
+	block int(10) NOT NULL,
+	weight int(10),
+	published tinyint(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -279,6 +279,7 @@ CREATE TABLE IF NOT EXISTS cms_page_content (
 	pageURL varchar( 255 ) NOT NULL ,
 	pageTitle varchar( 255 ) DEFAULT NULL ,
 	body MEDIUMTEXT,
+	previewBody MEDIUMTEXT,
 	heading varchar( 255 ) DEFAULT NULL ,
 	metaTitle varchar( 255 ) DEFAULT NULL ,
 	metaDescription varchar( 255 ) DEFAULT NULL ,

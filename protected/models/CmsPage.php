@@ -58,11 +58,11 @@ class CmsPage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('block, weight', 'required'),
+			array('block', 'required'),
 			array('block, weight, published', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, block, weight, published', 'safe', 'on'=>'search'),
+			array('block, weight, published', 'safe', 'on'=>'search'),
 		);
 	}
 

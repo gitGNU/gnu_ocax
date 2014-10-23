@@ -38,9 +38,12 @@
 										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
 								);
 				//add sub menu
-				$subpages = $page->findAllByAttributes(array('block'=>$page->block));
-				if(count($subpages) > 1){
-					array_splice($subpages, 0, 1);	// remove first item because it's already in mainmenu
+				$criteria=new CDbCriteria;
+				$criteria->condition = 'block = '.$page->block.' AND weight != 0 AND published = 1 AND weight IS NOT NULL';
+				$criteria->order = 'weight DESC';				
+				$subpages = $page->findAll($criteria);
+				
+				if($subpages){
 					$subItems=array();
 					foreach($subpages as $subpage){
 						$subpage_content = $subpage->getContentForModel(Yii::app()->language);

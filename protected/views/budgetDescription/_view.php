@@ -27,7 +27,7 @@
 <?php
 	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
 		if($model->label || $model->concept)
-			echo ': '.__('Using data imported with CSV files');
+			echo ': <span class="red">'.__('Using data imported with CSV files').'</span>';
 	}
 ?>
 </div>
@@ -39,6 +39,12 @@
 		$fieldsForDisplay['concept'] = $model->concept;
 ?>
 
-<h1><?php echo $fieldsForDisplay['label'];?>: <?php echo $fieldsForDisplay['concept'];?></h1>
+<h1>
+<?php
+	if($fieldsForDisplay['label'])
+		echo $fieldsForDisplay['label'].': ';
+	echo $fieldsForDisplay['concept'];
+?>
+</h1>
 
 <div style="font-size:16px"><?php echo $fieldsForDisplay['description'];?></div>

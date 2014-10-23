@@ -28,6 +28,7 @@
  * @property string $pageURL
  * @property string $pageTitle
  * @property string $body
+ * @property string $previewBody
  * @property string $heading
  * @property string $metaTitle
  * @property string $metaDescription
@@ -69,10 +70,10 @@ class CmsPageContent extends CActiveRecord
 			array('page', 'numerical', 'integerOnly'=>true),
 			array('language', 'length', 'max'=>2),
 			array('pageURL, pageTitle, heading, metaTitle, metaDescription, metaKeywords', 'length', 'max'=>255),
-			array('body', 'safe'),
+			array('previewBody, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, page, language, pageURL, pageTitle, body, heading, metaTitle, metaDescription, metaKeywords', 'safe', 'on'=>'search'),
+			array('page, language, pageURL, pageTitle, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +106,7 @@ class CmsPageContent extends CActiveRecord
 			'pageURL' => __('Page URL'),
 			'pageTitle' => __('Page Title'),
 			'body' => __('Body'),
+			'previewBody' => __('Preview'),
 			'heading' => 'Heading',
 			'metaTitle' => 'Meta Title',
 			'metaDescription' => 'Meta Description',

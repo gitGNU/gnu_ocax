@@ -8,6 +8,9 @@
  *
  */
 
+/* 2014 hacked for OCAx. Using javascript hoverIntent */
+
+
 Yii::import('zii.widgets.CMenu');
 Yii::import('application.extensions.mbmenu.Browser');
 
@@ -24,7 +27,6 @@ class MbMenu extends CMenu
      */
     protected function createJsCode()
     {
-
 		$js =  '$("#nav li").hoverIntent({
 				over: function () { if($(this).hasClass("parent")) $(this).addClass("over"); },
 				out: function () { $(this).removeClass("over"); },

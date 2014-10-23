@@ -119,7 +119,7 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 					'theme_advanced_resize_horizontal' => 0,
 					'theme_advanced_resize_vertical' => 0,
 					'theme_advanced_resizing_use_cookie' => false,
-					'width'=>'100%',
+					'width'=>'950px',
 					'valid_elements' => $valid_elements,
 					'valid_children' => $valid_children,
 				);
@@ -131,7 +131,7 @@ else
 
 $init =  array(
     'model' => $content,
-    'attribute' => 'body',
+    'attribute' => 'previewBody',
     // Optional config
     'compressorRoute' => 'tinyMce/compressor',
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
@@ -144,7 +144,7 @@ if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 	unset($init['compressorRoute']);
 
 $this->widget('ext.tinymce.TinyMce', $init);
-echo $form->error($content,'body');
+echo $form->error($content,'previewBody');
 
 ?>
 
@@ -178,7 +178,7 @@ echo $form->error($content,'body');
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? __('Create') : __('Save')); ?>
+		<?php echo CHtml::submitButton(__('Preview')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

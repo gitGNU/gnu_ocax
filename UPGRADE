@@ -70,6 +70,9 @@ CREATE TABLE IF NOT EXISTS log (
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
+ALTER TABLE cms_page MODIFY weight int(10);
+ALTER TABLE cms_page_content ADD previewBody MEDIUMTEXT;
+
 
 /* ---------- stop copying ---------- */
 

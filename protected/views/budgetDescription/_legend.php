@@ -24,6 +24,6 @@
 ?>
 
 <i class="icon-circle green"></i> <?php echo __('Complete');?><br />
-<i class="icon-dot-circled green"></i> <?php echo __('Incomplete');?><br />
+<i class="icon-dot-circled green"></i> <?php echo __('Partial');?><br />
 <i class="icon-circle-empty green"></i> <?php echo __('Empty');?><br />
 <i class="icon-circle red"></i> <?php echo __('Missing');?><br />

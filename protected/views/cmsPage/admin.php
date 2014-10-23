@@ -114,3 +114,17 @@ function uploadFile(){
 <?php endif; ?>
 
 <?php echo $this->renderPartial('//file/modal'); ?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() {
+			$(".flash-success").slideDown('fast');
+			setTimeout(function() {
+				$('.flash-success').slideUp('fast');
+    		}, 4500);
+		});
+	</script>
+    <div class="flash-success" style="display:none">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>

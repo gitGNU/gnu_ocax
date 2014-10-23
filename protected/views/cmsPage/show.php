@@ -23,7 +23,7 @@ $this->setPageTitle($content->pageTitle);
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/cmspage.css" />
 
-<?php if(isset($noLanguageLinks)){ ?>
+<?php if(isset($preview)){ ?>
 <script>
 	$(function() {
 		$('.language_link').hide();
@@ -32,13 +32,19 @@ $this->setPageTitle($content->pageTitle);
 
 <?php
 echo '<div id="cmsOptions">';
-	echo '<div style="width:50%; float: left; text-align: center;">';
+	echo '<div style="width:30%; float: left; text-align: center;">';
+	echo CHtml::link(__('Save changes'),array(	'cmsPage/savePreview',
+													'id'=>$model->id,
+													'lang'=>$content->language,
+											));
+	echo '</div>';
+	echo '<div style="width:30%; float: left; text-align: center;">';
 	echo CHtml::link(__('Edit page'),array(	'cmsPage/update',
 													'id'=>$model->id,
 													'lang'=>$content->language,
 											));
 	echo '</div>';
-	echo '<div style="width:50%; float: left; text-align: center;">';
+	echo '<div style="width:30%; float: left; text-align: center;">';
 	echo CHtml::link(__('Manage pages'),array('cmsPage/admin'));
 	echo '</div>';
 echo '<div style="clear:both;"></div>';
@@ -54,8 +60,9 @@ echo '</div>';
 
 		echo '<a href="'.$this->createUrl('site/index').'">'.__('Home').'</a>';
 		if($parent->id != $model->id){
-			$parentContent = CmsPageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language));
-			echo ' &rarr; <a href="'.$this->createUrl('p/'.$parentContent->pageURL).'">'.$parentContent->pageTitle.'</a>';
+			if($parentContent = CmsPageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language))){
+				echo ' &rarr; <a href="'.$this->createUrl('p/'.$parentContent->pageURL).'">'.$parentContent->pageTitle.'</a>';
+			}
 		}
 		echo ' &rarr; <a href="'.$this->createUrl('p/'.$content->pageURL).'">'.$content->pageTitle.'</a>';
 }
@@ -64,4 +71,6 @@ echo '</div>';
 </ul>
 
 <div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
-<div class="cms_content"><?php echo $content->body; ?></div>
+<div class="cms_content">
+	<?php echo isset($preview) ? $content->previewBody : $content->body; ?>
+</div>

@@ -51,7 +51,7 @@ class CmsPageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update','view'),
+				'actions'=>array('admin','delete','create','update','preview','savePreview'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('deny',  // deny all users
@@ -61,10 +61,10 @@ class CmsPageController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
+	 * Preview page fro CMS editor
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id,$lang)
+	public function actionPreview($id,$lang)
 	{
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);
@@ -73,7 +73,7 @@ class CmsPageController extends Controller
 		$this->render('show',array(
 			'model'=>$model,
 			'content'=>$content,
-			'noLanguageLinks'=>1,
+			'preview'=>1,
 		));
 	}
 
@@ -100,23 +100,7 @@ class CmsPageController extends Controller
 			'content'=>$content,
 		));
 	}
-/*
-	public function actionShow($id,$pageURL)
-	{
-		$this->layout='//layouts/column1';
-		$model = $this->loadModel($id);	
-		
-		if($model->published == 0 && !Yii::app()->user->isEditor()){
-			throw new CHttpException(404,'The requested page does not exist.');
-			return $model;
-		}
-		$content = $model->getContentForModel(Yii::app()->language);
-		$this->render('show',array(
-			'model'=>$model,
-			'content'=>$content,
-		));
-	}
-*/
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -143,7 +127,7 @@ class CmsPageController extends Controller
 				$model->save();
 				$content->page=$model->id;
 				$content->save();
-				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
+				$this->redirect(array('preview','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
 
@@ -169,12 +153,13 @@ class CmsPageController extends Controller
 		$model=$this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 		if(!$content){
+			// editing a language for the fisrt time. So we copy content from original language to help with the translation
 			$orig_content=CmsPageContent::model()->find(array('condition'=> 'page = '.$model->id.' AND pageURL IS NOT NULL'));
 			$content = new  CmsPageContent;
 			$content->language = $lang;
 			$content->pageURL = $orig_content->pageURL;
 			$content->pageTitle = $orig_content->pageTitle;
-			$content->body = $orig_content->body;
+			$content->previewBody = $orig_content->body;
 			$content->page=$model->id;
 			$content->save();
 		}
@@ -190,14 +175,34 @@ class CmsPageController extends Controller
 			if($model->validate() && $content->validate()){
 				$model->save();
 				$content->save();
-				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
+				$this->redirect(array('preview','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
+
+		if(!$content->previewBody)
+			$content->previewBody = $content->body; 
 
 		$this->render('update',array(
 			'model'=>$model,
 			'content'=>$content,
 		));
+	}
+
+	public function actionSavePreview($id)
+	{
+		if(isset($_GET['lang']))
+			$lang=$_GET['lang'];
+		else
+			Yii::app()->end();
+			
+		$model=$this->loadModel($id);
+		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		$content->body = $content->previewBody;
+		$content->save();
+
+		Log::model()->write('CMSpage',__('Page').' "'.$content->pageTitle.'" '.__('updated'));
+		Yii::app()->user->setFlash('success', __('Changes saved Ok'));
+		$this->redirect(array('admin'));
 	}
 
 	/**
