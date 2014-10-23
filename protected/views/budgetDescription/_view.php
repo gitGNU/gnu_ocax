@@ -27,7 +27,7 @@
 <?php
 	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
 		if($model->label || $model->concept)
-			echo ': <span class="red">'.__('Using data imported with CSV files').'</span>';
+			echo ': <i class="icon-attention green"></i>'.__('Using data imported with CSV files');
 	}
 ?>
 </div>

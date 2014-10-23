@@ -158,7 +158,7 @@ function addPanelSeparator(){
 		// legend
 		?>
 			<div id="legend">
-				<span><i class="icon-attention green"></i><?php echo __('Friendly reminder');?></span>
+				<span><i class="icon-attention green"></i><?php echo __('For your information');?></span>
 				<span><i class="icon-attention amber"></i><?php echo __('You should do something');?></span>
 				<span><i class="icon-attention red"></i><?php echo __('OCAx needs attention');?></span>
 				<br />
@@ -167,7 +167,6 @@ function addPanelSeparator(){
 				<span><i class="icon-circle-empty green"></i> <?php echo __('Empty');?></span>
 				<span><i class="icon-circle red"></i> <?php echo __('Missing');?></span>
 			</div>
-
 		<?php
 		echo '</div>';
 		echo '<div class="clear"></div>';

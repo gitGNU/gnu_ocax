@@ -54,6 +54,16 @@ function viewDescription(){
 		, speed: 10
 	});
 }
+$(function() {
+	$("#BudgetDescLocal_concept").mousedown(function() {
+		if($(this).val() == '')
+			$(this).val(<?php echo json_encode($model->concept);?>);
+	});
+	$("#BudgetDescLocal_label").mousedown(function() {
+		if($(this).val() == '')
+			$(this).val(<?php echo json_encode($model->label);?>);
+	});
+});
 </script>
 
 <div class="form">
@@ -145,21 +155,28 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 	<?php
 	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
 		if($model->label || $model->concept)
-			echo '<div style="font-size:16px;margin-top:-10px;">'.__('Using data imported with CSV files').'.</div>';
+			echo '<div style="font-size:16px;margin-top:-10px;">'.
+				'<i class="icon-attention green"></i>'.__('Using data imported with CSV files').'.</div>';
 	}
 	?>
 <div>
 	<div class="row left" style="width:220px">
 		<?php echo $form->labelEx($model,'label'); ?>
 		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
-		<?php echo $form->textField($model,'label',array('style'=>'width:200px','maxlength'=>255)); ?>
+		<?php
+		($model->isNewRecord) ?	$value = '' : $value = $model->label;
+		echo $form->textField($model,'label', array('value'=>$value,'style'=>'width:200px','maxlength'=>255));
+		?>
 		<?php echo $form->error($model,'label'); ?>
 	</div>
 
 	<div class="row left" style="width:505px">
 		<?php echo $form->labelEx($model,'concept'); ?>
 		<div class="hint"><?php echo __('Concept of this budget');?></div>
-		<?php echo $form->textField($model,'concept',array('style'=>'width:500px','maxlength'=>255)); ?>
+		<?php
+		($model->isNewRecord) ?	$value = '' : $value = $model->concept;
+		echo $form->textField($model,'concept', array('value'=>$value,'style'=>'width:500px','maxlength'=>255));
+		?>		
 		<?php echo $form->error($model,'concept'); ?>
 	</div>
 </div>

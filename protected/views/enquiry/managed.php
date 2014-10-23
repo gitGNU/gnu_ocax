@@ -87,7 +87,7 @@ $this->widget('PGridView', array(
     	        'value'=>function($data,$row){
 					$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);
 					if($data->state == ENQUIRY_ASSIGNED)
-						$value = $value.' <i class="icon-attention"></i>';
+						$value = $value.' <i class="icon-attention amber"></i>';
 					return $value;
 				},
 			),
