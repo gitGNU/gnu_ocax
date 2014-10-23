@@ -30,14 +30,11 @@ $column=0;
 function changeColumn()
 {
 	global $column;
-	if($column==0)
-	{
+	if($column==0){
 		echo '<div class="clear"></div>';
 		echo '<div class="panel_left" style="width:49%">';
 		$column=1;
-	}
-	else
-	{
+	}else{
 		echo '<div class="panel_right" style="width:49%">';
 		$column=0;
 	}
@@ -68,6 +65,11 @@ function toggleLegend(){
 		$("#legend").slideDown();
 	}
 }
+$(function() {
+	$("#ocmMemberPanel").mouseleave(function() {
+		$("#legend").fadeOut();
+	});
+});
 </script>
 <?php } ?>
 
@@ -128,12 +130,27 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
-
-		echo '<div style="float:left">';
+		echo '<div id="ocmMemberPanel">';	// outer starts
+		echo '<div style="float:left;position:relative;">';	// left starts
+		echo '<span style="cursor:pointer;" onclick="$(\'#legend\').toggle();">';
 		include(svgDir().'controlpanel.svg');
-		echo '</div>';
+		//echo '<i class="icon-list" style="font-size:22px;"></i></span>';
+		// legend
+		?>
+			<div id="legend">
+				<span><i class="icon-attention green"></i><?php echo __('For your information');?></span>
+				<span><i class="icon-attention amber"></i><?php echo __('You should do something');?></span>
+				<span><i class="icon-attention red"></i><?php echo __('OCAx needs attention');?></span>
+				<br />
+				<span><i class="icon-circle green"></i> <?php echo __('Complete');?></span>
+				<span><i class="icon-dot-circled green"></i> <?php echo __('Partial');?></span>
+				<span><i class="icon-circle-empty green"></i> <?php echo __('Empty');?></span>
+				<span><i class="icon-circle red"></i> <?php echo __('Missing');?></span>
+			</div>
+		<?php
+		echo '</div>';	// left ends
 
-		echo '<div style="float:left">';
+		echo '<div style="float:left">';	// right starts
 
 		//echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
@@ -150,25 +167,9 @@ function addPanelSeparator(){
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
 		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">defunct mailing list</a>';
 		echo '</div>';
-		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
-		echo '<a href="#" onClick="$(\'#legend\').toggle();return false;">'.__('Legend').'</a>';
-		echo '</div>';
 
-		echo '<div class="clear"></div>';
-		// legend
-		?>
-			<div id="legend">
-				<span><i class="icon-attention green"></i><?php echo __('For your information');?></span>
-				<span><i class="icon-attention amber"></i><?php echo __('You should do something');?></span>
-				<span><i class="icon-attention red"></i><?php echo __('OCAx needs attention');?></span>
-				<br />
-				<span><i class="icon-circle green"></i> <?php echo __('Complete');?></span>
-				<span><i class="icon-dot-circled green"></i> <?php echo __('Partial');?></span>
-				<span><i class="icon-circle-empty green"></i> <?php echo __('Empty');?></span>
-				<span><i class="icon-circle red"></i> <?php echo __('Missing');?></span>
-			</div>
-		<?php
-		echo '</div>';
+		echo '</div>';	// right ends
+		echo '</div>';	// outer ends
 		echo '<div class="clear"></div>';
 		$panel_separator_added=1;
 	}

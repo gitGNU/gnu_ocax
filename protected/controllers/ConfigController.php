@@ -174,9 +174,8 @@ class ConfigController extends Controller
 				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
 			}
 			if($model->save()){
-				if($model->getScenario('siteColor'))
+				if($model->getScenario() == 'siteColor')
 					file_put_contents(dirname(Yii::app()->request->scriptFile).'/css/color.css', $this->renderPartial('//layouts/color',false,true));
-					//$this->renderPartial('//layouts/color',false,true)
 
 				$this->generateFoot();
 				if(Yii::app()->request->isAjaxRequest)
