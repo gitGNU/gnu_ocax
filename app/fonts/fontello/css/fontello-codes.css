@@ -31,3 +31,7 @@
 .icon-th-list:before { content: '\e81d'; } /* '' */
 .icon-circle-empty:before { content: '\e81e'; } /* '' */
 .icon-dot-circled:before { content: '\e81f'; } /* '' */
+.icon-left-circled:before { content: '\e820'; } /* '' */
+.icon-right-circled:before { content: '\e821'; } /* '' */
+.icon-up-circled:before { content: '\e822'; } /* '' */
+.icon-down-circled:before { content: '\e823'; } /* '' */

@@ -53,7 +53,7 @@ echo '</div>';
 } ?>
 
 <!-- start page here -->
-<ul id="cmsPageBreadcrumbs">
+<div id="cmsPageBreadcrumbs">
 <?php
 	if($parent = CmsPage::model()->findByAttributes(array('block'=>$model->block, 'published'=>1, 'weight'=>0))){
 		//array('order'=>'weight')
@@ -67,8 +67,11 @@ echo '</div>';
 		echo ' &rarr; <a href="'.$this->createUrl('p/'.$content->pageURL).'">'.$content->pageTitle.'</a>';
 }
 ?>
-<div class="clear"></div>
-</ul>
+</div>
+<?php
+if(!$model->published)
+	echo '<i class="icon-attention green"></i> '.__('Not published');
+?>
 
 <div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 <div class="cms_content">

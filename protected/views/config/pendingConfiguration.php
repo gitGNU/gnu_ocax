@@ -25,7 +25,7 @@ $config->updateSiteConfigurationStatus();
 ?>
 
 <div class="sub_title"><?php echo __('Admin tasks');?>
-<i class="icon-attention"></i>
+<i class="icon-attention red"></i>
 </div>
 
 <p>

@@ -49,8 +49,9 @@ $privilegedUser = Yii::app()->user->isPrivileged();
 	.outer{ position:relative; width:100%; padding: 0px; float: left;}
 	.clear{clear:both;}
 </style>
-<script>
+
 <?php if($privilegedUser){ ?>
+<script>
 function toggleMoreOptions(){
 	if ($("#moreOptions").is(":visible")){
 		$("#moreOptionsToggle").html("<i class='icon-plus-circled'></i>");
@@ -60,8 +61,15 @@ function toggleMoreOptions(){
 		$("#moreOptions").slideDown();
 	}
 }
-<?php } ?>
+function toggleLegend(){
+	if ($("#legend").is(":visible")){
+		$("#legend").slideUp();
+	}else{
+		$("#legend").slideDown();
+	}
+}
 </script>
+<?php } ?>
 
 <?php if($privilegedUser){ ?>
 <div style="position:relative;">
@@ -120,15 +128,12 @@ $panel_separator_added=0;
 function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
-		
-		//$this->widget('TeamMenu');
 
-		echo '<div class="outer">';
-
-		// echo '<div id="control_panel"></div>';
 		echo '<div style="float:left">';
 		include(svgDir().'controlpanel.svg');
 		echo '</div>';
+
+		echo '<div style="float:left">';
 
 		//echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
@@ -145,7 +150,27 @@ function addPanelSeparator(){
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
 		echo '<a href="http://ocax.net/pipermail/lista/" target="_list">defunct mailing list</a>';
 		echo '</div>';
-		
+		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
+		echo '<a href="#" onClick="$(\'#legend\').toggle();return false;">'.__('Legend').'</a>';
+		echo '</div>';
+
+		echo '<div class="clear"></div>';
+		// legend
+		?>
+			<div id="legend">
+				<span><i class="icon-attention green"></i><?php echo __('Friendly reminder');?></span>
+				<span><i class="icon-attention amber"></i><?php echo __('You should do something');?></span>
+				<span><i class="icon-attention red"></i><?php echo __('OCAx needs attention');?></span>
+				<br />
+				<span><i class="icon-circle green"></i> <?php echo __('Complete');?></span>
+				<span><i class="icon-dot-circled green"></i> <?php echo __('Partial');?></span>
+				<span><i class="icon-circle-empty green"></i> <?php echo __('Empty');?></span>
+				<span><i class="icon-circle red"></i> <?php echo __('Missing');?></span>
+			</div>
+
+		<?php
+		echo '</div>';
+		echo '<div class="clear"></div>';
 		$panel_separator_added=1;
 	}
 }
@@ -176,7 +201,7 @@ if($model->is_team_member){
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed'));
 	if(Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_ASSIGNED)))
-		echo '<i class="icon-attention"></i>';
+		echo '<i class="icon-attention amber"></i>';
 	echo '</div>';
 	echo '<p><u>Team member</u><br />'.__('Manage the enquiries you are responsable for').'</p>';
 	echo '</div>';
@@ -200,7 +225,7 @@ if($model->is_manager){
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Manage enquiries'),array('enquiry/admin'));
 	if(Enquiry::model()->alertTeamManager())
-		echo '<i class="icon-attention"></i>';
+		echo '<i class="icon-attention amber"></i>';
 	echo '</div>';
 	echo 	'<p><u>Team manager</u><br />'.__('Assign enquiries to team members and check status').'</p>';
 	echo '</div>';
@@ -218,7 +243,7 @@ if($model->is_admin){
 		echo CHtml::link(__('Newsletters'),array('newsletter/admin')).'<br />';
 		echo CHtml::link(__('Zip file'),array('file/databaseDownload'));
 		if(!Config::model()->isZipFileUpdated())
-			echo ' <i class="icon-attention"></i>';
+			echo ' <i class="icon-attention amber"></i>';
 		echo '<br />';
 		if(Config::model()->findByPk('siteAutoBackup')->value)
 			echo CHtml::link(__('Backups'),array('vault/admin')).'<br />';

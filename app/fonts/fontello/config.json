@@ -31,6 +31,30 @@
       "src": "fontawesome"
     },
     {
+      "uid": "6855131631509e8795730ce062045ea1",
+      "css": "left-circled",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "19b04848ae7332d2c0ea2a9e19064037",
+      "css": "right-circled",
+      "code": 59425,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2b8e9b027181aafd210bf29c5486d4a0",
+      "css": "up-circled",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "55ae6ea25cd707fe34af5b52b2001cdc",
+      "css": "down-circled",
+      "code": 59427,
+      "src": "fontawesome"
+    },
+    {
       "uid": "130380e481a7defc690dfb24123a1f0c",
       "css": "circle",
       "code": 59408,

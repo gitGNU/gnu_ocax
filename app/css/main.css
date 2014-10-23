@@ -593,7 +593,6 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 /* attention and OK icons */
 .icon-attention{
 	font-size: 1.1em;
-	color: #CD0000;
 }
 .icon-ok-circled{
 	font-size: 1.1em;
@@ -601,7 +600,19 @@ span.ocaxButton:hover { border:1px solid #BDBDBD; }
 }
 .red { color: #CD0000; }
 .green { color: #2E8B57; }
-.orange { color: #FF8000; }
+.amber { color: #EE7621; }
+
+/* user panel legend */
+#legend {
+	display:none;
+	font-size: 16px;
+	margin-left:45px;
+}
+#legend span {
+	display: inline;
+	padding-right:30px;
+	white-space: nowrap;
+}
 
 /*Cookie alert */
 .cookieAlert {

@@ -27,7 +27,7 @@
 	if($config->isOCAXUptodate())
 		echo '<i class="icon-ok-circled"></i>';
 	else
-		echo '<br />'.__('Please update').' <i class="icon-attention"></i>';
+		echo '<br />'.__('Please update').' <i class="icon-attention red"></i>';
 	echo '</span><br />';
 
 	echo 'Database schema: version '.$config->findByPk('schemaVersion')->value.'<br />';
