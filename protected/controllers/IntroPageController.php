@@ -107,6 +107,7 @@ class IntroPageController extends Controller
 				$model->save();
 				$content->page=$model->id;
 				$content->save();
+				Log::model()->write('introPage',__('introPage').' "'.$content->title.'" '.__('created'));
 				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
@@ -154,6 +155,7 @@ class IntroPageController extends Controller
 			if($model->validate() && $content->validate()){
 				$model->save();
 				$content->save();
+				Log::model()->write('introPage',__('introPage').' "'.$content->title.'" '.__('updated'));
 				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
@@ -172,11 +174,15 @@ class IntroPageController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
+		$content=IntroPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>getDefaultLanguage()));
+		$content ? $title= $content->title : $title = '';
+		
 		foreach($model->introPageContents as $content)
-				$content->delete();
-				
+				$content->delete();		
 		$model->delete();
-
+		
+		Log::model()->write('introPage',__('introPage').' "'.$title.'" '.__('deleted'));
+		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

@@ -81,7 +81,6 @@ class CmsPageController extends Controller
 		{
 			$model->attributes=$_POST['CmsPage'];	
 			$content->attributes=$_POST['CmsPageContent'];
-			//$model->setScenario('update');
 			if($model->validate() && $content->validate())
 				$model->save();
 		}
@@ -142,11 +141,20 @@ class CmsPageController extends Controller
 				$model->save();
 				$content->page=$model->id;
 				$content->save();
-				Log::model()->write('CMSpage',__('Page').' "'.$content->pageTitle.'" '.__('created'));
-				$this->redirect(array('preview','id'=>$model->id,'lang'=>$content->language));
+				$word = Null;
+				if(Config::model()->isSiteMultilingual())
+					$word = 'language "'.$content->language.'" ';
+				Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('created'));
+
+				$this->layout='//layouts/column1';
+				$this->render('show',array(
+					'model'=>$model,
+					'content'=>$content,
+					'preview'=>1,
+				));
+				Yii::app()->end();
 			}
 		}
-
 		$this->render('create',array(
 			'model'=>$model,
 			'content'=>$content,
@@ -266,7 +274,10 @@ class CmsPageController extends Controller
 		$content->previewBody = '';
 		$content->save();
 
-		Log::model()->write('CMSpage',__('Page').' "'.$content->pageTitle.'" '.__('updated'));
+		$word = Null;
+		if(Config::model()->isSiteMultilingual())
+			$word = 'language "'.$content->language.'" ';
+		Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'));
 		Yii::app()->user->setFlash('success', __('Changes saved Ok'));
 		$this->redirect(array('admin'));
 	}
@@ -286,7 +297,7 @@ class CmsPageController extends Controller
 				$content->delete();
 				
 		$model->delete();
-		Log::model()->write('CMSpage',__('Page').' "'.$pageTitle.'" '.__('deleted'));
+		Log::model()->write('cmsPage',__('Page').' "'.$pageTitle.'" '.__('deleted'));
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

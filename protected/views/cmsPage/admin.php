@@ -27,6 +27,7 @@ $this->menu=array(
 	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 );
 $this->inlineHelp=':profiles:cms_editor';
+$this->viewLog='cmsPage';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

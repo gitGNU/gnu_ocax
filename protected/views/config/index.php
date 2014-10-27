@@ -55,6 +55,7 @@ function submitChange(el, id, callback){
 		data: $('#config-form').serialize(),
 		beforeSend: function(){
 						$(el).prop("disabled", true);
+						$(el).next('.progress').empty();
 						$(el).next('.progress').append('<img style="vertical-align:middle;" class="loading_gif" src="<?php echo Yii::app()->request->baseUrl;?>/images/loading.gif" />');
 					},
 		complete: function(){ $(el).prop("disabled", false); },
@@ -62,13 +63,12 @@ function submitChange(el, id, callback){
 			$(el).next('.progress').empty();
 			$(el).parent().find('.error').remove();
 			if(data == 1){
-//						$(el).next('.progress').append('<img style="vertical-align:middle;" id="tick_png" src="<?php echo Yii::app()->request->baseUrl;?>/images/tick.png" />');
-						$(el).next('.progress').append('<i class="icon-ok-circled"></i>');
+						$(el).next('.progress').append('<i class="icon-ok-circled" style="font-size:18px;"></i>');
 
 						$(el).prop("disabled", false);
-						$(".icon-ok-circled").fadeOut(1600, function() {
-							$(el).next('.progress').empty();
-						});
+						//$(".icon-ok-circled").fadeOut(1600, function() {
+						//	$(el).next('.progress').empty();
+						//});
 						if(typeof callback !== 'undefined'){
 							callback();
 						}

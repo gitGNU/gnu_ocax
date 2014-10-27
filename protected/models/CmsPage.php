@@ -83,7 +83,7 @@ class CmsPage extends CActiveRecord
 
 	public function validCombination($attribute,$params)
 	{
-		if($this->weight === Null)
+		if($this->weight === '')
 			return;
 		//file_put_contents('/tmp/eee','b.'.$this->block.' w.'.$this->weight);
 		if($existing = $this->findByAttributes(array('block'=>$this->block,'weight'=>$this->weight))){
