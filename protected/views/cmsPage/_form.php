@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,12 +26,21 @@
 <style>
 .wideItem {float:left; padding-right:80px;}
 </style>
-
+<script>
+/*
+function showUpdatePageButton(){
+	$("#success-page-update").hide();
+	$("#pageSubmitButton").show();
+}
+*/
+</script>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'cms-page-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
+	'action'=>	Yii::app()->request->baseUrl.
+				$model->isNewRecord ? '/cmsPage/create/' : '/cmsPage/preview/'.$model->id.'?lang='.$content->language,
 )); ?>
 
 	<?php
@@ -42,7 +51,7 @@
 	?>
 
 	<div class="title"><?php echo $title;?></div>
-	<?php echo CHtml::errorSummary(array($model, $content)); ?>
+	<?php /*echo CHtml::errorSummary(array($model, $content));*/ ?>
 
 	<?php
 		if(!$model->isNewRecord  && $listData = getLanguagesArray()){
@@ -60,21 +69,60 @@
 
 	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'block'); ?>
-		<?php echo $form->textField($model,'block',array('size'=>5)); ?>
+		<?php echo $form->textField($model,'block',array('size'=>5,
+														'onChange'=>'js:showUpdatePageButton();')); ?>
 		<?php echo $form->error($model,'block'); ?>
 	</div>
 
 	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'weight'); ?>
-		<?php echo $form->textField($model,'weight',array('size'=>5)); ?>
+		<?php echo $form->textField($model,'weight',array('size'=>5,
+														'onChange'=>'js:showUpdatePageButton();')); ?>
 		<?php echo $form->error($model,'weight'); ?>
 	</div>
 
 	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'published'); ?>
-		<?php echo $form->checkBox($model,'published', array('checked'=>$model->published)); ?>
+		<?php echo $form->checkBox($model,'published', array('checked'=>$model->published,
+															'onChange'=>'js:showUpdatePageButton();')); ?>
 	</div>
 
+	<?php if(!$model->isNewRecord) {
+		/*
+	echo '<div class="row wideItem">';
+	echo CHtml::ajaxSubmitButton('Submit',
+							$this->createUrl(Yii::app()->request->baseUrl.'/cmsPage/updatePage/'.$model->id),
+							array(
+								'beforeSend'=>'function (){
+												$(":input").removeClass("error");
+												$("#CmsPage_block_em_").hide();
+												$("#CmsPage_weight_em_").hide();
+												$("#pageSubmitButton").hide();
+												
+											}',
+								'type'=>'post',
+								'dataType'=>'json',
+								'success' => 'function(result) {
+									if(result == 1) {
+										$("#success-page-update").show();
+									}
+									else{
+										errors = result;
+										$.each(errors, function(key, val) {
+											$("#CmsPage_"+key+"_em_").text(val);                                                    
+											$("#CmsPage_"+key+"_em_").show();
+											$("#CmsPage_"+key).addClass("error");
+										});
+									}
+								}'
+							),
+							array('id'=>'pageSubmitButton', 'style'=>'display:none')
+			);
+	echo '<i id="success-page-update" class="icon-attention green" style="font-size: 24px; display:none;"></i>';
+	echo '</div>';
+	*/
+	} ?>
+	
 	<div style="clear:both"></div>
 
 	<div class="horizontalRule"></div>
@@ -112,7 +160,7 @@
 $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,strikethrough,|,formatselect,|,
 												justifyleft,justifycenter,justifyright,|,
 												bullist,numlist,|,outdent,indent,|,
-												link,unlink,|,image".$htmlButton,
+												link,unlink,|,image,media".$htmlButton,
 					'convert_urls'=>true,
 					'relative_urls'=>false,
 					'remove_script_host'=>false,
@@ -122,6 +170,9 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 					'width'=>'950px',
 					'valid_elements' => $valid_elements,
 					'valid_children' => $valid_children,
+					'extended_valid_elements'=>'iframe[src|title|width|height|allowfullscreen|frameborder|class|id],
+												object[classid|width|height|codebase|*],param[name|value|_value|*],
+												embed[type|width|height|src|*]',
 				);
 
 if(Config::model()->findByPk('HTMLeditorUseCompressor'))
@@ -178,7 +229,7 @@ echo $form->error($content,'previewBody');
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(__('Preview')); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? __('Create') : __('Preview')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

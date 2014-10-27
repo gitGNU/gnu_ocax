@@ -57,7 +57,7 @@ class TinyMce extends CInputWidget
 
         'plugins' =>	"autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,iespell,
 						insertdatetime,contextmenu,paste,noneditable,visualchars,nonbreaking,
-						xhtmlxtras,template,advlist",
+						xhtmlxtras,template,advlist,media",
 
         // Theme options
 /*

@@ -25,24 +25,38 @@ $this->setPageTitle($content->pageTitle);
 
 <?php if(isset($preview)){ ?>
 <script>
-	$(function() {
-		$('.language_link').hide();
-	});
+$(function() {
+	$('.language_link').hide();
+});
+function savePreview(){
+	form = $('#cms-page-form');
+	form.attr(	'action',
+				"<?php echo Yii::app()->request->baseUrl; ?>/cmsPage/savePreview/<?php echo $model->id;?>?lang=<?php echo $content->language;?>"
+			);
+	form.submit();
+}
+function editPreview(){
+	form = $('#cms-page-form');
+	form.attr(	'action',
+				"<?php echo Yii::app()->request->baseUrl; ?>/cmsPage/editPreview/<?php echo $model->id;?>?lang=<?php echo $content->language;?>"
+			);
+	form.submit();}
 </script>
 
 <?php
+$form=$this->beginWidget('CActiveForm', array(
+	'id'=>'cms-page-form',
+	'enableAjaxValidation'=>false,
+));
+echo $form->hiddenField($content,'previewBody');
+$this->endWidget();
+
 echo '<div id="cmsOptions">';
 	echo '<div style="width:30%; float: left; text-align: center;">';
-	echo CHtml::link(__('Save changes'),array(	'cmsPage/savePreview',
-													'id'=>$model->id,
-													'lang'=>$content->language,
-											));
+	echo '<a href="#" onclick="js:savePreview();">'.__('Save changes').'</a>';
 	echo '</div>';
 	echo '<div style="width:30%; float: left; text-align: center;">';
-	echo CHtml::link(__('Edit page'),array(	'cmsPage/update',
-													'id'=>$model->id,
-													'lang'=>$content->language,
-											));
+	echo '<a href="#" onclick="js:editPreview();">'.__('Edit page').'</a>';
 	echo '</div>';
 	echo '<div style="width:30%; float: left; text-align: center;">';
 	echo CHtml::link(__('Manage pages'),array('cmsPage/admin'));

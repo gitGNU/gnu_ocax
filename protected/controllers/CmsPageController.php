@@ -51,7 +51,8 @@ class CmsPageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update','preview','savePreview'),
+				'actions'=>array(	'admin','delete','create','update',
+									'preview','editPreview','savePreview'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('deny',  // deny all users
@@ -64,11 +65,26 @@ class CmsPageController extends Controller
 	 * Preview page fro CMS editor
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionPreview($id,$lang)
+	public function actionPreview($id)
 	{
+		if(isset($_GET['lang']))
+			$lang=$_GET['lang'];
+		else
+			Yii::app()->end();
+		
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+
+		$this->performAjaxValidation($model);
+		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
+		{
+			$model->attributes=$_POST['CmsPage'];	
+			$content->attributes=$_POST['CmsPageContent'];
+			//$model->setScenario('update');
+			if($model->validate() && $content->validate())
+				$model->save();
+		}
 
 		$this->render('show',array(
 			'model'=>$model,
@@ -113,20 +129,20 @@ class CmsPageController extends Controller
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		$content->language=$languages[0];
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$model->setScenario('create');
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
 		{
 			$model->attributes=$_POST['CmsPage'];
 			$content->attributes=$_POST['CmsPageContent'];
-			
 			$content->page=0;	// dummy value. should do this with validation rule but it didn't work.
-			//$content->setScenario('cms_page_create');
+		
 			if($model->validate() && $content->validate()){
 				$model->save();
 				$content->page=$model->id;
 				$content->save();
+				Log::model()->write('CMSpage',__('Page').' "'.$content->pageTitle.'" '.__('created'));
 				$this->redirect(array('preview','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
@@ -147,8 +163,7 @@ class CmsPageController extends Controller
 		if(isset($_GET['lang']))
 			$lang=$_GET['lang'];
 		else{
-			$languages=explode(',', Config::model()->findByPk('languages')->value);
-			$lang=$languages[0];
+			$lang=getDefaultLanguage();
 		}
 		$model=$this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
@@ -188,16 +203,67 @@ class CmsPageController extends Controller
 		));
 	}
 
-	public function actionSavePreview($id)
+/*
+	public function actionUpdatePage($id)	// ajax call to update cmsPage only (not pageContents).
 	{
+		$model=$this->loadModel($id);
+		
+		$this->performAjaxValidation($model);
+		if(isset($_POST['CmsPage']))
+		{
+			$model->setScenario('update');
+			$model->attributes=$_POST['CmsPage'];
+			if($model->save()){
+				echo 1;
+				//file_put_contents('tmp/err','fff');
+				Yii::app()->end();
+			}else{
+				if($model->getErrors())
+					file_put_contents('/tmp/err', '--'.CJSON::encode($model->getErrors()).'--');
+				echo CJSON::encode($model->getErrors());
+				
+				Yii::app()->end();
+			}
+		}
+		echo 0;
+	}
+*/
+
+	public function actionEditPreview($id,$lang)
+	{
+		$model=$this->loadModel($id);
+		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+
+		if($_POST['CmsPageContent'])
+			$content->attributes=$_POST['CmsPageContent'];
+		else
+			Yii::app()->end();
+
+		$this->render('update',array(
+			'model'=>$model,
+			'content'=>$content,
+		));
+	}
+
+	public function actionSavePreview($id,$lang)
+	{
+		/*
 		if(isset($_GET['lang']))
 			$lang=$_GET['lang'];
 		else
 			Yii::app()->end();
-			
+		*/
+		
 		$model=$this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		
+		if($_POST['CmsPageContent'])
+			$content->attributes=$_POST['CmsPageContent'];
+		else
+			Yii::app()->end();
+		
 		$content->body = $content->previewBody;
+		$content->previewBody = '';
 		$content->save();
 
 		Log::model()->write('CMSpage',__('Page').' "'.$content->pageTitle.'" '.__('updated'));
@@ -213,10 +279,14 @@ class CmsPageController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
+		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>getDefaultLanguage()));
+		$pageTitle = $content->pageTitle;
+		
 		foreach($model->cmsPageContents as $content)
 				$content->delete();
 				
 		$model->delete();
+		Log::model()->write('CMSpage',__('Page').' "'.$pageTitle.'" '.__('deleted'));
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

@@ -28,7 +28,6 @@
  * @property string $pageURL
  * @property string $pageTitle
  * @property string $body
- * @property string $previewBody
  * @property string $heading
  * @property string $metaTitle
  * @property string $metaDescription
@@ -37,8 +36,12 @@
  * The followings are the available model relations:
  * @property CmsPage $page0
  */
+
 class CmsPageContent extends CActiveRecord
 {
+	
+	public $previewBody;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -135,17 +138,18 @@ class CmsPageContent extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		//$criteria->compare('id',$this->id);
 		$criteria->compare('page',$this->page);
 		$criteria->compare('language',$this->language,true);
 		$criteria->compare('pageURL',$this->pageURL,true);
 		$criteria->compare('pageTitle',$this->pageTitle,true);
 		$criteria->compare('body',$this->body,true);
+		/*
 		$criteria->compare('heading',$this->heading,true);
 		$criteria->compare('metaTitle',$this->metaTitle,true);
 		$criteria->compare('metaDescription',$this->metaDescription,true);
 		$criteria->compare('metaKeywords',$this->metaKeywords,true);
-
+		*/
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

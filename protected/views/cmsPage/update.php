@@ -27,7 +27,6 @@ if(count($model->cmsPageContents) > 1)
 $deleteConfirm .='?';
 
 $this->menu=array(
-	array('label'=>__('Preview page'), 'url'=>array('preview', 'id'=>$model->id,'lang'=>$content->language)),
 	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );

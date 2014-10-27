@@ -60,6 +60,8 @@ class CmsPage extends CActiveRecord
 		return array(
 			array('block', 'required'),
 			array('block, weight, published', 'numerical', 'integerOnly'=>true),
+			array('block, weight', 'validCombination', 'on'=>'create'),
+			array('block, weight', 'validCombination', 'on'=>'update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('block, weight, published', 'safe', 'on'=>'search'),
@@ -76,6 +78,19 @@ class CmsPage extends CActiveRecord
 		return array(
 			'cmsPageContents' => array(self::HAS_MANY, 'CmsPageContent', 'page'),
 		);
+	}
+
+
+	public function validCombination($attribute,$params)
+	{
+		if($this->weight === Null)
+			return;
+		//file_put_contents('/tmp/eee','b.'.$this->block.' w.'.$this->weight);
+		if($existing = $this->findByAttributes(array('block'=>$this->block,'weight'=>$this->weight))){
+			if(!$this->isNewRecord && $this->id == $existing->id)
+				return;
+			$this->addError($attribute, __('Combination already exists.'));
+		}
 	}
 
 	/**
