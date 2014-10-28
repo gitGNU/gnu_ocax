@@ -71,7 +71,7 @@ class TinyMce extends CInputWidget
 
 	//chris. stop pasting most styles into editor
 	'valid_styles' => array('*' => 'text-decoration,text-align,display,margin,padding,float,margin-left,margin-right'),
-	
+
 	// https://www.drupal.org/node/126216#comment-1224981
 	'extended_valid_elements' =>  'img[style|class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]',
 	

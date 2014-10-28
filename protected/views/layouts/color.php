@@ -61,6 +61,7 @@ div.form .title{ color:<?php echo $color;?>; }
 /*CMS Pages*/
 .cms_titulo { color:<?php echo $color;?>; }
 .activeMenuItem a { color: #676767; }
+.cmsInsert { border-color: <?php echo $color;?>; }
 
 /*Budgets*/
 #budget_titulo_j { color: <?php echo $color;?>; }

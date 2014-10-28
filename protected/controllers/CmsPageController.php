@@ -171,7 +171,8 @@ class CmsPageController extends Controller
 		if(isset($_GET['lang']))
 			$lang=$_GET['lang'];
 		else{
-			$lang=getDefaultLanguage();
+			//$lang=getDefaultLanguage();
+			$lang=Yii::app()->user->getState('applicationLanguage');
 		}
 		$model=$this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));

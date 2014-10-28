@@ -107,13 +107,14 @@
 				$valid_children = "+body[style]";
 			}else{
 				$htmlButton = "";
-				$valid_elements = "@[style],h1,h2,h3,p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[*]";
+				$valid_elements = "@[style],h1,h2,h3,p,span[class],a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[*]";
 				$valid_children = "";
 			}
 		?>
 
 <?php
-$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,strikethrough,|,formatselect,|,
+$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,strikethrough,|,
+												formatselect,styleselect,|,
 												justifyleft,justifycenter,justifyright,|,
 												bullist,numlist,|,outdent,indent,|,
 												link,unlink,|,image,media".$htmlButton,
@@ -128,7 +129,12 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 					'valid_children' => $valid_children,
 					'extended_valid_elements'=>'iframe[src|title|width|height|allowfullscreen|frameborder|class|id],
 												object[classid|width|height|codebase|*],param[name|value|_value|*],
-												embed[type|width|height|src|*]',
+												embed[type|width|height|src|*],
+												span[class]',
+					'style_formats' => array(
+						array('title'=> 'Color', 'inline' => 'span', 'classes' => 'color'),
+						array('title'=> 'Insert', 'inline' => 'span', 'classes' => 'cmsInsert'),
+					),
 				);
 
 if(Config::model()->findByPk('HTMLeditorUseCompressor'))
@@ -139,12 +145,9 @@ else
 $init =  array(
     'model' => $content,
     'attribute' => 'previewBody',
-    // Optional config
     'compressorRoute' => 'tinyMce/compressor',
-    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
-    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-	'settings' => $settings,
+	'settings' => $settings
 );
 
 if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
@@ -154,7 +157,6 @@ $this->widget('ext.tinymce.TinyMce', $init);
 echo $form->error($content,'previewBody');
 
 ?>
-
 	</div>
 
 <?php if(1 == 0){ ?>

@@ -86,8 +86,8 @@ echo '</div>';
 if(!$model->published)
 	echo '<i class="icon-attention green"></i> '.__('Not published');
 if(!Yii::app()->user->isGuest && Yii::app()->user->isEditor() && !isset($preview))
-	echo	'<i class="icon-edit-1 color" style="float:right; font-size:18px; cursor:pointer;" '.
-			'onclick="js:window.location.href=\''.Yii::app()->request->baseUrl.'/cmsPage/update/'.$model->id.'\'"></i>';
+	echo	'<i class="icon-edit-1" style="float:right; font-size:18px; cursor:pointer;" '.
+			'onclick="js:window.location.href=\''.$this->createUrl('/cmsPage/update/'.$model->id).'\'"></i>';
 ?>
 
 <div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
