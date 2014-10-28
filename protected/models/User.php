@@ -156,6 +156,14 @@ class User extends CActiveRecord
 	}
  */
 
+	public function getTeamMembers()
+	{
+		return $this->findAll(array("condition"=>"is_team_member =  1 AND is_active = 1",
+									"order"=>"username")
+							);
+	}
+	
+	
 	/**
 	 * Create activation code.
 	 * @param string email

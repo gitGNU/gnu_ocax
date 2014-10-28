@@ -85,7 +85,6 @@ class CmsPage extends CActiveRecord
 	{
 		if($this->weight === '')
 			return;
-		//file_put_contents('/tmp/eee','b.'.$this->block.' w.'.$this->weight);
 		if($existing = $this->findByAttributes(array('block'=>$this->block,'weight'=>$this->weight))){
 			if(!$this->isNewRecord && $this->id == $existing->id)
 				return;

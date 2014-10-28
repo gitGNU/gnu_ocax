@@ -26,14 +26,7 @@
 <style>
 .wideItem {float:left; padding-right:80px;}
 </style>
-<script>
-/*
-function showUpdatePageButton(){
-	$("#success-page-update").hide();
-	$("#pageSubmitButton").show();
-}
-*/
-</script>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -86,43 +79,6 @@ function showUpdatePageButton(){
 		<?php echo $form->checkBox($model,'published', array('checked'=>$model->published,
 															'onChange'=>'js:showUpdatePageButton();')); ?>
 	</div>
-
-	<?php if(!$model->isNewRecord) {
-		/*
-	echo '<div class="row wideItem">';
-	echo CHtml::ajaxSubmitButton('Submit',
-							$this->createUrl(Yii::app()->request->baseUrl.'/cmsPage/updatePage/'.$model->id),
-							array(
-								'beforeSend'=>'function (){
-												$(":input").removeClass("error");
-												$("#CmsPage_block_em_").hide();
-												$("#CmsPage_weight_em_").hide();
-												$("#pageSubmitButton").hide();
-												
-											}',
-								'type'=>'post',
-								'dataType'=>'json',
-								'success' => 'function(result) {
-									if(result == 1) {
-										$("#success-page-update").show();
-									}
-									else{
-										errors = result;
-										$.each(errors, function(key, val) {
-											$("#CmsPage_"+key+"_em_").text(val);                                                    
-											$("#CmsPage_"+key+"_em_").show();
-											$("#CmsPage_"+key).addClass("error");
-										});
-									}
-								}'
-							),
-							array('id'=>'pageSubmitButton', 'style'=>'display:none')
-			);
-	echo '<i id="success-page-update" class="icon-attention green" style="font-size: 24px; display:none;"></i>';
-	echo '</div>';
-	*/
-	} ?>
-	
 	<div style="clear:both"></div>
 
 	<div class="horizontalRule"></div>

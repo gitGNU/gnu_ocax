@@ -636,7 +636,7 @@ class EnquiryController extends Controller
 			}//else
 			//	$model=$this->loadModel($id);	// render an unchanged model.
 		}
-		$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
+		$team_members = User::model()->getTeamMembers();
 		$this->render('manage',array(
 			'model'=>$model,
 			'team_members'=>$team_members,

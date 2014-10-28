@@ -211,32 +211,6 @@ class CmsPageController extends Controller
 		));
 	}
 
-/*
-	public function actionUpdatePage($id)	// ajax call to update cmsPage only (not pageContents).
-	{
-		$model=$this->loadModel($id);
-		
-		$this->performAjaxValidation($model);
-		if(isset($_POST['CmsPage']))
-		{
-			$model->setScenario('update');
-			$model->attributes=$_POST['CmsPage'];
-			if($model->save()){
-				echo 1;
-				//file_put_contents('tmp/err','fff');
-				Yii::app()->end();
-			}else{
-				if($model->getErrors())
-					file_put_contents('/tmp/err', '--'.CJSON::encode($model->getErrors()).'--');
-				echo CJSON::encode($model->getErrors());
-				
-				Yii::app()->end();
-			}
-		}
-		echo 0;
-	}
-*/
-
 	public function actionEditPreview($id,$lang)
 	{
 		$model=$this->loadModel($id);
@@ -255,13 +229,6 @@ class CmsPageController extends Controller
 
 	public function actionSavePreview($id,$lang)
 	{
-		/*
-		if(isset($_GET['lang']))
-			$lang=$_GET['lang'];
-		else
-			Yii::app()->end();
-		*/
-		
 		$model=$this->loadModel($id);
 		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 		
