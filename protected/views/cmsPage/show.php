@@ -85,12 +85,32 @@ echo '</div>';
 <?php
 if(!$model->published)
 	echo '<i class="icon-attention green"></i> '.__('Not published');
-if(!Yii::app()->user->isGuest && Yii::app()->user->isEditor() && !isset($preview))
-	echo	'<i class="icon-edit-1" style="float:right; font-size:18px; cursor:pointer;" '.
+if(!Yii::app()->user->isGuest && Yii::app()->user->isEditor() && !isset($preview)){
+	echo '<div style="float:right; margin-right: -10px; ">';
+	echo	'<i class="icon-edit-1" style=" font-size:18px; cursor:pointer;" '.
 			'onclick="js:window.location.href=\''.$this->createUrl('/cmsPage/update/'.$model->id).'\'"></i>';
+	echo	'<i class="icon-th-list" style=" font-size:18px; cursor:pointer;" '.
+			'onclick="js:window.location.href=\''.$this->createUrl('/cmsPage/admin').'\'"></i>';
+	echo '</div>';
+}			
 ?>
 
 <div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 <div class="cms_content">
 	<?php echo isset($preview) ? $content->previewBody : $content->body; ?>
 </div>
+
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() {
+			$(".flash-success").slideDown('fast');
+			setTimeout(function() {
+				$('.flash-success').slideUp('fast');
+    		}, 4500);
+		});
+	</script>
+    <div class="flash-success" style="display:none">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>

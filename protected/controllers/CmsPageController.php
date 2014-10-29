@@ -144,7 +144,7 @@ class CmsPageController extends Controller
 				$word = Null;
 				if(Config::model()->isSiteMultilingual())
 					$word = 'language "'.$content->language.'" ';
-				Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('created'));
+				Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('created'), $model->id);
 
 				$this->layout='//layouts/column1';
 				$this->render('show',array(
@@ -245,9 +245,9 @@ class CmsPageController extends Controller
 		$word = Null;
 		if(Config::model()->isSiteMultilingual())
 			$word = 'language "'.$content->language.'" ';
-		Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'));
+		Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'), $model->id);
 		Yii::app()->user->setFlash('success', __('Changes saved Ok'));
-		$this->redirect(array('admin'));
+		$this->redirect(array($this->createUrl('/p/'.$content->pageURL)));
 	}
 
 	/**
@@ -265,7 +265,7 @@ class CmsPageController extends Controller
 				$content->delete();
 				
 		$model->delete();
-		Log::model()->write('cmsPage',__('Page').' "'.$pageTitle.'" '.__('deleted'));
+		Log::model()->write('cmsPage',__('Page').' "'.$pageTitle.'" '.__('deleted'), $model->id);
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

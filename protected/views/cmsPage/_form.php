@@ -101,13 +101,11 @@
 			echo $form->labelEx($content,'body');
 			if(!Config::model()->findByPk('HTMLeditorSafe')->value){
 				echo '<label>'.__('Warning! Safe HTML editing is off. Copy/paste can create problems').'.</label>';
-				$htmlButton = ",|,code";
 				$valid_elements = "*[*]";
 				//http://www.tinymce.com/wiki.php/configuration:valid_children
 				$valid_children = "+body[style]";
 			}else{
-				$htmlButton = "";
-				$valid_elements = "@[style],h1,h2,h3,p,span[class],a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[*]";
+				$valid_elements = "@[style],h1,h2,h3,p,span[class],a[href|target],strong/b,div[align],br,ul,ol,li,img[*]";
 				$valid_children = "";
 			}
 		?>
@@ -117,7 +115,7 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 												formatselect,styleselect,|,
 												justifyleft,justifycenter,justifyright,|,
 												bullist,numlist,|,outdent,indent,|,
-												link,unlink,|,image,media".$htmlButton,
+												link,unlink,|,image,media,|,code",
 					'convert_urls'=>true,
 					'relative_urls'=>false,
 					'remove_script_host'=>false,
@@ -129,8 +127,7 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 					'valid_children' => $valid_children,
 					'extended_valid_elements'=>'iframe[src|title|width|height|allowfullscreen|frameborder|class|id],
 												object[classid|width|height|codebase|*],param[name|value|_value|*],
-												embed[type|width|height|src|*],
-												span[class]',
+												embed[type|width|height|src|*]',
 					'style_formats' => array(
 						array('title'=> 'Color', 'inline' => 'span', 'classes' => 'color'),
 						array('title'=> 'Insert', 'inline' => 'span', 'classes' => 'cmsInsert'),
