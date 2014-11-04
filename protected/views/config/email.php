@@ -104,7 +104,7 @@ function sendTestEmail(){
 	<div class="param">
 		<?php $param = Config::model()->findByPk('smtpPort'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input type="text" value = "<?php echo $param->value;?>"/>
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>

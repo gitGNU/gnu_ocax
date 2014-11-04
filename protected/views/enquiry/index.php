@@ -128,33 +128,16 @@ function toggleSearchOptions(){
 	resetToggleIcons();
 	if ($("#advancedFilterOptions").is(":visible")){
 		$("#advancedFilterOptions").hide();
-		$("#basicFilterOptions").show();
-		$("#basicFilterOptions").find('li').removeClass('activeItem');
+		$("#workflowFilterOptions").show();
+		$("#workflowFilterOptions").find('li').removeClass('activeItem');
 		
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
-		$("#basicFilterOptions").hide();
+		//$("#basicFilterOptions").hide();
 		$("#workflowFilterOptions").hide();
 		$('#searchOptionsToggle').find('i').removeClass('icon-search-circled');
 		$('#searchOptionsToggle').find('i').addClass('icon-cancel-circled');
-	}
-}
-function toggleWorkflowOptions(){
-	resetForm();
-	resetToggleIcons();
-	if ($("#workflowFilterOptions").is(":visible")){
-		$("#workflowFilterOptions").hide();
-		$("#basicFilterOptions").show();
-		$("#basicFilterOptions").find('li').removeClass('activeItem');
-		
-	}else{
-		$("#Enquiry_basicFilter").val('');
-		$("#workflowFilterOptions").show();
-		$("#basicFilterOptions").hide();
-		$("#advancedFilterOptions").hide();
-		$('#workflowOptionsToggle').find('i').removeClass('icon-flow-tree');
-		$('#workflowOptionsToggle').find('i').addClass('icon-cancel-circled');
 	}
 }
 function resetForm(){
@@ -176,9 +159,6 @@ function resetForm(){
 	<div id="searchOptionsToggle" onCLick="js:toggleSearchOptions();return false;">
 		<i class="icon-search-circled"></i>
 	</div>
-	<div id="workflowOptionsToggle" style="right:30px" onCLick="js:toggleWorkflowOptions();return false;">
-			<i class="icon-flow-tree"></i>
-	</div>
 </div>
 
 <div id="enquiryPageTitle">
@@ -191,7 +171,7 @@ function resetForm(){
 
 <div id="filterOptions" style="margin-top:25px; margin-bottom: 5px; height:110px;"> <!-- filter options start -->
 
-<div id="basicFilterOptions" class="tabMenu" style="height:95px;">
+<div id="basicFilterOptions" class="tabMenu" style="height:95px; display:none;">
 <?php
 	echo '<div style="font-size:16px; height:50px; margin-bottom: 15px;">';
 		echo __('Haz una consulta y participa.').'<br />';
@@ -219,8 +199,9 @@ function resetForm(){
 </div>
 </div>
 
-<div id="workflowFilterOptions" style="height:95px;">
-	<img style="" src="<?php echo Yii::app()->request->baseUrl;?>/images/horizontal-workflow.png" />
+<div id="workflowFilterOptions" style="margin-top:-20px;height:95px; display:inline-block">
+	<span style="font-size:16px">width:930px; height:100px</span><br />
+	<img style="width:930px;height:100px" src="<?php echo Yii::app()->request->baseUrl;?>/images/horizontal-workflow.png" />
 </div>
 
 </div>	<!-- filter options end -->

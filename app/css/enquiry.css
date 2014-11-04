@@ -58,25 +58,8 @@
 /* search form */
 
 
-/* state menu */
-#workflowOptionsToggle
-{
-	color: #7D7D7D;	
-	position: absolute;
-	top: -20px;
-	right: -20px;
-	cursor:pointer;
-}
 
-#workflowOptionsToggle:hover {
-	color: #454545;	
-}
-#workflowOptionsToggle i
-{
-	font-size: 2em;
-}
-
-#advancedFilterOptions, #workflowFilterOptions { display:none }
+#advancedFilterOptions { display:none }
 
 /* preview */
 #enquiryList{
