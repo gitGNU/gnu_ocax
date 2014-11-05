@@ -60,7 +60,7 @@ return array(
 				array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
 				array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
 				
-				'p/<pageURL:[a-z0-9-]+>'=>'cmsPage/show',
+				'p/<pageURL:[a-z0-9-]+>'=>'sitePage/show',
 				'e/<id:\d+>'=>'enquiry/view',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

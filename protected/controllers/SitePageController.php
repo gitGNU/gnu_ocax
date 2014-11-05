@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class CmsPageController extends Controller
+class SitePageController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -74,13 +74,13 @@ class CmsPageController extends Controller
 		
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);
-		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 
 		$this->performAjaxValidation($model);
-		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
+		if(isset($_POST['SitePage'], $_POST['SitePageContent']))
 		{
-			$model->attributes=$_POST['CmsPage'];	
-			$content->attributes=$_POST['CmsPageContent'];
+			$model->attributes=$_POST['SitePage'];	
+			$content->attributes=$_POST['SitePageContent'];
 			if($model->validate() && $content->validate())
 				$model->save();
 		}
@@ -95,7 +95,7 @@ class CmsPageController extends Controller
 	public function actionShow($pageURL)
 	{
 		$_404=Null;
-		$content=CmsPageContent::model()->findByAttributes(array('pageURL'=>$pageURL));
+		$content=SitePageContent::model()->findByAttributes(array('pageURL'=>$pageURL));
 		if(!$content)
 			$_404=1;
 		else{
@@ -123,18 +123,18 @@ class CmsPageController extends Controller
 	public function actionCreate()
 	{
 		// http://www.yiiframework.com/wiki/19/
-		$model=new CmsPage;
-		$content =new CmsPageContent;
+		$model=new SitePage;
+		$content =new SitePageContent;
 		$languages=explode(',', Config::model()->findByPk('languages')->value);
 		$content->language=$languages[0];
 
 		$model->setScenario('create');
 		$this->performAjaxValidation($model);
 
-		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
+		if(isset($_POST['SitePage'], $_POST['SitePageContent']))
 		{
-			$model->attributes=$_POST['CmsPage'];
-			$content->attributes=$_POST['CmsPageContent'];
+			$model->attributes=$_POST['SitePage'];
+			$content->attributes=$_POST['SitePageContent'];
 			$content->page=0;	// dummy value. should do this with validation rule but it didn't work.
 		
 			if($model->validate() && $content->validate()){
@@ -144,7 +144,7 @@ class CmsPageController extends Controller
 				$word = Null;
 				if(Config::model()->isSiteMultilingual())
 					$word = 'language "'.$content->language.'" ';
-				Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('created'), $model->id);
+				Log::model()->write('sitePage',__('Page').' "'.$content->pageTitle.'" '.$word.__('created'), $model->id);
 
 				$this->layout='//layouts/column1';
 				$this->render('show',array(
@@ -175,11 +175,11 @@ class CmsPageController extends Controller
 			$lang=Yii::app()->user->getState('applicationLanguage');
 		}
 		$model=$this->loadModel($id);
-		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 		if(!$content){
 			// editing a language for the fisrt time. So we copy content from original language to help with the translation
-			$orig_content=CmsPageContent::model()->find(array('condition'=> 'page = '.$model->id.' AND pageURL IS NOT NULL'));
-			$content = new  CmsPageContent;
+			$orig_content=SitePageContent::model()->find(array('condition'=> 'page = '.$model->id.' AND pageURL IS NOT NULL'));
+			$content = new  SitePageContent;
 			$content->language = $lang;
 			$content->pageURL = $orig_content->pageURL;
 			$content->pageTitle = $orig_content->pageTitle;
@@ -191,10 +191,10 @@ class CmsPageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CmsPage'], $_POST['CmsPageContent']))
+		if(isset($_POST['SitePage'], $_POST['SitePageContent']))
 		{
-			$model->attributes=$_POST['CmsPage'];
-			$content->attributes=$_POST['CmsPageContent'];
+			$model->attributes=$_POST['SitePage'];
+			$content->attributes=$_POST['SitePageContent'];
 
 			if($model->validate() && $content->validate()){
 				$model->save();
@@ -215,10 +215,10 @@ class CmsPageController extends Controller
 	public function actionEditPreview($id,$lang)
 	{
 		$model=$this->loadModel($id);
-		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 
-		if($_POST['CmsPageContent'])
-			$content->attributes=$_POST['CmsPageContent'];
+		if($_POST['SitePageContent'])
+			$content->attributes=$_POST['SitePageContent'];
 		else
 			Yii::app()->end();
 
@@ -231,10 +231,10 @@ class CmsPageController extends Controller
 	public function actionSavePreview($id,$lang)
 	{
 		$model=$this->loadModel($id);
-		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
+		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 		
-		if($_POST['CmsPageContent'])
-			$content->attributes=$_POST['CmsPageContent'];
+		if($_POST['SitePageContent'])
+			$content->attributes=$_POST['SitePageContent'];
 		else
 			Yii::app()->end();
 		
@@ -245,7 +245,7 @@ class CmsPageController extends Controller
 		$word = Null;
 		if(Config::model()->isSiteMultilingual())
 			$word = 'language "'.$content->language.'" ';
-		Log::model()->write('cmsPage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'), $model->id);
+		Log::model()->write('sitePage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'), $model->id);
 		Yii::app()->user->setFlash('success', __('Changes saved Ok'));
 		$this->redirect(array($this->createUrl('/p/'.$content->pageURL)));
 	}
@@ -258,14 +258,14 @@ class CmsPageController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
-		$content=CmsPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>getDefaultLanguage()));
+		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>getDefaultLanguage()));
 		$pageTitle = $content->pageTitle;
 		
-		foreach($model->cmsPageContents as $content)
+		foreach($model->sitePageContents as $content)
 				$content->delete();
 				
 		$model->delete();
-		Log::model()->write('cmsPage',__('Page').' "'.$pageTitle.'" '.__('deleted'), $model->id);
+		Log::model()->write('sitePage',__('Page').' "'.$pageTitle.'" '.__('deleted'), $model->id);
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -277,7 +277,7 @@ class CmsPageController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('CmsPage');
+		$dataProvider=new CActiveDataProvider('SitePage');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -288,10 +288,10 @@ class CmsPageController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new CmsPage('search');
+		$model=new SitePage('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CmsPage']))
-			$model->attributes=$_GET['CmsPage'];
+		if(isset($_GET['SitePage']))
+			$model->attributes=$_GET['SitePage'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -302,12 +302,12 @@ class CmsPageController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return CmsPage the loaded model
+	 * @return SitePage the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=CmsPage::model()->findByPk($id);
+		$model=SitePage::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -315,11 +315,11 @@ class CmsPageController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param CmsPage $model the model to be validated
+	 * @param SitePage $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='cms-page-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='sitePage-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

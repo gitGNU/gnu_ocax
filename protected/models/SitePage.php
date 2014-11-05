@@ -19,7 +19,7 @@
  */
 
 /**
- * This is the model class for table "cms_page".
+ * This is the model class for table "site_page".
  *
  * The followings are the available columns in table 'cms_page':
  * @property integer $id
@@ -28,14 +28,14 @@
  * @property integer $published
  *
  * The followings are the available model relations:
- * @property CmsPageContent[] $cmsPageContents
+ * @property SitePageContent[] $sitePageContents
  */
-class CmsPage extends CActiveRecord
+class SitePage extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CmsPage the static model class
+	 * @return SitePage the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -47,7 +47,7 @@ class CmsPage extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cms_page';
+		return 'site_page';
 	}
 
 	/**
@@ -76,7 +76,7 @@ class CmsPage extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cmsPageContents' => array(self::HAS_MANY, 'CmsPageContent', 'page'),
+			'sitePageContents' => array(self::HAS_MANY, 'SitePageContent', 'page'),
 		);
 	}
 
@@ -107,7 +107,7 @@ class CmsPage extends CActiveRecord
 
 	public function isMenuItemHighlighted()
 	{
-		if(strcasecmp(Yii::app()->controller->id, 'cmsPage')!==0)
+		if(strcasecmp(Yii::app()->controller->id, 'sitePage')!==0)
 			return 0;
 		$arr = explode('/',Yii::app()->request->getPathInfo());
 		
@@ -120,7 +120,7 @@ class CmsPage extends CActiveRecord
 
 	public function findByURL($contentURL)
 	{
-		if($pageContent = CmsPageContent::model()->findByAttributes(array('pageURL'=>$contentURL)))
+		if($pageContent = SitePageContent::model()->findByAttributes(array('pageURL'=>$contentURL)))
 			return $pageContent->page0;
 		return null;
 	}
@@ -131,16 +131,16 @@ class CmsPage extends CActiveRecord
 	 */
 	public function getTitleForModel($id)
 	{
-		$content=CmsPageContent::model()->find(array('condition'=> 'page = '.$id.' AND pageTitle IS NOT NULL'));
+		$content=SitePageContent::model()->find(array('condition'=> 'page = '.$id.' AND pageTitle IS NOT NULL'));
 		return $content->pageTitle;
 	}
 
 	public function getContentForModel($lang)
 	{
-		if($content=CmsPageContent::model()->findByAttributes(array('page'=>$this->id,'language'=>Yii::app()->language)))
+		if($content=SitePageContent::model()->findByAttributes(array('page'=>$this->id,'language'=>Yii::app()->language)))
 			return $content;
 		
-		return CmsPageContent::model()->find(array('condition'=> 'page = '.$this->id.' AND pageTitle IS NOT NULL'));
+		return SitePageContent::model()->find(array('condition'=> 'page = '.$this->id.' AND pageTitle IS NOT NULL'));
 	}
 	
 	/**

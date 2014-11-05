@@ -214,7 +214,7 @@ if($model->is_editor){
 	echo '<div style="float:left"><p>';
 		if(Config::model()->findByPk('siteConfigStatusLanguage')->value){
 			echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';
-			echo CHtml::link(__('Site pages'), array('/cmsPage/admin'));
+			echo CHtml::link(__('Site pages'), array('/sitePage/admin'));
 		}
 	echo '</p></div>';
 	echo '</div>';

@@ -64,7 +64,7 @@ msgstr "Consulta"
 
 #: protected/models/Email.php:107
 #: protected/models/Newsletter.php:114
-#: protected/models/CmsPageContent.php:107
+#: protected/models/SitePageContent.php:107
 #: protected/models/Enquiry.php:220
 #: protected/models/EmailTemplate.php:114
 msgid "Body"
@@ -123,7 +123,7 @@ msgid "Sent OK"
 msgstr "Enviada com sucesso"
 
 #: protected/models/Newsletter.php:108
-#: protected/models/CmsPage.php:90
+#: protected/models/SitePage.php:90
 #: protected/models/IntroPage.php:112
 #: protected/views/budget/_formYear.php:63
 #: protected/views/budget/adminYears.php:99
@@ -152,7 +152,7 @@ msgstr "Assunto"
 #: protected/models/BudgetDescCommon.php:101
 #: protected/models/User.php:131
 #: protected/models/BudgetDescLocal.php:87
-#: protected/models/CmsPageContent.php:104
+#: protected/models/SitePageContent.php:104
 msgid "Language"
 msgstr "Idioma"
 
@@ -196,11 +196,11 @@ msgstr "Modificado"
 msgid "Date of reply"
 msgstr "Data de resposta"
 
-#: protected/models/CmsPage.php:88
+#: protected/models/SitePage.php:88
 msgid "Block"
 msgstr ""
 
-#: protected/models/CmsPage.php:89
+#: protected/models/SitePage.php:89
 #: protected/models/Budget.php:129
 msgid "Weight"
 msgstr "Peso"
@@ -319,16 +319,16 @@ msgstr "Votar"
 msgid "Comment"
 msgstr "Comentário"
 
-#: protected/models/CmsPageContent.php:103
+#: protected/models/SitePageContent.php:103
 #, fuzzy
 msgid "Page"
 msgstr "Nome da página"
 
-#: protected/models/CmsPageContent.php:105
+#: protected/models/SitePageContent.php:105
 msgid "Page URL"
 msgstr ""
 
-#: protected/models/CmsPageContent.php:106
+#: protected/models/SitePageContent.php:106
 #, fuzzy
 msgid "Page Title"
 msgstr "Título"
@@ -742,13 +742,13 @@ msgid "defined budgets"
 msgstr "Orçamentos definidos"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:152
+#: protected/views/sitePage/_form.php:152
 #: protected/views/introPage/_form.php:159
 msgid "Create"
 msgstr "Criar"
 
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:152
+#: protected/views/sitePage/_form.php:152
 #: protected/views/enquiry/changeType.php:104
 #: protected/views/introPage/_form.php:159
 #: protected/views/user/updateRoles.php:109
@@ -893,30 +893,30 @@ msgstr "Publicar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: protected/views/cmsPage/show.php:47
+#: protected/views/sitePage/show.php:47
 #: protected/views/introPage/view.php:78
 msgid "Edit page"
 msgstr "Editar página"
 
-#: protected/views/cmsPage/show.php:53
-#: protected/views/cmsPage/admin.php:83
-#: protected/views/cmsPage/update.php:32
-#: protected/views/cmsPage/create.php:25
+#: protected/views/sitePage/show.php:53
+#: protected/views/sitePage/admin.php:83
+#: protected/views/sitePage/update.php:32
+#: protected/views/sitePage/create.php:25
 #: protected/views/introPage/view.php:84
 #: protected/views/introPage/update.php:34
 #: protected/views/introPage/create.php:24
 msgid "Manage pages"
 msgstr "Gerir páginas"
 
-#: protected/views/cmsPage/admin.php:25
-#: protected/views/cmsPage/create.php:30
+#: protected/views/sitePage/admin.php:25
+#: protected/views/sitePage/create.php:30
 #: protected/views/introPage/admin.php:26
 #: protected/views/introPage/update.php:33
 #: protected/views/introPage/create.php:29
 msgid "Create page"
 msgstr "Criar página"
 
-#: protected/views/cmsPage/admin.php:26
+#: protected/views/sitePage/admin.php:26
 #: protected/views/file/wallpaper.php:25
 #: protected/views/file/admin.php:25
 #: protected/views/file/_form.php:61
@@ -924,40 +924,40 @@ msgstr "Criar página"
 msgid "Upload file"
 msgstr "Enviar ficheiro"
 
-#: protected/views/cmsPage/admin.php:27
+#: protected/views/sitePage/admin.php:27
 msgid "Show uploaded files"
 msgstr "Mostrar os ficheiros já enviados"
 
-#: protected/views/cmsPage/admin.php:95
+#: protected/views/sitePage/admin.php:95
 msgid "Page name"
 msgstr "Nome da página"
 
-#: protected/views/cmsPage/update.php:24
+#: protected/views/sitePage/update.php:24
 #: protected/views/introPage/update.php:25
 msgid "Delete this page"
 msgstr "Apagar esta página"
 
-#: protected/views/cmsPage/update.php:26
+#: protected/views/sitePage/update.php:26
 #: protected/views/introPage/update.php:27
 msgid "and translations"
 msgstr "e traduções"
 
-#: protected/views/cmsPage/update.php:30
+#: protected/views/sitePage/update.php:30
 #: protected/views/introPage/update.php:31
 msgid "View page"
 msgstr "Ver página"
 
-#: protected/views/cmsPage/update.php:31
+#: protected/views/sitePage/update.php:31
 #: protected/views/introPage/update.php:32
 msgid "Delete page"
 msgstr "Apagar página"
 
-#: protected/views/cmsPage/update.php:37
+#: protected/views/sitePage/update.php:37
 #: protected/views/introPage/update.php:39
 msgid "Update page"
 msgstr "Actualizar página"
 
-#: protected/views/cmsPage/_form.php:81
+#: protected/views/sitePage/_form.php:81
 #, fuzzy
 msgid "Content"
 msgstr "Conceito"

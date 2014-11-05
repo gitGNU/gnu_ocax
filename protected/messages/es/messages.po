@@ -66,25 +66,25 @@ msgstr "Nombre de usuario"
 msgid "Password"
 msgstr "Contraseña"
 
-#: protected/models/CmsPageContent.php:103
+#: protected/models/SitePageContent.php:103
 msgid "Page"
 msgstr "Página"
 
-#: protected/models/CmsPageContent.php:104 protected/models/User.php:131
+#: protected/models/SitePageContent.php:104 protected/models/User.php:131
 #: protected/models/BudgetDescCommon.php:101
 #: protected/models/BudgetDescLocal.php:87
 msgid "Language"
 msgstr "Idioma"
 
-#: protected/models/CmsPageContent.php:105
+#: protected/models/SitePageContent.php:105
 msgid "Page URL"
 msgstr "URL de la página"
 
-#: protected/models/CmsPageContent.php:106
+#: protected/models/SitePageContent.php:106
 msgid "Page Title"
 msgstr "Título de la página"
 
-#: protected/models/CmsPageContent.php:107 protected/models/Newsletter.php:114
+#: protected/models/SitePageContent.php:107 protected/models/Newsletter.php:114
 #: protected/models/Enquiry.php:228 protected/models/EmailTemplate.php:114
 #: protected/models/Email.php:107
 msgid "Body"
@@ -103,7 +103,7 @@ msgid "Sent OK"
 msgstr "Enviado OK"
 
 #: protected/models/Newsletter.php:108 protected/models/IntroPage.php:112
-#: protected/models/CmsPage.php:90 protected/views/budget/adminYears.php:100
+#: protected/models/SitePage.php:90 protected/views/budget/adminYears.php:100
 #: protected/views/budget/_formYear.php:63
 msgid "Published"
 msgstr "Publicada"
@@ -397,11 +397,11 @@ msgstr "Destinatarios"
 msgid "Enquiry"
 msgstr "Consulta"
 
-#: protected/models/CmsPage.php:88
+#: protected/models/SitePage.php:88
 msgid "Block"
 msgstr "Bloque"
 
-#: protected/models/CmsPage.php:89 protected/models/Budget.php:129
+#: protected/models/SitePage.php:89 protected/models/Budget.php:129
 msgid "Weight"
 msgstr "Peso"
 
@@ -879,7 +879,7 @@ msgstr "Selecciona un presupuesto de la tabla más abajo"
 #: protected/views/budget/_formYear.php:80
 #: protected/views/email/create.php:138
 #: protected/views/user/updateRoles.php:109
-#: protected/views/user/update.php:145 protected/views/cmsPage/_form.php:166
+#: protected/views/user/update.php:145 protected/views/sitePage/_form.php:166
 msgid "Save"
 msgstr "Guardar"
 
@@ -1121,47 +1121,47 @@ msgstr ""
 msgid "You are in edit mode"
 msgstr ""
 
-#: protected/views/introPage/view.php:78 protected/views/cmsPage/show.php:47
+#: protected/views/introPage/view.php:78 protected/views/sitePage/show.php:47
 msgid "Edit page"
 msgstr "Editar página"
 
 #: protected/views/introPage/view.php:84
 #: protected/views/introPage/create.php:24
 #: protected/views/introPage/update.php:34
-#: protected/views/cmsPage/create.php:25 protected/views/cmsPage/update.php:32
-#: protected/views/cmsPage/show.php:53 protected/views/cmsPage/admin.php:83
+#: protected/views/sitePage/create.php:25 protected/views/sitePage/update.php:32
+#: protected/views/sitePage/show.php:53 protected/views/sitePage/admin.php:83
 msgid "Manage pages"
 msgstr "Gestionar páginas"
 
 #: protected/views/introPage/create.php:29
 #: protected/views/introPage/update.php:33
 #: protected/views/introPage/admin.php:26
-#: protected/views/cmsPage/create.php:30 protected/views/cmsPage/admin.php:25
+#: protected/views/sitePage/create.php:30 protected/views/sitePage/admin.php:25
 msgid "Create page"
 msgstr "Crear página"
 
 #: protected/views/introPage/update.php:25
-#: protected/views/cmsPage/update.php:24
+#: protected/views/sitePage/update.php:24
 msgid "Delete this page"
 msgstr "Borrar esta página"
 
 #: protected/views/introPage/update.php:27
-#: protected/views/cmsPage/update.php:26
+#: protected/views/sitePage/update.php:26
 msgid "and translations"
 msgstr "y traducciones"
 
 #: protected/views/introPage/update.php:31
-#: protected/views/cmsPage/update.php:30
+#: protected/views/sitePage/update.php:30
 msgid "View page"
 msgstr "Ver página"
 
 #: protected/views/introPage/update.php:32
-#: protected/views/cmsPage/update.php:31
+#: protected/views/sitePage/update.php:31
 msgid "Delete page"
 msgstr "Borrar página"
 
 #: protected/views/introPage/update.php:39
-#: protected/views/cmsPage/update.php:37
+#: protected/views/sitePage/update.php:37
 msgid "Update page"
 msgstr "Actualizar página"
 
@@ -1201,7 +1201,7 @@ msgstr "Traducciones"
 
 #: protected/views/introPage/_form.php:159
 #: protected/views/budget/_formYear.php:80
-#: protected/views/cmsPage/_form.php:166
+#: protected/views/sitePage/_form.php:166
 msgid "Create"
 msgstr "Crear"
 
@@ -1897,7 +1897,7 @@ msgstr "Subir un fichero"
 msgid "Description required"
 msgstr "Falta incluir una descripción"
 
-#: protected/views/archive/_form.php:69 protected/views/cmsPage/admin.php:26
+#: protected/views/archive/_form.php:69 protected/views/sitePage/admin.php:26
 #: protected/views/file/wallpaper.php:25 protected/views/file/_form.php:61
 #: protected/views/file/admin.php:25
 msgid "Upload file"
@@ -1979,21 +1979,21 @@ msgstr "Editar borrador"
 msgid "Send now"
 msgstr "Enviar ahora"
 
-#: protected/views/cmsPage/_form.php:81
+#: protected/views/sitePage/_form.php:81
 msgid "Content"
 msgstr "Contenido"
 
-#: protected/views/cmsPage/_form.php:98
+#: protected/views/sitePage/_form.php:98
 msgid "Warning! Safe HTML editing is off. Copy/paste can create problems"
 msgstr ""
 "Aviso! La edición segura de HTML está desactivada. Copia/pegar puede causar "
 "problemas."
 
-#: protected/views/cmsPage/admin.php:27
+#: protected/views/sitePage/admin.php:27
 msgid "Show uploaded files"
 msgstr "Mostrar los ficheros ya subidos"
 
-#: protected/views/cmsPage/admin.php:95
+#: protected/views/sitePage/admin.php:95
 msgid "Page name"
 msgstr "Nombre de página"
 

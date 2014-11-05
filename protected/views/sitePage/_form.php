@@ -18,8 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this SitePageController */
+/* @var $model SitePage */
 /* @var $form CActiveForm */
 ?>
 
@@ -30,10 +30,10 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'cms-page-form',
+	'id'=>'sitePage-form',
 	'enableAjaxValidation'=>true,
 	'action'=>	Yii::app()->request->baseUrl.
-				$model->isNewRecord ? '/cmsPage/create/' : '/cmsPage/preview/'.$model->id.'?lang='.$content->language,
+				$model->isNewRecord ? '/sitePage/create/' : '/sitePage/preview/'.$model->id.'?lang='.$content->language,
 )); ?>
 
 	<?php
@@ -53,7 +53,7 @@
 			//echo '<div class="hint">'.__('Translations').'</div>';
 			echo $form->dropDownList($content, 'language', $listData,
 									array('onchange'=>	'location.href="'.Yii::app()->request->baseUrl.
-														'/cmsPage/update/'.$model->id.'?lang="+this.options[this.selectedIndex].value'
+														'/sitePage/update/'.$model->id.'?lang="+this.options[this.selectedIndex].value'
 									));
 			echo '</div>';
 		}
@@ -130,7 +130,7 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 												embed[type|width|height|src|*]',
 					'style_formats' => array(
 						array('title'=> 'Color', 'inline' => 'span', 'classes' => 'color'),
-						array('title'=> 'Insert', 'inline' => 'span', 'classes' => 'cmsInsert'),
+						array('title'=> 'Insert', 'inline' => 'span', 'classes' => 'sitePageInsert'),
 					),
 				);
 

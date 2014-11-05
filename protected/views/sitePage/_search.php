@@ -18,8 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this SitePageController */
+/* @var $model SitePage */
 /* @var $form CActiveForm */
 ?>
 

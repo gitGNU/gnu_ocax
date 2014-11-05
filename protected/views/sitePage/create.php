@@ -18,14 +18,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this SitePageController */
+/* @var $model SitePage */
 
 $this->menu=array(
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':profiles:cms_editor';
-$this->viewLog='cmsPage';
+$this->viewLog='sitePage';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create page'))); ?>

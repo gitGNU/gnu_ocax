@@ -1,6 +1,6 @@
-/* ******* CMS ******** */
+/* ******* sitePage ******** */
 
-.cms_titulo
+.sitePage_titulo
 {
 	font-size: 410%;
 	line-height: 100%;
@@ -8,7 +8,7 @@
 	font-weight:100;
 	margin-bottom:20px;
 }
-.cms_content{ font-size: 18px; 	}
+.sitePage_content{ font-size: 18px; 	}
 
 p { font-size: 1em; }
 
@@ -36,23 +36,23 @@ h3 {
 	margin: 8px 0 6px 0;
 }
 
-#cmsOptions{
+#sitePageOptions{
 	font-size:1.5em;
 	margin: -30px -25px 30px -25px;
 	padding: 10px 0 10px 0;
 	background-color:white;
 }
-#cmsOptions a{
+#sitePageOptions a{
 	padding: 12px 20px 12px 20px;
 }
-#cmsOptions a:hover{
+#sitePageOptions a:hover{
 	background-color:#f5f1ed;
 }
 
 
 /* .activeMenuItem a {text-decoration:none;} */
 
-#cmsPageBreadcrumbs
+#sitePageBreadcrumbs
 {
 	/*border-top: 2px solid lightgrey;*/
 	border-bottom: 1px solid #e4ded7;
@@ -62,7 +62,7 @@ h3 {
 	font-size: 20px;
 }
 
-.cmsInsert
+.sitePageInsert
 {
 	font-size: 22px;
 	font-weight:300;

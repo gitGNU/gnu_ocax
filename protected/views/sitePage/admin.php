@@ -18,8 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $model CmsPage */
+/* @var $this SitePageController */
+/* @var $model SitePage */
 
 $this->menu=array(
 	array('label'=>__('Create page'), 'url'=>array('create')),
@@ -27,7 +27,7 @@ $this->menu=array(
 	array('label'=>__('Show uploaded files'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showUploadedFiles();')),
 );
 $this->inlineHelp=':profiles:cms_editor';
-$this->viewLog='cmsPage';
+$this->viewLog='sitePage';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -94,7 +94,7 @@ function uploadFile(){
 	'columns'=>array(
 		array(
 			'header'=>__('Page name'),
-			'value'=>'CmsPage::model()->getTitleForModel($data->id)',
+			'value'=>'SitePage::model()->getTitleForModel($data->id)',
 		),
 		'block',
 		'weight',

@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS intro_page_content (
 	FOREIGN KEY (page) REFERENCES intro_page(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS cms_page (
+CREATE TABLE IF NOT EXISTS site_page (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	block int(10) NOT NULL,
 	weight int(10),
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS cms_page (
 	PRIMARY KEY (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS cms_page_content (
+CREATE TABLE IF NOT EXISTS site_page_content (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	page int(11) NOT NULL,
 	language char(2) NOT NULL,
@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS cms_page_content (
 	metaDescription varchar( 255 ) DEFAULT NULL ,
 	metaKeywords varchar( 255 ) DEFAULT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (page) REFERENCES cms_page(id)
+	FOREIGN KEY (page) REFERENCES site_page(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE IF NOT EXISTS archive (

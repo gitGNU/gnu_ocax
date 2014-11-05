@@ -30,7 +30,7 @@
 			$criteria=new CDbCriteria;
 			$criteria->condition = 'weight = 0 AND published = 1';
 			$criteria->order = 'block DESC';
-			$cms_pages=CmsPage::model()->findAll($criteria);
+			$cms_pages=SitePage::model()->findAll($criteria);
 			foreach($cms_pages as $page){
 				$page_content = $page->getContentForModel(Yii::app()->language);
 				$item = array(	'label'=>CHtml::encode($page_content->pageTitle),

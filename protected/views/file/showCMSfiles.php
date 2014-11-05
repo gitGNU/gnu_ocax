@@ -29,7 +29,7 @@ Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 echo '<div class="modalTitle">'.__('Uploaded files').'</div>';
 
 $dataProvider = new CActiveDataProvider('File', array(
-    'criteria'=>array('condition'=>'model = "CmsPage"')
+    'criteria'=>array('condition'=>'model = "SitePage"')
 ));
 
 echo '<div style="margin: 10px -10px 0 -10px">';

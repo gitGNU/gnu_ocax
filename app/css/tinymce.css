@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400&subset=latin,latin-ext);
 @import url("./color.css");
-@import url("./cmspage.css");
+@import url("./sitepage.css");
 
 body
 {
@@ -11,7 +11,4 @@ body
 	color:black;
 
 }
-
-
-
 

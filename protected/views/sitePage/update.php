@@ -18,22 +18,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this CmsPageController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $this SitePageController */
+/* @var $model SitePage */
 
-$this->breadcrumbs=array(
-	'Cms Pages',
-);
+$deleteConfirm=__('Delete this page');
+if(count($model->sitePageContents) > 1)
+	$deleteConfirm .= ' '.__('and translations');
+$deleteConfirm .='?';
 
 $this->menu=array(
-	array('label'=>'Create CmsPage', 'url'=>array('create')),
-	array('label'=>'Manage CmsPage', 'url'=>array('admin')),
+	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
+	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':profiles:cms_editor';
+$this->viewLog='sitePage|'.$model->id;
 ?>
 
-<h1>Cms Pages</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update page'))); ?>

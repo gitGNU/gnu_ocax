@@ -34,10 +34,10 @@
  * @property string $metaKeywords
  *
  * The followings are the available model relations:
- * @property CmsPage $page0
+ * @property SitePage $page0
  */
 
-class CmsPageContent extends CActiveRecord
+class SitePageContent extends CActiveRecord
 {
 	
 	public $previewBody;
@@ -45,7 +45,7 @@ class CmsPageContent extends CActiveRecord
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CmsPageContent the static model class
+	 * @return SitePageContent the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -57,7 +57,7 @@ class CmsPageContent extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cms_page_content';
+		return 'site_page_content';
 	}
 
 	/**
@@ -94,7 +94,7 @@ class CmsPageContent extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'page0' => array(self::BELONGS_TO, 'CmsPage', 'page'),
+			'page0' => array(self::BELONGS_TO, 'SitePage', 'page'),
 		);
 	}
 

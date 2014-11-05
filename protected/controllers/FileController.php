@@ -133,10 +133,10 @@ class FileController extends Controller
 				if($file_saved = $model->file->saveAs($model->getURI()))
 					$model->save();
 
-				if($model->model == 'CmsPage'){
+				if($model->model == 'SitePage'){
 					if($file_saved)
 						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
-					$this->redirect(array('cmsPage/admin'));
+					$this->redirect(array('sitePage/admin'));
 
 				}elseif($model->model == 'Reply'){
 					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);

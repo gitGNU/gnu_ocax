@@ -21,7 +21,7 @@
 $this->setPageTitle($content->pageTitle);
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/cmspage.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/sitepage.css" />
 
 <?php if(isset($preview)){ ?>
 <script>
@@ -29,29 +29,29 @@ $(function() {
 	$('.language_link').hide();
 });
 function savePreview(){
-	form = $('#cms-page-form');
+	form = $('#sitePage-form');
 	form.attr(	'action',
-				"<?php echo Yii::app()->request->baseUrl; ?>/cmsPage/savePreview/<?php echo $model->id;?>?lang=<?php echo $content->language;?>"
+				"<?php echo Yii::app()->request->baseUrl; ?>/sitePage/savePreview/<?php echo $model->id;?>?lang=<?php echo $content->language;?>"
 			);
 	form.submit();
 }
 function editPreview(){
-	form = $('#cms-page-form');
+	form = $('#sitePage-form');
 	form.attr(	'action',
-				"<?php echo Yii::app()->request->baseUrl; ?>/cmsPage/editPreview/<?php echo $model->id;?>?lang=<?php echo $content->language;?>"
+				"<?php echo Yii::app()->request->baseUrl; ?>/sitePage/editPreview/<?php echo $model->id;?>?lang=<?php echo $content->language;?>"
 			);
 	form.submit();}
 </script>
 
 <?php
 $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'cms-page-form',
+	'id'=>'sitePage-form',
 	'enableAjaxValidation'=>false,
 ));
 echo $form->hiddenField($content,'previewBody');
 $this->endWidget();
 
-echo '<div id="cmsOptions">';
+echo '<div id="sitePageOptions">';
 	echo '<div style="width:30%; float: left; text-align: center;">';
 	echo '<a href="#" onclick="js:savePreview();">'.__('Save changes').'</a>';
 	echo '</div>';
@@ -59,7 +59,7 @@ echo '<div id="cmsOptions">';
 	echo '<a href="#" onclick="js:editPreview();">'.__('Edit page').'</a>';
 	echo '</div>';
 	echo '<div style="width:30%; float: left; text-align: center;">';
-	echo CHtml::link(__('Manage pages'),array('cmsPage/admin'));
+	echo CHtml::link(__('Manage pages'),array('sitePage/admin'));
 	echo '</div>';
 echo '<div style="clear:both;"></div>';
 echo '</div>';
@@ -67,14 +67,14 @@ echo '</div>';
 } ?>
 
 <!-- start page here -->
-<div id="cmsPageBreadcrumbs">
+<div id="sitePageBreadcrumbs">
 <?php
-	if($parent = CmsPage::model()->findByAttributes(array('block'=>$model->block, 'published'=>1, 'weight'=>0))){
+	if($parent = SitePage::model()->findByAttributes(array('block'=>$model->block, 'published'=>1, 'weight'=>0))){
 		//array('order'=>'weight')
 
 		echo '<a href="'.$this->createUrl('site/index').'">'.__('Home').'</a>';
 		if($parent->id != $model->id){
-			if($parentContent = CmsPageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language))){
+			if($parentContent = SitePageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language))){
 				echo ' &rarr; <a href="'.$this->createUrl('p/'.$parentContent->pageURL).'">'.$parentContent->pageTitle.'</a>';
 			}
 		}
@@ -88,15 +88,15 @@ if(!$model->published)
 if(!Yii::app()->user->isGuest && Yii::app()->user->isEditor() && !isset($preview)){
 	echo '<div style="float:right; margin-right: -10px; ">';
 	echo	'<i class="icon-edit-1" style=" font-size:18px; cursor:pointer;" '.
-			'onclick="js:window.location.href=\''.$this->createUrl('/cmsPage/update/'.$model->id).'\'"></i>';
+			'onclick="js:window.location.href=\''.$this->createUrl('/sitePage/update/'.$model->id).'\'"></i>';
 	echo	'<i class="icon-th-list" style=" font-size:18px; cursor:pointer;" '.
-			'onclick="js:window.location.href=\''.$this->createUrl('/cmsPage/admin').'\'"></i>';
+			'onclick="js:window.location.href=\''.$this->createUrl('/sitePage/admin').'\'"></i>';
 	echo '</div>';
 }			
 ?>
 
-<div class="cms_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
-<div class="cms_content">
+<div class="sitePage_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
+<div class="sitePage_content">
 	<?php echo isset($preview) ? $content->previewBody : $content->body; ?>
 </div>
 

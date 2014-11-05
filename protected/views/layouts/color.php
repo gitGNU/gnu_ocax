@@ -58,10 +58,10 @@ div.form .title{ color:<?php echo $color;?>; }
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
 
-/*CMS Pages*/
-.cms_titulo { color:<?php echo $color;?>; }
+/*sitePage Pages*/
+.sitePage_titulo { color:<?php echo $color;?>; }
 .activeMenuItem a { color: #676767; }
-.cmsInsert { border-color: <?php echo $color;?>; }
+.sitePageInsert { border-color: <?php echo $color;?>; }
 
 /*Budgets*/
 #budget_titulo_j { color: <?php echo $color;?>; }
