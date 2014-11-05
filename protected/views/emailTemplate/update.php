@@ -18,13 +18,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this EmailtextController */
-/* @var $model Emailtext */
+/* @var $this EmailTemplateController */
+/* @var $model EmailTemplate */
 
 $this->menu=array(
 /*
-	array('label'=>'List Emailtext', 'url'=>array('index')),
-	array('label'=>'Create Emailtext', 'url'=>array('create')),
+	array('label'=>'List EmailTemplate', 'url'=>array('index')),
+	array('label'=>'Create EmailTemplate', 'url'=>array('create')),
 	
 */
 	array('label'=>__('View text'), 'url'=>array('view', 'id'=>$model->state)),

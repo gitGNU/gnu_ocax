@@ -184,21 +184,21 @@ CREATE TABLE IF NOT EXISTS vote (
   FOREIGN KEY (reply) REFERENCES reply(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 
-CREATE TABLE IF NOT EXISTS emailtext (
+CREATE TABLE IF NOT EXISTS email_template (
 	state int(11) NOT NULL,
 	body MEDIUMTEXT NOT NULL,
 	updated TINYINT(1) DEFAULT 0 NOT NULL,
 	PRIMARY KEY (state)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO emailtext(state, updated, body) VALUES (1, 0, '<p>Hola %name%,</p><p>ENQUIRY_PENDING_VALIDATION</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (2, 0, '<p>Hola team_member,</p><p>This is an internal email.<br />ENQUIRY_ASSIGNED</p><p>%link%</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (3, 0, '<p>Hola,</p><p>ENQUIRY_REJECTED</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (4, 0, '<p>Hola,</p><p>ENQUIRY_ACCEPTED</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (5, 0, '<p>Hola,</p><p>ENQUIRY_AWAITING_REPLY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (6, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_PENDING_ASSESSMENT</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (7, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_SATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
-INSERT INTO emailtext(state, updated, body) VALUES (8, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_INSATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO email_template(state, updated, body) VALUES (1, 0, '<p>Hola %name%,</p><p>ENQUIRY_PENDING_VALIDATION</p>');
+INSERT INTO email_template(state, updated, body) VALUES (2, 0, '<p>Hola team_member,</p><p>This is an internal email.<br />ENQUIRY_ASSIGNED</p><p>%link%</p>');
+INSERT INTO email_template(state, updated, body) VALUES (3, 0, '<p>Hola,</p><p>ENQUIRY_REJECTED</p>');
+INSERT INTO email_template(state, updated, body) VALUES (4, 0, '<p>Hola,</p><p>ENQUIRY_ACCEPTED</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO email_template(state, updated, body) VALUES (5, 0, '<p>Hola,</p><p>ENQUIRY_AWAITING_REPLY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO email_template(state, updated, body) VALUES (6, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_PENDING_ASSESSMENT</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO email_template(state, updated, body) VALUES (7, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_SATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
+INSERT INTO email_template(state, updated, body) VALUES (8, 0, '<p>Hola,</p><p>ENQUIRY_REPLY_INSATISFACTORY</p><p>Link<br />%link%</p><p>Cordiales Saludos,</p>');
 
 CREATE TABLE IF NOT EXISTS email (
 	id int(11) NOT NULL AUTO_INCREMENT,

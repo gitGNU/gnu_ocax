@@ -18,15 +18,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this EmailtextController */
-/* @var $model Emailtext */
+/* @var $this EmailTemplateController */
+/* @var $model EmailTemplate */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'emailtext-form',
+	'id'=>'emailTemplate-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 

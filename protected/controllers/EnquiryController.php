@@ -220,7 +220,7 @@ class EnquiryController extends Controller
 
 				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->getHumanStates($model->state);
-				$mailer->Body=Emailtext::model()->findByPk($model->state)->getBody($model);
+				$mailer->Body=EmailTemplate::model()->findByPk($model->state)->getBody($model);
 
 				$email = new Email;
 

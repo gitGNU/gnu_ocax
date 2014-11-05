@@ -253,7 +253,7 @@ if($model->is_admin){
 	echo '</p></div>';
 	echo '<div style="float:right"><p>';
 		echo CHtml::link(__('Users and roles'),array('user/admin')).'<br />';
-		echo CHtml::link(__('Email text templates'),array('emailtext/admin')).'<br />';
+		echo CHtml::link(__('Email text templates'),array('emailTemplate/admin')).'<br />';
 		echo CHtml::link(__('Wallpaper'), array('/file/wallpaper')).'<br />';
 		echo CHtml::link(__('Global parameters'),array('/config')).'<br />';
  	echo '</p></div>';

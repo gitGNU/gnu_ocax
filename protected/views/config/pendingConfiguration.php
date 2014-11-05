@@ -74,11 +74,11 @@ if(!$config->findByPk('siteConfigStatusAdministrationName')->value){
 }
 
 if(!$config->findByPk('siteConfigStatusEmailTemplates')->value){
-	$configuredTemplatesTotal = count(Emailtext::model()->findAllByAttributes(array('updated'=>1)));
-	$totalTemplates = count( Emailtext::model()->findAll() );
+	$configuredTemplatesTotal = count(EmailTemplate::model()->findAllByAttributes(array('updated'=>1)));
+	$totalTemplates = count( EmailTemplate::model()->findAll() );
 	if( $configuredTemplatesTotal < $totalTemplates){
 		$text = __('Email templates').' '.($totalTemplates-$configuredTemplatesTotal).' '.__('need to be defined');
-		echo $cnt.'. '.CHtml::link($text,array('emailtext/admin'));
+		echo $cnt.'. '.CHtml::link($text,array('emailTemplate/admin'));
 		$cnt +=1;
 		echo '<br />';
 	}

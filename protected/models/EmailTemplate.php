@@ -19,18 +19,18 @@
  */
 
 /**
- * This is the model class for table "emailtext".
+ * This is the model class for table "emailTemplate".
  *
- * The followings are the available columns in table 'emailtext':
+ * The followings are the available columns in table 'emailTemplate':
  * @property integer $state
  * @property string $body
  */
-class Emailtext extends CActiveRecord
+class EmailTemplate extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Emailtext the static model class
+	 * @return EmailTemplate the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -42,7 +42,7 @@ class Emailtext extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'emailtext';
+		return 'email_template';
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class EmailtextController extends Controller
+class EmailTemplateController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -81,9 +81,9 @@ class EmailtextController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Emailtext']))
+		if(isset($_POST['EmailTemplate']))
 		{
-			$model->attributes=$_POST['Emailtext'];
+			$model->attributes=$_POST['EmailTemplate'];
 			$model->updated=1;
 			if($model->save()){
 				$configuredTemplatesTotal = count($model->findAllByAttributes(array('updated'=>1)));
@@ -107,10 +107,10 @@ class EmailtextController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Emailtext('search');
+		$model=new EmailTemplate('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Emailtext']))
-			$model->attributes=$_GET['Emailtext'];
+		if(isset($_GET['EmailTemplate']))
+			$model->attributes=$_GET['EmailTemplate'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -121,12 +121,12 @@ class EmailtextController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Emailtext the loaded model
+	 * @return EmailTemplate the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Emailtext::model()->findByPk($id);
+		$model=EmailTemplate::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -134,11 +134,11 @@ class EmailtextController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Emailtext $model the model to be validated
+	 * @param EmailTemplate $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='emailtext-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='emailTemplate-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

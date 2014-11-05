@@ -66,7 +66,7 @@ msgstr "Consulta"
 #: protected/models/Newsletter.php:114
 #: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:220
-#: protected/models/Emailtext.php:114
+#: protected/models/EmailTemplate.php:114
 msgid "Body"
 msgstr "Corpo"
 
@@ -132,8 +132,8 @@ msgstr "Publicada"
 
 #: protected/models/Newsletter.php:109
 #: protected/models/Enquiry.php:218
-#: protected/models/Emailtext.php:113
-#: protected/views/emailtext/admin.php:46
+#: protected/models/EmailTemplate.php:113
+#: protected/views/emailTemplate/admin.php:46
 #: protected/views/enquiry/view.php:192
 #: protected/views/enquiry/index.php:143
 #: protected/views/enquiry/_reformulated.php:48
@@ -506,7 +506,7 @@ msgstr "Não é possível criar o ficheiro zip"
 msgid "Remember me"
 msgstr "Lembrem-me"
 
-#: protected/models/Emailtext.php:89
+#: protected/models/EmailTemplate.php:89
 msgid "User fullname will go here"
 msgstr ""
 
@@ -1050,7 +1050,7 @@ msgstr "Nome a usar para o link"
 msgid "Upload"
 msgstr "Enviar ficheiro"
 
-#: protected/views/emailtext/admin.php:28
+#: protected/views/emailTemplate/admin.php:28
 #: protected/views/user/panel.php:155
 msgid "Email text templates"
 msgstr "Modelos de email"

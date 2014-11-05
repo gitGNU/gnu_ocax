@@ -143,7 +143,7 @@ class EmailController extends Controller
 		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->enquiry));
 
 		if(!$model->body)
-			$model->body=Emailtext::model()->findByPk($enquiry->state)->getBody($enquiry);
+			$model->body=EmailTemplate::model()->findByPk($enquiry->state)->getBody($enquiry);
 		if(!$model->title)
 			$model->title=$enquiry->getHumanStates($enquiry->state);
 

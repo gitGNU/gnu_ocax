@@ -85,7 +85,7 @@ msgid "Page Title"
 msgstr "Título de la página"
 
 #: protected/models/CmsPageContent.php:107 protected/models/Newsletter.php:114
-#: protected/models/Enquiry.php:228 protected/models/Emailtext.php:114
+#: protected/models/Enquiry.php:228 protected/models/EmailTemplate.php:114
 #: protected/models/Email.php:107
 msgid "Body"
 msgstr "Cuerpo"
@@ -109,11 +109,11 @@ msgid "Published"
 msgstr "Publicada"
 
 #: protected/models/Newsletter.php:109 protected/models/Enquiry.php:226
-#: protected/models/Emailtext.php:113 protected/models/Vault.php:189
+#: protected/models/EmailTemplate.php:113 protected/models/Vault.php:189
 #: protected/models/Backup.php:105 protected/views/enquiry/view.php:193
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/enquiry/_reformulated.php:48
-#: protected/views/emailtext/admin.php:45 protected/views/user/view.php:133
+#: protected/views/emailTemplate/admin.php:45 protected/views/user/view.php:133
 #: protected/views/user/panel.php:199 protected/views/user/panel.php:236
 #: protected/views/newsletter/admin.php:65 protected/views/vault/view.php:116
 #: protected/views/vault/view.php:154 protected/views/vault/view.php:180
@@ -373,7 +373,7 @@ msgstr "Concepto"
 msgid "Modified"
 msgstr "Modificado"
 
-#: protected/models/Emailtext.php:89
+#: protected/models/EmailTemplate.php:89
 msgid "User fullname will go here"
 msgstr ""
 
@@ -1434,7 +1434,7 @@ msgstr "No publicado"
 msgid "defined budgets"
 msgstr "Partidas definidas"
 
-#: protected/views/emailtext/admin.php:27 protected/views/user/panel.php:155
+#: protected/views/emailTemplate/admin.php:27 protected/views/user/panel.php:155
 msgid "Email text templates"
 msgstr "Plantillas de correo-e"
 

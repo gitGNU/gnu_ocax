@@ -66,7 +66,7 @@ msgstr "Έρευνα"
 #: protected/models/Newsletter.php:114
 #: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:220
-#: protected/models/Emailtext.php:114
+#: protected/models/EmailTemplate.php:114
 msgid "Body"
 msgstr "Σώμα"
 
@@ -132,8 +132,8 @@ msgstr "Δημοσίευση"
 
 #: protected/models/Newsletter.php:109
 #: protected/models/Enquiry.php:218
-#: protected/models/Emailtext.php:113
-#: protected/views/emailtext/admin.php:46
+#: protected/models/EmailTemplate.php:113
+#: protected/views/emailTemplate/admin.php:46
 #: protected/views/enquiry/view.php:192
 #: protected/views/enquiry/index.php:143
 #: protected/views/enquiry/_reformulated.php:48
@@ -506,7 +506,7 @@ msgstr "Δεν είναι δυνατή η δημιουργία αρχείου zi
 msgid "Remember me"
 msgstr "Να με θυμάσαι"
 
-#: protected/models/Emailtext.php:89
+#: protected/models/EmailTemplate.php:89
 msgid "User fullname will go here"
 msgstr ""
 
@@ -1049,7 +1049,7 @@ msgstr "Το όνομα που χρησιμοποιείται για τον σύ
 msgid "Upload"
 msgstr "Μεταφόρτωση"
 
-#: protected/views/emailtext/admin.php:28
+#: protected/views/emailTemplate/admin.php:28
 #: protected/views/user/panel.php:155
 msgid "Email text templates"
 msgstr "Πρότυπα κειμένου ηλεκτρονικού ταχυδρομείου"

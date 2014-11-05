@@ -66,7 +66,7 @@ msgstr "Consulta"
 #: protected/models/Newsletter.php:114
 #: protected/models/CmsPageContent.php:107
 #: protected/models/Enquiry.php:220
-#: protected/models/Emailtext.php:114
+#: protected/models/EmailTemplate.php:114
 msgid "Body"
 msgstr "Cos"
 
@@ -132,8 +132,8 @@ msgstr "Publicat"
 
 #: protected/models/Newsletter.php:109
 #: protected/models/Enquiry.php:218
-#: protected/models/Emailtext.php:113
-#: protected/views/emailtext/admin.php:45
+#: protected/models/EmailTemplate.php:113
+#: protected/views/emailTemplate/admin.php:45
 #: protected/views/enquiry/view.php:193
 #: protected/views/enquiry/index.php:143
 #: protected/views/enquiry/_reformulated.php:48
@@ -498,7 +498,7 @@ msgstr "No es pot crear fitxer zip"
 msgid "Remember me"
 msgstr "Recorda'm"
 
-#: protected/models/Emailtext.php:89
+#: protected/models/EmailTemplate.php:89
 msgid "User fullname will go here"
 msgstr ""
 
@@ -1047,7 +1047,7 @@ msgstr "Nom que s'usarà per a l'enllaç"
 msgid "Upload"
 msgstr "Pujar"
 
-#: protected/views/emailtext/admin.php:27
+#: protected/views/emailTemplate/admin.php:27
 #: protected/views/user/panel.php:155
 msgid "Email text templates"
 msgstr "Plantilles de correu-e"

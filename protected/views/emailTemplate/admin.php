@@ -18,22 +18,34 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* @var $this EmailtextController */
-/* @var $model Emailtext */
+/* @var $this EmailTemplateController */
+/* @var $model EmailTemplate */
 
-$this->menu=array(
-	array('label'=>__('Change text'), 'url'=>array('update', 'id'=>$model->state)),
-	array('label'=>__('Manage texts'), 'url'=>array('admin')),
-);
 $this->inlineHelp=':workflow:emails';
 $this->viewLog='EmailTemplate';
 ?>
 
-<h1>Text for state "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</h1>
-<div class="enquiry">
+<h1><?php echo __('Email templates');?></h1>
 
-
-
-<?php echo $model->getBody();?>
-</div>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+	'id'=>'text-grid',
+	'selectableRows'=>1,
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/emailTemplate/update').'/"+$.fn.yiiGridView.getSelection(id);}',
+	'template' => '{items}',
+	'dataProvider'=>$model->search(),
+	'ajaxUpdate'=>true,
+	'pager'=>array('class'=>'CLinkPager',
+					'header'=>'',
+					'maxButtonCount'=>6,
+					'prevPageLabel'=>'< Prev',
+	),
+	'columns'=>array(
+			array(
+				'header'=>__('State'),
+				'type' => 'raw',
+				'value'=>'Enquiry::model()->getHumanStates($data[\'state\'])',
+			),
+))); ?>
 
