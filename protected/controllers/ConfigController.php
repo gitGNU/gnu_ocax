@@ -45,7 +45,7 @@ class ConfigController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'index','update','admin',
+				'actions'=>array(	'index','update',
 									'email','observatory','social','locale',
 									'logo','backups','misc',
 								),
@@ -121,7 +121,7 @@ class ConfigController extends Controller
 		$model=$this->loadModel($id);
 
 		if(!$model->can_edit)
-			$this->redirect(array('admin'));
+			$this->redirect(array('index'));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -184,7 +184,7 @@ class ConfigController extends Controller
 					if($returnURL)
 						$this->redirect(array($returnURL));
 					else
-						$this->redirect(array('admin'));
+						$this->redirect(array('index'));
 				}
 				Yii::app()->end();
 			}else{
@@ -212,22 +212,6 @@ class ConfigController extends Controller
 			file_put_contents(Yii::app()->basePath.'/runtime/html/foot/'.$lang.'.html', $this->renderPartial('//layouts/foot',false,true));
 		}
 		Yii::app()->language=$user_lang;
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$this->layout='//layouts/column1';
-		$model=new Config('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Config']))
-			$model->attributes=$_GET['Config'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
 	}
 
 	/**

@@ -48,6 +48,9 @@ $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'sitePage-form',
 	'enableAjaxValidation'=>false,
 ));
+echo $form->hiddenField($content,'language');
+echo $form->hiddenField($content,'pageURL');
+echo $form->hiddenField($content,'pageTitle');
 echo $form->hiddenField($content,'previewBody');
 $this->endWidget();
 

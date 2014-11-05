@@ -82,7 +82,7 @@ class EmailController extends Controller
 	}
 
 	/**
-	 * Creates a new model.
+	 * Creates and sends an email.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
@@ -110,21 +110,19 @@ class EmailController extends Controller
 
 			$model->sender = Yii::app()->user->getUserID();
 			if($model->save()){
-
  				$mailer = new Mailer();
-				$addresses = explode(',', $model->recipients);
-				foreach($addresses as $address)
-					$mailer->AddBCC(trim($address));
-
+ 				
 				$mailer->SetFrom($model->sent_as, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->title;
 				$mailer->Body=$model->body;
-
-				if($mailer->send()){
-					$model->sent=1;
-					$model->save();
+				$addresses = explode(',', $model->recipients);
+				
+				$model->sent = $mailer->sendBatches($addresses);
+				$model->save();
+				
+				if($model->sent){
 					//$link=CHtml::link(__('View email'),array('email/index/'.$model->enquiry.'?menu=manager'));	// need to fix this!!
-					Yii::app()->user->setFlash('success',__('Email sent OK')/*.'&nbsp;&nbsp;&nbsp;'.$link*/);
+					Yii::app()->user->setFlash('success',__('Email sent OK'));
 				}else
 					Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 

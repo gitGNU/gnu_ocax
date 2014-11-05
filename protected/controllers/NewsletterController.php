@@ -196,9 +196,10 @@ class NewsletterController extends Controller
 				->where('is_active = 1')
 				->queryAll();
 
+		$addresses = array();
 		foreach($users as $recipient){
 		    $model->recipients=$model->recipients.$recipient['email'].', ';
-			$mailer->AddBCC(trim($recipient['email']));
+		    $addresses[] = trim($recipient['email']);
 		}
 		$model->recipients = substr_replace($model->recipients ,"",-2);
 		$model->sender=Yii::app()->user->getUserID();
@@ -206,7 +207,7 @@ class NewsletterController extends Controller
 		$mailer->Subject=$model->subject;
 		$mailer->Body=$model->body;
 
-		if($mailer->send()){
+		if($mailer->sendBatches($addresses)){
 			$model->sent=2;
 			$model->published = date('c');
 			Yii::app()->user->setFlash('success',__('Email sent OK'));
