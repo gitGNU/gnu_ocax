@@ -145,7 +145,6 @@ function resetForm(){
 		return;
 	$('#Enquiry_searchText').val('');
 	$("#Enquiry_state").val('');
-	$('#Enquiry_addressed_to').val('');
 	$('#Enquiry_type').val('');
 	$('#Enquiry_searchDate_min').val('');
 	$('#Enquiry_searchDate_max').val('');
@@ -261,7 +260,7 @@ if($displayType == 'grid'){
 			'header'=>__('State'),
 			'name'=>'state',
 			'type' => 'raw',
-			'value'=>'$data->getHumanStates($data[\'state\'],$data[\'addressed_to\'])'
+			'value'=>'$data->getHumanStates($data[\'state\'])'
 		),
 	array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	)));
@@ -292,10 +291,6 @@ if($displayType == 'grid'){
 	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:enquiryModal2Page();"></i>
 <div id="enquiry_body"></div>
 </div>
-
-
-<div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
-<div id="addressed_to_observatory" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,OBSERVATORY);?></div>
 
 <?php if(Yii::app()->user->isGuest){
 	echo '<div class="clear"></div>';

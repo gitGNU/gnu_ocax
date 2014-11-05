@@ -58,7 +58,7 @@ class EnquiryController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
-				'actions'=>array('adminView','admin','manage','changeAddressedTo'),
+				'actions'=>array('adminView','admin','manage'),
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('allow',
@@ -96,7 +96,6 @@ class EnquiryController extends Controller
 		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('administrationName')->value;
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->addressed_to = Null;
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
 
@@ -183,8 +182,6 @@ class EnquiryController extends Controller
 			}else
 				Yii::app()->end();
 		}
-		$model->addressed_to = ADMINISTRATION;
-
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -551,9 +548,6 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			$model->modified = date('c');
 
-			if($model->state == ENQUIRY_ACCEPTED && $model->addressed_to == OBSERVATORY)	
-				$model->state = ENQUIRY_AWAITING_REPLY;	// skip the 'submit to administration' step.
-				
 			if($model->save()){
 				$model->promptEmail();
 				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){
@@ -569,17 +563,6 @@ class EnquiryController extends Controller
 		$this->render('validate',array(
 			'model'=>$model,
 		));		
-	}
-
-	public function actionChangeAddressedTo($id)
-	{
-		$model=$this->loadModel($id);
-		if(isset($_POST['addressed_to'])){
-			$model->addressed_to = $_POST['addressed_to'];
-			$model->save();
-			echo 1;
-		}else
-			echo 0;
 	}
 
 	public function actionManage($id)

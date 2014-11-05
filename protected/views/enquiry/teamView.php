@@ -40,10 +40,9 @@ if($model->state == ENQUIRY_ASSIGNED){
 if($model->state >= ENQUIRY_AWAITING_REPLY){
 	$reply = array( array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)) );
 	array_splice( $this->menu, 0, 0, $reply );
-	if($model->addressed_to != OBSERVATORY){
-		$submit = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
-		array_splice( $this->menu, 0, 0, $submit );	
-	}
+
+	$submit = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $submit );	
 }
 if($model->state == ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	$assess = array( array('label'=>__('Assess reply'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );

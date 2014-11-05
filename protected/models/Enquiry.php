@@ -34,7 +34,6 @@
  * @property string $registry_number
  * @property integer $documentation
  * @property integer $type
- * @property integer $addressed_to
  * @property integer $budget
  * @property integer $state
  * @property string $title
@@ -77,39 +76,24 @@ class Enquiry extends CActiveRecord
 		return __($humanTypeValues[$type]);
 	}
 
-	public function getHumanAddressedTo($address=Null)
-	{
-		$humanAddressValues=array(
-				0=>Config::model()->findByPk('administrationName')->value,
-				1=>__('The observatory'),
-		);
-
-		if($address === Null){
-			$addresses=array();
-			foreach($humanAddressValues as $key=>$value)
-				$addresses[$key]=__($value);
-			return $addresses;
-		}
-		return __($humanAddressValues[$address]);
-	}
-
-	public static function getHumanStates($state=Null, $addressed_to=ADMINISTRATION)
+	public static function getHumanStates($state=Null)
 	{
 		$humanStateValues=array(
 				ENQUIRY_PENDING_VALIDATION		=>__('Pending validation by the %s'),
 				ENQUIRY_ASSIGNED				=>__('Enquiry assigned to team member'),
 				ENQUIRY_REJECTED				=>__('Enquiry rejected by the %s'),
 				ENQUIRY_ACCEPTED				=>__('Enquiry accepted by the %s'),
-				ENQUIRY_AWAITING_REPLY			=>'',
+				ENQUIRY_AWAITING_REPLY			=>__('Awaiting reply from the administration'),
 				ENQUIRY_REPLY_PENDING_ASSESSMENT=>__('Reply pending assessment'),
 				ENQUIRY_REPLY_SATISFACTORY		=>__('Reply considered satisfactory'),
 				ENQUIRY_REPLY_INSATISFACTORY	=>__('Reply considered insatisfactory'),
 		);
+		/*
 		if($addressed_to)
 			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the observatory');
 		else
 			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the administration');
-
+		*/
 		if($state!==Null){
 			if(!(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager()) && $state==ENQUIRY_ASSIGNED)
 				$state=ENQUIRY_PENDING_VALIDATION;
@@ -123,13 +107,15 @@ class Enquiry extends CActiveRecord
 		$states = array();
 		foreach($humanStateValues as $key=>$value){
 			if( strpos($value, '%s') !== false){
+				/*
 				if($key == ENQUIRY_AWAITING_REPLY){
 					if($addressed_to == OBSERVATORY)
 						$value = str_replace("%s", __('the observatory'), $value);
 					else
 						$value = str_replace("%s", __('the administration'), $value);
 				}else
-					$value = str_replace('%s', $siglas, $value);
+				*/
+				$value = str_replace('%s', $siglas, $value);
 			}
 			$states[$key]=$value;
 		}
@@ -162,13 +148,13 @@ class Enquiry extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user, created, title, body, addressed_to', 'required'),
+			array('user, created, title, body', 'required'),
 			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
 			array('related_to, user, team_member, manager, budget, type, state, documentation', 'numerical', 'integerOnly'=>true),
 			array('title', 'validTitle'),
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
-			array('addressed_to, assigned, submitted, body', 'safe'),
+			array('assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array( 'related_to, user, username, team_member,
@@ -225,7 +211,6 @@ class Enquiry extends CActiveRecord
 			'registry_number'=>__('Registry number'),
 			'documentation'=>__('Documentation'),
 			'type' => __('Type'),
-			'addressed_to' => __('Addressed to'),
 			'state' => __('State'),
 			'title' => __('Title'),
 			'body' => __('Body'),
@@ -450,7 +435,6 @@ class Enquiry extends CActiveRecord
 		}
 		$criteria->compare('type',$this->type);
 		$criteria->compare('state',$this->state);
-		$criteria->compare('addressed_to',$this->addressed_to, true);
 		
 		$criteria->params = array_merge($criteria->params, $my_params);	// not working properly. check filter by date index/enquiry
 		return new CActiveDataProvider($this, array(
@@ -479,7 +463,6 @@ class Enquiry extends CActiveRecord
 
 		$criteria->compare('team_member',Yii::app()->user->getUserID());
 		$criteria->compare('type',$this->type);
-		$criteria->compare('addressed_to',$this->addressed_to);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);
@@ -512,7 +495,6 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('manager',$this->manager);
 		//$criteria->compare('assigned',$this->assigned);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('addressed_to',$this->addressed_to);
 		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);

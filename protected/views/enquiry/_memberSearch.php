@@ -57,11 +57,6 @@
 	</div>
 	
 	<div class="row">
-		<?php echo $form->label($model,'addressed_to'); ?>
-		<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
 		<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
 	</div>

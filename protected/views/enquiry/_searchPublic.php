@@ -37,16 +37,20 @@
 echo $form->hiddenField($model,'basicFilter');
 ?>
 
-<div>	<!-- outer start -->
-<div style="float:left; width:350px;">	<!-- column 1 start -->
+<!-- outer start -->
+<div>
+<!-- column 1 start -->
+<div style="float:left; width:350px;">
 	<?php echo $form->label($model,'state'); ?><br />
 	<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
 <br />
-	<?php echo $form->label($model,'addressed_to'); ?><br />
-	<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-</div>	<!-- column 1 end -->
+	<?php echo $form->label($model,'type'); ?><br />
+	<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+</div>
+<!-- column 1 end -->
 
-<div style="float:left; width:300px;">	<!-- column 2 start -->
+<!-- column 2 start -->
+<div style="float:left; width:300px;">
 
 <div style="float:left">
 <span><?php echo __('Minimum date');?></span>
@@ -90,22 +94,17 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 ?>
 </div>
 <div class="clear"></div>
-<?php echo $form->label($model,'type'); ?><br />
-<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
+<span><?php echo __('Text');?></span><br />
+<?php echo $form->textField($model,'searchText',array('style'=>'width:217px','maxlength'=>255));?>
 </div>	<!-- column 2 end -->
 
-<div style="float:left; width:250px;">	<!-- column 3 start -->
-<span><?php echo __('Text');?></span><br />
-<?php echo $form->textField($model,'searchText',array('width'=>'180px','maxlength'=>255));?>
-<br />
-<br />
+<!-- column 3 start -->
+<div style="float:left; width:250px; padding-top: 70px">
 <?php echo CHtml::submitButton(__('Search'));?>
 </div>	<!-- column 3 end -->
+
 </div>	<!-- close outer -->
 
 <div class="clear"></div>
 
 <?php $this->endWidget(); ?>
-
-
-

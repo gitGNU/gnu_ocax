@@ -146,10 +146,10 @@ $attribs[] = array(
 $attribs[] = array(
 		'label'=>__('State'),
 		'type' => 'raw',
-		'value'=> CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)),
+		'value'=> CHtml::encode($model->getHumanStates($model->state)),
 	);
 		
-if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
+if($model->state >= ENQUIRY_AWAITING_REPLY){
 	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
 	if($model->documentation)
 		$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';

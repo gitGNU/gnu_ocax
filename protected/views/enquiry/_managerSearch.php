@@ -69,10 +69,6 @@
 		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'addressed_to'); ?>
-		<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-	</div>
 </div>
 <div style="clear:both"></div>
 
