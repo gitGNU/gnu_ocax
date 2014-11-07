@@ -80,7 +80,7 @@
 		<?php	
 		echo $featuredCount.' '.__('Featured budgets');
 		if($totalBudgets > 0 && $featuredCount == 0){
-			echo ' <i class="icon-attention"></i><br />';
+			echo ' <i class="icon-attention green"></i><br />';
 			echo '<span class="hint">'.__('Featured budgets generate graphics').'</span>';
 		}
 		?>
