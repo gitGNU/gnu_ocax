@@ -30,7 +30,9 @@ class MbMenu extends CMenu
 		$js =  '$("#nav li").hoverIntent({
 				over: function () { if($(this).hasClass("parent")) $(this).addClass("over"); },
 				out: function () { $(this).removeClass("over"); },
-				sensitivity: 1
+				sensitivity: 2,
+				timeout: 0,
+				interval: 35
 			});';
         return $js;
     }

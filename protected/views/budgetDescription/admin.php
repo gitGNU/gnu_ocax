@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
 );
 $this->inlineHelp=':budget_descriptions';
-$this->viewLog='BudgetDescription';
+$this->viewLog='budgetDescription';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

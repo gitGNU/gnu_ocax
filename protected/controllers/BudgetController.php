@@ -1,7 +1,7 @@
 <?php
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -54,9 +54,10 @@ class BudgetController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'getTotalYearlyBudgets','adminYears',/*'deleteYearsBudgets',*/
+				'actions'=>array(	'getTotalYearlyBudgets','adminYears',
 									'createYear','updateYear',
 									'featured','feature',
+									'deleteYearsBudgets',
 									'deleteTree','delTree',
 									'delete','dumpBudgets','restoreBudgets',
 									'noDescriptions'),
@@ -425,6 +426,7 @@ class BudgetController extends Controller
 
 	/*
 	 * Show a grid of budgets
+	 * 
 	 */
 	public function actionDeleteTree($id)
 	{
@@ -442,6 +444,9 @@ class BudgetController extends Controller
 		));
 	}
 
+	/* 
+	 * delete selected budget
+	 */
 	public function actionDelTree($id)
 	{
 		$model = $this->loadModel($id);
@@ -486,8 +491,9 @@ class BudgetController extends Controller
 		$this->render('adminYears',array('years'=>$years,));
 	}
 
-/*	// replaced this function with deleteTree
-
+	/*
+	 * Delete all the budgets in the year
+	 */
 	public function actionDeleteYearsBudgets($id)
 	{
 		$model = $this->loadModel($id);
@@ -515,7 +521,6 @@ class BudgetController extends Controller
 		}
 		$this->redirect(array('updateYear','id'=>$model->id));
 	}
-*/
 
 	/**
 	 * Deletes a particular model.
