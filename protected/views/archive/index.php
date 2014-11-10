@@ -38,8 +38,8 @@ function uploadFile(){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#files_content").html(data);
-				$('#files').bPopup({
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -71,11 +71,9 @@ function deleteArchive(archive_id){
 	});
 }
 </script>
-<div id="files" class="modal" style="width:500px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="margin:-10px"></div>
-</div>
-<?php } ?>
+<?php 
+	echo $this->renderPartial('//file/modal');
+} ?>
 
 
 <div style="margin:0px 0 40px 0">
@@ -102,7 +100,7 @@ if(!Yii::app()->user->isGuest){
 $this->widget('zii.widgets.CListView', array(
 	'id'=>'archive_list',
 	//'template'=>'{items}<div style="clear:both"></div>{pager}',
-	'template'=>'{pager}{items}<div style="clear:both"></div>',
+	'template'=>'<p>{pager}</p>{items}<div style="clear:both"></div>',
 	'dataProvider'=>$dataProvider,
 	'viewData'=>array('user_id'=>$user_id,'is_admin'=>$is_admin),
 	'itemView'=>'_view',

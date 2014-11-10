@@ -58,7 +58,7 @@ function validate(){
 }
 </script>
 
-<div class="form" style="padding:10px">
+<div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'archive-form',
@@ -66,7 +66,7 @@ function validate(){
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
-	<div class="title"><?php echo __('Upload file');?></div>
+	<div class="modalTitle"><?php echo __('Upload file');?></div>
 
 	<?php
 		echo $form->label($model, 'file');	
