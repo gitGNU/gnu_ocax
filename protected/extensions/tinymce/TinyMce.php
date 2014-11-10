@@ -82,6 +82,7 @@ class TinyMce extends CInputWidget
         'theme_advanced_blockformats' => 'h1,h2,h3',
         'theme_advanced_resizing' => true,
         'height' => '400px',
+        'width' => '100%',
         'relative_urls' => false,
 
         'spellchecker_languages' => "+Русский=ru",

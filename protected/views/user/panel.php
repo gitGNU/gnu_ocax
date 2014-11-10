@@ -1,7 +1,7 @@
 <?php
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -156,7 +156,7 @@ function addPanelSeparator(){
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
 		//echo '</div>';
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
-		echo '<a href="'.Yii::app()->createAbsoluteUrl('/log/index').'" target="_agora">'.__('Log').'</a>';
+		echo '<a href="'.Yii::app()->createAbsoluteUrl('/log/index').'">'.__('Log').'</a>';
 		echo '</div>';		
 		echo '<div class="sub_title" style="font-size: 16pt;margin-left:50px; float:left; ">';
 		echo '<a href="http://agora.ocax.net/" target="_agora">'.__('Agora').'</a>';

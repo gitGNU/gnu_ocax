@@ -2,7 +2,7 @@
 
 .sitePage_titulo
 {
-	font-size: 410%;
+	font-size: 32pt;
 	line-height: 100%;
 	letter-spacing:-0.5pt;
 	font-weight:100;
@@ -24,7 +24,7 @@ h2 {
 	line-height: 90%;
 	font-size: 28pt;
 	letter-spacing:-0.5pt;
-	font-weight:300;
+	font-weight:200;
 	margin: 10px 0 13px 0;
 }
 
@@ -32,7 +32,7 @@ h3 {
 	line-height: 90%;
 	font-size: 20pt;
 	letter-spacing:-0.5pt;
-	font-weight:300;
+	font-weight:200;
 	margin: 8px 0 6px 0;
 }
 
