@@ -37,23 +37,22 @@
 			foreach($attachments as $attachment){
 				echo '<span id="attachment_'.$attachment->id.'" style="margin-left:30px">';
 				echo	'<span class="ocaxButton" style="padding:6px 8px 4px 5px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
-						'<img style="vertical-align:text-bottom;" src="'.Yii::app()->request->baseUrl.'/images/paper_clip.png" />'.
-						$attachment->name;
-				echo	'</span>';
+						'<i class="icon-attach"></i>'.$attachment->name.'</span>';
 				if( $model->team_member == $user_id ){
-					echo '	<img style="margin-right:-10px;cursor:pointer;vertical-align:middle;"
-					src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
+					echo '<i class="icon-cancel-circle red" style="cursor:pointer" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 				echo '</span>';
 			}
 			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$model->id.', 1);">'.
-				 __('Vote').'<i class="icon-thumbs-up"></i></span>';
-			echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1).'</span>';
+			echo '<span class="ocaxVote" onClick="js:vote('.$model->id.', 1);">'.
+				 __('Vote').'<i class="icon-thumbs-up"></i>';
+			echo '<span class="ocaxVoteCount" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1);
+			echo '</span></span>';
 			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$model->id.', 0);">'.
-				 __('Vote').'<i class="icon-thumbs-down"></i></span>';
-			echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0).'</span>';
+			echo '<span class="ocaxVote" onClick="js:vote('.$model->id.', 0);">'.
+				 __('Vote').'<i class="icon-thumbs-down"></i>';
+			echo '<span class="ocaxVoteCount" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0);
+			echo '</span></span>';
 
 		echo '</div><div class="clear"></div>';
 	echo '</div>';
