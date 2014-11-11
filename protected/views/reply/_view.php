@@ -36,10 +36,10 @@
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
 				echo '<span id="attachment_'.$attachment->id.'" style="margin-left:30px">';
-				echo	'<span class="ocaxButton" style="padding:6px 8px 4px 5px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
+				echo	'<span class="ocaxButton" style="padding:5px 8px 5px 5px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
 						'<i class="icon-attach"></i>'.$attachment->name.'</span>';
 				if( $model->team_member == $user_id ){
-					echo '<i class="icon-cancel-circle red" style="cursor:pointer" onclick="js:deleteFile('.$attachment->id.');"></i>';
+					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 				echo '</span>';
 			}

@@ -26,14 +26,14 @@ $this->menu=array(
 );
 
 if($totalBudgets){
+	$delTree = array( array('label'=>__('Selected budget delete'), 'url'=>array('budget/deleteTree', 'id'=>$model->year)));
+	array_splice( $this->menu, 1, 0, $delTree );
+	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
+	array_splice( $this->menu, 1, 0, $deleteDatos );
 	$featured = array( array('label'=>__('Featured budgets'), 'url'=>array('budget/featured', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $featured );
 	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/export', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $downloadCsv );
-	$delTree = array( array('label'=>__('Select delete budgets'), 'url'=>array('budget/deleteTree', 'id'=>$model->year)));
-	array_splice( $this->menu, 1, 0, $delTree );
-	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
-	array_splice( $this->menu, 1, 0, $deleteDatos );
 }elseif($model->year != Config::model()->findByPk('year')->value){
 	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
 								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));

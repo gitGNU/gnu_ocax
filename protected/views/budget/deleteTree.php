@@ -88,12 +88,9 @@ function deleteTree(budget_id, budget_csv){
 			'class'=>'CButtonColumn',
 			'buttons' => array(
 				'deltree' => array(
-					'label'=> __('Feature budget'),
+					'label'=> '<i class="icon-cancel-circle red" style="font-size:1.2em"></i>',
 					'url'=> '"javascript:deleteTree(\"".$data->id."\",\"".$data->csv_id."\");"',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/delete.png',
-					'visible' => 'true',
 				)
-
 			),
 			'template'=>'{deltree}',
 		),
