@@ -131,9 +131,10 @@ function addPanelSeparator(){
 	global $panel_separator_added;
 	if(!$panel_separator_added){
 		echo '<div id="ocmMemberPanel">';	// outer starts
-		echo '<div style="float:left;position:relative;">';	// left starts
+		echo '<div id="legendToggle" style="float:left;position:relative;">';	// left starts
 		echo '<span style="cursor:pointer;" onclick="$(\'#legend\').toggle();">';
 		include(svgDir().'controlpanel.svg');
+		echo '</span>';
 		//echo '<i class="icon-list" style="font-size:22px;"></i></span>';
 		// legend
 		?>

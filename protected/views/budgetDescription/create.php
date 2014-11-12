@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':budget_descriptions';
-$this->viewLog='budgetDescription';
+$this->viewLog='BudgetDescription';
 $this->extraText = $this->renderPartial('_legend',null,true,false);
 ?>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

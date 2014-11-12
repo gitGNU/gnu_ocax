@@ -136,11 +136,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{view} {delete}',
+			'template'=>'{download} {delete}',
 			'buttons'=>array(
-				'view' => array(
+				'download' => array(
+					'label'=> '<i class="icon-download-alt green"></i>',
 					'url'=> '"javascript:location.href=\"".$data->webPath."\";"',
 				),
+				'delete' => array(
+					'label'=> '<i class="icon-cancel-circle red" style="font-size:1.2em"></i>',
+				),				
 			),
 		),
 	),

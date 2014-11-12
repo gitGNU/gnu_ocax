@@ -22,7 +22,7 @@ Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 ?>
-<div class="modalTitle"><?php echo __('Delete enquiry');?> <i class="icon-attention"></i></div>
+<div class="modalTitle"><?php echo __('Delete enquiry');?> <i class="icon-attention red"></i></div>
 
 <div id="enquiry_body" >
 	<?php echo $this->renderPartial('//enquiry/_teamView', array('model'=>$model)); ?>

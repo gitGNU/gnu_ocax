@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ $this->inlineHelp=':budget_descriptions';
 	$this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'loadingCssClass'=>'pgrid-view-loading',
+	'loadingCssClass'=>'grid-view-loading',
 	'id'=>'budget-grid',
 	'dataProvider'=>$model->budgetsWithoutDescription(),
 	'filter'=>$model,
@@ -46,8 +46,8 @@ $this->inlineHelp=':budget_descriptions';
 			'template'=>'{create}',
 			'buttons'=>array(
 				'create' => array(
+					'label'=> '<i class="icon-plus-circled amber" style="font-size:1.2em"></i>',
 					'url'=>'Yii::app()->createUrl("budgetDescription/modify", array("budget"=>$data[\'id\']))',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/insert_icon.png',
 				),
 			),
 		),

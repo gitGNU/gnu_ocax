@@ -465,7 +465,7 @@ span.ocaxVoteCount {
 	padding:10px 0px 0px 0px;
 }
 
-
+/*
 #control_panel {
 	float:left;
 	margin-right: 8px;
@@ -476,10 +476,11 @@ span.ocaxVoteCount {
 	width:55px;
 	height:46px;
 }
-#control_panel:hover {
-	background-position: -55px 0;
-}
+*/
 
+#ocmMemberPanel { height:55px }
+#legendToggle { height:45px; }
+#legendToggle:hover { background-color:white; }
 
 #panelMyEnquiries {
 	float:left;

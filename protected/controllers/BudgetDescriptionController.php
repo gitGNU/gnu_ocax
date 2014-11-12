@@ -113,7 +113,7 @@ class BudgetDescriptionController extends Controller
 				$word = Null;
 				if(Config::model()->isSiteMultilingual())
 					$word = 'language "'.$model->language.'" ';
-				Log::model()->write('budgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('created'),$model->id);
+				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('created'),$model->id);
 				Yii::app()->user->setFlash('success', __('Budget description saved Ok'));
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
@@ -173,7 +173,7 @@ class BudgetDescriptionController extends Controller
 				$word = Null;
 				if(Config::model()->isSiteMultilingual())
 					$word = 'language "'.$model->language.'" ';
-				Log::model()->write('budgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('updated'),$model->id);
+				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('updated'),$model->id);
 				Yii::app()->user->setFlash('success', __('Budget description saved Ok'));
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
@@ -222,7 +222,7 @@ class BudgetDescriptionController extends Controller
 		$word = Null;
 		if(Config::model()->isSiteMultilingual())
 			$word = 'language "'.$model->language.'" ';
-		Log::model()->write('budgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('deleted'),$model->id);
+		Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('deleted'),$model->id);
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

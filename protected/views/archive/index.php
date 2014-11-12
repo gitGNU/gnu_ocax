@@ -76,7 +76,7 @@ function deleteArchive(archive_id){
 } ?>
 
 
-<div style="margin:0px 0 40px 0">
+<div style="margin:0px 0 20px 0">
 <?php
 echo '<span class="bigTitle">'.__('Archive').'</span>';
 if($userCanCreate){
@@ -104,6 +104,13 @@ $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'viewData'=>array('user_id'=>$user_id,'is_admin'=>$is_admin),
 	'itemView'=>'_view',
+	'pager' => array(
+			'class'			=> 'CLinkPager',
+			'firstPageLabel'=> '<<',
+			'prevPageLabel' => '<',
+			'nextPageLabel' => '>',
+			'lastPageLabel' => '>>',
+		),
 ));
 ?>
 <div style="clear:both"></div>

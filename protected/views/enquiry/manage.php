@@ -105,12 +105,8 @@ function disableUser(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p style="">
+	<p style="font-style: italic;">
 	<?php echo __('Please study the enquiry below before continuing').'.'?>
-	</p>
-
-	<p><span style="font-size:1.5em">2. </span>
-	<?php echo __('Decide how this enquiry will be managed').'.'?>
 	</p>
 
 	<ol id="yourOptions">
