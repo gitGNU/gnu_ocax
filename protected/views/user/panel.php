@@ -108,12 +108,12 @@ $(function() {
 </div>
 <div class="panel_right">
 	<?php
-		echo '<span style="cursor:pointer" onclick="location.href=\''.$this->createUrl('user/update/').'\'">';
+		echo '<div style="cursor:pointer;" onclick="location.href=\''.$this->createUrl('user/update/').'\'">';
 		include(svgDir().'userprofile.svg');
-		echo '</span>';
+		echo '</div>';
 	?>
 	<div class="clear"></div>
-	<div class="sub_title"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
+	<div class="sub_title" style="margin-top:8px;"><?php echo CHtml::link(__('My user information'),array('user/update/'));?></div>
 	<p>
 		<?php echo __('Change your profile');?><br />
 		<?php echo __('Configure your email');?><br />

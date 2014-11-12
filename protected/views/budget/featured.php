@@ -74,12 +74,12 @@ function featureBudget(budget_id){
 			'class'=>'CButtonColumn',
 			'buttons' => array(
 				'feature' => array(
-					'label'=> '<i class="icon-star green" style="font-size:1.2em"></i>',
+					'label'=> '<i class="icon-star green"></i>',
 					'visible'=>'$data->featured',
 					'url'=> '"javascript:featureBudget(\"".$data->id."\");"',
 				),
 				'unfeature' => array(
-					'label'=> '<i class="icon-star-empty green" style="font-size:1.2em"></i>',
+					'label'=> '<i class="icon-star-empty green"></i>',
 					'visible'=>'!$data->featured',
 					'url'=> '"javascript:featureBudget(\"".$data->id."\");"',
 				)

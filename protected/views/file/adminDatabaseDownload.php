@@ -139,16 +139,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'template'=>'{download} {delete}',
 			'buttons'=>array(
 				'download' => array(
-					'label'=> '<i class="icon-download-alt green"></i>',
+					'label'=> __('Download'),
 					'url'=> '"javascript:location.href=\"".$data->webPath."\";"',
+					'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
 				),
-				'delete' => array(
-					'label'=> '<i class="icon-cancel-circle red" style="font-size:1.2em"></i>',
-				),				
 			),
 		),
 	),
-
 ));
 ?>
 

@@ -46,7 +46,7 @@ $this->inlineHelp=':budget_descriptions';
 			'template'=>'{create}',
 			'buttons'=>array(
 				'create' => array(
-					'label'=> '<i class="icon-plus-circled amber" style="font-size:1.2em"></i>',
+					'label'=> '<i class="icon-plus-circled amber"></i>',
 					'url'=>'Yii::app()->createUrl("budgetDescription/modify", array("budget"=>$data[\'id\']))',
 				),
 			),

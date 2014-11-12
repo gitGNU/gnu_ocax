@@ -19,20 +19,26 @@
  */
 
 $totalBudgets = count(Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL'));
+$featuredCount = count($model->getFeatured());
 
 $this->menu=array(
 	array('label'=>__('Import budgets'), 'url'=>array('csv/importCSV/'.$model->year)),
-	array('label'=>__('List Years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
 );
 
 if($totalBudgets){
 	$delTree = array( array('label'=>__('Selected budget delete'), 'url'=>array('budget/deleteTree', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $delTree );
-	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
+	$deleteDatos = array( array( 'label'=>__('Delete budgets'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );
-	$featured = array( array('label'=>__('Featured budgets'), 'url'=>array('budget/featured', 'id'=>$model->year)));
+
+	$label = __('Featured budgets');
+	if($totalBudgets > 0 && $featuredCount == 0)
+		$label = $label.'<i class="icon-attention green"></i>';
+	$featured = array( array('label'=>$label, 'url'=>array('budget/featured', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $featured );
-	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/export', 'id'=>$model->year)));
+
+	$downloadCsv = array( array('label'=>__('Export budgets'), 'url'=>array('csv/export', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $downloadCsv );
 }elseif($model->year != Config::model()->findByPk('year')->value){
 	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
@@ -99,9 +105,14 @@ function megaDelete(el){
 </script>
 
 <?php $title=__('Edit year').' '.$model->year;?>
-<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>$title, 'totalBudgets'=>$totalBudgets)); ?>
+<?php 
+echo $this->renderPartial('_formYear',
+							array(	'model'=>$model,
+									'title'=>$title,
+									'totalBudgets'=>$totalBudgets,
+									'featuredCount'=>$featuredCount,
+								));
 
-<?php
 if($enquirys->getData()){
 echo '<div class="horizontalRule" style="margin-top:20px"></div>';
 echo '<div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';

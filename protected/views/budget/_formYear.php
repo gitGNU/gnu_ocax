@@ -69,20 +69,14 @@
 
 </div>
 <div class="right">
-	<?php $featuredCount = count($model->getFeatured());?>
 	<div class="row" style="font-size:1.4em">
-		<?php echo $totalBudgets.' '.__('defined budgets');
-		if($totalBudgets > 0 && $featuredCount == 0)
-			echo ' <i class="icon-ok-circled"></i>';
-		?>
+		<?php echo $totalBudgets.' '.__('defined budgets'); ?>
 	</div>
 	<div class="row" style="font-size:1.4em">
 		<?php	
 		echo $featuredCount.' '.__('Featured budgets');
-		if($totalBudgets > 0 && $featuredCount == 0){
-			echo ' <i class="icon-attention green"></i><br />';
-			echo '<span class="hint">'.__('Featured budgets generate graphics').'</span>';
-		}
+		if($totalBudgets > 0 && $featuredCount == 0)
+			echo '<br /><span class="hint">'.__('Featured budgets generate graphics').'</span>';
 		?>
 	</div>
 

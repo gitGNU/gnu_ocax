@@ -56,6 +56,7 @@
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,
 			'htmlOptions'=>array('class'=>'operations'),
+			'encodeLabel'=>false,
 		));
 		if($this->extraText)
 			echo '<div id="extraText">'.$this->extraText.'</div>';		

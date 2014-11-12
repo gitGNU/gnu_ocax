@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2014-11-12 15:27+0100\n"
-"PO-Revision-Date: 2014-11-12 16:48+0100\n"
+"POT-Creation-Date: 2014-11-12 18:01+0100\n"
+"PO-Revision-Date: 2014-11-12 19:27+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -186,7 +186,7 @@ msgstr "És soci"
 #: protected/models/User.php:138
 #, fuzzy
 msgid "Budget description editor"
-msgstr "Cambiar la tipografía del editor"
+msgstr "Descripción de partida guardad correctamente"
 
 #: protected/models/Reply.php:97 protected/models/Email.php:106
 #: protected/views/enquiry/_reformulated.php:44
@@ -1015,7 +1015,7 @@ msgstr "reformulada"
 #: protected/views/enquiry/view.php:195
 #, fuzzy
 msgid "Subscribed"
-msgstr "Subscritos"
+msgstr "Usuarios subscritos"
 
 #: protected/views/enquiry/view.php:229
 msgid "You can"
@@ -1511,6 +1511,7 @@ msgid "%s budgets deleted ok"
 msgstr "%s partidas borradas correctamente"
 
 #: protected/views/budget/deleteTree.php:71
+#: protected/views/budget/updateYear.php:31
 msgid "Delete budgets"
 msgstr "Borrar partidas"
 
@@ -1568,9 +1569,8 @@ msgid "Details for %s"
 msgstr "Detalles del %s"
 
 #: protected/views/budget/view.php:148 protected/views/budget/view.php:150
-#, fuzzy
 msgid "Can you improve this description?"
-msgstr "Crear descripción"
+msgstr "¿Puedes mejorar esta descripción?"
 
 #: protected/views/budget/view.php:162
 msgid "Read the administration's description"
@@ -1582,7 +1582,7 @@ msgstr "Descripción oficial"
 
 #: protected/views/budget/view.php:172
 msgid "Please consider adding a description here"
-msgstr ""
+msgstr "Considera añadiendo aquí una descripción"
 
 #: protected/views/budget/view.php:179
 msgid "No enquiries have been made about this budget yet"
@@ -1656,7 +1656,7 @@ msgstr "No hay datos disponibles"
 
 #: protected/views/budget/updateYear.php:24
 msgid "Import budgets"
-msgstr "Importar presupuestos"
+msgstr "Importar partidas"
 
 #: protected/views/budget/updateYear.php:25
 #: protected/views/csv/importCSV.php:27
@@ -1667,6 +1667,10 @@ msgstr "Listar años"
 #, fuzzy
 msgid "Selected budget delete"
 msgstr "Eliminar canciones seleccionadas"
+
+#: protected/views/budget/updateYear.php:35
+msgid "Export budgets"
+msgstr "Exportar partidas"
 
 #: protected/views/budget/updateYear.php:38
 msgid "Delete year"
@@ -1817,7 +1821,7 @@ msgstr "Copias de seguridad"
 #: protected/views/user/panel.php:252
 #, fuzzy
 msgid "Manual Backup"
-msgstr "Copia de seguridad"
+msgstr "Copia de seguridad manual"
 
 #: protected/views/user/panel.php:257
 msgid "Email text templates"
@@ -2447,7 +2451,7 @@ msgstr "Concepto, Subconcepto, Artículo"
 #: protected/views/budgetDescription/_form.php:289
 #, fuzzy
 msgid "Concept of this budget"
-msgstr "Acerca de esta aplicación"
+msgstr "Ésta partida es del año %s"
 
 #: protected/views/budgetDescription/_form.php:233
 msgid "Update the description"
@@ -2600,7 +2604,7 @@ msgstr ""
 #: protected/views/file/showCMSfiles.php:29
 #, fuzzy
 msgid "Uploaded files"
-msgstr "Añadir archivos"
+msgstr "Mostrar los ficheros ya subidos"
 
 #: protected/views/file/_form.php:69
 msgid "Name used for the link"
@@ -2727,12 +2731,12 @@ msgstr "Nueva consulta reformulada correctamente"
 #: protected/controllers/EnquiryController.php:557
 #, fuzzy
 msgid "rejected by team member"
-msgstr "team member"
+msgstr "Nuevo team member assignado"
 
 #: protected/controllers/EnquiryController.php:559
 #, fuzzy
 msgid "accepted by team member"
-msgstr "Cambiar team member"
+msgstr "Nuevo team member assignado"
 
 #: protected/controllers/EnquiryController.php:585
 #, fuzzy
@@ -2903,6 +2907,10 @@ msgstr "Database restored correctly"
 #: protected/controllers/BudgetDescriptionController.php:177
 msgid "Budget description saved Ok"
 msgstr "Descripción de partida guardad correctamente"
+
+#, fuzzy
+#~ msgid "Delete budgtes"
+#~ msgstr "Borrar artículo"
 
 #~ msgid "The observatory"
 #~ msgstr "El observatorio"

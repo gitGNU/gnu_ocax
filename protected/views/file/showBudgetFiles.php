@@ -55,10 +55,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'class'=>'CButtonColumn',
 			'buttons' => array(
 				'restore' => array(
-					'label'=> __('Restore budgets'),
+					'label'=> '<i class="icon-recycle green"></i>',
 					'url'=> '"javascript:restoreBudgets(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
-					'visible' => 'true',
+					//'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
 				)
 			),
 			'template'=>'{restore} {delete}',

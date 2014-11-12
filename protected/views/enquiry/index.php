@@ -242,7 +242,10 @@ if($displayType == 'grid'){
 			'class'=>'CLinkPager',
 			'header'=>'',
 			'maxButtonCount'=>6,
-			'prevPageLabel'=>'< Prev',
+			'firstPageLabel'=> '<<',
+			'prevPageLabel' => '<',
+			'nextPageLabel' => '>',
+			'lastPageLabel' => '>>',
 		),
 		'template' => $template,
 		'columns'=>array(
@@ -277,7 +280,10 @@ if($displayType == 'grid'){
 			'class'=>'CLinkPager',
 			'header'=>'',
 			'maxButtonCount'=>6,
-			'prevPageLabel'=>'< Prev',
+			'firstPageLabel'=> '<<',
+			'prevPageLabel' => '<',
+			'nextPageLabel' => '>',
+			'lastPageLabel' => '>>',
 		),
 		'template' => $template,
 
