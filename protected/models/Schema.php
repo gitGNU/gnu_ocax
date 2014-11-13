@@ -88,13 +88,14 @@ class Schema
 	}
 
 	public function isSchemaUptodate($ocaxVersion)
-	{	
+	{
 		$lines = file(Yii::app()->basePath.'/data/schema.versions');
 		foreach ($lines as $lineNumber => $line) {
-			if (strpos($line, $ocaxVersion) !== false) {
-				$versions = explode(':',$line);
-				$schema = trim($versions[1]);
-				if($schema === Config::model()->findByPk('schemaVersion')->value)
+			if(strpos($line, '#') !== false)
+				continue;
+			$versions = explode(':',$line);
+			if (trim($versions[0]) == $ocaxVersion) {
+				if(trim($versions[1]) === Config::model()->findByPk('schemaVersion')->value)
 					return 1;
 			}
 		}

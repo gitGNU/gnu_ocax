@@ -95,9 +95,10 @@ else{
 echo '<br />';
 $cnt +=1;
 
-
-$requirementsCheck = $config->findByPk('siteConfigStatusPostInstallChecked');
-$requirementsCheck->save();
-	
+if(!$errors){
+	$requirementsCheck = $config->findByPk('siteConfigStatusPostInstallChecked');
+	$requirementsCheck->value = 1;
+	$requirementsCheck->save();
+}
 ?>
 </p>
