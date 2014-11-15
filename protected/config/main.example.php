@@ -2,8 +2,7 @@
 // For help join our mailing list. http://ocax.net/cgi-bin/mailman/listinfo/lista
 
 $config = array(
-	// See the list of directory names in app/themes for possible options
-	'theme'=>'khaki',
+	'theme'=>'default',
 	
 	// your database connection
 	'components'=>array(

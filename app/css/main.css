@@ -479,8 +479,24 @@ span.ocaxVoteCount {
 */
 
 #ocmMemberPanel { height:55px }
+/* user panel legend */
+#legend {
+	position:absolute;
+	display:none;
+	font-size: 16px;
+	top:0px;
+	left:70px;
+	width: 840px;
+	background-color: #f5f1ed;
+}
+#legend span {
+	display: inline;
+	padding-right:30px;
+	white-space: nowrap;
+}
 #legendToggle { height:45px; }
 #legendToggle:hover { background-color:white; }
+#ocmMemberMenu { margin-top:5px; }
 
 #panelMyEnquiries {
 	float:left;
@@ -610,22 +626,6 @@ span.ocaxVoteCount {
 .red { color: #CD0000; }
 .green { color: #2E8B57; }
 .amber { color: #EE7621; }
-
-/* user panel legend */
-#legend {
-	position:absolute;
-	display:none;
-	font-size: 16px;
-	top:0px;
-	left:70px;
-	width: 870px;
-	background-color: #f5f1ed;
-}
-#legend span {
-	display: inline;
-	padding-right:30px;
-	white-space: nowrap;
-}
 
 /*Cookie alert */
 .cookieAlert {

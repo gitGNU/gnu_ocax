@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -129,10 +129,10 @@ function deleteDoc(){
 <div class="right">
 
 	<?php if($model->documentation){ ?>
-	<div class="row">
+	<div class="row" style="font-size:1.1em;">
 		<div style="margin-bottom:5px;font-weight:bold;"><?php echo __('Documentation');?></div>
 		<a href="<?php echo $model->documentation0->getWebPath();?>" target="_new"><?php echo $model->documentation0->name;?></a>
-		<img class="icon" src="<?php echo Yii::app()->request->baseUrl;?>/images/delete.png" onClick="js:deleteDoc()" />
+		<i class="icon-cancel-circle red icon" onClick="js:deleteDoc()"></i>
 	</div>
 	<?php } ?>
 

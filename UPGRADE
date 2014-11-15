@@ -23,6 +23,12 @@ mkdir protected/runtime/html
 chown -R www-data protected/runtime/
 chown -R www-data app/css
 
+Edit protected/config/main.php
+
+theme => 'default',
+
+
+
 /* ---------- start copying ---------- */
 
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');

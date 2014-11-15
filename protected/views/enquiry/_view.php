@@ -268,7 +268,7 @@ foreach($replys as $reply)
 
 <?php if (!Yii::app()->user->isGuest) : ?>
 	<div id="contact_petition" class="modal" style="width:700px;">
-		<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
+		<i class='icon-cancel-circled modalWindowButton bClose'></i>
 		<div id="contact_petition_content"></div>
 	</div>
 <?php endif ?>

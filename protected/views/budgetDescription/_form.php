@@ -82,7 +82,7 @@ echo __('Label');
 echo ($fieldsForDisplay['label']) ? '<i class="icon-circle green"></i>' : '<i class="icon-circle-empty green"></i>';
 echo __('Concept');
 echo ($fieldsForDisplay['concept']) ? '<i class="icon-circle green"></i>' : '<i class="icon-circle red"></i>';
-echo __('Description');
+echo $model->getAttributeLabel('description');
 echo ($fieldsForDisplay['description']) ? '<i class="icon-circle green"></i>' : '<i class="icon-circle red"></i>';
 echo '</div>';
 
@@ -218,9 +218,9 @@ if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 
 echo '<div class="row">';
 	if($model->id && !$model->description)
-		echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle-empty green"></i>'));
+		echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle-empty green"></i>'));
 	elseif($model->id && $model->description)
-		echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle green"></i>'));
+		echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));
 	else
 		echo $form->label($model,'description');
 	
@@ -257,9 +257,9 @@ echo '</div>';
 	<div class="row">	
 	<?php
 		if(!$common_desc->description)
-			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-dot-circled green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-dot-circled green"></i>'));	
 		else{
-			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));	
 			echo '<div style="font-size:16px">'.$common_desc->description.'</div>';
 		}
 	?>
@@ -294,9 +294,9 @@ echo '</div>';
 	<div class="row">
 	<?php
 		if(!$state_desc->description)
-			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle-empty green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle-empty green"></i>'));	
 		else{
-			echo $form->labelEx($model,'description', array('label' => __('Description').' <i class="icon-circle green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));	
 			echo '<div style="font-size:16px">'.$state_desc->description.'</div>';
 		}
 	?>

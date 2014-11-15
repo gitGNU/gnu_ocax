@@ -399,6 +399,9 @@ class CsvController extends Controller
 				Config::model()->isZipFileUpdated(0);
 			Log::model()->write('Budget', 'Year '.$yearly_budget->year.'. CSV import. New budgets '.$new_budgets.', Updated budgets '.$updated_budgets);
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
+			
+			// default feature budgets here
+			
 		}
 	}
 

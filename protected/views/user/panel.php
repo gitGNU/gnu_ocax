@@ -88,9 +88,10 @@ $(function() {
 	echo '<div class="horizontalRule"></div>';
 }?>
 
-<div class="outer">
 
-<div id="moreOptions" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>">
+
+<div id="moreOptions" class="outer" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>"> <!-- outer starts -->
+
 <div class="panel_left">
 	<?php
 		echo '<span style="cursor:pointer" onclick="location.href=\''.$this->createUrl('enquiry/create/').'\'">';
@@ -120,22 +121,25 @@ $(function() {
 		<?php echo __('Change your password');?>
 	</p>
 </div>
+
 <div class="horizontalRule" style="float:right;padding-top:10px;"></div>
-</div>
-</div>
+</div> <!-- outer ends -->
+
+<div class="clear"></div>
 
 <?php
 
 $panel_separator_added=0;
-function addPanelSeparator(){
+function addPanelSeparator(){	// OCM Member Panel
 	global $panel_separator_added;
 	if(!$panel_separator_added){
-		echo '<div id="ocmMemberPanel">';	// outer starts
+		echo '<div id="ocmMemberPanel" style="">';	// OCM Member Panel starts
+		
+		// OCM Member Panel menu and legend
 		echo '<div id="legendToggle" style="float:left;position:relative;">';	// left starts
 		echo '<span style="cursor:pointer;" onclick="$(\'#legend\').toggle();">';
 		include(svgDir().'controlpanel.svg');
 		echo '</span>';
-		//echo '<i class="icon-list" style="font-size:22px;"></i></span>';
 		// legend
 		?>
 			<div id="legend">
@@ -151,7 +155,7 @@ function addPanelSeparator(){
 		<?php
 		echo '</div>';	// left ends
 
-		echo '<div style="float:left">';	// right starts
+		echo '<div id="ocmMemberMenu" style="float:left">';	// right starts
 
 		//echo '<div class="sub_title" style="float:right;font-size: 16pt;margin-left:50px;">';
 		//echo CHtml::link('social',array('site/chat'),array('target'=>'_chat'));
@@ -170,8 +174,8 @@ function addPanelSeparator(){
 		echo '</div>';
 
 		echo '</div>';	// right ends
-		echo '</div>';	// outer ends
-		echo '<div class="clear"></div>';
+
+		//echo '<div class="clear"></div>';
 		$panel_separator_added=1;
 	}
 }
@@ -182,10 +186,12 @@ if($model->is_admin ){
 		echo '<div style="font-size:1.3em">'.__('OCAx installation').'</div>';
 		$this->renderPartial('//config/versionSummary');
 		echo '</div>';
+		
 		echo '<div style="float:left;margin-left:60px;">';
 		echo '<div style="font-size:1.3em">'.__('Check server requirements').'</div>';
 		$this->renderPartial('//config/postInstallCheck');
 		echo '</div>';
+		
 		echo '<div class="clear"></div>';
 		echo '<div class="horizontalRule"></div>';
 	}
@@ -211,7 +217,7 @@ if($model->is_team_member){
 if($model->is_editor){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">'.__('CMS editor options').'</div>';
+	echo '<div class="sub_title">'.__('Page editor').'</div>';
 	echo '<div style="float:left"><p>';
 		if(Config::model()->findByPk('siteConfigStatusLanguage')->value){
 			echo CHtml::link(__('Introduction pages'), array('/introPage/admin')).'<br />';

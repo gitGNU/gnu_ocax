@@ -88,7 +88,7 @@ class BudgetDescLocal extends CActiveRecord
 			'code' => __('Code'),
 			'label' => __('Label'),
 			'concept' => __('Concept'),
-			'description' => __('Description'),
+			'description' => __('Explication'),
 			'text' => 'Text',
 			'modified' => __('Modified'),
 		);

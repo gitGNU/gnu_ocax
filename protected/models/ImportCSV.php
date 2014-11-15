@@ -140,7 +140,8 @@ class ImportCSV extends CFormModel
 		fclose($fh);
 	}
 
-	// convert csv to UTF-8
+	// check csv is UTF-8
+	// this needs improviment
 	public function checkEncoding()
 	{
 		$content = file_get_contents($this->csv);
