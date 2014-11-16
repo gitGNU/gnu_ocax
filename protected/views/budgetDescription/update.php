@@ -22,7 +22,7 @@
 /* @var $model BudgetDescription */
 
 $this->menu=array(
-	array('label'=>__('View description'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewDescription();')),
+	array('label'=>__('View description'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewSavedLocalDescription();')),
 	array('label'=>__('Delete description'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );

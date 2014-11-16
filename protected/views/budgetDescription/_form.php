@@ -64,6 +64,19 @@ $(function() {
 			$(this).val(<?php echo json_encode($model->label);?>);
 	});
 });
+function previewLocalDescription() {
+	$('#description_popup_content_saved_desc').hide();
+	content = "<div class=\"modalTitle\"><?php echo __('Preview explication');?>" + '</div>';
+	content = content + '<div>' + tinyMCE.get('BudgetDescLocal_description').getContent() + '</div>';
+	$('#description_popup_content_desc_preview').html(content);
+	$('#description_popup_content_desc_preview').show();
+	viewDescription();
+}
+function viewSavedLocalDescription() {
+	$('#description_popup_content_desc_preview').hide();
+	$('#description_popup_content_saved_desc').show();
+	viewDescription();
+}
 </script>
 
 <div class="form">
@@ -176,7 +189,7 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 		<?php
 		($model->isNewRecord) ?	$value = '' : $value = $model->concept;
 		echo $form->textField($model,'concept', array('value'=>$value,'style'=>'width:500px','maxlength'=>255));
-		?>		
+		?>
 		<?php echo $form->error($model,'concept'); ?>
 	</div>
 </div>
@@ -223,14 +236,15 @@ echo '<div class="row">';
 		echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));
 	else
 		echo $form->label($model,'description');
-	
+
 	$this->widget('ext.tinymce.TinyMce', $init);
 	echo $form->error($model,'description');
 echo '</div>';
 ?>
 
 <div class="row buttons">
-	<?php echo CHtml::submitButton(__('Update the description')); ?>
+	<input type="button" value="<?php echo __('Preview the explication');?>" onClick="js:previewLocalDescription();" />
+	<?php echo CHtml::submitButton(__('Save changes')); ?>
 </div>
 
 </div><!-- local_desc end -->
@@ -244,22 +258,22 @@ echo '</div>';
 		<?php echo $form->labelEx($model,'label'); ?>
 		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
 		<span style="font-size:18px"><?php echo $common_desc->label;?></span>
-		
+
 	</div>
 
 	<div class="row left" style="width:505px">
 		<?php echo $form->labelEx($model,'concept'); ?>
 		<div class="hint"><?php echo __('Concept of this budget');?></div>
 		<span style="font-size:18px"><?php echo $common_desc->concept;?></span>
-		
+
 	</div>
 	<div class="clear"></div>
-	<div class="row">	
+	<div class="row">
 	<?php
 		if(!$common_desc->description)
-			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-dot-circled green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-dot-circled green"></i>'));
 		else{
-			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));
 			echo '<div style="font-size:16px">'.$common_desc->description.'</div>';
 		}
 	?>
@@ -281,22 +295,22 @@ echo '</div>';
 		<?php echo $form->labelEx($model,'label'); ?>
 		<div class="hint"><?php echo __('Concept, Subconcept, Article').'..';?></div>
 		<span style="font-size:18px"><?php echo $state_desc->label;?></span>
-		
+
 	</div>
 
 	<div class="row left" style="width:505px">
 		<?php echo $form->labelEx($model,'concept'); ?>
 		<div class="hint"><?php echo __('Concept of this budget');?></div>
 		<span style="font-size:18px"><?php echo $state_desc->concept;?></span>
-		
+
 	</div>
 	<div class="clear"></div>
 	<div class="row">
 	<?php
 		if(!$state_desc->description)
-			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle-empty green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle-empty green"></i>'));
 		else{
-			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));	
+			echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));
 			echo '<div style="font-size:16px">'.$state_desc->description.'</div>';
 		}
 	?>
@@ -314,8 +328,11 @@ echo '</div>';
 
 <div id="description_popup" class="modal" style="width:750px;">
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
-	<div>
+	<div id="description_popup_content">
+	<div id="description_popup_content_saved_desc">
 	<?php $this->renderPartial('_view',array('model'=>$model,'fieldsForDisplay'=>$fieldsForDisplay));?>
+	</div>
+	<div id="description_popup_content_desc_preview"></div>
 	</div>
 </div>
 
