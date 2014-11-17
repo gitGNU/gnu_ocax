@@ -364,6 +364,7 @@ CREATE TABLE IF NOT EXISTS config (
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLatitude', '', '0', "Administration's WGS84 latitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationLongitude', '', '0', "Administration's WGS84 longitude on earth");
 INSERT INTO config(parameter, value, required, description) VALUES ('administrationName', 'Ayuntamiento de Espanistan', '1', 'Name of the administration');
+INSERT INTO config(parameter, value, required, description) VALUES ('budgetAutoFeature', '1', '1', 'Auto create budget graphics after csv import');
 INSERT INTO config(parameter, value, required, description) VALUES ('currencySymbol', 'n €', '1', 'Currency symbol and collocation');
 INSERT INTO config(parameter, value, required, description) VALUES ('databaseDumpMethod', 'native', '1', 'Database backup method');
 INSERT INTO config(parameter, value, required, description) VALUES ('emailContactAddress', 'info@ocax.net', '1', 'Contact email address');

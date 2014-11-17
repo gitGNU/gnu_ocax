@@ -74,9 +74,8 @@
 	</div>
 	<div class="row" style="font-size:1.4em">
 		<?php	
-		echo $featuredCount.' '.__('Featured budgets');
-		if($totalBudgets > 0 && $featuredCount == 0)
-			echo '<br /><span class="hint">'.__('Featured budgets generate graphics').'</span>';
+		if($totalBudgets > 0)
+			echo $featuredCount.' '.__('Graphics');
 		?>
 	</div>
 

@@ -350,6 +350,19 @@ class Budget extends CActiveRecord
 */
 	}
 
+	/*
+	 * After importing a CSV we can find base budgets and feature them
+	 */
+	public function autoFeatureBudgets()
+	{
+		Yii::app()->db->createCommand()->update(
+						'budget',	// table
+						array('featured'=>1),	// column to update
+						'char_length(csv_id) = 3 AND year = :year',	// condition (should improve this with regex)
+						array(':year'=>$this->year)	// params
+					);
+	}
+
 	public function budgetsWithoutDescription()
 	{
 		($this->csv_id)? $csv_id='AND b.csv_id LIKE "%'.$this->csv_id.'%"' : $csv_id='';

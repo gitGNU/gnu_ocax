@@ -32,7 +32,7 @@ if($totalBudgets){
 	$deleteDatos = array( array( 'label'=>__('Delete budgets'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
 	array_splice( $this->menu, 1, 0, $deleteDatos );
 
-	$label = __('Featured budgets');
+	$label = __('Define graphics');
 	if($totalBudgets > 0 && $featuredCount == 0)
 		$label = $label.'<i class="icon-attention green"></i>';
 	$featured = array( array('label'=>$label, 'url'=>array('budget/featured', 'id'=>$model->year)));

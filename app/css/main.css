@@ -478,7 +478,7 @@ span.ocaxVoteCount {
 }
 */
 
-#ocmMemberPanel { height:55px }
+#ocmMemberPanel { height:55px; }
 /* user panel legend */
 #legend {
 	position:absolute;
