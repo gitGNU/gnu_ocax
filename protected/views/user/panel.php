@@ -73,7 +73,7 @@ $(function() {
 </script>
 <?php } ?>
 
-<?php if($privilegedUser){ ?>
+<?php if($privilegedUser && $model->is_active){ ?>
 <div style="position:relative;">
 	<div	id="moreOptionsToggle"
 			onCLick="js:toggleMoreOptions();return false;">
@@ -90,7 +90,7 @@ $(function() {
 
 
 
-<div id="moreOptions" class="outer" style="<?php echo ($privilegedUser) ? 'display:none' : ''; ?>"> <!-- outer starts -->
+<div id="moreOptions" class="outer" style="<?php echo ($privilegedUser && $model->is_active) ? 'display:none' : ''; ?>"> <!-- outer starts -->
 
 <div class="panel_left">
 	<?php

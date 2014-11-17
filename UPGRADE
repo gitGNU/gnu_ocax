@@ -17,15 +17,14 @@ OCAX 1.2
 Upgrade instructions.
 1. Follow steps 1-5 above.
 
-remove the directory app/files/csv and all the content
+Remove the directory app/files/csv and all the content
 mkdir protected/runtime/tmp
 mkdir protected/runtime/html
 chown -R www-data protected/runtime/
 chown -R www-data app/css
 
-Edit protected/config/main.php
-
-theme => 'default',
+Edit protected/config/main.php and change the theme to default
+'theme' => 'default',
 
 
 

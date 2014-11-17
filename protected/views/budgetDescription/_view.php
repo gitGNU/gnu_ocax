@@ -47,4 +47,4 @@
 ?>
 </h1>
 
-<div style="font-size:16px"><?php echo $fieldsForDisplay['description'];?></div>
+<div class="budgetExplication"><?php echo $fieldsForDisplay['description'];?></div>

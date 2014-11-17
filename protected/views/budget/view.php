@@ -21,7 +21,10 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budgetDescription.css" />
 
+<?php 
 if(!Yii::app()->request->isAjaxRequest)
 	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
 else{
@@ -148,13 +151,9 @@ function editBudgetDescription(){
 				echo '<a href="#" onclick="js:editBudgetDescription()">'.__('Can you improve this description?').'</a>';
 			else
 				echo '<a href="'.Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id.'">'.__('Can you improve this description?').'</a>';
-			/*
-			echo '<span style="" class="link" onclick="js:editBudgetDescription('.$model->id.', this);return false;" >';
-			echo __('Can you improve this description?').'</span>';
-			*/
 			echo '<br />';
 		}
-		echo $description->description;
+		echo '<div class="budgetExplication">'.$description->description.'</div>';
 		if($description->modified){
 			$state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language);
 			if($state_description && $state_description->description){
@@ -162,7 +161,7 @@ function editBudgetDescription(){
 					  __('Read the administration\'s description').'</div>';
 				echo '<div id="state_desc" style="display:none;margin-top:10px;">';
 				echo '<div class="sub_title">'.__('Official description').'</div>';
-				echo $state_description->description;
+				echo '<div class="budgetExplication">'.$state_description->description.'</div>';
 				echo '</div>';
 			}
 		}

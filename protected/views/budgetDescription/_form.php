@@ -29,6 +29,8 @@ $state_desc = BudgetDescState::model()->findByAttributes(array('csv_id'=>$model-
 
 ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budgetDescription.css" />
+
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
 function tabMenu(el, div_id){
@@ -66,8 +68,8 @@ $(function() {
 });
 function previewLocalDescription() {
 	$('#description_popup_content_saved_desc').hide();
-	content = "<div class=\"modalTitle\"><?php echo __('Preview explication');?>" + '</div>';
-	content = content + '<div>' + tinyMCE.get('BudgetDescLocal_description').getContent() + '</div>';
+	content = "<div class=\"modalTitle\"><?php echo __('Explication preview');?>" + '</div>';
+	content = content + '<div class="budgetExplication">' + tinyMCE.get('BudgetDescLocal_description').getContent() + '</div>';
 	$('#description_popup_content_desc_preview').html(content);
 	$('#description_popup_content_desc_preview').show();
 	viewDescription();
@@ -230,12 +232,19 @@ if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 	unset($init['compressorRoute']);
 
 echo '<div class="row">';
+	echo '<div style="float:left;">';
 	if($model->id && !$model->description)
 		echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle-empty green"></i>'));
 	elseif($model->id && $model->description)
 		echo $form->labelEx($model,'description', array('label' => $model->getAttributeLabel('description').' <i class="icon-circle green"></i>'));
 	else
 		echo $form->label($model,'description');
+	echo '<span class="hint">'.__('Citizen friendly explication').'</span>';
+	echo '</div>';
+	echo '<div style="float:right">';
+	echo '<input type="button" value="'.__('Preview the explication').'" onClick="js:previewLocalDescription();" />';
+	echo '</div>';
+	echo '<div class="clear"></div>';
 
 	$this->widget('ext.tinymce.TinyMce', $init);
 	echo $form->error($model,'description');
@@ -243,7 +252,6 @@ echo '</div>';
 ?>
 
 <div class="row buttons">
-	<input type="button" value="<?php echo __('Preview the explication');?>" onClick="js:previewLocalDescription();" />
 	<?php echo CHtml::submitButton(__('Save changes')); ?>
 </div>
 

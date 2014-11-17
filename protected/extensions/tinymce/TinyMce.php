@@ -7,6 +7,7 @@ require_once(dirname(__FILE__) . '/TinyMceCompressorAction.php');
  */
 class TinyMce extends CInputWidget
 {
+	
     /** @var bool|string Route to compressor action */
     public $compressorRoute = false;
 
@@ -89,7 +90,7 @@ class TinyMce extends CInputWidget
 
 
         // Example content CSS (should be your site CSS)
-        'content_css' => "/css/tinymce.css",
+        //'content_css' => 
 
         // Drop lists for link/image/media/template dialogs
         //'template_external_list_url' => "lists/template_list.js",
@@ -110,6 +111,7 @@ class TinyMce extends CInputWidget
         $dir = dirname(__FILE__) . '/vendors/tinymce/jscripts/tiny_mce';
         $this->assetsDir = Yii::app()->assetManager->publish($dir);
         $this->settings = array_merge(self::$defaultSettings, $this->settings);
+        $this->settings['content_css'] = Yii::app()->request->baseUrl.'/css/tinymce.css';
         if ($this->language === false)
             $this->settings['language'] = Yii::app()->language;
         else
