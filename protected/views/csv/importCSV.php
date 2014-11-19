@@ -90,7 +90,10 @@ function addMissingValues(el, next){
 					}else{
 						if(data.updated > 0 || data.new_concepts > 0 || data.new_totals > 0){
 							download = '<?php echo Yii::app()->request->baseUrl; ?>/csv/downloadUpdatedCSV/<?php echo $model->year;?>';
-							download = '<br /><span class="success">Download updated CSV:</span> <a href="'+download+'"><?php echo $model->csv;?></a>';
+							msg = msg+'<br />OCAx has prepared a new CSV file for you.'; 
+							msg = msg+'<br /><span class="success">1. Download new CSV:</span> <a href="'+download+'"><?php echo $model->csv;?></a>';
+							msg = msg+'<br />2. Open new CSV on your PC and check it.';
+							msg = msg+'<br />3. Use new CSV to import your data.';
 						}else{
 							download = '';
 							$('#step_'+next).show();
