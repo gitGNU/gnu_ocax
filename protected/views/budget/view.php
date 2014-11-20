@@ -120,6 +120,9 @@ function editBudgetDescription(){
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';
 
+		if($model->budgets)
+			echo '<a style="float:left;font-size:1.1em" href="'.Yii::app()->createUrl('budget/graph', array('id' => $model->id)).'">'.__('Show graph').'</a>';
+
 		if(count($model->getAllBudgetsWithCSV_ID()) > 1){
 			$compareYears = '<span id="compareYearsLink" class="link" style="float:right;font-size:1.1em" '.
 					'onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').

@@ -45,7 +45,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getPieData','getChildBars','getBudgetDetailsForBar',
+				'actions'=>array('index','graph','view','getPieData','getChildBars','getBudgetDetailsForBar',
 									'getBudget','getAnualComparison'),
 				'users'=>array('*'),
 			),
@@ -585,6 +585,54 @@ class BudgetController extends Controller
 
 		$this->render('index', array(
 			'model' => $model,
+			'graph_type' => $graph_type,
+		));
+	}
+
+	/**
+	 * Show the graph for one particular budget.
+	 */
+	public function actionGraph($id)
+	{
+		$this->layout='//layouts/column1';
+		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('administrationName')->value;
+		$root_budget=$this->loadModel($id);
+
+		$model = new Budget('publicSearch');
+		$model->year = $root_budget->year;
+
+/*
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['year'])){
+			if(is_numeric($_GET['year']))
+				$model->year = $_GET['year'];
+			else
+				$model->year = Config::model()->findByPk('year')->value;
+
+			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
+		}
+		elseif(isset(Yii::app()->request->cookies['year']))
+			$model->year = Yii::app()->request->cookies['year']->value;
+		else
+			$model->year = Config::model()->findByPk('year')->value;
+*/
+
+		if(isset($_GET['graph_type'])){
+			$graph_type=$_GET['graph_type'];
+			Yii::app()->request->cookies['graph_type'] = new CHttpCookie('graph_type', $graph_type);
+		}
+		elseif(isset(Yii::app()->request->cookies['graph_type']))
+			$graph_type=Yii::app()->request->cookies['graph_type']->value;
+		else
+			$graph_type='pie';
+
+		if (isset($_GET['Budget'])) {
+			$model->attributes = $_GET['Budget'];
+		}
+
+		$this->render('index', array(
+			'model' => $model,
+			'root_budget' => $root_budget,
 			'graph_type' => $graph_type,
 		));
 	}

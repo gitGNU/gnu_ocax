@@ -24,21 +24,24 @@
 Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
 $year = $model->year;
-
-$criteria = new CDbCriteria;
-$criteria->condition = 'year = '.$year.' AND parent is NULL';
-$root_budget = Budget::model()->find($criteria);
-
 $showFeaturedMenu=0;
 $featured = array();
-if($root_budget){
-	if(!Yii::app()->user->isAdmin() && !$model->isPublished())
-		$featured = array();
-	else{
-		$featured=$root_budget->getFeatured();
+
+if(isset($root_budget)){
+	$featured[]=$root_budget;
+}else{
+	$criteria = new CDbCriteria;
+	$criteria->condition = 'year = '.$year.' AND parent is NULL';
+	$root_budget = Budget::model()->find($criteria);
+	if($root_budget){
+		if(!Yii::app()->user->isAdmin() && !$model->isPublished())
+			$featured = array();
+		else{
+			$featured=$root_budget->getFeatured();
+		}
+		if(count($featured) > 2)
+			$showFeaturedMenu=1;
 	}
-	if(count($featured) > 2)
-		$showFeaturedMenu=1;
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -246,8 +249,9 @@ if(count($years) > 1){
 	<!--  Change graph type start  -->
 	<div style="clear:right">
 	<?php
+	
 		echo '<div class="budgetOptions" style="position:relative">';
-		$change=Yii::app()->request->baseUrl.'/budget?graph_type';
+		$change=Yii::app()->request->baseUrl.'/'.Yii::app()->request->pathInfo.'?graph_type';
 		echo '<span style="cursor:pointer" onclick="window.location=\''.$change.'=pie\'">';
 		include(svgDir().'graph-type-pie.svg');
 		echo '</span>';

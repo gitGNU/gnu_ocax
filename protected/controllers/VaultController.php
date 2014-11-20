@@ -371,7 +371,7 @@ class VaultController extends Controller
 	public function actionStartCopyingBackup()
 	{
 		if($model = Vault::model()->findByIncomingCreds(LOCAL)){
-			if(Backup::model()->findByDay(date('Y-m-d'), $model->id )){
+			if(Backup::model()->findByDay(date('Y-m-d'), $model->id )){ // Don't copy twice
 				echo 0;
 				Yii::app()->end();
 			}

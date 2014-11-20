@@ -147,30 +147,29 @@ class CsvController extends Controller
 		
 		$newRegisterCnt = $model->addMissignRegisters();	// rewrites the csv if needed
 		if($newRegisterCnt > 0)
-			$msg = '<br /><span class="warn">'.$newRegisterCnt.' new registers added</span>';
+			$msg = '<br /><span class="warn">New registers added: '.$newRegisterCnt.'</span>';
 			
 		$new_concepts = $model->addMissingConcepts();		// rewrites the csv if needed
 		if($new_concepts)
-			$msg = $msg.'<br /><span class="warn">'.$new_concepts.' codes/concepts added</span>';
+			$msg = $msg.'<br /><span class="warn">Codes/concepts added: '.$new_concepts.'</span>';
 		
 		list($initial,$actual,$t1,$t2,$t3,$t4) = $model->addMissingTotals();	// rewrites the csv if needed
 		$total_newTotals = $initial+$actual+$t1+$t2+$t3+$t4;
 		if($total_newTotals){
-			$msg = $msg.'<br /><span class="warn"> '.$total_newTotals.' missing totals added:</span>';
-			$msg = $msg.'<blockquote style="margin-top:-25px;">';
+			$msg = $msg.'<br /><span class="warn">Missing totals: '.$total_newTotals.'</span>';
 			if($initial)
-				$msg = $msg.'<br /><span class="warn">initial_provision: '.$initial.'</span>';
+				$msg = $msg.'<br /><span class="warn">- initial_provision: '.$initial.'</span>';
 			if($actual)
-				$msg = $msg.'<br /><span class="warn">actual_provision: '.$actual.'</span>';
+				$msg = $msg.'<br /><span class="warn">- actual_provision: '.$actual.'</span>';
 			if($t1)
-				$msg = $msg.'<br /><span class="warn">trimester_1: '.$t1.'</span>';
+				$msg = $msg.'<br /><span class="warn">- trimester_1: '.$t1.'</span>';
 			if($t2)
-				$msg = $msg.'<br /><span class="warn">trimester_2: '.$t2.'</span>';
+				$msg = $msg.'<br /><span class="warn">- trimester_2: '.$t2.'</span>';
 			if($t3)
-				$msg = $msg.'<br /><span class="warn">trimester_3: '.$t3.'</span>';
+				$msg = $msg.'<br /><span class="warn">- trimester_3: '.$t3.'</span>';
 			if($t4)
-				$msg = $msg.'<br /><span class="warn">trimester_4: '.$t4.'</span>';
-			$msg = $msg.'</blockquote>';
+				$msg = $msg.'<br /><span class="warn">- trimester_4: '.$t4.'</span>';
+			$msg = $msg.'<br />';
 		}
 		if(!$msg)
 			$msg='No missing values';

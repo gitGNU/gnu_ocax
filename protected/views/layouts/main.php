@@ -53,9 +53,9 @@
 		if($fbURL || $twURL){
 			echo '<li>';
 			if($fbURL)
-				echo '<a href="'.$fbURL.'"><i class="icon-facebook-squared header-icons"></i></a> ';
+				echo '<a href="'.$fbURL.'" target="_blank"><i class="icon-facebook-squared header-icons"></i></a> ';
 			if($twURL)
-				echo '<a href="'.$twURL.'"><i class="icon-twitter header-icons"></i></a> ';
+				echo '<a href="'.$twURL.'" target="_blank"><i class="icon-twitter header-icons"></i></a> ';
 			echo '</li>';
 		}
 	?>
