@@ -29,11 +29,16 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php 
+if($model->isNewRecord)
+	$action = Yii::app()->createUrl('sitePage/create');
+else
+	$action = Yii::app()->createUrl('sitePage/preview', array('id'=>$model->id,'lang'=>$content->language));
+
+$form=$this->beginWidget('CActiveForm', array(
 	'id'=>'sitePage-form',
 	'enableAjaxValidation'=>true,
-	'action'=>	Yii::app()->request->baseUrl.
-				$model->isNewRecord ? '/sitePage/create/' : '/sitePage/preview/'.$model->id.'?lang='.$content->language,
+	'action'=>$action,
 )); ?>
 
 	<?php

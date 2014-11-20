@@ -44,9 +44,16 @@ else{
 
 if(isset($showLinks)){
 	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.', this);return false;');
+	$create_enquiry_link = '';
+	if(isset($showCreateEnquiry)){
 	$create_enquiry_link = 	'<span style="float:right">'.
 							CHtml::link(__('New enquiry'), $this->createAbsoluteUrl('enquiry/create?budget='.$model->id)).
 							'</span>';
+	}elseif(!isset($showMore)){
+		$create_enquiry_link = 	'<span style="float:right">'.
+								'<a href="'.$this->createAbsoluteUrl('budget/view/'.$model->id).'" onClick="js:showBudget('.$model->id.', this);return false;">'.__('More detail').'</a>';
+								'</span>';
+	}
 	if($enquiry_count){
 		if($enquiry_count == 1){
 			if((isset($enquiry) && $enquiry->budget == $model->id) || isset($showMore))
@@ -75,11 +82,26 @@ if(isset($showLinks)){
 }
 
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
+
+$yearCode_value = ($model->code)? $model->getYearString().' / '.$model->code : $model->getYearString();
+if(isset($showLinks) && isset($showMore) && $model->budgets){
+		$htmlOptions = array('style'=>'float:right;');
+		if(Yii::app()->request->isAjaxRequest)
+			$htmlOptions['target'] = '_blank';
+		$link = CHtml::link(' <i class="icon-chart-pie color"></i>'.__('Graph'),
+							array(	'budget/graph',
+									'id'=>$model->id
+							),
+							$htmlOptions
+						);
+		$yearCode_value = $yearCode_value.$link;
+}
+	
 $attributes=array(
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
 	        'type'=>'raw',
-	        'value'=>($model->code)? $model->getYearString().' / '.$model->code : $model->getYearString(),
+	        'value'=>$yearCode_value,
 		),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' '.$percentage),
 		array(

@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -113,25 +113,13 @@ function editBudgetDescription(){
 	if(Yii::app()->request->isAjaxRequest)
 		echo '<div class="modalTitle">'.__('Budget').': '.$category.'</div>';
 	else
-		echo '<div class="budgetCategory">'.$category.'</div>';
+		echo '<div style="font-size:1.1em">'.$category.'</div>';
 
 	echo '<h1>'.$model->getTitle().'</h1>';
 
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';
 
-		if($model->budgets){
-			$htmlOptions = array('style'=>'float:left;font-size:1.1em');
-			if(Yii::app()->request->isAjaxRequest)
-				$htmlOptions['target'] = '_blank';
-			$link = CHtml::link(' <i class="icon-chart-pie color"></i>'.__('Graph'),
-								array(	'budget/graph',
-										'id'=>$model->id
-								),
-								$htmlOptions
-							);
-			echo $link;
-		}
 		if(count($model->getAllBudgetsWithCSV_ID()) > 1){
 			$compareYears = '<span id="compareYearsLink" class="link" style="float:right;font-size:1.1em" '.
 					'onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').
@@ -245,7 +233,3 @@ if(count($dataProvider->getData()) > 0){
 ?>
 </p>
 
-<div id="description_popup" class="modal" style="width:800px;height:1000px">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/closeModal.png" />
-	<div id="description_popup_content"></div>
-</div>

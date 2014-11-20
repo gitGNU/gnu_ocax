@@ -164,7 +164,6 @@ function afterSearch(){
 <?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
 function budgetDetailsUpdated(){
 	delete budgetCache[showingBudgetDetails];
-	$('#description_popup').bPopup().close();
 	$('#budget_popup').bPopup().close();
 }
 <?php } ?>
