@@ -182,7 +182,7 @@ if($model->state >= READY){
 			array(
 				'header'=>__('Filesize'),
 				'type' => 'raw',
-				'value'=>'$data->formatBytes()',
+				'value'=>'$data->fileSizeForHumans()',
 			),
 			array(
 				'header'=>__('State'),

@@ -115,7 +115,7 @@ class Backup extends CActiveRecord
 		return __('Not finished');
 	}
 
-	public function formatBytes($precision = 2) {
+	public function fileSizeForHumans($precision = 2) {
 		$bytes= $this->filesize;
 		return bytesForHumans($this->filesize);
 	}

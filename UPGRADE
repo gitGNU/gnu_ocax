@@ -31,6 +31,7 @@ Edit protected/config/main.php and change the theme to default
 /* ---------- start copying ---------- */
 
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackupEmailAlert', '1', '1', 'Send email reports to admin(s)');
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorSafe', '1', '1', "Safe HTML editor");
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");
 INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets");

@@ -442,6 +442,7 @@ class VaultController extends Controller
 		echo 0;
 		Yii::app()->end();
 	}
+
 	// Executed on REMOTE-Dave's server
 	public function actionTransferComplete()
 	{
@@ -465,7 +466,28 @@ class VaultController extends Controller
 				
 				if($model->type == REMOTE)	// condition shouldn't be necessary
 					unlink($model->getVaultDir().$backup->filename);
-						
+					
+				if(Config::model()->findByPk('siteAutoBackupEmailAlert')){
+					if($admins=User::model()->findAllByAttributes(array('is_admin'=>'1'))){
+						$mailer = new Mailer();
+						$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+
+						foreach($admins as $admin)
+							$mailer->AddAddress($admin->email);
+
+						if($backup->state === SUCCESS){
+							$mailer->Subject=Config::model()->findByPk('siglas')->value.' backup ok';
+							$mailer->Body='<p>Backup copied ok</p>';
+						}else{
+							$mailer->Subject=Config::model()->findByPk('siglas')->value.' backup failed';
+							$mailer->Body='<p>Backup failed</p>';
+						}
+						$mailer->Body=$mailer->Body.'<p>Filename: '.$backup->filename.'<br />';
+						$mailer->Body=$mailer->Body.'Filesize: '.$backup->fileSizeForHumans().'<br />';
+						$mailer->Body=$mailer->Body.__('Vault').': '.$backup->vault0->host.'</p>';
+						$mailer->send();
+					}
+				}
 				echo $backup->state;
 				Yii::app()->end();
 			}
