@@ -247,7 +247,7 @@ class SitePageController extends Controller
 			$word = 'language "'.$content->language.'" ';
 		Log::model()->write('sitePage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'), $model->id);
 		Yii::app()->user->setFlash('success', __('Changes saved Ok'));
-		$this->redirect(array($this->createUrl('/p/'.$content->pageURL)));
+		$this->redirect($this->createUrl('p/'.$content->pageURL));
 	}
 
 	/**

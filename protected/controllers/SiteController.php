@@ -205,7 +205,7 @@ class SiteController extends Controller
 			$newSalt=$newUser->generateSalt();
  			$newUser->password = $newUser->hashPassword($model->password,$newSalt);
 			$newUser->salt = $newSalt;
- 			$newUser->activationcode = $newUser->generateActivationCode();
+ 			$newUser->generateActivationCode();
 			$newUser->is_active = 0;
 			$newUser->is_disabled = 0;
  			$newUser->username = $model->username;
@@ -235,13 +235,15 @@ class SiteController extends Controller
 		if($code)
 		{
 			$model = User::model()->findByAttributes(array('activationcode'=>$code));
-			if($model && !$model->is_disabled){
+			if($model && !$model->is_active && !$model->is_disabled){
 				$model->is_active=1;
 				if($model->save()){
 					Log::model()->write('User',__('User account activated'),$model->id);
 					Yii::app()->user->setFlash('success',__('Your account is active'));
 				}
-			}else
+			}elseif(!Yii::app()->user->isGuest)
+				$this->redirect(array('/user/panel'));
+			else
 				$this->redirect(array('/site/index'));
 		}
 		if(!Yii::app()->user->isGuest)

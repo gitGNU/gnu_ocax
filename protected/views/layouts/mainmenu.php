@@ -33,10 +33,10 @@
 			$cms_pages=SitePage::model()->findAll($criteria);
 			foreach($cms_pages as $page){
 				$page_content = $page->getContentForModel(Yii::app()->language);
-				$item = array(	'label'=>CHtml::encode($page_content->pageTitle),
-										'url'=>array('/p/'.$page_content->pageURL),
-										'active'=> ($page->isMenuItemHighlighted()) ? true : false,
-								);
+				$item = array(	'label'=>$page_content->pageTitle,
+								'url'=>array('/p/'.$page_content->pageURL),
+								'active'=> ($page->isMenuItemHighlighted()) ? true : false,
+							);
 				//add sub menu
 				$criteria=new CDbCriteria;
 				$criteria->condition = 'block = '.$page->block.' AND weight != 0 AND published = 1 AND weight IS NOT NULL';
@@ -47,8 +47,8 @@
 					$subItems=array();
 					foreach($subpages as $subpage){
 						$subpage_content = $subpage->getContentForModel(Yii::app()->language);
-						$subitems[] = array('label'=>CHtml::encode($subpage_content->pageTitle),
-												'url'=>array('/p/'.$subpage_content->pageURL),
+						$subitems[] = array('label'=>$subpage_content->pageTitle,
+											'url'=>array('/p/'.$subpage_content->pageURL),
 										);
 					}
 					$item['items'] = $subitems;

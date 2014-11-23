@@ -185,18 +185,19 @@ class Budget extends CActiveRecord
 		$lang=Yii::app()->language;
 		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
 			if($description->label)
-				$label = $description->label.': ';
+				$label = $description->label;
 			if($description->concept)
 				$concept = $description->concept;
-			if($concept)
-				return $label.$concept;
+			if($label && $concept)
+				return $label.': '.$concept;
 		}
 		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
-			if($description->label)
-				$label = $description->label.': ';
-			if($description->concept)
-				$concept = $description->concept;				
-			return $label.$concept;
+			if($description->label && !$label)
+				$label = $description->label;
+			if($description->concept && !$concept)
+				$concept = $description->concept;			
+			if($label && $concept)
+				return $label.': '.$concept;				
 		}
 		return $this->concept;
 	}

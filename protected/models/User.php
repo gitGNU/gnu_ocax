@@ -173,6 +173,7 @@ class User extends CActiveRecord
 		$code = substr(md5(rand(0, 1000000)), 0, 45);
 		while ($this->findByAttributes(array('activationcode'=>$code)))
 			$code = substr(md5(rand(0, 1000000)), 0, 45);
+		$this->activationcode = $code;
 		return $code;
 	}
 

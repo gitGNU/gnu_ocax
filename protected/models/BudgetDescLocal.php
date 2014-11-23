@@ -97,7 +97,7 @@ class BudgetDescLocal extends CActiveRecord
 	public function getDescriptionFieldsForEditor($language = null)
 	{
 		if(!$language)
-			$language = Yii::app()->language;
+			$language = $this->language;
 		
 		$fields = array('label'=>null, 'concept'=>null, 'description'=>null);
 		
