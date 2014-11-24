@@ -420,11 +420,14 @@ class SiteController extends Controller
 		});
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'   => Config::model()->findByPk('siglas')->value.' '.__('activity'),
-			'link'    => Yii::app()->createUrl('site'),
-			'charset' => 'UTF-8',
-			'entries' => $entries,
-			), 'rss');
+			'title'		=> Config::model()->findByPk('siglas')->value.' '.__('activity'),
+			'link'		=> Yii::app()->createUrl('site'),
+			'image'		=> Yii::app()->createAbsoluteUrl('files/logo.png'),
+			'charset'	=> 'UTF-8',
+			'entries'	=> $entries,
+			),
+			'rss'
+		);
 		$feed->send();
 	}
 
