@@ -26,15 +26,6 @@
 	width:400px;
 }
 
-#noEnquiriesHere
-{
-	margin-top:50px;
-	height:90px;
-	text-align:center;
-	font-size:2em;
-	color:lightgrey;
-}
-
 #enquiryDisplayTypeIcons
 {
 	font-size:16px;
@@ -42,10 +33,7 @@
 #enquiryDisplayTypeIcons i
 {
 	cursor:pointer;
-	
 }
-
-
 
 /* workflow */
 #workflow_diagram {  }

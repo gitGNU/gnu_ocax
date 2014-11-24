@@ -35,17 +35,17 @@ $this->viewLog='EmailTemplate';
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/emailTemplate/update').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'template' => '{items}',
 	'dataProvider'=>$model->search(),
-	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
+	//'ajaxUpdate'=>true,
 	'columns'=>array(
 			array(
 				'header'=>__('State'),
 				'type' => 'raw',
-				'value'=>'Enquiry::model()->getHumanStates($data[\'state\'])',
+    	        'value'=>function($data,$row){
+					$value = Enquiry::model()->getHumanStates($data->state);
+					if(!$data->updated)
+						$value = $value.' <i class="icon-attention red"></i>';
+					return $value;
+				},
 			),
 ))); ?>
 

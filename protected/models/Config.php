@@ -39,6 +39,7 @@ class Config extends CActiveRecord
 						'siteConfigStatusObservatoryName',
 						'siteConfigStatusAdministrationName',
 						'siteConfigStatusBudgetDescriptionsImport',
+						'siteConfigStatusEmailTemplates',
 						'siteConfigStatusUptodate',
 					);
 	

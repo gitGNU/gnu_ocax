@@ -77,7 +77,8 @@ if(!$config->findByPk('siteConfigStatusEmailTemplates')->value){
 	$configuredTemplatesTotal = count(EmailTemplate::model()->findAllByAttributes(array('updated'=>1)));
 	$totalTemplates = count( EmailTemplate::model()->findAll() );
 	if( $configuredTemplatesTotal < $totalTemplates){
-		$text = __('Email templates').' '.($totalTemplates-$configuredTemplatesTotal).' '.__('need to be defined');
+		$text = __('%s email templates need to be defined');
+		$text = str_replace('%s', $totalTemplates-$configuredTemplatesTotal, $text);
 		echo $cnt.'. '.CHtml::link($text,array('emailTemplate/admin'));
 		$cnt +=1;
 		echo '<br />';

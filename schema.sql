@@ -384,7 +384,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteColor',
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatus', '0', '1', 'Site configuration complete');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusBudgetDescriptionsImport', '0', '1', 'Budget descriptions have been imported');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmail', '0', '1', 'Site email configuration status');
-INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmailTemplates', '', '1', 'Have all templates been personalized?');
+INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusEmailTemplates', '0', '1', 'Have all templates been personalized?');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusLanguage', '0', '1', 'Site language configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusInitials', '0', '1', 'Obseratory initials configuration status');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusObservatoryName', '0', '1', 'Obseratory name configuration status');

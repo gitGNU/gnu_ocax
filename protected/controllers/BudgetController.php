@@ -558,14 +558,14 @@ class BudgetController extends Controller
 
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['year'])){
-			if(is_numeric($_GET['year']))
+			if(strtotime($_GET['year']) !== false)
 				$model->year = $_GET['year'];
 			else
 				$model->year = Config::model()->findByPk('year')->value;
 
 			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
 		}
-		elseif(isset(Yii::app()->request->cookies['year']))
+		elseif(isset(Yii::app()->request->cookies['year']) && strtotime(Yii::app()->request->cookies['year']->value) !== false)
 			$model->year = Yii::app()->request->cookies['year']->value;
 		else
 			$model->year = Config::model()->findByPk('year')->value;
@@ -600,22 +600,6 @@ class BudgetController extends Controller
 
 		$model = new Budget('publicSearch');
 		$model->year = $root_budget->year;
-
-/*
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['year'])){
-			if(is_numeric($_GET['year']))
-				$model->year = $_GET['year'];
-			else
-				$model->year = Config::model()->findByPk('year')->value;
-
-			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
-		}
-		elseif(isset(Yii::app()->request->cookies['year']))
-			$model->year = Yii::app()->request->cookies['year']->value;
-		else
-			$model->year = Config::model()->findByPk('year')->value;
-*/
 
 		if(isset($_GET['graph_type'])){
 			$graph_type=$_GET['graph_type'];

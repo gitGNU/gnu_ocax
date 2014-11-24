@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,13 +22,8 @@
 /* @var $model EmailTemplate */
 
 $this->menu=array(
-/*
-	array('label'=>'List EmailTemplate', 'url'=>array('index')),
-	array('label'=>'Create EmailTemplate', 'url'=>array('create')),
-	
-*/
-	array('label'=>__('View text'), 'url'=>array('view', 'id'=>$model->state)),
-	array('label'=>__('Manage texts'), 'url'=>array('admin')),
+	array('label'=>__('View template'), 'url'=>array('view', 'id'=>$model->state)),
+	array('label'=>__('Manage templates'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':workflow:emails';
 $this->viewLog='EmailTemplate';

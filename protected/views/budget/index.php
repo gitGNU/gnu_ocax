@@ -302,7 +302,7 @@ if(count($years) > 1){
 
 	echo '<div id="the_graphs">';
 	if(!$featured){
-		echo '<div class="sub_title">'. __('No data available').'</div>';
+		echo '<div class="sub_title" style="margin-bottom:60px;">'. __('No data available').'</div>';
 	}else{
 		if($graph_type == 'bar')
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));

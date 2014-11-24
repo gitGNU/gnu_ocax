@@ -86,9 +86,7 @@ class EmailTemplateController extends Controller
 			$model->attributes=$_POST['EmailTemplate'];
 			$model->updated=1;
 			if($model->save()){
-				$configuredTemplatesTotal = count($model->findAllByAttributes(array('updated'=>1)));
-				$totalTemplates = count( $model->findAll() );
-				if( $configuredTemplatesTotal == $totalTemplates){
+				if(!$model->findAllByAttributes(array('updated'=>0))){
 					$config = Config::model()->findByPk('siteConfigStatusEmailTemplates');
 					$config->value = 1;
 					$config->save();

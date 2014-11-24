@@ -185,16 +185,15 @@ function resetForm(){
 </ul>
 
 </div>
-
 <div id="advancedFilterOptions" style="height:95px;">
 <div>
-	<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
+	<?php /* if(count($model->publicSearch()->getData()) > 0 ){ */ ?>
 		<div class="search-form">
 			<?php $this->renderPartial('_searchPublic',array(
 				'model'=>$model,
 			)); ?>
 		</div><!-- search-form -->
-	<?php } ?>
+	<?php /* } */ ?>
 </div>
 </div>
 
@@ -232,7 +231,6 @@ if($displayType == 'grid'){
 			else
 				return $row % 2 ? 'even' : 'odd';
 		},
-		//'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
 		'onClick'=>array(
 			'type'=>'javascript',
 			'call'=>'showEnquiry',
@@ -275,7 +273,7 @@ if($displayType == 'grid'){
 							$("html, body").animate({scrollTop: $("#scrollTop").position().top }, 100);
 							}',
 		'itemView'=>'_preview',
-		'emptyText'=>'<div id="noEnquiriesHere">'.__('No enquiries here').'.</div>',
+		'emptyText'=>'<div class="sub_title" style="margin-bottom:60px;">'.__('No enquiries here').'</div>',
 		'pager'=>array(
 			'class'=>'CLinkPager',
 			'header'=>'',
