@@ -51,8 +51,8 @@ class SitePageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(	'admin','delete','create','update',
-									'preview','editPreview','savePreview'),
+				'actions'=>array(	'admin', 'delete', 'create', 'toggleSafeHTML', 'toggleShowTitle',
+									'update', 'preview', 'editPreview', 'savePreview'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('deny',  // deny all users
@@ -129,11 +129,14 @@ class SitePageController extends Controller
 		$content->language=$languages[0];
 
 		$model->setScenario('create');
-		$this->performAjaxValidation($model);
+		//$this->performAjaxValidation($model);
 
 		if(isset($_POST['SitePage'], $_POST['SitePageContent']))
 		{
 			$model->attributes=$_POST['SitePage'];
+			$model->advancedHTML=0;
+			$model->showTitle=1;
+			$model->published=0;
 			$content->attributes=$_POST['SitePageContent'];
 			$content->page=0;	// dummy value. should do this with validation rule but it didn't work.
 		
@@ -248,6 +251,22 @@ class SitePageController extends Controller
 		Log::model()->write('sitePage',__('Page').' "'.$content->pageTitle.'" '.$word.__('updated'), $model->id);
 		Yii::app()->user->setFlash('success', __('Changes saved Ok'));
 		$this->redirect($this->createUrl('p/'.$content->pageURL));
+	}
+
+	public function actionToggleSafeHTML($id)
+	{
+		$model=$this->loadModel($id);
+		$model->advancedHTML ? $model->advancedHTML = 0 : $model->advancedHTML = 1;
+		$model->save();
+		echo $model->advancedHTML;
+	}
+
+	public function actionToggleShowTitle($id)
+	{
+		$model=$this->loadModel($id);
+		$model->showTitle ? $model->showTitle = 0 : $model->showTitle = 1;
+		$model->save();
+		echo $model->showTitle;
 	}
 
 	/**

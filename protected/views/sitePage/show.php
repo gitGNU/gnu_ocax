@@ -21,6 +21,7 @@
 $this->setPageTitle($content->pageTitle);
 ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budget.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/sitepage.css" />
 
 <?php if(isset($preview)){ ?>
@@ -72,7 +73,7 @@ echo '</div>';
 <!-- start page here -->
 <div id="sitePageBreadcrumbs">
 <?php
-	if($parent = SitePage::model()->findByAttributes(array('block'=>$model->block, 'published'=>1, 'weight'=>0))){
+	if($parent = SitePage::model()->findByAttributes(array('block'=>$model->block, 'weight'=>0))){
 		//array('order'=>'weight')
 
 		echo '<a href="'.$this->createUrl('site/index').'">'.__('Home').'</a>';
@@ -96,9 +97,11 @@ if(!Yii::app()->user->isGuest && Yii::app()->user->isEditor() && !isset($preview
 			'onclick="js:window.location.href=\''.$this->createUrl('/sitePage/admin').'\'"></i>';
 	echo '</div>';
 }			
+
+if($model->showTitle)
+	echo '<div class="sitePage_titulo">'.CHtml::encode($content->pageTitle).'</div>';
 ?>
 
-<div class="sitePage_titulo"><?php echo CHtml::encode($content->pageTitle); ?></div>
 <div class="sitePage_content">
 	<?php echo isset($preview) ? $content->previewBody : $content->body; ?>
 </div>

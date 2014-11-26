@@ -238,7 +238,7 @@ class SiteController extends Controller
 			if($model && !$model->is_active && !$model->is_disabled){
 				$model->is_active=1;
 				if($model->save()){
-					Log::model()->write('User',__('User account activated'),$model->id);
+					//Log::model()->write('User',__('User account activated'),$model->id);
 					Yii::app()->user->setFlash('success',__('Your account is active'));
 				}
 			}elseif(!Yii::app()->user->isGuest)

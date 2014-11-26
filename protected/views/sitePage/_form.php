@@ -24,8 +24,51 @@
 ?>
 
 <style>
-.wideItem {float:left; padding-right:80px;}
+.wideItem {float:left; padding-right:40px;}
 </style>
+
+<?php if(!$model->isNewRecord){ ?>
+<script>
+function toggleAdvancedHTML(id){
+	if( $('#SitePage_advancedHTML').prop('checked') ){
+		if(confirm("<?php	echo __('We are going to reload the page').'. ';
+							echo __('Any changes will be lost').'. ';
+							echo __('Are you sure?');
+					?>") == false){
+				$('#SitePage_advancedHTML').prop('checked', false)
+				return 1;
+		}
+	}else{
+		if(confirm("<?php	echo __('Advanced HTML tags will be deleted').'. ';
+							echo __('Are you sure?');
+					?>") == false){
+				$('#SitePage_advancedHTML').prop('checked', true)
+				return 1;
+		}
+	}
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/sitePage/toggleSafeHTML/'+id,
+		type: 'POST',
+		beforeSend: function(){ },
+		complete: function(){ },
+		success: function(data){
+			window.location = '<?php echo Yii::app()->request->baseUrl; ?>/sitePage/update/'+id;
+		},
+		error: function() { alert("error on sitePage/toggleSafeHTML"); },
+	});
+}
+function toggleShowTitle(id){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/sitePage/toggleShowTitle/'+id,
+		type: 'POST',
+		beforeSend: function(){ },
+		complete: function(){ },
+		success: function(data){ },
+		error: function() { alert("error on sitePage/toggleShowTitle"); },
+	});
+}
+</script>
+<?php } ?>
 
 <div class="form">
 
@@ -37,7 +80,7 @@ else
 
 $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'sitePage-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
 	'action'=>$action,
 )); ?>
 
@@ -67,23 +110,42 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'block'); ?>
-		<?php echo $form->textField($model,'block',array('size'=>5,
-														'onChange'=>'js:showUpdatePageButton();')); ?>
+		<?php echo $form->textField($model,'block',array('size'=>3)); ?>
 		<?php echo $form->error($model,'block'); ?>
 	</div>
 
 	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'weight'); ?>
-		<?php echo $form->textField($model,'weight',array('size'=>5,
-														'onChange'=>'js:showUpdatePageButton();')); ?>
+		<?php echo $form->textField($model,'weight',array('size'=>3)); ?>
 		<?php echo $form->error($model,'weight'); ?>
 	</div>
 
 	<div class="row wideItem">
 		<?php echo $form->labelEx($model,'published'); ?>
-		<?php echo $form->checkBox($model,'published', array('checked'=>$model->published,
-															'onChange'=>'js:showUpdatePageButton();')); ?>
+		<?php echo $form->checkBox($model,'published',
+									array(	'checked'=>$model->published,
+											'disabled'=> $model->isNewRecord ? 'true' : '',
+									)); ?>
 	</div>
+	
+	<div class="row wideItem">
+		<?php echo $form->labelEx($model,'showTitle'); ?>
+		<?php echo $form->checkBox($model,'showTitle',
+									array(	'checked'=>$model->showTitle,
+											'onChange'=> $model->isNewRecord ? '' : 'js:toggleShowTitle('.$model->id.');',
+											'disabled'=> $model->isNewRecord ? 'true' : '',
+									)); ?>
+	</div>
+	
+	<div class="row wideItem">
+		<?php echo $form->labelEx($model,'advancedHTML'); ?>
+		<?php echo $form->checkBox($model,'advancedHTML',
+									array(	'checked'=>$model->advancedHTML,
+											'onChange'=> $model->isNewRecord ? '' : 'js:toggleAdvancedHTML('.$model->id.');',
+											'disabled'=> $model->isNewRecord ? 'true' : '',
+									)); ?>
+	</div>
+	
 	<div style="clear:both"></div>
 
 	<div class="horizontalRule"></div>
@@ -104,8 +166,8 @@ $form=$this->beginWidget('CActiveForm', array(
 	<div class="row">
 		<?php
 			echo $form->labelEx($content,'body');
-			if(!Config::model()->findByPk('HTMLeditorSafe')->value){
-				echo '<label>'.__('Warning! Safe HTML editing is off. Copy/paste can create problems').'.</label>';
+			if($model->advancedHTML){
+				echo '<label>'.__('Warning! Advanced HTML editing. Copy/paste can create problems').'.</label>';
 				$valid_elements = "*[*]";
 				//http://www.tinymce.com/wiki.php/configuration:valid_children
 				$valid_children = "+body[style]";

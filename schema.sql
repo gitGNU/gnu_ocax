@@ -268,6 +268,8 @@ CREATE TABLE IF NOT EXISTS site_page (
 	block int(10) NOT NULL,
 	weight int(10),
 	published tinyint(1) NOT NULL DEFAULT '0',
+	advancedHTML TINYINT(1) DEFAULT 0,
+	showTitle TINYINT(1) DEFAULT 1,
 	PRIMARY KEY (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -374,7 +376,6 @@ INSERT INTO config(parameter, value, required, description) VALUES ('membership'
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
-INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorSafe', '1', '1', "Safe HTML editor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCM_', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');

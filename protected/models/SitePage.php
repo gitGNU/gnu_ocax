@@ -26,7 +26,9 @@
  * @property integer $block
  * @property integer $weight
  * @property integer $published
- *
+ * @property integer advancedHTML
+ * @property integer showTitle
+ * 
  * The followings are the available model relations:
  * @property SitePageContent[] $sitePageContents
  */
@@ -59,12 +61,12 @@ class SitePage extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('block', 'required'),
-			array('block, weight, published', 'numerical', 'integerOnly'=>true),
+			array('block, weight, advancedHTML, showTitle, published', 'numerical', 'integerOnly'=>true),
 			array('block, weight', 'validCombination', 'on'=>'create'),
 			array('block, weight', 'validCombination', 'on'=>'update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('block, weight, published', 'safe', 'on'=>'search'),
+			array('block, weight, advancedHTML, showTitle, published', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -102,6 +104,8 @@ class SitePage extends CActiveRecord
 			'block' => __('Block'),
 			'weight' => __('Weight'),
 			'published' => __('Published'),
+			'advancedHTML' => __('Advanced HTML'),
+			'showTitle' => __('Show Title'),
 		);
 	}
 

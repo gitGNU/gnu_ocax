@@ -83,8 +83,8 @@ $.widget( "ocax.ocaxpiegraph", {
 			loadedRemotely: 0,
 		},
 		_create: function() {
-			if(!this.options.graphTitle)
-				this.options.graphTitle = 'A budget';
+			//if(!this.options.graphTitle)
+			//	this.options.graphTitle = 'A budget';
 			this.element.addClass('ocaxjqplot');
 
 			header=$('<div class="ocax_piegraph_header"></div>');
