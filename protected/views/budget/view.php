@@ -99,7 +99,7 @@ function budgetModal2Page(){
 <?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
 function editBudgetDescription(){
 	if(typeof budgetDetailsUpdated == 'function')
-		budgetDetailsUpdated();	//this function is in budget/index
+		budgetDetailsUpdated();	//this function is located in budget/index
 	$('#budget_popup').bPopup().close();
 	window.open("<?php echo Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id ?>",  '_blank');
 	return null;
@@ -168,8 +168,10 @@ function editBudgetDescription(){
 		}
 	}else{
 		if(Yii::app()->user->canEditBudgetDescriptions()){
-			echo '<span style="" class="link" onclick="js:editBudgetDescription('.$model->id.', this);return false;" >';
-			echo __('Please consider adding a description here').'</span>';
+			if(Yii::app()->request->isAjaxRequest)
+				echo '<a href="#" onclick="js:editBudgetDescription()">'.__('Please consider adding a description here').'</a>';
+			else
+				echo '<a href="'.Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id.'">'.__('Please consider adding a description here').'</a>';
 			echo '<br />';
 		}
 	}

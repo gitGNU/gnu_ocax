@@ -91,12 +91,13 @@ function submitForm(){
 $settings=array('convert_urls'=>true,
 				'relative_urls'=>false,
 				'remove_script_host'=>false,
+				'theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,bullist,numlist,|,link,unlink",
 				//'entity_encoding' => "raw",
 				'theme_advanced_resize_horizontal' => 0,
 				'theme_advanced_resize_vertical' => 0,
 				'theme_advanced_resizing_use_cookie' => false,
 				'width'=>'100%',
-				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
+				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,br,ul,ol,li",
 			);
 if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
 	$settings['useCompression']=true;

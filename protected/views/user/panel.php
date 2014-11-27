@@ -144,7 +144,7 @@ function addPanelSeparator(){	// OCM Member Panel
 		?>
 			<div id="legend">
 				<span><i class="icon-attention green"></i><?php echo __('For your information');?></span>
-				<span><i class="icon-attention amber"></i><?php echo __('You should do something');?></span>
+				<span><i class="icon-attention amber"></i><?php echo __('You have a task');?></span>
 				<span><i class="icon-attention red"></i><?php echo __('OCAx needs attention');?></span>
 				<br />
 				<span><i class="icon-circle green"></i> <?php echo __('Complete');?></span>
