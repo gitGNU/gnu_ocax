@@ -68,6 +68,9 @@ class Schema
 			$this->version->value = $file_version;
 			$this->version->save();
 		}
+		$postInstall = Config::model()->findByPk('siteConfigStatusPostInstallChecked');
+		$postInstall->value = 0;
+		$postInstall->save();
 		return 0;
 	}
 

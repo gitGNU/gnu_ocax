@@ -236,6 +236,13 @@ class Config extends CActiveRecord
 		return 0;
 	}
 
+	public function isSocialNonFree()
+	{
+		if(Config::model()->findByPk('schemaVersion')->value == 0)
+			return 0;
+		return Config::model()->findByPk('socialActivateNonFree')->value;
+	}
+
 	public function updateVersionInfo(){
 		$context = stream_context_create(array(
 			'http' => array(
@@ -292,11 +299,12 @@ class Config extends CActiveRecord
 	}
 
 	public function isOCAXUptodate(){
-		file_put_contents('/tmp/ver','---'.$this->getOCAXVersion().'---'.$this->getLatestOCAXVersion().'---');
+		//file_put_contents('/tmp/ver','---'.$this->getOCAXVersion().'---'.$this->getLatestOCAXVersion().'---');
+		/*
 		if($this->getOCAXVersion() != $this->getLatestOCAXVersion())
 			return 0;
 		return 1;
-		/*
+		*/
 		$installed_version = $this->getOCAXVersion();
 		$installed_version = str_replace('.','',$installed_version );
 		$installed_version = str_pad($installed_version, 10 , '0');
@@ -307,7 +315,6 @@ class Config extends CActiveRecord
 		if($latest_version > $installed_version)
 			return 0;
 		return 1;
-		*/
 	}
 	
 	public function isZipFileUpdated($state = Null){
