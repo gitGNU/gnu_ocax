@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -143,13 +143,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		            'url'=>'Yii::app()->createUrl("enquiry/changeBudget", array("id"=>$data->id))',
 				),
 				'megaDelete' => array(
+					// http://www.doprogramsdream.nl/blog/blogPost/view/id/16
 					'label'=>'<i class="icon-cancel-circled red"></i>',
-		            'url'=>'Yii::app()->createUrl("user/updateRoles", array("id"=>$data->id))',
+					'url'=>'$data->id',
+					'click'=>'js:function() { showEnquiry($(this).attr("href"));return false; }',
 				),
 			),
 		),
 	)
 ));
+
 
 }
 ?>
