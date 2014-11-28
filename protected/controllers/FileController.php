@@ -47,7 +47,7 @@ class FileController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('showCMSfiles'),
+				'actions'=>array('wallpaper','showCMSfiles'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('allow',
@@ -55,8 +55,7 @@ class FileController extends Controller
 				'expression'=>"Yii::app()->user->isEditor() || Yii::app()->user->isTeamMember() || Yii::app()->user->isAdmin()",
 			),
 			array('allow',
-				'actions'=>array(	'wallpaper',
-									'showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
+				'actions'=>array('showBudgetFiles','databaseDownload','createZipFile','adminArchive'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users

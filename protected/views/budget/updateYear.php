@@ -116,13 +116,13 @@ echo $this->renderPartial('_formYear',
 if($enquirys->getData()){
 echo '<div class="horizontalRule" style="margin-top:20px"></div>';
 echo '<div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';
-$this->widget('PGridView', array(
+
+$this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'enquirys-grid',
 	'dataProvider'=>$enquirys,
-    'onClick'=>array(
-        'type'=>'javascript',
-        'call'=>'showEnquiry',
-    ),
+	//'filter'=>$model,
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		array(
@@ -134,8 +134,21 @@ $this->widget('PGridView', array(
 			'value'=>'$data->budget0->csv_id',
 		),
 		'state',
-		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
-	),
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{change} {megaDelete}',
+			'buttons'=>array(
+				'change' => array(
+					'label'=>'<i class="icon-wrench-circled green"></i>',
+		            'url'=>'Yii::app()->createUrl("enquiry/changeBudget", array("id"=>$data->id))',
+				),
+				'megaDelete' => array(
+					'label'=>'<i class="icon-cancel-circled red"></i>',
+		            'url'=>'Yii::app()->createUrl("user/updateRoles", array("id"=>$data->id))',
+				),
+			),
+		),
+	)
 ));
 
 }
@@ -151,12 +164,6 @@ $this->widget('PGridView', array(
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
-	<script>
-		$(function() { setTimeout(function() {
-			$('.flash-success').slideUp('fast');
-    	}, 2000);
-		});
-	</script>
     <div class="flash-success">
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>

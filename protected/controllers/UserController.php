@@ -64,6 +64,7 @@ class UserController extends Controller
 	 */
 	public function actionPanel()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('My page'));
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
 
 		$userid=Yii::app()->user->getUserID();

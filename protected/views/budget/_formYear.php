@@ -75,11 +75,9 @@
 	<div class="row" style="font-size:1.4em">
 		<?php	
 		if($totalBudgets > 0)
-			echo $featuredCount.' '.__('Graphics');
+			echo $featuredCount.' '.__('Featured budgets');
 		?>
 	</div>
-
-
 </div>
 </div>
 <div class="clear"></div>

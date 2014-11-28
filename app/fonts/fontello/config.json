@@ -217,6 +217,12 @@
       "src": "elusive"
     },
     {
+      "uid": "56b0141d7bbb0717fc6246ea145bc0bd",
+      "css": "ok-circled2",
+      "code": 59435,
+      "src": "elusive"
+    },
+    {
       "uid": "fd32deda7b2f5b8cad46d13897c19ae8",
       "css": "cancel-circled",
       "code": 59401,
@@ -238,6 +244,12 @@
       "uid": "3a9aa648fce45a316e70e1613bda57ac",
       "css": "folder-close",
       "code": 59415,
+      "src": "elusive"
+    },
+    {
+      "uid": "e1a8092efb690eeb6c41d58b549e9074",
+      "css": "wrench-circled",
+      "code": 59434,
       "src": "elusive"
     },
     {

@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,9 +30,11 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 <div style="padding:5px;margin:-10px;margin-top:5px;margin-bottom:-10px;">
 	<div class="horizontalRule"></div>
-	<h1 style="text-align:center;color:black">Are you sure you want to delete it all? <i class="icon-attention"></i></h1>
+	<h1 style="text-align:center;color:black">
+		<?php echo __('Are you sure you want to delete it all?');?><i class="icon-attention red"></i>
+	</h1>
 	<div>
-		<div style="float:left;width:80%;color:black;font-size:16px;">
+		<div style="float:left;width:60%;color:black;font-size:16px;">
 			<ul>
 			<?php
 			echo '<li>'.__('Reformulated enquires').' ('.$object_count['reforumulated'].')</li>';
@@ -47,7 +49,9 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 		</div>
 	</div>
 	<div style="float:left;margin-top:35px;">
-		<input type="button" id="mega_delete_button" enquiry_id="" onClick="js:megaDelete(this)" value="Yes, delete it all" />
+		<input	type="button" id="mega_delete_button" enquiry_id=""
+				onClick="js:megaDelete(this)"
+				value="<?php echo __('Yes, delete it all')?>" />
 	</div>
 	<div style="clear:both"></div>
 </div>

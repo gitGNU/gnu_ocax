@@ -62,7 +62,7 @@ class EnquiryController extends Controller
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('allow',
-				'actions'=>array('getMegaDelete', 'megaDelete'),
+				'actions'=>array('changeBudget', 'getMegaDelete', 'megaDelete'),
 				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -369,7 +369,7 @@ class EnquiryController extends Controller
 	}
 
 	/**
-	 * Change Generic, Budgetary, budget->id
+	 * Team member can change Generic, Budgetary, budget->id
 	 */
 	public function actionChangeType($id)
 	{
@@ -378,9 +378,8 @@ class EnquiryController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if( $model->team_member != Yii::app()->user->getUserID() ){
-			$this->render('/site/index');
-			Yii::app()->end();
+		if($model->team_member != Yii::app()->user->getUserID()){
+			$this->redirect(array('index'));
 		}
 
 		if(isset($_POST['Enquiry']))
@@ -403,7 +402,52 @@ class EnquiryController extends Controller
 
 		$this->render('changeType',array(
 			'model'=>$model,
-			'filterBudgetModel'=>$budget,
+			'budgetModel'=>$budget,
+		));
+	}
+
+	/*
+	 * Used by Admim to change the enquiry->budget->id
+	 */
+	public function actionChangeBudget($id)
+	{
+		$model=$this->loadModel($id);
+		$budget=new Budget('changeTypeSearch');
+
+			$oldBudget_year = Null;
+			if($model->budget0){
+				$criteria = new CDbCriteria;
+				$criteria->condition = 'parent IS NULL AND year ='.$model->budget0->year;
+				$oldBudget_year=$budget->find($criteria);
+			}
+		
+		if(isset($_POST['Enquiry']))
+		{
+
+			$model->attributes=$_POST['Enquiry'];
+			if($model->type == 0)
+				$model->budget = Null;
+			if($model->save()){
+				$model->refresh();
+				Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('related budget changed'), $model->id);
+				if($model->budget0){
+					$msg = __('Moved enquiry to').' "'.$model->budget0->csv_id.'" '.__('Year').' '.$model->budget0->year;
+					Yii::app()->user->setFlash('success', $msg);
+				}
+				if($oldBudget_year)
+					$this->redirect(array('budget/updateYear','id'=>$oldBudget_year->id));
+				else
+					$this->redirect(array('budget/adminYears'));
+			}
+		}
+
+		$budget->unsetAttributes();  // clear any default values
+		if(isset($_GET['Budget']))
+			$budget->attributes=$_GET['Budget'];
+
+		$this->render('changeBudget',array(
+			'model'=>$model,
+			'budgetModel'=>$budget,
 		));
 	}
 

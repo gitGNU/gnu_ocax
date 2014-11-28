@@ -21,17 +21,21 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
+$criteria = new CDbCriteria;
+$criteria->condition = 'parent IS NULL AND year ='.$model->budget0->year;
+$this_year=$budgetModel->find($criteria);
+
 $this->menu=array(
-	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
-	array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('Edit year').' '.$this_year->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
+	array('label'=>__('Manage years'), 'url'=>array('adminYears'))
 );
 $this->inlineHelp=':profiles:team_member';
 $this->viewLog='Enquiry|'.$model->id;
 ?>
 
-<h1><?php echo __('Change type')?></h1>
+<h1><?php echo __('Edit enquiry').': '.__('change related budget')?></h1>
+<p style="margin-top:-15px;margin-bottom:10px;">
+<?php echo __('Use this when you need to make corrections to the budget database');?><i class="icon-attention green"></i>
+</p>
 
 <?php $this->renderPartial('_changeType',array('model'=>$model,'budgetModel'=>$budgetModel));?>
-
-

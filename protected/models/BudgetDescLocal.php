@@ -162,7 +162,6 @@ class BudgetDescLocal extends CActiveRecord
 		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('text',$this->text,true);
-		//$criteria->compare('modified',$this->modified,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

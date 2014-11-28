@@ -49,7 +49,8 @@ class BudgetDescriptionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','create','update','translate','modify','admin','delete'),
+				'actions'=>array(	'view','create','update','translate','modify',
+									'browseState','admin','delete'),
 				'expression'=>"Yii::app()->user->canEditBudgetDescriptions()",
 			),
 			array('deny',  // deny all users
@@ -251,6 +252,19 @@ class BudgetDescriptionController extends Controller
 			$model->attributes=$_GET['BudgetDescLocal'];
 
 		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+
+
+	public function actionBrowseState()
+	{
+		$model=new BudgetDescState('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['BudgetDescState']))
+			$model->attributes=$_GET['BudgetDescState'];
+
+		$this->render('browseState',array(
 			'model'=>$model,
 		));
 	}

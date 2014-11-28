@@ -559,6 +559,7 @@ class Budget extends CActiveRecord
 		}
 		$criteria->addCondition('parent is not null');	// dont show year budget
 
+		$criteria->compare('csv_id',$this->csv_id);
 		$criteria->compare('year',$this->year);
 		$criteria->compare('code',$this->code);
 		$criteria->compare('concept',$this->concept,true);

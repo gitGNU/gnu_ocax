@@ -1,6 +1,6 @@
 Before upgrading, read INSTALL to refresh your memory.
 
-1. Make a backup and save it somewhere just in case.
+1. Make a backup and save it on your PC!
 2. Save your protected/config/main.php file
 3. Overwrite app/ and protected/ with new version
 4. Check file permissions # chown -R www-data app/ protected/runtime/
@@ -14,7 +14,7 @@ You must follow all upgrade instructions in ascending order. 1.1.1 then 1.1.2 th
 _________________________________________________
 OCAX 1.2.0
 Upgrade instructions.
-1. Follow steps 1-5 above.
+1. Follow steps 1-4 above.
 
 Remove the directory app/files/csv and all the content
 mkdir protected/runtime/tmp

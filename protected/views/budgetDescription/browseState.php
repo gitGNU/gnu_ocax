@@ -23,8 +23,7 @@
 
 
 $this->menu=array(
-	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
-	array('label'=>__('Browse state descriptions'), 'url'=>array('budgetDescription/browseState')),
+	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':budget_descriptions';
 $this->viewLog='BudgetDescription';
@@ -58,7 +57,7 @@ function toggleSearchOptions(){
 		<i class="icon-search-circled"></i>
 	</div>
 </div>
-<h1><?php echo __('Manage').' '.__('local budget descriptions');?></h1>
+<h1><?php echo __('Browse state descriptions');?></h1>
 
 
 <div id="searchOptions" class="search-form" style="display:none">
@@ -68,22 +67,14 @@ function toggleSearchOptions(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('PGridView', array(
-	'id'=>'budget-description-grid',
+
+$this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+	'id'=>'budget-description-grid',
 	'dataProvider'=>$model->search(),
-    'onClick'=>array(
-        'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/budgetDescription/update',
-    ),
 	'filter'=>$model,
-	'columns'=>array(
-		'csv_id',
-		'language',
-		'code',
-		'concept',
-		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
-	),
+	'columns'=>array('csv_id', 'language', 'code', 'concept')
 ));
+
 ?>
