@@ -56,7 +56,7 @@ class BudgetController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'getTotalYearlyBudgets','adminYears',
 									'createYear','updateYear',
-									'featured','feature',
+									'featured','feature','changeWeight',
 									'deleteYearsBudgets',
 									'deleteTree','delTree',
 									'delete','dumpBudgets','restoreBudgets',
@@ -416,10 +416,48 @@ class BudgetController extends Controller
 			echo 1;
 			return;
 		}
-		if($model->featured)
+		if($model->featured){
 			$model->featured=0;
-		else
+			$model->weight=0;
+			$model->save();
+		}
+		else{
 			$model->featured=1;
+			$model->weight=0;
+			$model->save();
+		}
+		$model->refreshFeaturedWeights();
+		echo 1;
+	}
+
+	public function actionChangeWeight($id)
+	{
+		$model = $this->loadModel($id);
+		$featuredBudgets = $model->getFeatured();
+		/*
+		if(count($featuredBudgets) == 1){
+				$model->weight=1;
+				$model->save();
+				echo 1;
+				Yii::app()->end();
+		}
+		*/
+		$highest = $featuredBudgets[0]->weight;
+		$lowest = $featuredBudgets[count($featuredBudgets)-1]->weight;
+		if($model->weight == $highest && $_GET['increment'] == 1){
+			echo 1;
+			Yii::app()->end();
+		}
+		if($model->weight == $lowest && $_GET['increment'] == -1){
+			echo 1;
+			Yii::app()->end();
+		}
+		$newWeight = $model->weight + $_GET['increment'];
+		if($swap = $model->findByAttributes(array('year'=>$model->year, 'featured'=>1, 'weight'=>$newWeight))){
+				$swap->weight = $swap->weight + ($_GET['increment'] * -1);
+				$swap->save();
+		}
+		$model->weight = $newWeight;
 		$model->save();
 		echo 1;
 	}

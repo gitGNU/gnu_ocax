@@ -43,3 +43,5 @@
 .icon-chart-pie:before { content: '\e829'; } /* '' */
 .icon-wrench-circled:before { content: '\e82a'; } /* '' */
 .icon-ok-circled2:before { content: '\e82b'; } /* '' */
+.icon-down:before { content: '\e82c'; } /* '' */
+.icon-up:before { content: '\e82d'; } /* '' */

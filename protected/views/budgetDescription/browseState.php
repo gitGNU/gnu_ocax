@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
  */
 
 /* @var $this BudgetDescriptionController */
-/* @var $model BudgetDescription */
+/* @var $model BudgetDescState */
 
 
 $this->menu=array(
@@ -28,37 +28,8 @@ $this->menu=array(
 $this->inlineHelp=':budget_descriptions';
 $this->viewLog='BudgetDescription';
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#budget-description-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
-<script>
-function toggleSearchOptions(){
-	if ($("#searchOptions").is(":visible")){
-		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
-		$("#searchOptions").slideUp();
-	}else{
-		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
-		$("#searchOptions").slideDown();
-	}
-}
-</script>
-<div style="position:relative;">
-	<div id="searchOptionsToggle" style="top:-9px; right: 0" onCLick="js:toggleSearchOptions();return false;">
-		<i class="icon-search-circled"></i>
-	</div>
-</div>
 <h1><?php echo __('Browse state descriptions');?></h1>
-
 
 <div id="searchOptions" class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
@@ -67,7 +38,6 @@ function toggleSearchOptions(){
 </div><!-- search-form -->
 
 <?php
-
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -76,5 +46,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'filter'=>$model,
 	'columns'=>array('csv_id', 'language', 'code', 'concept')
 ));
-
 ?>

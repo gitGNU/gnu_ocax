@@ -43,7 +43,7 @@ $this->viewLog='EmailTemplate';
     	        'value'=>function($data,$row){
 					$value = Enquiry::model()->getHumanStates($data->state);
 					if(!$data->updated)
-						$value = $value.' <i class="icon-attention red"></i>';
+						$value = $value.' <i class="icon-attention amber"></i>';
 					return $value;
 				},
 			),

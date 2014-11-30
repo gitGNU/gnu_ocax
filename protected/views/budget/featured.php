@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -50,6 +50,23 @@ function featureBudget(budget_id){
 		}
 	});
 }
+function changeWeight(budget_id, increment){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/changeWeight',
+		type: 'GET',
+		data: {'id': budget_id, 'increment': increment},
+		success: function(data){
+			if(data != 0){
+  				$.fn.yiiGridView.update('budget-grid', {
+					data: $(this).serialize()
+				});
+			}
+		},
+		error: function() {
+			alert("Error on budget/changeWeight");
+		}
+	});
+}
 </script>
 
 
@@ -62,17 +79,29 @@ function featureBudget(budget_id){
 	'dataProvider'=>$model->featuredSearch(),
 	'filter'=>$model,
 	'columns'=>array(
-		'featured',
+		//'featured',
+		//'weight',
 		array(
 			'header'=>__('Concept'),
 			'name'=>'concept',
 			'value'=>'Budget::model()->findByPk($data[\'id\'])->getConcept()',
 		),
-		'code',
+		//'code',
 		'csv_id',
 		array(
 			'class'=>'CButtonColumn',
+			'htmlOptions' => array('style' => 'width:70px; text-align:right'),
 			'buttons' => array(
+				'up' => array(
+					'label'=> '<i class="icon-up green"></i>',
+					'visible'=>'$data->featured',
+					'url'=> '"javascript:changeWeight(\"".$data->id."\",+1);"',
+				),
+				'down' => array(
+					'label'=> '<i class="icon-down green"></i>',
+					'visible'=>'$data->featured',
+					'url'=> '"javascript:changeWeight(\"".$data->id."\",-1);"',
+				),
 				'feature' => array(
 					'label'=> '<i class="icon-star green"></i>',
 					'visible'=>'$data->featured',
@@ -84,7 +113,7 @@ function featureBudget(budget_id){
 					'url'=> '"javascript:featureBudget(\"".$data->id."\");"',
 				)
 			),
-			'template'=>'{feature}{unfeature}',
+			'template'=>'{up}{down} {feature}{unfeature}',
 		),
 	),
 )); ?>

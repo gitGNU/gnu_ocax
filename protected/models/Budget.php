@@ -91,7 +91,7 @@ class Budget extends CActiveRecord
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, parent, year, code, label, concept, provision, featured, weight', 'safe', 'on'=>'search'),
+			array('parent, year, code, label, concept, provision, featured, weight', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -272,8 +272,19 @@ class Budget extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('featured = 1');
 		$criteria->addCondition('year = '.$this->year);
-		$criteria->order = 'csv_id ASC';
+		$criteria->order = 'weight DESC';
 		return $this->findAll($criteria);
+	}
+
+	public function refreshFeaturedWeights()
+	{
+		$featuredBudgets = $this->getFeatured();
+		$weight = count($featuredBudgets);
+		foreach($featuredBudgets as $budget){
+			$budget->weight = $weight;
+			$budget->save();
+			$weight--;
+		}
 	}
 
 	/**
@@ -356,12 +367,24 @@ class Budget extends CActiveRecord
 	 */
 	public function autoFeatureBudgets()
 	{
+		/*
 		Yii::app()->db->createCommand()->update(
 						'budget',	// table
 						array('featured'=>1),	// column to update
 						'char_length(csv_id) = 3 AND year = :year',	// condition (should improve this with regex)
 						array(':year'=>$this->year)	// params
 					);
+		*/
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = '.$this->year.' AND char_length(csv_id) = 3';
+		$budgets= $this->findAll($criteria);
+		foreach($budgets as $budget){
+			if($budget->featured == 1)
+				continue;
+			$budget->featured=1;
+			$budget->save();
+			$this->refreshFeaturedWeights();
+		}
 	}
 
 	public function budgetsWithoutDescription()
@@ -589,6 +612,7 @@ class Budget extends CActiveRecord
 		$criteria->addCondition('CHAR_LENGTH(t.csv_id) > 1');	// don't show 'S' o 'I', etc
 		
 		$criteria->compare('t.featured', $this->featured);
+		$criteria->compare('t.weight', $this->weight);
 		$criteria->compare('t.code', $this->code);
 		$criteria->compare('t.concept', $this->concept, true);
 		$criteria->compare('t.csv_id', $this->csv_id, true);
@@ -596,7 +620,7 @@ class Budget extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'t.csv_id ASC'),
+			'sort'=>array('defaultOrder'=>'t.featured DESC, t.weight DESC, t.csv_id ASC'),
 		));
 	}
 
