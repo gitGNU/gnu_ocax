@@ -292,6 +292,7 @@ class FileController extends Controller
 
 	public function actionDatabaseDownload()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Zip file'));
 		$this->render('adminDatabaseDownload');
 	}
 	public function actionShowCMSfiles()
@@ -304,6 +305,7 @@ class FileController extends Controller
 	}
 	public function actionWallpaper()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Wallpaper'));
 		echo $this->render('wallpaper');
 	}
 

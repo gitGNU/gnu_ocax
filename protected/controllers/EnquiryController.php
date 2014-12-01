@@ -456,6 +456,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionSubmit($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Submit enquiry'));
 		$model=$this->loadModel($id);
 		$model->scenario = 'submitted_to_council';
 		// Uncomment the following line if AJAX validation is needed
@@ -529,6 +530,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionTeamView($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage enquiry'));
 		$model=$this->loadModel($id);
 		if( $model->team_member == Yii::app()->user->getUserID()){
 			if($model->state == ENQUIRY_ASSIGNED)
@@ -567,6 +569,7 @@ class EnquiryController extends Controller
 	public function actionManaged()
 	{
 		// grid of enquirys by team_member
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Entrusted enquiries'));
 		$this->layout='//layouts/column1';
 
 		$model=new Enquiry('search');
@@ -672,6 +675,7 @@ class EnquiryController extends Controller
 
 	public function actionAdminView($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage enquiry'));
 		$model=$this->loadModel($id);
 		if($model->state == ENQUIRY_PENDING_VALIDATION)
 			$this->redirect(array('manage','id'=>$model->id));
@@ -686,6 +690,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage enquiries'));
 		$this->layout='//layouts/column1';
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values

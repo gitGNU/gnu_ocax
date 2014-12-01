@@ -29,7 +29,7 @@ $this->inlineHelp=':workflow:emails';
 $this->viewLog='EmailTemplate';
 ?>
 
-<h1>Text for state "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</h1>
+<h1><?php echo __('Template for')?> "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</h1>
 <div class="enquiry">
 
 

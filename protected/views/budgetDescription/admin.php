@@ -29,35 +29,8 @@ $this->menu=array(
 $this->inlineHelp=':budget_descriptions';
 $this->viewLog='BudgetDescription';
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#budget-description-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
-<script>
-function toggleSearchOptions(){
-	if ($("#searchOptions").is(":visible")){
-		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
-		$("#searchOptions").slideUp();
-	}else{
-		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
-		$("#searchOptions").slideDown();
-	}
-}
-</script>
-<div style="position:relative;">
-	<div id="searchOptionsToggle" style="top:-9px; right: 0" onCLick="js:toggleSearchOptions();return false;">
-		<i class="icon-search-circled"></i>
-	</div>
-</div>
+
 <h1><?php echo __('Manage').' '.__('local budget descriptions');?></h1>
 
 
@@ -79,8 +52,8 @@ $this->widget('PGridView', array(
     ),
 	'filter'=>$model,
 	'columns'=>array(
-		'csv_id',
 		'language',
+		'csv_id',
 		'code',
 		'concept',
 		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),

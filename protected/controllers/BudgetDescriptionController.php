@@ -246,6 +246,7 @@ class BudgetDescriptionController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Budget descriptions'));
 		$model=new BudgetDescLocal('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['BudgetDescLocal']))
@@ -259,6 +260,7 @@ class BudgetDescriptionController extends Controller
 
 	public function actionBrowseState()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('State descriptions'));
 		$model=new BudgetDescState('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['BudgetDescState']))

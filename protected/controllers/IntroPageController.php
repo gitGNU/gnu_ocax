@@ -89,6 +89,7 @@ class IntroPageController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Create page'));
 		$model=new IntroPage;
 		$content=new IntroPageContent;
 
@@ -125,6 +126,7 @@ class IntroPageController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Update page'));
 		if(isset($_GET['lang']))
 			$lang=$_GET['lang'];
 		else{
@@ -193,6 +195,7 @@ class IntroPageController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage pages'));
 		$model=new IntroPage('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['IntroPage']))

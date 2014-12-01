@@ -253,7 +253,7 @@ class EmailController extends Controller
 	 */
 	public function actionIndex($id)
 	{
-
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Sent emails'));
 		$enquiry=Enquiry::model()->findByPk($id);
 
 		$dataProvider=new CActiveDataProvider('Email', array(

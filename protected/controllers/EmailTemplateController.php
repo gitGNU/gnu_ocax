@@ -64,6 +64,7 @@ class EmailTemplateController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Email template'));
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -76,6 +77,7 @@ class EmailTemplateController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Update template'));
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -105,6 +107,7 @@ class EmailTemplateController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Email text templates'));
 		$model=new EmailTemplate('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['EmailTemplate']))

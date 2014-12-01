@@ -44,6 +44,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'budget-description-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
-	'columns'=>array('csv_id', 'language', 'code', 'concept')
+	'columns'=>array('language', 'csv_id', 'code', 'concept')
 ));
 ?>

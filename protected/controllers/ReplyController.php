@@ -82,6 +82,7 @@ class ReplyController extends Controller
 		//if(!Yii::app()->request->isAjaxRequest)
 		//	Yii::app()->end();
 
+	$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Add reply'));
 		$model=new Reply;
 		if(isset($_GET['enquiry']))
 			$model->enquiry=$_GET['enquiry'];

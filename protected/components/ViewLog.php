@@ -55,7 +55,7 @@ function viewLog(prefixes,id){
 }
 </script>
 
-<div id="log_popup" class="modal" style="width:700px;">
+<div id="log_popup" class="modal" style="width:800px;">
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:logModal2Page();"></i>
 	<div id="log_popup_content"></div>

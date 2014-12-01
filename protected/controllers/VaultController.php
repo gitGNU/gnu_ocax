@@ -127,6 +127,7 @@ class VaultController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Backup vault'));
 		$model=$this->loadModel($id);
 		$backups = Backup::model()->getDataproviderByVault($model->id);
 		$this->render('view',array('model'=>$model,'backups'=>$backups));
@@ -163,6 +164,7 @@ class VaultController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Create vault'));
 		$model=new Vault;
 
 		$model->schedule='0000000';	// seven 0's = seven days in a week. starts on monday.
@@ -607,6 +609,7 @@ class VaultController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Backups'));
 		$model=new Vault('search');
 		$model->unsetAttributes();  // clear any default values
 		

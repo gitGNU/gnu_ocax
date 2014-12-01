@@ -16,7 +16,7 @@ OCAX 1.2.0
 Upgrade instructions.
 1. Follow steps 1-4 above.
 
-Remove the directory app/files/csv and all the content
+Delete the directory app/files/csv and all the content
 mkdir protected/runtime/tmp
 mkdir protected/runtime/html
 chown -R www-data protected/runtime/
