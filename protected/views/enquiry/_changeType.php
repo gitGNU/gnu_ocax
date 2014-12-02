@@ -99,8 +99,8 @@ if($model->budget){
 	'dataProvider'=>$budgetModel->changeTypeSearch(),
 	'filter'=>$budgetModel,
 	'columns'=>array(
-		'csv_id',
 		'year',
+		'csv_id',
 		'code',
 		array(
 			'header'=>__('Concept'),

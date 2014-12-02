@@ -1,7 +1,7 @@
 <?php
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -384,14 +384,27 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
+			if($model->budget)
+				$preUpdateBudget = Budget::model()->findByPk($model->budget);
+			else
+				$preUpdateBudget = Null;
+				
 			$model->attributes=$_POST['Enquiry'];
-			if($model->type == 0)
+			if($model->type == GENERIC)
 				$model->budget = Null;
 			if($model->save()){
-				$this->render('teamView',array(
-					'model'=>$model,
-				));
-				Yii::app()->end();
+				if($preUpdateBudget)
+					$msg = $preUpdateBudget->year.'.'.$preUpdateBudget->csv_id.' > ';
+				else
+					$msg = __('generic enquiry').' > ';
+				$model->refresh();
+				if($model->budget0)
+					$msg = $msg.$model->budget0->year.'.'.$model->budget0->csv_id;
+				else
+					$msg = $msg.__('generic enquiry');
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('changed budget').' '.$msg);
+
+				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}
 		$budget=new Budget('changeTypeSearch');
@@ -414,26 +427,28 @@ class EnquiryController extends Controller
 		$model=$this->loadModel($id);
 		$budget=new Budget('changeTypeSearch');
 
-			$oldBudget_year = Null;
-			if($model->budget0){
-				$criteria = new CDbCriteria;
-				$criteria->condition = 'parent IS NULL AND year ='.$model->budget0->year;
-				$oldBudget_year=$budget->find($criteria);
-			}
-		
+		$oldBudget_year = Null;
+		if($model->budget0){
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'parent IS NULL AND year ='.$model->budget0->year;
+			$oldBudget_year=$budget->find($criteria);
+		}
 		if(isset($_POST['Enquiry']))
 		{
-
+			$preUpdateBudget = Budget::model()->findByPk($model->budget);
 			$model->attributes=$_POST['Enquiry'];
 			if($model->type == 0)
 				$model->budget = Null;
 			if($model->save()){
+				$msg = $preUpdateBudget->year.'.'.$preUpdateBudget->csv_id.' > ';
 				$model->refresh();
-				Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('related budget changed'), $model->id);
-				if($model->budget0){
-					$msg = __('Moved enquiry to').' "'.$model->budget0->csv_id.'" '.__('Year').' '.$model->budget0->year;
-					Yii::app()->user->setFlash('success', $msg);
-				}
+				if($model->budget0)
+					$msg = $msg.$model->budget0->year.'.'.$model->budget0->csv_id;
+				else
+					$msg = $msg.__('generic enquiry');
+
+				Yii::app()->user->setFlash('success', __('Enquiry').' '.__('changed budget').' '.$msg);
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('changed budget').' '.$msg);
 				if($oldBudget_year)
 					$this->redirect(array('budget/updateYear','id'=>$oldBudget_year->id));
 				else

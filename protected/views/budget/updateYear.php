@@ -129,11 +129,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'=>'enquiry title',
 			'value'=>'$data->title',
 		),
+		'state',
 		array(
 			'name'=>'internal code',
 			'value'=>'$data->budget0->csv_id',
 		),
-		'state',
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{change} {megaDelete}',

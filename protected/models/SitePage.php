@@ -105,7 +105,7 @@ class SitePage extends CActiveRecord
 			'weight' => __('Weight'),
 			'published' => __('Published'),
 			'advancedHTML' => __('Advanced HTML'),
-			'showTitle' => __('Show title'),
+			'showTitle' => __('Include title'),
 		);
 	}
 

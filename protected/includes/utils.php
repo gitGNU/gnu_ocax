@@ -168,7 +168,16 @@ function resizeLogo($fn){
 		imagepng($image_p, $fn, 9);
 	else
 		imagejpeg($image_p, $fn, 100);
+		
+	// create favicon
+	Yii::import('application.includes.*');
+	require_once('php-ico.php');
+	$source = $fn;
+	$destination = dirname(Yii::app()->request->scriptFile).'/files/favicon.ico';
+	$ico_lib = new PHP_ICO( $source, array(array( 16, 16 )) );
+	$ico_lib->save_ico( $destination );
 }
+
 
 // http://stackoverflow.com/questions/3938120/check-if-exec-is-disabled
 function isExecAvailable() {

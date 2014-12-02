@@ -34,6 +34,10 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 /***** GLOBAL VARIABLES *****/
 
+// Enquiry->type
+define ('GENERIC', 0);
+define ('BUDGETARY', 1);
+
 // Enquiry->state
 define ('ENQUIRY_PENDING_VALIDATION', 1);
 define ('ENQUIRY_ASSIGNED', 2);

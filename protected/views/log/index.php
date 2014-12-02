@@ -21,40 +21,9 @@
 /* @var $this LogController */
 /* @var $model Log */
 
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-	$('#log-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
-<script>
-function toggleSearchOptions(){
-	if ($("#searchOptions").is(":visible")){
-		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
-		$("#searchOptions").slideUp();
-	}else{
-		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
-		$("#searchOptions").slideDown();
-	}
-}
-</script>
-<div style="position:relative;">
-	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
-		<i class="icon-search-circled"></i>
-	</div>
-</div>
 
-<h1><?php echo __('Manage Logs');?></h1>
-
-<div id="searchOptions" class="search-form">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<h1><?php echo __('Browse logs');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
