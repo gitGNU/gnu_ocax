@@ -436,11 +436,19 @@ class ImportCSV extends CFormModel
 													FROM budget
 													WHERE year = '.$year.' AND parent IS NOT NULL');
 		$csv = array();
-		foreach($budgets as $b)
+		$lang = getDefaultLanguage();
+		foreach($budgets as $b){
+			// we add new localDescription data to the csv
+			$desc = BudgetDescLocal::model()->getDescriptionFields($b->csv_id, $lang);
+			$label = $desc['label'] ? $desc['label'] : $b->label;
+			$concept = $desc['concept'] ? $desc['concept'] : $b->concept;
+			
 			$csv[$b->csv_id] = $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
 						'|'.$b->trimester_1.'|'.$b->trimester_2.'|'.$b->trimester_3.'|'.$b->trimester_4.
-						'|'.$b->label.'|'.$b->concept.PHP_EOL;
-
+						'|'.$label.
+						'|'.$concept.
+						PHP_EOL;
+		}
 		ksort($csv);
 		$tmpDir = Yii::app()->basePath.'/runtime/tmp/';
 		$tmp_fn = $tmpDir.'csv-'.mt_rand(10000,99999);

@@ -94,14 +94,11 @@ class BudgetDescLocal extends CActiveRecord
 		);
 	}
 
-	public function getDescriptionFieldsForEditor($language = null)
+	public function getDescriptionFields($csv_id, $language )
 	{
-		if(!$language)
-			$language = $this->language;
-		
 		$fields = array('label'=>null, 'concept'=>null, 'description'=>null);
 		
-		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$language))){
+		if($description = $this->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
 			if($description->label)
 				$fields['label'] = $description->label;
 			if($description->concept)
@@ -111,7 +108,7 @@ class BudgetDescLocal extends CActiveRecord
 			if($fields['label'] && $fields['concept'] && $fields['description'])
 				return $fields;
 		}
-		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$language))){
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
 			if(!$fields['label'] && $description->label)
 				$fields['label'] = $description->label;
 			if(!$fields['concept'] && $description->concept)
@@ -121,7 +118,7 @@ class BudgetDescLocal extends CActiveRecord
 			if($fields['label'] && $fields['concept'] && $fields['description'])
 				return $fields;
 		}		
-		if($description = BudgetDescState::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$language))){
+		if($description = BudgetDescState::model()->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
 			if(!$fields['label'] && $description->label)
 				$fields['label'] = $description->label;
 			if(!$fields['concept'] && $description->concept)

@@ -85,7 +85,7 @@ function viewSavedLocalDescription() {
 	'enableAjaxValidation'=>false,
 ));
 
-$fieldsForDisplay = $model->getDescriptionFieldsForEditor();
+$fieldsForDisplay = $model->getDescriptionFields($model->csv_id,$model->language);
 
 echo '<div class="title">'.__('Budget description').'</div>';
 
