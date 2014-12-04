@@ -108,13 +108,10 @@ $attributes=array(
 	        'label'=>__('Euros per person'),
 	        'value'=>format_number($model->actual_provision / $model->getPopulation()),
 		),
-
 	);
 
 if(!isset($hideConcept)){
 	$label=$model->getLabel();
-	//if(isset($showLinks))
-	//	$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->getBaseUrl(true).'/images/info_small.png" />';
 	$row =	array(
 				array(
 					'label'=>$label,
@@ -125,44 +122,57 @@ if(!isset($hideConcept)){
 	array_splice( $attributes, 0, 0, $row );
 }
 if(!isset($showMore)){
-	$row =	array(
+	$attributes[] =	array(
 	       		'label'=>__('Enquiries'),
 				'type'=>'raw',
 				'value'=>$enquiries,
 			);
-	$attributes[]=$row;
 }
-
-$this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>$attributes,
-));
-
 if(isset($showMore)){
-	$attributes=array(
-				array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
-			);
-	if($model->getExecuted()){
-		$attributes[]=array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1));
-		$attributes[]=array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2));
-		$attributes[]=array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3));
-		$attributes[]=array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4));
+	$attributes[]=array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision));
+
+	if($executed = $model->getExecuted()){
+		$attributes[]=array(
+						'label'=>__('Executed'),
+						'type'=>'raw',
+						'value'=>'<a href="#" onclick="js:$(\'#trimesters\').toggle(); return false;">'.format_number($executed).'</a>',
+					);
 	}else{
 		$attributes[]=array(
 						'label'=>__('Executed'),
 						'type'=>'raw',
 						'value'=>__('Unknown'),
 					);
-	}
-	$attributes[]=array(
+	}		
+}
+$this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>$attributes,
+));
+
+if(isset($showMore)){
+	if($executed = $model->getExecuted()){
+		$attributes=array();
+		$attributes[]=array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1));
+		$attributes[]=array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2));
+		$attributes[]=array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3));
+		$attributes[]=array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4));
+
+		echo '<div id="trimesters" style="display:none;">';
+		$this->widget('zii.widgets.CDetailView', array(
+			'data'=>$model,
+			'attributes'=>$attributes,
+		));
+		echo '</div>';
+	}	
+	$this->widget('zii.widgets.CDetailView', array(
+		'data'=>$model,
+		'attributes'=>array(
+				array(
 	       			'label'=>__('Enquiries'),
 					'type'=>'raw',
 					'value'=>$enquiries,
-				);
-	
-	$this->widget('zii.widgets.CDetailView', array(
-		'data'=>$model,
-		'attributes'=>$attributes,
+				)),
 	));
 }
 ?>

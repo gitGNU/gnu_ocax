@@ -99,14 +99,14 @@ if($model->budget){
 	'dataProvider'=>$budgetModel->changeTypeSearch(),
 	'filter'=>$budgetModel,
 	'columns'=>array(
-		'year',
-		'csv_id',
-		'code',
 		array(
 			'header'=>__('Concept'),
 			'name'=>'concept',
 			'value'=>'Budget::model()->findByPk($data[\'id\'])->getConcept()',
 		),
+		'year',
+		'code',
+		'csv_id',
 		array(
 			'class'=>'CButtonColumn',
 			'buttons' => array(
