@@ -62,8 +62,12 @@ class EnquiryController extends Controller
 				'expression'=>"Yii::app()->user->isManager()",
 			),
 			array('allow',
-				'actions'=>array('changeBudget', 'getMegaDelete', 'megaDelete'),
+				'actions'=>array('getMegaDelete', 'megaDelete'),
 				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
+			),
+			array('allow',
+				'actions'=>array('changeBudget'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

@@ -72,7 +72,14 @@ class BudgetDescriptionController extends Controller
 
 	public function actionModify()
 	{
-		if(!isset($_GET['budget']))
+		if(isset($_GET['budget'])){
+			if($budget = Budget::model()->findByPk($_GET['budget']))
+				$csv_id = $budget->csv_id;
+		}
+		if(!isset($csv_id) && isset($_GET['csv_id'])){
+				$csv_id = $_GET['csv_id'];
+		}
+		if(!$csv_id)
 			$this->redirect(Yii::app()->createUrl('user/panel'));
 
 		if(isset($_GET['lang']))
@@ -80,11 +87,10 @@ class BudgetDescriptionController extends Controller
 		else
 			$language = Yii::app()->language;
 
-		$budget = Budget::model()->findByPk($_GET['budget']);
-		if($model = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$budget->csv_id,'language'=>$language)))
+		if($model = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$csv_id,'language'=>$language)))
 			$this->redirect('update/'.$model->id);
 		else
-			$this->redirect('create?csv_id='.$budget->csv_id.'&lang='.$language);
+			$this->redirect('create?csv_id='.$csv_id.'&lang='.$language);
 	}
 
 	/**

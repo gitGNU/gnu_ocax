@@ -41,10 +41,7 @@ function tabMenu(el, div_id){
 }
 function changeLanguage(lang){
 	<?php
-	if($model->id)
-		echo 'location.href="'.Yii::app()->request->baseUrl.'/budgetDescription/update/'.$model->id.'?lang="+lang;';
-	else
-		echo 'location.href="'.Yii::app()->request->baseUrl.'/budgetDescription/create?csv_id='.$model->csv_id.'&lang="+lang;';
+	echo 'location.href="'.Yii::app()->request->baseUrl.'/budgetDescription/modify?csv_id='.$model->csv_id.'&lang="+lang;';
 	?>
 }
 function viewDescription(){
