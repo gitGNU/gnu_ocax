@@ -232,7 +232,7 @@ class ImportCSV extends CFormModel
 		return $cnt;
 	}
 
-	public function addMissignRegisters()
+	public function addMissingRegisters()
 	{
 		$registers = $this->csv2array();
 		$newRegisterCnt = 0;
@@ -261,20 +261,43 @@ class ImportCSV extends CFormModel
 	{
 		$msg=array();;
 		$registers = $this->csv2array();
+		$budgets = array();
 		foreach($registers as $csv_id => $register){
-			if(strlen($csv_id) > 3){	// because 'S-E' == 3
-				$codes = explode("-", $csv_id);
+			$budget = $this->register2array($register);
+			
+			$budget['csv_id'] = trim($budget['csv_id']);
+			$budget['code'] = trim($budget['code']);
+			$budget['initial_prov'] = trim($budget['initial_prov']);
+			$budget['actual_prov'] = trim($budget['actual_prov']);
+			$budget['t1'] = trim($budget['t1']);
+			$budget['t2'] = trim($budget['t2']);
+			$budget['t3'] = trim($budget['t3']);
+			$budget['t4'] = trim($budget['t4']);
+			$budgets[]=$budget;		
+			
+			if(strlen($budget['csv_id']) > 3){	// because 'S-E' == 3
+				$codes = explode("-", $budget['csv_id']);
 				$pos=2;	// start at first code number S-E- =>1<= -11-111
 				while($pos <= count($codes)){
 					if(!isset($codes[$pos+1]))	// we're at the end of the array
 						break;
 					if(strpos($codes[$pos+1], $codes[$pos], 0) !== 0){
-						$msg[] = '<br />Check internal_code '.$csv_id;
+						$msg[] = '<br />Check internal_code '.$budget['csv_id'];
 						break;
 					}
 					$pos += 1;
 				}
 			}
+		}
+		if(!$msg){
+			// saved trimmed values to csv
+			$fh = fopen($this->csv, 'w');
+			fwrite($fh, $this->getHeader());
+			foreach($budgets as $budget){
+				$line = $this->array2register($budget);
+				fwrite($fh, $line.PHP_EOL);
+			}
+			fclose($fh);		
 		}
 		return $msg;
 	}
@@ -424,6 +447,9 @@ class ImportCSV extends CFormModel
 
 	public function createCSV($year)
 	{
+		//if(strtotime($year) === false)
+		//	return Null;
+
 		$file = new File;
 		$file->name = $year.'.csv';
 		$file->model = 'DatabaseDownload/data';

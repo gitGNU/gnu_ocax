@@ -123,7 +123,7 @@ class CsvController extends Controller
 		}
 		list($total_registers, $error) = $model->checkCSVFormat();
 		if(!$error)
-			$error = $model->checkInternalCodeSanity();
+			$error = $model->checkInternalCodeSanity();	// rewrites the csv if needed
 			
 		if(!$error){
 			$model->orderCSV();	
@@ -145,7 +145,7 @@ class CsvController extends Controller
 		$model->csv = $model->path.$_GET['csv_file'];
 		$msg=Null;
 		
-		$newRegisterCnt = $model->addMissignRegisters();	// rewrites the csv if needed
+		$newRegisterCnt = $model->addMissingRegisters();	// rewrites the csv if needed
 		if($newRegisterCnt > 0)
 			$msg = '<br /><span class="warn">New registers added: '.$newRegisterCnt.'</span>';
 			
