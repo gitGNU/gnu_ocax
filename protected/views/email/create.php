@@ -117,7 +117,7 @@ function submitForm(){
 							'relative_urls'=>false,
 							'remove_script_host'=>false
 						);
-		if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+		if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
 			$settings['useCompression']=true;
 		else
 			$settings['useCompression']=false;
@@ -131,7 +131,7 @@ function submitForm(){
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 			'settings' => $settings,
 			);
-		if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+		if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
 			unset($init['compressorRoute']);
 
 		$this->widget('ext.tinymce.TinyMce', $init);

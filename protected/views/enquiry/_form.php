@@ -99,7 +99,7 @@ $settings=array('convert_urls'=>true,
 				'width'=>'100%',
 				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,br,ul,ol,li",
 			);
-if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
 	$settings['useCompression']=true;
 else
 	$settings['useCompression']=false;
@@ -114,7 +114,7 @@ $init = array(
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 	'settings' => $settings,
 );
-if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
 		unset($init['compressorRoute']);
 
 $this->widget('ext.tinymce.TinyMce', $init);

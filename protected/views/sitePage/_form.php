@@ -201,7 +201,7 @@ $settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underlin
 					),
 				);
 
-if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+if(Config::model()->findByPk('htmlEditorUseCompressor'))
 	$settings['useCompression']=true;
 else
 	$settings['useCompression']=false;
@@ -214,7 +214,7 @@ $init =  array(
 	'settings' => $settings
 );
 
-if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
 	unset($init['compressorRoute']);
 
 $this->widget('ext.tinymce.TinyMce', $init);

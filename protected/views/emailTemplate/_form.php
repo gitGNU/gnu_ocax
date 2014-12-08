@@ -48,7 +48,7 @@
 							'width'=>'100%',
 							'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[*]",
 						);
-		if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+		if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
 			$settings['useCompression']=true;
 		else
 			$settings['useCompression']=false;
@@ -63,7 +63,7 @@
 				'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 				'settings' => $settings,
 			);
-		if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+		if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
 			unset($init['compressorRoute']);
 
 		$this->widget('ext.tinymce.TinyMce', $init);

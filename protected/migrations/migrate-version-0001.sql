@@ -1,7 +1,7 @@
 
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackupEmailAlert', '1', '1', 'Send email reports to admin(s)');
-INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");
+INSERT INTO config(parameter, value, required, description) VALUES ('htmlEditorUseCompressor', '1', '1', "Use HTML editor compressor");
 INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets");
 INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteColor', 'a1a150', '1', "The colour of your site eg: #a1a150");

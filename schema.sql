@@ -376,7 +376,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('membership'
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryBlog', '', '0', 'Observatory blog');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName1', 'Observatorio Ciutadano Municipal#del %s', '1', 'Observatory name part 1');
 INSERT INTO config(parameter, value, required, description) VALUES ('observatoryName2', 'My town', '0', 'Observatory name part 2');
-INSERT INTO config(parameter, value, required, description) VALUES ('HTMLeditorUseCompressor', '1', '1', "Use HTML editor compressor");  /* 0=no 1=yes */
+INSERT INTO config(parameter, value, required, description) VALUES ('htmlEditorUseCompressor', '1', '1', "Use HTML editor compressor");  /* 0=no 1=yes */
 INSERT INTO config(parameter, value, required, description) VALUES ('siglas', 'OCM_', '1', "Observatory's initials");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackupEmailAlert', '1', '1', 'Send email reports to admin(s)');

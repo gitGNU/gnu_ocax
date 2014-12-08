@@ -17,7 +17,7 @@ There are two possible directory structures.
 |
 - protected
 |
-- framework	(YII, http://www.yiiframework.com/ (tested with 1.1.14))
+- framework	(YII, http://www.yiiframework.com/ (use version 1.1.15))
 
 2. If your server provider only gives you access to the webroot directory.
  

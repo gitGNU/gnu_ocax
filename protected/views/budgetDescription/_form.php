@@ -209,7 +209,7 @@ $settings=array('convert_urls'=>true,
 												justifyright,|,bullist,numlist,|,outdent,indent,|,
 												undo,redo,|,link,unlink,|,image,|,code",
 			);
-if(Config::model()->findByPk('HTMLeditorUseCompressor'))
+if(Config::model()->findByPk('htmlEditorUseCompressor'))
 	$settings['useCompression']=true;
 else
 	$settings['useCompression']=false;
@@ -225,7 +225,7 @@ $init = array(
 	'settings' => $settings,
 );
 
-if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
 	unset($init['compressorRoute']);
 
 echo '<div class="row">';

@@ -69,7 +69,7 @@ $this->inlineHelp=':profiles:team_member';
 														justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
 														undo,redo,|,link,unlink",
 					);
-		if(Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+		if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
 			$settings['useCompression']=true;
 		else
 			$settings['useCompression']=false;
@@ -84,7 +84,7 @@ $this->inlineHelp=':profiles:team_member';
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
 			'settings' => $settings,
 		);
-		if(!Config::model()->findByPk('HTMLeditorUseCompressor')->value)
+		if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
 				unset($init['compressorRoute']);
 
 		$this->widget('ext.tinymce.TinyMce', $init);

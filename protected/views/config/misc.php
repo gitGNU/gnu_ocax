@@ -26,10 +26,10 @@
 
 <div class="parameterGroup">
 	<div class="param">
-		<?php $param = Config::model()->findByPk('HTMLeditorUseCompressor'); ?>
+		<?php $param = Config::model()->findByPk('htmlEditorUseCompressor'); ?>
 		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input type="radio" name="HTMLeditorUseCompressor" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
-		<input type="radio" name="HTMLeditorUseCompressor" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
+		<input type="radio" name="htmlEditorUseCompressor" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
+		<input type="radio" name="htmlEditorUseCompressor" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
 		<div class="progress"></div>
 	</div>
