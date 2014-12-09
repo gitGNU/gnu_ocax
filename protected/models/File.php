@@ -150,4 +150,22 @@ class File extends CActiveRecord
 
 		return trim($string, ' -');
 	}
+
+	public function checkExtension($ext)
+	{
+		$path_parts = pathinfo($this->path);
+		if($path_parts['extension'] == $ext)
+			return 1;
+		return 0;
+	}
+	
+	public function getYearFromCSVFilename()
+	{
+		if($this->checkExtension('csv')){
+			$year = basename($this->path, ".csv");
+			if(strtotime($year) !== false)
+				return $year;
+		}
+		return Null;
+	}
 }

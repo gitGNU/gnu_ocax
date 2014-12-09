@@ -167,7 +167,7 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php
 			echo $form->labelEx($content,'body');
 			if($model->advancedHTML){
-				echo '<label>'.__('Warning! Advanced HTML editing. Copy/paste can create problems').'.</label>';
+				echo '<label><i class="icon-attention green"></i>'.__('Warning! Advanced HTML editing. Copy/paste can create problems').'.</label>';
 				$valid_elements = "*[*]";
 				//http://www.tinymce.com/wiki.php/configuration:valid_children
 				$valid_children = "+body[style]";

@@ -180,7 +180,7 @@ function budgetDetailsUpdated(){
 <div class="left" style="height:140px">
 
 <div>
-	<div class="bigTitle"><?php echo __('Budgets');?></div>
+	<div class="bigTitle"><?php echo __('Budgets').' '.$year;?></div>
 </div>
 
 <div id="budgetSearchForm" style="margin-top:30px"><!-- search-form start -->

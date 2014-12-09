@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@ if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))
 }
 $this->inlineHelp=':profiles:admin:zip';
 $this->viewLog="zipfile,budget";
+
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -76,11 +77,12 @@ function showYears(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/showYears',
 		type: 'GET',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
+		beforeSend: function(){ $('#loading').hide(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#csvs_popup_content").html(data);
+				$("#years").html(data);
+				$("#years").show();
 				$('#csvs_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
@@ -99,7 +101,18 @@ function regenCSV(id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/regenerateCSV/'+id,
 		type: 'GET',
-		beforeSend: function(){ $('#years-grid').replaceWith($('#loading')); $('#loading').show(); },
+		beforeSend: function(){
+					$('#years').hide();
+					$('#generating').show();
+					$('#csvs_popup').bPopup({
+						modalClose: false
+						, follow: ([false,false])
+						, speed: 10
+						, positionStyle: 'absolute'
+						, modelColor: '#ae34d5'
+					});
+					$('#loading').show();
+				},
 		success: function(data){
 			$('#csvs_popup').bPopup().close();
 			$.fn.yiiGridView.update('file-grid');
@@ -136,12 +149,22 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{download} {delete}',
+			'htmlOptions' => array('style' => 'width:70px; text-align:right'),
+			'template'=>'{regenerate} {download} {delete}',
 			'buttons'=>array(
 				'download' => array(
-					'label'=> __('Download'),
+					'label'=> '<i class="icon-download-alt green"></i>',
 					'url'=> '"javascript:location.href=\"".$data->webPath."\";"',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
+					//'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
+				),
+				'regenerate' => array(
+					'label'=> '<i class="icon-ccw green"></i>',
+					'visible'=> '$data->checkExtension("csv")',
+					'url'=> '"javascript:regenCSV(\"".$data->getYearFromCSVFilename()."\");"',
+				),
+				'delete' => array(
+					'label'=> '<i class="icon-cancel-circled red"></i>',
+					'imageUrl' => Null,
 				),
 			),
 		),
@@ -151,8 +174,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 <div id="csvs_popup" class="modal" style="width:500px;">
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
-	<div id="csvs_popup_content"></div>
+	<div id="csvs_popup_content">
+		
+
+	<div id="years" style="display:none;">
+	
+	</div>
+
+	<div id="generating" style="display:none;">
+		<div class="modalTitle"><?php echo __('Generating CSV file').' ';?></div>
+		<div style="text-align:center; padding:10px;">
+		<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />
+		</div>
+	</div>
+	
+	</div>
 </div>
+
 
 <?php echo $this->renderPartial('//file/modal'); ?>
 

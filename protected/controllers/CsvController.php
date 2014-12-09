@@ -59,13 +59,17 @@ class CsvController extends Controller
 		);
 	}
 
+
+	/* create a cgrid of available years
+	 * used to include year.csv in the zip file
+	 */
 	public function actionShowYears()
 	{
 		$dataProvider =new CActiveDataProvider('Budget',array(
 			'criteria'=>array('condition'=>'parent IS NULL',
 			'order'=>'year DESC'),
 		));
-		echo $this->renderPartial('regenCSV',array('dataProvider'=>$dataProvider),false,true);
+		echo $this->renderPartial('yearsForZip',array('dataProvider'=>$dataProvider),false,true);
 	}
 
 	/*

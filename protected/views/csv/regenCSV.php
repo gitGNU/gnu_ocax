@@ -21,48 +21,11 @@
 /* @var $this FileController */
 /* @var $model File */
 
-Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
-Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
 
-<div class="modalTitle"><?php echo __('(Re)generate CSV files to include in zip').' ';?></div>
+<div class="modalTitle"><?php echo __('Generating CSV file').' ';?></div>
 
-<div style="margin: 10px -10px 0 -10px">
-<?php
-$this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view'),
-	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'id'=>'years-grid',
-	'dataProvider'=>$dataProvider,
-	'template' => '{items}{pager}',
-	'columns'=>array(
-		'year',
-		array(
-			'header'=>'Published',
-			'name'=>'code',
-			'value'=>'$data[\'code\']',
-		),
-		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{regen}',
-			'buttons' => array(
-				'regen' => array(
-					'label'=> __('Include budgets'),
-					'url'=> '"javascript:regenCSV(\"".$data->year."\");"',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/regen.png',
-					'visible' => 'true',
-				)
-			),
-		),
-	),
-));
-?>
+<div id="loading" style="text-align:center;">
+	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />
 </div>
-
-<div id="loading" style="display:none;text-align:center;">
-<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/big_loading.gif" />
-</div>
-
