@@ -143,7 +143,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'columns'=>array(
 		//'webPath',
 		array(
-			'name'=>__('Files to include'),
+			'name'=>__('Files'),
 			'type'=>'raw',
 			'value'=> '$data->model."/".$data->name',
 		),

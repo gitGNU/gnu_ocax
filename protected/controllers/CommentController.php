@@ -153,13 +153,17 @@ class CommentController extends Controller
 			Yii::app()->end();
 
 		$model=$this->loadModel($id);
-		if($model->user == Yii::app()->user->getUserID()){
+		$user_id = Yii::app()->user->getUserID();
+		$isModerator = $model->isModerator($user_id);
+		if($model->user == $user_id || $isModerator){
+			if($isModerator && $model->user != $user_id){
+				if($enquiry = $model->belongsToEnquiry())
+					Log::model()->write('Enquiry', __('Enquiry').' id='.$enquiry->id.' '.__('Team member deleted user comment'));
+				else
+					Log::model()->write('Comment', __($model->model).' id='.$model->model_id.' '.__('Team member deleted user comment'));
+			}
 			$model->delete();
 			echo 1;
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-
-			//if(!isset($_GET['ajax']))
-			//	$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 	}
 

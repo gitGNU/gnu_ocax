@@ -36,8 +36,9 @@
 	?>
 	<?php echo CHtml::encode($data->user0->fullname); ?></span>
 
-	<?php echo __('comments on the').' '.format_date($data->created,1);
-		if($data->user == Yii::app()->user->getUserID())
+	<?php 
+		echo __('comments on the').' '.format_date($data->created,1);
+		if($data->user == Yii::app()->user->getUserID() || $data->isModerator(Yii::app()->user->getUserID()))
 			echo '<i class="icon-cancel-circle red" style="cursor:pointer;" onClick="js:deleteComment('.$data->id.')"></i>';
 	?>
 	</p>
