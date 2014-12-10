@@ -44,9 +44,11 @@ if(!$comments){
 }
 
 echo '<div id="'.$modelName.$model->id.'_comments" style="display:none">';
+	echo '<div class="comments_block">';
 	foreach($comments as $comment){
 		$this->renderPartial('//comment/_view',array('data'=>$comment),false,false);
 	}
+	echo '</div>';
 	if($comments){
 		echo '<div class="add_comment">';
 		echo '<span class="link add_comment_link" onClick=\'js:getCommentForm("'.$modelName.'",'.$model->id.',this)\'>'.__('Add comment').'</span>';

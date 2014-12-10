@@ -28,6 +28,8 @@ if(Yii::app()->request->isAjaxRequest){
 	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
 ?>
 
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.isonscreen.js"></script>
+
 <style>
 .comments { margin-top:15px; }
 .voteBlock { float:right;text-align:right; white-space:nowrap; }
@@ -55,11 +57,16 @@ function canParticipate(){
 	return <?php echo $participate?>;
 }
 function toggleComments(comments_block_id){
-	//$('#comment_form').hide();
 	if ($('#'+comments_block_id).is(":visible"))
 		$('#'+comments_block_id).slideUp('fast');
-	else
-		$('#'+comments_block_id).slideDown('fast');
+	else{
+		$('#'+comments_block_id).slideDown('fast', 
+											function() {
+												if($('#'+comments_block_id).isOnScreen() != true)
+													$('html,body').animate({scrollTop: $(window).scrollTop() + 250});
+											}
+										);
+	}
 }
 function updateSubscriptionTotal(addMe){
 	if($('#subscriptionTotal').length>0){
@@ -80,12 +87,14 @@ function getCommentForm(comment_on, id, el){
 		beforeSend: function(){ /*$ ('#right_loading_gif').show(); */ },
 		complete: function(){ /* $('#right_loading_gif').hide(); */ },
 		success: function(data){
-			//$('#comment_form').html();
 			$('#comment_form').html(data.html);
 			$(el).after($('#comment_form'));
 			$('#comment_form').show();
 			$('.add_comment_link').show();
 			$('#comment_form').prev('.add_comment_link').hide();
+			if($('#comment_form').isOnScreen() != true)
+				$('html,body').animate({scrollTop: $(window).scrollTop() + 150});
+			$('#comment_form').find('textarea').focus();
 		},
 		error: function() {
 			alert("Error on get comment form");
@@ -113,7 +122,8 @@ function submitComment(form){
 					},
 		success: function(data){
 				if(data != 0){
-					$('#comment_form').parents('.add_comment:first').before(data.html);
+					$('#comment_form').parents('.comments').find('.comments_block').append(data.html);
+					$('#comment_form').parents('.comments').find('.comments_block').parent().show();
 
 					show_comments_link = $('#comment_form').parents('.comments').find('.show_comments_link');
 					comment_count = show_comments_link.find('.comment_count');

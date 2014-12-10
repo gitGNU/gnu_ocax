@@ -82,8 +82,8 @@ $this->viewLog='Enquiry|'.$model->id;
     </div>
 <?php endif; ?>
 
-
-
-
-
-
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('error');?>
+    </div>
+<?php endif; ?>
