@@ -456,7 +456,7 @@ class EnquiryController extends Controller
 				if($oldBudget_year)
 					$this->redirect(array('budget/updateYear','id'=>$oldBudget_year->id));
 				else
-					$this->redirect(array('budget/adminYears'));
+					$this->redirect(array('budget/admin'));
 			}
 		}
 

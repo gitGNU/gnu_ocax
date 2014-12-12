@@ -23,7 +23,7 @@ $featuredCount = count($model->getFeatured());
 
 $this->menu=array(
 	array('label'=>__('Import budgets'), 'url'=>array('csv/importCSV/'.$model->year)),
-	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
 
 if($totalBudgets){

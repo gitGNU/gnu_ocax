@@ -245,7 +245,7 @@ if($model->is_admin){
 	echo '<div class="sub_title">'.__('Administator\'s options').'</div>';
 	echo '<div style="float:left"><p>';
 		if(Config::model()->findByPk('siteConfigStatusBudgetDescriptionsImport')->value){
-			echo CHtml::link(__('Years and budgets'),array('budget/adminYears')).'<br />';
+			echo CHtml::link(__('Years and budgets'),array('budget/admin')).'<br />';
 			echo CHtml::link(__('Budget descriptions'),array('budgetDescription/admin')).'<br />';
 		}
 		echo CHtml::link(__('Zip file'),array('file/databaseDownload'));

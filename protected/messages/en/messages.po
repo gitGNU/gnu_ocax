@@ -126,7 +126,7 @@ msgstr ""
 #: protected/models/SitePage.php:90
 #: protected/models/IntroPage.php:112
 #: protected/views/budget/_formYear.php:63
-#: protected/views/budget/adminYears.php:99
+#: protected/views/budget/admin.php:99
 msgid "Published"
 msgstr ""
 
@@ -638,7 +638,7 @@ msgid "Manage descriptions"
 msgstr ""
 
 #: protected/views/budget/noDescriptions.php:30
-#: protected/views/budget/adminYears.php:26
+#: protected/views/budget/admin.php:26
 #: protected/views/budgetDescription/view.php:28
 #: protected/views/budgetDescription/admin.php:26
 msgid "Budgets without description"
@@ -646,12 +646,12 @@ msgstr ""
 
 #: protected/views/budget/createYear.php:22
 #: protected/views/budget/featured.php:30
-#: protected/views/budget/adminYears.php:79
+#: protected/views/budget/admin.php:79
 msgid "Manage years"
 msgstr ""
 
 #: protected/views/budget/createYear.php:27
-#: protected/views/budget/adminYears.php:25
+#: protected/views/budget/admin.php:25
 msgid "Create Year"
 msgstr ""
 
@@ -713,7 +713,7 @@ msgid "Only 4 digits"
 msgstr ""
 
 #: protected/views/budget/_formYear.php:54
-#: protected/views/budget/adminYears.php:104
+#: protected/views/budget/admin.php:104
 msgid "Population"
 msgstr ""
 
@@ -749,11 +749,11 @@ msgstr ""
 msgid "Feature budget"
 msgstr ""
 
-#: protected/views/budget/adminYears.php:29
+#: protected/views/budget/admin.php:29
 msgid "Restore database"
 msgstr ""
 
-#: protected/views/budget/adminYears.php:60
+#: protected/views/budget/admin.php:60
 #: protected/views/file/showBudgetFiles.php:57
 msgid "Restore budgets"
 msgstr ""

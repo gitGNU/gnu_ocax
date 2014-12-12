@@ -24,7 +24,7 @@
 $yearBudget=Budget::model()->findByAttributes(array('parent'=>Null,'year'=>$model->year));
 $this->menu=array(
 	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
-	array('label'=>__('List Years'), 'url'=>array('//budget/adminYears')),
+	array('label'=>__('List Years'), 'url'=>array('//budget/admin')),
 );
 if($model->csv){
 	$importAgain = array( array('label'=>__('Upload CSV again'), 'url'=>array('csv/importCSV/'.$model->year)), );

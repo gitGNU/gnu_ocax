@@ -126,7 +126,7 @@ msgstr "Enviat OK"
 #: protected/models/SitePage.php:90
 #: protected/models/IntroPage.php:112
 #: protected/views/budget/_formYear.php:63
-#: protected/views/budget/adminYears.php:99
+#: protected/views/budget/admin.php:99
 msgid "Published"
 msgstr "Publicat"
 
@@ -639,7 +639,7 @@ msgid "Manage descriptions"
 msgstr "Gestionar les descripcions"
 
 #: protected/views/budget/noDescriptions.php:30
-#: protected/views/budget/adminYears.php:26
+#: protected/views/budget/admin.php:26
 #: protected/views/budgetDescription/view.php:28
 #: protected/views/budgetDescription/admin.php:26
 msgid "Budgets without description"
@@ -647,12 +647,12 @@ msgstr "Partides sense descripció"
 
 #: protected/views/budget/createYear.php:22
 #: protected/views/budget/featured.php:30
-#: protected/views/budget/adminYears.php:79
+#: protected/views/budget/admin.php:79
 msgid "Manage years"
 msgstr "Gestiona anys"
 
 #: protected/views/budget/createYear.php:27
-#: protected/views/budget/adminYears.php:25
+#: protected/views/budget/admin.php:25
 msgid "Create Year"
 msgstr "Crear any"
 
@@ -714,7 +714,7 @@ msgid "Only 4 digits"
 msgstr "Solament 4 dígits"
 
 #: protected/views/budget/_formYear.php:54
-#: protected/views/budget/adminYears.php:104
+#: protected/views/budget/admin.php:104
 msgid "Population"
 msgstr "Població"
 
@@ -750,11 +750,11 @@ msgstr "Desa"
 msgid "Feature budget"
 msgstr ""
 
-#: protected/views/budget/adminYears.php:29
+#: protected/views/budget/admin.php:29
 msgid "Restore database"
 msgstr "Restore database"
 
-#: protected/views/budget/adminYears.php:60
+#: protected/views/budget/admin.php:60
 #: protected/views/file/showBudgetFiles.php:57
 msgid "Restore budgets"
 msgstr "Restaurar pressupostos"

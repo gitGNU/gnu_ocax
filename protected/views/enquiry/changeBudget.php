@@ -27,7 +27,7 @@ $this_year=$budgetModel->find($criteria);
 
 $this->menu=array(
 	array('label'=>__('Edit year').' '.$this_year->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
-	array('label'=>__('Manage years'), 'url'=>array('adminYears'))
+	array('label'=>__('Manage years'), 'url'=>array('admin'))
 );
 $this->inlineHelp=':profiles:team_member';
 $this->viewLog='Enquiry|'.$model->id;

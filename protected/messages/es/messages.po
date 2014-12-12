@@ -47,7 +47,7 @@ msgstr "Anchura"
 
 #: protected/models/IntroPage.php:112 protected/models/SitePage.php:104
 #: protected/models/Newsletter.php:108
-#: protected/views/budget/adminYears.php:103
+#: protected/views/budget/admin.php:103
 msgid "Published"
 msgstr "Publicada"
 
@@ -1476,7 +1476,7 @@ msgid "Manage descriptions"
 msgstr "Gestionar las descripciones"
 
 #: protected/views/budget/noDescriptions.php:30
-#: protected/views/budget/adminYears.php:28
+#: protected/views/budget/admin.php:28
 #: protected/views/budgetDescription/admin.php:26
 msgid "Budgets without description"
 msgstr "Partidas sin descripción"
@@ -1488,7 +1488,7 @@ msgid "Edit year"
 msgstr "Editar año"
 
 #: protected/views/budget/deleteTree.php:30
-#: protected/views/budget/adminYears.php:83
+#: protected/views/budget/admin.php:83
 #: protected/views/budget/featured.php:30
 #: protected/views/budget/createYear.php:22
 msgid "Manage years"
@@ -1520,7 +1520,7 @@ msgid "Only 4 digits"
 msgstr "Solo 4 dígitos"
 
 #: protected/views/budget/_formYear.php:54
-#: protected/views/budget/adminYears.php:108
+#: protected/views/budget/admin.php:108
 msgid "Population"
 msgstr "Población"
 
@@ -1613,20 +1613,20 @@ msgstr "Ejecutado"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: protected/views/budget/adminYears.php:27
+#: protected/views/budget/admin.php:27
 #: protected/views/budget/createYear.php:27
 msgid "Create Year"
 msgstr "Crear año"
 
-#: protected/views/budget/adminYears.php:29
+#: protected/views/budget/admin.php:29
 msgid "Default year"
 msgstr "Año por omisión"
 
-#: protected/views/budget/adminYears.php:32
+#: protected/views/budget/admin.php:32
 msgid "Restore database"
 msgstr "Restore database"
 
-#: protected/views/budget/adminYears.php:64
+#: protected/views/budget/admin.php:64
 #: protected/views/file/showBudgetFiles.php:58
 msgid "Restore budgets"
 msgstr "Restaurar presupuestos"

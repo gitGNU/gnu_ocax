@@ -54,7 +54,7 @@ class BudgetController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'getTotalYearlyBudgets','adminYears',
+				'actions'=>array(	'getTotalYearlyBudgets','admin',
 									'createYear','updateYear',
 									'featured','feature','changeWeight',
 									'deleteYearsBudgets',
@@ -278,7 +278,7 @@ class BudgetController extends Controller
 			$model->attributes=$_POST['Budget'];
 			if($model->save()){
 				Log::model()->write('Budget','Year '.$model->year.' created');
-				$this->redirect(array('adminYears'));
+				$this->redirect(array('admin'));
 			}
 		}
 		$this->render('createYear',array(
@@ -356,7 +356,7 @@ class BudgetController extends Controller
 						$word = 'published';
 					Log::model()->write('Budget', 'Year '.$model->year.' '.$word);
 				}
-				$this->redirect(array('adminYears'));
+				$this->redirect(array('admin'));
 			}
 		}
 
@@ -370,27 +370,6 @@ class BudgetController extends Controller
 		$this->render('updateYear',array(
 			'model'=>$model,'enquirys'=>$enquirys,));
 	}
-
-	/**
-	 * Manages all models.
-	 */
-	 /*
-	public function actionAdmin()
-	{
-		$model=new Budget('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['year']))
-			$model->year=$_GET['year'];
-		else
-			$model->year=Config::model()->findByPk('year')->value;
-		if(isset($_GET['Budget']))
-			$model->attributes=$_GET['Budget'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-	*/
 
 	public function actionFeatured($id)
 	{
@@ -520,13 +499,13 @@ class BudgetController extends Controller
 		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
 	}
 
-	public function actionAdminYears()
+	public function actionAdmin()
 	{
 		$years=new CActiveDataProvider('Budget',array(
 			'criteria'=>array('condition'=>'parent IS NULL',
 			'order'=>'year DESC'),
 		));
-		$this->render('adminYears',array('years'=>$years,));
+		$this->render('admin',array('years'=>$years,));
 	}
 
 	/*
@@ -577,7 +556,7 @@ class BudgetController extends Controller
 			if($root_budget){
 				Yii::app()->user->setFlash('success',__('Year deleted'));
 				Log::model()->write('Budget', 'Year '.$model->year.' deleted');
-				$this->redirect(array('adminYears'));
+				$this->redirect(array('admin'));
 			}
 		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

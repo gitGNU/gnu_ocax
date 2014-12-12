@@ -19,7 +19,7 @@
  */
 
 $this->menu=array(
-	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
 
 ?>

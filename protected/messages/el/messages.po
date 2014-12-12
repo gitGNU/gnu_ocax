@@ -47,7 +47,7 @@ msgstr "Πλάτος"
 
 #: protected/models/IntroPage.php:112 protected/models/SitePage.php:104
 #: protected/models/Newsletter.php:108
-#: protected/views/budget/adminYears.php:103
+#: protected/views/budget/admin.php:103
 msgid "Published"
 msgstr "Δημοσίευση"
 
@@ -1491,7 +1491,7 @@ msgid "Manage descriptions"
 msgstr "Διαχείριση περιγραφών"
 
 #: protected/views/budget/noDescriptions.php:30
-#: protected/views/budget/adminYears.php:28
+#: protected/views/budget/admin.php:28
 #: protected/views/budgetDescription/admin.php:26
 msgid "Budgets without description"
 msgstr "Προϋπολογισμοί χωρίς περιγραφή"
@@ -1503,7 +1503,7 @@ msgid "Edit year"
 msgstr "Διόρθωση έτους"
 
 #: protected/views/budget/deleteTree.php:30
-#: protected/views/budget/adminYears.php:83
+#: protected/views/budget/admin.php:83
 #: protected/views/budget/updateYear.php:26
 #: protected/views/budget/featured.php:30
 #: protected/views/budget/createYear.php:22
@@ -1536,7 +1536,7 @@ msgid "Only 4 digits"
 msgstr "Μόνο 4 ψηφία"
 
 #: protected/views/budget/_formYear.php:54
-#: protected/views/budget/adminYears.php:108
+#: protected/views/budget/admin.php:108
 msgid "Population"
 msgstr "Πληθυσμός"
 
@@ -1628,21 +1628,21 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: protected/views/budget/adminYears.php:27
+#: protected/views/budget/admin.php:27
 #: protected/views/budget/createYear.php:29
 msgid "Create Year"
 msgstr "Δημιουργία έτους"
 
-#: protected/views/budget/adminYears.php:29
+#: protected/views/budget/admin.php:29
 #, fuzzy
 msgid "Default year"
 msgstr "Διαγραφή έτους"
 
-#: protected/views/budget/adminYears.php:32
+#: protected/views/budget/admin.php:32
 msgid "Restore database"
 msgstr "Επαναφορά βάσης δεδομένων"
 
-#: protected/views/budget/adminYears.php:64
+#: protected/views/budget/admin.php:64
 msgid "Restore budgets"
 msgstr "Επαναφορά προϋπολογισμών"
 
