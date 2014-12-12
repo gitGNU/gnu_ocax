@@ -31,3 +31,10 @@ CREATE TABLE IF NOT EXISTS backup (
   FOREIGN KEY (vault) REFERENCES vault(id),
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
+
+ALTER TABLE budget MODIFY csv_parent_id varchar(255);
+ALTER TABLE budget MODIFY csv_id varchar(255);
+ALTER TABLE budget_desc_state MODIFY csv_id varchar(255);
+ALTER TABLE budget_desc_common MODIFY csv_id varchar(255);
+ALTER TABLE budget_desc_local MODIFY csv_id varchar(255);
+

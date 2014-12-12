@@ -744,11 +744,12 @@ class EnquiryController extends Controller
 		}
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'		=> Config::model()->findByPk('siglas')->value.' '.__('Enquiries'),
-			'link'		=> Yii::app()->createUrl('enquiry'),
-			'image'		=> Yii::app()->createAbsoluteUrl('files/logo.png'),
-			'charset'	=> 'UTF-8',
-			'entries'	=> $entries,
+			'title'			=> Config::model()->findByPk('siglas')->value.' '.__('Enquiries'),
+			'description'	=> Config::model()-> getObservatoryName(),
+			'link'			=> Yii::app()->createUrl('enquiry'),
+			'image'			=> Yii::app()->createAbsoluteUrl('files/logo.png'),
+			'charset'		=> 'UTF-8',
+			'entries'		=> $entries,
 			),
 			'rss'
 		);

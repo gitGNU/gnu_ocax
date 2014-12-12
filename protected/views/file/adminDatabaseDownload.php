@@ -77,7 +77,7 @@ function showYears(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/showYears',
 		type: 'GET',
-		beforeSend: function(){ $('#loading').hide(); },
+		beforeSend: function(){ $('#generating').hide(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){

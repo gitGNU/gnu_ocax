@@ -82,11 +82,12 @@ class NewsletterController extends Controller
 		}
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'		=> Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
-			'link'		=> Yii::app()->createUrl('newsletter'),
-			'image'		=> Yii::app()->createAbsoluteUrl('files/logo.png'),
-			'charset'	=> 'UTF-8',
-			'entries'	=> $entries,      
+			'title'			=> Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
+			'description'	=> Config::model()-> getObservatoryName(),
+			'link'			=> Yii::app()->createUrl('newsletter'),
+			'image'			=> Yii::app()->createAbsoluteUrl('files/logo.png'),
+			'charset'		=> 'UTF-8',
+			'entries'		=> $entries,      
 			),
 			'rss'
 		);

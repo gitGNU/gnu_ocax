@@ -113,7 +113,10 @@ function submitForm(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
-		$settings = array(	'convert_urls'=>true,
+		$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,justifyleft,justifycenter,
+														justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
+														link,unlink",
+							'convert_urls'=>true,
 							'relative_urls'=>false,
 							'remove_script_host'=>false
 						);

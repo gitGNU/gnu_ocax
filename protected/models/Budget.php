@@ -85,7 +85,7 @@ class Budget extends CActiveRecord
 			array('initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4', 'type', 'type'=>'float'),
 			//array('initial_provision, actual_provision, t1, t2, t3, t4', 'length', 'max'=>14),
 			array('code', 'length', 'max'=>20),
-			array('csv_id, csv_parent_id', 'length', 'max'=>100),
+			array('csv_id, csv_parent_id', 'length', 'max'=>255),
 			//array('csv_id', 'unique', 'className' => 'Budget'),	// this is a good idea but need to check against year
 			array('label, concept', 'length', 'max'=>255),
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),

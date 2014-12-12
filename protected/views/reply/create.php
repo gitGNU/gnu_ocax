@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -65,9 +65,9 @@ $this->inlineHelp=':profiles:team_member';
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
-		$settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,fontsizeselect,|,justifyleft,justifycenter,
+		$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,justifyleft,justifycenter,
 														justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
-														undo,redo,|,link,unlink",
+														link,unlink",
 					);
 		if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
 			$settings['useCompression']=true;

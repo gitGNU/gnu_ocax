@@ -38,8 +38,8 @@ CREATE TABLE IF NOT EXISTS budget (
   id int(11) NOT NULL AUTO_INCREMENT,
   parent int(11) NULL,
   year SMALLINT(2) NOT NULL,
-  csv_id varchar(100) NULL,
-  csv_parent_id varchar(100) NULL,
+  csv_id varchar(255) NULL,
+  csv_parent_id varchar(255) NULL,
   code varchar(20) NULL,
   label varchar(255) NULL,
   concept varchar( 255 ) NOT NULL,
@@ -58,7 +58,7 @@ INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VAL
 
 CREATE TABLE IF NOT EXISTS budget_desc_state (
   id int(11) NOT NULL AUTO_INCREMENT,
-  csv_id varchar(100) NOT NULL,
+  csv_id varchar(255) NOT NULL,
   language char(2) NOT NULL,
   code varchar(32) NULL,
   label varchar(32) NULL,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS budget_desc_state (
 
 CREATE TABLE IF NOT EXISTS budget_desc_common (
   id int(11) NOT NULL AUTO_INCREMENT,
-  csv_id varchar(100) NOT NULL,
+  csv_id varchar(255) NOT NULL,
   language char(2) NOT NULL,
   code varchar(32) NULL,
   label varchar(32) NULL,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS budget_desc_common (
 
 CREATE TABLE IF NOT EXISTS budget_desc_local (
   id int(11) NOT NULL AUTO_INCREMENT,
-  csv_id varchar(100) NOT NULL,
+  csv_id varchar(255) NOT NULL,
   language char(2) NOT NULL,
   code varchar(32) NULL,
   label varchar(32) NULL,
