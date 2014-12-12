@@ -25,7 +25,7 @@ $related_enquiry=Enquiry::model()->findByPk($model->related_to);
 
 $this->menu=array(
 	array('label'=>__('View Enquiry'), 'url'=>array('teamView', 'id'=>$related_enquiry->id)),
-	array('label'=>__('List enquiries'), 'url'=>array('managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('assigned')),
 );
 
 $this->inlineHelp=':profiles:team_member';

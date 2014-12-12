@@ -25,7 +25,7 @@
 $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 $this->inlineHelp=':profiles:team_member';
 ?>

@@ -206,7 +206,7 @@ if($model->is_admin ){
 if($model->is_team_member){
 	addPanelSeparator();
 	changeColumn();
-	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/managed'));
+	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/assigned'));
 	if(Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_ASSIGNED)))
 		echo '<i class="icon-attention amber"></i>';
 	echo '</div>';

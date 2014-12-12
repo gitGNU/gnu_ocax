@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 
 ?>
@@ -91,7 +91,7 @@ function negative(){
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
 			<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/managed';">No</button>
+			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/assigned';">No</button>
     </div>
 <?php endif; ?>
 

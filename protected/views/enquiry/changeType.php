@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
 	array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 $this->inlineHelp=':profiles:team_member';
 $this->viewLog='Enquiry|'.$model->id;

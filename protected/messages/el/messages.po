@@ -192,7 +192,7 @@ msgstr "Περιγραφή προϋπολογισμού"
 
 #: protected/models/Reply.php:97 protected/models/Email.php:106
 #: protected/views/enquiry/_reformulated.php:44
-#: protected/views/enquiry/view.php:122 protected/views/enquiry/managed.php:79
+#: protected/views/enquiry/view.php:122 protected/views/enquiry/assigned.php:79
 #: protected/views/budget/view.php:227
 #: protected/controllers/EnquiryController.php:83
 #: protected/controllers/EnquiryController.php:557
@@ -1306,7 +1306,7 @@ msgstr ""
 msgid "Cancel my subscription"
 msgstr "Εγγραφή μέσω  email"
 
-#: protected/views/enquiry/managed.php:58 protected/views/user/panel.php:209
+#: protected/views/enquiry/assigned.php:58 protected/views/user/panel.php:209
 msgid "Entrusted enquiries"
 msgstr "Έρευνες που έχουν ανατεθεί"
 

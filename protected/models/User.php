@@ -109,7 +109,7 @@ class User extends CActiveRecord
 			//'newsletters' => array(self::HAS_MANY, 'Newsletter', 'sender'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'user'),
 			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'user'),
-			'assignedEnquirues' => array(self::HAS_MANY, 'Enquiry', 'team_member'),
+			'assignedEnquiries' => array(self::HAS_MANY, 'Enquiry', 'team_member'),
 			'managedEnquiries' => array(self::HAS_MANY, 'Enquiry', 'manager'),
 			'enquirySubscribes' => array(self::HAS_MANY, 'EnquirySubscribe', 'user'),
 			'emails' => array(self::HAS_MANY, 'Email', 'sender'),

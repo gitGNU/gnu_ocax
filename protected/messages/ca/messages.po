@@ -57,7 +57,7 @@ msgstr "Destinataris"
 #: protected/models/Reply.php:97
 #: protected/views/budget/view.php:184
 #: protected/views/enquiry/_reformulated.php:44
-#: protected/views/enquiry/managed.php:54
+#: protected/views/enquiry/assigned.php:54
 #: protected/controllers/EnquiryController.php:83
 msgid "Enquiry"
 msgstr "Consulta"
@@ -1379,7 +1379,7 @@ msgstr "Vots"
 msgid "User email subscriptions"
 msgstr "Subscripcions per email"
 
-#: protected/views/enquiry/managed.php:34
+#: protected/views/enquiry/assigned.php:34
 #: protected/views/user/panel.php:110
 msgid "Entrusted enquiries"
 msgstr "Consultes encomanades"

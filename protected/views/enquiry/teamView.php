@@ -23,7 +23,7 @@
 
 $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 if($model->state == ENQUIRY_ACCEPTED){
 	$submit = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );

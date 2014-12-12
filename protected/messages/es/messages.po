@@ -190,7 +190,7 @@ msgstr "Descripción de partida guardad correctamente"
 
 #: protected/models/Reply.php:97 protected/models/Email.php:106
 #: protected/views/enquiry/_reformulated.php:44
-#: protected/views/enquiry/view.php:122 protected/views/enquiry/managed.php:79
+#: protected/views/enquiry/view.php:122 protected/views/enquiry/assigned.php:79
 #: protected/views/budget/view.php:215
 #: protected/controllers/EnquiryController.php:83
 #: protected/controllers/EnquiryController.php:557
@@ -1292,7 +1292,7 @@ msgstr "Ahora mismo no"
 msgid "Cancel my subscription"
 msgstr "Cancela mi subscripción"
 
-#: protected/views/enquiry/managed.php:58 protected/views/user/panel.php:203
+#: protected/views/enquiry/assigned.php:58 protected/views/user/panel.php:203
 msgid "Entrusted enquiries"
 msgstr "Consultas encomendadas"
 

@@ -53,7 +53,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','managed','validate','changeType',
+				'actions'=>array('teamView','assigned','validate','changeType',
 								 'submit','unSubmit','assess','reformulate'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
@@ -585,7 +585,7 @@ class EnquiryController extends Controller
 		));
 	}
 
-	public function actionManaged()
+	public function actionAssigned()
 	{
 		// grid of enquirys by team_member
 		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Entrusted enquiries'));
@@ -596,7 +596,7 @@ class EnquiryController extends Controller
 		//$model->team_member = Yii::app()->user->getUserID();
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
-		$this->render('managed',array(
+		$this->render('assigned',array(
 			'model'=>$model,
 		));
 	}
