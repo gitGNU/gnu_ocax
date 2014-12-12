@@ -215,7 +215,9 @@ class NewsletterController extends Controller
 			$model->sent=2;
 			$model->published = date('c');
 			Yii::app()->user->setFlash('success',__('Email sent OK'));
+			Log::model()->write('Newsletter', __('Newsletter published'), $model->id);
 		}else{
+			$model->published = Null;
 			$model->sent=1;
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 		}

@@ -620,9 +620,9 @@ class EnquiryController extends Controller
 					// somehow send an email to manager
 				}
 				if($model->state == ENQUIRY_REJECTED)
-					Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('rejected by team member'), $model->id);
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('rejected by team member'), $model->id);
 				else
-					Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('accepted by team member'), $model->id);
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('accepted by team member'), $model->id);
 				
 			}			
 		}		
@@ -661,7 +661,7 @@ class EnquiryController extends Controller
 					$model->modified=date('c');
 					if($model->state <= ENQUIRY_REJECTED) // maybe enquiry was already accepted and has higher state.
 						$model->state=ENQUIRY_ASSIGNED;
-					Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('assigned to team member').' '.User::model()->findByPk($model->team_member)->username, $model->id);
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('assigned to team member').' '.User::model()->findByPk($model->team_member)->username, $model->id);
 				}else{
 					Yii::app()->user->setFlash('notice', __('You must assign a team member'));
 					$saveMe=Null;
@@ -767,8 +767,11 @@ class EnquiryController extends Controller
 		$model = $this->loadModel($id);
 		$user=Yii::app()->user->getUserID();
 		if($model->state==ENQUIRY_PENDING_VALIDATION && ($model->user == $user || Yii::app()->user->isManager()) ){
+			if($model->user == $user)
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('deleted'), $model->id);
+			else
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('deleted by team manager'), $model->id);
 			$model->delete();
-			Log::model()->write('Enquiry',__('Enquiry deleted'),$model->id);
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax'])){
@@ -793,6 +796,7 @@ class EnquiryController extends Controller
 	public function actionMegaDelete($id)
 	{
 		$model=$this->loadModel($id);
+		Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('deleted by team manager'), $model->id);
 		$model->delete();
 		Yii::app()->user->setFlash('success', __('Enquiry has been deleted'));
 		echo $id;

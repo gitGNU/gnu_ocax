@@ -253,7 +253,7 @@ class UserController extends Controller
 		$model->is_active = 0;
 		$model->is_disabled = 1;
 		$model->save();
-		Log::model()->write('User', __('User').' "'.$model->username.'" (id = '.$model->id.') '.__('disabled'), $model->id);
+		Log::model()->write('User', __('User').' id='.$model->id.' "'.$model->username.'" '.__('disabled'), $model->id);
 		Yii::app()->user->setFlash('success', __('User disabled'));
 		echo 1;
 	}

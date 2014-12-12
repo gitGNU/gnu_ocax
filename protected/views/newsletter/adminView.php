@@ -118,7 +118,7 @@ function send(){
 <?php if($model->sent == 0){
 
 echo CHtml::button(__('Edit draft'), array('onclick'=>'js:document.location.href="'.Yii::app()->request->baseUrl.'/newsletter/update/'.$model->id.'"'));
-echo CHtml::button(__('Send now'), array('onclick'=>'js:send();','style'=>'margin-left:100px;'));
+echo CHtml::button(__('Publish now'), array('onclick'=>'js:send();','style'=>'margin-left:100px;'));
 echo '<img id="loading" src="'.Yii::app()->request->baseUrl.'/images/small_loading.gif" style="vertical-align:middle;margin-left:15px;display:none"/>';
 
 }?>
