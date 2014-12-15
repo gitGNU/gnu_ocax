@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -177,13 +177,49 @@ function budgetDetailsUpdated(){
 </style>
 
 <div class="outer">
-<div class="left" style="height:140px">
-
-<div>
-	<div class="bigTitle"><?php echo __('Budgets').' '.$year;?></div>
+<div class="left" style="width:600px">
+	<div class="bigTitle" style="margin: -5px 0 20px 0;"><?php echo __('Budgets').' '.$year;?></div>
 </div>
 
-<div id="budgetSearchForm" style="margin-top:30px"><!-- search-form start -->
+<div class="right" style="width:300px">
+<!--  Select year start  -->
+<?php
+if(Yii::app()->user->isAdmin())
+	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
+else
+	$years=$model->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
+
+if(count($years) > 1){
+	echo '<div style="float:right; margin: -5px 0 25px 0;">';
+	$list=CHtml::listData($years, 'year', function($year) {
+		return $year->getYearString();
+	});
+	/*
+		echo '<span style="margin-right:15px; float:left;">';
+		include(svgDir().'graph-type-pie.svg');
+		echo '</span>';
+	*/
+		
+		echo '<div style="float:left">';
+		echo __('Available years').'<br />';
+		echo CHtml::dropDownList('budget', $model->year, $list,
+								array(	'id'=>'selectYear',
+										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
+								));
+		echo '</div>';
+	echo '</div>';
+}
+?>
+<!--  Select year finished  -->
+</div>
+
+</div>
+<div class="clear"></div>
+
+<div class="outer">
+<div class="left" style="height:10px">
+
+<div id="budgetSearchForm" style="margin-top:10px"><!-- search-form start -->
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'id'=>'budget-form',
@@ -214,36 +250,6 @@ function budgetDetailsUpdated(){
 
 </div>
 <div class="right">
-
-<!--  Select year start  -->
-<?php
-if(Yii::app()->user->isAdmin())
-	$years=$model->findAll(array('condition'=>'parent IS NULL','order'=>'year DESC'));
-else
-	$years=$model->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
-
-if(count($years) > 1){
-	echo '<div class="budgetOptions" >';
-	$list=CHtml::listData($years, 'year', function($year) {
-		return $year->getYearString();
-	});
-		echo '<span style="margin-right:15px; float:left;">';
-		include(svgDir().'graph-type-pie.svg');
-		echo '</span>';
-		
-		
-		echo '<div style="float:left">';
-		echo __('Available years').'<br />';
-		echo CHtml::dropDownList('budget', $model->year, $list,
-								array(	'id'=>'selectYear',
-										'onchange'=>'location.href="'.Yii::app()->request->baseUrl.'/budget?year="+this.options[this.selectedIndex].value'
-								));
-		echo '</div>';
-	echo '</div>';
-}else
-	echo '<div style="height:70px"></div>';
-?>
-<!--  Select year finished  -->
 
 	<!--  Change graph type start  -->
 	<div style="clear:right">
@@ -302,7 +308,8 @@ if(count($years) > 1){
 
 	echo '<div id="the_graphs">';
 	if(!$featured){
-		echo '<div class="sub_title" style="margin-bottom:60px;">'. __('No data available').'</div>';
+		echo '<div class="horizontalRule"></div>';
+		echo '<div class="sub_title" style="margin:20px 0 60px 0;">'. __('No data available').'</div>';
 	}else{
 		if($graph_type == 'bar')
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));
