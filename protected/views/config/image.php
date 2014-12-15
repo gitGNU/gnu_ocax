@@ -21,8 +21,8 @@
 /* @var $this FileController */
 /* @var $model File */
 
-
 ?>
+<?php $this->inlineHelp=':manual:config:image'; ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 

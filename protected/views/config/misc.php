@@ -22,6 +22,7 @@
 /* @var $model Config */
 ?>
 
+<?php $this->inlineHelp=':manual:config:backups'; ?>
 <?php $this->renderPartial('_title', array('paramGroup'=>__('Misc')));?>
 
 <div class="parameterGroup">

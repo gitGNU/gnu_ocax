@@ -22,6 +22,7 @@
 /* @var $model Config */
 ?>
 
+<?php $this->inlineHelp=':manual:config:observatory'; ?>
 <?php $this->renderPartial('_title', array('paramGroup'=>__('Observatory')));?>
 
 <div class="parameterGroup">

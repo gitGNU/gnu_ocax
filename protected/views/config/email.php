@@ -22,6 +22,8 @@
 /* @var $model Config */
 ?>
 
+<?php $this->inlineHelp=':manual:config:email'; ?>
+
 <script>
 $(function() {
 	if(<?php echo Config::model()->findByPk('smtpMethod')->value; ?> == 1)

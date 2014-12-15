@@ -61,6 +61,10 @@ $this->inlineHelp=':profiles:team_member';
 		<?php echo $form->error($model,'created'); ?>
 	</div>
 
+<p>
+El texto abajo sale en la web conjuntamente con la consulta.<br />
+Después de pulicarlo podrás ajuntar la documentación recibida de la administración. 
+</p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>

@@ -109,11 +109,11 @@ $this->menu=array(
 	array('label'=>__('Email'), 'url'=>array('email')),
 	array('label'=>__('Locale'), 'url'=>array('locale')),
 	array('label'=>__('Social networks'), 'url'=>array('social')),
-	array('label'=>__('Color and Logo'), 'url'=>array('logo')),
+	array('label'=>__('Image'), 'url'=>array('image')),
 	array('label'=>__('Backups'), 'url'=>array('backups')),
 	array('label'=>__('Misc'), 'url'=>array('misc')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+
 ?>
 
 <?php

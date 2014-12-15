@@ -22,6 +22,8 @@
 /* @var $model Config */
 ?>
 
+<?php $this->inlineHelp=':manual:config:locale'; ?>
+
 <?php $this->renderPartial('_title', array('paramGroup'=>__('Locale')));?>
 
 <div class="parameterGroup">

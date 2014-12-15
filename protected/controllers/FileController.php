@@ -159,7 +159,7 @@ class FileController extends Controller
 
 				}elseif($model->model == 'logo'){
 					resizeLogo($model->getURI());
-					$this->redirect(array('config/logo'));
+					$this->redirect(array('config/image'));
 
 				}else
 					$this->redirect(array('site/index'));
