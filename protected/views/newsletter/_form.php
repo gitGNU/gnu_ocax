@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,8 +38,8 @@ function showRecipients(){
 		type: 'GET',
 		success: function(data){
 			if(data != 0){
-				$("#recipients_body").html(data);
-				$('#recipients').bPopup({
+				$("#recipients_popup_body").html(data);
+				$('#recipients_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -91,9 +91,9 @@ function showRecipients(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
-		$settings = array('theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
+		$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,justifyleft,justifycenter,
 														justifyright,|,bullist,numlist,|,outdent,indent,|,
-														undo,redo,|,link,unlink,|,image",
+														link,unlink,|,image",
 							'convert_urls'=>true,
 							'relative_urls'=>false,
 							'remove_script_host'=>false,
@@ -134,8 +134,8 @@ function showRecipients(){
 
 </div><!-- form -->
 
-<div id="recipients" class="modal" style="width:600px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-	<div id="recipients_body"></div>
+<div id="recipients_popup" class="modal" style="width:650px;">
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<div id="recipients_popup_body"></div>
 </div>
 

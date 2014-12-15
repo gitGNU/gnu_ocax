@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -60,8 +60,8 @@ function showRecipients(){
 		type: 'GET',
 		success: function(data){
 			if(data != 0){
-				$("#recipients_body").html(data);
-				$('#recipients').bPopup({
+				$("#recipients_popup_body").html(data);
+				$('#recipients_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -83,10 +83,8 @@ function send(){
 
 </script>
 
+<h1 class="sub_title"><?php echo CHtml::encode($model->subject);?></h1>
 <div class="email">
-	<div class="title">
-	<span class="sub_title"><?php echo CHtml::encode($model->subject);?></span>
-	</div>
 
 <div class="details outer">	
 <div class="form">
@@ -127,36 +125,21 @@ echo '<img id="loading" src="'.Yii::app()->request->baseUrl.'/images/small_loadi
 </div>
 
 <div class="clear"></div>
-
 <p><?php echo $model->body; ?></p>
-
-
 </div>
 
-<div id="recipients" class="modal" style="width:600px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-	<div id="recipients_body"></div>
+<div id="recipients_popup" class="modal" style="width:650px;">
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<div id="recipients_popup_body"></div>
 </div>
 
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
-	<script>
-		$(function() { setTimeout(function() {
-			$('.flash-success').slideUp('fast');
-    	}, 2000);
-		});
-	</script>
     <div class="flash-success">
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('error')):?>
-	<script>
-		$(function() { setTimeout(function() {
-			$('.flash-error').slideUp('fast');
-    	}, 2000);
-		});
-	</script>
     <div class="flash-error">
 		<?php echo Yii::app()->user->getFlash('error');?>
     </div>
