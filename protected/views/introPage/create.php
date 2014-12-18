@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 $this->menu=array(
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+$this->inlineHelp=':manual:intropage:create';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Create page'))); ?>

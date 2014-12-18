@@ -30,7 +30,7 @@ if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))
 	$download = array( array('label'=>__('Download zip file'), 'url'=>$csv_file->getWebPath()));
 	array_splice( $this->menu, 3, 0, $download );
 }
-$this->inlineHelp=':profiles:admin:zip';
+$this->inlineHelp=':manual:file:databasedownload';
 $this->viewLog="zipfile,budget";
 
 ?>

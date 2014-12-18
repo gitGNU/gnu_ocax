@@ -25,7 +25,7 @@
 $this->menu=array(
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':budget_descriptions';
+$this->inlineHelp=':manual:budgetdescription:browsestate';
 $this->viewLog='BudgetDescription';
 
 ?>

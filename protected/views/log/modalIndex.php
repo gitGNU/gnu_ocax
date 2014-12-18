@@ -29,7 +29,7 @@ function logModal2Page(){
 </script>
 
 <div class="modalTitle">
-<?php echo __('OCAx logs').': '.$title;?></div>
+<?php echo __('Log').': '.$title;?></div>
 
 <?php
 foreach($logs as $log){

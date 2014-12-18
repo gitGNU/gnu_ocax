@@ -29,7 +29,7 @@ $this->menu=array(
 	array('label'=>__('Edit year').' '.$model->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
 	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:admin:budgets';
+$this->inlineHelp=':manual:budget:deletetree';
 ?>
 
 <script>

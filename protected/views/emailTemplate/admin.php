@@ -21,7 +21,7 @@
 /* @var $this EmailTemplateController */
 /* @var $model EmailTemplate */
 
-$this->inlineHelp=':workflow:emails';
+$this->inlineHelp=':manual:emailtemplate';
 $this->viewLog='EmailTemplate';
 ?>
 

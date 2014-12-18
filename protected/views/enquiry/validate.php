@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
 	array('label'=>__('List enquiries'), 'url'=>array('assigned')),
 );
-$this->inlineHelp=':profiles:team_member';
+$this->inlineHelp=':manual:enquiry:validate';
 $this->viewLog='Enquiry|'.$model->id;
 ?>
 

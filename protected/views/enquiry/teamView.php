@@ -53,7 +53,7 @@ if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	array_splice( $this->menu, 0, 0, $reformulate );
 }
 
-$this->inlineHelp=':profiles:team_member';
+$this->inlineHelp=':manual:enquiry:teamview';
 $this->viewLog='Enquiry|'.$model->id;
 ?>
 

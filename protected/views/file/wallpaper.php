@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+$this->inlineHelp=':manual:file:wallpaper';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

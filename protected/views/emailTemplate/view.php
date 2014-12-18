@@ -25,7 +25,7 @@ $this->menu=array(
 	array('label'=>__('Edit template'), 'url'=>array('update', 'id'=>$model->state)),
 	array('label'=>__('Manage templates'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':workflow:emails';
+$this->inlineHelp=':manual:emailtemplate';
 $this->viewLog='EmailTemplate';
 ?>
 

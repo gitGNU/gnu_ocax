@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Delete local description'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':budget_descriptions';
+$this->inlineHelp=':manual:budgetdescription:update';
 $this->viewLog='BudgetDescription|'.$model->id;
 $this->extraText = $this->renderPartial('_legend',null,true,false);
 ?>

@@ -25,7 +25,7 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('Manage enquiries'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:team_manager';
+$this->inlineHelp=':manual:enquiry:manage';
 $this->viewLog='Enquiry|'.$model->id;
 ?>
 

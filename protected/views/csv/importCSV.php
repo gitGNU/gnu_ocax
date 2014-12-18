@@ -31,7 +31,7 @@ if($model->csv){
 	array_splice( $this->menu, 0, 0, $importAgain );
 }
 
-$this->inlineHelp=':csv_format';
+$this->inlineHelp=':manual:csv:import';
 ?>
 
 <style>

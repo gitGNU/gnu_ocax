@@ -488,6 +488,10 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
+			if($model->state < ENQUIRY_AWAITING_REPLY)
+				$msg = __('submitted to administration');
+			else
+				$msg = __('submit corrected');
 			$model->attributes=$_POST['Enquiry'];
 
 			if($model->validate()){
@@ -498,13 +502,15 @@ class EnquiryController extends Controller
 			}
 			if(Yii::app()->request->isAjaxRequest){
 				//http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
-				if($model->save())
+				if($model->save()){
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.$msg);
 					echo CJSON::encode(array('status'=>'success'));
-				else
+				}else
 					echo CActiveForm::validate($model);
 				Yii::app()->end();
 			}
 			if($model->save()){
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.$msg);
 				if($model->documentation){
 					$model->promptEmail();			
 					$this->redirect(array('teamView','id'=>$model->id));

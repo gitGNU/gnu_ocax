@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,8 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
-
+$this->inlineHelp=':manual:enquiry:assess';
+$this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <style>           

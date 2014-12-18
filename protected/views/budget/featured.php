@@ -29,7 +29,7 @@ $this->menu=array(
 	array('label'=>__('Edit year').' '.$model->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
 	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:admin:budgets';
+$this->inlineHelp=':manual:budget:featured';
 ?>
 
 <script>
@@ -37,9 +37,10 @@ function featureBudget(budget_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/feature',
 		type: 'GET',
-		data: {'id': budget_id },
+		data: {'id': budget_id},
 		success: function(data){
 			if(data != 0){
+				$('#budget-grid :input[type=text]').val('');
   				$.fn.yiiGridView.update('budget-grid', {
 					data: $(this).serialize()
 				});
