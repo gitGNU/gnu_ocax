@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -46,10 +46,16 @@ function toggleSearchOptions(){
 	</div>
 </div>
 <div style="position:relative; right:40px" >
-	<div id="teamMenu" class="color" onCLick="js:viewLog('User');return false;">
+	<div class="teamMenu" onCLick="js:showHelp('<?php echo getInlineHelpURL(":manual:user:admin");?>');return false;">
+		<i class="icon-help-circled"></i>
+	</div>
+</div>
+<div style="position:relative; right:80px" >
+	<div class="teamMenu" class="color" onCLick="js:viewLog('User');return false;">
 		<i class="icon-book"></i>
 	</div>
 </div>
+<?php $this->widget('InlineHelp'); ?>
 <?php $this->widget('ViewLog'); ?>
 
 <h1><?php echo __('Users and roles');?></h1>

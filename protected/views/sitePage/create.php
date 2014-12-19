@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+$this->inlineHelp=':manual:sitepage:create';
 $this->viewLog='sitePage';
 ?>
 

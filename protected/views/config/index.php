@@ -113,7 +113,7 @@ $this->menu=array(
 	array('label'=>__('Backups'), 'url'=>array('backups')),
 	array('label'=>__('Misc'), 'url'=>array('misc')),
 );
-
+$this->inlineHelp=':manual:config:index';
 ?>
 
 <?php

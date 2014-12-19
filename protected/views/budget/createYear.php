@@ -21,7 +21,7 @@
 $this->menu=array(
 	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
-
+$this->inlineHelp=':manual:budget:createyear';
 ?>
 
 <?php echo $this->renderPartial('_formYear',

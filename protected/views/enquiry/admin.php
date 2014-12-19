@@ -47,10 +47,16 @@ function toggleSearchOptions(){
 	</div>
 </div>
 <div style="position:relative; right:40px" >
-	<div id="teamMenu" class="color" onCLick="js:viewLog('Enquiry');return false;">
+	<div class="teamMenu" onCLick="js:showHelp('<?php echo getInlineHelpURL(":manual:enquiry:admin");?>');return false;">
+		<i class="icon-help-circled"></i>
+	</div>
+</div>
+<div style="position:relative; right:80px" >
+	<div class="teamMenu" class="color" onCLick="js:viewLog('Enquiry');return false;">
 		<i class="icon-book"></i>
 	</div>
 </div>
+<?php $this->widget('InlineHelp'); ?>
 <?php $this->widget('ViewLog'); ?>
 
 <h1><?php echo __('Manage enquiries');?></h1>

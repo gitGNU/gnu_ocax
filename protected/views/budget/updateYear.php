@@ -45,7 +45,7 @@ if($totalBudgets){
 								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
 	array_splice( $this->menu, 1, 0, $deleteYear );
 }
-$this->inlineHelp=':profiles:admin:budgets';
+$this->inlineHelp=':manual:budget:updateyear';
 $this->viewLog="Budget";
 ?>
 

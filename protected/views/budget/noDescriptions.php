@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Manage descriptions'), 'url'=>array('budgetDescription/admin')),
 );
-$this->inlineHelp=':budget_descriptions';
+$this->inlineHelp=':manual:budget:nodescriptions';
 ?>
 
 <h1><?php echo __('Budgets without description');?></h1>
@@ -38,7 +38,10 @@ $this->inlineHelp=':budget_descriptions';
 	'dataProvider'=>$model->budgetsWithoutDescription(),
 	'filter'=>$model,
 	'columns'=>array(
-        'csv_id',
+		array(
+			'header'=>'internal code',
+			'value'=>'$data["csv_id"]',
+		),
         'code',
         'year',
 		array(

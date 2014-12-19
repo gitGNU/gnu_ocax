@@ -37,7 +37,7 @@ if($model->sent == 0){
 																		));
 	array_splice( $this->menu, 0, 0, $delete );
 }
-$this->inlineHelp=':profiles:admin:newsletters';
+$this->inlineHelp=':manual:newsletter:adminview';
 ?>
 
 <style>           

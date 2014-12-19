@@ -43,7 +43,7 @@ catch (Exception $e) {
 </style>
 
 <div>
-<h1 style="float:left"><?php echo __('General site statistics');?></h1>
+<h1 style="float:left"><?php echo __('Site summary');?></h1>
 <p style="float:right">OCAx version <?php echo getOCAXVersion();?></p>
 </div>
 <div class="clear"></div>

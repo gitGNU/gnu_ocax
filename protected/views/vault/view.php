@@ -31,6 +31,7 @@ $this->menu=array(
 												'confirm'=>__('You are going to delete this vault. Are you sure?')
 		)),
 );
+$this->inlineHelp=':manual:vault:view';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

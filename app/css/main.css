@@ -599,7 +599,7 @@ span.ocaxVoteCount {
 }
 
 /* team menu */
-#teamMenu, #searchOptionsToggle
+.teamMenu, #searchOptionsToggle
 {
 	color: #7D7D7D;	
 	position: absolute;
@@ -608,10 +608,10 @@ span.ocaxVoteCount {
 	cursor:pointer;
 }
 
-#teamMenu i:hover, #searchOptionsToggle:hover {
+.teamMenu i:hover, #searchOptionsToggle:hover {
 	color: #454545;	
 }
-#teamMenu i, #searchOptionsToggle i
+.teamMenu i, #searchOptionsToggle i
 {
 	font-size: 2em;
 }

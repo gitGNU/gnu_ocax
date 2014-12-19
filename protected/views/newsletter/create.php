@@ -25,6 +25,7 @@
 $this->menu=array(
 	array('label'=>__('Manage bulk email'), 'url'=>array('admin')),
 );
+$this->inlineHelp=':manual:newsletter:create';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'total_recipients'=>$total_recipients)); ?>

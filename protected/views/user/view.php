@@ -31,7 +31,7 @@ if(!$model->enquirys){
 					));
 	array_splice( $this->menu, 1, 0, $item );
 }
-$this->inlineHelp=':profiles';
+$this->inlineHelp=':manual:user:view';
 $this->viewLog='User|'.$model->id;
 ?>
 

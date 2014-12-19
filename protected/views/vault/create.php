@@ -24,6 +24,7 @@ $this->menu=array(
 	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>__('Manage backups'), 'url'=>array('backup/admin')),
 );
+$this->inlineHelp=':manual:vault:create';
 ?>
 
 <style>
@@ -90,6 +91,15 @@ function showSchedule(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
+<div class="row step">
+<h2>Every vault has two observatories</h2>
+<p>
+1.	<?php echo Yii::app()->getBaseUrl(true);?><br />
+2.	<?php echo $form->textField($model,'host',array('size'=>30,'maxlength'=>255)); ?>
+	<?php echo $form->error($model,'host'); ?>
+</p>
+</div>
+
 <div class="row step" style="display:block">
 <h2><?php echo __('What type of vault are you creating?');?></h2>
 <p>
@@ -132,15 +142,6 @@ function showSchedule(){
 	}
 	echo $form->error($model,'schedule');
 ?>
-</p>
-</div>
-
-<div class="row step">
-<h2>Every vault has two observatories</h2>
-<p>
-1.	<?php echo Yii::app()->getBaseUrl(true);?><br />
-2.	<?php echo $form->textField($model,'host',array('size'=>30,'maxlength'=>255)); ?>
-	<?php echo $form->error($model,'host'); ?>
 </p>
 </div>
 

@@ -24,6 +24,7 @@ $this->menu=array(
 	array('label'=>__('Manual backup'), 'url'=>array('backup/manualCreate')),
 	array('label'=>__('Create vault'), 'url'=>array('create')),
 );
+$this->inlineHelp=':manual:vault:admin';
 ?>
 
 <?php
