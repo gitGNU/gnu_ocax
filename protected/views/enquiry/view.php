@@ -29,7 +29,7 @@ if(Yii::app()->request->isAjaxRequest){
 	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/css/enquiry.css" />';
 	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
 	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
-	echo $this->renderPartial('javascript',array('model'=>$model),false,false);
+	echo $this->renderPartial('subscribeScript',array(),false,false);
 }
 ?>
 
@@ -60,31 +60,6 @@ if(Yii::app()->request->isAjaxRequest){
 <?php } ?>
 
 <script>
-function subscribe_old(el){
-	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		$(el).attr('checked', false);
-		alert("<?php echo __('Please login to subscribe')?>");
-		$('#subscribe').hide();
-		return;
-	}
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/subscribe',
-		type: 'POST',
-		dataType: 'json',
-		data: { 'enquiry': <?php echo $model->id;?>,
-				'subscribe': $(el).is(':checked'),
-			  },
-		//beforeSend: function(){ },
-		//complete: function(){ },
-		success: function(data){
-			$('#subscribe').slideUp('fast');
-			if($('#subscriptionTotal').length>0){
-				updateSubscriptionTotal(data);
-			}
-		},
-		error: function() { alert("error on subscribe"); },
-	});
-}
 function showBudget(budget_id, element){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,

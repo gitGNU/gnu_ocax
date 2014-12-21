@@ -285,6 +285,7 @@ if($model->is_admin){
 <?php
 $showEnquiryGrid=0;
 if($enquirys->getData() || $subscribed->getData()){
+	$this->widget('EnquiryModal');
 	$showEnquiryGrid=1;
 	echo '<div>';	// open outer
 	echo '<div style="float:left;margin-right:30px;width:550px">';	// open left
@@ -298,7 +299,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
 	'selectableRows'=>1,
-	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/view').'/"+$.fn.yiiGridView.getSelection(id);}',
+//	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/view').'/"+$.fn.yiiGridView.getSelection(id);}',
+	'selectionChanged'=>'function(id){ showEnquiry($.fn.yiiGridView.getSelection(id));}',
 	'template' => '{items}{pager}',
 	'dataProvider'=>$enquirys,
 	'ajaxUpdate'=>true,
@@ -334,8 +336,8 @@ $this->widget('PGridView', array(
 	'template' => '{items}{pager}',
 	'dataProvider'=>$subscribed,
     'onClick'=>array(
-        'type'=>'url',
-        'call'=>Yii::app()->request->baseUrl.'/enquiry/view',
+        'type'=>'javascript',
+        'call'=>'showEnquiry',
     ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(
@@ -423,3 +425,4 @@ if(!$showEnquiryGrid){
 		echo '<button onclick="$(\'.flash-notice\').slideUp(\'fast\')">'.__('No').'</button>';
 	echo '</div>';
 } ?>
+

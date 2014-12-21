@@ -41,12 +41,11 @@ if($displayType == 'grid'){
 		return false;
 	});
 	");
-	}
+}
+$this->widget('EnquiryModal');
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
-<?php echo $this->renderPartial('javascript',array('model'=>$model),false,false); ?>
 
 <script>
 var resetFormElements = 0;
@@ -86,36 +85,6 @@ function filterByDiagram(state){
 	$("#search_enquiries").submit();
 	
 	//$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
-}
-function showEnquiry(enquiry_id){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
-		type: 'GET',
-		dataType: 'json',
-		beforeSend: function(){
-						$('#preview_'+enquiry_id).find('.loading').show();
-					},
-		complete: function(){ 
-						$('#preview_'+enquiry_id).find('.loading').hide();
-						FB.XFBML.parse();
-						twttr.widgets.load();
-					},
-		success: function(data){
-			if(data != 0){
-				$("#enquiry_body").html(data.html);
-				$('#enquiry_popup').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-					, speed: 10
-                });
-			}
-		},
-		error: function() {
-			alert("Error on show enquiry");
-		}
-	});
 }
 function resetToggleIcons(){
 	$('#searchOptionsToggle').find('i').removeClass('icon-cancel-circled');
@@ -288,12 +257,6 @@ if($displayType == 'grid'){
 	));
 }
 ?>
-</div>
-
-<div id="enquiry_popup" class="modal" style="width:870px;">
-	<i class='icon-cancel-circled modalWindowButton bClose'></i>
-	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:enquiryModal2Page();"></i>
-<div id="enquiry_body"></div>
 </div>
 
 <?php if(Yii::app()->user->isGuest){
