@@ -29,7 +29,7 @@
 	height: 20px;
 	top: -18px;
 	left: 70px;
-	font-size: 16px;
+	font-size: 14px;
 	color: #7F7F7F;
 	cursor: pointer;
 }
@@ -49,11 +49,10 @@
 	position: absolute;
 	padding: 0 5px 0 5px;
 	height: 20px;
-	top: -21px;
-	left: 100px;
+	top: -18px;
+	left: 90px;
+	font-size: 14px;
 	cursor: pointer;
-	background-color:#DC143C;
-	color:white;
 }
 .archive .name {
 	padding: 3px 3px 0px 0px;

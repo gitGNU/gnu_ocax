@@ -27,7 +27,7 @@
 		echo '<div class="alert showLinkAlert"></div>';
 		echo '<i class="showLink icon-link" onclick="js:showLink('.$data->id.',this);return false;"></i>';
 		if($data->author == $user_id || $is_admin)
-			echo '<span class="delete" onClick="js:deleteArchive('.$data->id.')">'.__('Delete').'</span>';
+			echo '<i class="icon-cancel-circled  delete red" onClick="js:deleteArchive('.$data->id.')"></i>';
 
 		echo '<a href="'.$data->getWebPath().'">';
 			echo '<div style="padding-left:3px;overflow:hidden;">';

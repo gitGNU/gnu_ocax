@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -77,7 +77,7 @@ class ArchiveController extends Controller
 			header("Cache-Control: public");
 			header("Content-Description: File Transfer");
 			header("Content-type: $mime_type");
-			header("Content-Disposition: attachment; filename='".$model->name.".".$model->extension."'");
+			header("Content-Disposition: attachment; filename=".$model->name.".".$model->extension);
 			//header("Content-Transfer-Encoding: binary");
 			header("Content-Length: ".filesize($model->baseDir.$model->path));
 			ob_end_flush();
