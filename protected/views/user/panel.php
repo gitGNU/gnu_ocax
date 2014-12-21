@@ -293,16 +293,19 @@ if($enquirys->getData() || $subscribed->getData()){
 
 if($enquirys->getData()){
 echo '<div class="sub_title">'.__('My enquiries').'</div>';
-$this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
-	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'loadingCssClass'=>'pgrid-view-loading',
+$this->widget('PGridView', array(
+//	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
+//	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+//	'loadingCssClass'=>'pgrid-view-loading',
 	'id'=>'enquiry-grid',
 	'selectableRows'=>1,
 //	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('enquiry/view').'/"+$.fn.yiiGridView.getSelection(id);}',
-	'selectionChanged'=>'function(id){ showEnquiry($.fn.yiiGridView.getSelection(id));}',
 	'template' => '{items}{pager}',
 	'dataProvider'=>$enquirys,
+    'onClick'=>array(
+        'type'=>'javascript',
+        'call'=>'showEnquiry',
+    ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 			array(
@@ -321,12 +324,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'type' => 'raw',
 				'value'=>'$data->getHumanStates($data[\'state\'])',
 			),
+			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));
 echo '<p></p>';
 }
-?>
-
-<?php
 
 if($subscribed->getData()){
 echo '<div class="sub_title">'.__('I am subscribed to these enquirytions').'</div>';
