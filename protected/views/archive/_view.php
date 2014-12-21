@@ -23,19 +23,19 @@
 
 <div class="archive" >
 	<?php
-
 		echo '<span class="created">'.format_date($data->created).'</span>';
+		echo '<div class="alert showLinkAlert"></div>';
+		echo '<i class="showLink icon-link" onclick="js:showLink('.$data->id.',this);return false;"></i>';
 		if($data->author == $user_id || $is_admin)
 			echo '<span class="delete" onClick="js:deleteArchive('.$data->id.')">'.__('Delete').'</span>';
 
 		echo '<a href="'.$data->getWebPath().'">';
-		echo '<div style="padding-left:3px;overflow:hidden;">';
-		echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.strtolower($data->extension).'.png"/>';
-		echo '<span class="name">'.CHtml::encode($data->name).'</span>';
-		echo '</div>';
-		echo '<div style="clear:both"></div>';
-		echo '<div class="description">'.CHtml::encode($data->description).'</div>';
-
+			echo '<div style="padding-left:3px;overflow:hidden;">';
+			echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.strtolower($data->extension).'.png"/>';
+			echo '<span class="name">'.CHtml::encode($data->name).'</span>';
+			echo '</div>';
+			echo '<div style="clear:both"></div>';
+			echo '<div class="description">'.CHtml::encode($data->description).'</div>';
 		echo '</a>';
 	?>
 </div>

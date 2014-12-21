@@ -23,12 +23,34 @@
 	color:grey;
 	background-color: rgb(228, 222, 215);
 }
+.archive .showLink {
+	position: absolute;
+	padding: 0 5px 0 5px;
+	height: 20px;
+	top: -18px;
+	left: 70px;
+	font-size: 16px;
+	color: #7F7F7F;
+	cursor: pointer;
+}
+.archive .showLinkAlert {
+	left: -0px;
+	top: -20px;
+	width: 245px;
+	padding: 10px 0px 10px 5px;
+}
+.archive .closeLinkAlert {
+	font-size: 17px;
+	cursor: pointer;
+	color: #7F7F7F;
+}
+
 .archive .delete {
 	position: absolute;
 	padding: 0 5px 0 5px;
 	height: 20px;
-	top: -20px;
-	left: 80px;
+	top: -21px;
+	left: 100px;
 	cursor: pointer;
 	background-color:#DC143C;
 	color:white;

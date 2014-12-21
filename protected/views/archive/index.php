@@ -75,6 +75,22 @@ function deleteArchive(archive_id){
 	echo $this->renderPartial('//file/modal');
 } ?>
 
+<script>
+function showLink(archive_id, el){
+	notice = $(el).parent().find('.alert');
+	$('.alert').not(notice).each(function(){
+		$(this).hide();
+	});
+	text = $('<div></div>');
+	archiveLink = '<?php echo Yii::app()->createAbsoluteUrl('');?>/archive/'+archive_id;
+	input = $('<input type="text" style="width:205px;margin-right:3px;" value='+archiveLink+' />');
+	$(text).append(input);
+	$(text).append('<i class="icon-cancel-circled closeLinkAlert" onclick="js:$(\'.alert\').hide();"></i>');
+	$(notice).html(	text );
+	$(notice).show();
+	$(input).select();
+}
+</script>
 
 <div style="margin:0px 0 20px 0">
 <?php
