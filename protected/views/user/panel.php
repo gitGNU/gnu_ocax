@@ -365,7 +365,7 @@ $this->widget('PGridView', array(
 if($showEnquiryGrid){
 	echo '</div>'; // close left
 	echo '<div style="float:left;width:350px;">';
-	$this->renderPartial('//enquiry/workflow');
+	$this->renderPartial('//enquiry/workflow-vertical');
 	echo '</div>'; // close right
 	echo '</div>'; // close outer
 	echo '<div class="clear"></div>';

@@ -167,8 +167,8 @@ function resetForm(){
 </div>
 
 <div id="workflowFilterOptions" style="margin-top:-20px;height:95px; display:inline-block">
-	<span style="font-size:16px">width:930px; height:100px</span><br />
-	<img style="width:930px;height:100px" src="<?php echo Yii::app()->request->baseUrl;?>/images/horizontal-workflow.png" />
+	
+	<img style="width:930px;height:120px;border:solid 1px red" src="<?php echo Yii::app()->request->baseUrl;?>/images/horizontal-workflow.png" />
 </div>
 
 </div>	<!-- filter options end -->
