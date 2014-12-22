@@ -33,7 +33,7 @@ if(!isset($model))
 }
 </style>
 
-<div id="workflow_diagram" style="background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow.png'); height:415px; position:relative;">
+<div id="workflow_diagram" style="background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow-vertical.png'); height:415px; position:relative;">
 <div style="top:25px;left:120px;"><?php echo $model->getHumanStates(ENQUIRY_PENDING_VALIDATION);?></div>
 <div class="workflowFilter" style="top:107px;left:0px;width:140px;" state="<?php echo ENQUIRY_ACCEPTED;?>"><?php echo $model->getHumanStates(ENQUIRY_ACCEPTED);?></div>
 <div class="workflowFilter" style="top:107px;left:218px;width:145px;" state="<?php echo ENQUIRY_REJECTED;?>"><?php echo $model->getHumanStates(ENQUIRY_REJECTED);?></div>
