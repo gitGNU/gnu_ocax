@@ -60,8 +60,8 @@ class ArchiveController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
+	 * Downloads a particular model.
+	 * @param integer $id the ID of the model to be downloaded
 	 */
 	public function actionView($id)
 	{
