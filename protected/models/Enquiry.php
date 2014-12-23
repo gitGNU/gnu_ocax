@@ -340,28 +340,30 @@ class Enquiry extends CActiveRecord
 	{
 		$stats = array();
 		$stats['total'] = $this->count();
+		
 		if($stats['total']){
-			$stats['pending'] = round($this->count(array('condition' =>
+			$stats['pending'] = $this->count(array('condition' =>
 														'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
-														'state = '.ENQUIRY_ASSIGNED))/$stats['total']*100);
-			
+																	ENQUIRY_ASSIGNED));			
 			$stats['rejected']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_REJECTED))/$stats['total']*100);
+					$this->count(array('condition' =>'state = '.ENQUIRY_REJECTED));
 			
 			$stats['accepted']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_ACCEPTED))/$stats['total']*100);
+					$this->count(array('condition' =>'state = '.ENQUIRY_ACCEPTED));
 			
 			$stats['waiting_reply']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_AWAITING_REPLY))/$stats['total']*100);
+					$this->count(array('condition' =>'state = '.ENQUIRY_AWAITING_REPLY));
 			
 			$stats['pending_assesment']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT))/$stats['total']*100);
+					$this->count(array('condition' =>'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
+			
+			$replied = $this->count(array('condition' =>'state > '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
 			
 			$stats['reply_satisfactory']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_SATISFACTORY))/$stats['total']*100);
+					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_SATISFACTORY))/$replied*100);
 			
 			$stats['reply_insatisfactory']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$stats['total']*100);
+					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$replied*100);
 		}else{
 			$stats['pending']=$stats['rejected']=$stats['accepted']=$stats['waiting_reply']=0;
 			$stats['pending_assesment']=$stats['reply_satisfactory']=$stats['reply_insatisfactory']=0;
