@@ -30,7 +30,7 @@ $stats = $model->getStatistics();
 #workflow_diagram > div.workflowFilter {
 	position:absolute;
 	/*height:48px;*/
-	width:170px;
+	width:185px;
 	border: solid 1px blue;
 }
 #workflow_diagram > div.workflowFilter > div.text{
@@ -42,7 +42,7 @@ $stats = $model->getStatistics();
 
 </style>
 
-<div id="workflow_diagram" style="position:absolute; background-position: 0px 0px; width: 930px; height:120px; background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow-horizontal.png');">
+<div id="workflow_diagram" style="position:absolute; margin-left:-10px; width: 930px; height:120px; background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow-horizontal.png');">
 
 <div class="workflowFilter" style="top:0px;left:0px;">
 	<div class="text ">
