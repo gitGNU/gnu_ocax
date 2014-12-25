@@ -47,6 +47,10 @@ $this->widget('EnquiryModal');
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
+<style>
+.items { margin-top:10px; }
+</style>
+
 <script>
 var resetFormElements = 0;
 
@@ -176,10 +180,17 @@ function resetForm(){
 
 </div>	<!-- filter options end -->
 
+
+
 <div id="enquiryDisplayTypeIcons">
 <i class="icon-th-large" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></i>
 <i class="icon-th-list" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></i>
 </div>
+
+<div style="position:relative">
+<div style="position:absolute; top: -20px; left: 300px;">Filter: hieddvfkñdvfjkñdfjñkdfvjñklfkcd</div>
+</div>
+
 
 <div id="enquiryList" style="position:relative">
 <span id="humanStateTitle"></span>

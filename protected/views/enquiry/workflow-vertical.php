@@ -22,8 +22,7 @@
 /* @var $model Enquiry */
 /* @var $form CActiveForm */
 
-if(!isset($model))
-	$model = new Enquiry;
+$model = new Enquiry;
 ?>
 
 <style>
@@ -41,17 +40,5 @@ if(!isset($model))
 <div class="workflowFilter" style="top:275px;left:120px;" state="<?php echo ENQUIRY_REPLY_PENDING_ASSESSMENT;?>"><?php echo $model->getHumanStates(ENQUIRY_REPLY_PENDING_ASSESSMENT);?></div>
 <div class="workflowFilter" style="top:355px;left:0px;width:140px;" state="<?php echo ENQUIRY_REPLY_INSATISFACTORY;?>"><?php echo $model->getHumanStates(ENQUIRY_REPLY_INSATISFACTORY);?></div>
 <div class="workflowFilter" style="top:355px;left:218px;width:145px;" state="<?php echo ENQUIRY_REPLY_SATISFACTORY;?>"><?php echo $model->getHumanStates(ENQUIRY_REPLY_SATISFACTORY);?></div>
-
-<?php if(isset($showStats)){
-	$stats = $model->getStatistics();
-?>
-<div style="top:53px;left:93px;width:30px;"><?php echo $stats['pending'].'%'?></div>
-<div style="top:140px;left:145px;width:30px;"><?php echo $stats['accepted'].'%'?></div>
-<div style="top:140px;left:190px;width:30px;"><?php echo $stats['rejected'].'%'?></div>
-<div style="top:223px;left:93px;width:30px;"><?php echo $stats['waiting_reply'].'%'?></div>
-<div style="top:302px;left:93px;width:30px;"><?php echo $stats['pending_assesment'].'%'?></div>
-<div style="top:388px;left:145px;width:30px;"><?php echo $stats['reply_insatisfactory'].'%'?></div>
-<div style="top:388px;left:190px;width:30px;"><?php echo $stats['reply_satisfactory'].'%'?></div>
-<?php } ?>
 
 </div>
