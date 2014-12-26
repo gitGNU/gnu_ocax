@@ -110,7 +110,7 @@ function toggleSearchOptions(){
 	if ($("#advancedFilterOptions").is(":visible")){
 		$("#advancedFilterOptions").hide();
 		$("#workflowFilterOptions").show();
-		$("#workflowFilterOptions").find('li').removeClass('activeItem');
+		$('.workflowFilter').removeClass('selectedWorkflowFilter');
 		
 	}else{
 		$("#Enquiry_basicFilter").val('');

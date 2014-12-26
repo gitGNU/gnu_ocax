@@ -343,30 +343,32 @@ class Enquiry extends CActiveRecord
 		
 		if($stats['total']){
 			$stats['pending'] = $this->count(array('condition' =>
-														'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
+														'state = '.ENQUIRY_PENDING_VALIDATION.' OR state = '.
 																	ENQUIRY_ASSIGNED));			
 			$stats['accepted']=
 					$this->count(array('condition' =>'state = '.ENQUIRY_ACCEPTED));
 			
 			if($reject = $this->count(array('condition' =>'state = '.ENQUIRY_REJECTED)))
-				$stats['rejected'] = $reject/$stats['total']*100;
+				$stats['rejected'] = round($reject/$stats['total']*100, 0);
 			else
 				$stats['rejected']= 0;
 					
-			
 			$stats['waiting_reply']=
 					$this->count(array('condition' =>'state = '.ENQUIRY_AWAITING_REPLY));
 			
 			$stats['pending_assesment']=
 					$this->count(array('condition' =>'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
 			
-			$replied = $this->count(array('condition' =>'state > '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
-			
-			$stats['reply_satisfactory']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_SATISFACTORY))/$replied*100);
-			
-			$stats['reply_insatisfactory']=
-					round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$replied*100);
+			$assessed = $this->count(array('condition' =>'state > '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
+			if($assessed){
+				$stats['reply_satisfactory']=
+						round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_SATISFACTORY))/$assessed*100, 0);
+				$stats['reply_insatisfactory']=
+						round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$assessed*100, 0);
+			}else{
+				$stats['reply_satisfactory']=0;
+				$stats['reply_insatisfactory']=0;
+			}
 		}else{
 			$stats['pending']=$stats['rejected']=$stats['accepted']=$stats['waiting_reply']=0;
 			$stats['pending_assesment']=$stats['reply_satisfactory']=$stats['reply_insatisfactory']=0;
