@@ -27,61 +27,60 @@ $stats = $model->getStatistics();
 ?>
 
 <style>
-#workflow_diagram > div.workflowFilter {
+#workflow_diagram > div.workflowState {
 	position:absolute;
-	/*height:48px;*/
 	width:185px;
-	border: solid 1px blue;
+	border-left: solid 3px #9E9E9E;
 }
-#workflow_diagram > div.workflowFilter > div.text{
+#workflow_diagram > div.workflowState > div.workflowStateText{
 	margin-left:40px;
+	padding-left:0px;
 	font-size:1em; line-height:100%;
-	border: solid 1px red;
 }
-#workflow_diagram > div.workflowFilter:hover { background:white; color:black; cursor:pointer }
+#workflow_diagram > div.workflowFilter:hover { cursor:pointer }
 
 </style>
 
 <div id="workflow_diagram" style="position:absolute; margin-left:-10px; width: 930px; height:120px; background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow-horizontal.png');">
 
-<div class="workflowFilter" style="top:0px;left:0px;">
-	<div class="text ">
+<div class="workflowState" style="top:0px;left:0px;">
+	<div class="workflowStateText">
 		<?php echo $model->getHumanStates(ENQUIRY_PENDING_VALIDATION);?><br />
 		<?php echo '<b>'.$stats['pending'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div class="workflowFilter" style="top:0px;left:190px;" state="<?php echo ENQUIRY_ACCEPTED;?>">
-	<div class="text green" state="<?php echo ENQUIRY_ACCEPTED;?>">
+<div class="workflowState workflowFilter" style="top:0px;left:190px;border-color:green;" state="<?php echo ENQUIRY_ACCEPTED;?>">
+	<div class="workflowStateText green">
 		<?php echo $model->getHumanStates(ENQUIRY_ACCEPTED);?><br />
 		<?php echo '<b>'.$stats['accepted'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div class="workflowFilter" style="top:60px;left:190px;" state="<?php echo ENQUIRY_REJECTED;?>">
-	<div class="text red">
+<div class="workflowState" style="top:60px;left:190px; border-color:red;">
+	<div class="workflowStateText red">
 		<?php echo $model->getHumanStates(ENQUIRY_REJECTED);?><br />
-		<?php echo '<b>'.$stats['rejected'].' '.__('enquiries').'</b>'; ?>
+		<?php echo '<b>'.$stats['rejected'].'%</b>'; ?>
 	</div>
 </div>
-<div class="workflowFilter" style="top:0px;left:380px;" state="<?php echo ENQUIRY_AWAITING_REPLY;?>">
-	<div class="text">
+<div class="workflowState workflowFilter" style="top:0px;left:380px;" state="<?php echo ENQUIRY_AWAITING_REPLY;?>">
+	<div class="workflowStateText">
 		<?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY);?><br />
 		<?php echo '<b>'.$stats['waiting_reply'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div class="workflowFilter" style="top:0px;left:570px;" state="<?php echo ENQUIRY_REPLY_PENDING_ASSESSMENT;?>">
-	<div class="text">
+<div class="workflowState workflowFilter" style="top:0px;left:570px;" state="<?php echo ENQUIRY_REPLY_PENDING_ASSESSMENT;?>">
+	<div class="workflowStateText">
 		<?php echo $model->getHumanStates(ENQUIRY_REPLY_PENDING_ASSESSMENT);?><br />
 		<?php echo '<b>'.$stats['pending_assesment'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div class="workflowFilter" style="top:0px;left:760px" state="<?php echo ENQUIRY_REPLY_SATISFACTORY;?>">
-	<div class="text green">
+<div class="workflowState workflowFilter" style="top:0px;left:760px; border-color:green;" state="<?php echo ENQUIRY_REPLY_SATISFACTORY;?>">
+	<div class="workflowStateText green">
 		<?php echo $model->getHumanStates(ENQUIRY_REPLY_SATISFACTORY);?><br />
 		<?php echo '<b>'.$stats['reply_satisfactory'].'%</b>'; ?>
 	</div>
 </div>
-<div class="workflowFilter" style="top:60px;left:760px" state="<?php echo ENQUIRY_REPLY_INSATISFACTORY;?>">
-	<div class="text red">
+<div class="workflowState workflowFilter" style="top:60px;left:760px; border-color:red;" state="<?php echo ENQUIRY_REPLY_INSATISFACTORY;?>">
+	<div class="workflowStateText red">
 		<?php echo $model->getHumanStates(ENQUIRY_REPLY_INSATISFACTORY);?><br />
 		<?php echo '<b>'.$stats['reply_insatisfactory'].'%</b>'; ?>
 	</div>

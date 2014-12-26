@@ -2,12 +2,13 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
+
 require_once(dirname(__FILE__).'/../includes/utils.php');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'name'=>'OCA(x)',
+	'name'=>'OCAx',
 	'language' => 'en',
 	'behaviors' => array('ApplicationConfigBehavior'),
 	
@@ -53,12 +54,12 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
-				array('api/script', 'pattern'=>'api/script/<script:\w+>', 'verb'=>'GET'),
+				array('graph/script', 'pattern'=>'graph/<script:\w+>', 'verb'=>'GET'),
 				array('api/list', 'pattern'=>'api/<model:\w+>', 'verb'=>'GET'),
-				array('api/view', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'GET'),
-				array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
-				array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
-				array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
+				//array('api/view', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'GET'),
+				//array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
+				//array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
+				//array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
 				
 				'p/<pageURL:[a-z0-9-]+>'=>'sitePage/show',
 				'e/<id:\d+>'=>'enquiry/view',

@@ -38,10 +38,8 @@
 /* workflow */
 #workflow_diagram {  }
 
-.workflowText {  }
-.workflowFilter:hover { cursor:pointer; color:black; }
 
-#filterLabel { margin-top: -25px; margin-right: -10px; text-align:right; }
+
 
 /* search form */
 

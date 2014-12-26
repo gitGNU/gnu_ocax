@@ -43,36 +43,6 @@ class ApiController extends Controller
 	}
 
 	// Actions
-	public function actionScript()
-	{
-		//if($_GET['callback'] &&  (preg_match('/\W/', $_GET['callback']))
-		//	Yii::app()->end();
-
-		if(!isset($_GET['script'])){	// this should already be caught by api/<model> aka actionList but we'll leave it here.
-			$this->_sendResponse(501, sprintf(
-					'Not implemented',
-					$_GET['model'])
-				);
-			Yii::app()->end();
-		}
-		$fileName = Yii::getPathOfAlias('application.views.api').'/'.$_GET['script'].'.js';
-		if(!file_exists($fileName)){
-			$this->_sendResponse(501, sprintf(
-					'Not implemented',
-					$_GET['model'])
-				);
-				Yii::app()->end();
-		}
-
-		header("Content-type: text/javascript; charset: UTF-8");
-		header("Pragma: cache");
-		header("Cache-Control: must-revalidate");
-		$offset = strtotime('+42 hours'); // same as time() + 42 * 60 * 60
-		$ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", $offset) . " GMT";
-		header($ExpStr);
-		echo str_replace('$baseURL', Yii::app()->getBaseUrl(true), file_get_contents($fileName));
-	}
-
 	public function actionList()
 	{
 		// Get the respective model instance

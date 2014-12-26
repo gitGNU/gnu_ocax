@@ -27,12 +27,11 @@
 </style>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/piegraph.css" />
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jqplot/excanvas.js"></script><![endif]-->
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/api/script/ocaxpiegraph"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/graph/ocaxpiegraph"></script>
 			
 
 <div class="ocaxpiegraph">
 <?php
-
 foreach($featured as $budget){
 		echo '<div id="anchor_'.$budget->id.'" class="graph_pie_group"></div>';
 }
@@ -52,5 +51,3 @@ $(window).bind("load", function() {
 	?>
 });
 </script>
-
-

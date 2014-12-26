@@ -345,11 +345,14 @@ class Enquiry extends CActiveRecord
 			$stats['pending'] = $this->count(array('condition' =>
 														'state = '.ENQUIRY_PENDING_VALIDATION.' OR '.
 																	ENQUIRY_ASSIGNED));			
-			$stats['rejected']=
-					$this->count(array('condition' =>'state = '.ENQUIRY_REJECTED));
-			
 			$stats['accepted']=
 					$this->count(array('condition' =>'state = '.ENQUIRY_ACCEPTED));
+			
+			if($reject = $this->count(array('condition' =>'state = '.ENQUIRY_REJECTED)))
+				$stats['rejected'] = $reject/$stats['total']*100;
+			else
+				$stats['rejected']= 0;
+					
 			
 			$stats['waiting_reply']=
 					$this->count(array('condition' =>'state = '.ENQUIRY_AWAITING_REPLY));

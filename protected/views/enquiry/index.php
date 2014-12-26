@@ -48,7 +48,9 @@ $this->widget('EnquiryModal');
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
 <style>
-.items { margin-top:10px; }
+.highlightWorkflowFilter, .selectedWorkflowFilter{
+		background-color: rgba(255, 255, 255, 0.8);
+}
 </style>
 
 <script>
@@ -65,6 +67,12 @@ $(function() {
 	$( document ).on( "mouseleave", ".enquiryPreview", function() {
 		$(this).find('.title').removeClass('highlightWithColor');
 		$(this).find('.created').removeClass('highlightWithColor');
+	});
+	$( document ).on( "mouseenter", ".workflowFilter", function() {
+		$(this).addClass('highlightWorkflowFilter');
+	});
+	$( document ).on( "mouseleave", ".workflowFilter", function() {
+		$(this).removeClass('highlightWorkflowFilter');
 	});
 	$(window).scroll(function() {
 		if($(this).scrollTop() > 300)
@@ -87,8 +95,8 @@ function filterByDiagram(state){
 	humanStates = <?php echo json_encode($model->getHumanStates()) ?>;
 	$("#Enquiry_state").val(state);
 	$("#search_enquiries").submit();
-	
-	//$("#humanStateTitle").html("<?php echo __('Filtered by:').' ';?>"+humanStates[state]);
+	$('.workflowFilter').removeClass('selectedWorkflowFilter');
+	$("[state='"+state+"']").addClass('selectedWorkflowFilter');
 }
 function resetToggleIcons(){
 	$('#searchOptionsToggle').find('i').removeClass('icon-cancel-circled');
@@ -186,11 +194,6 @@ function resetForm(){
 <i class="icon-th-large" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></i>
 <i class="icon-th-list" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></i>
 </div>
-
-<div style="position:relative">
-<div style="position:absolute; top: -20px; left: 300px;">Filter: hieddvfkñdvfjkñdfjñkdfvjñklfkcd</div>
-</div>
-
 
 <div id="enquiryList" style="position:relative">
 <span id="humanStateTitle"></span>
