@@ -32,21 +32,19 @@ $stats = $model->getStatistics();
 }
 #workflow_diagram > div.workflowState {
 	width:185px;
-	
+	min-height:55px;
 }
 #workflow_diagram > div.workflowState > img {
 	float: left;
-	padding:3px 0 0 3px;
+	padding:3px 0 0 1px;
 }
 #workflow_diagram > div.workflowState > div.workflowStateText{
 	border-left: solid 3px #9E9E9E;
-	margin-left:37px;
-	padding-left:3px;
-	padding-bottom: 10px;
-	font-size:14px; line-height:100%;
+	margin-left:35px;
+	padding: 0 0 10px 5px;
+	font-size:14px; line-height:105%;
 }
 #workflow_diagram > div.workflowFilter:hover { cursor:pointer }
-
 </style>
 
 <div id="workflow_diagram" style="position:absolute; margin-left:-10px; width: 930px; height:120px; background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow-horizontal-2.png');">
@@ -66,7 +64,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['accepted'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div style="top:36px; left: 202px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
+<div style="top:36px; left: 200px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 <div class="workflowState" style="top:60px;left:190px;">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/rejected.png" />
@@ -75,7 +73,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['rejected'].'%</b>'; ?>
 	</div>
 </div>
-<div style="top:95px; left: 202px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
+<div style="top:95px; left: 200px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 <div class="workflowState workflowFilter" style="top:0px;left:380px;" state="<?php echo ENQUIRY_AWAITING_REPLY;?>">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/waiting.png" />
@@ -84,7 +82,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['waiting_reply'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div style="top:36px; left: 392px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
+<div style="top:36px; left: 390px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 <div class="workflowState workflowFilter" style="top:0px;left:570px;" state="<?php echo ENQUIRY_REPLY_PENDING_ASSESSMENT;?>">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/waiting.png" />
@@ -93,7 +91,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['pending_assesment'].' '.__('enquiries').'</b>'; ?>
 	</div>
 </div>
-<div style="top:36px; left: 582px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
+<div style="top:36px; left: 580px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 <div class="workflowState workflowFilter" style="top:0px;left:760px;" state="<?php echo ENQUIRY_REPLY_SATISFACTORY;?>">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/satisfactory.png" />
@@ -102,7 +100,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['reply_satisfactory'].'%</b>'; ?>
 	</div>
 </div>
-<div style="top:36px; left: 772px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
+<div style="top:36px; left: 770px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 <div class="workflowState workflowFilter" style="top:60px;left:760px;" state="<?php echo ENQUIRY_REPLY_INSATISFACTORY;?>">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/insatisfactory.png" />
@@ -111,7 +109,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['reply_insatisfactory'].'%</b>'; ?>
 	</div>
 </div>
-<div style="top:95px; left: 772px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
+<div style="top:95px; left: 770px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 </div>
 

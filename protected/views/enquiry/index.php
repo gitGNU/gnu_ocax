@@ -44,7 +44,6 @@ if($displayType == 'grid'){
 }
 $this->widget('EnquiryModal');
 ?>
-
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
 <style>
@@ -110,12 +109,10 @@ function toggleSearchOptions(){
 	if ($("#advancedFilterOptions").is(":visible")){
 		$("#advancedFilterOptions").hide();
 		$("#workflowFilterOptions").show();
-		$('.workflowFilter').removeClass('selectedWorkflowFilter');
-		
+		$('.workflowFilter').removeClass('selectedWorkflowFilter');	
 	}else{
 		$("#Enquiry_basicFilter").val('');
 		$("#advancedFilterOptions").show();
-		//$("#basicFilterOptions").hide();
 		$("#workflowFilterOptions").hide();
 		$('#searchOptionsToggle').find('i').removeClass('icon-search-circled');
 		$('#searchOptionsToggle').find('i').addClass('icon-cancel-circled');
@@ -142,53 +139,25 @@ function resetForm(){
 </div>
 
 <div id="enquiryPageTitle">
-	<h1><?php echo __('Enquiries made to date');?></h1>
-	<p style="margin-top:-15px;margin-bottom:0px;">
+	<h1 style="margin-top:-10px;"><?php echo __('Enquiries made to date');?></h1>
+	<p style="margin-top:-10px;">
 		<?php echo __('This is a list of enquiries made by citizens like you.');?>
 	</p>
 </div>
-<div class="clear"></div>
 
-<div id="filterOptions" style="margin-top:25px; margin-bottom: 5px; height:110px;"> <!-- filter options start -->
-
-<div id="basicFilterOptions" class="tabMenu" style="height:95px; display:none;">
-<?php
-	echo '<div style="font-size:16px; height:50px; margin-bottom: 15px;">';
-		echo __('Haz una consulta y participa.').'<br />';
-		//echo __('Más consultas significa más cooperación entre ciudadanos').'.<br />';
-		echo __('Aqui en el Observatorio nos encargamos de todo el papelaeo');
-	echo '</div>';
-?>
-<ul>
-<li onClick="js:basicFilter(this, 'noreply')"><?php echo __('Waiting for reply');?></li>
-<li onClick="js:basicFilter(this, 'pending')"><?php echo __('Replies not yet assessed');?></li>
-<li onClick="js:basicFilter(this, 'assessed')"><?php echo __('Assessed replies');?></li>
-</ul>
-
-</div>
+<div id="filterOptions" style="margin-top:25px; height:110px;"> <!-- filter options start -->
 <div id="advancedFilterOptions" style="height:95px;">
-<div>
-	<?php /* if(count($model->publicSearch()->getData()) > 0 ){ */ ?>
-		<div class="search-form">
-			<?php $this->renderPartial('_searchPublic',array(
-				'model'=>$model,
-			)); ?>
-		</div><!-- search-form -->
-	<?php /* } */ ?>
+	<div class="search-form">
+		<?php $this->renderPartial('_searchPublic',array(
+			'model'=>$model,
+		)); ?>
+	</div><!-- search-form -->
 </div>
+<div id="workflowFilterOptions" style="margin-top:-15px;height:95px; display:inline-block">
+	<?php $this->renderPartial('//enquiry/workflow-horizontal'); ?>
 </div>
-
-<div id="workflowFilterOptions" style="margin-top:-20px;height:95px; display:inline-block">
-	<div >
-	<?php
-		$this->renderPartial('//enquiry/workflow-horizontal');
-	?>
-	</div>
-</div>
-
 </div>	<!-- filter options end -->
-
-
+<div class="horizontalRule"></div>
 
 <div id="enquiryDisplayTypeIcons">
 <i class="icon-th-large" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></i>
@@ -196,9 +165,7 @@ function resetForm(){
 </div>
 
 <div id="enquiryList" style="position:relative">
-<span id="humanStateTitle"></span>
 <?php
-
 $template = '<div style="height:20px;">'.
 			'<div style="float:left; position:absolute; top: -20px; left: 60px;">{summary}</div>'.
 			'<div style="float:right; position:absolute; top: -20px; right:0px; ">{pager}</div><div class="clear">'.
