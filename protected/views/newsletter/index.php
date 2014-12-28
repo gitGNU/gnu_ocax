@@ -22,15 +22,16 @@
 
 ?>
 
-<div style="margin:0px 0 20px 0; position:relative;">
+<div style="margin:-10px 0 10px 0">
 <?php echo '<span class="bigTitle">'.__('Newsletters').'</span>';?>
 </div>
 
+<div style="position:relative">
 <?php
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
-	'template'=>'{pager}{items}',
+	'template'=>'<div style="position:absolute; top:-5px; right:0px">{pager}</div>{items}',
 	'pager' => array(
 			'class'			=> 'CLinkPager',
 			'header'		=> '',
@@ -41,3 +42,4 @@ $this->widget('zii.widgets.CListView', array(
 		),
 ));
 ?>
+</div>

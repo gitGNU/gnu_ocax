@@ -175,6 +175,6 @@ if(!isset($noDiskStatus)){
 
 
 <div id="schedule_modal" class="modal" style="width:800px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+<i class='icon-cancel-circled modalWindowButton bClose'></i>
 <div id="schedule_body"></div>
 </div>

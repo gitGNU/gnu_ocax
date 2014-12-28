@@ -146,7 +146,7 @@ function resetForm(){
 </div>
 
 <div id="filterOptions" style="margin-top:25px; height:110px;"> <!-- filter options start -->
-<div id="advancedFilterOptions" style="height:95px;">
+<div id="advancedFilterOptions">
 	<div class="search-form">
 		<?php $this->renderPartial('_searchPublic',array(
 			'model'=>$model,

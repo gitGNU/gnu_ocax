@@ -29,10 +29,16 @@
 		if($data->author == $user_id || $is_admin)
 			echo '<i class="icon-cancel-circled  delete red" onClick="js:deleteArchive('.$data->id.')"></i>';
 
-		echo '<a href="'.$data->getWebPath().'">';
+		//echo '<a href="'.$data->getWebPath().'">';
+		echo '<a href="'.Yii::app()->baseUrl.'/archive/'.$data->id.'">';
 			echo '<div style="padding-left:3px;overflow:hidden;">';
-			echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.strtolower($data->extension).'.png"/>';
-			echo '<span class="name">'.CHtml::encode($data->name).'</span>';
+			$name = CHtml::encode($data->name);
+			$icon = '/images/fileicons/'.strtolower($data->extension).'.png';
+			if(file_exists(dirname(Yii::app()->request->scriptFile).$icon))
+				echo '<img class="icon" src="'.Yii::app()->baseUrl.$icon.'"/>';
+			elseif($data->extension)
+				$name = $name.'.'.$data->extension;
+			echo '<span class="name">'.$name.'</span>';
 			echo '</div>';
 			echo '<div style="clear:both"></div>';
 			echo '<div class="description">'.CHtml::encode($data->description).'</div>';

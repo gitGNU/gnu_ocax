@@ -38,7 +38,7 @@ echo $form->hiddenField($model,'basicFilter');
 ?>
 
 <!-- outer start -->
-<div>
+<div style="margin:-20px 0 20px 0;">
 <!-- column 1 start -->
 <div style="float:left; width:350px;">
 	<?php echo $form->label($model,'state'); ?><br />

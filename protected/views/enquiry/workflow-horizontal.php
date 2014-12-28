@@ -32,7 +32,7 @@ $stats = $model->getStatistics();
 }
 #workflow_diagram > div.workflowState {
 	width:185px;
-	min-height:55px;
+	min-height:54px;
 }
 #workflow_diagram > div.workflowState > img {
 	float: left;

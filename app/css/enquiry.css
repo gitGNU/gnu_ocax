@@ -106,8 +106,10 @@
 }
 .enquiryPreview .title {
 	cursor: pointer;
-	padding: 2px 0px 3px 6px;
-	font-size: 1.25em;
+	padding: 0px 0px 3px 6px;
+	font-size: 16px;
+	overflow: hidden;
+	height: 21px;
 }
 .enquiryPreview .body {
 	cursor: pointer;
@@ -115,7 +117,7 @@
 	padding: 10px 5px 0 6px;
 	background-color: white;
 	font-size: 1.15em;
-	height: 165px;
+	height: 174px;
 	overflow: hidden;
 }
 .enquiryPreview p

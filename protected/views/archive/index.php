@@ -92,7 +92,7 @@ function showLink(archive_id, el){
 }
 </script>
 
-<div style="margin:0px 0 20px 0">
+<div style="margin:-10px 0 10px 0">
 <?php
 echo '<span class="bigTitle">'.__('Archive').'</span>';
 if($userCanCreate){
@@ -103,9 +103,9 @@ if($userCanCreate){
 }
 ?>
 </div>
+<div class="horizontalRule"></div>
 
-
-<div style="margin-left:30px">
+<div style="margin: -12px 0 0 30px">
 <?php
 $user_id = Null;
 $is_admin = Null;

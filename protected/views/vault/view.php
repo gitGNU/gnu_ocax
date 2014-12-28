@@ -198,12 +198,12 @@ if($model->state >= READY){
 
 
 <div id="schedule_modal" class="modal" style="width:800px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="schedule_body"></div>
 </div>
 
 <div id="capacity_popup" class="modal" style="width:500px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="capacity_popup_body"></div>
 </div>
 

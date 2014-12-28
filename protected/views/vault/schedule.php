@@ -44,9 +44,9 @@ function orderVaultsIntoDays($vaults){
 }
 ?>
 
-<h1><?php echo __('Schedule');?></h1>
+<div class="modalTitle"><?php echo __('Schedule');?></div>
 
-<div style="width:100%;">
+<div style="width:100%;margin-top: 10px;">
 <div style="float: left; width:45%;">
 	<div class="sub_title"><?php echo __('Local vaults');?></div>
 	<?php
@@ -79,4 +79,4 @@ function orderVaultsIntoDays($vaults){
 	?>
 </div>
 </div>
-<div style="clear:both; margin-bottom:30px;"></div>
+<div style="clear:both; margin-bottom:5px;"></div>
