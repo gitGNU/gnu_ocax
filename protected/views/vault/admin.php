@@ -79,7 +79,7 @@ function showSchedule(){
 
 <?php
 if(!isset($noDiskStatus)){
-	echo '<p style="margin: -15px 0 10px 0;">';
+	echo '<p style="margin: 0 0 10px 0;">';
 	echo	__('Total disk space').': '.$totalSpace.',&nbsp;&nbsp;&nbsp;Free: '.
 			$freeSpace.' ('.round($freeSpace/$totalSpace * 100, 0).'%)';
 	echo '</p>';

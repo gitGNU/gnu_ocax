@@ -124,7 +124,9 @@ function regenCSV(id){
 }
 </script>
 
-<h1><?php echo __('Prepare file').' '.File::model()->normalize(Config::model()->findByPk('siglas')->value);?>.zip</h1>
+<h1 style="margin-bottom: 15px;">
+	<?php echo __('Prepare file').' '.File::model()->normalize(Config::model()->findByPk('siglas')->value);?>.zip
+</h1>
 
 <?php
 $dataProvider = new CActiveDataProvider('File', array(

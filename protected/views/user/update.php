@@ -58,7 +58,7 @@ function optout(){
 	</style>
 <?php } ?>
 
-<div>
+<div style="margin:-10px 0 55px 0;">
 <span id="datos_usuario" style="margin-top:-15px;cursor:auto;float:left"></span>
 <h1 style="float:left"><?php echo __('Change your user information')?></h1>
 <span class="link" style="float:right" onclick="js:optout();"><?php echo __('Delete my user account');?></span>

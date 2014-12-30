@@ -55,7 +55,7 @@ function uploadFile(){
 }
 </script>
 
-<h1><?php echo __('Manage wallpaper');?></h1>
+<h1 style="margin-bottom: 15px;"><?php echo __('Manage wallpaper');?></h1>
 
 <?php
 $dataProvider = new CActiveDataProvider('File', array(

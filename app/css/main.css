@@ -34,13 +34,21 @@ h1, h2, h3, h4, h5, h6 {font-weight:normal}
 }
 
 h1 {
+/*
 	line-height: 90%;
 	font-size: 22pt;
 	letter-spacing:-0.5pt;
 	font-weight:200;
 	margin-bottom:15px;
+*/
 }
-
+h1 {
+	line-height: 90%;
+	font-size: 25pt;
+	letter-spacing: -0.5pt;
+	font-weight: 200;
+	margin-bottom:0px;
+}
 body
 {
 	height: 100%;

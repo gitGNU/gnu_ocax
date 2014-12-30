@@ -42,7 +42,7 @@ if($model->budget){
 </h1>
 <?php
 if(!$model->budget){
-	echo '<p style="margin-top:-10px;margin-bottom:15px;">'.
+	echo '<p style="margin-bottom:15px;">'.
 			__('If you wish to formulate a budgetary enquiry, you must first find the corresponding').' '.
 			CHtml::link(__('Budget'),array('/budget')).
 		 '</p>';

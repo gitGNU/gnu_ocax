@@ -140,7 +140,7 @@ function resetForm(){
 
 <div id="enquiryPageTitle">
 	<h1 style="margin-top:-10px;"><?php echo __('Enquiries made to date');?></h1>
-	<p style="margin-top:-10px;">
+	<p style="margin-top:0px;">
 		<?php echo __('This is a list of enquiries made by citizens like you.');?>
 	</p>
 </div>

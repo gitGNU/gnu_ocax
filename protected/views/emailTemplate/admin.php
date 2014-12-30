@@ -25,7 +25,7 @@ $this->inlineHelp=':manual:emailtemplate';
 $this->viewLog='EmailTemplate';
 ?>
 
-<h1><?php echo __('Email text templates');?></h1>
+<h1 style="margin-bottom: 15px;"><?php echo __('Email text templates');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

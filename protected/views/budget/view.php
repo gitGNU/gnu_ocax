@@ -110,12 +110,13 @@ function editBudgetDescription(){
 <?php
 	$category=$model->getCategory();
 
-	if(Yii::app()->request->isAjaxRequest)
+	if(Yii::app()->request->isAjaxRequest){
 		echo '<div class="modalTitle">'.__('Budget').': '.$category.'</div>';
-	else
-		echo '<div style="font-size:1.1em">'.$category.'</div>';
-
-	echo '<h1>'.$model->getTitle().'</h1>';
+		echo '<h1>'.$model->getTitle().'</h1>';
+	}else{
+		echo '<div style="font-size:16px;margin-top:-20px;">&nbsp;'.$category.'</div>';
+		echo '<h1>'.$model->getTitle().'</h1>';
+	}
 
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';

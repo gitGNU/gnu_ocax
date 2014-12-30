@@ -103,7 +103,7 @@ function enquiryModal2Page(){
 	}
 ?>
 
-<h1 id="enquiryTitle"><?php echo $model->title?></h1>
+<h1 id="enquiryTitle" <?php echo !Yii::app()->request->isAjaxRequest ? 'style="margin-top:-15px;"':'' ?>><?php echo $model->title?></h1>
 
 <div id="enquiryDetails">
 <?php
