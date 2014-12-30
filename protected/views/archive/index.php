@@ -92,9 +92,9 @@ function showLink(archive_id, el){
 }
 </script>
 
-<div style="margin:-10px 0 10px 0">
+<div style="margin:-10px 0 15px 0">
 <?php
-echo '<span class="bigTitle">'.__('Archive').'</span>';
+echo '<h1 style="float:left;">'.__('Archive').'</h1>';
 if($userCanCreate){
 	echo '<div style="float:right">';
 	echo '<a class="link" href="'.getInlineHelpURL(':archive').'" target="_new">'.__('About the Archive').'</a><br />';
@@ -102,10 +102,12 @@ if($userCanCreate){
 	echo '</div>';
 }
 ?>
+<div class="clear"></div>
 </div>
+
 <div class="horizontalRule"></div>
 
-<div style="margin: -12px 0 0 30px">
+<div style="margin:-15px 0 0 30px">
 <?php
 $user_id = Null;
 $is_admin = Null;

@@ -26,7 +26,7 @@ $model = new Enquiry;
 $stats = $model->getStatistics();
 ?>
 
-<div id="workflow_diagram" style="position:absolute; margin-left:-10px; width: 930px; height:120px; background-image: url('<?php echo Yii::app()->request->baseUrl; ?>/images/workflow-horizontal-2.png');">
+<div id="workflow_diagram" style="position:absolute; margin-left:-10px; width: 930px; height:120px;">
 
 <div class="workflowState" style="top:0px;left:0px;">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/pending.png" />

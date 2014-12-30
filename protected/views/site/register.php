@@ -22,8 +22,9 @@ $("input[type='checkbox']").each(function(){
 .clear{clear:both;}
 </style>
 
+<h1 style="margin:-15px 0 15px 0"><?php echo __('Register');?></h1>
+
 <div class="outer">
-<h1><?php echo __('Register');?></h1>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(

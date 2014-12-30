@@ -26,7 +26,7 @@
 
 <span style="font-size:16px"><?php echo __('Published on the').' '.format_date($data->created);?></span>
 <div class="horizontalRule"></div>
-<h1><?php echo CHtml::encode($data->subject);?></h1>
+<h1 style="margin-bottom:15px;"><?php echo CHtml::encode($data->subject);?></h1>
 
 <div id="newsletterBody" style="font-size:18px"><?php echo $data->body; ?></div>
 

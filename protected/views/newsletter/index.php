@@ -22,9 +22,10 @@
 
 ?>
 
-<div style="margin:-10px 0 10px 0">
-<?php echo '<span class="bigTitle">'.__('Newsletters').'</span>';?>
-</div>
+<h1 style="margin:-15px 0 15px -15px;">
+	<i class="icon-megaphone"></i>
+	<?php echo __('Newsletters');?>
+</h1>
 
 <div style="position:relative">
 <?php
