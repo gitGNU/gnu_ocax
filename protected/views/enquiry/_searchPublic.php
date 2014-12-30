@@ -29,6 +29,9 @@
 
 </style>
 
+<!-- outer start -->
+<div>
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'search_enquiries',
 	'action'=>Yii::app()->createUrl($this->route),
@@ -37,8 +40,7 @@
 echo $form->hiddenField($model,'basicFilter');
 ?>
 
-<!-- outer start -->
-<div style="margin:-20px 0 20px 0;">
+
 <!-- column 1 start -->
 <div style="float:left; width:350px;">
 	<?php echo $form->label($model,'state'); ?><br />
@@ -103,8 +105,11 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 <?php echo CHtml::submitButton(__('Search'));?>
 </div>	<!-- column 3 end -->
 
+<?php $this->endWidget(); ?>
+<div class="clear" style=""></div>
+
 </div>	<!-- close outer -->
 
-<div class="clear"></div>
 
-<?php $this->endWidget(); ?>
+
+

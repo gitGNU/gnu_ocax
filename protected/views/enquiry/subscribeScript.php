@@ -27,7 +27,7 @@ function showSubscriptionNotice(el, enquiry_id){
 	if($(notice).is(':visible')){
 		$(notice).fadeOut('fast');
 	}else{
-		text = $('<p></p>');
+		text = $('<div></div>');
 		$(text).append('<?php echo __('We can notify you by email when this enquiry gets updated');?>.');
 		<?php if(Yii::app()->user->isGuest){ ?>
 			$(text).append('<?php echo '<br />'.__('Please login to subscribe');?>.');

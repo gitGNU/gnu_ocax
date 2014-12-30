@@ -2,6 +2,7 @@
 
 #enquiryPageTitle{
 	position: relative;
+	width: 900px;
 }
 
 #enquiryTitle{
@@ -36,16 +37,27 @@
 }
 
 /* workflow */
-#workflow_diagram {  }
-
-
-
+#workflow_diagram > div {
+	position:absolute;
+}
+#workflow_diagram > div.workflowState {
+	width:185px;
+	min-height:54px;
+}
+#workflow_diagram > div.workflowState > img {
+	float: left;
+	padding:3px 0 0 1px;
+}
+#workflow_diagram > div.workflowState > div.workflowStateText{
+	border-left: solid 3px #9E9E9E;
+	margin-left:35px;
+	padding: 0 0 10px 5px;
+	font-size:14px; line-height:105%;
+}
+#workflow_diagram > div.workflowFilter:hover { cursor:pointer }
 
 /* search form */
-
-
-
-#advancedFilterOptions { display:none }
+#advancedFilterOptions { display:inline-block }
 
 /* preview */
 #enquiryList{
@@ -56,17 +68,18 @@
 	position: relative;
 	border:1px solid rgb(228, 222, 215);
 	background-color: #e4ded7;
-	width:430px;
+	width:445px;
 	height:210px;
-	margin: 30px 15px 30px 15px;
+	margin: 25px 0 25px 0;
 	float:left;
 }
+.enquiryPreview:nth-child(2n-1) { margin-right: 32px; }
 
 .enquiryPreview .created {
 	position: absolute;
 	padding: 0 5px 0 5px;
 	height: 23px;
-	width: 64px;
+	width: 68px;
 	top: -23px;
 	font-size: 14px;
 	background-color: #e4ded7;
@@ -126,8 +139,8 @@
 }
 
 .enquiryPreview .subscription_notice {
-	left: 10px;
-	top: 20px;
+	left: 5px;
+	top: 15px;
 }
 .enquiryPreview .subscription_notice p {
 	padding: 5px;

@@ -720,9 +720,11 @@ div.reply > .title{
 	display:none;
 	position: absolute;
 	background-color: #FEFEFE;
-	padding: 3px 0px 0px 3px;
+	margin: 0px;
+	padding: 5px 2px 5px 9px;
 	width:420px;
 	z-index: 100;
+	font-size: 16px;
 	/* http://www.css3.info/preview/box-shadow/ */
 	-moz-box-shadow: 10px 10px 5px #B8B8B8;
 	-webkit-box-shadow: 10px 10px 5px #B8B8B8;

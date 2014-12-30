@@ -145,17 +145,13 @@ function resetForm(){
 	</p>
 </div>
 
-<div id="filterOptions" style="margin-top:25px; height:110px;"> <!-- filter options start -->
-<div id="advancedFilterOptions">
-	<div class="search-form">
-		<?php $this->renderPartial('_searchPublic',array(
-			'model'=>$model,
-		)); ?>
-	</div><!-- search-form -->
-</div>
-<div id="workflowFilterOptions" style="margin-top:-15px;height:95px; display:inline-block">
-	<?php $this->renderPartial('//enquiry/workflow-horizontal'); ?>
-</div>
+<div id="filterOptions" style="margin-top:-10px; height:125px;"> <!-- filter options start -->
+	<div id="advancedFilterOptions" class="search-form" style=" display:none;">
+		<?php $this->renderPartial('_searchPublic',array('model'=>$model)); ?>
+	</div>
+	<div id="workflowFilterOptions" style="display:inline-block">
+		<?php $this->renderPartial('//enquiry/workflow-horizontal'); ?>
+	</div>
 </div>	<!-- filter options end -->
 <div class="horizontalRule"></div>
 
@@ -168,7 +164,7 @@ function resetForm(){
 <?php
 $template = '<div style="height:20px;">'.
 			'<div style="float:left; position:absolute; top: -20px; left: 60px;">{summary}</div>'.
-			'<div style="float:right; position:absolute; top: -20px; right:0px; ">{pager}</div><div class="clear">'.
+			'<div style="float:right; position:absolute; top: -20px; right:5px; ">{pager}</div><div class="clear">'.
 			'</div></div>'.
 			'{items}';
 
