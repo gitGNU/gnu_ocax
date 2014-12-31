@@ -68,7 +68,7 @@
 	</li>
 	<li>
 	<?php
-		echo CHtml::link('<i class="icon-folder-close header-icons"></i>', array('/archive'));
+		echo CHtml::link('<i class="icon-folder-1 header-icons"></i>', array('/archive'));
 		echo '<span>'.CHtml::link(__('Archive'), array('/archive')).'</span>';
 	?>
 	</li>

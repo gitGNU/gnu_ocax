@@ -42,9 +42,15 @@ echo $form->hiddenField($model,'basicFilter');
 
 
 <!-- column 1 start -->
-<div style="float:left; width:350px;">
+<div style="float:left; width:400px;">
 	<?php echo $form->label($model,'state'); ?><br />
-	<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>
+	<?php
+		$states=$model->getHumanStates();
+		unset($states[1]);	// pending validation
+		unset($states[2]);	// assigned to team member
+		unset($states[3]);	// rejected by observatory
+		echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $states);
+	?>
 <br />
 	<?php echo $form->label($model,'type'); ?><br />
 	<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
@@ -52,7 +58,7 @@ echo $form->hiddenField($model,'basicFilter');
 <!-- column 1 end -->
 
 <!-- column 2 start -->
-<div style="float:left; width:300px;">
+<div style="float:left; width:275px;">
 
 <div style="float:left">
 <span><?php echo __('Minimum date');?></span>
@@ -101,8 +107,8 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 </div>	<!-- column 2 end -->
 
 <!-- column 3 start -->
-<div style="float:left; width:250px; padding-top: 70px">
-<?php echo CHtml::submitButton(__('Search'));?>
+<div style="float:left; text-align:right; width:150px; padding-top: 70px">
+<?php echo CHtml::submitButton(__('Filter'));?>
 </div>	<!-- column 3 end -->
 
 <?php $this->endWidget(); ?>

@@ -205,9 +205,9 @@ $settings=array('convert_urls'=>true,
 				'width'=>'100%',
 				'height' => 300,
 				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
-				'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
+				'theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
 												justifyright,|,bullist,numlist,|,outdent,indent,|,
-												undo,redo,|,link,unlink,|,image,|,code",
+												link,unlink,|,image,|,code",
 			);
 if(Config::model()->findByPk('htmlEditorUseCompressor'))
 	$settings['useCompression']=true;

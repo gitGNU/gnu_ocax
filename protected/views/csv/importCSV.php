@@ -194,7 +194,7 @@ function importData(el,next_step){
 }
 </script>
 
-<?php echo '<h1>'.__('Import csv into').' '.$model->year.'</h1>';?>
+<h1 style="margin: 0 0 15px 0"><?php echo __('Import csv into').' '.$model->year;?></h1>
 
 <?php
 if(!$model->csv){

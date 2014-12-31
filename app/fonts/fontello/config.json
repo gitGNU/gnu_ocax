@@ -109,6 +109,12 @@
       "src": "entypo"
     },
     {
+      "uid": "0ccb084ddeeae372673793ed0b45bb4a",
+      "css": "folder-1",
+      "code": 59441,
+      "src": "entypo"
+    },
+    {
       "uid": "fb5082fac1794b69a1381196219a836e",
       "css": "chart-pie",
       "code": 59433,
@@ -160,12 +166,6 @@
       "uid": "188e881b2e2f2b1eb350eb7697aabafd",
       "css": "cancel-circle",
       "code": 59403,
-      "src": "iconic"
-    },
-    {
-      "uid": "b13a27d19dd739e29cbc7926085386d9",
-      "css": "folder",
-      "code": 59412,
       "src": "iconic"
     },
     {
@@ -268,12 +268,6 @@
       "uid": "05a2f4c4839012434774cc1ceb4c0f9b",
       "css": "download-alt",
       "code": 59418,
-      "src": "elusive"
-    },
-    {
-      "uid": "3a9aa648fce45a316e70e1613bda57ac",
-      "css": "folder-close",
-      "code": 59415,
       "src": "elusive"
     },
     {

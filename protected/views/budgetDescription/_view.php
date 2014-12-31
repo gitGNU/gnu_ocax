@@ -39,7 +39,7 @@
 		$fieldsForDisplay['concept'] = $model->concept;
 ?>
 
-<h1>
+<h1 style="margin-bottom:15px">
 <?php
 	if($fieldsForDisplay['label'])
 		echo $fieldsForDisplay['label'].': ';

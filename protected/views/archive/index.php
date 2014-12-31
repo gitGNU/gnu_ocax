@@ -92,9 +92,9 @@ function showLink(archive_id, el){
 }
 </script>
 
-<div style="margin:-10px 0 15px 0">
+<div style="margin:-15px 0 15px -15px;">
 <?php
-echo '<h1 style="float:left;">'.__('Archive').'</h1>';
+echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($userCanCreate){
 	echo '<div style="float:right">';
 	echo '<a class="link" href="'.getInlineHelpURL(':archive').'" target="_new">'.__('About the Archive').'</a><br />';
