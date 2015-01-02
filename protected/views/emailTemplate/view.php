@@ -29,11 +29,9 @@ $this->inlineHelp=':manual:emailtemplate';
 $this->viewLog='EmailTemplate';
 ?>
 
-<h1><?php echo __('Template for')?> "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</h1>
+<h1 style="margin-bottom:15px;"><?php echo __('Template for')?> "<?php echo Enquiry::model()->getHumanStates($model->state); ?>"</h1>
+<div class="horizontalRule"></div>
 <div class="enquiry">
-
-
-
 <?php echo $model->getBody();?>
 </div>
 

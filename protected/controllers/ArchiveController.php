@@ -181,8 +181,10 @@ class ArchiveController extends Controller
 	public function actionDelete($id)
 	{
 		echo $id;
-
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+		
+		if(strpos($model->path, '/files/DatabaseDownload') !== 0)
+			$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

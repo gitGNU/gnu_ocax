@@ -23,8 +23,7 @@
 
 $this->menu=array(
 	array('label'=>__('Create Year'), 'url'=>array('createYear')),
-	array('label'=>__('Budgets without description'), 'url'=>array('noDescriptions')),
-	array('label'=>__('Default year').' '.Config::model()->findByPk('year')->value, 'url'=>array('/config/update/year?returnURL=/budget/admin')),	
+	array('label'=>__('Default year').' '.Config::model()->findByPk('year')->value, 'url'=>array('/config/update/year?returnURL=/budget/admin')),
 );
 if(File::model()->findByAttributes(array('model'=>'Budget'))){
 	$restore = array( array('label'=>__('Restore database'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showBudgetDumps();')));

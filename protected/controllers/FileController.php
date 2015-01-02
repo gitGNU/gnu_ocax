@@ -215,19 +215,19 @@ class FileController extends Controller
 			$source = $file->baseDir.'/files/'.$file->model;
 
 			$zip->addEmptyDir('data');
-			//$nodes = glob($source.'/data/*');
 			$nodes = scandir($source.'/data');
-			foreach($nodes as $node)
-				//$zip->addFile($node, str_replace($source.'/', '/', $node));
+			foreach($nodes as $node){
+				if($node == '.' || $node == '..' || $node == '.gitignore')
+					continue;
 				$zip->addFile($source.'/data/'.$node, 'data/'.$node);
-
+			}
 			$zip->addEmptyDir('docs');
-			//$nodes = glob($source.'/docs/*');
 			$nodes = scandir($source.'/docs');
-			foreach($nodes as $node)
-				//$zip->addFile($node, str_replace($source.'/', '/', $node));
+			foreach($nodes as $node){
+				if($node == '.' || $node == '..' || $node == '.gitignore')
+					continue;
 				$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);
-
+			}
 			$zip->close();
 
 			$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
@@ -246,6 +246,7 @@ class FileController extends Controller
 				$archive = new Archive;
 
 			$archive->name = $file->name;
+			$archive->name = str_replace(".zip", "", $archive->name);
 			$archive->path = $file->path;
 
 			$language = Yii::app()->language;

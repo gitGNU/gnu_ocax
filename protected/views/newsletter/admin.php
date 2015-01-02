@@ -27,7 +27,7 @@ $this->menu=array(
 $this->inlineHelp=':manual:newsletter:admin';
 ?>
 
-<h1><?php echo __('Manage Bulk Emails');?></h1>
+<h1 style="margin-bottom:15px;"><?php echo __('Manage Bulk Emails');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

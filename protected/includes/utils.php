@@ -94,7 +94,11 @@ function getOCAXVersion(){
 }
 
 function getInlineHelpURL($path){
-	return 'http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
+	$availableTranslations = array('es', 'en');
+	$lang = Yii::app()->user->getState('applicationLanguage');
+	if(!in_array($lang, $availableTranslations))
+		$lang = 'es';
+	return 'http://wiki.ocax.net/'.$lang.$path;
 }
 
 function getMySqlParams()
