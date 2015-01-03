@@ -18,21 +18,15 @@
 <div class="span-5 last">
 	<div id="sidebar">
 	<?php
-
 		$mypage = array( array('label'=>__('My page'), 'url'=>array('/user/panel')) );
 		$this->menu = array_merge( $this->menu, $mypage );
-		/*
-		if($this->inlineHelp){
-			$help= array( array('label'=>__('Context help'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");')));
-			array_splice( $this->menu, 0, 0, $help );
-		}
-		*/
+
 		$title=__('Options');
 		if($this->inlineHelp){
 			$help = CHtml::link(
 				'<i style="float:right;font-size:23px;color:#f5f1ed;" class="icon-help-circled"></i>', 
 				'#',
-				array('onClick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");')
+				array('onClick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");','title'=>__('Help'))
 			);
 			$title=$title.$help;
 		}
@@ -44,7 +38,7 @@
 			$log = CHtml::link(
 				'<i style="float:right;font-size:23px;color:#f5f1ed;" class="icon-book"></i>', 
 				'#',
-				array('onClick'=>'js:viewLog('.$param.');')
+				array('onClick'=>'js:viewLog('.$param.');','title'=>__('Log'))
 			);			
 			$title=$title.$log;
 		}
@@ -61,10 +55,6 @@
 		if($this->extraText)
 			echo '<div id="extraText">'.$this->extraText.'</div>';		
 		$this->endWidget();
-
-		
-		//if($this->sidebarText)
-		//	echo '<p>'.$this->sidebarText.'</p>';
 	?>
 	</div><!-- sidebar -->
 </div>

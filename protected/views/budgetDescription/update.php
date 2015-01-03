@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,7 +22,7 @@
 /* @var $model BudgetDescription */
 
 $this->menu=array(
-	array('label'=>__('View description'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewSavedLocalDescription();')),
+	array('label'=>__('View description').'<i class="icon-popup-1"></i>', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewSavedLocalDescription();')),
 	array('label'=>__('Delete local description'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
 );

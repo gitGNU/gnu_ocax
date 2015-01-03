@@ -183,7 +183,7 @@ class ArchiveController extends Controller
 		echo $id;
 		$model = $this->loadModel($id);
 		
-		if(strpos($model->path, '/files/DatabaseDownload') !== 0)
+		if(strpos($model->path, '/files/DatabaseDownload') !== 0)	// we don't delete the zip file
 			$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

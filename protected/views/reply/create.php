@@ -62,8 +62,11 @@ $this->inlineHelp=':manual:reply:create';
 	</div>
 
 <p>
-El texto abajo sale en la web conjuntamente con la consulta.<br />
-Después de pulicarlo podrás ajuntar la documentación recibida de la administración. 
+<?php
+echo __('The text below will be displayed together with the enquiry').'<br />';
+echo __('After publishing this reply you will be able to attach the documentation you received from the administration');
+echo '<i class="icon-attention green"></i>';
+?>
 </p>
 
 	<div class="row">

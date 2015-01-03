@@ -137,7 +137,7 @@ class User extends CActiveRecord
 			'is_socio' => __('Is partner'),
 			'is_description_editor' => __('Budget description editor'),
 			'is_team_member' => 'Team Member',
-			'is_editor' => 'CMS Editor',
+			'is_editor' => __('Page editor'),
 			'is_manager' => 'Team Manager',
 			'is_admin' => 'Admin',
 		);

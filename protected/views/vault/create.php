@@ -21,7 +21,7 @@
 /* @var $model Vault */
 
 $this->menu=array(
-	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
+	array('label'=>__('Show schedule').'<i class="icon-popup-1"></i>', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>__('Manage backups'), 'url'=>array('backup/admin')),
 );
 $this->inlineHelp=':manual:vault:create';

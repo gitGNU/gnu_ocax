@@ -31,7 +31,7 @@ $this->viewLog='BudgetDescription';
 
 ?>
 
-<h1><?php echo __('Manage').' '.__('local budget descriptions');?></h1>
+<h1><?php echo __('Manage').' '.__('budget descriptions');?></h1>
 
 
 <div id="searchOptions" class="search-form" style="display:none">

@@ -22,9 +22,9 @@
 /* @var $model File */
 
 $this->menu=array(
-	array('label'=>__('Update zip file'), 'url'=>array('file/createZipFile')),
-	array('label'=>__('Add file to docs'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
-	array('label'=>__('Add csv to data'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showYears();')),
+	array('label'=>__('Generate the zip file'), 'url'=>array('file/createZipFile')),
+	array('label'=>__('Add file to the queue'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
+	array('label'=>__('Add csv to the queue'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showYears();')),
 );
 if($csv_file=File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
 	$download = array( array('label'=>__('Download zip file'), 'url'=>$csv_file->getWebPath()));

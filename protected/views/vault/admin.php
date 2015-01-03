@@ -20,7 +20,7 @@
 /* @var $this BackupController */
 
 $this->menu=array(
-	array('label'=>__('Show schedule'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
+	array('label'=>__('Show schedule').'<i class="icon-popup-1"></i>', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:showSchedule(); return false;')),
 	array('label'=>__('Manual backup'), 'url'=>array('backup/manualCreate')),
 	array('label'=>__('Create vault'), 'url'=>array('create')),
 );

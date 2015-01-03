@@ -25,10 +25,12 @@
 
 <div class="modalTitle"><?php echo __('Budget description');?>
 <?php
+/*
 	if(!$fieldsForDisplay['label'] && !$fieldsForDisplay['concept'] && !$fieldsForDisplay['description']){
 		if($model->label || $model->concept)
 			echo ': <i class="icon-attention green"></i>'.__('Using data imported with CSV files');
 	}
+*/
 ?>
 </div>
 

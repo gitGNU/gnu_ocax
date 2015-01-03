@@ -29,12 +29,12 @@ $this->menu=array(
 	array('label'=>__('Edit year').' '.$this_year->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
 	array('label'=>__('Manage years'), 'url'=>array('admin'))
 );
-$this->inlineHelp=':profiles:team_member';
+$this->inlineHelp=':manual:enquiry:changebudget';
 $this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <h1><?php echo __('Edit enquiry').': '.__('change related budget')?></h1>
-<p style="margin-top:-15px;margin-bottom:10px;">
+<p style="margin-top:0px;margin-bottom:10px;">
 <?php echo __('Use this when you need to make corrections to the budget database');?><i class="icon-attention green"></i>
 </p>
 

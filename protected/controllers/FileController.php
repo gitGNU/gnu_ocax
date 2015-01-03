@@ -217,16 +217,14 @@ class FileController extends Controller
 			$zip->addEmptyDir('data');
 			$nodes = scandir($source.'/data');
 			foreach($nodes as $node){
-				if($node == '.' || $node == '..' || $node == '.gitignore')
-					continue;
-				$zip->addFile($source.'/data/'.$node, 'data/'.$node);
+				if(strpos($node, '.') !== 0)
+					$zip->addFile($source.'/data/'.$node, 'data/'.$node);
 			}
 			$zip->addEmptyDir('docs');
 			$nodes = scandir($source.'/docs');
 			foreach($nodes as $node){
-				if($node == '.' || $node == '..' || $node == '.gitignore')
-					continue;
-				$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);
+				if(strpos($node, '.') !== 0)
+					$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);
 			}
 			$zip->close();
 
@@ -245,8 +243,7 @@ class FileController extends Controller
 			if(!$archive)	// this is the first time zip has been created
 				$archive = new Archive;
 
-			$archive->name = $file->name;
-			$archive->name = str_replace(".zip", "", $archive->name);
+			$archive->name = str_replace(".zip", "", $file->name);
 			$archive->path = $file->path;
 
 			$language = Yii::app()->language;

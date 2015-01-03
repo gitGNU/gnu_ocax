@@ -97,7 +97,7 @@ class Reply extends CActiveRecord
 			'enquiry' => __('Enquiry'),
 			'created' => __('Date of reply'),
 			'team_member' => 'Team Member',
-			'body' => 'Body',
+			'body' => __('Body'),
 		);
 	}
 

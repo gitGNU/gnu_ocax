@@ -87,7 +87,7 @@ $(document).on('change', 'input[type="checkbox"]', function(e) {
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_description_editor'); ?>
 		<?php echo $form->checkBox($model,'is_description_editor', array('checked'=>$model->is_description_editor)); ?>
-		<?php echo __('Can create and edit Budget descriptions').'.';?>
+		<?php echo __('Can edit budget descriptions').'.';?>
 	</div>
 	</div>
 
@@ -103,7 +103,7 @@ $(document).on('change', 'input[type="checkbox"]', function(e) {
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_editor'); ?>
 		<?php echo $form->checkBox($model,'is_editor', array('checked'=>$model->is_editor)); ?>
-		CMS site editor.
+		<?php __('Page editor');?>.
 	</div>
 	</div>
 
