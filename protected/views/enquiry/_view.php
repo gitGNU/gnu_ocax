@@ -40,7 +40,13 @@ if(Yii::app()->request->isAjaxRequest){
 <script>
 function isUser(){
 	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		alert("<?php echo __('Please login to participate')?>");
+				$('#loginToParticipate_popup').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, speed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
 		return 0;
 	}else
 		return 1;
@@ -280,6 +286,25 @@ foreach($replys as $reply)
 	<div id="contact_petition" class="modal" style="width:700px;">
 		<i class='icon-cancel-circled modalWindowButton bClose'></i>
 		<div id="contact_petition_content"></div>
+	</div>
+<?php endif ?>
+
+<?php if (Yii::app()->user->isGuest) : ?>
+	<div id="loginToParticipate_popup" class="modal" style="width:500px;">
+		<i class='icon-cancel-circled modalWindowButton bClose'></i>
+		<div class="modalTitle"><?php echo __('Please login to participate')?></div>
+		<div style="font-size:18px; margin: 15px 0 10px 0">
+		<?php
+			$text = __('If you have an account, please %s').'.';
+			$link = CHtml::link(__('login'), array('/site/login'));
+			$text = str_replace('%s', $link, $text);
+			echo $text.'<br />';
+			$text = __('Are you new here? %s up is just a moment').'.';
+			$link = CHtml::link(__('Signing up'), array('/site/register'));
+			$text = str_replace('%s', $link, $text);	
+			echo $text		
+		?>
+		</div>
 	</div>
 <?php endif ?>
 

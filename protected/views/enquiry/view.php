@@ -217,5 +217,3 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 </div>
 
 <div class="clear"></div>
-
-

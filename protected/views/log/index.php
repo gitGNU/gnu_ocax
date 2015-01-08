@@ -29,7 +29,7 @@
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'loadingCssClass'=>'pgrid-view-loading',
-	'id'=>'log-grid',
+	'id'=>'log-grid1',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(

@@ -119,12 +119,14 @@ class Log extends CActiveRecord
 		$criteria->compare('prefix',$this->prefix,true);
 		$criteria->compare('model_id',$this->model_id);
 		$criteria->compare('message',$this->message,true);
-		$criteria->order = 'id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'Pagination' => array (
 				'PageSize' => 20,
+			),
+			'sort'=>array(
+				'defaultOrder'=>'id DESC',
 			),
 		));
 	}

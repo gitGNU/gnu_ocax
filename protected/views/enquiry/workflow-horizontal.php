@@ -53,6 +53,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['rejected'].'%</b>'; ?>
 	</div>
 </div>
+<div style="top:96px; left: 197px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 <div class="workflowState workflowFilter" style="top:0px;left:380px;" state="<?php echo ENQUIRY_AWAITING_REPLY;?>">
 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/waiting.png" />
@@ -88,6 +89,7 @@ $stats = $model->getStatistics();
 		<?php echo '<b>'.$stats['reply_insatisfactory'].'%</b>'; ?>
 	</div>
 </div>
+<div style="top:96px; left: 767px"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/workflow/arrow.png" /></div>
 
 </div>
 
