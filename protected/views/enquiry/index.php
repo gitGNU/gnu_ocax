@@ -46,6 +46,18 @@ $this->widget('EnquiryModal');
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
+<?php if(Config::model()->findByPk('socialActivateNonFree')->value){ ?>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<?php } ?>
+
 <style>
 .highlightWorkflowFilter, .selectedWorkflowFilter{
 		background-color: rgba(255, 255, 255, 0.8);
