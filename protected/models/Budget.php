@@ -81,7 +81,8 @@ class Budget extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('year, concept, initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4, featured', 'required'),
-			array('parent, year, featured, weight', 'numerical', 'integerOnly'=>true),
+			array('parent, featured, weight', 'numerical', 'integerOnly'=>true),
+			array('year', 'date', 'format'=>'yyyy'),
 			array('initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4', 'type', 'type'=>'float'),
 			//array('initial_provision, actual_provision, t1, t2, t3, t4', 'length', 'max'=>14),
 			array('code', 'length', 'max'=>20),

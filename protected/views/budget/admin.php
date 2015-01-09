@@ -80,7 +80,6 @@ function restoreBudgets(file_id){
 <h1><?php echo __('Manage years');?></h1>
 
 <?php
-//$data[\'initial_provision\']
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -106,7 +105,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
-<div id="budget_dumps" class="modal" style="600px;">
+<div id="budget_dumps" class="modal" style="width:600px;">
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="budget_dumps_content"></div>
 </div>

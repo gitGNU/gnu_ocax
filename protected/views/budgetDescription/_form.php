@@ -331,7 +331,7 @@ echo '</div>';
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
-<div id="description_popup" class="modal" style="width:750px;">
+<div id="description_popup" class="modal" style="width:850px;">
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="description_popup_content">
 	<div id="description_popup_content_saved_desc">

@@ -63,6 +63,8 @@ return array(
 				
 				'p/<pageURL:[a-z0-9-]+>'=>'sitePage/show',
 				'e/<id:\d+>'=>'enquiry/view',
+				'b/<id:\d+>'=>'budget/view',
+				'n/<id:\d+>'=>'newsletter/view',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>', // comment out for Gii

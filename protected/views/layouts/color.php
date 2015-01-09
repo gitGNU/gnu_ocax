@@ -94,7 +94,7 @@ ul.yiiPager a:visited
 }
 ul.yiiPager a:hover
 {
-	border:solid 1px #676767;
+	border:solid 1px <?php echo $color;?>;
 	background-color:<?php echo $color;?>;
 	opacity: 0.5;
 	color:#000000;
