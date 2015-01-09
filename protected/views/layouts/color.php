@@ -99,11 +99,10 @@ ul.yiiPager a:hover
 	opacity: 0.5;
 	color:#000000;
 }
-ul.yiiPager .selected a, a:hover
+ul.yiiPager .selected a
 {
 	border:solid 1px #827E78;
 	background:<?php echo $color;?>;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-

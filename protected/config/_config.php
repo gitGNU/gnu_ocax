@@ -74,6 +74,12 @@ return array(
 			'widgets'=>array(
 				'CLinkPager'=>array(
 					'cssFile'=>(strlen(dirname($_SERVER['SCRIPT_NAME']))>1 ? dirname($_SERVER['SCRIPT_NAME']) : '' ) . '/css/pager.css',
+					'header'		=> '',
+					'firstPageLabel'=> '<<',
+					'prevPageLabel' => '<',
+					'nextPageLabel' => '>',
+					'lastPageLabel' => '>>',
+					'maxButtonCount'=>6,
 				),
 				'CDetailView'=>array(
 					'cssFile'=>(strlen(dirname($_SERVER['SCRIPT_NAME']))>1 ? dirname($_SERVER['SCRIPT_NAME']) : '' ) . '/css/pdetailview.css',

@@ -197,15 +197,6 @@ if($displayType == 'grid'){
 			'call'=>'showEnquiry',
 		),
 		'ajaxUpdate'=>true,
-		'pager'=>array(
-			'class'=>'CLinkPager',
-			'header'=>'',
-			'maxButtonCount'=>6,
-			'firstPageLabel'=> '<<',
-			'prevPageLabel' => '<',
-			'nextPageLabel' => '>',
-			'lastPageLabel' => '>>',
-		),
 		'template' => $template,
 		'columns'=>array(
 		array(
@@ -235,17 +226,7 @@ if($displayType == 'grid'){
 							}',
 		'itemView'=>'_preview',
 		'emptyText'=>'<div class="sub_title" style="margin-bottom:60px;">'.__('No enquiries here').'</div>',
-		'pager'=>array(
-			'class'=>'CLinkPager',
-			'header'=>'',
-			'maxButtonCount'=>6,
-			'firstPageLabel'=> '<<',
-			'prevPageLabel' => '<',
-			'nextPageLabel' => '>',
-			'lastPageLabel' => '>>',
-		),
 		'template' => $template,
-
 	));
 }
 ?>

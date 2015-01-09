@@ -89,11 +89,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('/budget/updateYear').'/"+$.fn.yiiGridView.getSelection(id);}',
 	'dataProvider'=>$years,
 	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
 	'columns'=>array(
 		'year',
 		array(

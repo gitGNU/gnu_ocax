@@ -33,14 +33,6 @@ $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 	'template'=>'<div style="position:absolute; top:-5px; right:0px">{pager}</div>{items}',
-	'pager' => array(
-			'class'			=> 'CLinkPager',
-			'header'		=> '',
-			'firstPageLabel'=> '<<',
-			'prevPageLabel' => '<',
-			'nextPageLabel' => '>',
-			'lastPageLabel' => '>>',
-		),
 ));
 ?>
 </div>

@@ -117,18 +117,10 @@ if(!Yii::app()->user->isGuest){
 }
 $this->widget('zii.widgets.CListView', array(
 	'id'=>'archive_list',
-	//'template'=>'{items}<div style="clear:both"></div>{pager}',
 	'template'=>'<p>{pager}</p>{items}<div style="clear:both"></div>',
 	'dataProvider'=>$dataProvider,
 	'viewData'=>array('user_id'=>$user_id,'is_admin'=>$is_admin),
 	'itemView'=>'_view',
-	'pager' => array(
-			'class'			=> 'CLinkPager',
-			'firstPageLabel'=> '<<',
-			'prevPageLabel' => '<',
-			'nextPageLabel' => '>',
-			'lastPageLabel' => '>>',
-		),
 ));
 ?>
 <div style="clear:both"></div>

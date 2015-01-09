@@ -448,7 +448,7 @@ class Enquiry extends CActiveRecord
 			'criteria'=>$criteria,
 
 			'Pagination' => array (
-				'PageSize' => 4, //edit your number items per page here
+				'PageSize' => 8, //edit your number items per page here
 			),
 
 			'sort'=>array('defaultOrder'=>'modified DESC'),

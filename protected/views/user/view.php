@@ -120,11 +120,6 @@ $this->widget('PGridView', array(
         'call'=>'showEnquiry',
     ),
 	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
 	'columns'=>array(
 			array(
 				'header'=>__('Enquiries'),

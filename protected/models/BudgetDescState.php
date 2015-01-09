@@ -131,9 +131,8 @@ class BudgetDescState extends CActiveRecord
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('language',$this->language,true);
 		$criteria->compare('code',$this->code,true);
-		$criteria->compare('label',$this->label,true);
+		//$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

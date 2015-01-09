@@ -208,11 +208,6 @@ if(count($dataProvider->getData()) > 0){
 	    ),
 		'template' => '{items}{pager}',
 		'ajaxUpdate'=>true,
-		'pager'=>array('class'=>'CLinkPager',
-						'header'=>'',
-						'maxButtonCount'=>6,
-						'prevPageLabel'=>'< Prev',
-		),
 		'columns'=>array(
 				array(
 					'header'=>__('Enquiry'),
