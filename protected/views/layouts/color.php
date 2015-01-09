@@ -80,3 +80,30 @@ div.form .title{ color:<?php echo $color;?>; }
 	color: white;
 	background-color: <?php echo $color;?> !important;
 }
+
+/*yii pager*/
+
+ul.yiiPager a:link,
+ul.yiiPager a:visited
+{
+	border:solid 1px #827E78;
+	font-weight:bold;
+	color:#676767;
+	padding:1px 6px;
+	text-decoration:none;
+}
+ul.yiiPager a:hover
+{
+	border:solid 1px #676767;
+	background-color:<?php echo $color;?>;
+	opacity: 0.5;
+	color:#000000;
+}
+ul.yiiPager .selected a, a:hover
+{
+	border:solid 1px #827E78;
+	background:<?php echo $color;?>;
+	color:#FFFFFF;
+	font-weight:bold;
+}
+
