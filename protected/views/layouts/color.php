@@ -101,7 +101,7 @@ ul.yiiPager a:hover
 }
 ul.yiiPager .selected a
 {
-	border:solid 1px #827E78;
+	border:solid 1px <?php echo $color;?>;
 	background:<?php echo $color;?>;
 	color:#FFFFFF;
 	font-weight:bold;

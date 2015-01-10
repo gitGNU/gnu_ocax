@@ -38,14 +38,14 @@ ul.yiiPager .page a
 {
 	font-weight:normal;
 }
-/*
+/* moved this to color.css
 ul.yiiPager a:hover
 {
 	border:solid 1px #676767;
 	background-color:rgb(228, 222, 215);
 }
 */
-/*
+/* moved this to color.css
 ul.yiiPager .selected a
 {
 	background:#827E78;
