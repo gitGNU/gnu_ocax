@@ -83,12 +83,12 @@ function subscribe(enquiry_id, subscribe){
 	});
 }
 $(function() {
-	$('.enquiryPreview').on('mouseleave', function() {
+	$('body').on('mouseleave', '.enquiryPreview', function() {
 		$('.subscription_notice').fadeOut('fast');
 	});
 });
 $(function() {
-	$('.subscription_notice').on('mouseleave', function() {
+	$('body').on('mouseleave', '.subscription_notice', function() {
 		$('.subscription_notice').fadeOut('fast');
 	});
 });

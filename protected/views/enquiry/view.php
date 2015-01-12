@@ -182,13 +182,8 @@ if($model->budget)
 				</a>
 				</div>';
 			echo '<div style="float:left;margin-left:10px;">
-				  <div	class="fb-like"
-						data-href="'.$this->createAbsoluteUrl('/e/'.$model->id).'"
-						data-send="false"
-						data-layout="button_count"
-						data-width="80px"
-						data-show-faces="false"
-						data-font="arial">
+				<div	class="fb-share-button" data-href="'.$this->createAbsoluteUrl('/e/'.$model->id).'"
+						data-layout="button_count">
 				</div>
 				</div>';
 		}

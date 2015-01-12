@@ -30,13 +30,13 @@
 <?php
 	$user_id=Yii::app()->user->getUserID();
 	echo '<div class="title">';
-		echo '<span class="sub_title">'.__('Reply').': '.format_date($model->created).'</span>';
+		echo '<span class="sub_title" style="font-size:28px;">'.__('Reply').': '.format_date($model->created).'</span>';
 
 		echo '<div class="voteBlock">';
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
 				echo '<span id="attachment_'.$attachment->id.'" style="margin-left:30px">';
-				echo	'<span class="ocaxButton" style="padding:5px 8px 5px 5px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
+				echo	'<span class="ocaxButton" style="padding-right:8px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
 						'<i class="icon-attach"></i>'.$attachment->name.'</span>';
 				if( $model->team_member == $user_id ){
 					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';

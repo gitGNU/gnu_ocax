@@ -42,7 +42,7 @@ echo $form->hiddenField($model,'basicFilter');
 
 
 <!-- column 1 start -->
-<div style="float:left; width:400px;">
+<div style="float:left; width:480px;">
 	<?php echo $form->label($model,'state'); ?><br />
 	<?php
 		$states=$model->getHumanStates();

@@ -81,6 +81,8 @@ div.form .title{ color:<?php echo $color;?>; }
 	background-color: <?php echo $color;?> !important;
 }
 
+span.ocaxVote:hover, span.ocaxButton:hover { border:2px solid <?php echo $color;?>; }
+
 /*yii pager*/
 
 ul.yiiPager a:link,
