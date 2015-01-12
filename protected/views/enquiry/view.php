@@ -170,6 +170,11 @@ if($model->budget)
 		echo '<div class="alert subscription_notice"></div>';
 
 		if(Config::model()->findByPk('socialActivateNonFree')->value){
+			echo '<div style="float:left;margin-left:10px;">
+				<a href="http://meneame.net/submit.php?url=%'.$this->createAbsoluteUrl('/e/'.$model->id).'%&title=%'.$model->title.'%">
+				<img src="'.Yii::app()->request->baseUrl.'/images/meneame-icon.png" width=22 height=22 />
+				</a>
+				</div>';
 			echo '<div style="float:left;margin-left:10px;width:80px;">
 				  <a	href="https://twitter.com/share"
 						class="twitter-share-button"
