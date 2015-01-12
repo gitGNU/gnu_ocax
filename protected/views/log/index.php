@@ -33,6 +33,8 @@
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
+		'created',
+		/*
 		array(
 			'name'=>'created',
 			'type'=>'raw',
@@ -40,6 +42,7 @@
 				return date("Y-m-d H:i:s", $data->created);
 			},
 		),
+		*/
 		array(
 			'name'=>'user',
 			'type'=>'raw',

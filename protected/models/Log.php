@@ -48,7 +48,7 @@ class Log extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created, prefix, message', 'required'),
-			array('user, created, model_id', 'numerical', 'integerOnly'=>true),
+			array('user, model_id', 'numerical', 'integerOnly'=>true),
 			array('prefix', 'length', 'max'=>255),
 			array('message', 'length', 'max'=>1024),
 			// The following rule is used by search().
@@ -92,7 +92,7 @@ class Log extends CActiveRecord
 		if(!Yii::app()->user->isGuest)
 			$model->user = Yii::app()->user->getUserID();
 		$date = new DateTime();
-		$model->created = $date->getTimestamp();
+		$model->created = date('Y-m-d');
 		$model->save();
 	}
 
@@ -113,9 +113,10 @@ class Log extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->join='LEFT JOIN user on user.id=t.user';
 
-		$criteria->compare('user',$this->user);
-		$criteria->compare('created',$this->created);
+		$criteria->compare('user.username',$this->user,true);
+		$criteria->compare('created',$this->created,true);
 		$criteria->compare('prefix',$this->prefix,true);
 		$criteria->compare('model_id',$this->model_id);
 		$criteria->compare('message',$this->message,true);
