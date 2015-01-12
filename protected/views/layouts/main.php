@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
+	<meta property="og:image" content="<?php echo Yii::app()->request->baseUrl.'/files/logo.png';?>'" />
 
 	<!-- blueprint CSS framework -->
 
