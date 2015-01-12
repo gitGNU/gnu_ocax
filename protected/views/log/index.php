@@ -34,15 +34,6 @@
 	'filter'=>$model,
 	'columns'=>array(
 		'created',
-		/*
-		array(
-			'name'=>'created',
-			'type'=>'raw',
-            'value'=>function($data,$row){
-				return date("Y-m-d H:i:s", $data->created);
-			},
-		),
-		*/
 		array(
 			'name'=>'user',
 			'type'=>'raw',

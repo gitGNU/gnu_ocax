@@ -37,7 +37,7 @@ ALTER TABLE user ADD is_description_editor TINYINT(1) DEFAULT 0;
 CREATE TABLE IF NOT EXISTS log (
   id int(11) NOT NULL AUTO_INCREMENT,
   user int(11) NULL,		/* NULL because some things might be system log */
-  created date NOT NULL,
+  created datetime NOT NULL,
   prefix varchar(255) NOT NULL,	/* possibly is the name of a model */
   model_id int(11) NULL,
   message varchar(1024) NOT NULL,

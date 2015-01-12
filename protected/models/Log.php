@@ -92,7 +92,7 @@ class Log extends CActiveRecord
 		if(!Yii::app()->user->isGuest)
 			$model->user = Yii::app()->user->getUserID();
 		$date = new DateTime();
-		$model->created = date('Y-m-d');
+		$model->created = date('c');
 		$model->save();
 	}
 
