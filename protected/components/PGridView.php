@@ -79,7 +79,7 @@ class PGridView extends CGridView
 						}
 				');
 			}
-			$cs->registerScript(__CLASS__.'# '.$id,"jQuery('#$id tbody td:not([class=PButtonColumn])').live('click',
+			$cs->registerScript(__CLASS__.'# '.$id,"jQuery('#$id tbody td:not([class=PButtonColumn])').on('click',
 							function (){
 								param=$(this).parent().find('.p_parameter').html();
 								if(param){
