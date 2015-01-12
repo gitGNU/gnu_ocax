@@ -33,7 +33,7 @@ if(Yii::app()->request->isAjaxRequest){
 }
 ?>
 
-<?php if(Config::model()->findByPk('socialActivateNonFree')->value) { ?>
+<?php if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->request->isAjaxRequest) { ?>
 <script>
 !function(d,s,id){
 	var js,fjs=d.getElementsByTagName(s)[0];
@@ -47,7 +47,6 @@ if(Yii::app()->request->isAjaxRequest){
 (document,"script","twitter-wjs");
 </script>
 
-<?php if(!Yii::app()->request->isAjaxRequest){ ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -57,7 +56,7 @@ if(Yii::app()->request->isAjaxRequest){
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-<?php }} ?>
+<?php } ?>
 
 <script>
 function showBudget(budget_id, element){
