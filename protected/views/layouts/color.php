@@ -57,6 +57,7 @@ div.form .title{ color:<?php echo $color;?>; }
 /*ENQUIRIYS*/
 .enquirys b { color:#00CADC; }
 .enquirys_titular {	color:#929292; }
+.email-subscribe.active i { color: <?php echo $color;?>; } /* enquiry/_preview */
 
 /*sitePage Pages*/
 .sitePage_titulo { color:<?php echo $color;?>; }
@@ -82,7 +83,7 @@ div.form .title{ color:<?php echo $color;?>; }
 }
 
 span.ocaxButton:hover { border:1px solid <?php echo $color;?>; }
-.email-subscribe.active i { color: <?php echo $color;?>; }
+span.ocaxButton.active i { color: <?php echo $color;?>; }
 
 /*yii pager*/
 

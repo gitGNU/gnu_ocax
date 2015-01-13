@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -28,28 +28,36 @@
 
 <div class="reply">
 <?php
-	$user_id=Yii::app()->user->getUserID();
+	if($user_id = Yii::app()->user->getUserID()){
+		if($userVote = Vote::model()->findByAttributes(array('reply'=>$model->id, 'user'=>$user_id)))
+			$userVote = $userVote->vote;
+	}else
+		$userVote = Null;
+
 	echo '<div class="title">';
 		echo '<span class="sub_title" style="font-size:28px;">'.__('Reply').': '.format_date($model->created).'</span>';
 
 		echo '<div class="voteBlock">';
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
-				echo '<span id="attachment_'.$attachment->id.'" style="margin-left:30px">';
-				echo	'<span class="ocaxButton" style="padding-right:8px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
-						'<i class="icon-attach"></i>'.$attachment->name.'</span>';
+				echo '<span id="attachment_'.$attachment->id.'" style="margin-right:15px">';
+				echo	'<span class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
+						$attachment->name.'<i class="icon-attach"></i></span>';
 				if( $model->team_member == $user_id ){
 					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 				echo '</span>';
 			}
-			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxButton" onClick="js:vote('.$model->id.', 1);">'.
+			$userVote === '1' ? $voted = 'active' : $voted = '';
+			echo '<span style="margin-left:15x"></span>';
+			echo '<span id="voteUp_'.$model->id.'" class="ocaxButton '.$voted.'" onClick="js:vote('.$model->id.', 1, this);">'.
 				 __('Vote').'<i class="icon-thumbs-up"></i>';
 			echo '<span class="ocaxButtonCount" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1);
 			echo '</span></span>';
-			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxButton" onClick="js:vote('.$model->id.', 0);">'.
+			
+			$userVote === '0' ? $voted = 'active' : $voted = '';
+			echo '<span style="margin-left:15px"></span>';
+			echo '<span id="voteDown_'.$model->id.'" class="ocaxButton '.$voted.'" onClick="js:vote('.$model->id.', 0, this);">'.
 				 __('Vote').'<i class="icon-thumbs-down"></i>';
 			echo '<span class="ocaxButtonCount" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0);
 			echo '</span></span>';

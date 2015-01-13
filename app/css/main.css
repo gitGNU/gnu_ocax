@@ -435,10 +435,7 @@ div.breadcrumbs span
 	font-size:18px;
 	/* overflow-x:hidden; */
 }
-.enquiryBody p
-{
-	font-size: 1em;
-}
+.enquiryBody p { font-size: 1em; }
 
 span.ocaxButton {
 	border:1px solid #DEDEDE;

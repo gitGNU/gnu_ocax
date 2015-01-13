@@ -33,16 +33,16 @@
 <?php
 if($model->budget){
 	echo '<span id="nueva_consulta" style="margin-top:-20px;cursor:auto;"></span>';
-	echo '<h1>'.__('Formulate a').' '.__('budgetary enquiry').'</h1>';
+	echo '<h1 style="margin-top:-10px;">'.__('Formulate a').' '.__('budgetary enquiry').'</h1>';
 }else{
 	echo '<span id="nueva_consulta" style="margin-top:-10px;cursor:auto;"></span>';
-	echo '<h1>'.__('Formulate a').' '.__('generic enquiry').'</h1>';
+	echo '<h1 style="margin-top:-10px;">'.__('Formulate a').' '.__('generic enquiry').'</h1>';
 }
 ?>
 </h1>
 <?php
 if(!$model->budget){
-	echo '<p style="margin-bottom:15px;">'.
+	echo '<p style="margin:5px 0 15px 0;">'.
 			__('If you wish to formulate a budgetary enquiry, you must first find the corresponding').' '.
 			CHtml::link(__('Budget'),array('/budget')).
 		 '</p>';

@@ -155,7 +155,7 @@ if($model->budget)
 		echo '<span
 				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"
 				onClick="js:showSubscriptionNotice(this, '.$model->id.');">'.
-			 __('Subscribed').'<i class="icon-mail"></i>';
+			 __('Subscribed').'<i class="icon-mail-1"></i>';
 		echo '<span class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
 		echo '<div class="alert subscription_notice" style="margin-top:-30px;"></div>';
 		echo '</span>';

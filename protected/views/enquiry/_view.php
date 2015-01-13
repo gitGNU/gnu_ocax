@@ -108,7 +108,6 @@ function getCommentForm(comment_on, id, el){
 	});
 }
 function cancelComment(){
-	//$('#comment_form').html();
 	$('#comment_form').slideUp('fast');
 	$('#comment_form').prev('.add_comment_link').show();
 }
@@ -167,11 +166,20 @@ function deleteComment(comment_id){
 		error: function() { alert("error on delete comment"); },
 	});
 }
-function vote(reply_id, like){
+function vote(reply_id, like, el){
 	if(!isUser())
 		return;
 	if(!canParticipate())
 		return;
+	if($(el).hasClass('active')){
+		if(like == 1){
+			alert('<?php echo __('You have already voted favourably');?>');
+		}
+		if(like == 0){
+			alert('<?php echo __('You have already voted unfavourably');?>');
+		}
+		return;
+	}
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/vote/create',
 		type: 'POST',
@@ -187,6 +195,14 @@ function vote(reply_id, like){
 					}else{
 						$("#voteLikeTotal_"+reply_id).html(data.total_likes);
 						$("#voteDislikeTotal_"+reply_id).html(data.total_dislikes);
+						if(like == 1){
+							$("#voteUp_"+reply_id).addClass('active');
+							$("#voteDown_"+reply_id).removeClass('active');
+						}
+						if(like == 0){
+							$("#voteUp_"+reply_id).removeClass('active');
+							$("#voteDown_"+reply_id).addClass('active');
+						}
 					}
 				}
 		},
