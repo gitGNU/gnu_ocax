@@ -22,9 +22,9 @@
 
 
 #socialOptions {
-	margin-left: -5px;
+	margin: 5px 0 5px 0;
 	padding: 10px 0px 10px 0px;
-	width:400px;
+
 }
 
 #enquiryDisplayTypeIcons
@@ -86,28 +86,28 @@
 }
 .email-subscribe {
 	cursor: pointer;
-	position: absolute;
-	/*padding: 0 5px 0 5px;*/
+	
+	/*position: absolute;
+	padding: 0 5px 0 5px;
 	height: 18px;
 	width: 7px;
-	color: lightgrey;
-	font-size: 23px;
-}
-.email-subscribe.active { color: grey; }
-.email-subscribe:hover { color: grey; }
-.email-subscribe {
-	top: 0px;
-	left: 0px;
+	color: lightgrey;*/
+
 }
 
+.email-subscribe {	top: 0px; left: 0px; }
+
 .enquiryPreview > .email-subscribe {
+	position: absolute;
 	top: -23px;
 	left: 80px;
 	width: 40px;
 	height: 23px;
+	font-size: 23px;
+	color: lightgray;
 }
 
-
+.enquiryPreview > .email-subscribe:hover { color: gray; }
 .enquiryPreview .loading {
 	position: absolute;
 	height: 19px;
@@ -133,10 +133,7 @@
 	height: 174px;
 	overflow: hidden;
 }
-.enquiryPreview p
-{
-	font-size: 1em;
-}
+.enquiryPreview p {	font-size: 1em; }
 
 .enquiryPreview .subscription_notice {
 	left: 5px;

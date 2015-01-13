@@ -30,33 +30,15 @@ if(Yii::app()->request->isAjaxRequest){
 	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
 	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
 	echo $this->renderPartial('subscribeScript',array(),false,false);
+	
 }
 ?>
 
-<?php if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->request->isAjaxRequest) { ?>
-<script>
-!function(d,s,id){
-	var js,fjs=d.getElementsByTagName(s)[0];
-	if(!d.getElementById(id)){
-		js=d.createElement(s);
-		js.id=id;
-		js.src="https://platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js,fjs);
-	}
+<?php
+if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->request->isAjaxRequest) {
+	echo $this->renderPartial('//site/socialWidgetsScript', array(),false,false);
 }
-(document,"script","twitter-wjs");
-</script>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-<?php } ?>
+?>
 
 <script>
 function showBudget(budget_id, element){
@@ -162,40 +144,23 @@ if($model->budget)
 		$active='';
 		if(EnquirySubscribe::model()->isUserSubscribed($model->id, Yii::app()->user->getUserID()))
 			$active = "active";
-		echo '<div style="float:left; cursor:pointer; padding-bottom:5px; position:relative" onClick="js:showSubscriptionNotice(this, '.$model->id.');">';
-		echo '<span id="subscribe-icon_'.$model->id.'" class="email-subscribe subscribe-icon_'.$model->id.' '.$active.'"><i class="icon-mail"></i></span>';
-		echo '<span class="subscriptionCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
-		echo '<span>'.__('Subscribed').'</span>';
+
+		echo '<div style="position:relative; float:left; margin-right:10px">';
+		echo '<span class="ocaxButton" onClick="js:showSocialWidgets(); ">'.
+			 __('Share').'<i class="icon-share"></i>';
+		echo '</span>';
+		echo $this->renderPartial('_socialWidgets', array('model'=>$model));
 		echo '</div>';
-		echo '<div class="alert subscription_notice"></div>';
 
-		if(Config::model()->findByPk('socialActivateNonFree')->value){
-			echo '<div style="float:left;margin-left:10px;">
-				<a href="http://meneame.net/submit.php?url='.$this->createAbsoluteUrl('/e/'.$model->id).'&title='.$model->title.'">
-				<img src="'.Yii::app()->request->baseUrl.'/images/meneame-icon.png" width=22 height=22 />
-				</a>
-				</div>';
-			echo '<div style="float:left;margin-left:10px;width:80px;">
-				  <a	href="https://twitter.com/share"
-						class="twitter-share-button"
-						data-url="'.trim($this->createAbsoluteUrl('/e/'.$model->id)).'"
-						data-counturl="'.trim($this->createAbsoluteUrl('/e/'.$model->id)).'"
-						data-text="'.trim($model->title).'"
-						data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
-						data-lang="en"
-						>
-				</a>
-				</div>';
-			echo '<div style="float:left;margin-left:10px;">
-				<div	class="fb-share-button" data-href="'.$this->createAbsoluteUrl('/e/'.$model->id).'"
-						data-layout="button_count">
-				</div>
-				</div>';
-		}
+		echo '<span
+				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"
+				onClick="js:showSubscriptionNotice(this, '.$model->id.');">'.
+			 __('Subscribed').'<i class="icon-mail"></i>';
+		echo '<span class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+		echo '<div class="alert subscription_notice" style="margin-top:-30px;"></div>';
+		echo '</span>';
 	}?>
-
 </div>
-<br />
 <!-- social options stop -->
 
 <?php

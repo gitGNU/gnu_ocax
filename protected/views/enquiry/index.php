@@ -42,33 +42,15 @@ if($displayType == 'grid'){
 	});
 	");
 }
+
+if(Config::model()->findByPk('socialActivateNonFree')->value){
+	echo $this->renderPartial('//site/socialWidgetsScript', array());
+}
+
 $this->widget('EnquiryModal');
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
-<?php if(Config::model()->findByPk('socialActivateNonFree')->value){ ?>
-<script>
-!function(d,s,id){
-	var js,fjs=d.getElementsByTagName(s)[0];
-	if(!d.getElementById(id)){
-		js=d.createElement(s);
-		js.id=id;
-		js.src="https://platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js,fjs);
-	}
-}
-(document,"script","twitter-wjs");
-</script>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-<?php } ?>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
 <style>
 .highlightWorkflowFilter, .selectedWorkflowFilter{

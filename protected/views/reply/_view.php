@@ -44,14 +44,14 @@
 				echo '</span>';
 			}
 			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxVote" onClick="js:vote('.$model->id.', 1);">'.
+			echo '<span class="ocaxButton" onClick="js:vote('.$model->id.', 1);">'.
 				 __('Vote').'<i class="icon-thumbs-up"></i>';
-			echo '<span class="ocaxVoteCount" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1);
+			echo '<span class="ocaxButtonCount" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1);
 			echo '</span></span>';
 			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxVote" onClick="js:vote('.$model->id.', 0);">'.
+			echo '<span class="ocaxButton" onClick="js:vote('.$model->id.', 0);">'.
 				 __('Vote').'<i class="icon-thumbs-down"></i>';
-			echo '<span class="ocaxVoteCount" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0);
+			echo '<span class="ocaxButtonCount" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0);
 			echo '</span></span>';
 
 		echo '</div><div class="clear"></div>';

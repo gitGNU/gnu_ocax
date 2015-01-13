@@ -41,8 +41,6 @@ function showEnquiry(enquiry_id){
 					},
 		complete: function(){ 
 						$('#preview_'+enquiry_id).find('.loading').hide();
-						FB.XFBML.parse();
-						twttr.widgets.load();
 					},
 		success: function(data){
 			if(data != 0){
