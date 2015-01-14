@@ -35,7 +35,7 @@ if(Yii::app()->request->isAjaxRequest){
 ?>
 
 <?php
-if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->request->isAjaxRequest) {
+if(!Yii::app()->request->isAjaxRequest) {
 	echo $this->renderPartial('//includes/socialWidgetsScript', array());
 }
 ?>
@@ -84,7 +84,9 @@ function enquiryModal2Page(){
 	}
 ?>
 
-<h1 id="enquiryTitle" <?php echo !Yii::app()->request->isAjaxRequest ? 'style="margin-top:-15px;"':'' ?>><?php echo $model->title?></h1>
+<h1 id="enquiryTitle" <?php echo !Yii::app()->request->isAjaxRequest ? 'style="margin-top:-15px;"':'' ?>>
+<?php echo $model->title?>
+</h1>
 
 <div id="enquiryDetails">
 <?php

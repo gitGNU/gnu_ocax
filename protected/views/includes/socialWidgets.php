@@ -49,14 +49,15 @@
 	echo '<div	class="widget">
 			<input type="text" style="width:232px; font-size:15px;" value='.$url.' />
 		</div>';
-	echo '<div	class="widget"
-				style="cursor:pointer;"
-				onclick="js:window.open(\'http://meneame.net/submit.php?url='.$url.'&title='.$model->title.'\',\'_blank\')"
-			>
-			<img style="float:left;" src="'.Yii::app()->request->baseUrl.'/images/meneame-icon.png" />
-			<div style="float:left; margin:-2px 0 0 4px;">Meneame</div>
-		</div><div class="clear" style="margin-bottom:8px;"></div>';
-		
+	if(Config::model()->findByPk('socialActivateMeneame')->value){
+		echo '<div	class="widget"
+					style="cursor:pointer;"
+					onclick="js:window.open(\'http://meneame.net/submit.php?url='.$url.'&title='.$model->title.'\',\'_blank\')"
+				>
+				<img style="float:left;" src="'.Yii::app()->request->baseUrl.'/images/meneame-icon.png" />
+				<div style="float:left; margin:-2px 0 0 4px;">Meneame</div>
+			</div><div class="clear" style="margin-bottom:8px;"></div>';
+	}	
 	if(Config::model()->findByPk('socialActivateNonFree')->value){	
 		echo '<div class="widget">
 			  <a	href="https://twitter.com/share"

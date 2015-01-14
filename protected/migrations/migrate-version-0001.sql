@@ -17,6 +17,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigS
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusUptodate', '0', '1', 'OCAx version is up to date');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusPostInstallChecked', '0', '1', 'Post installation checked');
 INSERT INTO config(parameter, value, required, description) VALUES ('budgetAutoFeature', '1', '1', 'Auto create budget graphics after csv import');
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateMeneame', '0', '1', "Meneame: Spanish social news website"); /* 0=no 1=yes */
 
 ALTER TABLE emailtext ADD updated TINYINT(1) DEFAULT 0 NOT NULL;
 

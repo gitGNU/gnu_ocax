@@ -39,7 +39,7 @@ foreach($logs as $log){
 			border-bottom: 1px solid #cdcbc9;
 			font-size: 16px"
 		>';
-	echo '<span style="display:inline; margin: 0 30px 0 5px">'.date("Y-m-d H:i:s", $log->created).'</span>';
+	echo '<span style="display:inline; margin: 0 30px 0 5px">'.$log->created.'</span>';
 	echo $log->message;
 	echo '</div>';
 }

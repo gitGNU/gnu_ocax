@@ -47,11 +47,7 @@ $privilegedUser = Yii::app()->user->isPrivileged();
 	.clear{clear:both;}
 </style>
 
-<?php
-if(Config::model()->findByPk('socialActivateNonFree')->value){
-	echo $this->renderPartial('//includes/socialWidgetsScript', array());
-}
-?>
+<?php echo $this->renderPartial('//includes/socialWidgetsScript', array());?>
 
 <?php if($privilegedUser){ ?>
 <script>

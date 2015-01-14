@@ -55,4 +55,12 @@
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('socialActivateMeneame'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input type="radio" name="socialActivateMeneame" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
+		<input type="radio" name="socialActivateMeneame" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
+		<div class="progress"></div>
+	</div>
 </div>
