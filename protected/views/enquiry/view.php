@@ -36,7 +36,7 @@ if(Yii::app()->request->isAjaxRequest){
 
 <?php
 if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->request->isAjaxRequest) {
-	echo $this->renderPartial('//site/socialWidgetsScript', array(),false,false);
+	echo $this->renderPartial('//includes/socialWidgetsScript', array());
 }
 ?>
 
@@ -149,7 +149,7 @@ if($model->budget)
 		echo '<span class="ocaxButton" onClick="js:showSocialWidgets(); ">'.
 			 __('Share').'<i class="icon-share"></i>';
 		echo '</span>';
-		echo $this->renderPartial('_socialWidgets', array('model'=>$model));
+		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
 		echo '</div>';
 
 		echo '<span

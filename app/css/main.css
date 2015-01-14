@@ -438,8 +438,8 @@ div.breadcrumbs span
 .enquiryBody p { font-size: 1em; }
 
 span.ocaxButton {
-	border:1px solid #DEDEDE;
-	background-color: #EDEDED;
+	border:1px solid #C4C4C4;
+	background-color: #E8E8E8;
 	cursor:pointer;
 	padding: 3px 0px 3px 8px;
 	height: 18px;
@@ -450,10 +450,11 @@ span.ocaxButton {
 	border-radius: 4px;
 }
 
-span.ocaxButton i { margin-right: 3px; font-size: 1em; color:#555 }
+span.ocaxButton i { padding: 0 2px 0 1px; font-size: 1em; color:#555 }
 
 span.ocaxButtonCount {
-	margin-left:0px;
+	border-left:1px solid #CCCCCC;
+	/*margin-left:0px;*/
 	padding: 3px 7px 3px 6px;
 	height: 18px;
 	font-size: 16px;

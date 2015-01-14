@@ -44,7 +44,7 @@ if($displayType == 'grid'){
 }
 
 if(Config::model()->findByPk('socialActivateNonFree')->value){
-	echo $this->renderPartial('//site/socialWidgetsScript', array());
+	echo $this->renderPartial('//includes/socialWidgetsScript', array());
 }
 
 $this->widget('EnquiryModal');
