@@ -31,6 +31,17 @@ if(!$model->enquirys){
 					));
 	array_splice( $this->menu, 1, 0, $item );
 }
+
+if($model->is_disabled){
+	$item = array( array('label'=>__('Enable user'), 'url'=>array('enable', 'id'=>$model->id)));
+	array_splice( $this->menu, 1, 0, $item );
+}else{
+	$item = array( array(	'label'=>__('Disable user'), 'url'=>'#',
+							'linkOptions'=>array('submit'=>array('disable', 'id'=>$model->id))));
+	array_splice( $this->menu, 1, 0, $item );	
+}
+
+
 $this->inlineHelp=':manual:user:view';
 $this->viewLog='User|'.$model->id;
 ?>

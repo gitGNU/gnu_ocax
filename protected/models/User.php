@@ -197,6 +197,22 @@ class User extends CActiveRecord
 		return uniqid('',true);
 	}
 
+	public function enableUser()
+	{
+		$this->is_active = 1;
+		$this->is_disabled = 0;
+		$this->save();
+		Log::model()->write('User', __('User').' id='.$this->id.' "'.$this->username.'" '.__('enabled'), $this->id);
+	}
+
+	public function disableUser()
+	{
+		$this->is_active = 0;
+		$this->is_disabled = 1;
+		$this->save();
+		Log::model()->write('User', __('User').' id='.$this->id.' "'.$this->username.'" '.__('disabled'), $this->id);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -207,7 +223,7 @@ class User extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('is_disabled = 0');
+		$criteria->addCondition('username != "░░░░░░░░░"');
 
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('fullname',$this->fullname,true);

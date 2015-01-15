@@ -46,12 +46,12 @@ class UserController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','admin','delete','updateRoles'),
+				'actions'=>array('view','admin','delete','updateRoles','enable'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('allow',
 				'actions'=>array('disable'),
-				'expression'=>"Yii::app()->user->isManager()",
+				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -250,12 +250,19 @@ class UserController extends Controller
 	public function actionDisable($id)
 	{
 		$model=$this->loadModel($id);
-		$model->is_active = 0;
-		$model->is_disabled = 1;
-		$model->save();
-		Log::model()->write('User', __('User').' id='.$model->id.' "'.$model->username.'" '.__('disabled'), $model->id);
-		Yii::app()->user->setFlash('success', __('User disabled'));
-		echo 1;
+		$model->disableUser();
+		if(Yii::app()->request->isAjaxRequest){
+			Yii::app()->user->setFlash('success', __('User disabled'));
+			echo 1;
+		}else
+			$this->redirect(array('view','id'=>$model->id));
+	}
+
+	public function actionEnable($id)
+	{
+		$model=$this->loadModel($id);
+		$model->enableUser();
+		$this->redirect(array('view','id'=>$model->id));
 	}
 
 	/*
