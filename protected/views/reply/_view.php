@@ -35,19 +35,22 @@
 		$userVote = Null;
 
 	echo '<div class="title">';
-		echo '<span class="sub_title" style="font-size:28px;">'.__('Reply').': '.format_date($model->created).'</span>';
+		echo '<div class="sub_title" style="font-size:28px; float:left; margin-bottom:0px;">'.__('Reply').': '.format_date($model->created).'</div>';
 
-		echo '<div class="voteBlock">';
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
-				echo '<span id="attachment_'.$attachment->id.'" style="margin-right:15px">';
-				echo	'<span class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
-						$attachment->name.'<i class="icon-attach"></i></span>';
+				echo '<span	id="attachment_'.$attachment->id.'" style="margin-left:15px;">';
+				echo '<span	class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');
+							style="float:left;"
+					">'.$attachment->name.'<i class="icon-attach" style="margin:0 3px 0 3px;"></i>';
+				echo	'</span>';
 				if( $model->team_member == $user_id ){
 					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 				echo '</span>';
 			}
+		echo '<div class="voteBlock">';
+
 			$userVote === '1' ? $voted = 'active' : $voted = '';
 			echo '<span style="margin-left:15x"></span>';
 			echo '<span id="voteUp_'.$model->id.'" class="ocaxButton '.$voted.'" onClick="js:vote('.$model->id.', 1, this);">'.

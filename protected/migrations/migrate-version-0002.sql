@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS backup (
   FOREIGN KEY (vault) REFERENCES vault(id),
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
+INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
 
 ALTER TABLE budget MODIFY csv_parent_id varchar(255);
 ALTER TABLE budget MODIFY csv_id varchar(255);

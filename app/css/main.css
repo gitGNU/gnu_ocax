@@ -449,6 +449,7 @@ span.ocaxButton {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
+span.ocaxButton:hover { border:1px solid #9C9C9C; }
 
 span.ocaxButton i { padding: 0 2px 0 1px; font-size: 1em; color:#555 }
 

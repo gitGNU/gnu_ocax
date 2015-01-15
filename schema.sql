@@ -402,8 +402,8 @@ INSERT INTO config(parameter, required, description) VALUES ('smtpPassword', '0'
 INSERT INTO config(parameter, required, description) VALUES ('smtpPort', '0', 'SMTP Port');
 INSERT INTO config(parameter, required, description) VALUES ('smtpSecure', '0', 'SMTP Secure');
 INSERT INTO config(parameter, required, description) VALUES ('smtpUsername', '0', 'SMTP Username');
-INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets"); /* 0=no 1=yes */
-INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateMeneame', '0', '1', "Meneame: Spanish social news website"); /* 0=no 1=yes */
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Twitter and Facebook widgets");
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateMeneame', '0', '1', "Meneame: Spanish social news website");
 INSERT INTO config(parameter, required, description) VALUES ('socialFacebookURL', '0', "Observatory's facebook URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL', '0', "Observatory's twitter URL");
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");

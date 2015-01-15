@@ -2,8 +2,8 @@
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackup', '0', '1', 'Automated site backup (experimental)');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteAutoBackupEmailAlert', '1', '1', 'Send email reports to admin(s)');
 INSERT INTO config(parameter, value, required, description) VALUES ('htmlEditorUseCompressor', '1', '1', "Use HTML editor compressor");
-INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Include Twitter and Facebook widgets");
-INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateNonFree', '0', '1', "Twitter and Facebook widgets");
+INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateMeneame', '0', '1', "Meneame: Spanish social news website");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteColor', 'a1a150', '1', "The colour of your site eg: #a1a150");
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatus', '0', '1', 'Site configuration complete');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusBudgetDescriptionsImport', '0', '1', 'Budget descriptions have been imported');
@@ -17,7 +17,6 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigS
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusUptodate', '0', '1', 'OCAx version is up to date');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusPostInstallChecked', '0', '1', 'Post installation checked');
 INSERT INTO config(parameter, value, required, description) VALUES ('budgetAutoFeature', '1', '1', 'Auto create budget graphics after csv import');
-INSERT INTO config(parameter, value, required, description) VALUES ('socialActivateMeneame', '0', '1', "Meneame: Spanish social news website"); /* 0=no 1=yes */
 
 ALTER TABLE emailtext ADD updated TINYINT(1) DEFAULT 0 NOT NULL;
 
