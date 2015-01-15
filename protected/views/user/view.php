@@ -25,22 +25,22 @@ $this->menu=array(
 	array('label'=>__('List all users'), 'url'=>array('admin')),
 );
 
-if(!$model->enquirys){
-	$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
-							'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
-					));
-	array_splice( $this->menu, 1, 0, $item );
+if(Yii::app()->user->getUserID() != $model->id){
+	if(!$model->enquirys){
+		$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
+						));
+		array_splice( $this->menu, 1, 0, $item );
+	}
+	if($model->is_disabled){
+		$item = array( array('label'=>__('Enable user'), 'url'=>array('enable', 'id'=>$model->id)));
+		array_splice( $this->menu, 1, 0, $item );
+	}else{
+		$item = array( array(	'label'=>__('Disable user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('disable', 'id'=>$model->id))));
+		array_splice( $this->menu, 1, 0, $item );	
+	}
 }
-
-if($model->is_disabled){
-	$item = array( array('label'=>__('Enable user'), 'url'=>array('enable', 'id'=>$model->id)));
-	array_splice( $this->menu, 1, 0, $item );
-}else{
-	$item = array( array(	'label'=>__('Disable user'), 'url'=>'#',
-							'linkOptions'=>array('submit'=>array('disable', 'id'=>$model->id))));
-	array_splice( $this->menu, 1, 0, $item );	
-}
-
 
 $this->inlineHelp=':manual:user:view';
 $this->viewLog='User|'.$model->id;
@@ -109,7 +109,7 @@ function megaDelete(el){
 		'email',
 		'joined',
 		'is_socio',
-		'is_description_editor',
+		//'is_description_editor',
 		'is_team_member',
 		'is_editor',
 		'is_manager',

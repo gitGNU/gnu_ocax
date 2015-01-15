@@ -281,9 +281,9 @@ class UserController extends Controller
 		$model->is_active = 0;
 		$model->is_disabled = 1;
 		$username = $model->username;
-		$model->username = '░░░░░░░░░';
-		$model->fullname = '░░░░░░░░░';
-		$model->email = '░░░░░░░░░';
+		$model->username = $model->smudge;
+		$model->fullname = $model->smudge;
+		$model->email = $model->smudge;
 
 		$model->save();
 		Log::model()->write('User',__('User').' "'.$username.'" '.__('deleted account'),$model->id);

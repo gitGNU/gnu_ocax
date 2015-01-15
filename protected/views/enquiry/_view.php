@@ -258,12 +258,6 @@ function sendContactForm(form){
 				$('#contact_petition_error').html(data);
 				$('#contact_petition_error').show();
 			}
-			setTimeout(function() {
-				$('#contact_petition').fadeOut('fast',
-										function(){
-											$('#contact_petition').bPopup().close();
-									});
-    		}, 2000);
 		},
 		error: function() {
 			alert("Error on post Contact petition");

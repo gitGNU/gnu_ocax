@@ -61,7 +61,7 @@
 		echo '<div class="row">';
 		echo '<b>'.$user->fullname.' '.__('says').'...</b><br />';
 		echo '<div class="hint">'.__('Optionally, you may attach text to this email').'</div>';
-		echo $form->textArea($model, 'body', array('style'=>'width: 100%; height: 120px;'));
+		echo $form->textArea($model, 'body', array('style'=>'width: 690px; height: 120px;'));
 		echo '</div>';
 
 	?>
@@ -77,22 +77,22 @@
 <style>
 .contact_form_bottom{
 	display:none;
-	margin:-11px;
-	margin-top:0px;
+	margin:0 -10px -10px -10px;
 	padding:15px;
-	border-top: 1px solid #C9E0ED;
+	border-top: 1px solid #CDCBC9;
 	text-align:center;
 	font-size:1.4em;
 	background-color:white;
 }
 </style>
-<div id="contact_petition_sending" class="contact_form_bottom" style="color:orange">
+<div id="contact_petition_sending" class="contact_form_bottom" style="color:amber">
 <?php echo __('Sending email')?>&nbsp;&nbsp;
 <?php echo '<img style="vertical-align:text-middle;"
 			src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />'?>
 </div>
-<div id="contact_petition_sent" class="contact_form_bottom" style="color:green">
+<div id="contact_petition_sent" class="contact_form_bottom">
 <?php echo __('Email sent')?>
+<i class="icon-ok-circled green" style="margin-left:10px;"></i>
 </div>
 <div id="contact_petition_error" class="contact_form_bottom" style="color:red">
 </div>

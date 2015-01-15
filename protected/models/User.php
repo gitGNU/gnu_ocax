@@ -47,6 +47,7 @@ class User extends CActiveRecord
 {
 	public $new_password='';
 	public $password_repeat='';
+	public $smudge='░░░░░░░░░';
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -223,7 +224,7 @@ class User extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('username != "░░░░░░░░░"');
+		$criteria->addCondition('username != "'.$this->smudge.'"');
 
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('fullname',$this->fullname,true);
