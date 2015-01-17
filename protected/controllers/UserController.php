@@ -278,15 +278,9 @@ class UserController extends Controller
 		$model=$this->loadModel(Yii::app()->user->getUserID());
 
 		$model->scenario = 'opt_out';
-		$model->is_active = 0;
-		$model->is_disabled = 1;
 		$username = $model->username;
-		$model->username = $model->smudge;
-		$model->fullname = $model->smudge;
-		$model->email = $model->smudge;
+		$model->smudgeUser();
 
-		$model->save();
-		Log::model()->write('User',__('User').' "'.$username.'" '.__('deleted account'),$model->id);
 		Yii::app()->user->logout();
 		//Yii::app()->user->setFlash('success', __('Your profile has been deleted.'));
 		$this->redirect(Yii::app()->homeUrl);

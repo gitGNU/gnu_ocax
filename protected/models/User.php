@@ -214,6 +214,17 @@ class User extends CActiveRecord
 		Log::model()->write('User', __('User').' id='.$this->id.' "'.$this->username.'" '.__('disabled'), $this->id);
 	}
 
+	public function smudgeUser()
+	{
+		$this->is_active = 0;
+		$this->is_disabled = 1;
+		$this->username = $this->smudge;
+		$this->fullname = $this->smudge;
+		$this->email = $this->smudge;	
+		$this->save();
+		Log::model()->write('User',__('User').' '.$this->username.' id='.$this->id.' '.__('deleted account'),$this->id);
+	}
+		
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

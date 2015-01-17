@@ -35,21 +35,20 @@
 		$userVote = Null;
 
 	echo '<div class="title">';
-		echo '<div class="sub_title" style="font-size:28px; float:left; margin-bottom:0px;">'.__('Reply').': '.format_date($model->created).'</div>';
+		echo '<div class="sub_title" style="font-size:28px; float:left; margin:0 15px 0 0;">'.__('Reply').': '.format_date($model->created).'</div>';
 
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
-				echo '<span	id="attachment_'.$attachment->id.'" style="margin-left:15px;">';
-				echo '<span	class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');
-							style="float:left;"
-					">'.$attachment->name.'<i class="icon-attach" style="margin:0 3px 0 3px;"></i>';
-				echo	'</span>';
+				echo '<span	id="attachment_'.$attachment->id.'">';
+					echo '<span	class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">';
+					echo $attachment->name.'<i class="icon-attach"></i>';
+					echo '</span>';
 				if( $model->team_member == $user_id ){
 					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 				echo '</span>';
 			}
-		echo '<div class="voteBlock">';
+		echo '<span class="voteBlock">';
 
 			$userVote === '1' ? $voted = 'active' : $voted = '';
 			echo '<span style="margin-left:15x"></span>';
@@ -65,7 +64,7 @@
 			echo '<span class="ocaxButtonCount" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0);
 			echo '</span></span>';
 
-		echo '</div><div class="clear"></div>';
+		echo '</span><div class="clear"></div>';
 	echo '</div>';
 	if($model->team_member == Yii::app()->user->getUserID()){
 		echo '<div class="link" style="margin-top:-10px;float:right;" onClick=\'js:uploadFile("Reply",'.$model->id.');\'>'.__('Add attachment').'</div>';

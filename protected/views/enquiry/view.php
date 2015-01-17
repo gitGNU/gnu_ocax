@@ -147,12 +147,12 @@ if($model->budget)
 		if(EnquirySubscribe::model()->isUserSubscribed($model->id, Yii::app()->user->getUserID()))
 			$active = "active";
 
-		echo '<div style="position:relative; float:left; margin-right:10px">';
+		echo '<span style="position:relative;  margin-right:10px">';
 		echo '<span class="ocaxButton" onClick="js:showSocialWidgets(); ">'.
 			 __('Share').'<i class="icon-share"></i>';
 		echo '</span>';
 		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
-		echo '</div>';
+		echo '</span>';
 
 		echo '<span
 				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"

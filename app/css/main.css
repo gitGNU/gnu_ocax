@@ -451,7 +451,7 @@ span.ocaxButton {
 }
 span.ocaxButton:hover { border:1px solid #9C9C9C; }
 
-span.ocaxButton i { padding: 0 2px 0 1px; font-size: 1em; color:#555 }
+span.ocaxButton i { padding: 0 5px 0 3px; font-size: 1em; color:#555 }
 
 span.ocaxButtonCount {
 	border-left:1px solid #CCCCCC;

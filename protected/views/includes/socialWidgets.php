@@ -27,7 +27,7 @@
 .socialWidgetBox {
 	display:none;
 	position:absolute;
-	top: -5px;
+	top: -7px;
 	width:250px;
 	z-index:99;
 }
