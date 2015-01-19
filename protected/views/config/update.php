@@ -24,7 +24,6 @@
 $this->menu=array(
 	array('label'=>__('Global parameters'), 'url'=>array('index')),
 );
-$this->inlineHelp=':profiles:admin:global_parameters';
 
 if(isset($returnURL))
 	$returnURL='?returnURL='.$returnURL;

@@ -53,17 +53,19 @@ function chooseBudget(budget_id){
 
 	<?php echo $form->hiddenField($model,'budget'); ?>
 	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php
-			$dropDown_data = $model->getHumanTypes();
-			unset($dropDown_data[2]);	// remove 'Reclamation' type
+		<?php  ?>
+		<?php if(!isset($noGeneric)){
+				echo $form->label($model,'type');
+				$dropDown_data = $model->getHumanTypes();
+				unset($dropDown_data[2]);	// remove 'Reclamation' type
+				echo '<div class="hint">'. __('Change type').'</div>';
+				echo $form->radioButtonList($model, 'type', $dropDown_data,
+											array(	'labelOptions'=>array('style'=>'display:inline'),
+													'onchange'=>'changeType(this);'
+											));
+			}
 		?>
-		<div class="hint"><?php echo __('Change type')?></div>
-		<?php echo $form->radioButtonList($model, 'type', $dropDown_data,
-										array(	'labelOptions'=>array('style'=>'display:inline'),
-												'onchange'=>'changeType(this);'
-										));
-		?>
+		
 	</div>
 	<p></p>
 	<div class="row buttons">

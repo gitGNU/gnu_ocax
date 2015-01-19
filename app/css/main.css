@@ -343,7 +343,9 @@ div.breadcrumbs span
 
 .portlet-content #extraText
 {
-	padding: 15px 0 15px 5px;
+	padding: 15px 5px 15px 5px;
+	font: 15px SansPro;
+	color: grey;
 }
 
 .portlet-content ul

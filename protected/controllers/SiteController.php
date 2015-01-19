@@ -215,7 +215,7 @@ class SiteController extends Controller
 
 			if ($model->validate() && $newUser->save())
 			{
-				Log::model()->write('User',__('New user').' "'.$newUser->username.'"', $newUser->id);
+				Log::model()->write('User',__('New user').' "'.$newUser->username.'" id='.$newUser->id, $newUser->id);
 				//if want to go login, just uncomment this below
 				$identity=new UserIdentity($newUser->username,$model->password);
 				//$identity->authenticate();

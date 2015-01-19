@@ -31,11 +31,9 @@ $this->menu=array(
 );
 $this->inlineHelp=':manual:enquiry:changebudget';
 $this->viewLog='Enquiry|'.$model->id;
+$this->extraText = '<i class="icon-attention green"></i><br />'.__('Use this when you need to make corrections to the budget database');
 ?>
 
-<h1><?php echo __('Edit enquiry').': '.__('change related budget')?></h1>
-<p style="margin-top:0px;margin-bottom:10px;">
-<?php echo __('Use this when you need to make corrections to the budget database');?><i class="icon-attention green"></i>
-</p>
+<h1 style="margin-bottom:15px"><?php echo __('Edit enquiry').': '.__('change related budget')?></h1>
 
-<?php $this->renderPartial('_changeType',array('model'=>$model,'budgetModel'=>$budgetModel));?>
+<?php $this->renderPartial('_changeType',array('model'=>$model,'budgetModel'=>$budgetModel,'noGeneric'=>1));?>

@@ -28,6 +28,11 @@ $this->menu=array(
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 $this->inlineHelp=':manual:reply:create';
+
+
+$text =	'<i class="icon-attention green"></i><br />'.__('The body of text will be displayed together with the enquiry').'.<br />'.
+		__('After publishing this reply you will be able to attach the documentation you received from the administration');
+$this->extraText = $text;
 ?>
 
 <div class="form">
@@ -60,14 +65,6 @@ $this->inlineHelp=':manual:reply:create';
 		)); ?>
 		<?php echo $form->error($model,'created'); ?>
 	</div>
-
-<p>
-<?php
-echo __('The text below will be displayed together with the enquiry').'<br />';
-echo __('After publishing this reply you will be able to attach the documentation you received from the administration');
-echo '<i class="icon-attention green"></i>';
-?>
-</p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
