@@ -30,7 +30,7 @@ $this->inlineHelp=':manual:enquiry:changetype';
 $this->viewLog='Enquiry|'.$model->id;
 ?>
 
-<h1><?php echo __('Change type')?></h1>
+<h1 style="margin-bottom:15px"><?php echo __('Change type')?></h1>
 
 <?php $this->renderPartial('_changeType',array('model'=>$model,'budgetModel'=>$budgetModel));?>
 

@@ -49,8 +49,8 @@ class CsvController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
 				'addMissingValues','checkCSVTotals','importCSVData',
-				'export','showYears','regenerateCSV','updateCommonDescriptions',
-				'downloadUpdatedCSV'),
+				'export','showYears','regenerateCSV',/*'updateCommonDescriptions',*/
+				'downloadUpdatedCSV'/*,'createCommonDescriptions'*/),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -530,36 +530,43 @@ class CsvController extends Controller
 		$model = new ImportCSV;
 		$mega_array = explode('|', file_get_contents($model->path.'descriptions.csv'));
 		array_shift($mega_array);
+		
 		$header=1;
+		$rowCnt=0;
 		while($mega_array){
 			$field_cnt=0;
 			$row=array();
-			while($field_cnt < 7){
+			while($field_cnt < 6){
 				$row[] = array_shift($mega_array);
 				//echo $field_cnt.': '.$row[$field_cnt].'<br />';
 				$field_cnt++;
 			}
+			$rowCnt++;
 			if(!$header){
-					$budget=new BudgetDescCommon;	
+					$budget=new BudgetDescCommon;
+					
 					$budget->csv_id = trim(trim($row[0], '"'));
-					$budget->language = trim(trim($row[2], '"'));
-					$budget->code = trim(trim($row[3], '"'));
-					$budget->label = trim(trim($row[4], '"'));
-					$budget->concept = trim(trim(trim($row[5], '"')),'.');
-					$description=str_replace('"', '', $row[6]);
+					$budget->language = trim(trim($row[1], '"'));
+					$budget->code = trim(trim($row[2], '"'));
+					$budget->label = trim(trim($row[3], '"'));
+					$budget->concept = trim(trim(trim($row[4], '"')),'.');
+					$description=str_replace('"', '', $row[5]);
 					$description=trim($description);
 					$budget->description = nl2br($description);
 					$budget->text = $description;
-										
-					//$budget->validate();
 					
-					if(!$budget->save()){
-						echo CHtml::errorSummary($budget);
+					if(!$budget->validate()){
+						echo '<br />row count: '.$rowCnt;
+						echo '<p>'.CHtml::errorSummary($budget).'</p>';
+						print_r($row);
 						Yii::app()->end();
 					}
+					else
+						$budget->save();
 			}else
 				$header=0;
 		}
+		Yii::app()->end();
 	}
 
 	/**
