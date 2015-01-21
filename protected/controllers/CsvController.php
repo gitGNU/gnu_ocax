@@ -229,8 +229,12 @@ class CsvController extends Controller
 				$total = 0;
 				foreach($id['children'] as $child)
 					$total = $total + $child['initial_prov'];
+		
+				//if($id['internal_code'] == 'I-E')
+				//	file_put_contents('/tmp/float','total --'.round($total,0).'-- other --'.round($id['initial_total'],0).'---');
 				
-				if(bccomp($total, $id['initial_total'])!=0){
+				if( round($total,0) !== round($id['initial_total'],0) ){
+				//if(bccomp($total, $id['initial_total'])!=0){	// some servers to have pccomp
 					$initialSummary=$initialSummary.'<div style="width:400px;margin-top:15px;">';
 					$initialSummary=$initialSummary.'<b>'.$id['internal_code'].' Initial provision is: <span style="float:right;">'.format_number($id['initial_total']).'</span></b>';
 					$rowColor='';
@@ -255,7 +259,8 @@ class CsvController extends Controller
 				foreach($id['children'] as $child)
 					$total = $total + $child['actual_prov'];
 
-				if(bccomp($total, $id['actual_total'])!=0){
+				if( round($total,0) !== round($id['actual_total'],0) ){
+				//if(bccomp($total, $id['actual_total'])!=0){
 					$actualSummary=$actualSummary.'<div style="width:400px;margin-top:15px;">';
 					$actualSummary=$actualSummary.'<b>'.$id['internal_code'].' Actual provision is: <span style="float:right;">'.format_number($id['actual_total']).'</span></b>';
 					$rowColor='';
