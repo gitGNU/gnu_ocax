@@ -39,3 +39,6 @@ ALTER TABLE budget_desc_state MODIFY csv_id varchar(255);
 ALTER TABLE budget_desc_common MODIFY csv_id varchar(255);
 ALTER TABLE budget_desc_local MODIFY csv_id varchar(255);
 
+ALTER TABLE reply MODIFY COLUMN created DATE;
+
+

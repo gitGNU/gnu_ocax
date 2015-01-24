@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS enquiry_subscribe (
 CREATE TABLE IF NOT EXISTS reply (
   id int(11) NOT NULL AUTO_INCREMENT,
   enquiry int(11) NOT NULL,
-  created DATETIME NOT NULL,
+  created DATE NOT NULL,
   team_member int(11) NOT NULL,
   body MEDIUMTEXT NOT NULL,
   PRIMARY KEY (id),

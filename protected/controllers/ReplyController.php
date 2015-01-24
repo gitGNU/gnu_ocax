@@ -49,7 +49,7 @@ class ReplyController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create'),
+				'actions'=>array('create','update'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -103,15 +103,15 @@ class ReplyController extends Controller
 				$enquiry->save();
 				$enquiry->promptEmail();
 
+				Log::model()->write('Enquiry', __('Enquiry').' id='.$enquiry->id.' '.__('Reply added'), $enquiry->id);
+
 				$this->redirect(array('enquiry/teamView','id'=>$model->enquiry));
 			}
 		}
 		$enquiry=Enquiry::model()->findByPk($model->enquiry);
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->enquiry));
-		$this->render('create',array(
+		$this->render('edit',array(
 			'model'=>$model,
 			'enquiry'=>$enquiry,
-			'replys'=>$replys,
 		));
 	}
 
@@ -130,12 +130,15 @@ class ReplyController extends Controller
 		if(isset($_POST['Reply']))
 		{
 			$model->attributes=$_POST['Reply'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()){
+				Log::model()->write('Enquiry', __('Enquiry').' id='.$model->enquiry.' '.__('Reply added'), $model->enquiry);
+				$this->redirect(array('enquiry/teamView','id'=>$model->enquiry));
+			}
 		}
-
-		$this->render('update',array(
+		$enquiry=Enquiry::model()->findByPk($model->enquiry);
+		$this->render('edit',array(
 			'model'=>$model,
+			'enquiry'=>$enquiry,
 		));
 	}
 

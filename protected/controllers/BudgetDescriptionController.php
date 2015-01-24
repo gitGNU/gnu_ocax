@@ -121,7 +121,9 @@ class BudgetDescriptionController extends Controller
 				if(Config::model()->isSiteMultilingual())
 					$word = 'language "'.$model->language.'" ';
 				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('created'),$model->id);
-				Yii::app()->user->setFlash('success', __('Budget description saved Ok'));
+				Yii::app()->user->setFlash('success', __('Budget description saved Ok')
+													.'<br /><a href="http://agora.ocax.net/c/ocax/budget-descriptions">'
+													.__('Do you want to share it with others').'?</a>');
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
 		}
@@ -181,7 +183,9 @@ class BudgetDescriptionController extends Controller
 				if(Config::model()->isSiteMultilingual())
 					$word = 'language "'.$model->language.'" ';
 				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('updated'),$model->id);
-				Yii::app()->user->setFlash('success', __('Budget description saved Ok'));
+				Yii::app()->user->setFlash('success', __('Budget description saved Ok')
+													.'<br /><a href="http://agora.ocax.net/c/ocax/budget-descriptions">'
+													.__('Do you want to share it with others').'?</a>');
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
 		}

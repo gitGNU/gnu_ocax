@@ -26,31 +26,37 @@ $this->menu=array(
 	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 if($model->state == ENQUIRY_ACCEPTED){
-	$submit = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
-	array_splice( $this->menu, 0, 0, $submit );
+	$item = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $item );
 }
 if($model->state < ENQUIRY_AWAITING_REPLY && $model->state != ENQUIRY_REJECTED){
-	$edit = array( array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)) );
-	array_splice( $this->menu, 0, 0, $edit );
+	$item = array( array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $item );
 }
 if($model->state == ENQUIRY_ASSIGNED){
-	$validate = array( array('label'=>__('Accept / Reject'), 'url'=>array('/enquiry/validate', 'id'=>$model->id)) );
-	array_splice( $this->menu, 0, 0, $validate );
+	$item = array( array('label'=>__('Accept / Reject'), 'url'=>array('/enquiry/validate', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $item );
+}
+if($model->state == ENQUIRY_AWAITING_REPLY){
+	$item = array( array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)) );
+	array_splice( $this->menu, 0, 0, $item );
+}
+if($model->state >= ENQUIRY_REPLY_PENDING_ASSESSMENT){
+	$reply = Reply::model()->findByAttributes(array('enquiry'=>$model->id));
+	$item = array( array('label'=>__('Correct reply'), 'url'=>array('/reply/update', 'id'=>$reply->id)) );
+	array_splice( $this->menu, 0, 0, $item );	
 }
 if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$reply = array( array('label'=>__('Add reply'), 'url'=>array('/reply/create?enquiry='.$model->id)) );
-	array_splice( $this->menu, 0, 0, $reply );
-
-	$submit = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
-	array_splice( $this->menu, 0, 0, $submit );	
+	$item = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $item );	
 }
 if($model->state == ENQUIRY_REPLY_PENDING_ASSESSMENT){
-	$assess = array( array('label'=>__('Assess reply'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );
-	array_splice( $this->menu, 0, 0, $assess );
+	$item = array( array('label'=>__('Assess reply'),  'url'=>array('/enquiry/assess', 'id'=>$model->id)) );
+	array_splice( $this->menu, 0, 0, $item );
 }
 if($model->state > ENQUIRY_REPLY_PENDING_ASSESSMENT){
-	$reformulate = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/reformulate?related='.$model->id))  );
-	array_splice( $this->menu, 0, 0, $reformulate );
+	$item = array( array('label'=>__('Reformulate enquiry'), 'url'=>array('/enquiry/reformulate?related='.$model->id))  );
+	array_splice( $this->menu, 0, 0, $item );
 }
 
 $this->inlineHelp=':manual:enquiry:teamview';
