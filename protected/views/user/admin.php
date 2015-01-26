@@ -101,7 +101,17 @@ function toggleSearchOptions(){
 ));?>
 
 
-
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-success').slideUp('fast');
+    	}, 5000);
+		});
+	</script>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>
 
 
 

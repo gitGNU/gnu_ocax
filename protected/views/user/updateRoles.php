@@ -42,6 +42,24 @@ $this->menu=array(
 	array('label'=>__('View User'), 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>__('Manage Users'), 'url'=>array('admin')),
 );
+
+if(Yii::app()->user->getUserID() != $model->id){
+	if(!$model->enquirys){
+		$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
+						));
+		array_splice( $this->menu, 1, 0, $item );
+	}
+	if($model->is_disabled){
+		$item = array( array('label'=>__('Enable user'), 'url'=>array('enable', 'id'=>$model->id)));
+		array_splice( $this->menu, 1, 0, $item );
+	}else{
+		$item = array( array(	'label'=>__('Disable user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('disable', 'id'=>$model->id))));
+		array_splice( $this->menu, 1, 0, $item );	
+	}
+}
+
 $this->inlineHelp=':manual:user:updateroles';
 $this->viewLog='User|'.$model->id;
 ?>

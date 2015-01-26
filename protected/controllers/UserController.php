@@ -294,22 +294,10 @@ class UserController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
-/*
-		foreach($model->comments as $comment)
-			$comment->delete();
-		foreach($model->votes as $vote)
-			$vote->delete();
-		foreach($model->enquirySubscribes as $subscription)
-			$subscription->delete();
-		foreach($model->resetPasswords as $resetPassword)
-			$resetPassword->delete();
-
-		$model->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-*/
+		$username=$model->username;
+		$model->smudgeUser();
+		Yii::app()->user->setFlash('success', __('User deleted'));
+		$this->redirect(array('/user/admin'));
 	}
 
 	/**
