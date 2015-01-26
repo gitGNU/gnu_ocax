@@ -144,7 +144,9 @@ function resetForm(){
 <div id="enquiryPageTitle">
 	<h1 style="margin-top:-10px;"><?php echo __('Enquiries made to date');?></h1>
 	<p style="margin-top:0px;">
-		<?php echo __('This is a list of enquiries made by citizens like you.');?>
+		<?php	echo __('This is a list of enquiries made by citizens like you.').'.';
+				echo '<span style="margin-left:40px">'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</span>';
+		?>
 	</p>
 </div>
 
@@ -223,17 +225,5 @@ if($displayType == 'grid'){
 ?>
 </div>
 
-<?php if(Yii::app()->user->isGuest){
-	echo '<div class="clear"></div>';
-	echo '<div>';
-		echo '<p>'.__('Haz una consulta y aporta tu granito de arena.').' ';
-		echo __('Más consultas significa más cooperación entre ciudadanos').'. ';
-		echo __('Aqui en el Observatorio nos encargamos de todo el papelaeo').'. ';
-			echo __('Remember you must first').' '.
-				'<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
-				'<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
-				'</p>';
-	echo '</div>';
-} ?>
 <div class="clear"></div>
 <div class="goToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>

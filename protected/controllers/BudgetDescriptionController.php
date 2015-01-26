@@ -53,6 +53,12 @@ class BudgetDescriptionController extends Controller
 									'browseState','admin','delete'),
 				'expression'=>"Yii::app()->user->canEditBudgetDescriptions()",
 			),
+			/*
+			array('allow',
+				'actions'=>array('updateCommonDescriptions'),
+				'expression'=>"Yii::app()->user->isAdmin()",
+			),
+			*/
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -279,6 +285,46 @@ class BudgetDescriptionController extends Controller
 		$this->render('browseState',array(
 			'model'=>$model,
 		));
+	}
+
+	/*
+	 * Only used to update commonDescriptions with localDescription data
+	 * !!Will delete ALL localDescriptions!!
+	 */
+	public function actionUpdateCommonDescriptions()
+	{
+		$cnt=0;
+		$local_descriptions = BudgetDescLocal::model()->findAll();
+		foreach($local_descriptions as $local_description){
+			echo $local_description->csv_id.'<br />';
+			$common_description = BudgetDescCommon::model()->findByAttributes(
+										array('csv_id'=>$local_description->csv_id, 'language'=>$local_description->language)
+									);
+			if(!$common_description){
+				echo 'no common<br />';
+				$common_description = new BudgetDescCommon;
+				$common_description->csv_id = $local_description->csv_id;
+				$common_description->language = $local_description->language;
+				$common_description->code = $local_description->code;
+			}else
+				echo 'yes common<br />';
+			if($local_description->label)
+				$common_description->label = $local_description->label;
+			if($local_description->concept)
+				$common_description->concept = $local_description->concept;
+			if($local_description->description){
+				$common_description->description = $local_description->description;
+				$common_description->text = $local_description->text;
+			}
+			if($local_description->label || $local_description->concept || $local_description->description){
+				$common_description->modified = date('c');
+				$common_description->save();
+				$local_description->delete();
+				$cnt = $cnt+1;
+			}
+		}
+		echo 'Updated/New Common Descriptions: '.$cnt;
+		Yii::app()->end();
 	}
 
 	/**

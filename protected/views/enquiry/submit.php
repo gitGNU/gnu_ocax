@@ -91,7 +91,7 @@ function deleteDoc(){
 	<div class="row buttons">
 	<?php
 		if($model->documentation){
-			echo '<div>'.__('Is this information correct?').'</div>';
+			echo '<p>'.__('Is this information correct?').'</p>';
 			$name=__('Submit');
 		}else
 			$name=__('Add document');

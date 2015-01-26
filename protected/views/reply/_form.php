@@ -32,8 +32,6 @@
 	'enableClientValidation'=>false,
 )); ?>
 
-	<div class="title"><?php echo __('Add reply')?></div>
-
 	<?php echo $form->hiddenField($model,'enquiry');?>
 
 	<div class="row">

@@ -30,9 +30,18 @@ $this->menu=array(
 $this->inlineHelp=':manual:reply:create';
 
 
-$text =	'<i class="icon-attention green"></i><br />'.__('The body of text will be displayed together with the enquiry').'.<br />'.
-		__('After publishing this reply you will be able to attach the documentation you received from the administration');
-$this->extraText = $text;
+if($model->isNewRecord){
+	$text =	'<i class="icon-attention green"></i><br />'.__('The body of text will be displayed together with the enquiry').'.<br />'.
+			__('After publishing this reply you will be able to attach the documentation you received from the administration');
+	$this->extraText = $text;
+}
+
+echo '<h1 style="margin-bottom:15px;">';
+if($model->isNewRecord)
+	echo __('Add reply');
+else
+	echo __('Correct reply');
+echo '</h1>';
 
 $this->renderPartial('_form', array('model'=>$model, 'enquiry'=>$enquiry));
 echo '<p></p>';
