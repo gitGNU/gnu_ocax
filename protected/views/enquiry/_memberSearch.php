@@ -23,7 +23,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form" style="width:100%">
+<div class="wide form" style="width:100%;margin-top:15px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),

@@ -277,7 +277,6 @@ class UserController extends Controller
 		}
 		$model=$this->loadModel(Yii::app()->user->getUserID());
 
-		$model->scenario = 'opt_out';
 		$username = $model->username;
 		$model->smudgeUser();
 
@@ -294,7 +293,6 @@ class UserController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
-		$username=$model->username;
 		$model->smudgeUser();
 		Yii::app()->user->setFlash('success', __('User deleted'));
 		$this->redirect(array('/user/admin'));

@@ -220,7 +220,8 @@ class User extends CActiveRecord
 		$this->is_disabled = 1;
 		$this->username = $this->smudge;
 		$this->fullname = $this->smudge;
-		$this->email = $this->smudge;	
+		$this->email = $this->smudge;
+		$this->scenario = 'opt_out';
 		$this->save();
 		Log::model()->write('User',__('User').' '.$this->username.' id='.$this->id.' '.__('deleted account'),$this->id);
 	}
