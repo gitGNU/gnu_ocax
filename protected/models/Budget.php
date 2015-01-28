@@ -197,10 +197,11 @@ class Budget extends CActiveRecord
 				$label = $description->label;
 			if($description->concept && !$concept)
 				$concept = $description->concept;			
-			if($label && $concept)
-				return $label.': '.$concept;				
 		}
-		return $this->concept;
+		if($label && $concept)
+			return $label.': '.$concept;
+		return $concept;		
+		//return $this->concept;
 	}
 
 	public function getDescription()

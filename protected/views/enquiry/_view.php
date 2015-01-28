@@ -292,14 +292,14 @@ foreach($replys as $reply)
 	<div id="budget_popup_body"></div>
 </div>
 
-<?php if (!Yii::app()->user->isGuest) : ?>
+<?php if (!Yii::app()->user->isGuest) { ?>
 	<div id="contact_petition" class="modal" style="width:700px;">
 		<i class='icon-cancel-circled modalWindowButton bClose'></i>
 		<div id="contact_petition_content"></div>
 	</div>
-<?php endif ?>
+<?php } ?>
 
-<?php if (Yii::app()->user->isGuest) : ?>
+<?php if (Yii::app()->user->isGuest) { ?>
 	<div id="loginToParticipate_popup" class="modal" style="width:500px;">
 		<i class='icon-cancel-circled modalWindowButton bClose'></i>
 		<div class="modalTitle"><?php echo __('Please login to participate')?></div>
@@ -316,9 +316,9 @@ foreach($replys as $reply)
 		?>
 		</div>
 	</div>
-<?php endif ?>
+<?php } ?>
 
-<?php if ($model->team_member == Yii::app()->user->getUserID()) : ?>
+<?php if ($model->team_member == Yii::app()->user->getUserID()) { ?>
 <script>
 function uploadFile(model,model_id){
 	$.ajax({
@@ -360,4 +360,4 @@ function deleteFile(file_id){
 
 <?php echo $this->renderPartial('//file/modal'); ?>
 
-<?php endif ?>
+<?php } ?>

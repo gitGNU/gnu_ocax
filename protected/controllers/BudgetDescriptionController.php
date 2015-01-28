@@ -289,7 +289,7 @@ class BudgetDescriptionController extends Controller
 
 	/*
 	 * Only used to update commonDescriptions with localDescription data
-	 * !!Will delete ALL localDescriptions!!
+	 * !!Remember to delete all localDescriptions!!
 	 */
 	public function actionUpdateCommonDescriptions()
 	{
@@ -319,7 +319,7 @@ class BudgetDescriptionController extends Controller
 			if($local_description->label || $local_description->concept || $local_description->description){
 				$common_description->modified = date('c');
 				$common_description->save();
-				$local_description->delete();
+				//$local_description->delete();
 				$cnt = $cnt+1;
 			}
 		}
