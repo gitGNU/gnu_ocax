@@ -40,6 +40,8 @@ function changeColumn()
 	}
 }
 $privilegedUser = Yii::app()->user->isPrivileged();
+if($privilegedUser)
+	$this->widget('InlineHelp');
 ?>
 
 <style>
@@ -80,6 +82,11 @@ $(function() {
 	<div	id="moreOptionsToggle"
 			onCLick="js:toggleMoreOptions();return false;">
 			<?php echo 	'<i class="icon-plus-circled"></i>';?>
+	</div>
+</div>
+<div style="position:relative; right:40px" >
+	<div class="teamMenu" onCLick="js:showHelp('<?php echo getInlineHelpURL(":manual:user:panel");?>');return false;">
+		<i class="icon-help-circled"></i>
 	</div>
 </div>
 <?php } ?>

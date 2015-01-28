@@ -190,8 +190,8 @@ class BudgetDescriptionController extends Controller
 					$word = 'language "'.$model->language.'" ';
 				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('updated'),$model->id);
 				Yii::app()->user->setFlash('success', __('Budget description saved Ok')
-													.'<br /><a href="http://agora.ocax.net/c/ocax/budget-descriptions">'
-													.__('Do you want to share it with others').'?</a>');
+													.'<br /><a href="http://agora.ocax.net/c/ocax/budget-descriptions" target="_blank">'
+													.__('Do you want to share it with other observatories').'?</a>');
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
 		}

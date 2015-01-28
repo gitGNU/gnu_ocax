@@ -200,8 +200,9 @@ class Budget extends CActiveRecord
 		}
 		if($label && $concept)
 			return $label.': '.$concept;
-		return $concept;		
-		//return $this->concept;
+		if($concept)
+			return $concept;
+		return $this->concept;	// data imported with csv		
 	}
 
 	public function getDescription()
