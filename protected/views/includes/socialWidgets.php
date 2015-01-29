@@ -34,11 +34,9 @@
 .socialWidgetBox > div.widget {
 		margin: 4px 2px 8px 2px;
 		padding: 0px;
-		/*float:left;*/
 		width: 110px;
-		/*height: 21px;*/
-		/*background-color:red;*/
 		font-size: 16px;
+		height: 22px;
 }
 </style>
 

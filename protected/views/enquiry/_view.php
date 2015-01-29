@@ -302,10 +302,11 @@ foreach($replys as $reply)
 <?php if (Yii::app()->user->isGuest) { ?>
 	<div id="loginToParticipate_popup" class="modal" style="width:500px;">
 		<i class='icon-cancel-circled modalWindowButton bClose'></i>
-		<div class="modalTitle"><?php echo __('Please login to participate')?></div>
-		<div style="font-size:18px; margin: 15px 0 10px 0">
+		<div class="modalTitle"><?php echo __('Login')?></div>
+		<div style="font-size:18px; margin: 15px 0 10px 0;">
 		<?php
-			$text = __('If you have an account, please %s').'.';
+			$text = '<span style="font-size:1.1em">'.__('Please login to participate').'.</span><br />'.
+					__('If you have an account, %s').'.';
 			$link = CHtml::link(__('login'), array('/site/login'));
 			$text = str_replace('%s', $link, $text);
 			echo $text.'<br />';
