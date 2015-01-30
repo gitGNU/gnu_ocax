@@ -164,29 +164,19 @@ class ImportCSV extends CFormModel
 		$ids = array();
 		$lines = file($this->csv);
 		foreach ($lines as $line_num => $line) {
-			//file_put_contents('/tmp/line', $line_num);
-			if($line_num==0){
+			//if($line_num==0){
 				$delimiterCnt = substr_count($line, '|');
 				if ($delimiterCnt == 0){
-					$error[]='Delimiter | not found in file.';
+					$error[]='Delimiter | not found on row '.$line_num;
 					break;
 				}
 				if ($delimiterCnt != 9){
-					$error[]=($delimiterCnt+1).' columns found. Expecting 10';
+					$error[]=($delimiterCnt+1).' columns found. Expecting 10. Row '.$line_num;
 					break;
 				}
 				continue;
-			}
-			
-			try{
-				list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
-			}
-			catch (Exception $e)
-			{
-				throw new Exception( 'Wrong number of columns on line '.$line_num, 0, $e);
-				Yii:app()->end();
-			}
-			
+			//}
+			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 			$id = trim($id);
 			if(in_array($id, $ids)) {
 				$error[]='<br />Register '. ($line_num+1) .': Internal code "'.$id.'" is not unique';
