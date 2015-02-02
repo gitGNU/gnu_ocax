@@ -1,3 +1,14 @@
+1.2.0
+Configurable site color.
+Usability improvements.
+New system log.
+Some CSV import fixes.
+Local Budget_description edition improved.
+New experimental peer2peer automated site backups.
+Improved Site page edition.
+Team member can now moderate enquiry comments.
+Changed embedded graphics url from api/ocaxpie to graph/ocaxpie
+
 1.1.4
 Now support State, Common, and Local descriptions.
 Some new Global params.

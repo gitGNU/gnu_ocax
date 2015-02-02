@@ -81,7 +81,7 @@ class Vault extends CActiveRecord
 			//array('host', 'url'),
 			array('type, state, count', 'numerical', 'integerOnly'=>true),
 			array('capacity', 'numerical', 'integerOnly'=>true, 'min'=>1),
-			array('host', 'length', 'max'=>255),
+			array('host', 'url'),
 			array('key', 'length', 'max'=>32),
 			array('schedule', 'length', 'is'=>7),
 			array('key', 'validateKey', 'on'=>'newKey'),

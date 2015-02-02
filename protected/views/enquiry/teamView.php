@@ -29,7 +29,8 @@ if($model->state == ENQUIRY_ACCEPTED){
 	$item = array( array('label'=>__('Submit enquiry'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $item );
 }
-if($model->state < ENQUIRY_AWAITING_REPLY && $model->state != ENQUIRY_REJECTED){
+if(	(	$model->state < ENQUIRY_AWAITING_REPLY && $model->state != ENQUIRY_REJECTED) ||
+		($model->state == ENQUIRY_AWAITING_REPLY && $model->addressed_to == OBSERVATORY) ){
 	$item = array( array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $item );
 }

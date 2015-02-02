@@ -104,7 +104,7 @@ $attribs[] = array(
 $attribs[] = array(
 		'label'=>__('State'),
 		'type' => 'raw',
-		'value'=> CHtml::encode($model->getHumanStates($model->state)),
+		'value'=> CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)),
 	);
 		
 if($model->state >= ENQUIRY_AWAITING_REPLY){

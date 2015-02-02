@@ -92,7 +92,7 @@ class Enquiry extends CActiveRecord
 		return __($humanAddressValues[$address]);
 	}
 
-	public static function getHumanStates($state=Null)
+	public static function getHumanStates($state=Null, $addressed_to=ADMINISTRATION)
 	{
 		$humanStateValues=array(
 				ENQUIRY_PENDING_VALIDATION		=>__('Pending validation by the %s'),
@@ -104,12 +104,9 @@ class Enquiry extends CActiveRecord
 				ENQUIRY_REPLY_SATISFACTORY		=>__('Reply considered satisfactory'),
 				ENQUIRY_REPLY_INSATISFACTORY	=>__('Reply considered insatisfactory'),
 		);
-		/*
-		if($addressed_to)
+		if($addressed_to == OBSERVATORY)
 			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the observatory');
-		else
-			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the administration');
-		*/
+
 		if($state!==Null){
 			if(!(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager()) && $state==ENQUIRY_ASSIGNED)
 				$state=ENQUIRY_PENDING_VALIDATION;

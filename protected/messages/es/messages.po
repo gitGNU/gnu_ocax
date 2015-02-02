@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-02-02 13:00+0100\n"
-"PO-Revision-Date: 2015-02-02 13:00+0100\n"
+"POT-Creation-Date: 2015-02-02 15:20+0100\n"
+"PO-Revision-Date: 2015-02-02 15:23+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -226,18 +226,18 @@ msgstr "borrar cuenta"
 #: protected/views/enquiry/view.php:78 protected/views/enquiry/assigned.php:85
 #: protected/views/budget/view.php:213
 #: protected/controllers/EnquiryController.php:87
-#: protected/controllers/EnquiryController.php:409
-#: protected/controllers/EnquiryController.php:454
-#: protected/controllers/EnquiryController.php:455
-#: protected/controllers/EnquiryController.php:506
-#: protected/controllers/EnquiryController.php:513
-#: protected/controllers/EnquiryController.php:629
-#: protected/controllers/EnquiryController.php:631
-#: protected/controllers/EnquiryController.php:657
-#: protected/controllers/EnquiryController.php:670
-#: protected/controllers/EnquiryController.php:777
-#: protected/controllers/EnquiryController.php:779
-#: protected/controllers/EnquiryController.php:805
+#: protected/controllers/EnquiryController.php:415
+#: protected/controllers/EnquiryController.php:460
+#: protected/controllers/EnquiryController.php:461
+#: protected/controllers/EnquiryController.php:512
+#: protected/controllers/EnquiryController.php:519
+#: protected/controllers/EnquiryController.php:638
+#: protected/controllers/EnquiryController.php:640
+#: protected/controllers/EnquiryController.php:669
+#: protected/controllers/EnquiryController.php:682
+#: protected/controllers/EnquiryController.php:789
+#: protected/controllers/EnquiryController.php:791
+#: protected/controllers/EnquiryController.php:817
 #: protected/controllers/ReplyController.php:106
 #: protected/controllers/ReplyController.php:134
 #: protected/controllers/CommentController.php:161
@@ -249,7 +249,7 @@ msgid "Date of reply"
 msgstr "Fecha de respuesta administración"
 
 #: protected/models/Reply.php:100 protected/models/Newsletter.php:114
-#: protected/models/Email.php:107 protected/models/Enquiry.php:232
+#: protected/models/Email.php:107 protected/models/Enquiry.php:230
 #: protected/models/EmailTemplate.php:114
 #: protected/models/SitePageContent.php:111
 msgid "Body"
@@ -279,7 +279,7 @@ msgid "Created"
 msgstr "Creada"
 
 #: protected/models/Newsletter.php:109 protected/models/Backup.php:105
-#: protected/models/Enquiry.php:230 protected/models/Vault.php:182
+#: protected/models/Enquiry.php:228 protected/models/Vault.php:182
 #: protected/models/EmailTemplate.php:113
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/view.php:105 protected/views/enquiry/index.php:206
@@ -355,7 +355,7 @@ msgid "Remember me"
 msgstr "Recuérdame"
 
 #: protected/models/Log.php:79 protected/models/Email.php:99
-#: protected/models/Enquiry.php:229 protected/models/Vault.php:178
+#: protected/models/Enquiry.php:226 protected/models/Vault.php:178
 #: protected/views/enquiry/view.php:120
 #: protected/views/enquiry/_detailsForTeam.php:39
 #: protected/views/vault/admin.php:156
@@ -406,7 +406,7 @@ msgstr "Modificado"
 msgid "Sent"
 msgstr "Enviado"
 
-#: protected/models/Email.php:102 protected/models/Enquiry.php:231
+#: protected/models/Email.php:102 protected/models/Enquiry.php:229
 #: protected/views/introPage/admin.php:42
 msgid "Title"
 msgstr "Título"
@@ -477,29 +477,33 @@ msgstr "Respuesta considerada satisfactoria"
 msgid "Reply considered insatisfactory"
 msgstr "Respuesta considerada no satisfactoria"
 
-#: protected/models/Enquiry.php:188
+#: protected/models/Enquiry.php:108
+msgid "Awaiting reply from the observatory"
+msgstr "Esperando respuesta del observatorio"
+
+#: protected/models/Enquiry.php:185
 msgid "The title cannot include the question."
 msgstr "El título no puede ser una pregunta."
 
-#: protected/models/Enquiry.php:220
+#: protected/models/Enquiry.php:217
 msgid "Related to"
 msgstr "Relacionada con"
 
-#: protected/models/Enquiry.php:221
+#: protected/models/Enquiry.php:218
 #: protected/views/enquiry/_detailsForTeam.php:31
 msgid "Formulated by"
 msgstr "Formulada por"
 
-#: protected/models/Enquiry.php:222 protected/views/enquiry/admin.php:84
+#: protected/models/Enquiry.php:219 protected/views/enquiry/admin.php:84
 #: protected/views/enquiry/_detailsForTeam.php:35
 msgid "Assigned to"
 msgstr "Asignada a"
 
-#: protected/models/Enquiry.php:223
+#: protected/models/Enquiry.php:220
 msgid "Manager"
 msgstr "Manager"
 
-#: protected/models/Enquiry.php:224
+#: protected/models/Enquiry.php:221
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/enquiry/view.php:95 protected/views/enquiry/index.php:201
 #: protected/views/budget/view.php:218 protected/views/user/panel.php:326
@@ -507,33 +511,38 @@ msgstr "Manager"
 msgid "Formulated"
 msgstr "Formulada"
 
-#: protected/models/Enquiry.php:225
+#: protected/models/Enquiry.php:222
 msgid "Assigned"
 msgstr "Asignada"
 
-#: protected/models/Enquiry.php:226 protected/views/enquiry/view.php:114
-#: protected/views/enquiry/_detailsForTeam.php:62
+#: protected/models/Enquiry.php:223 protected/views/enquiry/view.php:114
+#: protected/views/enquiry/_detailsForTeam.php:66
 msgid "Submitted"
 msgstr "Fecha de entrega"
 
-#: protected/models/Enquiry.php:227 protected/views/enquiry/view.php:111
-#: protected/views/enquiry/_detailsForTeam.php:55
+#: protected/models/Enquiry.php:224 protected/views/enquiry/view.php:111
+#: protected/views/enquiry/_detailsForTeam.php:59
 msgid "Registry number"
 msgstr "Nº de registro"
 
-#: protected/models/Enquiry.php:228 protected/views/enquiry/submit.php:133
+#: protected/models/Enquiry.php:225 protected/views/enquiry/submit.php:133
 msgid "Documentation"
 msgstr "Documentación"
 
-#: protected/models/Enquiry.php:253 protected/models/Enquiry.php:255
+#: protected/models/Enquiry.php:227
+#: protected/views/enquiry/_detailsForTeam.php:43
+msgid "Addressed to"
+msgstr "Dirigida a"
+
+#: protected/models/Enquiry.php:251 protected/models/Enquiry.php:253
 msgid "Send an email to the"
 msgstr "Enviar un correo a"
 
-#: protected/models/Enquiry.php:253
+#: protected/models/Enquiry.php:251
 msgid "team member"
 msgstr "team member"
 
-#: protected/models/Enquiry.php:255
+#: protected/models/Enquiry.php:253
 msgid "people subscribed to the Enquiry"
 msgstr "personas subscritas a la consulta"
 
@@ -705,7 +714,7 @@ msgstr "Listar consultas"
 msgid "Send email"
 msgstr "Envía correo"
 
-#: protected/views/email/create.php:146 protected/views/enquiry/_form.php:126
+#: protected/views/email/create.php:146 protected/views/enquiry/_form.php:135
 #: protected/views/site/login.php:98
 msgid "Send"
 msgstr "Enviar"
@@ -770,7 +779,7 @@ msgstr "Si decides, puedes adjuntar un texo en este correo"
 
 #: protected/views/email/_contactPetition.php:72
 #: protected/views/enquiry/_changeType.php:73
-#: protected/views/enquiry/_form.php:138 protected/views/comment/_form.php:45
+#: protected/views/enquiry/_form.php:147 protected/views/comment/_form.php:45
 #: protected/views/user/update.php:146 protected/views/reply/_form.php:90
 msgid "Cancel"
 msgstr "Cancelar"
@@ -785,8 +794,8 @@ msgstr "Correo electrónico enviado"
 
 #: protected/views/email/index.php:34 protected/views/enquiry/adminView.php:26
 #: protected/views/enquiry/manage.php:100
-#: protected/controllers/EnquiryController.php:558
-#: protected/controllers/EnquiryController.php:703
+#: protected/controllers/EnquiryController.php:564
+#: protected/controllers/EnquiryController.php:715
 msgid "Manage enquiry"
 msgstr "Gestionar consulta"
 
@@ -803,7 +812,7 @@ msgstr "consultas"
 
 #: protected/views/enquiry/admin.php:62 protected/views/enquiry/manage.php:26
 #: protected/views/user/panel.php:245
-#: protected/controllers/EnquiryController.php:718
+#: protected/controllers/EnquiryController.php:730
 msgid "Manage enquiries"
 msgstr "Gestionar consultas"
 
@@ -862,9 +871,9 @@ msgid "budgetary enquiry"
 msgstr "consulta presupuestaria"
 
 #: protected/views/enquiry/create.php:39
-#: protected/controllers/EnquiryController.php:403
-#: protected/controllers/EnquiryController.php:408
-#: protected/controllers/EnquiryController.php:452
+#: protected/controllers/EnquiryController.php:409
+#: protected/controllers/EnquiryController.php:414
+#: protected/controllers/EnquiryController.php:458
 msgid "generic enquiry"
 msgstr "consulta genérica"
 
@@ -894,7 +903,7 @@ msgstr "La consulta original"
 
 #: protected/views/enquiry/create.php:80
 #: protected/views/enquiry/teamView.php:74
-#: protected/views/enquiry/manage.php:171 protected/views/user/panel.php:434
+#: protected/views/enquiry/manage.php:172 protected/views/user/panel.php:434
 msgid "Yes"
 msgstr "Sí"
 
@@ -952,7 +961,7 @@ msgstr "El consenso general es que la respuesta es insatisfactoria"
 
 #: protected/views/enquiry/teamView.php:29
 #: protected/views/enquiry/submit.php:55
-#: protected/controllers/EnquiryController.php:478
+#: protected/controllers/EnquiryController.php:484
 msgid "Submit enquiry"
 msgstr "Entregar la consulta"
 
@@ -975,12 +984,12 @@ msgid "Correct submission"
 msgstr "Corregir entrega"
 
 #: protected/views/enquiry/teamView.php:58
-#: protected/controllers/EnquiryController.php:263
+#: protected/controllers/EnquiryController.php:265
 msgid "Reformulate enquiry"
 msgstr "Reformular consulta"
 
 #: protected/views/enquiry/teamView.php:75
-#: protected/views/enquiry/manage.php:173 protected/views/user/panel.php:435
+#: protected/views/enquiry/manage.php:174 protected/views/user/panel.php:435
 msgid "No"
 msgstr "No"
 
@@ -1021,52 +1030,54 @@ msgstr ""
 "Como Team member tienes tres opciones para gestionar la consulta adjunta."
 
 #: protected/views/enquiry/manage.php:118
+#: protected/views/enquiry/validate.php:61
+#: protected/views/enquiry/_form.php:126
 msgid "Who is this enquiry addressed to?"
 msgstr "¿A quien está dirigida está consulta?"
 
-#: protected/views/enquiry/manage.php:128
+#: protected/views/enquiry/manage.php:129
 msgid "Assign enquiry"
 msgstr "Asignar consulta"
 
-#: protected/views/enquiry/manage.php:131
+#: protected/views/enquiry/manage.php:132
 msgid "Not assigned"
 msgstr "No asignada"
 
-#: protected/views/enquiry/manage.php:134
+#: protected/views/enquiry/manage.php:135
 msgid "Assign"
 msgstr "Asignar"
 
-#: protected/views/enquiry/manage.php:136
+#: protected/views/enquiry/manage.php:137
 msgid "Change team member"
 msgstr "Cambiar team member"
 
-#: protected/views/enquiry/manage.php:141
+#: protected/views/enquiry/manage.php:142
 msgid "Reject the enquiry"
 msgstr "Rechaza la consulta"
 
-#: protected/views/enquiry/manage.php:141
-#: protected/views/enquiry/validate.php:70
+#: protected/views/enquiry/manage.php:142
+#: protected/views/enquiry/validate.php:80
 msgid "The enquiry is inappropriate"
 msgstr "La consulta es inapropiada"
 
-#: protected/views/enquiry/manage.php:142
-#: protected/views/enquiry/validate.php:71
+#: protected/views/enquiry/manage.php:143
+#: protected/views/enquiry/validate.php:81
 msgid "Reject"
 msgstr "Rechaza"
 
-#: protected/views/enquiry/manage.php:147
+#: protected/views/enquiry/manage.php:148
 msgid "The enquiry is spam"
 msgstr "La consulta es spam"
 
-#: protected/views/enquiry/manage.php:147
+#: protected/views/enquiry/manage.php:148
 msgid "Delete the enquiry and"
 msgstr "Eliminar la consulta y"
 
-#: protected/views/enquiry/manage.php:148
+#: protected/views/enquiry/manage.php:149
 msgid "disable the user"
 msgstr "deshabilitar el usuario"
 
-#: protected/views/enquiry/manage.php:152
+#: protected/views/enquiry/manage.php:153
 msgid "Delete"
 msgstr "Borrar"
 
@@ -1142,7 +1153,7 @@ msgstr "hasta que haya sido aceptado por el observatorio."
 #: protected/views/budget/_budgetDetails.php:50
 #: protected/views/user/panel.php:111
 #: protected/controllers/EnquiryController.php:171
-#: protected/controllers/EnquiryController.php:239
+#: protected/controllers/EnquiryController.php:241
 msgid "New enquiry"
 msgstr "Nueva consulta"
 
@@ -1192,7 +1203,7 @@ msgstr "Euros por persona"
 #: protected/views/user/panel.php:321 protected/views/user/panel.php:355
 #: protected/views/user/view.php:136 protected/views/layouts/mainmenu.php:28
 #: protected/controllers/EnquiryController.php:100
-#: protected/controllers/EnquiryController.php:753
+#: protected/controllers/EnquiryController.php:765
 msgid "Enquiries"
 msgstr "Consultas"
 
@@ -1299,24 +1310,24 @@ msgstr "Validar consulta"
 msgid "Please study the enquiry below before deciding on an option"
 msgstr "Estudia la consulta más abajo antes de decidir por una opción"
 
-#: protected/views/enquiry/validate.php:61
+#: protected/views/enquiry/validate.php:71
 #, php-format
 msgid "Tell %s you do not want to take responsibility of this enquiry"
 msgstr "Dile a %s que no quieres responsabilizarte de esta consulta"
 
-#: protected/views/enquiry/validate.php:66
+#: protected/views/enquiry/validate.php:76
 msgid "Accept the Enquiry"
 msgstr "Aceptar consulta"
 
-#: protected/views/enquiry/validate.php:66
+#: protected/views/enquiry/validate.php:76
 msgid "You accept this enquiry as valid"
 msgstr "Aceptas esta consulta como a válida"
 
-#: protected/views/enquiry/validate.php:67
+#: protected/views/enquiry/validate.php:77
 msgid "Accept"
 msgstr "Acepta"
 
-#: protected/views/enquiry/validate.php:70
+#: protected/views/enquiry/validate.php:80
 msgid "Reject the Enquiry"
 msgstr "Rechaza la consulta"
 
@@ -1325,11 +1336,11 @@ msgstr "Rechaza la consulta"
 msgid "on the"
 msgstr "el día"
 
-#: protected/views/enquiry/_detailsForTeam.php:43
+#: protected/views/enquiry/_detailsForTeam.php:47
 msgid "Subscribed users"
 msgstr "Usuarios suscritos"
 
-#: protected/views/enquiry/_detailsForTeam.php:54
+#: protected/views/enquiry/_detailsForTeam.php:58
 msgid "missing"
 msgstr "falta"
 
@@ -1338,11 +1349,11 @@ msgid "New reformulated enquiry"
 msgstr "Nueva consulta reformulada"
 
 #: protected/views/enquiry/_form.php:62
-#: protected/controllers/EnquiryController.php:330
+#: protected/controllers/EnquiryController.php:332
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: protected/views/enquiry/_form.php:126 protected/views/reply/_form.php:87
+#: protected/views/enquiry/_form.php:135 protected/views/reply/_form.php:87
 #: protected/views/vault/_capacity.php:46
 msgid "Update"
 msgstr "Actualiza"
@@ -1370,7 +1381,7 @@ msgid "Cancel my subscription"
 msgstr "Cancela mi subscripción"
 
 #: protected/views/enquiry/assigned.php:64 protected/views/user/panel.php:220
-#: protected/controllers/EnquiryController.php:597
+#: protected/controllers/EnquiryController.php:603
 msgid "Entrusted enquiries"
 msgstr "Consultas encomendadas"
 
@@ -2787,7 +2798,7 @@ msgid "updated"
 msgstr "actualizada"
 
 #: protected/controllers/IntroPageController.php:186
-#: protected/controllers/EnquiryController.php:777
+#: protected/controllers/EnquiryController.php:789
 #: protected/controllers/SitePageController.php:289
 #: protected/controllers/BudgetDescriptionController.php:242
 msgid "deleted"
@@ -2822,64 +2833,64 @@ msgstr "Ésta partida es del año %s"
 msgid "Do you want to continue?"
 msgstr "¿Quieres continuar?"
 
-#: protected/controllers/EnquiryController.php:244
+#: protected/controllers/EnquiryController.php:246
 msgid "We have sent you an email"
 msgstr "Te hemos enviado un correo electrónico"
 
-#: protected/controllers/EnquiryController.php:248
+#: protected/controllers/EnquiryController.php:250
 msgid "Your enquiry has been registered correctly"
 msgstr "Se ha registrado tu consulta correctamente"
 
-#: protected/controllers/EnquiryController.php:313
+#: protected/controllers/EnquiryController.php:315
 msgid "New reformulated enquiry created OK"
 msgstr "Nueva consulta reformulada correctamente"
 
-#: protected/controllers/EnquiryController.php:409
-#: protected/controllers/EnquiryController.php:454
-#: protected/controllers/EnquiryController.php:455
+#: protected/controllers/EnquiryController.php:415
+#: protected/controllers/EnquiryController.php:460
+#: protected/controllers/EnquiryController.php:461
 msgid "changed budget"
 msgstr "partida cambiada"
 
-#: protected/controllers/EnquiryController.php:492
+#: protected/controllers/EnquiryController.php:498
 msgid "submitted to administration"
 msgstr "entregada a la administración"
 
-#: protected/controllers/EnquiryController.php:494
+#: protected/controllers/EnquiryController.php:500
 msgid "submit corrected"
 msgstr "entrega corregida"
 
-#: protected/controllers/EnquiryController.php:629
+#: protected/controllers/EnquiryController.php:638
 msgid "rejected by team member"
 msgstr "rechazado por el team member"
 
-#: protected/controllers/EnquiryController.php:631
+#: protected/controllers/EnquiryController.php:640
 msgid "accepted by team member"
 msgstr "aceptado por el team member"
 
-#: protected/controllers/EnquiryController.php:657
+#: protected/controllers/EnquiryController.php:669
 msgid "rejected by team manager"
 msgstr "rechazado por el team manager"
 
-#: protected/controllers/EnquiryController.php:660
 #: protected/controllers/EnquiryController.php:672
+#: protected/controllers/EnquiryController.php:684
 msgid "You must assign a team member"
 msgstr "Debes asignar un team member"
 
-#: protected/controllers/EnquiryController.php:670
+#: protected/controllers/EnquiryController.php:682
 msgid "assigned to team member"
 msgstr "asignada al team member"
 
-#: protected/controllers/EnquiryController.php:688
+#: protected/controllers/EnquiryController.php:700
 msgid "New team member assigned"
 msgstr "Nuevo team member assignado"
 
-#: protected/controllers/EnquiryController.php:779
-#: protected/controllers/EnquiryController.php:805
+#: protected/controllers/EnquiryController.php:791
+#: protected/controllers/EnquiryController.php:817
 msgid "deleted by team manager"
 msgstr "borrado por el team manager"
 
-#: protected/controllers/EnquiryController.php:784
-#: protected/controllers/EnquiryController.php:807
+#: protected/controllers/EnquiryController.php:796
+#: protected/controllers/EnquiryController.php:819
 msgid "Enquiry has been deleted"
 msgstr "Se ha borrado la consulta"
 
@@ -3134,14 +3145,8 @@ msgstr "¿Quieres compartirlo con otros osbservatorios?"
 #~ msgid "The observatory"
 #~ msgstr "El observatorio"
 
-#~ msgid "Awaiting reply from the observatory"
-#~ msgstr "Esperando respuesta del observatorio"
-
 #~ msgid "the observatory"
 #~ msgstr "el observatorio"
-
-#~ msgid "Addressed to"
-#~ msgstr "Dirigido a"
 
 #~ msgid "Keep me informed via email when there are changes"
 #~ msgstr "Mantenme informado por correo cuando hayan cambios"
