@@ -47,8 +47,6 @@ CREATE TABLE IF NOT EXISTS log (
 ALTER TABLE cms_page MODIFY weight int(10);
 ALTER TABLE cms_page_content ADD previewBody MEDIUMTEXT;
 
-ALTER TABLE enquiry DROP COLUMN addressed_to;
-
 RENAME TABLE emailtext TO email_template;
 RENAME TABLE cms_page TO site_page;
 RENAME TABLE cms_page_content TO site_page_content;

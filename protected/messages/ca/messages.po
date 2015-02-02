@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: 2015-01-29 21:12+0100\n"
-"PO-Revision-Date: 2015-01-29 21:12+0100\n"
+"PO-Revision-Date: 2015-01-31 08:16+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: /home/chris/project/ocax/\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-SearchPath-0: protected/models\n"
 "X-Poedit-SearchPath-1: protected/views\n"
 "X-Poedit-SearchPath-2: protected/controllers\n"
@@ -22,12 +22,10 @@ msgid "Order"
 msgstr "Ordre"
 
 #: protected/models/IntroPage.php:106
-#, fuzzy
 msgid "Top"
 msgstr "Superior"
 
 #: protected/models/IntroPage.php:107
-#, fuzzy
 msgid "Left"
 msgstr "Esquerra"
 
@@ -126,23 +124,20 @@ msgid "Budget table saved on the"
 msgstr "Taula de pressupostos guardada el"
 
 #: protected/models/SitePage.php:93
-#, fuzzy
 msgid "Combination already exists."
-msgstr "El nom del fitxer ja existeix!"
+msgstr "El nom del fitxer ja existeix"
 
 #: protected/models/SitePage.php:104
 msgid "Block"
 msgstr "Bloc"
 
 #: protected/models/SitePage.php:107
-#, fuzzy
 msgid "Advanced HTML"
-msgstr "Fragment d'HTML (*.html)"
+msgstr "HTML Avançat"
 
 #: protected/models/SitePage.php:108
-#, fuzzy
 msgid "Include title"
-msgstr "El títol no pot ser una pregunta."
+msgstr "Incloure títol"
 
 #: protected/models/ImportCSV.php:51
 msgid "CSV file"
@@ -150,7 +145,7 @@ msgstr "Fitxer CSV"
 
 #: protected/models/ImportCSV.php:498
 msgid "generated on the"
-msgstr "generated on the"
+msgstr "generar el"
 
 #: protected/models/User.php:129 protected/models/LoginForm.php:58
 #: protected/models/RegisterForm.php:86
@@ -200,15 +195,13 @@ msgid "Is partner"
 msgstr "És soci"
 
 #: protected/models/User.php:139
-#, fuzzy
 msgid "Budget description editor"
-msgstr "Especifica la font de l'editor"
+msgstr "Editor descripció partides pressupostàries"
 
 #: protected/models/User.php:141 protected/views/user/panel.php:231
 #: protected/views/user/updateRoles.php:124
-#, fuzzy
 msgid "Page editor"
-msgstr "Editor de la barra d'eines"
+msgstr "Pàgina d'edició"
 
 #: protected/models/User.php:206 protected/models/User.php:214
 #: protected/models/User.php:226 protected/models/Log.php:77
@@ -217,19 +210,16 @@ msgid "User"
 msgstr "Usuari"
 
 #: protected/models/User.php:206
-#, fuzzy
 msgid "enabled"
 msgstr "Activat"
 
 #: protected/models/User.php:214
-#, fuzzy
 msgid "disabled"
 msgstr "Inhabilitat"
 
 #: protected/models/User.php:226
-#, fuzzy
 msgid "deleted account"
-msgstr "_Tipus de compte:"
+msgstr "compte borrat"
 
 #: protected/models/Reply.php:97 protected/models/Email.php:106
 #: protected/views/enquiry/_reformulated.php:44
@@ -320,9 +310,8 @@ msgid "Path"
 msgstr "Camí"
 
 #: protected/models/Archive.php:87
-#, fuzzy
 msgid "Author"
-msgstr "<b>Autor:</b>"
+msgstr "Autor"
 
 #: protected/models/Archive.php:88 protected/models/Config.php:208
 #: protected/models/BudgetDescCommon.php:105
@@ -334,27 +323,24 @@ msgid "Description"
 msgstr "Descripció"
 
 #: protected/models/Config.php:90
-#, fuzzy
 msgid "Please define a language"
-msgstr "Seleccioneu el codi d'idioma:"
+msgstr "Selecciona l'idioma"
 
 #: protected/models/Config.php:97
 msgid "is not a valid language."
-msgstr "no és un idioma vàlida"
+msgstr "no és un idioma vàlid"
 
 #: protected/models/Config.php:105
-#, fuzzy
 msgid "Missing value"
-msgstr "Com a _valor"
+msgstr "Falta valor"
 
 #: protected/models/Config.php:110
-#, fuzzy
 msgid "Character 'n' is missing."
-msgstr "manca la part %d"
+msgstr "Mancar el carácter 'n'"
 
 #: protected/models/Config.php:118
 msgid "Expecting a 6 digit web color"
-msgstr ""
+msgstr "Esperant una web color de 6 dígits"
 
 #: protected/models/Config.php:206
 msgid "Parameter"
@@ -379,41 +365,36 @@ msgstr "Tipus"
 #: protected/models/Backup.php:99 protected/views/vault/admin.php:151
 #: protected/controllers/VaultController.php:489
 msgid "Vault"
-msgstr ""
+msgstr "Capsa"
 
 #: protected/models/Backup.php:100
-#, fuzzy
 msgid "Filename"
 msgstr "Nom de fitxer"
 
 #: protected/models/Backup.php:102
 msgid "Initiated"
-msgstr ""
+msgstr "Iniciat"
 
 #: protected/models/Backup.php:103
-#, fuzzy
 msgid "Completed"
 msgstr "Completat"
 
 #: protected/models/Backup.php:104 protected/views/vault/admin.php:163
 #: protected/views/vault/view.php:184
-#, fuzzy
 msgid "Filesize"
-msgstr "<b>Mida del fitxer:</b>"
+msgstr "Mida del fitxer"
 
 #: protected/models/Backup.php:112
-#, fuzzy
 msgid "Failed"
 msgstr "Fallit"
 
 #: protected/models/Backup.php:114
 msgid "Success"
-msgstr ""
+msgstr "Èxit"
 
 #: protected/models/Backup.php:115
-#, fuzzy
 msgid "Not finished"
-msgstr "no està implementat"
+msgstr "No acabat"
 
 #: protected/models/BudgetDescCommon.php:107
 #: protected/models/BudgetDescLocal.php:93
@@ -448,13 +429,12 @@ msgstr "La combinació Internal_code/Idioma ja existeix"
 
 #: protected/models/BudgetDescLocal.php:91
 #: protected/models/BudgetDescState.php:112
-#, fuzzy
 msgid "Explication"
-msgstr "Població"
+msgstr "Explicació"
 
 #: protected/models/Enquiry.php:66
 msgid "Generic"
-msgstr "Genèric"
+msgstr "Genèrica"
 
 #: protected/models/Enquiry.php:67
 msgid "Budgetary"
@@ -516,9 +496,8 @@ msgid "Assigned to"
 msgstr "Assignada a"
 
 #: protected/models/Enquiry.php:207
-#, fuzzy
 msgid "Manager"
-msgstr "Gestor:"
+msgstr "Manager"
 
 #: protected/models/Enquiry.php:208
 #: protected/views/enquiry/_reformulated.php:53
@@ -551,9 +530,8 @@ msgid "Send an email to the"
 msgstr "Enviar un correu al"
 
 #: protected/models/Enquiry.php:237
-#, fuzzy
 msgid "team member"
-msgstr "Canviar team member"
+msgstr "team member"
 
 #: protected/models/Enquiry.php:239
 msgid "people subscribed to the Enquiry"
@@ -569,100 +547,89 @@ msgid "Vote"
 msgstr "Vota"
 
 #: protected/models/Vault.php:95
-#, fuzzy
 msgid "Not a valid key"
-msgstr "«%s» no és una data vàlida"
+msgstr "Codi no vàlid"
 
 #: protected/models/Vault.php:101
 msgid "Please choose at least one day"
-msgstr ""
+msgstr "Escull al mínim"
 
 #: protected/models/Vault.php:177
-#, fuzzy
 msgid "Host"
-msgstr "Màquina"
+msgstr "Host"
 
 #: protected/models/Vault.php:179 protected/views/vault/view.php:151
 #: protected/views/vault/schedule.php:47
 msgid "Schedule"
-msgstr ""
+msgstr "Schedule"
 
 #: protected/models/Vault.php:181
-#, fuzzy
 msgid "Count"
-msgstr "Compta"
+msgstr "Comptw"
 
 #: protected/models/Vault.php:183
-#, fuzzy
 msgid "Key"
 msgstr "Tecla"
 
 #: protected/models/Vault.php:191
-#, fuzzy
 msgid "Verified"
 msgstr "Modificat"
 
 #: protected/models/Vault.php:192
-#, fuzzy
 msgid "Ready"
 msgstr "Preparat"
 
 #: protected/models/Vault.php:193
-#, fuzzy
 msgid "Loaded"
-msgstr "Carregat(s) %s fitxer(s) d'etiquetes '%s'."
+msgstr "Carregat"
 
 #: protected/models/Vault.php:194
-#, fuzzy
 msgid "Busy"
 msgstr "Ocupat"
 
 #: protected/models/Vault.php:202
 msgid "Monday"
-msgstr ""
+msgstr "Dilluns"
 
 #: protected/models/Vault.php:203
 msgid "Tuesday"
-msgstr ""
+msgstr "Dimarts"
 
 #: protected/models/Vault.php:204
 msgid "Wednesday"
-msgstr ""
+msgstr "Dimecres"
 
 #: protected/models/Vault.php:205
 msgid "Thursday"
-msgstr ""
+msgstr "Dijous"
 
 #: protected/models/Vault.php:206
 msgid "Friday"
-msgstr ""
+msgstr "Divendres"
 
 #: protected/models/Vault.php:207
 msgid "Saturday"
-msgstr ""
+msgstr "Dissabte"
 
 #: protected/models/Vault.php:208
 msgid "Sunday"
-msgstr ""
+msgstr "Diumenge"
 
 #: protected/models/Vault.php:220
-#, fuzzy
 msgid "Local"
 msgstr "Local"
 
 #: protected/models/Vault.php:222
-#, fuzzy
 msgid "Remote"
 msgstr "Remot"
 
 #: protected/models/Vault.php:224
-#, fuzzy
 msgid "Not defined"
-msgstr "no està definida"
+msgstr "no definit"
 
 #: protected/models/EmailTemplate.php:89
 msgid "User fullname will go here"
-msgstr ""
+msgstr "El nom d'usuari anirà aquí."
 
 #: protected/models/SitePageContent.php:107
 #: protected/controllers/SitePageController.php:151
@@ -690,15 +657,13 @@ msgid "Comment"
 msgstr "Comentari"
 
 #: protected/views/log/index.php:26
-#, fuzzy
 msgid "Browse logs"
 msgstr "Registres anteriors"
 
 #: protected/views/log/modalIndex.php:32 protected/views/user/panel.php:173
 #: protected/views/layouts/column2.php:41
-#, fuzzy
 msgid "Log"
-msgstr "Logarítmica"
+msgstr "Log"
 
 #: protected/views/email/create.php:27 protected/views/email/index.php:26
 #: protected/views/email/index.php:33 protected/views/enquiry/assess.php:25
@@ -833,7 +798,6 @@ msgstr "Emails enviats des de la consulta"
 #: protected/views/enquiry/workflow-horizontal.php:44
 #: protected/views/enquiry/workflow-horizontal.php:62
 #: protected/views/enquiry/workflow-horizontal.php:71
-#, fuzzy
 msgid "enquiries"
 msgstr "Consultes"
 
@@ -844,12 +808,10 @@ msgid "Manage enquiries"
 msgstr "Gestionar consultes"
 
 #: protected/views/enquiry/_megaDelete.php:25
-#, fuzzy
 msgid "Delete enquiry"
 msgstr "Eliminar la consulta i"
 
 #: protected/views/enquiry/_megaDelete.php:34
-#, fuzzy
 msgid "Are you sure you want to delete it all?"
 msgstr "Voleu obrir tots els directoris?"
 
@@ -884,9 +846,8 @@ msgid "User email subscriptions"
 msgstr "Subscripcions per email"
 
 #: protected/views/enquiry/_megaDelete.php:54
-#, fuzzy
 msgid "Yes, delete it all"
-msgstr "esborrar-ho"
+msgstr "Sí, esborrar-ho"
 
 #: protected/views/enquiry/_teamView.php:29
 msgid "The Enquiry"
@@ -983,11 +944,11 @@ msgstr "Valorar resposta"
 
 #: protected/views/enquiry/assess.php:65
 msgid "The general consensus is that the reply is satisfactory"
-msgstr ""
+msgstr "El consens general indica que la resposta és satisfactòria"
 
 #: protected/views/enquiry/assess.php:74
 msgid "The general consensus is that the reply is not satisfactory"
-msgstr ""
+msgstr "El consens general indica que la resposta és insatisfactòria"
 
 #: protected/views/enquiry/teamView.php:29
 #: protected/views/enquiry/submit.php:55
@@ -1005,7 +966,6 @@ msgid "Add reply"
 msgstr "Afegir resposta"
 
 #: protected/views/enquiry/teamView.php:46 protected/views/reply/edit.php:43
-#, fuzzy
 msgid "Correct reply"
 msgstr "Data de resposta"
 
@@ -1025,24 +985,20 @@ msgid "No"
 msgstr "No"
 
 #: protected/views/enquiry/_searchPublic.php:64
-#, fuzzy
 msgid "Minimum date"
-msgstr "_Dades actuals"
+msgstr "Data mínima"
 
 #: protected/views/enquiry/_searchPublic.php:85
-#, fuzzy
 msgid "Maximum date"
-msgstr "_Dades actuals"
+msgstr "Data màxima"
 
 #: protected/views/enquiry/_searchPublic.php:105
-#, fuzzy
 msgid "Text"
 msgstr "Text"
 
 #: protected/views/enquiry/_searchPublic.php:111
-#, fuzzy
 msgid "Filter"
-msgstr "_Fitxer"
+msgstr "Fitxer"
 
 #: protected/views/enquiry/reformulate.php:27
 #: protected/views/enquiry/teamEdit.php:26
@@ -1051,15 +1007,15 @@ msgstr "Veure consulta"
 
 #: protected/views/enquiry/reformulate.php:38
 msgid "If you wish to formulate a budgetary enquiry, you must first"
-msgstr "If you wish to formulate a budgetary enquiry, you must first"
+msgstr ""
+"Si vols formular una consulta pressupostària a l'Ajuntament, primer hauràs "
+"de seleccionar la partida concreta a l'apartat pressupostos"
 
 #: protected/views/enquiry/reformulate.php:38
-#, fuzzy
 msgid "find the corresponding budget"
-msgstr "No s'ha trobat el @j extern\n"
+msgstr "trova el corresponent pressupost"
 
 #: protected/views/enquiry/manage.php:109
-#, fuzzy
 msgid "Please study the enquiry below before continuing"
 msgstr "Estudia la consulta més a baix abans de decidir per una opció"
 
@@ -1102,9 +1058,8 @@ msgid "Delete the enquiry and"
 msgstr "Eliminar la consulta i"
 
 #: protected/views/enquiry/manage.php:135
-#, fuzzy
 msgid "disable the user"
-msgstr "_Canvia d'usuari"
+msgstr "deshabilitar l'usuari"
 
 #: protected/views/enquiry/manage.php:139
 msgid "Delete"
@@ -1129,11 +1084,12 @@ msgstr "Gestiona anys"
 #: protected/views/enquiry/changeBudget.php:34
 msgid "Use this when you need to make corrections to the budget database"
 msgstr ""
+"Utilitza aquesta opció quan necessitis fer correccions de la bases de dades "
+"pressupostària"
 
 #: protected/views/enquiry/changeBudget.php:37
-#, fuzzy
 msgid "change related budget"
-msgstr "No es pot canviar a %s"
+msgstr "canviar partida pressupostària"
 
 #: protected/views/enquiry/view.php:98 protected/views/enquiry/view.php:99
 msgid "by"
@@ -1145,12 +1101,10 @@ msgid "reformulated"
 msgstr "reformulada"
 
 #: protected/views/enquiry/view.php:152
-#, fuzzy
 msgid "Share"
-msgstr "Compartit"
+msgstr "Compartie"
 
 #: protected/views/enquiry/view.php:160
-#, fuzzy
 msgid "Subscribed"
 msgstr "Usuaris subscrits"
 
@@ -1246,7 +1200,6 @@ msgid "Is this information correct?"
 msgstr "És aquesta informació correcta?"
 
 #: protected/views/enquiry/submit.php:95
-#, fuzzy
 msgid "Submit"
 msgstr "Lliura la consulta"
 
@@ -1282,9 +1235,9 @@ msgid "Please login to participate"
 msgstr "Si us plau, inicia una sessió per a participar"
 
 #: protected/views/enquiry/_view.php:309
-#, fuzzy, php-format
+#, php-format
 msgid "If you have an account, %s"
-msgstr "Resoledor de la informació de comptes"
+msgstr "SI tens un compte, %s"
 
 #: protected/views/enquiry/_view.php:310
 msgid "login"
@@ -1293,12 +1246,11 @@ msgstr "iniciar una sessió"
 #: protected/views/enquiry/_view.php:313
 #, php-format
 msgid "Are you new here? %s up is just a moment"
-msgstr ""
+msgstr "Primera vegada? %s registrar-se és un moment "
 
 #: protected/views/enquiry/_view.php:314
-#, fuzzy
 msgid "Signing up"
-msgstr "Mou am_unt"
+msgstr "Registra't"
 
 #: protected/views/enquiry/_changeType.php:20
 msgid "Select a budget from the grid below"
@@ -1327,9 +1279,8 @@ msgid "Formulate a new enquiry"
 msgstr "Formula una consulta nova"
 
 #: protected/views/enquiry/index.php:221
-#, fuzzy
 msgid "No enquiries here"
-msgstr "Obre aquí un terminal"
+msgstr "Cap consulta realitzada"
 
 #: protected/views/enquiry/index.php:229 protected/views/budget/index.php:335
 msgid "go to top"
@@ -1392,29 +1343,25 @@ msgid "Update"
 msgstr "Actualitza"
 
 #: protected/views/enquiry/subscribeScript.php:31
-#, fuzzy
 msgid "We can notify you by email when this enquiry gets updated"
 msgstr ""
-"Se li enviarà un correu electrònic quan aquestes consultes s'actualitzen"
+"Se li enviarà un correu electrònic quan aquestes consultes s'actualitzin"
 
 #: protected/views/enquiry/subscribeScript.php:33
 msgid "Please login to subscribe"
 msgstr "Si us plau, inicia una sessió per a participar"
 
 #: protected/views/enquiry/subscribeScript.php:38
-#, fuzzy
 msgid "Yes please"
-msgstr "Espereu…"
+msgstr "Sí, si us plau"
 
 #: protected/views/enquiry/subscribeScript.php:42
-#, fuzzy
 msgid "Not right now"
-msgstr "Desplaçar ara?"
+msgstr "Ara no"
 
 #: protected/views/enquiry/subscribeScript.php:49
-#, fuzzy
 msgid "Cancel my subscription"
-msgstr "Recorda la selecció"
+msgstr "Cancel.la la meva subscripció"
 
 #: protected/views/enquiry/assigned.php:64 protected/views/user/panel.php:220
 #: protected/controllers/EnquiryController.php:597
@@ -1461,16 +1408,15 @@ msgid "Edit draft"
 msgstr "Editar esborrany"
 
 #: protected/views/newsletter/adminView.php:119
-#, fuzzy
 msgid "Publish now"
-msgstr "Actualitza ara"
+msgstr "Publicar ara"
 
 #: protected/views/newsletter/view.php:28
 #: protected/controllers/NewsletterController.php:99
 #: protected/controllers/NewsletterController.php:233
 #: protected/controllers/NewsletterController.php:297
 msgid "Newsletter"
-msgstr "Butlletin"
+msgstr "Butlletí"
 
 #: protected/views/newsletter/showRecipients.php:26
 msgid "Will send to all users at"
@@ -1509,9 +1455,8 @@ msgid "Create page"
 msgstr "Crear pàgina"
 
 #: protected/views/introPage/admin.php:30
-#, fuzzy
 msgid "Manage Introduction pages"
-msgstr "Gestiona les aplicacions _remotes"
+msgstr "Editar página introducció"
 
 #: protected/views/introPage/create.php:24
 #: protected/views/introPage/view.php:84
@@ -1526,7 +1471,7 @@ msgstr "Gestionar pàgines"
 
 #: protected/views/introPage/view.php:72
 msgid "You are in edit mode"
-msgstr ""
+msgstr "Estàs en mode edició"
 
 #: protected/views/introPage/view.php:78 protected/views/sitePage/show.php:63
 msgid "Edit page"
@@ -1538,26 +1483,24 @@ msgstr "Atributs de la caixa de text"
 
 #: protected/views/introPage/_form.php:78
 msgid "Distance between top of photo and top of box"
-msgstr ""
+msgstr "Distància entre part superior imatge i part superior requadre"
 
 #: protected/views/introPage/_form.php:85
 msgid "Distance from lefthand side of photo to box"
-msgstr ""
+msgstr "Distància entre esquerra imatge i el requadre"
 
 #: protected/views/introPage/_form.php:92
-#, fuzzy
 msgid "Width of the box"
-msgstr "Quadre combinat"
+msgstr "Ample del requadre"
 
 #: protected/views/introPage/_form.php:101
 #: protected/views/introPage/_form.php:108
 msgid "Leave empty to recover default values"
-msgstr ""
+msgstr "Deixar buit per recuperar valors per omissió"
 
 #: protected/views/introPage/_form.php:115
-#, fuzzy
 msgid "Box transparentcy"
-msgstr "Quadre combinat"
+msgstr "Transparencia requadre"
 
 #: protected/views/introPage/_form.php:124
 msgid "Text box content"
@@ -1605,9 +1548,8 @@ msgid "Create Year"
 msgstr "Crear any"
 
 #: protected/views/budget/admin.php:26
-#, fuzzy
 msgid "Default year"
-msgstr "Editar any"
+msgstr "Any per omissió"
 
 #: protected/views/budget/admin.php:29
 msgid "Restore database"
@@ -1636,23 +1578,22 @@ msgstr "Partides sense descripció"
 #: protected/views/budget/deleteTree.php:39
 #, php-format
 msgid "Delete \\\"%s\\\" and its sub-budgets?"
-msgstr ""
+msgstr "Borrar \\\"%s\\\" i les subpartides?"
 
 #: protected/views/budget/deleteTree.php:52
 #, php-format
 msgid "Cannot delete the budget tree because it contains %s enquiries"
-msgstr ""
+msgstr "No es pot esborrar l'arbre de pressupostos per què conté %s consultes"
 
 #: protected/views/budget/deleteTree.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "%s budgets deleted ok"
-msgstr "&Purga les traduccions suprimides"
+msgstr "%s pressupostos esborrats ok"
 
 #: protected/views/budget/deleteTree.php:71
 #: protected/views/budget/updateYear.php:32
-#, fuzzy
 msgid "Delete budgets"
-msgstr "Restaurar pressupostos"
+msgstr "Eliminar pressupostos"
 
 #: protected/views/budget/_formYear.php:47
 msgid "Only 4 digits"
@@ -1668,9 +1609,8 @@ msgid "Publish"
 msgstr "Publicar"
 
 #: protected/views/budget/_formYear.php:65
-#, fuzzy
 msgid "Remember to update the zip file"
-msgstr "no s'ha pogut eliminar el fitxer d'actualització incorporat %.255s"
+msgstr "Recorda d'actualitzar l'arxiu ZIP"
 
 #: protected/views/budget/_formYear.php:73
 msgid "defined budgets"
@@ -1699,9 +1639,8 @@ msgid "Details for %s"
 msgstr "Detalls del %s"
 
 #: protected/views/budget/view.php:153 protected/views/budget/view.php:155
-#, fuzzy
 msgid "Can you improve this description?"
-msgstr "Crear descripció"
+msgstr "Vols millorar la despripció de la partida pressupostària?"
 
 #: protected/views/budget/view.php:163
 msgid "Read the administration's description"
@@ -1713,7 +1652,7 @@ msgstr "Descripció oficial"
 
 #: protected/views/budget/view.php:173 protected/views/budget/view.php:175
 msgid "Please consider adding a description here"
-msgstr ""
+msgstr "Si us plau, considera afegir descripció aquí"
 
 #: protected/views/budget/view.php:182
 msgid "No enquiries have been made about this budget yet"
@@ -1735,12 +1674,10 @@ msgid "%s enquiries have already been made about this budget"
 msgstr "Ja hi ha %s consultes fetes sobre aquesta partida pressupostària"
 
 #: protected/views/budget/_budgetDetails.php:54
-#, fuzzy
 msgid "More detail"
-msgstr "Oculta el detall"
+msgstr "Més detall"
 
 #: protected/views/budget/_budgetDetails.php:91
-#, fuzzy
 msgid "Graph"
 msgstr "Gràfic"
 
@@ -1751,7 +1688,6 @@ msgid "Executed"
 msgstr "Executat"
 
 #: protected/views/budget/_budgetDetails.php:144
-#, fuzzy
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -1784,19 +1720,16 @@ msgid "Import budgets"
 msgstr "Importar pressupostos"
 
 #: protected/views/budget/updateYear.php:30
-#, fuzzy
 msgid "Selected budget delete"
-msgstr "Suprimeix l'element seleccionat"
+msgstr "Esborrar pressupostos seleccionats"
 
 #: protected/views/budget/updateYear.php:35
-#, fuzzy
 msgid "Define graphics"
-msgstr "Defineix el nom"
+msgstr "Definir gràfics"
 
 #: protected/views/budget/updateYear.php:41
-#, fuzzy
 msgid "Export budgets"
-msgstr "Restaurar pressupostos"
+msgstr "Exportar pressupostos"
 
 #: protected/views/budget/updateYear.php:44
 msgid "Delete year"
@@ -1855,56 +1788,48 @@ msgid "Change your password"
 msgstr "Canvia la teva contrasenya"
 
 #: protected/views/user/panel.php:155
-#, fuzzy
 msgid "For your information"
-msgstr "Informació del servidor per «%s»"
+msgstr "Per la teva informació"
 
 #: protected/views/user/panel.php:156
-#, fuzzy
 msgid "You have a task"
-msgstr "Nova tasca %s"
+msgstr "Tens una tasca pendent"
 
 #: protected/views/user/panel.php:157
-#, fuzzy
 msgid "OCAx needs attention"
-msgstr "--%s necessita <nom> <camí>"
+msgstr "OCAx necesita atenció"
 
 #: protected/views/user/panel.php:159
 #: protected/views/budgetDescription/_legend.php:26
-#, fuzzy
 msgid "Complete"
-msgstr "Completa la construcció"
+msgstr "Complert"
 
 #: protected/views/user/panel.php:160
 #: protected/views/budgetDescription/_legend.php:27
 msgid "Partial"
-msgstr ""
+msgstr "Parcial"
 
 #: protected/views/user/panel.php:161
 #: protected/views/budgetDescription/_legend.php:28
-#, fuzzy
 msgid "Empty"
 msgstr "Buida"
 
 #: protected/views/user/panel.php:162
 #: protected/views/budgetDescription/_legend.php:29
-#, fuzzy
 msgid "Missing"
-msgstr "manca %s"
+msgstr "manca"
 
 #: protected/views/user/panel.php:176
 msgid "Agora"
-msgstr ""
+msgstr "Àgora"
 
 #: protected/views/user/panel.php:197
-#, fuzzy
 msgid "OCAx installation"
-msgstr "instaŀlació de «%.255s»"
+msgstr "Instal.lació OCAx"
 
 #: protected/views/user/panel.php:202
-#, fuzzy
 msgid "Check server requirements"
-msgstr "_Directori del servidor IMAP: "
+msgstr "Comprovar requeriments del servidor"
 
 #: protected/views/user/panel.php:224 protected/views/user/updateRoles.php:116
 msgid "Manage the enquiries you are responsable for"
@@ -1920,9 +1845,8 @@ msgstr "Pàgina de lloc"
 
 #: protected/views/user/panel.php:237
 #: protected/controllers/FileController.php:306
-#, fuzzy
 msgid "Wallpaper"
-msgstr "Posa com fons d'escriptori"
+msgstr "Wallpaper"
 
 #: protected/views/user/panel.php:249 protected/views/user/updateRoles.php:132
 msgid "Assign enquiries to team members and check status"
@@ -1950,14 +1874,12 @@ msgstr "Fitxer zip"
 #: protected/views/config/backups.php:26 protected/views/vault/admin.php:78
 #: protected/views/vault/view.php:162
 #: protected/controllers/VaultController.php:612
-#, fuzzy
 msgid "Backups"
-msgstr "Còpia de seguretat"
+msgstr "Còpies de seguretat"
 
 #: protected/views/user/panel.php:269
-#, fuzzy
 msgid "Manual Backup"
-msgstr "Còpia de Seguretat"
+msgstr "Manual còpia de seguretat"
 
 #: protected/views/user/panel.php:274
 #: protected/views/emailTemplate/admin.php:28
@@ -2005,23 +1927,20 @@ msgid "Delete user"
 msgstr "Suprimir usuari"
 
 #: protected/views/user/updateRoles.php:54 protected/views/user/view.php:36
-#, fuzzy
 msgid "Enable user"
-msgstr "_Canvia d'usuari"
+msgstr "Usuari habilitat"
 
 #: protected/views/user/updateRoles.php:57 protected/views/user/view.php:39
-#, fuzzy
 msgid "Disable user"
-msgstr "_Canvia d'usuari"
+msgstr "Usuari deshabilitat"
 
 #: protected/views/user/updateRoles.php:89
 msgid "Change roles"
 msgstr "Canviar rols"
 
 #: protected/views/user/updateRoles.php:108
-#, fuzzy
 msgid "Can edit budget descriptions"
-msgstr "Manage Budget descriptions"
+msgstr "Editar descripcions pressupostàries"
 
 #: protected/views/user/view.php:24
 msgid "Change user's roles"
@@ -2103,18 +2022,16 @@ msgstr ""
 "els socis, a més de l'usuari que hagi realitzat."
 
 #: protected/views/config/_title.php:3
-#, fuzzy
 msgid "Configure"
-msgstr "Configura"
+msgstr "Configurar"
 
 #: protected/views/config/postInstallCheck.php:46
 #: protected/views/config/postInstallCheck.php:50
 #: protected/views/config/postInstallCheck.php:54
 #: protected/views/config/postInstallCheck.php:58
 #: protected/views/config/postInstallCheck.php:62
-#, fuzzy
 msgid "Error: Cannot write to"
-msgstr "No es pot escriure a aquest fitxer."
+msgstr "Error: no es pot escriure a"
 
 #: protected/views/config/postInstallCheck.php:69
 msgid "Directory permissions seem Ok"

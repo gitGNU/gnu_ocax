@@ -46,7 +46,7 @@ if($model->state >= ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	$item = array( array('label'=>__('Correct reply'), 'url'=>array('/reply/update', 'id'=>$reply->id)) );
 	array_splice( $this->menu, 0, 0, $item );	
 }
-if($model->state >= ENQUIRY_AWAITING_REPLY){
+if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to == ADMINISTRATION){
 	$item = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $item );	
 }

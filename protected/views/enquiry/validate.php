@@ -56,6 +56,16 @@ function validate(){
 
 	<div class="title"><?php echo __('Validate enquiry');?></div>
 	<p style="font-style:italic"><?php echo __('Please study the enquiry below before deciding on an option').'.'?></p>
+	
+	<?php
+		echo '<div style="font-size:16px;">'.__('Who is this enquiry addressed to?').'</div>';
+		echo $form->radioButtonList($model,'addressed_to',
+			$model->getHumanAddressedTo(),
+			array('labelOptions'=>array('style'=>'display:inline'))
+		);
+	?>
+	<p></p>
+
 	<ol id="yourOptions">
 		<?php
 			$text = __('Tell %s you do not want to take responsibility of this enquiry');

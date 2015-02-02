@@ -121,7 +121,16 @@ $this->widget('ext.tinymce.TinyMce', $init);
 echo $form->error($model,'body');
 ?>
 	</div>
-	
+
+	<?php if ($model->team_member == Yii::app()->user->getUserID()) {
+		echo '<div style="font-size:16px;">'.__('Who is this enquiry addressed to?').'</div>';
+		echo $form->radioButtonList($model,'addressed_to',
+			$model->getHumanAddressedTo(),
+			array('labelOptions'=>array('style'=>'display:inline'))
+		);
+		echo '<p></p>';
+	} ?>
+
 	<div class="row buttons">
 		<?php $buttonText = $model->isNewRecord ? __('Send') : __('Update') ?>
 		<input type="button" onclick="submitForm()" value="<?php echo $buttonText; ?>">

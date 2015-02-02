@@ -99,15 +99,29 @@ function disableUser(){
 
 <h1><?php echo __('Manage enquiry');?></h1>
 
+
+
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'enquiry-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
+
+
+
 	<p style="font-style: italic;">
 	<?php echo __('Please study the enquiry below before continuing').'.'?>
 	</p>
+
+	<?php
+		echo '<div style="font-size:16px;">'.__('Who is this enquiry addressed to?').'</div>';
+		echo $form->radioButtonList($model,'addressed_to',
+			$model->getHumanAddressedTo(),
+			array('labelOptions'=>array('style'=>'display:inline'))
+		);
+	?>
+	<p></p>
 
 	<ol id="yourOptions">
 		<li>

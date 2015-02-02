@@ -186,6 +186,8 @@ class EnquiryController extends Controller
 			}else
 				Yii::app()->end();
 		}
+		$model->addressed_to = ADMINISTRATION;
+		
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -348,6 +350,10 @@ class EnquiryController extends Controller
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
+			
+			if($model->addressed_to == OBSERVATORY)
+				$model->changeAddressedToObservatory();
+			
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 			if($model->save()){
@@ -620,6 +626,9 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			$model->modified = date('c');
 
+			if($model->addressed_to == OBSERVATORY)
+				$model->changeAddressedToObservatory();
+
 			if($model->save()){
 				$model->promptEmail();
 				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){
@@ -649,6 +658,9 @@ class EnquiryController extends Controller
 			$model->manager=Yii::app()->user->getUserID();
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
+
+			if( $model->addressed_to == OBSERVATORY)
+				$model->changeAddressedToObservatory();
 
 			if($model->state == 'rejected'){
 				$model->state = ENQUIRY_REJECTED;

@@ -34,6 +34,7 @@
  * @property string $registry_number
  * @property integer $documentation
  * @property integer $type
+ * @addressed_to integet $addressed_to
  * @property integer $budget
  * @property integer $state
  * @property string $title
@@ -74,6 +75,21 @@ class Enquiry extends CActiveRecord
 			return $types;
 		}
 		return __($humanTypeValues[$type]);
+	}
+
+	public function getHumanAddressedTo($address=Null)
+	{
+		$humanAddressValues=array(
+			0=>Config::model()->findByPk('administrationName')->value,
+			1=>Config::model()->getObservatoryName(),
+		);
+		if($address === Null){
+			$addresses=array();
+			foreach($humanAddressValues as $key=>$value)
+				$addresses[$key]=__($value);
+			return $addresses;
+		}
+		return __($humanAddressValues[$address]);
 	}
 
 	public static function getHumanStates($state=Null)
@@ -150,7 +166,7 @@ class Enquiry extends CActiveRecord
 		return array(
 			array('user, created, title, body', 'required'),
 			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
-			array('related_to, user, team_member, manager, budget, type, state, documentation', 'numerical', 'integerOnly'=>true),
+			array('related_to, user, team_member, manager, budget, type, addressed_to, state, documentation', 'numerical', 'integerOnly'=>true),
 			array('title', 'validTitle'),
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
@@ -211,6 +227,7 @@ class Enquiry extends CActiveRecord
 			'registry_number'=>__('Registry number'),
 			'documentation'=>__('Documentation'),
 			'type' => __('Type'),
+			'addressed_to' => __('Addressed to'),
 			'state' => __('State'),
 			'title' => __('Title'),
 			'body' => __('Body'),
@@ -374,6 +391,15 @@ class Enquiry extends CActiveRecord
 			$stats['pending_assesment']=$stats['reply_satisfactory']=$stats['reply_insatisfactory']=0;
 		}
 		return $stats;
+	}
+
+	public function changeAddressedToObservatory()
+	{
+		//if($model->state == ENQUIRY_ACCEPTED)	// a team member has accepted this
+		if($this->state != ENQUIRY_PENDING_VALIDATION && $this->state < ENQUIRY_AWAITING_REPLY)
+			$this->state = ENQUIRY_AWAITING_REPLY; // skip the 'submit to administration' step.
+		$this->registry_number = $this->id;
+		$this->modified = date('c');
 	}
 
 	public function getEnquiriesForRSS()

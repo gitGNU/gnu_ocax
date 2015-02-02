@@ -160,22 +160,22 @@ class ImportCSV extends CFormModel
 	public function checkCSVFormat()
 	{
 		$error=array();
-		$correct_field_delimiter=0;
+		//$correct_field_delimiter=0;
 		$ids = array();
 		$lines = file($this->csv);
 		foreach ($lines as $line_num => $line) {
-			//if($line_num==0){
-				$delimiterCnt = substr_count($line, '|');
-				if ($delimiterCnt == 0){
-					$error[]='Delimiter | not found on row '.$line_num;
-					break;
-				}
-				if ($delimiterCnt != 9){
-					$error[]=($delimiterCnt+1).' columns found. Expecting 10. Row '.$line_num;
-					break;
-				}
-				continue;
-			//}
+		
+			$delimiterCnt = substr_count($line, '|');
+			if ($delimiterCnt == 0){
+				$error[]='Delimiter | not found on row '.$line_num;
+				break;
+			}
+			if ($delimiterCnt != 9){
+				$error[]=($delimiterCnt+1).' columns found but expected 10 on row '.$line_num;
+				break;
+			}
+			continue;
+
 			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 			$id = trim($id);
 			if(in_array($id, $ids)) {

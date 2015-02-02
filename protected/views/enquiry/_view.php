@@ -310,7 +310,7 @@ foreach($replys as $reply)
 			$link = CHtml::link(__('login'), array('/site/login'));
 			$text = str_replace('%s', $link, $text);
 			echo $text.'<br />';
-			$text = __('Are you new here? %s up is just a moment').'.';
+			$text = __('Are you new here? %s is just a moment').'.';
 			$link = CHtml::link(__('Signing up'), array('/site/register'));
 			$text = str_replace('%s', $link, $text);	
 			echo $text		

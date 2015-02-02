@@ -40,6 +40,10 @@ $this->widget('zii.widgets.CDetailView', array(
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
 		array(
+	        'label'=>__('Addressed to'),
+	        'value'=>$model->getHumanAddressedTo($model->addressed_to),
+		),
+		array(
 	        'label'=>__('Subscribed users'),
 	        'value'=>count($model->subscriptions),
 		),
