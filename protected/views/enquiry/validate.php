@@ -44,6 +44,15 @@ function validate(){
 	$('#Enquiry_state').val('<?php echo ENQUIRY_ACCEPTED;?>');
 	$('#enquiry-form').submit();
 }
+$(function() {
+	$("#Enquiry_addressed_to_1").on('click', function() {
+		var val = confirm("<?php echo __('Are you sure?');?>");
+		if(val == false){
+			$('#Enquiry_addressed_to_1').prop("checked",false);
+			$('#Enquiry_addressed_to_0').prop("checked",true);
+		}
+	});
+})
 </script>
 
 <div class="form">
@@ -96,6 +105,6 @@ function validate(){
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
 		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-		<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl;?>/enquiry/assigned'">No</button>
+		<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl;?>/enquiry/teamView/<?php echo $model->id?>'">No</button>
     </div>
 <?php endif; ?>

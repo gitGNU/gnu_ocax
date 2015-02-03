@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-02-02 15:20+0100\n"
-"PO-Revision-Date: 2015-02-02 15:23+0100\n"
+"POT-Creation-Date: 2015-02-03 12:25+0100\n"
+"PO-Revision-Date: 2015-02-03 12:26+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -198,7 +198,7 @@ msgstr "Es socio"
 msgid "Budget description editor"
 msgstr "Editor de descripciones presupuestarias"
 
-#: protected/models/User.php:141 protected/views/user/panel.php:231
+#: protected/models/User.php:141 protected/views/user/panel.php:232
 #: protected/views/user/updateRoles.php:124
 msgid "Page editor"
 msgstr "Editor de páginas"
@@ -246,7 +246,7 @@ msgstr "Consulta"
 
 #: protected/models/Reply.php:98
 msgid "Date of reply"
-msgstr "Fecha de respuesta administración"
+msgstr "Fecha de respuesta"
 
 #: protected/models/Reply.php:100 protected/models/Newsletter.php:114
 #: protected/models/Email.php:107 protected/models/Enquiry.php:230
@@ -284,8 +284,8 @@ msgstr "Creada"
 #: protected/views/enquiry/_reformulated.php:48
 #: protected/views/enquiry/view.php:105 protected/views/enquiry/index.php:206
 #: protected/views/enquiry/_detailsForTeam.php:27
-#: protected/views/newsletter/admin.php:45 protected/views/user/panel.php:331
-#: protected/views/user/panel.php:365 protected/views/user/view.php:142
+#: protected/views/newsletter/admin.php:45 protected/views/user/panel.php:332
+#: protected/views/user/panel.php:366 protected/views/user/view.php:142
 #: protected/views/vault/admin.php:168 protected/views/vault/view.php:146
 #: protected/views/vault/view.php:189
 #: protected/views/emailTemplate/admin.php:41
@@ -506,8 +506,8 @@ msgstr "Manager"
 #: protected/models/Enquiry.php:221
 #: protected/views/enquiry/_reformulated.php:53
 #: protected/views/enquiry/view.php:95 protected/views/enquiry/index.php:201
-#: protected/views/budget/view.php:218 protected/views/user/panel.php:326
-#: protected/views/user/panel.php:360
+#: protected/views/budget/view.php:218 protected/views/user/panel.php:327
+#: protected/views/user/panel.php:361
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -516,7 +516,7 @@ msgid "Assigned"
 msgstr "Asignada"
 
 #: protected/models/Enquiry.php:223 protected/views/enquiry/view.php:114
-#: protected/views/enquiry/_detailsForTeam.php:66
+#: protected/views/enquiry/_detailsForTeam.php:68
 msgid "Submitted"
 msgstr "Fecha de entrega"
 
@@ -681,7 +681,7 @@ msgstr "Cuaderno"
 msgid "View enquiry"
 msgstr "Ver consulta"
 
-#: protected/views/email/create.php:28 protected/views/enquiry/teamView.php:33
+#: protected/views/email/create.php:28 protected/views/enquiry/teamView.php:34
 #: protected/views/enquiry/changeBudget.php:37
 #: protected/views/enquiry/changeType.php:26
 msgid "Edit enquiry"
@@ -780,7 +780,7 @@ msgstr "Si decides, puedes adjuntar un texo en este correo"
 #: protected/views/email/_contactPetition.php:72
 #: protected/views/enquiry/_changeType.php:73
 #: protected/views/enquiry/_form.php:147 protected/views/comment/_form.php:45
-#: protected/views/user/update.php:146 protected/views/reply/_form.php:90
+#: protected/views/user/update.php:146 protected/views/reply/_form.php:94
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -811,7 +811,7 @@ msgid "enquiries"
 msgstr "consultas"
 
 #: protected/views/enquiry/admin.php:62 protected/views/enquiry/manage.php:26
-#: protected/views/user/panel.php:245
+#: protected/views/user/panel.php:246
 #: protected/controllers/EnquiryController.php:730
 msgid "Manage enquiries"
 msgstr "Gestionar consultas"
@@ -902,8 +902,8 @@ msgid "The original enquiry"
 msgstr "La consulta original"
 
 #: protected/views/enquiry/create.php:80
-#: protected/views/enquiry/teamView.php:74
-#: protected/views/enquiry/manage.php:172 protected/views/user/panel.php:434
+#: protected/views/enquiry/teamView.php:75
+#: protected/views/enquiry/manage.php:172 protected/views/user/panel.php:435
 msgid "Yes"
 msgstr "Sí"
 
@@ -947,7 +947,7 @@ msgid "Search"
 msgstr "Busca"
 
 #: protected/views/enquiry/assess.php:58
-#: protected/views/enquiry/teamView.php:54
+#: protected/views/enquiry/teamView.php:55
 msgid "Assess reply"
 msgstr "Valorar respuesta"
 
@@ -965,31 +965,31 @@ msgstr "El consenso general es que la respuesta es insatisfactoria"
 msgid "Submit enquiry"
 msgstr "Entregar la consulta"
 
-#: protected/views/enquiry/teamView.php:37
+#: protected/views/enquiry/teamView.php:38
 msgid "Accept / Reject"
 msgstr "Aceptar / Rechazar"
 
-#: protected/views/enquiry/teamView.php:41 protected/views/reply/edit.php:41
+#: protected/views/enquiry/teamView.php:42 protected/views/reply/edit.php:41
 #: protected/controllers/ReplyController.php:85
 msgid "Add reply"
 msgstr "Añadir respuesta"
 
-#: protected/views/enquiry/teamView.php:46 protected/views/reply/edit.php:43
+#: protected/views/enquiry/teamView.php:47 protected/views/reply/edit.php:43
 msgid "Correct reply"
 msgstr "Corregir respuesta"
 
-#: protected/views/enquiry/teamView.php:50
+#: protected/views/enquiry/teamView.php:51
 #: protected/views/enquiry/submit.php:57
 msgid "Correct submission"
 msgstr "Corregir entrega"
 
-#: protected/views/enquiry/teamView.php:58
+#: protected/views/enquiry/teamView.php:59
 #: protected/controllers/EnquiryController.php:265
 msgid "Reformulate enquiry"
 msgstr "Reformular consulta"
 
-#: protected/views/enquiry/teamView.php:75
-#: protected/views/enquiry/manage.php:174 protected/views/user/panel.php:435
+#: protected/views/enquiry/teamView.php:76
+#: protected/views/enquiry/manage.php:174 protected/views/user/panel.php:436
 msgid "No"
 msgstr "No"
 
@@ -1027,7 +1027,7 @@ msgstr "encuentra la partida correspondiente"
 #: protected/views/enquiry/manage.php:114
 msgid "Please study the enquiry below before continuing"
 msgstr ""
-"Como Team member tienes tres opciones para gestionar la consulta adjunta."
+"Como Team manager tienes tres opciones para gestionar la consulta adjunta."
 
 #: protected/views/enquiry/manage.php:118
 #: protected/views/enquiry/validate.php:61
@@ -1200,7 +1200,7 @@ msgstr "Euros por persona"
 #: protected/views/enquiry/index.php:196
 #: protected/views/budget/_budgetDetails.php:126
 #: protected/views/budget/_budgetDetails.php:172
-#: protected/views/user/panel.php:321 protected/views/user/panel.php:355
+#: protected/views/user/panel.php:322 protected/views/user/panel.php:356
 #: protected/views/user/view.php:136 protected/views/layouts/mainmenu.php:28
 #: protected/controllers/EnquiryController.php:100
 #: protected/controllers/EnquiryController.php:765
@@ -1353,7 +1353,7 @@ msgstr "Nueva consulta reformulada"
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: protected/views/enquiry/_form.php:135 protected/views/reply/_form.php:87
+#: protected/views/enquiry/_form.php:135 protected/views/reply/_form.php:91
 #: protected/views/vault/_capacity.php:46
 msgid "Update"
 msgstr "Actualiza"
@@ -1447,7 +1447,7 @@ msgstr "Se envió a estos usuarios"
 msgid "Published on the"
 msgstr "Publicado el día"
 
-#: protected/views/newsletter/index.php:27 protected/views/user/panel.php:273
+#: protected/views/newsletter/index.php:27 protected/views/user/panel.php:274
 #: protected/views/layouts/main.php:67
 #: protected/controllers/NewsletterController.php:85
 msgid "Newsletters"
@@ -1623,7 +1623,7 @@ msgid "Population this year"
 msgstr "La población de este año"
 
 #: protected/views/budget/_formYear.php:62
-#: protected/views/comment/_form.php:44 protected/views/reply/_form.php:87
+#: protected/views/comment/_form.php:44 protected/views/reply/_form.php:91
 msgid "Publish"
 msgstr "Publicar"
 
@@ -1775,7 +1775,7 @@ msgstr "comenta el día"
 msgid "comments"
 msgstr "comenta"
 
-#: protected/views/user/admin.php:61 protected/views/user/panel.php:272
+#: protected/views/user/admin.php:61 protected/views/user/panel.php:273
 msgid "Users and roles"
 msgstr "Usuarios y roles"
 
@@ -1850,86 +1850,86 @@ msgstr "Instalación OCAx"
 msgid "Check server requirements"
 msgstr "Comprobar requerimientos del servidor"
 
-#: protected/views/user/panel.php:224 protected/views/user/updateRoles.php:116
+#: protected/views/user/panel.php:225 protected/views/user/updateRoles.php:116
 msgid "Manage the enquiries you are responsable for"
 msgstr "Responde a las consultas encargadas"
 
-#: protected/views/user/panel.php:233
+#: protected/views/user/panel.php:234
 msgid "Introduction pages"
 msgstr "Páginas de Introducción"
 
-#: protected/views/user/panel.php:234
+#: protected/views/user/panel.php:235
 msgid "Site pages"
 msgstr "Páginas del sitio"
 
-#: protected/views/user/panel.php:237
+#: protected/views/user/panel.php:238
 #: protected/controllers/FileController.php:306
 msgid "Wallpaper"
 msgstr "Wallpaper"
 
-#: protected/views/user/panel.php:249 protected/views/user/updateRoles.php:132
+#: protected/views/user/panel.php:250 protected/views/user/updateRoles.php:132
 msgid "Assign enquiries to team members and check status"
 msgstr "Encarga consultas a otros compañeros"
 
-#: protected/views/user/panel.php:256
+#: protected/views/user/panel.php:257
 msgid "Administator's options"
 msgstr "Opciones de administrador"
 
-#: protected/views/user/panel.php:259
+#: protected/views/user/panel.php:260
 msgid "Years and budgets"
 msgstr "Años y presupuestos"
 
-#: protected/views/user/panel.php:260
+#: protected/views/user/panel.php:261
 #: protected/controllers/BudgetDescriptionController.php:265
 msgid "Budget descriptions"
 msgstr "Descripciones de partidas"
 
-#: protected/views/user/panel.php:262
+#: protected/views/user/panel.php:263
 #: protected/controllers/FileController.php:293
 msgid "Zip file"
 msgstr "Fichero zip"
 
-#: protected/views/user/panel.php:267 protected/views/config/index.php:113
+#: protected/views/user/panel.php:268 protected/views/config/index.php:113
 #: protected/views/config/backups.php:26 protected/views/vault/admin.php:78
 #: protected/views/vault/view.php:162
 #: protected/controllers/VaultController.php:612
 msgid "Backups"
 msgstr "Copias de seguridad"
 
-#: protected/views/user/panel.php:269
+#: protected/views/user/panel.php:270
 msgid "Manual Backup"
 msgstr "Copia de seguridad manual"
 
-#: protected/views/user/panel.php:274
+#: protected/views/user/panel.php:275
 #: protected/views/emailTemplate/admin.php:28
 #: protected/controllers/EmailTemplateController.php:110
 msgid "Email text templates"
 msgstr "Plantillas de correo-e"
 
-#: protected/views/user/panel.php:275 protected/views/config/update.php:25
+#: protected/views/user/panel.php:276 protected/views/config/update.php:25
 msgid "Global parameters"
 msgstr "Parámetros globales"
 
-#: protected/views/user/panel.php:304
+#: protected/views/user/panel.php:305
 msgid "My enquiries"
 msgstr "Mis consultas"
 
-#: protected/views/user/panel.php:342
+#: protected/views/user/panel.php:343
 msgid "I am subscribed to these enquirytions"
 msgstr "Estoy subscrito a estas consultas"
 
-#: protected/views/user/panel.php:343
+#: protected/views/user/panel.php:344
 msgid "You will be sent an email when these enquiries are updated"
 msgstr ""
 "Se te enviará un correo electrónico cuando estas consultas se actualicen"
 
-#: protected/views/user/panel.php:384
+#: protected/views/user/panel.php:385
 msgid "Enquiries of your interest will be displayed here"
 msgstr ""
 "Las consultas que hayas realizado o a las que te hayas suscrito aparecerán "
 "aquí"
 
-#: protected/views/user/panel.php:432
+#: protected/views/user/panel.php:433
 msgid "Do you want to block"
 msgstr "¿Quieres bloquear"
 
@@ -2325,9 +2325,13 @@ msgstr ""
 msgid "Add attachment"
 msgstr "Añadir adjunto"
 
-#: protected/views/reply/_form.php:39
+#: protected/views/reply/_form.php:40
+msgid "Date the Obseravatory replied"
+msgstr "Fecha el observatorio ha respondido"
+
+#: protected/views/reply/_form.php:42
 msgid "Date the Administration replied"
-msgstr "(tu ayuntamiento)"
+msgstr "Fecha la administración ha respondido"
 
 #: protected/views/vault/admin.php:23 protected/views/vault/create.php:24
 #: protected/views/vault/view.php:24

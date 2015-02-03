@@ -48,7 +48,10 @@ if($model->state >= ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	array_splice( $this->menu, 0, 0, $item );	
 }
 if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to == ADMINISTRATION){
-	$item = array( array('label'=>__('Correct submission'), 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
+	$label=__('Correct submission');
+	if($model->id == $model->registry_number)	// was addressed_to OBSERVATORY and got registry_number from id
+		$label = $label.'<i class="icon-attention green"></i>';
+	$item = array( array('label'=>$label, 'url'=>array('/enquiry/submit', 'id'=>$model->id)) );
 	array_splice( $this->menu, 0, 0, $item );	
 }
 if($model->state == ENQUIRY_REPLY_PENDING_ASSESSMENT){

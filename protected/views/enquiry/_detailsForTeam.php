@@ -51,12 +51,14 @@ $this->widget('zii.widgets.CDetailView', array(
 ));
 
 if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$document=', Doc: ';
+	$document='';
 	if($model->documentation)
-		$document .='<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
-	else
-		$document .='<span style="color:red">'.__('missing').'</span>';
-	$submitted_info=$model->submitted.', '.__('Registry number').': '.$model->registry_number.$document;
+		$document ='Doc: <a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
+	elseif($model->addressed_to == ADMINISTRATION)
+		$document ='Doc: <span style="color:red">'.__('missing').'</span>';
+	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
+	if($document)
+		$submitted_info = $submitted_info.', '.$document;
 
 	$this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',

@@ -91,9 +91,14 @@ $this->widget('PGridView', array(
 				'name'=>'state',
 				'type'=>'raw',
     	        'value'=>function($data,$row){
-					$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);
+					$value = Enquiry::getHumanStates($data->state,$data->addressed_to);
 					if($data->state == ENQUIRY_ASSIGNED)
 						$value = $value.' <i class="icon-attention amber"></i>';
+					if($data->state == ENQUIRY_AWAITING_REPLY && $data->addressed_to == OBSERVATORY)
+						$value = $value.' <i class="icon-attention amber"></i>';
+					if($data->addressed_to == ADMINISTRATION && $data->id == $data->registry_number)
+						// probably was addressed_to OBSERVATORY and got registry_number from id
+						$value = $value.' <i class="icon-attention green"></i>';
 					return $value;
 				},
 			),

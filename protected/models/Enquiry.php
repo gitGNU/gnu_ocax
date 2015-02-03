@@ -390,13 +390,16 @@ class Enquiry extends CActiveRecord
 		return $stats;
 	}
 
-	public function changeAddressedToObservatory()
+	public function addressToObservatory()
 	{
-		//if($model->state == ENQUIRY_ACCEPTED)	// a team member has accepted this
-		if($this->state != ENQUIRY_PENDING_VALIDATION && $this->state < ENQUIRY_AWAITING_REPLY)
-			$this->state = ENQUIRY_AWAITING_REPLY; // skip the 'submit to administration' step.
-		$this->registry_number = $this->id;
-		$this->modified = date('c');
+		if($this->state != ENQUIRY_PENDING_VALIDATION && $this->state < ENQUIRY_AWAITING_REPLY){
+			if($this->team_member == Yii::app()->user->getUserID())
+				$this->state = ENQUIRY_AWAITING_REPLY; // skip the 'submit to administration' step.			
+		}
+		if(!$this->submitted){
+			$this->submitted = date('c');
+			$this->registry_number = $this->id;
+		}
 	}
 
 	public function getEnquiriesForRSS()

@@ -35,21 +35,25 @@
 	<?php echo $form->hiddenField($model,'enquiry');?>
 
 	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<div class="hint"><?php echo __('Date the Administration replied');?></div>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-					'model' => $model,
-					'name'=>'Reply[created]',
-					'value'=>$model->created,
-					'options'=>array(
-						'showAnim'=>'fold',
-						'dateFormat'=>'yy-mm-dd',
-					),
-					'htmlOptions'=>array(
-						'style'=>'height:20px;',
-						'readonly'=>'readonly',
-					),
-		)); ?>
+		<?php echo $form->label($model,'created');
+		if($model->enquiry0->addressed_to == OBSERVATORY)
+			echo '<div class="hint">'.__('Date the Obseravatory replied').'</div>';
+		else
+			echo '<div class="hint">'.__('Date the Administration replied').'</div>';
+		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+				'model' => $model,
+				'name'=>'Reply[created]',
+				'value'=>$model->created,
+				'options'=>array(
+					'showAnim'=>'fold',
+					'dateFormat'=>'yy-mm-dd',
+				),
+				'htmlOptions'=>array(
+					'style'=>'height:20px;',
+					'readonly'=>'readonly',
+				),
+		));
+		?>
 		<?php echo $form->error($model,'created'); ?>
 	</div>
 

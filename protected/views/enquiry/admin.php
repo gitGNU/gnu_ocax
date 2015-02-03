@@ -89,7 +89,7 @@ function toggleSearchOptions(){
 			'name'=>'state',
 			'type'=>'raw',
             'value'=>function($data,$row){
-				$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);
+				$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state,$data->addressed_to);
 				if($data->state == ENQUIRY_PENDING_VALIDATION)
 					$value = $value.' <i class="icon-attention amber"></i>';
 				//team member rejected the enquiry

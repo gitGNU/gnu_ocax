@@ -352,7 +352,7 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			
 			if($model->addressed_to == OBSERVATORY)
-				$model->changeAddressedToObservatory();
+				$model->addressToObservatory();
 			
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
@@ -627,7 +627,7 @@ class EnquiryController extends Controller
 			$model->modified = date('c');
 
 			if($model->addressed_to == OBSERVATORY)
-				$model->changeAddressedToObservatory();
+				$model->addressToObservatory();
 
 			if($model->save()){
 				$model->promptEmail();
@@ -660,7 +660,7 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 
 			if( $model->addressed_to == OBSERVATORY)
-				$model->changeAddressedToObservatory();
+				$model->addressToObservatory();
 
 			if($model->state == 'rejected'){
 				$model->state = ENQUIRY_REJECTED;

@@ -218,7 +218,8 @@ if($model->is_team_member){
 	addPanelSeparator();
 	changeColumn();
 	echo '<div class="sub_title">'.CHtml::link(__('Entrusted enquiries'),array('enquiry/assigned'));
-	if(Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_ASSIGNED)))
+	if(	Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_ASSIGNED)) ||
+		Enquiry::model()->findByAttributes(array('team_member'=>$model->id, 'state'=>ENQUIRY_AWAITING_REPLY, 'addressed_to'=>OBSERVATORY)) )
 		echo '<i class="icon-attention amber"></i>';
 	echo '</div>';
 	echo '<p><u>Team member</u><br />'.__('Manage the enquiries you are responsable for').'</p>';
