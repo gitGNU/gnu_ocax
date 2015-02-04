@@ -104,7 +104,6 @@ $(function() {
 		}
 	});
 })
-
 function addressToObservatory(){
 	var val = confirm("<?php echo __('Are you sure?');?>");
 	if(val == false)

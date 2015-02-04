@@ -43,6 +43,17 @@ function submitForm(){
 	$('input[type=button]').prop("disabled",true);
 	document.forms['enquiry-form'].submit();
 }
+<?php if ($model->team_member == Yii::app()->user->getUserID()) { ?>
+$(function() {
+	$("#Enquiry_addressed_to_1").on('click', function() {
+		var val = confirm("<?php echo __('Are you sure?');?>");
+		if(val == false){
+			$('#Enquiry_addressed_to_1').prop("checked",false);
+			$('#Enquiry_addressed_to_0').prop("checked",true);
+		}
+	});
+})
+<?php } ?>
 </script>
 
 

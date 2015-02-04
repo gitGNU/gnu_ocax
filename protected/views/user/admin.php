@@ -58,7 +58,7 @@ function toggleSearchOptions(){
 <?php $this->widget('InlineHelp'); ?>
 <?php $this->widget('ViewLog'); ?>
 
-<h1><?php echo __('Users and roles');?></h1>
+<h1 style="margin-bottom:15px;"><?php echo __('Users and roles');?></h1>
 
 
 <div id="searchOptions" class="search-form" style="display:none">
