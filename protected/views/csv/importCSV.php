@@ -82,8 +82,8 @@ function addMissingValues(el, next){
 		type: 'GET',
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
+		beforeSend: function(){ $("#check_missing_values_button").attr("disabled", "disabled"); $('#checking_missing_values').show(); },
+		complete: function(){ $('#checking_missing_values').hide(); },
 		success: function(data){
 					if(data.error){
 						$(el).replaceWith('<span class="error">'+data.error+'</span>');
@@ -116,8 +116,6 @@ function checkTotals(el,next_step){
 		type: 'GET',
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
 		success: function(data){
 					if(data.error){
 						alert(data.error);
@@ -235,17 +233,17 @@ if($model->step == 2){
 }
 
 echo '<p id="step_3" style="display:none">Step 3. Check for missing values ';
-echo '<input type="button" value="Check" onClick="js:addMissingValues(this,4);" /></p>';
+echo '<input id="check_missing_values_button" type="button" value="Check" onClick="js:addMissingValues(this,4);" />';
+echo '<img id="checking_missing_values" style="display:none" src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />';
+echo '</p>';
 
 echo '<p id="step_4" style="display:none">Step 4. Check totals  ';
-echo '<input type="button" step="41" value="Calculate" onClick="js:checkTotals(this,5);" /></p>';
+echo '<input type="button" step="41" value="Calculate" onClick="js:checkTotals(this,5);" />';
+echo '</p>';
 
 echo '<p id="step_41" style="display:none">';
 echo '<input type="button" value="Try again" onClick="js:location.href=\''.Yii::app()->request->baseUrl.'/csv/importCSV/'.$model->year.'\';" /> ';
 echo '<input type="button" value="Continue anyway" onClick="js:step41_to_5();" /></p>';
-
-//echo '<p id="step_5" style="display:none">Step 5. Check for missing Concepts ';
-//echo '<input type="button" value="Check" onClick="js:checkMissingConcepts(this,6);" /></p>';
 
 echo '<p id="step_5" style="display:none">Step 5. Backup budget database: ';
 echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets(this,6);" /></p>';
