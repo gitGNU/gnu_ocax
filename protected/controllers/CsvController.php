@@ -150,6 +150,7 @@ class CsvController extends Controller
 		$msg=Null;
 		
 		$newRegisterCnt = $model->addMissingRegisters();	// rewrites the csv if needed
+
 		if($newRegisterCnt > 0)
 			$msg = '<br /><span class="warn">New registers added: '.$newRegisterCnt.'</span>';
 			
