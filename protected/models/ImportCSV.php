@@ -506,8 +506,12 @@ class ImportCSV extends CFormModel
 		foreach($budgets as $b){
 			// we add new localDescription data to the csv
 			$desc = BudgetDescLocal::model()->getDescriptionFields($b->csv_id, $lang);
+			
 			$label = $desc['label'] ? $desc['label'] : $b->label;
 			$concept = $desc['concept'] ? $desc['concept'] : $b->concept;
+			
+			$label = preg_replace('/\s+/', ' ', trim($label));
+			$concept = preg_replace('/\s+/', ' ', trim($concept));
 			
 			$csv[$b->csv_id] = $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.
 						'|'.$b->trimester_1.'|'.$b->trimester_2.'|'.$b->trimester_3.'|'.$b->trimester_4.

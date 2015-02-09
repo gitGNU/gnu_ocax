@@ -142,6 +142,16 @@ class BudgetDescLocal extends CActiveRecord
 		return rtrim($result, ' ,');
 	}
 
+	public function sanitize()
+	{
+		$this->label = preg_replace('/\s+/', ' ', trim($this->label));
+		$this->concept = preg_replace('/\s+/', ' ', trim($this->concept));
+		$this->text = str_replace("<br />", " ", $this->description);
+		$this->text = trim(strip_tags($this->text));
+		$this->csv_id = strtoupper($this->csv_id);
+		$this->language = strtolower($this->language);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

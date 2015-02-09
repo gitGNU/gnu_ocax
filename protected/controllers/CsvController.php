@@ -342,29 +342,30 @@ class CsvController extends Controller
 			$new_budget->label = trim($label);
 			$new_budget->concept = trim($concept);
 
+
 			$new_budget->initial_provision = trim($initial_prov);
-			if(!$new_budget->initial_provision)
-				$new_budget->initial_provision = 0;
+			//if(!$new_budget->initial_provision)
+			//	$new_budget->initial_provision = 0;
 
 			$new_budget->actual_provision = trim($actual_prov);
-			if(!$new_budget->actual_provision)
-				$new_budget->actual_provision = 0;
+			//if(!$new_budget->actual_provision)
+			//	$new_budget->actual_provision = 0;
 
 			$new_budget->trimester_1 = trim($t1);
-			if(!$new_budget->trimester_1)
-				$new_budget->trimester_1 = 0;
+			//if(!$new_budget->trimester_1)
+			//	$new_budget->trimester_1 = 0;
 
 			$new_budget->trimester_2 = trim($t2);
-			if(!$new_budget->trimester_2)
-				$new_budget->trimester_2 = 0;
+			//if(!$new_budget->trimester_2)
+			//	$new_budget->trimester_2 = 0;
 
 			$new_budget->trimester_3 = trim($t3);
-			if(!$new_budget->trimester_3)
-				$new_budget->trimester_3 = 0;
+			//if(!$new_budget->trimester_3)
+			//	$new_budget->trimester_3 = 0;
 
 			$new_budget->trimester_4 = trim($t4);
-			if(!$new_budget->trimester_4)
-				$new_budget->trimester_4 = 0;
+			//if(!$new_budget->trimester_4)
+			//	$new_budget->trimester_4 = 0;
 
 			$criteria=new CDbCriteria;
 			$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;

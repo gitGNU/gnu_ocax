@@ -29,12 +29,9 @@ $this->inlineHelp=':manual:enquiry:submit';
 $this->viewLog='Enquiry|'.$model->id;
 
 if($model->addressed_to == ADMINISTRATION && $model->id == $model->registry_number){
-	$text =	'<i class="icon-attention green"></i><br />'.__('Registry number is possibly incorrect').'.<br />'.
-			__('Ignore this if you are sure it is ok.');
-	$this->extraText = $text;	
-	
+	$text =	'<i class="icon-attention green"></i><br />'.__('Registry number is possibly incorrect');
+	$this->extraText = $text;
 }
-
 ?>
 
 <style>           

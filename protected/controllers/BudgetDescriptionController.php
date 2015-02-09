@@ -117,10 +117,7 @@ class BudgetDescriptionController extends Controller
 		if(isset($_POST['BudgetDescLocal']))
 		{
 			$model->attributes=$_POST['BudgetDescLocal'];
-			$model->text = str_replace("<br />", " ", $model->description);
-			$model->text = trim(strip_tags($model->text));
-			$model->csv_id = strtoupper($model->csv_id);
-			$model->language = strtolower($model->language);
+			$model->sanitize();
 			$model->modified = date('c');
 			if($model->save()){
 				$word = Null;
@@ -129,7 +126,7 @@ class BudgetDescriptionController extends Controller
 				Log::model()->write('BudgetDescription',__('Description').' "'.$model->csv_id.'" '.$word.__('created'),$model->id);
 				Yii::app()->user->setFlash('success', __('Budget description saved Ok')
 													.'<br /><a href="http://agora.ocax.net/c/ocax/budget-descriptions">'
-													.__('Do you want to share it with others').'?</a>');
+													.__('Do you want to share it with others observatories?').'</a>');
 				$this->redirect(Yii::app()->createUrl('BudgetDescription/update/'.$model->id));
 			}
 		}
@@ -181,8 +178,7 @@ class BudgetDescriptionController extends Controller
 		if(isset($_POST['BudgetDescLocal']))
 		{
 			$model->attributes=$_POST['BudgetDescLocal'];
-			$model->text = str_replace("<br />", " ", $model->description);
-			$model->text = trim(strip_tags($model->text));
+			$model->sanitize();
 			$model->modified = date('c');
 			if($model->save()){
 				$word = Null;

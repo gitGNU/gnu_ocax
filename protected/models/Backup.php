@@ -203,7 +203,6 @@ class Backup extends CActiveRecord
 		if (is_dir($source) === true){
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
 			$zip->addEmptyDir('files/');
-			
 			foreach ($files as $file){
 				$file = str_replace('\\', '/', $file);
 				// Ignore "." and ".." folders

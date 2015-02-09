@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-02-03 12:25+0100\n"
-"PO-Revision-Date: 2015-02-03 12:26+0100\n"
+"POT-Creation-Date: 2015-02-06 11:46+0100\n"
+"PO-Revision-Date: 2015-02-06 11:46+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -143,7 +143,7 @@ msgstr "Incluir título"
 msgid "CSV file"
 msgstr "Fichero CSV"
 
-#: protected/models/ImportCSV.php:498
+#: protected/models/ImportCSV.php:538
 msgid "generated on the"
 msgstr "General el"
 
@@ -316,9 +316,9 @@ msgstr "Autor"
 #: protected/models/Archive.php:88 protected/models/Config.php:208
 #: protected/models/BudgetDescCommon.php:105
 #: protected/models/BudgetCategory.php:90
-#: protected/controllers/BudgetDescriptionController.php:129
-#: protected/controllers/BudgetDescriptionController.php:191
-#: protected/controllers/BudgetDescriptionController.php:242
+#: protected/controllers/BudgetDescriptionController.php:130
+#: protected/controllers/BudgetDescriptionController.php:193
+#: protected/controllers/BudgetDescriptionController.php:244
 msgid "Description"
 msgstr "Descripción"
 
@@ -525,7 +525,7 @@ msgstr "Fecha de entrega"
 msgid "Registry number"
 msgstr "Nº de registro"
 
-#: protected/models/Enquiry.php:225 protected/views/enquiry/submit.php:133
+#: protected/models/Enquiry.php:225 protected/views/enquiry/submit.php:138
 msgid "Documentation"
 msgstr "Documentación"
 
@@ -714,7 +714,7 @@ msgstr "Listar consultas"
 msgid "Send email"
 msgstr "Envía correo"
 
-#: protected/views/email/create.php:146 protected/views/enquiry/_form.php:135
+#: protected/views/email/create.php:146 protected/views/enquiry/_form.php:146
 #: protected/views/site/login.php:98
 msgid "Send"
 msgstr "Enviar"
@@ -767,7 +767,7 @@ msgstr ""
 #: protected/controllers/SiteController.php:345
 #: protected/controllers/CommentController.php:135
 msgid "Kind regards"
-msgstr "Cordiales saludos"
+msgstr "Saludos cordiales"
 
 #: protected/views/email/_contactPetition.php:62
 msgid "says"
@@ -779,7 +779,7 @@ msgstr "Si decides, puedes adjuntar un texo en este correo"
 
 #: protected/views/email/_contactPetition.php:72
 #: protected/views/enquiry/_changeType.php:73
-#: protected/views/enquiry/_form.php:147 protected/views/comment/_form.php:45
+#: protected/views/enquiry/_form.php:158 protected/views/comment/_form.php:45
 #: protected/views/user/update.php:146 protected/views/reply/_form.php:94
 msgid "Cancel"
 msgstr "Cancelar"
@@ -793,7 +793,7 @@ msgid "Email sent"
 msgstr "Correo electrónico enviado"
 
 #: protected/views/email/index.php:34 protected/views/enquiry/adminView.php:26
-#: protected/views/enquiry/manage.php:100
+#: protected/views/enquiry/manage.php:114
 #: protected/controllers/EnquiryController.php:564
 #: protected/controllers/EnquiryController.php:715
 msgid "Manage enquiry"
@@ -902,8 +902,8 @@ msgid "The original enquiry"
 msgstr "La consulta original"
 
 #: protected/views/enquiry/create.php:80
-#: protected/views/enquiry/teamView.php:75
-#: protected/views/enquiry/manage.php:172 protected/views/user/panel.php:435
+#: protected/views/enquiry/teamView.php:78
+#: protected/views/enquiry/manage.php:186 protected/views/user/panel.php:435
 msgid "Yes"
 msgstr "Sí"
 
@@ -947,7 +947,7 @@ msgid "Search"
 msgstr "Busca"
 
 #: protected/views/enquiry/assess.php:58
-#: protected/views/enquiry/teamView.php:55
+#: protected/views/enquiry/teamView.php:58
 msgid "Assess reply"
 msgstr "Valorar respuesta"
 
@@ -960,7 +960,7 @@ msgid "The general consensus is that the reply is not satisfactory"
 msgstr "El consenso general es que la respuesta es insatisfactoria"
 
 #: protected/views/enquiry/teamView.php:29
-#: protected/views/enquiry/submit.php:55
+#: protected/views/enquiry/submit.php:60
 #: protected/controllers/EnquiryController.php:484
 msgid "Submit enquiry"
 msgstr "Entregar la consulta"
@@ -979,17 +979,17 @@ msgid "Correct reply"
 msgstr "Corregir respuesta"
 
 #: protected/views/enquiry/teamView.php:51
-#: protected/views/enquiry/submit.php:57
+#: protected/views/enquiry/submit.php:62
 msgid "Correct submission"
 msgstr "Corregir entrega"
 
-#: protected/views/enquiry/teamView.php:59
+#: protected/views/enquiry/teamView.php:62
 #: protected/controllers/EnquiryController.php:265
 msgid "Reformulate enquiry"
 msgstr "Reformular consulta"
 
-#: protected/views/enquiry/teamView.php:76
-#: protected/views/enquiry/manage.php:174 protected/views/user/panel.php:436
+#: protected/views/enquiry/teamView.php:79
+#: protected/views/enquiry/manage.php:188 protected/views/user/panel.php:436
 msgid "No"
 msgstr "No"
 
@@ -1024,60 +1024,68 @@ msgstr ""
 msgid "find the corresponding budget"
 msgstr "encuentra la partida correspondiente"
 
-#: protected/views/enquiry/manage.php:114
+#: protected/views/enquiry/manage.php:100
+#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:176
+#: protected/views/enquiry/validate.php:49
+#: protected/views/enquiry/_form.php:49 protected/views/sitePage/_form.php:36
+#: protected/views/sitePage/_form.php:43
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: protected/views/enquiry/manage.php:128
 msgid "Please study the enquiry below before continuing"
 msgstr ""
 "Como Team manager tienes tres opciones para gestionar la consulta adjunta."
 
-#: protected/views/enquiry/manage.php:118
-#: protected/views/enquiry/validate.php:61
-#: protected/views/enquiry/_form.php:126
+#: protected/views/enquiry/manage.php:132
+#: protected/views/enquiry/validate.php:70
+#: protected/views/enquiry/_form.php:137
 msgid "Who is this enquiry addressed to?"
 msgstr "¿A quien está dirigida está consulta?"
 
-#: protected/views/enquiry/manage.php:129
+#: protected/views/enquiry/manage.php:143
 msgid "Assign enquiry"
 msgstr "Asignar consulta"
 
-#: protected/views/enquiry/manage.php:132
+#: protected/views/enquiry/manage.php:146
 msgid "Not assigned"
 msgstr "No asignada"
 
-#: protected/views/enquiry/manage.php:135
+#: protected/views/enquiry/manage.php:149
 msgid "Assign"
 msgstr "Asignar"
 
-#: protected/views/enquiry/manage.php:137
+#: protected/views/enquiry/manage.php:151
 msgid "Change team member"
 msgstr "Cambiar team member"
 
-#: protected/views/enquiry/manage.php:142
+#: protected/views/enquiry/manage.php:156
 msgid "Reject the enquiry"
 msgstr "Rechaza la consulta"
 
-#: protected/views/enquiry/manage.php:142
-#: protected/views/enquiry/validate.php:80
+#: protected/views/enquiry/manage.php:156
+#: protected/views/enquiry/validate.php:89
 msgid "The enquiry is inappropriate"
 msgstr "La consulta es inapropiada"
 
-#: protected/views/enquiry/manage.php:143
-#: protected/views/enquiry/validate.php:81
+#: protected/views/enquiry/manage.php:157
+#: protected/views/enquiry/validate.php:90
 msgid "Reject"
 msgstr "Rechaza"
 
-#: protected/views/enquiry/manage.php:148
+#: protected/views/enquiry/manage.php:162
 msgid "The enquiry is spam"
 msgstr "La consulta es spam"
 
-#: protected/views/enquiry/manage.php:148
+#: protected/views/enquiry/manage.php:162
 msgid "Delete the enquiry and"
 msgstr "Eliminar la consulta y"
 
-#: protected/views/enquiry/manage.php:149
+#: protected/views/enquiry/manage.php:163
 msgid "disable the user"
 msgstr "deshabilitar el usuario"
 
-#: protected/views/enquiry/manage.php:153
+#: protected/views/enquiry/manage.php:167
 msgid "Delete"
 msgstr "Borrar"
 
@@ -1139,11 +1147,6 @@ msgstr "e incluso"
 #: protected/views/enquiry/view.php:172
 msgid "delete it"
 msgstr "borrarlo"
-
-#: protected/views/enquiry/view.php:176 protected/views/sitePage/_form.php:36
-#: protected/views/sitePage/_form.php:43
-msgid "Are you sure?"
-msgstr "¿Estás seguro?"
 
 #: protected/views/enquiry/view.php:177
 msgid "until it has been accepted by the observatory."
@@ -1207,19 +1210,25 @@ msgstr "Euros por persona"
 msgid "Enquiries"
 msgstr "Consultas"
 
-#: protected/views/enquiry/submit.php:66
+#: protected/views/enquiry/submit.php:32
+msgid "Registry number is possibly incorrect"
+msgstr ""
+"El número registro es incorrecto, es necesario cambiarlo al número ofrecido "
+"por el Ayuntamiento"
+
+#: protected/views/enquiry/submit.php:71
 msgid "Date the Enquiry was submitted to the Administration"
 msgstr "Fecha en que la consulta se entregó a la administración"
 
-#: protected/views/enquiry/submit.php:94
+#: protected/views/enquiry/submit.php:99
 msgid "Is this information correct?"
 msgstr "¿Es esta información correcta?"
 
-#: protected/views/enquiry/submit.php:95
+#: protected/views/enquiry/submit.php:100
 msgid "Submit"
 msgstr "Entrega"
 
-#: protected/views/enquiry/submit.php:97
+#: protected/views/enquiry/submit.php:102
 msgid "Add document"
 msgstr "Añadir documento"
 
@@ -1302,32 +1311,32 @@ msgstr "No hay consultas aquí"
 msgid "go to top"
 msgstr "subir al principio"
 
-#: protected/views/enquiry/validate.php:57
+#: protected/views/enquiry/validate.php:66
 msgid "Validate enquiry"
 msgstr "Validar consulta"
 
-#: protected/views/enquiry/validate.php:58
+#: protected/views/enquiry/validate.php:67
 msgid "Please study the enquiry below before deciding on an option"
 msgstr "Estudia la consulta más abajo antes de decidir por una opción"
 
-#: protected/views/enquiry/validate.php:71
+#: protected/views/enquiry/validate.php:80
 #, php-format
 msgid "Tell %s you do not want to take responsibility of this enquiry"
 msgstr "Dile a %s que no quieres responsabilizarte de esta consulta"
 
-#: protected/views/enquiry/validate.php:76
+#: protected/views/enquiry/validate.php:85
 msgid "Accept the Enquiry"
 msgstr "Aceptar consulta"
 
-#: protected/views/enquiry/validate.php:76
+#: protected/views/enquiry/validate.php:85
 msgid "You accept this enquiry as valid"
 msgstr "Aceptas esta consulta como a válida"
 
-#: protected/views/enquiry/validate.php:77
+#: protected/views/enquiry/validate.php:86
 msgid "Accept"
 msgstr "Acepta"
 
-#: protected/views/enquiry/validate.php:80
+#: protected/views/enquiry/validate.php:89
 msgid "Reject the Enquiry"
 msgstr "Rechaza la consulta"
 
@@ -1344,16 +1353,16 @@ msgstr "Usuarios suscritos"
 msgid "missing"
 msgstr "falta"
 
-#: protected/views/enquiry/_form.php:60
+#: protected/views/enquiry/_form.php:71
 msgid "New reformulated enquiry"
 msgstr "Nueva consulta reformulada"
 
-#: protected/views/enquiry/_form.php:62
+#: protected/views/enquiry/_form.php:73
 #: protected/controllers/EnquiryController.php:332
 msgid "Modify enquiry"
 msgstr "Modificar consulta"
 
-#: protected/views/enquiry/_form.php:135 protected/views/reply/_form.php:91
+#: protected/views/enquiry/_form.php:146 protected/views/reply/_form.php:91
 #: protected/views/vault/_capacity.php:46
 msgid "Update"
 msgstr "Actualiza"
@@ -1880,7 +1889,7 @@ msgid "Years and budgets"
 msgstr "Años y presupuestos"
 
 #: protected/views/user/panel.php:261
-#: protected/controllers/BudgetDescriptionController.php:265
+#: protected/controllers/BudgetDescriptionController.php:267
 msgid "Budget descriptions"
 msgstr "Descripciones de partidas"
 
@@ -2509,7 +2518,7 @@ msgid "Upload"
 msgstr "Subir"
 
 #: protected/views/budgetDescription/admin.php:27
-#: protected/controllers/BudgetDescriptionController.php:279
+#: protected/controllers/BudgetDescriptionController.php:281
 msgid "State descriptions"
 msgstr "Descripciones Oficiales"
 
@@ -2603,7 +2612,7 @@ msgstr "Listar años"
 msgid "Upload CSV again"
 msgstr "Subir el CSV de nuevo"
 
-#: protected/views/csv/importCSV.php:197
+#: protected/views/csv/importCSV.php:195
 msgid "Import csv into"
 msgstr "Importar csv a"
 
@@ -2790,21 +2799,21 @@ msgstr "introPage"
 
 #: protected/controllers/IntroPageController.php:111
 #: protected/controllers/SitePageController.php:151
-#: protected/controllers/BudgetDescriptionController.php:129
+#: protected/controllers/BudgetDescriptionController.php:130
 msgid "created"
 msgstr "creada"
 
 #: protected/controllers/IntroPageController.php:160
 #: protected/controllers/EmailTemplateController.php:96
 #: protected/controllers/SitePageController.php:253
-#: protected/controllers/BudgetDescriptionController.php:191
+#: protected/controllers/BudgetDescriptionController.php:193
 msgid "updated"
 msgstr "actualizada"
 
 #: protected/controllers/IntroPageController.php:186
 #: protected/controllers/EnquiryController.php:789
 #: protected/controllers/SitePageController.php:289
-#: protected/controllers/BudgetDescriptionController.php:242
+#: protected/controllers/BudgetDescriptionController.php:244
 msgid "deleted"
 msgstr "borrada"
 
@@ -3046,18 +3055,21 @@ msgstr "Año borrado"
 msgid "Database restored correctly"
 msgstr "Database restaurada correctamente"
 
-#: protected/controllers/BudgetDescriptionController.php:130
-#: protected/controllers/BudgetDescriptionController.php:192
+#: protected/controllers/BudgetDescriptionController.php:131
+#: protected/controllers/BudgetDescriptionController.php:194
 msgid "Budget description saved Ok"
 msgstr "Descripción de partida guardada correctamente"
 
-#: protected/controllers/BudgetDescriptionController.php:132
-msgid "Do you want to share it with others"
-msgstr "¿Quieres compartirlo con los demás?"
+#: protected/controllers/BudgetDescriptionController.php:133
+msgid "Do you want to share it with others observatories?"
+msgstr "¿Quieres compartirlo con otros osbservatorios? "
 
-#: protected/controllers/BudgetDescriptionController.php:194
+#: protected/controllers/BudgetDescriptionController.php:196
 msgid "Do you want to share it with other observatories"
-msgstr "¿Quieres compartirlo con otros osbservatorios?"
+msgstr "Quieres compartirlo con otros osbservatorios"
+
+#~ msgid "Do you want to share it with others"
+#~ msgstr "¿Quieres compartirlo con los demás?"
 
 #~ msgid "Remember you must first"
 #~ msgstr "Recuerda que primero has de"

@@ -59,6 +59,9 @@ class ApiController extends Controller
 
 			case 'profile':
 				$result = array(
+							'administration_name'=>Config::model()->findByPk('administrationName')->value,
+							'observatory_name'=>Config::model()->getObservatoryName(),
+							'url'=>Yii::app()->getBaseUrl(true),
 							'language'=>Config::model()->findByPk('languages')->value,
 							'currenySymbol'=>Config::model()->findByPk('currencySymbol')->value,
 							);
@@ -67,7 +70,6 @@ class ApiController extends Controller
 
 			case 'geoLocation':
 				$result = array(
-							'name'=>Config::model()->findByPk('administrationName')->value,
 							'latitude'=>Config::model()->findByPk('administrationLatitude')->value,
 							'longitude'=>Config::model()->findByPk('administrationLongitude')->value,
 							);
