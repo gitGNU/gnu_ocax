@@ -231,7 +231,7 @@ function createGraph(clicked_el, budget_id, data){
 			generic_button_image='style="background-image:url($baseURL/images/prev_budget.png);"';
 			back_button='<div class="prev_budget_arrow" '+generic_button_image+' onclick="javascript:goBack(\''+go_back_to+'\');return false;"></div>';
 		}else
-			back_button='<div class="prev_budget_arrow" onclick="javascript:goBack(\''+go_back_to+'\');return false;"><i class="icon-left-circle"></i></div>';
+			back_button='<div class="prev_budget_arrow" onclick="javascript:goBack(\''+go_back_to+'\');return false;"><i class="icon-left-circled"></i></div>';
 
 		$('#'+graph_id).append(back_button);
 	}

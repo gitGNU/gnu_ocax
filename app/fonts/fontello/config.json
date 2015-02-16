@@ -127,6 +127,12 @@
       "src": "entypo"
     },
     {
+      "uid": "9aeaf29161eb005a308bbd624d6e066a",
+      "css": "left-dir",
+      "code": 59442,
+      "src": "entypo"
+    },
+    {
       "uid": "fb5082fac1794b69a1381196219a836e",
       "css": "chart-pie",
       "code": 59433,
@@ -184,12 +190,6 @@
       "uid": "971be54c1452e2558926d36786e6b1d7",
       "css": "popup",
       "code": 59404,
-      "src": "iconic"
-    },
-    {
-      "uid": "a263473d2d406881ea08f991c1b38694",
-      "css": "left-circle",
-      "code": 59411,
       "src": "iconic"
     },
     {

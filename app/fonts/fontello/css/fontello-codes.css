@@ -18,7 +18,6 @@
 .icon-circle:before { content: '\e810'; } /* '' */
 .icon-facebook-squared:before { content: '\e811'; } /* '' */
 .icon-twitter:before { content: '\e812'; } /* '' */
-.icon-left-circle:before { content: '\e813'; } /* '' */
 .icon-popup-1:before { content: '\e814'; } /* '' */
 .icon-mail-2:before { content: '\e815'; } /* '' */
 .icon-mail-alt:before { content: '\e816'; } /* '' */
@@ -49,3 +48,4 @@
 .icon-plus-circled-1:before { content: '\e82f'; } /* '' */
 .icon-link:before { content: '\e830'; } /* '' */
 .icon-folder-1:before { content: '\e831'; } /* '' */
+.icon-left-dir:before { content: '\e832'; } /* '' */

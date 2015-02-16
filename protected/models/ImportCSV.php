@@ -510,7 +510,7 @@ class ImportCSV extends CFormModel
 			$label = $desc['label'] ? $desc['label'] : $b->label;
 			$concept = $desc['concept'] ? $desc['concept'] : $b->concept;
 			
-			$label = preg_replace('/\s+/', ' ', trim($label));
+			$label = preg_replace('/\s+/', ' ', trim($label));	// remove new lines
 			$concept = preg_replace('/\s+/', ' ', trim($concept));
 			
 			$csv[$b->csv_id] = $b->csv_id.'|'.$b->code.'|'.$b->initial_provision.'|'.$b->actual_provision.

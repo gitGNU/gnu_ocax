@@ -37,6 +37,12 @@ class GraphController extends Controller
 		$offset = strtotime('+42 hours'); // same as time() + 42 * 60 * 60
 		$ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", $offset) . " GMT";
 		header($ExpStr);
-		echo str_replace('$baseURL', Yii::app()->getBaseUrl(true), file_get_contents($fileName));
+		$content = file_get_contents($fileName);
+		//include(svgDir().'newenquiry.svg');
+		$content = str_replace('$baseURL', Yii::app()->getBaseUrl(true), $content);
+		$arrow =  file_get_contents(svgDir().'prev_budget.svg');
+		//$arrow =  include(svgDir().'prev_budget.svg');
+		//$content = str_replace('$prev_budget_svg', $arrow, $content);
+		echo $content;
 	}
 }
