@@ -134,7 +134,7 @@ echo $form->error($model,'body');
 	</div>
 
 	<?php if ($model->team_member == Yii::app()->user->getUserID()) {
-		echo '<div style="font-size:16px;">'.__('Who is this enquiry addressed to?').'</div>';
+		echo '<div style="font-size:16px;">'.__('Who will reply to this enquiry?').'</div>';
 		echo $form->radioButtonList($model,'addressed_to',
 			$model->getHumanAddressedTo(),
 			array('labelOptions'=>array('style'=>'display:inline'))

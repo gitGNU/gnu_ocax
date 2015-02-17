@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
-"POT-Creation-Date: 2015-02-06 11:05+0100\n"
-"PO-Revision-Date: 2015-02-06 11:05+0100\n"
+"POT-Creation-Date: 2015-02-17 10:22+0100\n"
+"PO-Revision-Date: 2015-02-17 10:23+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -143,7 +143,7 @@ msgstr "Incloure títol"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: protected/models/ImportCSV.php:538
+#: protected/models/ImportCSV.php:542
 msgid "generated on the"
 msgstr "generar el"
 
@@ -316,9 +316,9 @@ msgstr "Autor"
 #: protected/models/Archive.php:88 protected/models/Config.php:208
 #: protected/models/BudgetDescCommon.php:105
 #: protected/models/BudgetCategory.php:90
-#: protected/controllers/BudgetDescriptionController.php:130
-#: protected/controllers/BudgetDescriptionController.php:193
-#: protected/controllers/BudgetDescriptionController.php:244
+#: protected/controllers/BudgetDescriptionController.php:126
+#: protected/controllers/BudgetDescriptionController.php:187
+#: protected/controllers/BudgetDescriptionController.php:238
 msgid "Description"
 msgstr "Descripció"
 
@@ -1039,8 +1039,8 @@ msgstr "Estudia la consulta més a baix abans de decidir per una opció"
 #: protected/views/enquiry/manage.php:132
 #: protected/views/enquiry/validate.php:70
 #: protected/views/enquiry/_form.php:137
-msgid "Who is this enquiry addressed to?"
-msgstr "A qui està dirigida està consulta?"
+msgid "Who will reply to this enquiry?"
+msgstr "Qui respondrà a la consulta?"
 
 #: protected/views/enquiry/manage.php:143
 msgid "Assign enquiry"
@@ -1885,7 +1885,7 @@ msgid "Years and budgets"
 msgstr "Anys i pressupostos"
 
 #: protected/views/user/panel.php:261
-#: protected/controllers/BudgetDescriptionController.php:267
+#: protected/controllers/BudgetDescriptionController.php:261
 msgid "Budget descriptions"
 msgstr "Descripcions de partides"
 
@@ -2516,7 +2516,7 @@ msgid "Upload"
 msgstr "Pujar"
 
 #: protected/views/budgetDescription/admin.php:27
-#: protected/controllers/BudgetDescriptionController.php:281
+#: protected/controllers/BudgetDescriptionController.php:275
 msgid "State descriptions"
 msgstr "Descripcions oficials"
 
@@ -2798,21 +2798,21 @@ msgstr "Pàgina introducció"
 
 #: protected/controllers/IntroPageController.php:111
 #: protected/controllers/SitePageController.php:151
-#: protected/controllers/BudgetDescriptionController.php:130
+#: protected/controllers/BudgetDescriptionController.php:126
 msgid "created"
 msgstr "creada"
 
 #: protected/controllers/IntroPageController.php:160
 #: protected/controllers/EmailTemplateController.php:96
 #: protected/controllers/SitePageController.php:253
-#: protected/controllers/BudgetDescriptionController.php:193
+#: protected/controllers/BudgetDescriptionController.php:187
 msgid "updated"
 msgstr "actualitzada"
 
 #: protected/controllers/IntroPageController.php:186
 #: protected/controllers/EnquiryController.php:789
 #: protected/controllers/SitePageController.php:289
-#: protected/controllers/BudgetDescriptionController.php:244
+#: protected/controllers/BudgetDescriptionController.php:238
 msgid "deleted"
 msgstr "suprimit"
 
@@ -3054,18 +3054,21 @@ msgstr "Any esborrat"
 msgid "Database restored correctly"
 msgstr "Database restaurada correctament"
 
-#: protected/controllers/BudgetDescriptionController.php:131
-#: protected/controllers/BudgetDescriptionController.php:194
+#: protected/controllers/BudgetDescriptionController.php:127
+#: protected/controllers/BudgetDescriptionController.php:188
 msgid "Budget description saved Ok"
 msgstr "Descripció de partida guardada OK"
 
-#: protected/controllers/BudgetDescriptionController.php:133
+#: protected/controllers/BudgetDescriptionController.php:129
 msgid "Do you want to share it with others observatories?"
 msgstr "Vols compartir-ho amb altres observatoris?"
 
-#: protected/controllers/BudgetDescriptionController.php:196
+#: protected/controllers/BudgetDescriptionController.php:190
 msgid "Do you want to share it with other observatories"
 msgstr "Vols compartir-ho amb altres observatoris?"
+
+#~ msgid "Who is this enquiry addressed to?"
+#~ msgstr "A qui està dirigida està consulta?"
 
 #~ msgid "Do you want to share it with others"
 #~ msgstr "Vols compartir-ho amb els altres?"

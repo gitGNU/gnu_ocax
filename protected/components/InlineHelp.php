@@ -50,7 +50,7 @@ function showHelp(url){
 </script>
 
 <div id="help_popup" class="modal" style="width:900px;" url="">
-	<div class="modalTitle"><?php echo __('Context help');?></div>
+	<div class="modalTitle"><?php echo __('Help');?></div>
 	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:helpModal2Page();"></i>
 	<div id="help_popup_content" style="padding:0px; margin:0px 0px -8px -8px;"></div>

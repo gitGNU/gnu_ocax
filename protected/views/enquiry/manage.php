@@ -129,7 +129,7 @@ function addressToObservatory(){
 	</p>
 
 	<?php
-		echo '<div style="font-size:16px;">'.__('Who is this enquiry addressed to?').'</div>';
+		echo '<div style="font-size:16px;">'.__('Who will reply to this enquiry?').'</div>';
 		echo $form->radioButtonList($model,'addressed_to',
 			$model->getHumanAddressedTo(),
 			array('labelOptions'=>array('style'=>'display:inline'))

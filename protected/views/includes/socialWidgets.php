@@ -42,6 +42,7 @@
 
 <div class="alert socialWidgetBox">
 <?php
+	$fullurl = $this->createAbsoluteUrl('/enquiry/'.$model->id);
 	$url = $this->createAbsoluteUrl('/e/'.$model->id);
 
 	echo '<div	class="widget">
@@ -61,7 +62,7 @@
 			  <a	href="https://twitter.com/share"
 					class="twitter-share-button"
 					data-url="'.trim($url).'"
-					data-counturl="'.trim($url).'"
+					data-counturl="'.trim($fullurl).'"
 					data-text="'.trim($model->title).'"
 					data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
 					data-lang="en"
@@ -69,7 +70,7 @@
 			</a>
 			</div>';
 		echo '<div class="widget">
-			<div	class="fb-share-button" data-href="'.$url.'"
+			<div	class="fb-share-button" data-href="'.$fullurl.'"
 					data-layout="button_count">
 			</div>
 			</div>';
