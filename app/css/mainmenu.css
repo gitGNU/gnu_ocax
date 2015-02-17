@@ -2,6 +2,7 @@
 #mainMbMenu {
 	width:980px;
 	margin:0 auto;
+	cursor:pointer;
 }
 #mainMbMenu #nav-bar {
 	padding:0px;

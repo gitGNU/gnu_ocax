@@ -25,8 +25,10 @@ class MbMenu extends CMenu
     /**
      * The javascript needed
      */
+/*
     protected function createJsCode()
     {
+
 		$js =  '$("#nav li").hoverIntent({
 				over: function () { if($(this).hasClass("parent")) $(this).addClass("over"); },
 				out: function () { $(this).removeClass("over"); },
@@ -35,8 +37,9 @@ class MbMenu extends CMenu
 				interval: 35
 			});';
         return $js;
-    }
 
+    }
+*/
 
     /**
     * Give the last items css 'last' style
@@ -104,8 +107,8 @@ class MbMenu extends CMenu
     */
     public function publishAssets()
     {
-        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'source';
-        $this->baseUrl = Yii::app()->getAssetManager()->publish($dir);
+        //$dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'source';
+        //$this->baseUrl = Yii::app()->getAssetManager()->publish($dir);
     }
 
     /**
@@ -114,11 +117,11 @@ class MbMenu extends CMenu
     public function registerClientScripts()
     {
         // add the script
-        $cs = Yii::app()->getClientScript();
-        $cs->registerCoreScript('jquery');
+        //$cs = Yii::app()->getClientScript();
+        //$cs->registerCoreScript('jquery');
 
-        $js = $this->createJsCode();
-        $cs->registerScript('mbmenu_'.$this->getId(), $js, CClientScript::POS_READY);
+        //$js = $this->createJsCode();
+        //$cs->registerScript('mbmenu_'.$this->getId(), $js, CClientScript::POS_READY);
     }
 
 /*
@@ -209,8 +212,8 @@ class MbMenu extends CMenu
     */
     public function run()
     {
-		$this->publishAssets();
-		$this->registerClientScripts();
+		//$this->publishAssets();
+		//$this->registerClientScripts();
 		//$this->registerCssFile($this->cssFile);
 		$htmlOptions['id']='nav-container';
 		echo CHtml::openTag('div',$htmlOptions)."\n";

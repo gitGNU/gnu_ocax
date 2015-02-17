@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.hoverIntent.min.js"></script>
+
 
 
 	<!-- <div id="mainmenu"> -->
@@ -34,16 +34,28 @@
 				$cms_pages=SitePage::model()->findAll($criteria);
 				foreach($cms_pages as $page){
 					$page_content = $page->getContentForModel(Yii::app()->language);
-					$item = array(	'label'=>$page_content->pageTitle,
-									'url'=>array('/p/'.$page_content->pageURL),
-									'active'=> ($page->isMenuItemHighlighted()) ? true : false,
-								);
-					//add sub menu
+					
+					//find sub menu items
 					$criteria=new CDbCriteria;
 					$criteria->condition = 'block = '.$page->block.' AND weight != 0 AND published = 1 AND weight IS NOT NULL';
 					$criteria->order = 'weight ASC';				
 					$subpages = $page->findAll($criteria);
+					if($subpages){
+						$onclick = 'js:toggleSubMenu(this);return false';
+						$url = '';
+					}else{
+						$onclick = '';
+						$url = array('/p/'.$page_content->pageURL);
+					}
 					
+					$item = array(	'label'=>$page_content->pageTitle,
+									'linkOptions'=>array(	'class'=>'',
+															'onClick'=>$onclick,
+													),
+									'url'=>$url,
+									'active'=> ($page->isMenuItemHighlighted()) ? true : false,
+								);
+	
 					if($subpages){
 						$subItems=array();
 						foreach($subpages as $subpage){
@@ -67,4 +79,20 @@
 				'items'=>$items,
 			));
 		?>
-	</div><!-- mainmenu -->
+	</div>
+	<!-- mainmenu -->
+	
+<script>
+function toggleSubMenu(item) {
+	if($(item).parent().hasClass("parent")){
+		if($(item).parent().hasClass("over")){
+			$(item).parent().removeClass("over");
+		}else
+			$(item).parent().addClass("over");
+	}
+}
+
+$('li').mouseleave(function() {
+	$(this).removeClass("over");
+});
+</script>
