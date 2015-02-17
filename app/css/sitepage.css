@@ -52,16 +52,6 @@ h3 {
 
 /* .activeMenuItem a {text-decoration:none;} */
 
-#sitePageBreadcrumbs
-{
-	/*border-top: 2px solid lightgrey;*/
-	border-bottom: 1px solid #e4ded7;
-	padding: 5px 3px 5px 10px;
-	margin: -30px -25px 5px -25px;
-	font-weight:200;
-	font-size: 20px;
-}
-
 .sitePageInsert
 {
 	font-size: 22px;

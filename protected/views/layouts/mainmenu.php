@@ -46,8 +46,7 @@
 					}else{
 						$onclick = '';
 						$url = array('/p/'.$page_content->pageURL);
-					}
-					
+					}	
 					$item = array(	'label'=>$page_content->pageTitle,
 									'linkOptions'=>array(	'class'=>'',
 															'onClick'=>$onclick,

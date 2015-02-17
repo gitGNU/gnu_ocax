@@ -70,22 +70,6 @@ echo '</div>';
 
 } ?>
 
-<!-- start page here -->
-<div id="sitePageBreadcrumbs">
-<?php
-	if($parent = SitePage::model()->findByAttributes(array('block'=>$model->block, 'weight'=>0))){
-		//array('order'=>'weight')
-
-		echo '<a href="'.$this->createUrl('site/index').'">'.__('Home').'</a>';
-		if($parent->id != $model->id){
-			if($parentContent = SitePageContent::model()->findByAttributes(array('page'=>$parent->id,'language'=>$content->language))){
-				echo ' &rarr; <a href="'.$this->createUrl('p/'.$parentContent->pageURL).'">'.$parentContent->pageTitle.'</a>';
-			}
-		}
-		echo ' &rarr; <a href="'.$this->createUrl('p/'.$content->pageURL).'">'.$content->pageTitle.'</a>';
-}
-?>
-</div>
 <?php
 if(!$model->published)
 	echo '<i class="icon-attention green"></i> '.__('Not published');
