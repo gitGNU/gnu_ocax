@@ -18,7 +18,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-$totalBudgets = count(Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL'));
+$sql = 'SELECT COUNT(*) FROM budget where year = '.$model->year.' AND parent IS NOT NULL';
+$totalBudgets = Yii::app()->db->createCommand($sql)->queryScalar();
+
 $featuredCount = count($model->getFeatured());
 
 $this->menu=array(

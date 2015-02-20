@@ -84,13 +84,13 @@ catch (Exception $e) {
 <?php
 	$criteria=new CDbCriteria;
 	$criteria->condition = 'parent is NULL';
+	$criteria->order = 'year DESC';
 	$root_budgets = Budget::model()->findAll($criteria);
 	echo '<div class="sub_title">'.__('Budgets').'</div>';
 	echo '<p>';
 	foreach($root_budgets as $root_budget){
-		$criteria=new CDbCriteria;
-		$criteria->condition = 'year = '.$root_budget->year.' AND parent is not NULL';
-		echo $root_budget->year.': '.count($root_budget->findAll($criteria)).' '.__('budgets').'<br />';
+		$sql = 'SELECT COUNT(*) FROM budget where year = '.$root_budget->year.' AND parent IS NOT NULL';
+		echo $root_budget->year.': '.Yii::app()->db->createCommand($sql)->queryScalar().' '.__('budgets').'<br />';
 	}
 	echo '</p>';
 ?>
