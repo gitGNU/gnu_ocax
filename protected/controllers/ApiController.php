@@ -64,6 +64,8 @@ class ApiController extends Controller
 							'url'=>Yii::app()->getBaseUrl(true),
 							'language'=>Config::model()->findByPk('languages')->value,
 							'currenySymbol'=>Config::model()->findByPk('currencySymbol')->value,
+							'latitude'=>Config::model()->findByPk('administrationLatitude')->value,
+							'longitude'=>Config::model()->findByPk('administrationLongitude')->value,
 							);
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
