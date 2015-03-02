@@ -88,12 +88,8 @@
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>
-	<div class="param">
-		<?php $param = Config::model()->findByPk('administrationLatitude'); ?>
-		<span class="paramDescription"><?php echo $param->description;?></span><br />
-		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
-		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
-		<div class="progress"></div>
+	<div style="margin-top:15px;font-size:16px;">
+	<?php echo __('Coordinates for the map at').' <a href="http://ocmunicipal.net/map" target="_blank">http://ocmunicipal.net/map</a>';?>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('administrationLongitude'); ?>
@@ -102,8 +98,15 @@
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
 		<div class="progress"></div>
 	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('administrationLatitude'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateParam(this); return false;"/>
+		<div class="progress"></div>
+	</div>
 	<p>
-<a href="http://gll.petschge.de/"><?php echo __('Find coordinates here');?></a>
+<a href="http://gll.petschge.de/" target="_blank"><?php echo __('Find coordinates here');?></a>
 </p>
 </div>
 <div style="clear:both"></div>
