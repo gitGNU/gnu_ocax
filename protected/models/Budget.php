@@ -296,15 +296,17 @@ class Budget extends CActiveRecord
 	public function dumpBudgets()
 	{
 		$timestamp = time();
-		$fileName = 'budget-dump-'.date('Y-m-d-H-i-s',$timestamp).'.sql';
 
-		$file = new File;
+		$file = new File();
+		$file->baseDir = Yii::app()->basePath;
 		$file->model = get_class($this);
-		$file->path = '/files/'.$file->model.'/'.$fileName;
-		$file->name = __('Budget table saved on the').' '.date('d-m-Y H:i:s',$timestamp);
+		$file->path = '/runtime/'.$file->model;
+		
+		if(!is_dir($file->getURI()))
+			createDirectory($file->getURI());		
 
-		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
-			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
+		$file->path = $file->path.'/budget-dump-'.date('Y-m-d-H-i-s',$timestamp).'.sql';
+		$file->name = __('Budget table saved on the').' '.date('d-m-Y H:i:s',$timestamp);
 
 		$backup = new Backup();
 		if($error = $backup->dumpDatabase($file->getURI(), 'budget')){
@@ -322,38 +324,15 @@ class Budget extends CActiveRecord
 	 */
 	public function restoreBudgets($file_id)
 	{
+		Yii::import('application.includes.*');
+		require_once('runSQL.php');
+
 		$file = File::model()->findByPk($file_id);
+		$file->baseDir = Yii::app()->basePath;
 		if(!$file)
 			Yii::app()->end();
 		
-		// http://www.cnblogs.com/davidhhuan/archive/2011/12/30/2306841.html
-        $pdo = Yii::app()->db->pdoInstance;
-        try 
-        { 
-            if (file_exists($file->getURI())) 
-            {
-                $sqlStream = file_get_contents($file->getURI());
-                $sqlStream = rtrim($sqlStream);
-                $newStream = preg_replace_callback("/\((.*)\)/", create_function('$matches', 'return str_replace(";"," $$$ ",$matches[0]);'), $sqlStream); 
-                $sqlArray = explode(";", $newStream); 
-                foreach ($sqlArray as $value) 
-                { 
-                    if (!empty($value))
-                    {
-                        $sql = str_replace(" $$$ ", ";", $value) . ";";
-                        $pdo->exec($sql);
-                    } 
-                } 
-                //echo "succeed to import the sql data!";
-                return true;
-            } 
-        } 
-        catch (PDOException $e) 
-        { 
-            echo $e->getMessage();
-            exit; 
-        }
-		
+		runSQLFile($file->getURI());
 /*
 		$params = getMySqlParams();
 		$output = NULL;

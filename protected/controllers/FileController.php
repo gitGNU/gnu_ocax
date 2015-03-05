@@ -277,6 +277,10 @@ class FileController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
+		
+		if(strpos($model->path, '/runtime') === 0)
+			$model->baseDir = Yii::app()->basePath;
+			
 		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

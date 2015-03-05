@@ -17,6 +17,7 @@ Upgrade instructions.
 1. Follow steps 1-4 above.
 
 Delete the directory app/files/csv and all the content
+Delete the directory app/files/Budget add all the content
 mkdir protected/runtime/tmp
 mkdir protected/runtime/html
 chown -R www-data protected/runtime/
@@ -24,7 +25,6 @@ chown -R www-data app/
 
 Edit protected/config/main.php and change the theme to default
 'theme' => 'default',
-
 
 blue = #62b5cf
 green = #a1a150
