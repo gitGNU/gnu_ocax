@@ -145,6 +145,7 @@ class Budget extends CActiveRecord
 			'trimester_2' => __('Trimester 2'),
 			'trimester_3' => __('Trimester 3'),
 			'trimester_4' => __('Trimester 4'),
+			'featured' => __('Featured'),
 			'weight' => __('Weight'),
 		);
 	}
@@ -332,7 +333,7 @@ class Budget extends CActiveRecord
 		if(!$file)
 			Yii::app()->end();
 		
-		runSQLFile($file->getURI());
+		return runSQLFile($file->getURI());
 /*
 		$params = getMySqlParams();
 		$output = NULL;
@@ -401,6 +402,26 @@ class Budget extends CActiveRecord
 												'pagination'=>array('pageSize'=>10),
 											));
 	}
+
+	public function getYearsBudgetCount()
+	{
+		$sql = 'SELECT COUNT(*) FROM budget where year = '.$this->year.' AND parent IS NOT NULL';
+		return Yii::app()->db->createCommand($sql)->queryScalar();
+	}
+
+	public function getYearsTotalEnquiries()
+	{
+		$year = $this->year;
+		$sql ="SELECT budget.id, budget.year, enquiry.budget
+				FROM budget
+				INNER JOIN enquiry
+				ON budget.id=enquiry.budget
+				WHERE budget.year = '$year'"; 
+
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		return Yii::app()->db->createCommand($cnt)->queryScalar();
+	}
+
 
 	public function publicSearch()
 	{

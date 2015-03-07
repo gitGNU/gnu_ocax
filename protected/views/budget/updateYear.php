@@ -18,9 +18,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-$sql = 'SELECT COUNT(*) FROM budget where year = '.$model->year.' AND parent IS NOT NULL';
-$totalBudgets = Yii::app()->db->createCommand($sql)->queryScalar();
-
+$totalBudgets = $model->getYearsBudgetCount();
 $featuredCount = count($model->getFeatured());
 
 $this->menu=array(
@@ -31,8 +29,11 @@ $this->menu=array(
 if($totalBudgets){
 	$delTree = array( array('label'=>__('Selected budget delete'), 'url'=>array('budget/deleteTree', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $delTree );
-	$deleteDatos = array( array( 'label'=>__('Delete budgets'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
-	array_splice( $this->menu, 1, 0, $deleteDatos );
+	
+	if($model->getYearsTotalEnquiries() == 0){
+		$deleteDatos = array( array( 'label'=>__("Delete this year's budgets"), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
+		array_splice( $this->menu, 1, 0, $deleteDatos );
+	}
 
 	$label = __('Define graphics');
 	if($totalBudgets > 0 && $featuredCount == 0)
@@ -107,6 +108,7 @@ function megaDelete(el){
 </script>
 
 <?php $title=__('Edit year').' '.$model->year;?>
+
 <?php 
 echo $this->renderPartial('_formYear',
 							array(	'model'=>$model,

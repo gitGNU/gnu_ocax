@@ -111,12 +111,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 </div>
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
-	<script>
-		$(function() { setTimeout(function() {
-			$('.flash-success').slideUp('fast');
-    	}, 3000);
-		});
-	</script>
     <div class="flash-success">
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>

@@ -231,9 +231,6 @@ class CsvController extends Controller
 				foreach($id['children'] as $child)
 					$total = $total + $child['initial_prov'];
 		
-				//if($id['internal_code'] == 'I-E')
-				//	file_put_contents('/tmp/float','total --'.round($total,0).'-- other --'.round($id['initial_total'],0).'---');
-				
 				if( round($total,0) !== round($id['initial_total'],0) ){
 				//if(bccomp($total, $id['initial_total'])!=0){	// some servers to have pccomp
 					$initialSummary=$initialSummary.'<div style="width:400px;margin-top:15px;">';
@@ -307,18 +304,18 @@ class CsvController extends Controller
 	 */
 	public function actionImportCSVData($id)
 	{
-		if(!$id){
+		if (!$id){
 			echo CJavaScript::jsonEncode(array('error'=>'Year not selected'));
 			Yii::app()->end();
 		}
-		if(!isset($_GET['csv_file'])){
+		if (!isset($_GET['csv_file'])){
 			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
 			Yii::app()->end();			
 		}
 		$criteria=new CDbCriteria;
 		$criteria->condition='parent IS NULL AND year='.$id;
 		$yearly_budget=Budget::model()->find($criteria);
-		if(!$yearly_budget){
+		if (!$yearly_budget){
 			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$id.' does not exist in database.'));
 			Yii::app()->end();
 		}
@@ -329,9 +326,15 @@ class CsvController extends Controller
 		$model = new ImportCSV;
 		$model->csv = $model->path.$_GET['csv_file'];
 		$lines = file($model->csv);
+
+		Yii::app()->db->createCommand("LOCK TABLES budget WRITE, budget AS t WRITE")->execute();
+		$transaction = Yii::app()->db->beginTransaction();
+	try {
+
 		foreach ($lines as $line_num => $line) {
-			if($line_num==0)
+			if ($line_num==0){
 				continue;
+			}
 			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
 
 			$new_budget=new Budget;
@@ -342,76 +345,64 @@ class CsvController extends Controller
 			$new_budget->label = trim($label);
 			$new_budget->concept = trim($concept);
 
-
 			$new_budget->initial_provision = trim($initial_prov);
-			//if(!$new_budget->initial_provision)
-			//	$new_budget->initial_provision = 0;
-
 			$new_budget->actual_provision = trim($actual_prov);
-			//if(!$new_budget->actual_provision)
-			//	$new_budget->actual_provision = 0;
-
 			$new_budget->trimester_1 = trim($t1);
-			//if(!$new_budget->trimester_1)
-			//	$new_budget->trimester_1 = 0;
-
 			$new_budget->trimester_2 = trim($t2);
-			//if(!$new_budget->trimester_2)
-			//	$new_budget->trimester_2 = 0;
-
 			$new_budget->trimester_3 = trim($t3);
-			//if(!$new_budget->trimester_3)
-			//	$new_budget->trimester_3 = 0;
-
 			$new_budget->trimester_4 = trim($t4);
-			//if(!$new_budget->trimester_4)
-			//	$new_budget->trimester_4 = 0;
+			
+			$new_budget->featured=0;
 
 			$criteria=new CDbCriteria;
 			$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
 			$parent=Budget::model()->find($criteria);
-			if($parent)
+			if ($parent){
 				$new_budget->parent = $parent->id;
-			else
+			}else{
 				$new_budget->parent = $yearly_budget->id;
-			$new_budget->featured=0;
-
+			}
 			$criteria=new CDbCriteria;
 			$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
 			$budget=Budget::model()->find($criteria);
-			if(!$budget){
-
+			if (!$budget){
 				//$new_budget->validate();
 				//echo CHtml::errorSummary($new_budget);
 				//Yii::app()->end();
-
-				$new_budget->save();
+				$new_budget->save(false);
 				$new_budgets = $new_budgets+1;
 				continue;
 			}
 			$new_budget->featured=$budget->featured;
 			$differences = $budget->compare($new_budget);
-			if(count($differences) == 1)	// only difference is the id
+			if (count($differences) == 1){	// only difference is the id
 				continue;
-
+			}
 			foreach($differences as $attribute=>$values){
-				if($attribute == 'id')
+				if ($attribute == 'id'){
 					continue;
+				}
 				$budget->owner->$attribute=$values['new'];
 			}
-			$budget->save();
+			$budget->save(false);
 			$updated_budgets = $updated_budgets+1;
 		}
-		if($error)
-			echo CJavaScript::jsonEncode(array('error'=>$error));
-		else{
-			if($yearly_budget->isPublished())
-				Config::model()->isZipFileUpdated(0);
-			
-			// default feature budgets here
-			if(Config::model()->findByPk('budgetAutoFeature')->value)
-				$yearly_budget->autoFeatureBudgets();
+		$transaction->commit();
 
+	} catch (Exception $e) {
+		$transaction->rollBack();
+	} 	
+		Yii::app()->db->createCommand("UNLOCK TABLES")->execute();
+		if ($error){
+			echo CJavaScript::jsonEncode(array('error'=>$error));
+		}else{
+			if($yearly_budget->isPublished()){
+				Config::model()->isZipFileUpdated(0);
+			}
+			// default feature budgets here
+			if(Config::model()->findByPk('budgetAutoFeature')->value){
+				$yearly_budget->autoFeatureBudgets();
+			}
 			Log::model()->write('Budget', 'Year '.$yearly_budget->year.'. CSV import. New budgets '.$new_budgets.', Updated budgets '.$updated_budgets);
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
 		}

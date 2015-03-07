@@ -89,8 +89,7 @@ catch (Exception $e) {
 	echo '<div class="sub_title">'.__('Budgets').'</div>';
 	echo '<p>';
 	foreach($root_budgets as $root_budget){
-		$sql = 'SELECT COUNT(*) FROM budget where year = '.$root_budget->year.' AND parent IS NOT NULL';
-		echo $root_budget->year.': '.Yii::app()->db->createCommand($sql)->queryScalar().' '.__('budgets').'<br />';
+		echo $root_budget->year.': '.$root_budget->getYearsBudgetCount().' '.__('budgets').'<br />';
 	}
 	echo '</p>';
 ?>

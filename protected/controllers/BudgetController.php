@@ -467,33 +467,40 @@ class BudgetController extends Controller
 	public function actionDelTree($id)
 	{
 		$model = $this->loadModel($id);
-		$criteria=new CDbCriteria;
-		$criteria->condition = 'year = '.$model->year.' AND parent IS NOT NULL';
-		$criteria->addCondition("csv_id LIKE :match");
-		$criteria->params[':match'] = $model->csv_id.'%';
-		$criteria->order = 'csv_id DESC';	// delete sub budgets before parent budgets
-		$budgets = $model->findAll($criteria);
-		$budgetCount=count($budgets);
-		$enquiryCount=0;
-		foreach($budgets as $budget){
-			if($budget->enquirys)
-				++$enquiryCount;
-		}
+		
+		$year = $model->year;
+		$csv_id = $model->csv_id;
+		$budgetCount = 0;
+		
+		$sql = "SELECT budget.id, budget.year, budget.csv_id, enquiry.budget
+				FROM budget
+				INNER JOIN enquiry
+				ON budget.id=enquiry.budget
+				WHERE budget.year = '$year'
+				AND budget.csv_id LIKE '".$csv_id."%'"; 
+
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		$enquiryCount = Yii::app()->db->createCommand($cnt)->queryScalar();
+		
 		if(!$enquiryCount){
-			$total = $budgetCount;
-			while($budgets){
-				foreach($budgets as $budget){
-					$budget->delete();
-				}
-				$budgets = $model->findAll($criteria);
-				$new_total=count($budgets);
-				if($total == $new_total)
-					break;
-				else
-					$total = $new_total;
-			}
-			if($model->isPublished())
+			$sql = "SELECT budget.id
+					FROM budget  WHERE year = '$year'
+					AND parent IS NOT NULL
+					AND budget.csv_id LIKE '".$csv_id."%'";
+					
+			$cnt = "SELECT COUNT(*) FROM ($sql) subq";					
+			$budgetCount = Yii::app()->db->createCommand($cnt)->queryScalar();
+
+			$sql = "DELETE FROM budget  WHERE year = '$year'
+										AND parent IS NOT NULL
+										AND budget.csv_id LIKE '".$csv_id."%'
+										ORDER BY id DESC;";
+										
+			Yii::app()->db->createCommand($sql)	->execute();
+
+			if ($model->isPublished()){
 				Config::model()->isZipFileUpdated(0);
+			}
 			Log::model()->write('Budget', 'Year '.$model->year.'. Budget "'.$model->csv_id.'" deleted');
 		}
 		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
@@ -515,26 +522,12 @@ class BudgetController extends Controller
 	{
 		$model = $this->loadModel($id);
 
-		$criteria=new CDbCriteria;
-		$criteria->condition = 'year = '.$model->year.' AND parent IS NOT NULL';
-		$criteria->order = 'csv_id DESC';
-
-		$budgets = $model->findAll($criteria);
-		$total=count($budgets);
-
-		while($budgets){
-			foreach($budgets as $budget){
-				if(Enquiry::model()->findByAttributes(array('budget'=>$budget->id)))
-					continue;
-				if(!$model->findByAttributes(array('parent'=>$budget->id)))
-					$budget->delete();
-			}
-			$budgets = $model->findAll($criteria);
-			$new_total=count($budgets);
-			if($total == $new_total)
-				break;
-			else
-				$total = $new_total;
+		if ($model->getYearsTotalEnquiries() == 0){
+			$year = $model->year;
+			$sql = "DELETE FROM budget WHERE year = '$year' AND parent IS NOT NULL ORDER BY id DESC;";
+			Yii::app()->db->createCommand($sql)	->execute();
+			
+			Log::model()->write('Budget', 'Year '.$year.'. '.__('All budgets deleted'));
 		}
 		$this->redirect(array('updateYear','id'=>$model->id));
 	}
