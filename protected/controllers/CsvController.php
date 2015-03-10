@@ -48,7 +48,7 @@ class CsvController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('importCSV','uploadCSV','checkCSVFormat',
-				'addMissingValues','checkCSVTotals','importCSVData',
+				'addMissingValues','checkCSVTotals', 'importCSVData',
 				'export','showYears','regenerateCSV',/*'updateCommonDescriptions',*/
 				'downloadUpdatedCSV'/*,'createCommonDescriptions'*/),
 				'expression'=>"Yii::app()->user->isAdmin()",
@@ -147,6 +147,7 @@ class CsvController extends Controller
 		}
 		$model = new ImportCSV;
 		$model->csv = $model->path.$_GET['csv_file'];
+		
 		$msg=Null;
 		
 		$newRegisterCnt = $model->addMissingRegisters();	// rewrites the csv if needed
@@ -176,9 +177,9 @@ class CsvController extends Controller
 				$msg = $msg.'<br /><span class="warn">- trimester_4: '.$t4.'</span>';
 			$msg = $msg.'<br />';
 		}
-		if(!$msg)
+		if(!$msg){
 			$msg='No missing values';
-			
+		}
 		echo CJavaScript::jsonEncode(array(	'updated'=>$newRegisterCnt,
 											'new_totals'=>$total_newTotals,
 											'new_concepts'=>$new_concepts,
@@ -299,10 +300,8 @@ class CsvController extends Controller
 			echo count($lines) - 1;
 	}
 
-	/*
-	 * Only after running the checks do we import a CSV into the database
-	 */
-	public function actionImportCSVData($id)
+
+	public function actiondddCreateSQLStatement($id)
 	{
 		if (!$id){
 			echo CJavaScript::jsonEncode(array('error'=>'Year not selected'));
@@ -319,80 +318,42 @@ class CsvController extends Controller
 			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$id.' does not exist in database.'));
 			Yii::app()->end();
 		}
-		$error=Null;
-		$new_budgets = 0;
-		$updated_budgets = 0;
+		$model->csv = $model->path.$_GET['csv_file'];
+		$model->createSQLStatement($yearly_budget->year);
+		
 
+	}		
+
+	/*
+	 * Only after running the checks do we import a CSV into the database
+	 */
+	public function actionImportCSVData($id)
+	{
+		if (!$id){
+			echo CJavaScript::jsonEncode(array('error'=>'Year not selected'));
+			Yii::app()->end();
+		}
+		if (!isset($_GET['csv_file'])){
+			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
+			Yii::app()->end();			
+		}
 		$model = new ImportCSV;
 		$model->csv = $model->path.$_GET['csv_file'];
-		$lines = file($model->csv);
+		$model->year = $id;
 
-		Yii::app()->db->createCommand("LOCK TABLES budget WRITE, budget AS t WRITE")->execute();
-		$transaction = Yii::app()->db->beginTransaction();
-	try {
+		$criteria=new CDbCriteria;
+		$criteria->condition='parent IS NULL AND year='.$model->year;
 
-		foreach ($lines as $line_num => $line) {
-			if ($line_num==0){
-				continue;
-			}
-			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
-
-			$new_budget=new Budget;
-			$new_budget->csv_id = trim($csv_id);
-			$new_budget->csv_parent_id = $model->getParentCode($csv_id);
-			$new_budget->year = $yearly_budget->year;
-			$new_budget->code = trim($code);
-			$new_budget->label = trim($label);
-			$new_budget->concept = trim($concept);
-
-			$new_budget->initial_provision = trim($initial_prov);
-			$new_budget->actual_provision = trim($actual_prov);
-			$new_budget->trimester_1 = trim($t1);
-			$new_budget->trimester_2 = trim($t2);
-			$new_budget->trimester_3 = trim($t3);
-			$new_budget->trimester_4 = trim($t4);
-			
-			$new_budget->featured=0;
-
-			$criteria=new CDbCriteria;
-			$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$yearly_budget->year;
-			$parent=Budget::model()->find($criteria);
-			if ($parent){
-				$new_budget->parent = $parent->id;
-			}else{
-				$new_budget->parent = $yearly_budget->id;
-			}
-			$criteria=new CDbCriteria;
-			$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$yearly_budget->year;
-			$budget=Budget::model()->find($criteria);
-			if (!$budget){
-				//$new_budget->validate();
-				//echo CHtml::errorSummary($new_budget);
-				//Yii::app()->end();
-				$new_budget->save(false);
-				$new_budgets = $new_budgets+1;
-				continue;
-			}
-			$new_budget->featured=$budget->featured;
-			$differences = $budget->compare($new_budget);
-			if (count($differences) == 1){	// only difference is the id
-				continue;
-			}
-			foreach($differences as $attribute=>$values){
-				if ($attribute == 'id'){
-					continue;
-				}
-				$budget->owner->$attribute=$values['new'];
-			}
-			$budget->save(false);
-			$updated_budgets = $updated_budgets+1;
+		$yearly_budget=Budget::model()->find($criteria);
+		if (!$yearly_budget){
+			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$model->year.' does not exist in database.'));
+			Yii::app()->end();
 		}
-		$transaction->commit();
+		$error = Null;
+		//testing new import method
+		//list($new_budgets, $updated_budgets, $error) = $model->importCSVData_bigData();
+		list($new_budgets, $updated_budgets, $error) = $model->importCSVData_classic($yearly_budget);
 
-	} catch (Exception $e) {
-		$transaction->rollBack();
-	} 	
-		Yii::app()->db->createCommand("UNLOCK TABLES")->execute();
 		if ($error){
 			echo CJavaScript::jsonEncode(array('error'=>$error));
 		}else{
@@ -403,7 +364,7 @@ class CsvController extends Controller
 			if(Config::model()->findByPk('budgetAutoFeature')->value){
 				$yearly_budget->autoFeatureBudgets();
 			}
-			Log::model()->write('Budget', 'Year '.$yearly_budget->year.'. CSV import. New budgets '.$new_budgets.', Updated budgets '.$updated_budgets);
+			Log::model()->write('Budget', 'Year '.$model->year.'. CSV import. New budgets '.$new_budgets.', Updated budgets '.$updated_budgets);
 			echo CJavaScript::jsonEncode(array('new_budgets'=>$new_budgets, 'updated_budgets'=>$updated_budgets));
 		}
 	}

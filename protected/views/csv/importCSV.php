@@ -78,10 +78,10 @@ function checkFormat(el, next){
 
 function addMissingValues(el, next){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingValues',
+		url: '<?php echo Yii::app()->request->baseUrl.'/csv/addMissingValues/';?>',
 		type: 'GET',
 		dataType: 'json',
-		data: { 'csv_file': '<?php echo $model->csv;?>' },
+		data: { 'csv_file': '<?php echo $model->csv;?>', 'year': '<?php echo $model->year;?>' },
 		beforeSend: function(){ $("#check_missing_values_button").attr("disabled", "disabled"); $('#checking_missing_values').show(); },
 		complete: function(){ $('#checking_missing_values').hide(); },
 		success: function(data){
@@ -102,7 +102,7 @@ function addMissingValues(el, next){
 		},
 		error: function() {
 			$(el).replaceWith("<?php
-				$link = Yii::app()->getBaseUrl(true).'/csv/addMissingValues?csv_file='.$model->csv;
+				$link = Yii::app()->getBaseUrl(true).'/csv/addMissingValues?csv_file='.$model->csv.'&year='.$model->year;
 				echo	'<span class=\"error\"><br />error on checkMissingValues. For more detail see<br />'.
 						'<a href=\"'.$link.'\">'.$link.'</a>'.
 						'</span>';

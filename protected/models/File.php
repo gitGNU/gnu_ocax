@@ -75,6 +75,12 @@ class File extends CActiveRecord
 		);
 	}
 
+	public function afterFind()
+	{
+		if(strpos($this->path, '/runtime') === 0)
+			$this->baseDir = Yii::app()->basePath;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

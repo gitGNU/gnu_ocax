@@ -84,7 +84,7 @@
 </div>
 
 <?php
-if(Config::model()->findByPk('socialActivateNonFree')->value && !Yii::app()->user->getState('cookiesAccepted')){
+if(Config::model()->isSocialNonFree() && !Yii::app()->user->getState('cookiesAccepted')){
 	$this->renderPartial('//site/cookieAlert', array());
 }
 ?>

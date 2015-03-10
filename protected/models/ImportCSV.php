@@ -485,6 +485,220 @@ class ImportCSV extends CFormModel
 		return array($updated_initial_prov, $updated_actual_prov, $updated_t1, $updated_t2, $updated_t3, $updated_t4);
 	}
 
+
+	public function importCSVData_classic($rootBudget)
+	{
+		$errors=Null;	// this doesn't seen to be reporting anything
+		$new_budgets = 0;
+		$updated_budgets = 0;
+		$lines = file($this->csv);
+
+
+	try {
+	Yii::app()->db->createCommand("LOCK TABLES budget WRITE, budget AS t WRITE")->execute();
+	$transaction = Yii::app()->db->beginTransaction();
+	
+		foreach ($lines as $line_num => $line) {
+			if ($line_num==0){
+				continue;
+			}
+			list($csv_id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
+
+			$new_budget=new Budget;
+			$new_budget->csv_id = trim($csv_id);
+			$new_budget->csv_parent_id = $this->getParentCode($csv_id);
+			$new_budget->year = $rootBudget->year;
+			$new_budget->code = trim($code);
+			$new_budget->label = trim($label);
+			$new_budget->concept = trim($concept);
+
+			$new_budget->initial_provision = trim($initial_prov);
+			$new_budget->actual_provision = trim($actual_prov);
+			$new_budget->trimester_1 = trim($t1);
+			$new_budget->trimester_2 = trim($t2);
+			$new_budget->trimester_3 = trim($t3);
+			$new_budget->trimester_4 = trim($t4);
+			
+			$new_budget->featured=0;
+
+			$criteria=new CDbCriteria;
+			$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$this->year;
+			$parent=Budget::model()->find($criteria);
+			if ($parent){
+				$new_budget->parent = $parent->id;
+			}else{
+				file_put_contents('/tmp/root', $rootBudget->id);
+				$new_budget->parent = $rootBudget->id;
+			}
+			$criteria=new CDbCriteria;
+			$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$this->year;
+			$budget=Budget::model()->find($criteria);
+			if (!$budget){
+				//$new_budget->validate();
+				//echo CHtml::errorSummary($new_budget);
+				//Yii::app()->end();
+				$new_budget->save(false);
+				$new_budgets = $new_budgets+1;
+				continue;
+			}
+			$new_budget->featured=$budget->featured;
+			$differences = $budget->compare($new_budget);
+			if (count($differences) == 1){	// only difference is the id
+				continue;
+			}
+			foreach($differences as $attribute=>$values){
+				if ($attribute == 'id'){
+					continue;
+				}
+				$budget->owner->$attribute=$values['new'];
+			}
+			$budget->save(false);
+			$updated_budgets = $updated_budgets+1;
+		}
+	$transaction->commit();
+	Yii::app()->db->createCommand("UNLOCK TABLES")->execute();
+	} catch (Exception $e) {
+		$transaction->rollBack();
+		
+		return array($new_budgets, $updated_budgets, $e);
+	} 	
+		return array($new_budgets, $updated_budgets, $errors);
+	}
+
+	/*
+	 * Creates two sql files
+	 * 1. import new budgets with insert
+	 * 2. update budgets with update (not complete)
+	 * The executes them and deletes files.
+	 */
+	public function importCSVData_bigData()
+	{
+		$registers = $this->csv2array();
+
+		$query = 'SELECT id FROM budget WHERE 1 ORDER BY id DESC LIMIT 1;';
+		$budget_table_id = Yii::app()->db->createCommand($query)->queryScalar();
+
+		file_put_contents('/tmp/last_id',$budget_table_id);
+
+		$insert_fn = $this->path.$this->year.'-insert.sql';
+		if( file_exists($insert_fn)){
+			unlink($insert_fn);
+		}
+		$insert_fh = fopen($insert_fn, 'w');
+		fwrite($insert_fh,'LOCK TABLES `budget` WRITE;'.PHP_EOL);
+		fwrite($insert_fh, 'START TRANSACTION;'.PHP_EOL);
+		fwrite($insert_fh,'INSERT INTO `budget` VALUES'.PHP_EOL);
+		
+		$update_fn = $this->path.$this->year.'-update.sql';
+		if( file_exists($update_fn)){
+			unlink($update_fn);
+		}
+		$update_fh = fopen($update_fn, 'w');		
+			
+		$tableIndex = array();
+		$rootBudget = Budget::model()->findByAttributes(array('year'=>$this->year, 'parent'=>Null));
+		$tableIndex['root'] = Array();
+		$tableIndex['root']['table_id'] = $rootBudget->id;
+		$tableIndex['root']['parent_table_id'] = NULL;
+		
+		$rowsToInsert=0;
+		$rowsToUpdate=0;
+		foreach($registers as $csv_id => $register){
+			
+			if ($rowsToInsert){
+				fwrite($insert_fh, $str.','.PHP_EOL);
+			}
+			
+			$tableIndex[$csv_id] = array();
+				
+			if ($budget = $rootBudget->findByAttributes(array('year'=>$this->year, 'csv_id'=>$csv_id))){
+				// update
+				$rowsToUpdate++;
+				$tableIndex[$csv_id]['table_id'] = $budget->id;
+				$tableIndex[$csv_id]['parent_table_id'] = $budget->parent;
+				
+				$values = $this->register2array($register);
+				
+				$values['id'] = $tableIndex[$csv_id]['table_id'];
+				$values['parent'] = $tableIndex[$csv_id]['parent_table_id'];
+				$values['year'] = $budget->year;
+				$values['csv_id'] = "'".$budget->csv_id."'";
+				$values['csv_parent_id'] = "'".$budget->csv_parent_id."'";
+				$values['code'] =  "'".$values['code']."'";
+				$values['label'] = "'".str_replace("'", "\\'", $values['label'])."'";
+				$values['concept'] = "'".str_replace("'", "\\'", $values['concept'])."'";
+				$values['featured'] = $budget->featured;
+				$values['weight'] = $budget->weight;
+				
+				//this needs to be done.
+				fwrite($update_fh, $budget->id.','.$budget->parent.','.$budget->csv_id.PHP_EOL);
+				continue;
+			}
+
+			// insert
+			$rowsToInsert++;
+			$budget_table_id++;
+			$parent_csv_id = $this->getParentCode($csv_id);
+			if (!$parent_csv_id){
+				// this is S or I category
+				$parent_csv_id = 'root';
+			}
+			$tableIndex[$csv_id]['parent_table_id'] = $tableIndex[$parent_csv_id]['table_id'];
+			$tableIndex[$csv_id]['table_id'] = $budget_table_id;
+			
+			$values = $this->register2array($register);
+
+			$values['id'] = $tableIndex[$csv_id]['table_id'];
+			$values['parent'] = $tableIndex[$csv_id]['parent_table_id'];
+			$values['year'] = $this->year;
+			$values['csv_id'] = "'".$values['csv_id']."'";
+			if ($parent_csv_id == 'root' || $parent_csv_id == ''){
+				$values['csv_parent_id'] = "''";
+			}else{
+				$values['csv_parent_id'] = "'$parent_csv_id'";
+			}			
+			$values['code'] =  "'".$values['code']."'";
+			$values['label'] = "'".str_replace("'", "\\'", $values['label'])."'";
+			$values['concept'] = "'".str_replace("'", "\\'", $values['concept'])."'";
+			$values['featured'] = 0;
+			$values['weight'] = 0;
+			
+			$str = '('.$values['id'].','.$values['parent'].','.$values['year'].','.$values['csv_id'].','.$values['csv_parent_id'].','.$values['code'].','.$values['label'].','.$values['concept'].','.$values['initial_prov'].','.$values['actual_prov'].','.$values['t1'].','.$values['t2'].','.$values['t3'].','.$values['t4'].','.$values['featured'].','.$values['weight'].')';
+			$writeLine = true;		
+		}
+		if ($rowsToInsert){
+			fwrite($insert_fh, $str.';'.PHP_EOL);
+			fwrite($insert_fh, 'COMMIT;'.PHP_EOL);
+			fwrite($insert_fh, 'UNLOCK TABLES;'.PHP_EOL);
+		}
+		fclose($insert_fh);
+		fclose($update_fh);
+
+		$errors = false;
+		if ($rowsToInsert || $rowsToUpdate){
+			Yii::import('application.includes.*');
+			require_once('runSQL.php');
+
+			if ($rowsToInsert){
+				$result = runSQLFile($insert_fn);
+				if ($result !== true){
+					$errors = $result;
+				}
+			}
+			/*
+			if (!$errors && $rowsToUpdate){
+				$result = runSQLFile($update_fn);
+				if ($result !== true){
+					$errors = $result;
+				}
+			}
+			*/
+		}
+		unlink($insert_fn);
+		unlink($update_fn);
+		return array($rowsToInsert, $rowsToUpdate, $errors);
+	}
+
 	public function createCSV($year)
 	{
 		//if(strtotime($year) === false)

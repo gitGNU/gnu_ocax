@@ -329,7 +329,6 @@ class Budget extends CActiveRecord
 		require_once('runSQL.php');
 
 		$file = File::model()->findByPk($file_id);
-		$file->baseDir = Yii::app()->basePath;
 		if(!$file)
 			Yii::app()->end();
 		
