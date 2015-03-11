@@ -1,0 +1,61 @@
+
+These files do not contain a license but they are however licenced under the AGPL3
+
+app/css/ie.css
+
+-CSS
+app/css/sitepage.css
+app/css/budgetDescription.css
+app/css/pgridview.css
+app/css/mainmenu.css
+app/css/color.css
+app/css/jquery.jqplot.css
+app/css/print.css
+app/css/piegraph.css
+app/css/enquiry.css
+app/css/main.css
+app/css/archive.css
+app/css/foot.css
+app/css/pager.css
+app/css/tinymce.css
+app/css/budget.css
+app/css/form.css
+app/css/pdetailview.css
+app/scripts/ocaxcolor.js
+
+-SQL
+schema.sql
+protected/migrations/migrate-version-0000.sql
+protected/migrations/migrate-version-0001.sql
+protected/migrations/migrate-version-0002.sql
+
+____________________________________
+Other dependencies/modules/libraries
+
+-Fonts
+Both SansPro and Fontello fonts are licensed under the OFL
+app/fonts/OFL.txt
+app/fonts/SansPro-*
+app/fonts/fontello/*
+
+-Zend
+OCAx uses Zend framework to generate RSS feeds in the following files
+The Zend code protected/vendors/Zend/* includes their BSD license in each of their source files.
+
+-PHPMailer
+OCAx sends email to registered users.
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+protected/extensions/mailer/phpmailer/license
+
+-TinyMCE
+Used to create markedup text
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+http://www.tinymce.com/wiki.php/TinyMCE3x:License
+
+-Javascripts
+app/scripts/jquery.highlight.js Licensed under MIT license (see file).
+app/scripts/jqplot/* Licensed under GPLv2.1 (see app/scripts/jqplot/gpl-2.0.txt)
+app/scripts/jquery.isonscreen.js
+
+
+

@@ -94,7 +94,7 @@ function getOCAXVersion(){
 }
 
 function getInlineHelpURL($path){
-	$availableTranslations = array('es', 'en');
+	$availableTranslations = array('ca', 'es', 'en');
 	$lang = Yii::app()->user->getState('applicationLanguage');
 	if(!in_array($lang, $availableTranslations))
 		$lang = 'es';

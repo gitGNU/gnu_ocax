@@ -15,6 +15,7 @@ Automatic SQL migration between versions.
 Some post instalation/upgrade testing.
 Emails get sent in 30 recipient batches.
 Changed embedded graphics url from api/ocaxpie to graph/ocaxpie
+Improved performance for when budget table gets big.
 Lots of bugs squashed.
 Please read UPGRADE
 

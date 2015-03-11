@@ -493,10 +493,9 @@ class ImportCSV extends CFormModel
 		$updated_budgets = 0;
 		$lines = file($this->csv);
 
-
-	try {
-	Yii::app()->db->createCommand("LOCK TABLES budget WRITE, budget AS t WRITE")->execute();
-	$transaction = Yii::app()->db->beginTransaction();
+	//try {
+		//Yii::app()->db->createCommand("LOCK TABLES budget WRITE, budget AS t WRITE")->execute();
+		$transaction = Yii::app()->db->beginTransaction();
 	
 		foreach ($lines as $line_num => $line) {
 			if ($line_num==0){
@@ -555,17 +554,17 @@ class ImportCSV extends CFormModel
 			$budget->save(false);
 			$updated_budgets = $updated_budgets+1;
 		}
-	$transaction->commit();
-	Yii::app()->db->createCommand("UNLOCK TABLES")->execute();
-	} catch (Exception $e) {
-		$transaction->rollBack();
-		
-		return array($new_budgets, $updated_budgets, $e);
-	} 	
+		$transaction->commit();
+		//Yii::app()->db->createCommand("UNLOCK TABLES")->execute();
+	//} catch (Exception $e) {
+	//	$transaction->rollBack();
+	//	return array($new_budgets, $updated_budgets, $e);
+	//} 	
 		return array($new_budgets, $updated_budgets, $errors);
 	}
 
 	/*
+	 * This function is meant to be faster than importCSVData_classic()
 	 * Creates two sql files
 	 * 1. import new budgets with insert
 	 * 2. update budgets with update (not complete)
