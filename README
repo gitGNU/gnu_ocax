@@ -1,61 +1,59 @@
 
-These files do not contain a license but they are however licenced under the AGPL3
+More license information.
 
-app/css/ie.css
+----------------------------------------
+These files do not contain a license
+They are however licenced under the AGPL3
 
 -CSS
-app/css/sitepage.css
-app/css/budgetDescription.css
-app/css/pgridview.css
-app/css/mainmenu.css
-app/css/color.css
-app/css/jquery.jqplot.css
-app/css/print.css
-app/css/piegraph.css
-app/css/enquiry.css
-app/css/main.css
-app/css/archive.css
-app/css/foot.css
-app/css/pager.css
-app/css/tinymce.css
-app/css/budget.css
-app/css/form.css
-app/css/pdetailview.css
-app/scripts/ocaxcolor.js
+app/css/sitepage.css AGPLv3
+app/css/budgetDescription.css AGPLv3
+app/css/pgridview.css AGPLv3
+app/css/mainmenu.css AGPLv3
+app/css/color.css AGPLv3
+app/css/jquery.jqplot.css AGPLv3
+app/css/print.css AGPLv3
+app/css/piegraph.css AGPLv3
+app/css/enquiry.css AGPLv3
+app/css/main.css AGPLv3
+app/css/archive.css AGPLv3
+app/css/foot.css AGPLv3
+app/css/pager.css AGPLv3
+app/css/tinymce.css AGPLv3
+app/css/budget.css AGPLv3
+app/css/form.css AGPLv3
+app/css/pdetailview.css AGPLv3
+app/scripts/ocaxcolor.js AGPLv3
 
 -SQL
-schema.sql
-protected/migrations/migrate-version-0000.sql
-protected/migrations/migrate-version-0001.sql
-protected/migrations/migrate-version-0002.sql
+schema.sql AGPLv3
+protected/migrations/migrate-version-0000.sql AGPLv3
+protected/migrations/migrate-version-0001.sql AGPLv3
+protected/migrations/migrate-version-0002.sql AGPLv3
 
-____________________________________
+------------------------------------
 Other dependencies/modules/libraries
 
--Fonts
-Both SansPro and Fontello fonts are licensed under the OFL
-app/fonts/OFL.txt
-app/fonts/SansPro-*
-app/fonts/fontello/*
+-Fontello Font
+app/fonts/fontello/LICENSE.txt SIL (http://scripts.sil.org/OFL)
+
+-SansPro Font
+app/fonts/SansPro-*.woff OFL (see app/fonts/OFL.txt)
 
 -Zend
-OCAx uses Zend framework to generate RSS feeds in the following files
-The Zend code protected/vendors/Zend/* includes their BSD license in each of their source files.
+protected/vendors/Zend/* BSD license included in each of their source files.
 
 -PHPMailer
-OCAx sends email to registered users.
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
-protected/extensions/mailer/phpmailer/license
+protected/extensions/mailer/phpmailer/LICENSE LGPLv2.1
 
 -TinyMCE
-Used to create markedup text
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
-http://www.tinymce.com/wiki.php/TinyMCE3x:License
+protected/extensions/tinymce/vendors/tinymce LGPLv2.1 (see http://www.tinymce.com/wiki.php/TinyMCE3x:License)
 
 -Javascripts
-app/scripts/jquery.highlight.js Licensed under MIT license (see file).
-app/scripts/jqplot/* Licensed under GPLv2.1 (see app/scripts/jqplot/gpl-2.0.txt)
-app/scripts/jquery.isonscreen.js
+app/scripts/jquery.bpopup-0.9.4.min.js DWIWYWBPVMS (see http://dinbror.dk/blog/bPopup/#license)
+app/scripts/jquery.highlight.js MIT (see file).
+app/scripts/jqplot/* GPLv2.1 (see app/scripts/jqplot/gpl-2.0.txt)
+app/scripts/jquery.isonscreen.js MIT (see https://github.com/moagrius/isOnScreen/issues/2)
 
 
 
