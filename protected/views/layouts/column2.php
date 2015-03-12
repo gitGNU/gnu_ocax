@@ -1,4 +1,4 @@
-<?php /* @var $this Controller */
+<?php
 
 /**
  * OCAX -- Citizen driven Observatory software

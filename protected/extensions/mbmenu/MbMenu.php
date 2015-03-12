@@ -6,13 +6,12 @@
  * @author Mark van den Broek (mark@heyhoo.nl)
  * @copyright Copyright &copy; 2010-2012 HeyHoo
  *
+ * http://www.yiiframework.com/extension/mbmenu/
  */
-
-/* 2014 hacked for OCAx. Using javascript hoverIntent */
 
 
 Yii::import('zii.widgets.CMenu');
-Yii::import('application.extensions.mbmenu.Browser');
+//Yii::import('application.extensions.mbmenu.Browser');
 
 class MbMenu extends CMenu
 {
@@ -21,25 +20,6 @@ class MbMenu extends CMenu
 
     public $cssFile;
     public $activateParents=true;
-
-    /**
-     * The javascript needed
-     */
-/*
-    protected function createJsCode()
-    {
-
-		$js =  '$("#nav li").hoverIntent({
-				over: function () { if($(this).hasClass("parent")) $(this).addClass("over"); },
-				out: function () { $(this).removeClass("over"); },
-				sensitivity: 2,
-				timeout: 0,
-				interval: 35
-			});';
-        return $js;
-
-    }
-*/
 
     /**
     * Give the last items css 'last' style
@@ -65,85 +45,36 @@ class MbMenu extends CMenu
       return array_values($items);
     }
 
-     /**
-    * Give the last items css 'parent' style
-    */
-	  protected function cssParentItems($items)
-	  {
-	  	foreach($items as $i=>$item)
-	  	{
-	  		if(isset($item['items']))
-	  		{
- 		      if(isset($item['itemOptions']['class']))
-			      $items[$i]['itemOptions']['class'].=' parent';
-		      else
-			      $items[$i]['itemOptions']['class']='parent';
+	protected function cssParentItems($items)
+	{
+		foreach($items as $i=>$item)
+		{
+			if(isset($item['items']))
+			{
+				if(isset($item['itemOptions']['class']))
+					$items[$i]['itemOptions']['class'].=' parent';
+				else
+					$items[$i]['itemOptions']['class']='parent';
+				$items[$i]['items']=$this->cssParentItems($item['items']);
+			}
+		}
+		return array_values($items);
+	}
 
-	  		$items[$i]['items']=$this->cssParentItems($item['items']);
-	  		}
-      }
+	public function init()
+	{
+		if(!$this->getId(false))
+			$this->setId('nav');
 
-      return array_values($items);
-    }
+		$this->nljs = "\n";
+		$this->items=$this->cssParentItems($this->items);
+		$this->items=$this->cssLastItems($this->items);
 
-    /**
-    * Initialize the widget
-    */
-    public function init()
-    {
-        if(!$this->getId(false))
-          $this->setId('nav');
-
-        $this->nljs = "\n";
-        $this->items=$this->cssParentItems($this->items);
-        $this->items=$this->cssLastItems($this->items);
-
-        parent::init();
-    }
+		parent::init();
+	}
 
 
-    /**
-    * Publishes the assets
-    */
-    public function publishAssets()
-    {
-        //$dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'source';
-        //$this->baseUrl = Yii::app()->getAssetManager()->publish($dir);
-    }
-
-    /**
-    * Registers the external javascript files
-    */
-    public function registerClientScripts()
-    {
-        // add the script
-        //$cs = Yii::app()->getClientScript();
-        //$cs->registerCoreScript('jquery');
-
-        //$js = $this->createJsCode();
-        //$cs->registerScript('mbmenu_'.$this->getId(), $js, CClientScript::POS_READY);
-    }
-
-/*
- 	  public function registerCssFile($url=null)
-	  {
-        // add the css
-        if ($this->baseUrl === '')
-            throw new CException(Yii::t('MbMenu', 'baseUrl must be set. This is done automatically by calling publishAssets()'));
-
-	  	  $cs=Yii::app()->getClientScript();
-	  	  if($url===null) {
-	  		  $url=$this->baseUrl.'/mbmenu.css';
-          $cs->registerCssFile($url,'screen');
-          $browser = Browser::detect();
-          if ($browser['name'] == 'msie' && $browser['version'] < 8)
-            $cs->registerCssFile($this->baseUrl.'/mbmenu_iestyles.css','screen');
-        } else {
-	  	    $cs->registerCssFile($url,'screen');
-        }
-	  }
-*/
-	  protected function renderMenuRecursive($items)
+	protected function renderMenuRecursive($items)
 	  {
 	  	  foreach($items as $item)
 	  	  {
@@ -212,9 +143,6 @@ class MbMenu extends CMenu
     */
     public function run()
     {
-		//$this->publishAssets();
-		//$this->registerClientScripts();
-		//$this->registerCssFile($this->cssFile);
 		$htmlOptions['id']='nav-container';
 		echo CHtml::openTag('div',$htmlOptions)."\n";
 		$htmlOptions['id']='nav-bar';
