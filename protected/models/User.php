@@ -144,26 +144,12 @@ class User extends CActiveRecord
 		);
 	}
 
-	/**
-	 * Checks if the given password is correct.
-	 * @param string the password to be validated
-	 * @return boolean whether the password is valid
-	 */
-/* chrisf
-	// I commented this out cause it doesn't seem to be used.
-	public function validatePassword($password)
-	{
-		return $this->hashPassword($password,$this->salt)===$this->password;
-	}
- */
-
 	public function getTeamMembers()
 	{
 		return $this->findAll(array("condition"=>"is_team_member =  1 AND is_active = 1",
 									"order"=>"username")
 							);
 	}
-	
 	
 	/**
 	 * Create activation code.

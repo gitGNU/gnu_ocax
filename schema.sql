@@ -2,7 +2,7 @@
 OCAx database schematic.
 
 OCAX -- Citizen driven Observatory software
-Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+Copyright (C) 2015 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS budget (
   FOREIGN KEY (parent) REFERENCES budget(id)
 ) ENGINE=INNODB DEFAULT CHARSET = utf8;
 ALTER TABLE budget ADD INDEX csv_id (csv_id);
-INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2014', 0, 'root budget', 10000, 0);
+INSERT INTO budget(year, code, concept, initial_provision, actual_provision) VALUES ('2015', 0, 'root budget', 10000, 0);
 
 CREATE TABLE IF NOT EXISTS budget_desc_state (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -426,5 +426,5 @@ INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL',
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
 INSERT INTO config(parameter, required, description) VALUES ('telephone', '0', 'Contact telephone');
 INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
-INSERT INTO config(parameter, value, required, description) VALUES ('year', '2014', '1', 'Default Year (this year)');
+INSERT INTO config(parameter, value, required, description) VALUES ('year', '2015', '1', 'Default Year (this year)');
 

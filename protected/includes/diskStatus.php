@@ -4,6 +4,7 @@
  * Disk Status Class
  *
  * http://pmav.eu/stuff/php-disk-status/
+ * License: MIT http://pmav.eu/assets/LICENSE
  *
  * v1.0 - 17/Oct/2008
  * v1.1 - 22/Ago/2009 (Exceptions added.)

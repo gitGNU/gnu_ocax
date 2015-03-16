@@ -7,18 +7,17 @@
  * @copyright Copyright &copy; 2010-2012 HeyHoo
  *
  * http://www.yiiframework.com/extension/mbmenu/
+ * License: New BSD License
  */
 
 
 Yii::import('zii.widgets.CMenu');
-//Yii::import('application.extensions.mbmenu.Browser');
 
 class MbMenu extends CMenu
 {
-    private $baseUrl;
+    //private $baseUrl;
+    //public $cssFile;
     private $nljs;
-
-    public $cssFile;
     public $activateParents=true;
 
     /**
