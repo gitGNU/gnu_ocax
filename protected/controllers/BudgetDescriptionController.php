@@ -84,9 +84,9 @@ class BudgetDescriptionController extends Controller
 			$this->redirect(Yii::app()->createUrl('budgetDescription/browseCommon'));
 		}
 		if($localModel = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language)))
-			$this->redirect(Yii::app()->createUrl('budgetDescription/update/'.$localModel->id));		
+			$this->redirect('/budgetDescription/update/'.$localModel->id);		
 		else
-			$this->redirect(Yii::app()->createUrl('budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language));		
+			$this->redirect('/budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language);		
 	}
 
 	public function actionShowState($id)
@@ -96,9 +96,9 @@ class BudgetDescriptionController extends Controller
 			$this->redirect(Yii::app()->createUrl('budgetDescription/browseState'));
 		}
 		if($localModel = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language)))
-			$this->redirect(Yii::app()->createUrl('budgetDescription/update/'.$localModel->id));		
+			$this->redirect('/budgetDescription/update/'.$localModel->id);		
 		else
-			$this->redirect(Yii::app()->createUrl('budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language));		
+			$this->redirect('/budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language);		
 	}
 
 	public function actionModify()
