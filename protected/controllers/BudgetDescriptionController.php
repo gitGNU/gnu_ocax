@@ -81,24 +81,24 @@ class BudgetDescriptionController extends Controller
 	{
 		$model = BudgetDescCommon::model()->findByPk($id);
 		if (!$model){
-			$this->redirect(Yii::app()->createUrl('budgetDescription/browseCommon'));
+			$this->redirect(Yii::app()->createUrl('/budgetDescription/browseCommon'));
 		}
 		if($localModel = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language)))
-			$this->redirect('/budgetDescription/update/'.$localModel->id);		
+			$this->redirect(Yii::app()->createUrl('/budgetDescription/update/'.$localModel->id));		
 		else
-			$this->redirect('/budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language);		
+			$this->redirect(Yii::app()->createUrl('/budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language));		
 	}
 
 	public function actionShowState($id)
 	{
 		$model = BudgetDescState::model()->findByPk($id);
 		if (!$model){
-			$this->redirect(Yii::app()->createUrl('budgetDescription/browseState'));
+			$this->redirect(Yii::app()->createUrl('/budgetDescription/browseState'));
 		}
 		if($localModel = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language)))
-			$this->redirect('/budgetDescription/update/'.$localModel->id);		
+			$this->redirect(Yii::app()->createUrl('/budgetDescription/update/'.$localModel->id));		
 		else
-			$this->redirect('/budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language);		
+			$this->redirect(Yii::app()->createUrl('/budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language));		
 	}
 
 	public function actionModify()
