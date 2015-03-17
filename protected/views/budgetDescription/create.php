@@ -23,7 +23,9 @@
 
 $this->menu=array(
 	array('label'=>__('View description').'<i class="icon-popup-1"></i>', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewSavedLocalDescription();')),
-	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Local descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Common descriptions'), 'url'=>array('budgetDescription/browseCommon')),
+	array('label'=>__('State descriptions'), 'url'=>array('budgetDescription/browseState')),
 );
 $this->inlineHelp=':manual:budgetdescription:update';
 $this->viewLog='BudgetDescription';

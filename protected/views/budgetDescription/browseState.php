@@ -23,7 +23,8 @@
 
 
 $this->menu=array(
-	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Local descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Common descriptions'), 'url'=>array('budgetDescription/browseCommon')),
 );
 $this->inlineHelp=':manual:budgetdescription:browsestate';
 $this->viewLog='BudgetDescription';
@@ -38,6 +39,7 @@ $this->viewLog='BudgetDescription';
 </div><!-- search-form -->
 
 <?php
+/*
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -45,5 +47,19 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array('language', 'csv_id', 'code', 'concept')
+));
+*/
+$this->widget('PGridView', array(
+	'id'=>'budget-description-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>'/budgetDescription/showState',
+    ),
+	'ajaxUpdate'=>true,
+	'columns'=>array(	'language', 'csv_id', 'code', 'concept',
+						array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+	)
 ));
 ?>

@@ -23,8 +23,9 @@
 
 
 $this->menu=array(
-	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
+	array('label'=>__('Common descriptions'), 'url'=>array('budgetDescription/browseCommon')),
 	array('label'=>__('State descriptions'), 'url'=>array('budgetDescription/browseState')),
+	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
 );
 $this->inlineHelp=':manual:budgetdescription:admin';
 $this->viewLog='BudgetDescription';

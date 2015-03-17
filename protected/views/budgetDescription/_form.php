@@ -63,6 +63,7 @@ $(function() {
 			$(this).val(<?php echo json_encode($model->label);?>);
 	});
 });
+
 function previewLocalDescription() {
 	$('#description_popup_content_saved_desc').hide();
 	content = "<div class=\"modalTitle\"><?php echo __('Explication preview');?>" + '</div>';
@@ -116,7 +117,17 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 		<?php echo $form->error($model,'code'); ?>
 	</div>
 	<?php
-		if($listData = getLanguagesArray()){
+		$listData = getLanguagesArray();
+		if ($listData || $model->language != Yii::app()->language){
+			if (!$listData){
+				$listData = array();
+				$listData[Yii::app()->language] = Yii::app()->language;
+				$listData[$model->language] = $model->language;
+			}else{
+				if (!array_key_exists($model->language, $listData)){
+					$listData[$model->language] = $model->language;
+				}
+			}
 			echo '<div class="row left" style="width:170px">';
 			echo $form->labelEx($model,'language');
 			echo $form->dropDownList($model, 'language', $listData,	array('onChange'=>'js:changeLanguage(this.value);'));
@@ -130,7 +141,7 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 
 <div class="tabMenu" style="margin-bottom:15px">
 	<ul>
-	<li onClick="js:tabMenu(this, 'state_desc');">
+	<li id="state_tab" onClick="js:tabMenu(this, 'state_desc');">
 		<?php echo __('State description');
 		if($state_desc && $state_desc->description)
 			echo '<i class="icon-circle green"></i>';
@@ -140,7 +151,7 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 			echo '<i class="icon-circle red"></i>';
 		?>
 	</li>
-	<li onClick="js:tabMenu(this, 'common_desc');">
+	<li id="common_tab" onClick="js:tabMenu(this, 'common_desc');">
 		<?php echo __('Common description');
 		if($common_desc && $common_desc->description)
 			echo '<i class="icon-circle green"></i>';
@@ -150,7 +161,7 @@ echo '<p style="margin:0px;">'.__('Used where').' '.$model->whereUsed().'</p>';
 			echo '<i class="icon-circle red"></i>';
 		?>
 	</li>
-	<li class="activeItem" onClick="js:tabMenu(this, 'local_desc');">
+	<li id="local_tab" class="activeItem" onClick="js:tabMenu(this, 'local_desc');">
 		<?php echo __('Local description');
 		if($model->id && $model->description)
 			echo '<i class="icon-circle green"></i>';

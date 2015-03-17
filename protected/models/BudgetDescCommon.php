@@ -113,25 +113,24 @@ class BudgetDescCommon extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->addCondition('modified IS NOT NULL');
 
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('language',$this->language,true);
-		$criteria->compare('code',$this->code);
+		$criteria->compare('code',$this->code,true);
+		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('text',$this->text,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));
 	}
-*/
 
 }

@@ -24,7 +24,9 @@
 $this->menu=array(
 	array('label'=>__('View description').'<i class="icon-popup-1"></i>', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewSavedLocalDescription();')),
 	array('label'=>__('Delete local description'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Local descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Common descriptions'), 'url'=>array('budgetDescription/browseCommon')),
+	array('label'=>__('State descriptions'), 'url'=>array('budgetDescription/browseState')),
 );
 $this->inlineHelp=':manual:budgetdescription:update';
 $this->viewLog='BudgetDescription|'.$model->id;

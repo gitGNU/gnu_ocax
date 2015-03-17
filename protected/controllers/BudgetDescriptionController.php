@@ -50,7 +50,8 @@ class BudgetDescriptionController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'view','create','update','translate','modify',
-									'browseState','admin','delete'),
+									'browseCommon','showCommon','browseState','showState',
+									'admin','delete'),
 				'expression'=>"Yii::app()->user->canEditBudgetDescriptions()",
 			),
 			/*
@@ -74,6 +75,30 @@ class BudgetDescriptionController extends Controller
 		$this->render('update',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function actionShowCommon($id)
+	{
+		$model = BudgetDescCommon::model()->findByPk($id);
+		if (!$model){
+			$this->redirect(Yii::app()->createUrl('budgetDescription/browseCommon'));
+		}
+		if($localModel = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language)))
+			$this->redirect(Yii::app()->createUrl('budgetDescription/update/'.$localModel->id));		
+		else
+			$this->redirect(Yii::app()->createUrl('budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language));		
+	}
+
+	public function actionShowState($id)
+	{
+		$model = BudgetDescState::model()->findByPk($id);
+		if (!$model){
+			$this->redirect(Yii::app()->createUrl('budgetDescription/browseState'));
+		}
+		if($localModel = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language)))
+			$this->redirect(Yii::app()->createUrl('budgetDescription/update/'.$localModel->id));		
+		else
+			$this->redirect(Yii::app()->createUrl('budgetDescription/create?csv_id='.$model->csv_id.'&lang='.$model->language));		
 	}
 
 	public function actionModify()
@@ -269,6 +294,18 @@ class BudgetDescriptionController extends Controller
 		));
 	}
 
+	public function actionBrowseCommon()
+	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Common descriptions'));
+		$model=new BudgetDescCommon('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['BudgetDescCommon']))
+			$model->attributes=$_GET['BudgetDescCommon'];
+
+		$this->render('browseCommon',array(
+			'model'=>$model,
+		));
+	}
 
 	public function actionBrowseState()
 	{
