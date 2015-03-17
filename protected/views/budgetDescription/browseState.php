@@ -55,7 +55,7 @@ $this->widget('PGridView', array(
 	'filter'=>$model,
     'onClick'=>array(
         'type'=>'url',
-        'call'=>'/budgetDescription/showState',
+        'call'=>Yii::app()->request->baseUrl.'/budgetDescription/showState',
     ),
 	'ajaxUpdate'=>true,
 	'columns'=>array(	'language', 'csv_id', 'code', 'concept',
