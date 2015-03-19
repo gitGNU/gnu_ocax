@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_en\n"
-"POT-Creation-Date: 2015-03-02 13:24+0100\n"
-"PO-Revision-Date: 2015-03-02 13:25+0100\n"
+"POT-Creation-Date: 2015-03-19 11:46+0100\n"
+"PO-Revision-Date: 2015-03-19 11:46+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -62,26 +62,26 @@ msgid "Year"
 msgstr ""
 
 #: protected/models/Budget.php:139 protected/models/BudgetDescCommon.php:102
-#: protected/models/BudgetDescLocal.php:88
+#: protected/models/BudgetDescLocal.php:106
 #: protected/models/BudgetCategory.php:89
 #: protected/models/BudgetDescState.php:109
 msgid "Code"
 msgstr ""
 
 #: protected/models/Budget.php:140 protected/models/BudgetDescCommon.php:103
-#: protected/models/BudgetDescLocal.php:89
+#: protected/models/BudgetDescLocal.php:107
 #: protected/models/BudgetDescState.php:110
-#: protected/views/budgetDescription/_form.php:93
+#: protected/views/budgetDescription/_form.php:94
 msgid "Label"
 msgstr ""
 
 #: protected/models/Budget.php:141 protected/models/BudgetDescCommon.php:104
-#: protected/models/BudgetDescLocal.php:90
+#: protected/models/BudgetDescLocal.php:108
 #: protected/models/BudgetDescState.php:111
-#: protected/views/enquiry/_changeType.php:105
+#: protected/views/enquiry/_changeType.php:127
 #: protected/views/budget/deleteTree.php:83
 #: protected/views/budget/featured.php:86
-#: protected/views/budgetDescription/_form.php:95
+#: protected/views/budgetDescription/_form.php:96
 msgid "Concept"
 msgstr ""
 
@@ -109,17 +109,21 @@ msgstr ""
 msgid "Trimester 4"
 msgstr ""
 
-#: protected/models/Budget.php:148 protected/models/SitePage.php:105
+#: protected/models/Budget.php:148
+msgid "Featured"
+msgstr ""
+
+#: protected/models/Budget.php:149 protected/models/SitePage.php:105
 msgid "Weight"
 msgstr ""
 
-#: protected/models/Budget.php:168 protected/views/enquiry/create.php:47
+#: protected/models/Budget.php:169 protected/views/enquiry/create.php:47
 #: protected/views/budget/view.php:114
 #: protected/controllers/BudgetController.php:88
 msgid "Budget"
 msgstr ""
 
-#: protected/models/Budget.php:304
+#: protected/models/Budget.php:310
 msgid "Budget table saved on the"
 msgstr ""
 
@@ -143,7 +147,7 @@ msgstr ""
 msgid "CSV file"
 msgstr ""
 
-#: protected/models/ImportCSV.php:542
+#: protected/models/ImportCSV.php:755
 msgid "generated on the"
 msgstr ""
 
@@ -171,12 +175,12 @@ msgstr ""
 
 #: protected/models/User.php:134 protected/models/RegisterForm.php:90
 #: protected/views/config/email.php:48 protected/views/config/index.php:109
-#: protected/views/layouts/foot.php:7
+#: protected/views/layouts/foot.php:29
 msgid "Email"
 msgstr ""
 
 #: protected/models/User.php:135 protected/models/BudgetDescCommon.php:101
-#: protected/models/BudgetDescLocal.php:87
+#: protected/models/BudgetDescLocal.php:105
 #: protected/models/SitePageContent.php:108
 #: protected/models/BudgetDescState.php:108
 msgid "Language"
@@ -203,21 +207,21 @@ msgstr ""
 msgid "Page editor"
 msgstr ""
 
-#: protected/models/User.php:206 protected/models/User.php:214
-#: protected/models/User.php:226 protected/models/Log.php:77
+#: protected/models/User.php:192 protected/models/User.php:200
+#: protected/models/User.php:212 protected/models/Log.php:77
 #: protected/models/Vote.php:91 protected/models/Comment.php:112
 msgid "User"
 msgstr ""
 
-#: protected/models/User.php:206
+#: protected/models/User.php:192
 msgid "enabled"
 msgstr ""
 
-#: protected/models/User.php:214
+#: protected/models/User.php:200
 msgid "disabled"
 msgstr ""
 
-#: protected/models/User.php:226
+#: protected/models/User.php:212
 msgid "deleted account"
 msgstr ""
 
@@ -253,10 +257,6 @@ msgstr ""
 #: protected/models/EmailTemplate.php:114
 #: protected/models/SitePageContent.php:111
 msgid "Body"
-msgstr ""
-
-#: protected/models/manual.backup.php:45 protected/models/Backup.php:150
-msgid "Cannot create zip file"
 msgstr ""
 
 #: protected/models/Newsletter.php:61
@@ -300,11 +300,11 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: protected/models/Archive.php:84 protected/models/File.php:104
+#: protected/models/Archive.php:84 protected/models/File.php:110
 msgid "Name"
 msgstr ""
 
-#: protected/models/Archive.php:85 protected/models/File.php:105
+#: protected/models/Archive.php:85 protected/models/File.php:111
 #: protected/views/file/admin.php:69 protected/views/file/wallpaper.php:73
 msgid "Path"
 msgstr ""
@@ -316,9 +316,9 @@ msgstr ""
 #: protected/models/Archive.php:88 protected/models/Config.php:208
 #: protected/models/BudgetDescCommon.php:105
 #: protected/models/BudgetCategory.php:90
-#: protected/controllers/BudgetDescriptionController.php:126
-#: protected/controllers/BudgetDescriptionController.php:187
-#: protected/controllers/BudgetDescriptionController.php:238
+#: protected/controllers/BudgetDescriptionController.php:151
+#: protected/controllers/BudgetDescriptionController.php:212
+#: protected/controllers/BudgetDescriptionController.php:263
 msgid "Description"
 msgstr ""
 
@@ -396,8 +396,13 @@ msgstr ""
 msgid "Not finished"
 msgstr ""
 
+#: protected/models/Backup.php:150
+#: protected/models/defunt.manual.backup.php:45
+msgid "Cannot create zip file"
+msgstr ""
+
 #: protected/models/BudgetDescCommon.php:107
-#: protected/models/BudgetDescLocal.php:93
+#: protected/models/BudgetDescLocal.php:111
 #: protected/models/BudgetDescState.php:114
 msgid "Modified"
 msgstr ""
@@ -423,11 +428,11 @@ msgstr ""
 msgid "Recipients"
 msgstr ""
 
-#: protected/models/BudgetDescLocal.php:64
+#: protected/models/BudgetDescLocal.php:82
 msgid "Internal_code/Language combination already exists."
 msgstr ""
 
-#: protected/models/BudgetDescLocal.php:91
+#: protected/models/BudgetDescLocal.php:109
 #: protected/models/BudgetDescState.php:112
 msgid "Explication"
 msgstr ""
@@ -475,7 +480,7 @@ msgstr ""
 #: protected/models/Enquiry.php:105 protected/views/enquiry/assess.php:73
 #: protected/views/enquiry/assess.php:76
 msgid "Reply considered insatisfactory"
-msgstr ""
+msgstr "Reply considered unsatisfactory"
 
 #: protected/models/Enquiry.php:108
 msgid "Awaiting reply from the observatory"
@@ -641,9 +646,9 @@ msgid "User fullname will go here"
 msgstr ""
 
 #: protected/models/SitePageContent.php:107
-#: protected/controllers/SitePageController.php:151
-#: protected/controllers/SitePageController.php:253
-#: protected/controllers/SitePageController.php:289
+#: protected/controllers/SitePageController.php:156
+#: protected/controllers/SitePageController.php:258
+#: protected/controllers/SitePageController.php:294
 msgid "Page"
 msgstr ""
 
@@ -670,7 +675,7 @@ msgid "Browse logs"
 msgstr ""
 
 #: protected/views/log/modalIndex.php:32 protected/views/user/panel.php:173
-#: protected/views/layouts/column2.php:41
+#: protected/views/layouts/column2.php:61
 msgid "Log"
 msgstr ""
 
@@ -715,12 +720,12 @@ msgid "Send email"
 msgstr ""
 
 #: protected/views/email/create.php:146 protected/views/enquiry/_form.php:146
-#: protected/views/site/login.php:98
+#: protected/views/site/login.php:117
 msgid "Send"
 msgstr ""
 
 #: protected/views/email/create.php:146
-#: protected/views/enquiry/_changeType.php:72
+#: protected/views/enquiry/_changeType.php:94
 #: protected/views/introPage/_form.php:159
 #: protected/views/budget/_formYear.php:86
 #: protected/views/user/updateRoles.php:146
@@ -776,7 +781,7 @@ msgid "Optionally, you may attach text to this email"
 msgstr ""
 
 #: protected/views/email/_contactPetition.php:72
-#: protected/views/enquiry/_changeType.php:73
+#: protected/views/enquiry/_changeType.php:95
 #: protected/views/enquiry/_form.php:158 protected/views/comment/_form.php:45
 #: protected/views/user/update.php:146 protected/views/reply/_form.php:94
 msgid "Cancel"
@@ -1084,7 +1089,7 @@ msgstr ""
 
 #: protected/views/enquiry/changeBudget.php:29
 #: protected/views/budget/deleteTree.php:29
-#: protected/views/budget/updateYear.php:109
+#: protected/views/budget/updateYear.php:110
 #: protected/views/budget/featured.php:29
 msgid "Edit year"
 msgstr ""
@@ -1092,7 +1097,7 @@ msgstr ""
 #: protected/views/enquiry/changeBudget.php:30
 #: protected/views/budget/admin.php:80
 #: protected/views/budget/deleteTree.php:30
-#: protected/views/budget/updateYear.php:28
+#: protected/views/budget/updateYear.php:26
 #: protected/views/budget/featured.php:30
 #: protected/views/budget/createYear.php:22
 msgid "Manage years"
@@ -1237,9 +1242,9 @@ msgstr ""
 msgid "You have already voted unfavourably"
 msgstr ""
 
-#: protected/views/enquiry/_view.php:305 protected/views/layouts/main.php:44
-#: protected/views/site/login.php:6 protected/views/site/login.php:48
-#: protected/views/site/login.php:78
+#: protected/views/enquiry/_view.php:305 protected/views/layouts/main.php:62
+#: protected/views/site/login.php:25 protected/views/site/login.php:67
+#: protected/views/site/login.php:97
 msgid "Login"
 msgstr ""
 
@@ -1265,17 +1270,17 @@ msgstr ""
 msgid "Signing up"
 msgstr ""
 
-#: protected/views/enquiry/_changeType.php:20
+#: protected/views/enquiry/_changeType.php:42
 msgid "Select a budget from the grid below"
 msgstr ""
 
-#: protected/views/enquiry/_changeType.php:61
+#: protected/views/enquiry/_changeType.php:83
 #: protected/views/enquiry/changeType.php:33
 #: protected/views/enquiry/teamEdit.php:27
 msgid "Change type"
 msgstr ""
 
-#: protected/views/enquiry/_changeType.php:116
+#: protected/views/enquiry/_changeType.php:138
 msgid "Choose budget"
 msgstr ""
 
@@ -1285,7 +1290,7 @@ msgstr ""
 
 #: protected/views/enquiry/index.php:147
 msgid "This is a list of enquiries made by citizens like you."
-msgstr ""
+msgstr "This is a list of enquiries made by citizens like you"
 
 #: protected/views/enquiry/index.php:148
 msgid "Formulate a new enquiry"
@@ -1443,7 +1448,7 @@ msgid "Published on the"
 msgstr ""
 
 #: protected/views/newsletter/index.php:27 protected/views/user/panel.php:274
-#: protected/views/layouts/main.php:67
+#: protected/views/layouts/main.php:85
 #: protected/controllers/NewsletterController.php:85
 msgid "Newsletters"
 msgstr ""
@@ -1462,7 +1467,7 @@ msgstr "View newsletter"
 #: protected/views/sitePage/admin.php:25
 #: protected/views/sitePage/create.php:31
 #: protected/controllers/IntroPageController.php:92
-#: protected/controllers/SitePageController.php:125
+#: protected/controllers/SitePageController.php:130
 msgid "Create page"
 msgstr ""
 
@@ -1477,7 +1482,7 @@ msgstr ""
 #: protected/views/sitePage/create.php:25
 #: protected/views/sitePage/update.php:31 protected/views/sitePage/show.php:66
 #: protected/controllers/IntroPageController.php:198
-#: protected/controllers/SitePageController.php:312
+#: protected/controllers/SitePageController.php:317
 msgid "Manage pages"
 msgstr ""
 
@@ -1550,7 +1555,7 @@ msgstr ""
 #: protected/views/introPage/update.php:39
 #: protected/views/sitePage/update.php:37
 #: protected/controllers/IntroPageController.php:129
-#: protected/controllers/SitePageController.php:175
+#: protected/controllers/SitePageController.php:180
 msgid "Update page"
 msgstr ""
 
@@ -1576,14 +1581,11 @@ msgid "Population"
 msgstr ""
 
 #: protected/views/budget/noDescriptions.php:25
-#: protected/views/budgetDescription/browseState.php:26
-#: protected/views/budgetDescription/create.php:26
-#: protected/views/budgetDescription/update.php:27
 msgid "Manage descriptions"
 msgstr ""
 
 #: protected/views/budget/noDescriptions.php:30
-#: protected/views/budgetDescription/admin.php:26
+#: protected/views/budgetDescription/admin.php:28
 msgid "Budgets without description"
 msgstr ""
 
@@ -1603,7 +1605,6 @@ msgid "%s budgets deleted ok"
 msgstr ""
 
 #: protected/views/budget/deleteTree.php:71
-#: protected/views/budget/updateYear.php:34
 msgid "Delete budgets"
 msgstr ""
 
@@ -1693,7 +1694,7 @@ msgstr ""
 
 #: protected/views/budget/_budgetDetails.php:136
 #: protected/views/budget/_budgetDetails.php:142
-#: protected/views/budget/_indexBar.php:156
+#: protected/views/budget/_indexBar.php:165
 msgid "Executed"
 msgstr ""
 
@@ -1704,8 +1705,8 @@ msgstr ""
 #: protected/views/budget/index.php:181 protected/views/user/panel.php:115
 #: protected/views/config/summary.php:89
 #: protected/views/layouts/mainmenu.php:27
-#: protected/controllers/BudgetController.php:573
-#: protected/controllers/BudgetController.php:615
+#: protected/controllers/BudgetController.php:566
+#: protected/controllers/BudgetController.php:608
 msgid "Budgets"
 msgstr ""
 
@@ -1725,31 +1726,35 @@ msgstr ""
 msgid "No data available"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:27
+#: protected/views/budget/updateYear.php:25
 msgid "Import budgets"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:32
+#: protected/views/budget/updateYear.php:30
 msgid "Selected budget delete"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:37
+#: protected/views/budget/updateYear.php:34
+msgid "Delete this year's budgets"
+msgstr ""
+
+#: protected/views/budget/updateYear.php:38
 msgid "Define graphics"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:43
+#: protected/views/budget/updateYear.php:44
 msgid "Export budgets"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:46
+#: protected/views/budget/updateYear.php:47
 msgid "Delete year"
 msgstr ""
 
-#: protected/views/budget/updateYear.php:120
+#: protected/views/budget/updateYear.php:122
 msgid "Budgetary enquiries for"
 msgstr ""
 
-#: protected/views/budget/_indexBar.php:155
+#: protected/views/budget/_indexBar.php:164
 msgid "Actual"
 msgstr ""
 
@@ -1853,7 +1858,7 @@ msgid "Site pages"
 msgstr ""
 
 #: protected/views/user/panel.php:238
-#: protected/controllers/FileController.php:306
+#: protected/controllers/FileController.php:310
 msgid "Wallpaper"
 msgstr ""
 
@@ -1870,12 +1875,12 @@ msgid "Years and budgets"
 msgstr ""
 
 #: protected/views/user/panel.php:261
-#: protected/controllers/BudgetDescriptionController.php:261
+#: protected/controllers/BudgetDescriptionController.php:286
 msgid "Budget descriptions"
 msgstr ""
 
 #: protected/views/user/panel.php:263
-#: protected/controllers/FileController.php:293
+#: protected/controllers/FileController.php:297
 msgid "Zip file"
 msgstr ""
 
@@ -2011,7 +2016,7 @@ msgstr ""
 msgid "Your preferred language"
 msgstr ""
 
-#: protected/views/user/update.php:128 protected/views/site/register.php:116
+#: protected/views/user/update.php:128 protected/views/site/register.php:135
 msgid "Yes, I want to be a member"
 msgstr ""
 
@@ -2019,7 +2024,7 @@ msgstr ""
 msgid "What does this mean?"
 msgstr ""
 
-#: protected/views/user/update.php:140 protected/views/site/register.php:113
+#: protected/views/user/update.php:140 protected/views/site/register.php:132
 msgid "MEMBERSHIP_MSG"
 msgstr ""
 "As a user, you can also select this option to become a member. As your "
@@ -2027,7 +2032,7 @@ msgstr ""
 "pressure on your Council. Think that every enquiry made to your council will "
 "have the implicit signature of all the members."
 
-#: protected/views/config/_title.php:3
+#: protected/views/config/_title.php:22
 msgid "Configure"
 msgstr ""
 
@@ -2116,7 +2121,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: protected/views/config/summary.php:93
+#: protected/views/config/summary.php:92
 msgid "budgets"
 msgstr ""
 
@@ -2222,34 +2227,34 @@ msgstr ""
 msgid "Change global parameter"
 msgstr ""
 
-#: protected/views/layouts/main.php:47
+#: protected/views/layouts/main.php:65
 msgid "Logout"
 msgstr ""
 
-#: protected/views/layouts/main.php:73 protected/views/archive/index.php:97
+#: protected/views/layouts/main.php:91 protected/views/archive/index.php:97
 #: protected/controllers/ArchiveController.php:200
 msgid "Archive"
 msgstr ""
 
-#: protected/views/layouts/main.php:79
+#: protected/views/layouts/main.php:97
 msgid "Home"
 msgstr ""
 
 #: protected/views/layouts/mainmenu.php:72
-#: protected/views/layouts/column2.php:21
+#: protected/views/layouts/column2.php:41
 #: protected/controllers/UserController.php:67
 msgid "My page"
 msgstr ""
 
-#: protected/views/layouts/column2.php:24
+#: protected/views/layouts/column2.php:44
 msgid "Options"
 msgstr ""
 
-#: protected/views/layouts/column2.php:29
+#: protected/views/layouts/column2.php:49
 msgid "Help"
 msgstr ""
 
-#: protected/views/layouts/foot.php:9
+#: protected/views/layouts/foot.php:31
 msgid "Telephone"
 msgstr ""
 
@@ -2288,7 +2293,7 @@ msgid "Warning! Advanced HTML editing. Copy/paste can create problems"
 msgstr ""
 
 #: protected/views/sitePage/show.php:60
-#: protected/views/budgetDescription/_form.php:252
+#: protected/views/budgetDescription/_form.php:263
 msgid "Save changes"
 msgstr ""
 
@@ -2333,7 +2338,7 @@ msgid "Create vault"
 msgstr ""
 
 #: protected/views/vault/admin.php:78
-#: protected/views/budgetDescription/admin.php:34
+#: protected/views/budgetDescription/admin.php:35
 msgid "Manage"
 msgstr ""
 
@@ -2492,16 +2497,34 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
+#: protected/views/budgetDescription/admin.php:26
+#: protected/views/budgetDescription/browseState.php:27
+#: protected/views/budgetDescription/create.php:27
+#: protected/views/budgetDescription/update.php:28
+#: protected/controllers/BudgetDescriptionController.php:299
+msgid "Common descriptions"
+msgstr ""
+
 #: protected/views/budgetDescription/admin.php:27
-#: protected/controllers/BudgetDescriptionController.php:275
+#: protected/views/budgetDescription/create.php:28
+#: protected/views/budgetDescription/browseCommon.php:27
+#: protected/views/budgetDescription/update.php:29
+#: protected/controllers/BudgetDescriptionController.php:312
 msgid "State descriptions"
 msgstr ""
 
-#: protected/views/budgetDescription/admin.php:34
+#: protected/views/budgetDescription/admin.php:35
 msgid "budget descriptions"
 msgstr ""
 
-#: protected/views/budgetDescription/browseState.php:32
+#: protected/views/budgetDescription/browseState.php:26
+#: protected/views/budgetDescription/create.php:26
+#: protected/views/budgetDescription/browseCommon.php:26
+#: protected/views/budgetDescription/update.php:27
+msgid "Local descriptions"
+msgstr ""
+
+#: protected/views/budgetDescription/browseState.php:33
 msgid "Browse state descriptions"
 msgstr ""
 
@@ -2510,60 +2533,64 @@ msgstr ""
 msgid "View description"
 msgstr ""
 
+#: protected/views/budgetDescription/browseCommon.php:33
+msgid "Browse common descriptions"
+msgstr ""
+
 #: protected/views/budgetDescription/_view.php:26
-#: protected/views/budgetDescription/_form.php:90
+#: protected/views/budgetDescription/_form.php:91
 msgid "Budget description"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:68
+#: protected/views/budgetDescription/_form.php:69
 msgid "Explication preview"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:101
+#: protected/views/budgetDescription/_form.php:102
 msgid "Used where"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:134
+#: protected/views/budgetDescription/_form.php:145
 msgid "State description"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:144
+#: protected/views/budgetDescription/_form.php:155
 msgid "Common description"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:154
+#: protected/views/budgetDescription/_form.php:165
 msgid "Local description"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:171
+#: protected/views/budgetDescription/_form.php:182
 msgid "Using data imported with CSV files"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:177
-#: protected/views/budgetDescription/_form.php:264
-#: protected/views/budgetDescription/_form.php:301
+#: protected/views/budgetDescription/_form.php:188
+#: protected/views/budgetDescription/_form.php:275
+#: protected/views/budgetDescription/_form.php:312
 msgid "Concept, Subconcept, Article"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:187
-#: protected/views/budgetDescription/_form.php:271
-#: protected/views/budgetDescription/_form.php:308
+#: protected/views/budgetDescription/_form.php:198
+#: protected/views/budgetDescription/_form.php:282
+#: protected/views/budgetDescription/_form.php:319
 msgid "Concept of this budget"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:239
+#: protected/views/budgetDescription/_form.php:250
 msgid "Citizen friendly explication"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:242
+#: protected/views/budgetDescription/_form.php:253
 msgid "Preview the explication"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:289
+#: protected/views/budgetDescription/_form.php:300
 msgid "No common description in the database"
 msgstr ""
 
-#: protected/views/budgetDescription/_form.php:326
+#: protected/views/budgetDescription/_form.php:337
 msgid "No state description in the database"
 msgstr ""
 
@@ -2591,16 +2618,16 @@ msgstr ""
 msgid "Import csv into"
 msgstr ""
 
-#: protected/views/site/register.php:2 protected/views/site/register.php:25
-#: protected/views/site/register.php:102
+#: protected/views/site/register.php:21 protected/views/site/register.php:44
+#: protected/views/site/register.php:121
 msgid "Register"
 msgstr ""
 
-#: protected/views/site/register.php:97
+#: protected/views/site/register.php:116
 msgid "Please enter the letters as they are shown in the image above"
 msgstr ""
 
-#: protected/views/site/register.php:109
+#: protected/views/site/register.php:128
 msgid "REGISTER_MSG"
 msgstr ""
 "<p>As a user you can make public enquiries to your council and share them "
@@ -2608,37 +2635,37 @@ msgstr ""
 "fighting together for transparency, the closer we will come to making "
 "political and managemental decisions ourselves.</p>"
 
-#: protected/views/site/login.php:23
+#: protected/views/site/login.php:42
 msgid "Please enter your email address"
 msgstr ""
 
-#: protected/views/site/login.php:87
+#: protected/views/site/login.php:106
 msgid "Still haven't got an account?"
 msgstr ""
 
-#: protected/views/site/login.php:89
+#: protected/views/site/login.php:108
 msgid "Sign up"
 msgstr ""
 
-#: protected/views/site/login.php:92
+#: protected/views/site/login.php:111
 msgid "Forgotten your password?"
 msgstr ""
 
-#: protected/views/site/login.php:95
+#: protected/views/site/login.php:114
 msgid "Follow these instructions"
 msgstr ""
 
-#: protected/views/site/login.php:97
+#: protected/views/site/login.php:116
 msgid "Enter your email address and we will send you a link"
 msgstr ""
 
-#: protected/views/site/cookieAlert.php:13
+#: protected/views/site/cookieAlert.php:35
 msgid ""
 "uses Twitter and Facebook cookies that collect statistics. By using this web "
 "site you accept this."
 msgstr ""
 
-#: protected/views/site/cookieAlert.php:15
+#: protected/views/site/cookieAlert.php:37
 msgid "Ok"
 msgstr ""
 
@@ -2741,7 +2768,7 @@ msgid "Error while sending email"
 msgstr ""
 
 #: protected/controllers/UserController.php:188
-#: protected/controllers/SitePageController.php:254
+#: protected/controllers/SitePageController.php:259
 msgid "Changes saved Ok"
 msgstr ""
 
@@ -2768,22 +2795,22 @@ msgid "introPage"
 msgstr ""
 
 #: protected/controllers/IntroPageController.php:111
-#: protected/controllers/SitePageController.php:151
-#: protected/controllers/BudgetDescriptionController.php:126
+#: protected/controllers/SitePageController.php:156
+#: protected/controllers/BudgetDescriptionController.php:151
 msgid "created"
 msgstr ""
 
 #: protected/controllers/IntroPageController.php:160
 #: protected/controllers/EmailTemplateController.php:96
-#: protected/controllers/SitePageController.php:253
-#: protected/controllers/BudgetDescriptionController.php:187
+#: protected/controllers/SitePageController.php:258
+#: protected/controllers/BudgetDescriptionController.php:212
 msgid "updated"
 msgstr ""
 
 #: protected/controllers/IntroPageController.php:186
 #: protected/controllers/EnquiryController.php:789
-#: protected/controllers/SitePageController.php:289
-#: protected/controllers/BudgetDescriptionController.php:238
+#: protected/controllers/SitePageController.php:294
+#: protected/controllers/BudgetDescriptionController.php:263
 msgid "deleted"
 msgstr ""
 
@@ -3016,23 +3043,27 @@ msgstr ""
 msgid "Team member deleted user comment"
 msgstr ""
 
-#: protected/controllers/BudgetController.php:557
+#: protected/controllers/BudgetController.php:530
+msgid "All budgets deleted"
+msgstr ""
+
+#: protected/controllers/BudgetController.php:550
 msgid "Year deleted"
 msgstr ""
 
-#: protected/controllers/BudgetController.php:656
+#: protected/controllers/BudgetController.php:649
 msgid "Database restored correctly"
 msgstr ""
 
-#: protected/controllers/BudgetDescriptionController.php:127
-#: protected/controllers/BudgetDescriptionController.php:188
+#: protected/controllers/BudgetDescriptionController.php:152
+#: protected/controllers/BudgetDescriptionController.php:213
 msgid "Budget description saved Ok"
 msgstr ""
 
-#: protected/controllers/BudgetDescriptionController.php:129
+#: protected/controllers/BudgetDescriptionController.php:154
 msgid "Do you want to share it with others observatories?"
 msgstr ""
 
-#: protected/controllers/BudgetDescriptionController.php:190
+#: protected/controllers/BudgetDescriptionController.php:215
 msgid "Do you want to share it with other observatories"
 msgstr ""

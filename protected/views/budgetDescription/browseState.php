@@ -39,16 +39,6 @@ $this->viewLog='BudgetDescription';
 </div><!-- search-form -->
 
 <?php
-/*
-$this->widget('zii.widgets.grid.CGridView', array(
-	'htmlOptions'=>array('class'=>'pgrid-view'),
-	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'id'=>'budget-description-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array('language', 'csv_id', 'code', 'concept')
-));
-*/
 $this->widget('PGridView', array(
 	'id'=>'budget-description-grid',
 	'dataProvider'=>$model->search(),
