@@ -38,8 +38,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 	<div id="PACDFooter">
 		<div id="PACDdetails">
 			<?php $lang=Yii::app()->language; ?>
-			<a href="http://ocmunicipal.net/?lang=<?php echo $lang;?>">http://ocmunicipal.net</a><br />
-			<a href="http://ocax.net/?<?php echo $lang;?>">http://ocax.net</a><br />
+			<a href="http://ocmunicipal.net/<?php echo $lang;?>">http://ocmunicipal.net</a><br />
+			<a href="http://ocax.net/<?php echo $lang;?>">http://ocax.net</a><br />
 			<a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPLv3</a> Copyright &copy; <?php echo date('Y'); ?><br />
 			<a href="https://gitorious.org/ocax/ocax">Source hosted on Gitorious</a>
 		</div>

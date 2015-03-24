@@ -30,7 +30,7 @@ $this->inlineHelp=':manual:budgetdescription:browsestate';
 $this->viewLog='BudgetDescription';
 
 ?>
-<h1><?php echo __('Browse state descriptions');?></h1>
+<h1 style="margin-bottom:15px"><?php echo __('Browse state descriptions');?></h1>
 
 <div id="searchOptions" class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(

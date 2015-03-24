@@ -399,7 +399,7 @@ if(!$showEnquiryGrid){
 			$(".flash-success").slideDown('fast');
 			setTimeout(function() {
 				$('.flash-success').slideUp('fast');
-    		}, 4500);
+    		}, 5500);
 		});
 	</script>
     <div class="flash-success" style="display:none">

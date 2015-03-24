@@ -171,7 +171,7 @@ class ConfigController extends Controller
 				$url = Yii::app()->request->hostInfo.Yii::app()->baseUrl;
 				$url = str_replace("/", "|", $url);
 				$context = stream_context_create($opts);
-				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
+				@file_get_contents('http://network.ocax.net/register/'.$url, false, $context);
 			}
 			if($model->save()){
 				if($model->getScenario() == 'siteColor')

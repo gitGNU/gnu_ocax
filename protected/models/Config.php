@@ -250,7 +250,7 @@ class Config extends CActiveRecord
 			'method' => 'GET',
 			'timeout' => 1,
 		)));
-		if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
+		if($result = @file_get_contents('http://network.ocax.net/current/version', 0, $context)){
 			$new_version = json_decode($result);
 			if(isset($new_version->ocax)){
 				$this->setLatestOCAXVersion($new_version->ocax);
@@ -282,7 +282,7 @@ class Config extends CActiveRecord
 				'method' => 'GET',
 				'timeout' => 1,
 			)));
-			if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
+			if($result = @file_get_contents('http://network.ocax.net/current/version', 0, $context)){
 				$new_version = json_decode($result);
 				if(isset($new_version->ocax)){
 					$this->setLatestOCAXVersion($new_version->ocax);

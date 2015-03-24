@@ -89,7 +89,7 @@
 		<div class="progress"></div>
 	</div>
 	<div style="margin-top:15px;font-size:16px;">
-	<?php echo __('Coordinates for the map at').' <a href="http://ocmunicipal.net/map" target="_blank">http://ocmunicipal.net/map</a>';?>
+	<?php echo __('Coordinates for the map at').' <a href="http://network.ocax.net/map/" target="_blank">http://network.ocax.net/map/</a>';?>
 	</div>
 	<div class="param">
 		<?php $param = Config::model()->findByPk('administrationLongitude'); ?>
