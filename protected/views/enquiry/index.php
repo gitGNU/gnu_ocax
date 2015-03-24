@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,164 +21,209 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
-Yii::app()->clientScript->registerScript('search', "
-$('#search-options-button').click(function(){
-	$('#search-options').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('enquiry-grid', {
-		data: $(this).serialize()
+if($displayType == 'grid'){
+	Yii::app()->clientScript->registerScript('search', "
+	$('.search-form form').submit(function(){
+		$.fn.yiiGridView.update('enquiry-grid', {
+			data: $(this).serialize()
+		});
+		resetFormElements=1;
+		return false;
 	});
-	return false;
-});
-");
+	");
+}else{
+	Yii::app()->clientScript->registerScript('search', "
+	$('.search-form form').submit(function(){
+		$.fn.yiiListView.update('enquiry-list', {
+			data: $(this).serialize()
+		});
+		resetFormElements=1;
+		return false;
+	});
+	");
+}
+
+echo $this->renderPartial('//includes/socialWidgetsScript', array());
+$this->widget('EnquiryModal');
 ?>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/enquiry.css" />
 
-<style>           
-	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 60%; float: left;  margin: 0px;}
-	.right{width: 38%; float: left; margin: 0px;}
-	.clear{clear:both;}
-	.tag_enquiry_row_as_subscribed td:first-child { font-weight: bold }
+<style>
+.highlightWorkflowFilter, .selectedWorkflowFilter{
+		background-color: rgba(255, 255, 255, 0.8);
+}
 </style>
 
 <script>
-function toggleAddressedTo(el){
-	if(!($(el).prop('checked'))){
-		$('#Enquiry_addressed_to').val('');
-	}
-	else if($(el).val() == 0){
-		$(':checkbox').not(el).attr('checked', false);
-		$('#Enquiry_addressed_to').val(0);
-		$('#addressed_to').html($('#addressed_to_administration').html());	// workflow diagram
-	}else{
-		$(':checkbox').not(el).attr('checked', false);
-		$('#Enquiry_addressed_to').val(1);
-		$('#addressed_to').html($('#addressed_to_observatory').html());	// workflow diagram
-	}
+var resetFormElements = 0;
+
+$(function() {
+	$(".workflowFilter").on('click', function() {
+			filterByDiagram($(this).attr('state'));
+	});
+	$( document ).on( "mouseenter", ".enquiryPreview", function() {
+		$(this).find('.title').addClass('highlightWithColor');
+		$(this).find('.created').addClass('highlightWithColor');
+	});
+	$( document ).on( "mouseleave", ".enquiryPreview", function() {
+		$(this).find('.title').removeClass('highlightWithColor');
+		$(this).find('.created').removeClass('highlightWithColor');
+	});
+	$( document ).on( "mouseenter", ".workflowFilter", function() {
+		$(this).addClass('highlightWorkflowFilter');
+	});
+	$( document ).on( "mouseleave", ".workflowFilter", function() {
+		$(this).removeClass('highlightWorkflowFilter');
+	});
+	$(window).scroll(function() {
+		if($(this).scrollTop() > 300)
+			$('.goToTop').fadeIn(500);
+		else
+			$('.goToTop').fadeOut(500);
+	});
+	$(".goToTop").click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 0);
+		$('.goToTop').hide();
+	});
+});
+function basicFilter(el, filter){
+	$(el).parent().find('li').removeClass('activeItem');
+	$(el).addClass('activeItem');
+	$("#Enquiry_basicFilter").val(filter);
 	$("#search_enquiries").submit();
 }
-
-function showEnquiry(enquiry_id){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getEnquiry/'+enquiry_id,
-		type: 'GET',
-		dataType: 'json',
-		beforeSend: function(){ $('#enquiry-grid').addClass('pgrid-view-loading'); },
-		complete: function(){ 
-						$('#enquiry-grid').removeClass('pgrid-view-loading');
-						FB.XFBML.parse();
-						twttr.widgets.load();
-					},
-		success: function(data){
-			if(data != 0){
-				$("#enquiry_body").html(data.html);
-				$('#enquiry').bPopup({
-                    modalClose: false
-					, follow: ([false,false])
-					, positionStyle: 'absolute'
-					, modelColor: '#ae34d5'
-					, speed: 10
-                });
-			}
-		},
-		error: function() {
-			alert("Error on show enquiry");
-		}
-	});
+function filterByDiagram(state){
+	humanStates = <?php echo json_encode($model->getHumanStates()) ?>;
+	$("#Enquiry_state").val(state);
+	$("#search_enquiries").submit();
+	$('.workflowFilter').removeClass('selectedWorkflowFilter');
+	$("[state='"+state+"']").addClass('selectedWorkflowFilter');
+}
+function resetToggleIcons(){
+	$('#searchOptionsToggle').find('i').removeClass('icon-cancel-circled');
+	$('#workflowOptionsToggle').find('i').removeClass('icon-cancel-circled');
+	$('#searchOptionsToggle').find('i').addClass('icon-search-circled');
+	$('#workflowOptionsToggle').find('i').addClass('icon-flow-tree');
+}
+function toggleSearchOptions(){
+	resetForm();
+	resetToggleIcons();
+	if ($("#advancedFilterOptions").is(":visible")){
+		$("#advancedFilterOptions").hide();
+		$("#workflowFilterOptions").show();
+		$('.workflowFilter').removeClass('selectedWorkflowFilter');	
+	}else{
+		$("#Enquiry_basicFilter").val('');
+		$("#advancedFilterOptions").show();
+		$("#workflowFilterOptions").hide();
+		$('#searchOptionsToggle').find('i').removeClass('icon-search-circled');
+		$('#searchOptionsToggle').find('i').addClass('icon-cancel-circled');
+	}
+}
+function resetForm(){
+	if(resetFormElements == 0)
+		return;
+	$('#Enquiry_searchText').val('');
+	$("#Enquiry_state").val('');
+	$('#Enquiry_type').val('');
+	$('#Enquiry_searchDate_min').val('');
+	$('#Enquiry_searchDate_max').val('');
+	$("#Enquiry_basicFilter").val('');
+	$("#search_enquiries").submit();
+	resetFormElements = 0;
 }
 </script>
 
-<div class="outer" style="position:relative">
+<div id="toggleIcons" style="position:relative;">
+	<div id="searchOptionsToggle" onCLick="js:toggleSearchOptions();return false;">
+		<i class="icon-search-circled"></i>
+	</div>
+</div>
 
-<div class="left">
-<h1><?php echo __('Enquiries made to date');?></h1>
-<p><?php echo __('This is a list of enquiries made by citizens like you.');?></p>
+<div id="enquiryPageTitle">
+	<h1 style="margin-top:-10px;"><?php echo __('Enquiries made to date');?></h1>
+	<p style="margin-top:0px;">
+		<?php	echo __('This is a list of enquiries made by citizens like you.').'.';
+				echo '<span style="margin-left:40px">'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</span>';
+		?>
+	</p>
+</div>
 
-<?php if(count($model->publicSearch()->getData()) > 0 ){ ?>
-	<div class="search-form">
-		<?php $this->renderPartial('_searchPublic',array(
-			'model'=>$model,
-		)); ?>
-	</div><!-- search-form -->
-<?php } ?>
+<div id="filterOptions" style="margin-top:-10px; height:125px;"> <!-- filter options start -->
+	<div id="advancedFilterOptions" class="search-form" style=" display:none;">
+		<?php $this->renderPartial('_searchPublic',array('model'=>$model)); ?>
+	</div>
+	<div id="workflowFilterOptions" style="display:inline-block">
+		<?php $this->renderPartial('//enquiry/workflow-horizontal'); ?>
+	</div>
+</div>	<!-- filter options end -->
+<div class="horizontalRule"></div>
 
+<div id="enquiryDisplayTypeIcons">
+<i class="icon-th-large" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=list'"></i>
+<i class="icon-th-list" onclick="js:location.href='<?php echo Yii::app()->request->baseUrl;?>/enquiry?display=grid'"></i>
+</div>
+
+<div id="enquiryList" style="position:relative">
 <?php
-$this->widget('PGridView', array(
-	'id'=>'enquiry-grid',
-	'dataProvider'=>$model->publicSearch(),
-	'rowCssClassExpression'=>function($row, $data){
-						if(Yii::app()->user->isGuest)
-							return $row % 2 ? 'even' : 'odd';
-						if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
-							return 'tag_enquiry_row_as_subscribed';
-						else
-							return $row % 2 ? 'even' : 'odd';
-					},
-    'onClick'=>array(
-        'type'=>'javascript',
-        'call'=>'showEnquiry',
-    ),
-	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
-	'columns'=>array(
-			array(
-				'header'=>__('Enquiries'),
-				'name'=>'title',
-				'value'=>'$data[\'title\']',
-			),
-			array(
-				'header'=>__('Formulated'),
-				'name'=>'created',
-				'value'=>'format_date($data[\'created\'])',
-			),
-			array(
-				'header'=>__('State'),
-				'name'=>'state',
-				'type' => 'raw',
-				'value'=>'$data->getHumanStates($data[\'state\'],$data[\'addressed_to\'])'
-			),
-			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
-)));
+$template = '<div style="height:20px;">'.
+			'<div style="float:left; position:absolute; top: -20px; left: 60px;">{summary}</div>'.
+			'<div style="float:right; position:absolute; top: -20px; right:5px; ">{pager}</div><div class="clear">'.
+			'</div></div>'.
+			'{items}';
+
+if($displayType == 'grid'){
+	$this->widget('PGridView', array(
+		'id'=>'enquiry-grid',
+		'dataProvider'=>$model->publicSearch(),
+		'rowCssClassExpression'=>function($row, $data){
+			if(Yii::app()->user->isGuest)
+				return $row % 2 ? 'even' : 'odd';
+			if(EnquirySubscribe::model()->isUserSubscribed($data->id, Yii::app()->user->getUserID()))
+				return 'tag_enquiry_row_as_subscribed';
+			else
+				return $row % 2 ? 'even' : 'odd';
+		},
+		'onClick'=>array(
+			'type'=>'javascript',
+			'call'=>'showEnquiry',
+		),
+		'ajaxUpdate'=>true,
+		'template' => $template,
+		'columns'=>array(
+		array(
+			'header'=>__('Enquiries'),
+			'name'=>'title',
+			'value'=>'$data[\'title\']',
+		),
+		array(
+			'header'=>__('Formulated'),
+			'name'=>'created',
+			'value'=>'format_date($data[\'created\'])',
+		),
+		array(
+			'header'=>__('State'),
+			'name'=>'state',
+			'type' => 'raw',
+			'value'=>'$data->getHumanStates($data[\'state\'])'
+		),
+	array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
+	)));
+}else{
+	$this->widget('zii.widgets.CListView', array(
+		'id'=>'enquiry-list',
+		'dataProvider'=>$dataProvider,
+		'afterAjaxUpdate'=>'function(){
+							$("html, body").animate({scrollTop: $("#scrollTop").position().top }, 100);
+							}',
+		'itemView'=>'_preview',
+		'emptyText'=>'<div class="sub_title" style="margin-bottom:60px;">'.__('No enquiries here').'</div>',
+		'template' => $template,
+	));
+}
 ?>
-
-</div>
-<div class="right">
-
-<?php
-	//if(Yii::app()->user->isGuest){
-		echo '<h1>'.CHtml::link(__('Formulate a new enquiry'),array('enquiry/create/')).'</h1>';
-		echo '<p style="line-height:90%">'.__('Remember you must first').' '.
-			 '<a href="'.Yii::app()->request->baseUrl.'/site/login">'.__('login').'</a>'.' '.__('or').' '.
-			 '<a href="'.Yii::app()->request->baseUrl.'/site/register">'.__('create an account').'</a>'.
-			 '</p>';
-	//}
-?>
-
-<p style="text-align:center;margin-top:30px;">
-<?php echo __('What are the different states of an enquiry?');?>
-</p>
-
-<div style="margin-left:8px;">
-<?php $this->renderPartial('workflow',array('model'=>$model));?>
-</div>
-
-</div>
 </div>
 
 <div class="clear"></div>
-
-<div id="enquiry" class="modal" style="width:870px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="enquiry_body"></div>
-</div>
-
-<div id="addressed_to_administration" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,ADMINISTRATION);?></div>
-<div id="addressed_to_observatory" style="display:none"><?php echo $model->getHumanStates(ENQUIRY_AWAITING_REPLY,OBSERVATORY);?></div>
+<div class="goToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>

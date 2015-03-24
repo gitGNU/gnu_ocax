@@ -28,10 +28,6 @@ $this->widget('zii.widgets.CDetailView', array(
 	        'value'=>$model->getHumanStates($model->state,$model->addressed_to),
 		),
 		array(
-	        'label'=>__('Addressed to'),
-	        'value'=>$model->getHumanAddressedTo($model->addressed_to),
-		),
-		array(
 	        'label'=>__('Formulated by'),
 	        'value'=>$model->user0->fullname.' '.__('on the').' '.$model->created.' ('.$model->user0->email.')',
 		),
@@ -44,19 +40,25 @@ $this->widget('zii.widgets.CDetailView', array(
 	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
 		),
 		array(
+	        'label'=>__('Addressed to'),
+	        'value'=>$model->getHumanAddressedTo($model->addressed_to),
+		),
+		array(
 	        'label'=>__('Subscribed users'),
 	        'value'=>count($model->subscriptions),
 		),
 	),
 ));
 
-if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
-	$document=', Doc: ';
+if($model->state >= ENQUIRY_AWAITING_REPLY){
+	$document='';
 	if($model->documentation)
-		$document .='<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
-	else
-		$document .='<span style="color:red">'.__('missing').'</span>';
-	$submitted_info=$model->submitted.', '.__('Registry number').': '.$model->registry_number.$document;
+		$document ='Doc: <a href="'.$model->documentation0->getWebPath().'" target="_new">'.$model->documentation0->name.'</a>';
+	elseif($model->addressed_to == ADMINISTRATION)
+		$document ='Doc: <span style="color:red">'.__('missing').'</span>';
+	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
+	if($document)
+		$submitted_info = $submitted_info.', '.$document;
 
 	$this->widget('zii.widgets.CDetailView', array(
 	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
@@ -73,7 +75,7 @@ if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATOR
 
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$budget,'showMore'=>1));
+	$this->renderPartial('//enquiry/_budgetDetails', array('model'=>$budget,'showMore'=>1));
 }
 
 ?>

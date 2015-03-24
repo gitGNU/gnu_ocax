@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -27,12 +27,13 @@ Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 ?>
 
 <div>
-<div class="sub_title"><?php echo __('Restore all budgets from a backup');?></div>
+	<div class="modalTitle"><?php echo __('Restore all budgets from a backup');?></div>
+
 
 <?php
-	echo '<div style="font-size:1.2em;margin-bottom:15px;">'.
+	echo '<div style="font-size:1.2em;margin-bottom:15px;"><i class="icon-attention green"></i>'.
 		__('These copies are made right before a CSV file is imported').' '.
-		'<a href="'.getInlineHelpURL(':budgets_restore').'" target="_new">'.__('READ ME').'</a>'.
+		'<a href="'.getInlineHelpURL(':manual:budget:restore').'" target="_new">'.__('READ ME').'</a>'.
 		'</div>';?>
 
 <div style="margin:-10px;margin-bottom:10px;">
@@ -54,10 +55,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'class'=>'CButtonColumn',
 			'buttons' => array(
 				'restore' => array(
-					'label'=> __('Restore budgets'),
+					'label'=> '<i class="icon-recycle green"></i>',
 					'url'=> '"javascript:restoreBudgets(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
-					'visible' => 'true',
+					//'imageUrl' => Yii::app()->request->baseUrl.'/images/down.png',
 				)
 			),
 			'template'=>'{restore} {delete}',
@@ -66,6 +66,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ));
 ?>
 </div>
-
-<p><?php echo __('Note: Delete some backups to save disk space. You only really need the last good copy.');?></p>
+<?php 
+if($dataProvider->getTotalItemCount() > 10){
+	echo '<p><i class="icon-attention amber"></i>';
+	echo __('Note: Delete some backups to save disk space. You only really need the last good copy.');
+	echo '</p>';
+}
+?>
 </div>

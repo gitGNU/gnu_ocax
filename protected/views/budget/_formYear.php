@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,8 +22,8 @@
 
 <style>           
 	.outer{width:100%; padding: 0px; float: left;}
-	.left{width: 48%; float: left;  margin: 0px;}
-	.right{width: 48%; float: left; margin: 0px;}
+	.left{width: 38%; float: left;  margin: 0px;}
+	.right{width: 58%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
 
@@ -59,19 +59,25 @@
 		?>
 	</div>
 	<div class="row">
-		<?php echo $form->label($model,'code'); ?>
-		<?php echo $form->dropDownList($model, 'code', array('0'=>__('Not published'),'1'=>__('Published')));?>
-		<?php echo $form->error($model,'code'); ?>
+		<label><?php echo __('Publish');?></label>
+		<?php echo $form->checkBox($model, 'code', array('onChange'=>'js:$("#updateZipWarning").show();')); ?>
+		<div id="updateZipWarning" style="font-size:16px; display:none;">
+		<?php echo ' '.__('Remember to update the zip file');?> <i class="icon-attention green"></i>
+		</div>
 	</div>
 
 
 </div>
 <div class="right">
-
 	<div class="row" style="font-size:1.4em">
-		<?php echo $totalBudgets.' '.__('defined budgets');?>
+		<?php echo $totalBudgets.' '.__('defined budgets'); ?>
 	</div>
-
+	<div class="row" style="font-size:1.4em">
+		<?php	
+		if($totalBudgets > 0)
+			echo $featuredCount.' '.__('Featured budgets');
+		?>
+	</div>
 </div>
 </div>
 <div class="clear"></div>

@@ -37,6 +37,7 @@
  * @property integer $is_active
  * @property integer $is_disabled
  * @property integer $is_socio
+ * @property integer $is_description_editor
  * @property integer $is_team_member
  * @property integer $is_editor
  * @property integer $is_manager
@@ -46,6 +47,7 @@ class User extends CActiveRecord
 {
 	public $new_password='';
 	public $password_repeat='';
+	public $smudge='░░░░░░░░░';
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -74,13 +76,15 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, fullname, password, salt, email, activationcode', 'required'),
-			array('is_socio, is_team_member, is_editor, is_manager, is_admin, is_active, is_disabled', 'numerical', 'integerOnly'=>true),
+			array('is_socio, is_description_editor, is_team_member, is_editor,
+					is_manager, is_admin, is_active, is_disabled', 'numerical',
+					'integerOnly'=>true),
 			array('username, fullname, password, salt, email', 'length', 'max'=>128),
 			array('email', 'email', 'except' => 'opt_out', 'allowEmpty'=>false),
 			array('email', 'unique', 'except' => 'opt_out', 'className' => 'User'),
 			//array('username', 'exist', 'except' => 'update'),
 			array('new_password, password_repeat', 'required', 'on'=>'change_password'),
-			array('new_password', 'length', 'min' => 6, 
+			array('new_password', 'length', 'min' => 6,
 				    'tooShort'=>Yii::t("translation", "{attribute} es muy corta (6 carácteres min)."),
 				    'tooLong'=>Yii::t("translation", "{attribute} is too long."),
 					'on'=>'change_password'),
@@ -106,7 +110,7 @@ class User extends CActiveRecord
 			//'newsletters' => array(self::HAS_MANY, 'Newsletter', 'sender'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'user'),
 			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'user'),
-			'assignedEnquirues' => array(self::HAS_MANY, 'Enquiry', 'team_member'),
+			'assignedEnquiries' => array(self::HAS_MANY, 'Enquiry', 'team_member'),
 			'managedEnquiries' => array(self::HAS_MANY, 'Enquiry', 'manager'),
 			'enquirySubscribes' => array(self::HAS_MANY, 'EnquirySubscribe', 'user'),
 			'emails' => array(self::HAS_MANY, 'Email', 'sender'),
@@ -132,26 +136,21 @@ class User extends CActiveRecord
 			'joined' => __('Joined'),
 			'is_active' => __('Active'),
 			'is_socio' => __('Is partner'),
+			'is_description_editor' => __('Budget description editor'),
 			'is_team_member' => 'Team Member',
-			'is_editor' => 'CMS Editor',
+			'is_editor' => __('Page editor'),
 			'is_manager' => 'Team Manager',
 			'is_admin' => 'Admin',
 		);
 	}
 
-	/**
-	 * Checks if the given password is correct.
-	 * @param string the password to be validated
-	 * @return boolean whether the password is valid
-	 */
-/* chrisf
-	// I commented this out cause it doesn't seem to be used.
-	public function validatePassword($password)
+	public function getTeamMembers()
 	{
-		return $this->hashPassword($password,$this->salt)===$this->password;
+		return $this->findAll(array("condition"=>"is_team_member =  1 AND is_active = 1",
+									"order"=>"username")
+							);
 	}
- */
-
+	
 	/**
 	 * Create activation code.
 	 * @param string email
@@ -161,9 +160,10 @@ class User extends CActiveRecord
 		$code = substr(md5(rand(0, 1000000)), 0, 45);
 		while ($this->findByAttributes(array('activationcode'=>$code)))
 			$code = substr(md5(rand(0, 1000000)), 0, 45);
+		$this->activationcode = $code;
 		return $code;
 	}
- 
+
 	/**
 	 * Generates the password hash.
 	 * @param string password
@@ -174,7 +174,7 @@ class User extends CActiveRecord
 	{
 		return md5($salt.$password);
 	}
- 
+
 	/**
 	 * Generates a salt that can be used to generate a password hash.
 	 * @return string the salt
@@ -184,6 +184,34 @@ class User extends CActiveRecord
 		return uniqid('',true);
 	}
 
+	public function enableUser()
+	{
+		$this->is_active = 1;
+		$this->is_disabled = 0;
+		$this->save();
+		Log::model()->write('User', __('User').' id='.$this->id.' "'.$this->username.'" '.__('enabled'), $this->id);
+	}
+
+	public function disableUser()
+	{
+		$this->is_active = 0;
+		$this->is_disabled = 1;
+		$this->save();
+		Log::model()->write('User', __('User').' id='.$this->id.' "'.$this->username.'" '.__('disabled'), $this->id);
+	}
+
+	public function smudgeUser()
+	{
+		$this->is_active = 0;
+		$this->is_disabled = 1;
+		$this->username = $this->smudge;
+		$this->fullname = $this->smudge;
+		$this->email = $this->smudge;
+		$this->scenario = 'opt_out';
+		$this->save();
+		Log::model()->write('User',__('User').' '.$this->username.' id='.$this->id.' '.__('deleted account'),$this->id);
+	}
+		
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -194,16 +222,12 @@ class User extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('is_disabled = 0');
-		
-		$criteria->compare('id',$this->id);
+		$criteria->addCondition('username != "'.$this->smudge.'"');
+
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('fullname',$this->fullname,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('salt',$this->salt,true);
 		$criteria->compare('email',$this->email,true);
-		$criteria->compare('joined',$this->joined,true);
-		$criteria->compare('activationcode',$this->activationcode);
+		//$criteria->compare('joined',$this->joined,true);
 		$criteria->compare('is_active',$this->is_active);
 		$criteria->compare('is_disabled',$this->is_disabled);
 		$criteria->compare('is_socio',$this->is_socio);

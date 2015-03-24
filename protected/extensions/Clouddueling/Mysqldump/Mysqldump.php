@@ -38,6 +38,9 @@ class Mysqldump
      * @param string $type      SQL database type
      * @return null
      */
+     
+// TRY AND USE $pdo = Yii::app()->db->pdoInstance; HERE!!!     
+     
     public function __construct($db = '', $user = '', $pass = '',
         $host = 'localhost', $type = "mysql", $settings = array(),
         $pdoOptions = array(PDO::ATTR_PERSISTENT => true,

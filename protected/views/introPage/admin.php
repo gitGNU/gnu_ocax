@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -25,9 +25,9 @@
 $this->menu=array(
 	array('label'=>__('Create page'), 'url'=>array('create')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+$this->inlineHelp=':manual:intropage:admin';
 ?>
-<h1><?php echo _('Manage Introduction pages');?></h1>
+<h1><?php echo __('Manage Introduction pages');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view pgrid-cursor-pointer'),

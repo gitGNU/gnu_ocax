@@ -1,4 +1,4 @@
-OCAX(x) version 1.1.4
+OCAX(x) version 1.2.0
 http://ocax.net/
 http://wiki.ocax.net/
 
@@ -17,7 +17,7 @@ There are two possible directory structures.
 |
 - protected
 |
-- framework	(YII, http://www.yiiframework.com/ (tested with 1.1.14))
+- framework	(YII, http://www.yiiframework.com/ (use version 1.1.15))
 
 2. If your server provider only gives you access to the webroot directory.
  
@@ -43,8 +43,8 @@ GRANT ALL PRIVILEGES ON db_name. * TO 'user_name'@'localhost';
 $ mysql -uuser_name -p db_name < schema.sql
 
 * If your OCM is in Spain, import data common to all Spanish OCMs
-$ wget http://ocax.net/download/budgetdescriptions/spain_budget_description.sql
-$ mysql -uuser_name -p db_name < spain_budget_description.sql
+$ wget http://ocax.net/download/budgetdescriptions/spanish-municipal-descriptions.sql
+$ mysql -uuser_name -p db_name < spanish-municipal-descriptions.sql
 
 2. Create config file
 $ cp protected/config/main.example.php protected/config/main.php
@@ -52,7 +52,7 @@ and modify mysql connection parameters in protected/config/main.php
 
 3. File permissions
 # chown -R www-data protected/runtime/
-# chown -R www-data app/assets/ app/files/
+# chown -R www-data app/assets/ app/files/ app/css
 
 4. Apache config
 If you cannot edit the apache server config, you'll need a .htaccess file

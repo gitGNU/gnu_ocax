@@ -38,8 +38,21 @@ $graph_width=929;
 .key_label { float:left; margin-top:-3px; }
 </style>
 
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/ocaxcolor.js"></script>
 <script>
+
+function lighten(color){
+	percent = 15;
+
+	var rgb = color.replace('rgb(', '').replace(')', '').split(',');
+	var red = $.trim(rgb[0]);
+	var green = $.trim(rgb[1]);
+	var blue = $.trim(rgb[2]);
+	red = parseInt(red * (100 + percent) / 100);
+	green = parseInt(green * (100 + percent) / 100);
+	blue = parseInt(blue * (100 + percent) / 100);
+	rgb = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+	return rgb;
+}
 
 var globals = new Array();
 var lightened_color;
@@ -50,18 +63,14 @@ $(function() {
 	});
 	
 	rgb_theme_color = $('.actual_provision_bar').first().css("background-color");
-	theme_color = rgb2hex(rgb_theme_color);
-	$('.swatch_actual').css("background-color",theme_color);
+	$('.swatch_actual').css("background-color",rgb_theme_color);
+	
 	if($('.executed_bar').length != 0){
-		lightened_color = lightenDarkenColor(theme_color,-15);
+		lightened_color = lighten(rgb_theme_color);
 		$('.executed_bar').css("background-color",lightened_color);
 		$('.swatch_executed').css("background-color",lightened_color);
 	}else
 		$('.key_executed').hide();
-
-	//bar_font_color = getFontColor(rgb_theme_color);
-	//$('.graph_bar_percent').css('color', bar_font_color);
-
 });
 
 function colorExecutedBars(){

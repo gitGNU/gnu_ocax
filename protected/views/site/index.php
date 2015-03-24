@@ -30,7 +30,7 @@ if($wallpapers = File::model()->findAllByAttributes(array('model'=>'wallpaper'))
 	$files=array();
 	$images=array();
 	$dir = Yii::app()->theme->basePath.'/wallpaper/';
-	$files = glob($dir.'*.jpg',GLOB_BRACE);
+	$files = glob($dir.'*.jpg', (real)GLOB_BRACE);
 
 	foreach($files as $image)
 		$images[] = Yii::app()->theme->baseUrl.'/wallpaper/'.basename($image);
@@ -45,7 +45,7 @@ if($page=IntroPage::model()->find(array('condition'=> 'published = 1'))){
 <style>
 #wallpaper {
 	position:relative;
-	margin-left:-25px;	
+	margin-left:-25px;
 	margin-top:-30px;
 	margin-bottom:-10px;
 	height:728px;
@@ -63,10 +63,10 @@ function nextPage(page_id){
 	wallpaperCnt = wallpaperCnt +1;
 	if(wallpaperCnt == wallpapers.length)
 		wallpaperCnt = 0;
-	
+
 	if(pageCache[page_id]){
 		showPage(page_id);
-		return;	
+		return;
 	}
 
 	$.ajax({
@@ -92,7 +92,7 @@ function showPage(page_id){
 </script>
 
 <div id="wallpaper">
-<?php 
+<?php
 	if($page && $content)
 		echo $this->renderPartial('//introPage/show', array('model'=>$page,'content'=>$content));
 ?>

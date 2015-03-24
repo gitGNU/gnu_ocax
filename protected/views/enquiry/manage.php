@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -25,12 +25,13 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('Manage enquiries'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:team_manager';
+$this->inlineHelp=':manual:enquiry:manage';
+$this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <style>           
 	#yourOptions { font-size: 1.2em }
-	#yourOptions li { margin-bottom: 20px; clear:both}
+	#yourOptions li { margin-bottom: 10px;}
 </style>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -94,7 +95,25 @@ function disableUser(){
 		}
 	});
 }
+$(function() {
+	$("#Enquiry_addressed_to_1").on('click', function() {
+		var val = confirm("<?php echo __('Are you sure?');?>");
+		if(val == false){
+			$('#Enquiry_addressed_to_1').prop("checked",false);
+			$('#Enquiry_addressed_to_0').prop("checked",true);
+		}
+	});
+})
+function addressToObservatory(){
+	var val = confirm("<?php echo __('Are you sure?');?>");
+	if(val == false)
+		$('#Enquiry_addressed_to_1').prop("checked",false);
+}
 </script>
+
+<h1><?php echo __('Manage enquiry');?></h1>
+
+
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -102,30 +121,34 @@ function disableUser(){
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<div class="title"><?php echo __('Manage enquiry');?></div>
-	<p style="font-style:italic"><?php echo __('Please study the enquiry below before deciding on an option').'.'?></p>
+
+
+
+	<p style="font-style: italic;">
+	<?php echo __('Please study the enquiry below before continuing').'.'?>
+	</p>
+
+	<?php
+		echo '<div style="font-size:16px;">'.__('Who will reply to this enquiry?').'</div>';
+		echo $form->radioButtonList($model,'addressed_to',
+			$model->getHumanAddressedTo(),
+			array('labelOptions'=>array('style'=>'display:inline'))
+		);
+	?>
+	<p></p>
+
 	<ol id="yourOptions">
-		<li style="margin-bottom:80px">
+		<li>
 		<?php
-			echo '<div style="float:left">'.__('Assign enquiry').'.</div>';
-			echo '<div style="float:left;margin-left:20px">';
-			echo '<div class="hint">'.__('Who is this enquiry addressed to?').'</div>';
-			echo $form->radioButtonList($model,'addressed_to',
-										$model->getHumanAddressedTo(),
-										array('labelOptions'=>array('style'=>'display:inline'))
-									);
-			echo '</div>';
-			echo '<div style="float:left;margin-left:20px">';
-			echo '<div>'.$form->labelEx($model,'team_member').'</div>';
+			echo '<div>'.__('Assign enquiry').': ';
+
 			$data=CHtml::listData($team_members,'id', 'fullname');
 			echo $form->dropDownList($model, 'team_member', $data, array('prompt'=>__('Not assigned')));
 			
-			echo '</div>';
-			echo '<div style="float:left;margin-left:20px">';			
-				if(!$model->team_member)
-					echo CHtml::submitButton(__('Assign'));
-				else
-					echo CHtml::submitButton(__('Change team member'));
+			if(!$model->team_member)
+				echo CHtml::submitButton(__('Assign'));
+			else
+				echo CHtml::submitButton(__('Change team member'));
 			echo '</div>';
 		?>
 		</li>
@@ -136,13 +159,11 @@ function disableUser(){
 		<li>
 			<div style="float:left">
 			<?php
-				echo __('The enquiry is spam').'. '.__('Delete the enquiry and').'<br />';
-				$text = __('disable %s here on');
-				$text = str_replace('%s', $model->user0->fullname, $text);
-				echo '<input type="checkbox" id="disable_user" value="0"> '.$text.' '.Yii::app()->getBaseUrl(true);
+				echo __('The enquiry is spam').'.<br />'.__('Delete the enquiry and').' ';
+				echo '<input type="checkbox" id="disable_user" value="0"> '.__('disable the user');
 			?>
 			</div>
-			<div style="float:left;margin-left:20px;">
+			<div style="float:left;margin: 20px 0 0 20px;">
 			<?php echo CHtml::button(__('Delete'),array('onclick'=>'js:showEnquiry('.$model->id.');')); ?>
 			</div>
 			<div style="clear:both"></div>
@@ -194,6 +215,6 @@ function disableUser(){
 <?php endif; ?>
 
 <div id="mega_delete" class="modal" style="display:none;width:850px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="mega_delete_content"></div>
 </div>

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 
@@ -25,12 +25,25 @@ $this->menu=array(
 	array('label'=>__('List all users'), 'url'=>array('admin')),
 );
 
-if(!$model->enquirys){
-	$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
-							'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
-					));
-	array_splice( $this->menu, 1, 0, $item );	
+if(Yii::app()->user->getUserID() != $model->id){
+	if(!$model->enquirys){
+		$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
+						));
+		array_splice( $this->menu, 1, 0, $item );
+	}
+	if($model->is_disabled){
+		$item = array( array('label'=>__('Enable user'), 'url'=>array('enable', 'id'=>$model->id)));
+		array_splice( $this->menu, 1, 0, $item );
+	}else{
+		$item = array( array(	'label'=>__('Disable user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('disable', 'id'=>$model->id))));
+		array_splice( $this->menu, 1, 0, $item );	
+	}
 }
+
+$this->inlineHelp=':manual:user:view';
+$this->viewLog='User|'.$model->id;
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -96,6 +109,7 @@ function megaDelete(el){
 		'email',
 		'joined',
 		'is_socio',
+		//'is_description_editor',
 		'is_team_member',
 		'is_editor',
 		'is_manager',
@@ -117,11 +131,6 @@ $this->widget('PGridView', array(
         'call'=>'showEnquiry',
     ),
 	'ajaxUpdate'=>true,
-	'pager'=>array('class'=>'CLinkPager',
-					'header'=>'',
-					'maxButtonCount'=>6,
-					'prevPageLabel'=>'< Prev',
-	),
 	'columns'=>array(
 			array(
 				'header'=>__('Enquiries'),

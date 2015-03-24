@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -21,10 +21,6 @@
 /* @var $model User */
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
 $('.search-form form').submit(function(){
 	$.fn.yiiGridView.update('user-grid', {
 		data: $(this).serialize()
@@ -33,11 +29,39 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<script>
+function toggleSearchOptions(){
+	if ($("#searchOptions").is(":visible")){
+		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
+		$("#searchOptions").slideUp();
+	}else{
+		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
+		$("#searchOptions").slideDown();
+	}
+}
+</script>
+<div style="position:relative;">
+	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+		<i class="icon-search-circled"></i>
+	</div>
+</div>
+<div style="position:relative; right:40px" >
+	<div class="teamMenu" onCLick="js:showHelp('<?php echo getInlineHelpURL(":manual:user:admin");?>');return false;">
+		<i class="icon-help-circled"></i>
+	</div>
+</div>
+<div style="position:relative; right:80px" >
+	<div class="teamMenu" class="color" onCLick="js:viewLog('User');return false;">
+		<i class="icon-book"></i>
+	</div>
+</div>
+<?php $this->widget('InlineHelp'); ?>
+<?php $this->widget('ViewLog'); ?>
 
-<h1><?php echo __('Users and roles');?></h1>
+<h1 style="margin-bottom:15px;"><?php echo __('Users and roles');?></h1>
 
-<?php echo CHtml::link(__('Advanced Search'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+
+<div id="searchOptions" class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
@@ -77,7 +101,17 @@ $('.search-form form').submit(function(){
 ));?>
 
 
-
+<?php if(Yii::app()->user->hasFlash('success')):?>
+	<script>
+		$(function() { setTimeout(function() {
+			$('.flash-success').slideUp('fast');
+    	}, 5000);
+		});
+	</script>
+    <div class="flash-success">
+		<?php echo Yii::app()->user->getFlash('success');?>
+    </div>
+<?php endif; ?>
 
 
 

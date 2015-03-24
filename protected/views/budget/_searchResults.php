@@ -46,8 +46,8 @@ echo '<span class="highlight_text"><b>';
 if($data['code'])
 	echo $data['code'].': ';
 
-echo CHtml::encode($concept).'</b>
-
+//echo CHtml::encode($concept);
+echo $concept.'</b>
 
 </span><br />';
 
@@ -59,11 +59,11 @@ $url = Yii::app()->createAbsoluteUrl('budget/view', array('id'=>$data['id']));
 echo CHtml::link($url, array('view', 'id'=>$data['id']), array('onclick'=>'js:showBudget('.$data['id'].', this);return false;')).'<br />';
 	
 echo '<span class="label">'.CHtml::encode($model->getAttributeLabel('initial_provision')).':</span> ';
-echo number_format(CHtml::encode($data['initial_provision']), 2, ',', '.').' €<br />';
+echo number_format($data['initial_provision'], 2, ',', '.').' €<br />';
 
 echo '<span class="label">'.CHtml::encode($model->getAttributeLabel('actual_provision')).':</span> ';
-echo number_format(CHtml::encode($data['actual_provision']), 2, ',', '.').' €<br />';
+echo number_format($data['actual_provision'], 2, ',', '.').' €<br />';
 
-echo '<span class="highlight_text">'.CHtml::encode($text).'</span>';
+echo '<span class="highlight_text">'.$text.'</span>';
 ?>
 </p>

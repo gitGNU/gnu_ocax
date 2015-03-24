@@ -23,14 +23,14 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form" style="width:100%">
+<div class="wide form" style="width:100%;margin-top:15px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-<div style="float:left;width:33%;margin-left:-20px;">
+<div style="float:left;width:250px;">
 
 	<div class="row">
 		<?php echo $form->label($model,'user'); ?>
@@ -69,14 +69,10 @@
 		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'addressed_to'); ?>
-		<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-	</div>
 </div>
 <div style="clear:both"></div>
 
-<div style="float:left;width:33%;margin-left:-20px;">
+<div style="float:left;width:250px;">
 	<div class="row">
 		<?php echo $form->label($model,'body'); ?>
 		<?php echo $form->textField($model,'body',array('size'=>14,'maxlength'=>255)); ?>

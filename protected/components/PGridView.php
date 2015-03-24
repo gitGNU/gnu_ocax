@@ -1,7 +1,7 @@
 <?php
 
 /**
-OCAX -- Citizen driven Municipal Observatory software
+OCAX -- Citizen driven Observatory software
 Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
@@ -79,7 +79,7 @@ class PGridView extends CGridView
 						}
 				');
 			}
-			$cs->registerScript(__CLASS__.'# '.$id,"jQuery('#$id tbody td:not([class=PButtonColumn])').live('click',
+			$cs->registerScript(__CLASS__.'# '.$id,"$('body').on('click','#$id tbody td:not([class=PButtonColumn])',
 							function (){
 								param=$(this).parent().find('.p_parameter').html();
 								if(param){

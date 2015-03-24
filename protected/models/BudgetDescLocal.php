@@ -1,6 +1,24 @@
 <?php
 
 /**
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
  * This is the model class for table "budget_desc_local".
  *
  * The followings are the available columns in table 'budget_desc_local':
@@ -88,11 +106,47 @@ class BudgetDescLocal extends CActiveRecord
 			'code' => __('Code'),
 			'label' => __('Label'),
 			'concept' => __('Concept'),
-			'description' => __('Description'),
+			'description' => __('Explication'),
 			'text' => 'Text',
 			'modified' => __('Modified'),
 		);
 	}
+
+	public function getDescriptionFields($csv_id, $language )
+	{
+		$fields = array('label'=>null, 'concept'=>null, 'description'=>null);
+		
+		if($description = $this->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
+			if($description->label)
+				$fields['label'] = $description->label;
+			if($description->concept)
+				$fields['concept'] = $description->concept;
+			if($description->description)
+				$fields['description'] = $description->description;
+			if($fields['label'] && $fields['concept'] && $fields['description'])
+				return $fields;
+		}
+		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
+			if(!$fields['label'] && $description->label)
+				$fields['label'] = $description->label;
+			if(!$fields['concept'] && $description->concept)
+				$fields['concept'] = $description->concept;
+			if(!$fields['description'] && $description->description)
+				$fields['description'] = $description->description;
+			if($fields['label'] && $fields['concept'] && $fields['description'])
+				return $fields;
+		}		
+		if($description = BudgetDescState::model()->findByAttributes(array('csv_id'=>$csv_id, 'language'=>$language))){
+			if(!$fields['label'] && $description->label)
+				$fields['label'] = $description->label;
+			if(!$fields['concept'] && $description->concept)
+				$fields['concept'] = $description->concept;
+			if(!$fields['description'] && $description->description)
+				$fields['description'] = $description->description;
+		}			
+		return $fields;
+	}
+
 
 	/* years that have budgets that use a local description */
 	public function whereUsed()
@@ -104,6 +158,16 @@ class BudgetDescLocal extends CActiveRecord
 		foreach($budgets as $budget)
 				$result = $budget->year.', '.$result;
 		return rtrim($result, ' ,');
+	}
+
+	public function sanitize()
+	{
+		$this->label = preg_replace('/\s+/', ' ', trim($this->label));
+		$this->concept = preg_replace('/\s+/', ' ', trim($this->concept));
+		$this->text = str_replace("<br />", " ", $this->description);
+		$this->text = trim(strip_tags($this->text));
+		$this->csv_id = strtoupper($this->csv_id);
+		$this->language = strtolower($this->language);
 	}
 
 	/**
@@ -123,7 +187,6 @@ class BudgetDescLocal extends CActiveRecord
 		$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
 		$criteria->compare('text',$this->text,true);
-		//$criteria->compare('modified',$this->modified,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

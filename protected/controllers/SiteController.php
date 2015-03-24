@@ -44,9 +44,11 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		// run automated backups
+		VaultSchedule::model()->runVaultSchedule();
+
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-
 		if(isset($_GET['lang']) && strlen($_GET['lang']) == 2){
 			$this->changeLanguage($_GET['lang']);
 			$this->redirect(array('index'));
@@ -203,7 +205,7 @@ class SiteController extends Controller
 			$newSalt=$newUser->generateSalt();
  			$newUser->password = $newUser->hashPassword($model->password,$newSalt);
 			$newUser->salt = $newSalt;
- 			$newUser->activationcode = $newUser->generateActivationCode();
+ 			$newUser->generateActivationCode();
 			$newUser->is_active = 0;
 			$newUser->is_disabled = 0;
  			$newUser->username = $model->username;
@@ -213,6 +215,7 @@ class SiteController extends Controller
 
 			if ($model->validate() && $newUser->save())
 			{
+				Log::model()->write('User',__('New user').' "'.$newUser->username.'" id='.$newUser->id, $newUser->id);
 				//if want to go login, just uncomment this below
 				$identity=new UserIdentity($newUser->username,$model->password);
 				//$identity->authenticate();
@@ -232,11 +235,15 @@ class SiteController extends Controller
 		if($code)
 		{
 			$model = User::model()->findByAttributes(array('activationcode'=>$code));
-			if($model && !$model->is_disabled){
+			if($model && !$model->is_active && !$model->is_disabled){
 				$model->is_active=1;
-				if($model->save())
+				if($model->save()){
+					//Log::model()->write('User',__('User account activated'),$model->id);
 					Yii::app()->user->setFlash('success',__('Your account is active'));
-			}else
+				}
+			}elseif(!Yii::app()->user->isGuest)
+				$this->redirect(array('/user/panel'));
+			else
 				$this->redirect(array('/site/index'));
 		}
 		if(!Yii::app()->user->isGuest)
@@ -379,8 +386,8 @@ class SiteController extends Controller
 	{
 		Yii::import('application.vendors.*');
 		require_once 'Zend/Loader/Autoloader.php';
-		spl_autoload_unregister(array('YiiBase','autoload')); 
-		spl_autoload_register(array('Zend_Loader_Autoloader','autoload')); 
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		spl_autoload_register(array('Zend_Loader_Autoloader','autoload'));
 		spl_autoload_register(array('YiiBase','autoload'));
 
 		$entries=array();
@@ -413,12 +420,28 @@ class SiteController extends Controller
 		});
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'   => Config::model()->findByPk('siglas')->value.' '.__('activity'),
-			'link'    => Yii::app()->createUrl('site'),
-			'charset' => 'UTF-8',
-			'entries' => $entries,      
-			), 'rss');
-		$feed->send();  
+			'title'			=> Config::model()->findByPk('siglas')->value,
+			'description'	=> Config::model()-> getObservatoryName(),
+			'link'			=> Yii::app()->createUrl('site'),
+			'image'			=> Yii::app()->createAbsoluteUrl('files/logo.png'),
+			'charset'		=> 'UTF-8',
+			'entries'		=> $entries,
+			),
+			'rss'
+		);
+		$feed->send();
+	}
+
+	/*
+	* The user accepts cookies
+	*/
+	public function actionAcceptCookies()
+	{
+		$cookie = new CHttpCookie('cookiesAccepted', 1);
+		$cookie->expire = time() + (10 * 365 * 24 * 60 * 60);
+		Yii::app()->request->cookies['cookiesAccepted'] = $cookie;
+		echo 1;
+		Yii::app()->end();
 	}
 
 	/**

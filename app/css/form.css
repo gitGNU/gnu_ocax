@@ -42,7 +42,7 @@ div.form{
 
 div.form .title{
 	line-height: 90%;
-	font-size: 22pt;
+	font-size: 25pt;
 	letter-spacing:-0.5pt;	
 	font-weight:200;
 	margin-bottom:15px;
@@ -168,3 +168,16 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
+
+input[type="text"],input[type="password"]
+{
+	padding:2px; border:2px solid #ccc;
+	-webkit-border-radius: 4px;
+		border-radius: 4px;
+}
+input[type="text"]:focus, input[type="password"]:focus {border-color:#999; }
+
+
+
+
+

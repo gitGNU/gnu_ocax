@@ -24,10 +24,10 @@
 #newsletterBody p { font-size:1em }
 </style>
 
-<span style="color:#8A8A8A;font-size:1.05em"><?php echo __('Published on the').' '.format_date($data->created);?></span>
+<span style="font-size:16px"><?php echo __('Published on the').' '.format_date($data->created);?></span>
 <div class="horizontalRule"></div>
-<h1 style="font-size:26pt;"><?php echo CHtml::encode($data->subject);?></h1>
+<h1 style="margin-bottom:15px;"><?php echo CHtml::encode($data->subject);?></h1>
 
-<div id="newsletterBody" style="font-size:1.2em"><?php echo $data->body; ?></div>
+<div id="newsletterBody" style="font-size:18px"><?php echo $data->body; ?></div>
 
 

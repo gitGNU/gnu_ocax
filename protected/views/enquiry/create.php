@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,19 +33,19 @@
 <?php
 if($model->budget){
 	echo '<span id="nueva_consulta" style="margin-top:-20px;cursor:auto;"></span>';
-	echo '<h1>'.__('Formulate a').' '.__('budgetary enquiry').'</h1>';
+	echo '<h1 style="margin-top:-10px;">'.__('Formulate a').' '.__('budgetary enquiry').'</h1>';
 }else{
 	echo '<span id="nueva_consulta" style="margin-top:-10px;cursor:auto;"></span>';
-	echo '<h1>'.__('Formulate a').' '.__('generic enquiry').'</h1>';
+	echo '<h1 style="margin-top:-10px;">'.__('Formulate a').' '.__('generic enquiry').'</h1>';
 }
 ?>
 </h1>
 <?php
 if(!$model->budget){
-	echo '<div style="margin-top:-10px;margin-bottom:15px;">'.
+	echo '<p style="margin:5px 0 15px 0;">'.
 			__('If you wish to formulate a budgetary enquiry, you must first find the corresponding').' '.
 			CHtml::link(__('Budget'),array('/budget')).
-		 '</div>';
+		 '</p>';
 }
 ?>
 

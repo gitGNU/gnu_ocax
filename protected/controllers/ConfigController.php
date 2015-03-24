@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -45,7 +45,10 @@ class ConfigController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('update','admin'),
+				'actions'=>array(	'index','update',
+									'email','observatory','social','locale',
+									'image','backups','misc',
+								),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
@@ -54,37 +57,108 @@ class ConfigController extends Controller
 		);
 	}
 
+	public function actionIndex()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model));
+	}
+
+	public function actionEmail()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'email'));
+	}
+
+	public function actionObservatory()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'observatory'));
+	}
+
+	public function actionSocial()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'social'));
+	}
+
+	public function actionLocale()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'locale'));
+	}
+
+	public function actionImage()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'image'));
+	}
+
+	public function actionBackups()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'backups'));
+	}
+
+	public function actionRequirements()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'checkSystemRequirements'));
+	}
+
+	public function actionMisc()
+	{
+		$model = new Config;
+		$this->render('index',array('model'=>$model, 'page'=>'misc'));
+	}
+
 	/**
 	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * If update is successful, the browser will be redirected to the 'returnURL' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+
 		if(!$model->can_edit)
-			$this->redirect(array('admin'));
+			$this->redirect(array('index'));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		$returnURL=Null;
+		if(isset($_GET['returnURL']))
+			$returnURL=$_GET['returnURL'];
+
 		if(isset($_POST['Config']))
 		{
-			if(!$model->required)
-				$model->setScenario('canBeEmpty');
-				
 			$model->attributes=$_POST['Config'];
-			
+
 			if($model->parameter == 'languages'){
 				$model->value = str_replace(' ','',$model->value);
 				$model->value = rtrim($model->value, ',');
 				$model->setScenario('language');
 			}
-			if($model->parameter == 'currencySymbol')
+			elseif($model->parameter == 'observatoryBlog' || $model->parameter == 'socialFacebookURL' || $model->parameter == 'socialTwitterURL')
+				$model->setScenario('URL');
+
+			elseif($model->parameter == 'currencySymbol')
 				$model->setScenario('currenyCollocation');
-				
-			if($model->parameter == 'socialTwitterUsername')
+
+			elseif($model->parameter == 'socialTwitterUsername')
 				$model->value = ltrim($model->value, '@');
+
+			elseif($model->parameter == 'emailContactAddress' || $model->parameter == 'emailNoReply')
+				$model->setScenario('email');
+
+			elseif($model->parameter == 'siteColor')
+				$model->setScenario('siteColor');
+
+			elseif($model->parameter == 'year' || $model->parameter == 'vaultDefaultCapacity')
+				$model->setScenario('positiveNumber');
+
+			elseif($model->required)
+				$model->setScenario('cannotBeEmpty');
 
 			if(Yii::app()->params['ocaxnetwork']){
 				$opts = array('http' => array(
@@ -92,36 +166,52 @@ class ConfigController extends Controller
 										'header'  => 'Content-type: application/x-www-form-urlencoded',
 										'ignore_errors' => '1',
 										'timeout' => 0.5,
+										'user_agent' => 'ocax-'.getOCAXVersion(),
 									));
 				$url = Yii::app()->request->hostInfo.Yii::app()->baseUrl;
 				$url = str_replace("/", "|", $url);
 				$context = stream_context_create($opts);
-				@file_get_contents('http://ocax.net/network/register/'.$url, false, $context);
+				@file_get_contents('http://network.ocax.net/register/'.$url, false, $context);
 			}
+			if($model->save()){
+				if($model->getScenario() == 'siteColor')
+					file_put_contents(dirname(Yii::app()->request->scriptFile).'/css/color.css', $this->renderPartial('//layouts/color',false,true));
 
-			if($model->save())
-				$this->redirect(array('admin'));
+				$this->generateFoot();
+				if(Yii::app()->request->isAjaxRequest)
+					echo '1';
+				else{
+					if($returnURL)
+						$this->redirect(array($returnURL));
+					else
+						$this->redirect(array('index'));
+				}
+				Yii::app()->end();
+			}else{
+				if(Yii::app()->request->isAjaxRequest){
+					echo CJavaScript::jsonEncode($model->getErrors());
+					Yii::app()->end();
+				}
+			}
 		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		if(Yii::app()->request->isAjaxRequest)
+			echo 0;
+		else
+			$this->render('update',array('model'=>$model,'returnURL'=>$returnURL));
 	}
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
+	private function generateFoot()
 	{
-		$this->layout='//layouts/column1';
-		$model=new Config('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Config']))
-			$model->attributes=$_GET['Config'];
+		if(!file_exists(Yii::app()->basePath.'/runtime/html/foot/'))
+			createDirectory(Yii::app()->basePath.'/runtime/html/foot/');
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+		$user_lang = Yii::app()->language;
+		$languages=explode(',', Config::model()->findByPk('languages')->value);
+		foreach($languages as $lang){
+			Yii::app()->language=$lang;
+			file_put_contents(Yii::app()->basePath.'/runtime/html/foot/'.$lang.'.html', $this->renderPartial('//layouts/foot',false,true));
+		}
+		Yii::app()->language=$user_lang;
 	}
 
 	/**

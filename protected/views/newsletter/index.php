@@ -22,22 +22,17 @@
 
 ?>
 
-<div style="margin:0px 0 20px 0; position:relative;">
-<?php echo '<span class="bigTitle">'.__('Newsletters').'</span>';?>
-</div>
+<h1 style="margin:-15px 0 15px -15px;">
+	<i class="icon-megaphone"></i>
+	<?php echo __('Newsletters');?>
+</h1>
 
+<div style="position:relative">
 <?php
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
-	'template'=>'{pager}{items}',
-	'pager' => array(
-			'class'			=> 'CLinkPager',
-			'header'		=> '',
-			'firstPageLabel'=> '<<',
-			'prevPageLabel' => '<',
-			'nextPageLabel' => '>',
-			'lastPageLabel' => '>>',
-		),
+	'template'=>'<div style="position:absolute; top:-5px; right:0px">{pager}</div>{items}',
 ));
 ?>
+</div>

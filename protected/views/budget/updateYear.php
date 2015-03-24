@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,35 +18,49 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-$totalBudgets = count(Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL'));
+$totalBudgets = $model->getYearsBudgetCount();
+$featuredCount = count($model->getFeatured());
 
 $this->menu=array(
 	array('label'=>__('Import budgets'), 'url'=>array('csv/importCSV/'.$model->year)),
-	array('label'=>__('List Years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
 
 if($totalBudgets){
-	$featured = array( array('label'=>__('Featured budgets'), 'url'=>array('budget/featured', 'id'=>$model->year)));
+	$delTree = array( array('label'=>__('Selected budget delete'), 'url'=>array('budget/deleteTree', 'id'=>$model->year)));
+	array_splice( $this->menu, 1, 0, $delTree );
+	
+	if($model->getYearsTotalEnquiries() == 0){
+		$deleteDatos = array( array( 'label'=>__("Delete this year's budgets"), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
+		array_splice( $this->menu, 1, 0, $deleteDatos );
+	}
+
+	$label = __('Define graphics');
+	if($totalBudgets > 0 && $featuredCount == 0)
+		$label = $label.'<i class="icon-attention green"></i>';
+	$featured = array( array('label'=>$label, 'url'=>array('budget/featured', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $featured );
-	$downloadCsv = array( array('label'=>'Export budgets', 'url'=>array('csv/download', 'id'=>$model->year)));
+
+	$downloadCsv = array( array('label'=>__('Export budgets'), 'url'=>array('csv/export', 'id'=>$model->year)));
 	array_splice( $this->menu, 1, 0, $downloadCsv );
-	$deleteDatos = array( array( 'label'=>'Delete budgtes', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
-	array_splice( $this->menu, 1, 0, $deleteDatos );
 }elseif($model->year != Config::model()->findByPk('year')->value){
 	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
 								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
 	array_splice( $this->menu, 1, 0, $deleteYear );
 }
-$this->inlineHelp=':profiles:admin:budgets';
+$this->inlineHelp=':manual:budget:updateyear';
+$this->viewLog="Budget";
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
+
 function deleteBudgets(){
 	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
 	if (ans)
 		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/deleteYearsBudgets/<?php echo $model->id ;?>';
 }
+
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
@@ -94,42 +108,62 @@ function megaDelete(el){
 </script>
 
 <?php $title=__('Edit year').' '.$model->year;?>
-<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>$title, 'totalBudgets'=>$totalBudgets)); ?>
 
-<?php
+<?php 
+echo $this->renderPartial('_formYear',
+							array(	'model'=>$model,
+									'title'=>$title,
+									'totalBudgets'=>$totalBudgets,
+									'featuredCount'=>$featuredCount,
+								));
+
 if($enquirys->getData()){
 echo '<div class="horizontalRule" style="margin-top:20px"></div>';
 echo '<div style="font-size:1.5em">'.__('Budgetary enquiries for').' '.$model->year.'</div>';
-$this->widget('PGridView', array(
+
+$this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'enquirys-grid',
 	'dataProvider'=>$enquirys,
-    'onClick'=>array(
-        'type'=>'javascript',
-        'call'=>'showEnquiry',
-    ),
+	//'filter'=>$model,
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		array(
 			'name'=>'enquiry title',
 			'value'=>'$data->title',
 		),
+		'state',
 		array(
 			'name'=>'internal code',
 			'value'=>'$data->budget0->csv_id',
 		),
-		'state',
-		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
-	),
+		array(
+			'class'=>'CButtonColumn',
+			'template'=>'{change} {megaDelete}',
+			'buttons'=>array(
+				'change' => array(
+					'label'=>'<i class="icon-wrench-circled green"></i>',
+		            'url'=>'Yii::app()->createUrl("enquiry/changeBudget", array("id"=>$data->id))',
+				),
+				'megaDelete' => array(
+					// http://www.doprogramsdream.nl/blog/blogPost/view/id/16
+					'label'=>'<i class="icon-cancel-circled red"></i>',
+					'url'=>'$data->id',
+					'click'=>'js:function() { showEnquiry($(this).attr("href"));return false; }',
+				),
+			),
+		),
+	)
 ));
+
 
 }
 ?>
 <div id="mega_delete" class="modal" style="width:850px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
 	<div id="mega_delete_content"></div>
 </div>
-
-<?php /*echo $this->renderPartial('//enquiry/_megaDelete');*/ ?>
 
 <?php if(Yii::app()->user->hasFlash('csv_generated')):?>
     <div class="flash-success" id="csv_generated_ok">
@@ -137,12 +171,6 @@ $this->widget('PGridView', array(
     </div>
 <?php endif; ?>
 <?php if(Yii::app()->user->hasFlash('success')):?>
-	<script>
-		$(function() { setTimeout(function() {
-			$('.flash-success').slideUp('fast');
-    	}, 2000);
-		});
-	</script>
     <div class="flash-success">
 		<?php echo Yii::app()->user->getFlash('success');?>
     </div>

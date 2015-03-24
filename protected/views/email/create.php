@@ -27,7 +27,7 @@ if($returnURL == 'enquiry/teamView'){
 		array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
 		array('label'=>__('Edit enquiry'), 'url'=>array('/enquiry/edit', 'id'=>$enquiry->id)),
 		array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$enquiry->id, 'menu'=>'team')),
-		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
 }
 if($returnURL == 'enquiry/adminView'){
@@ -113,25 +113,33 @@ function submitForm(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
-		$this->widget('ext.tinymce.TinyMce', array(
+		$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,justifyleft,justifycenter,
+														justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,
+														link,unlink",
+							'convert_urls'=>true,
+							'relative_urls'=>false,
+							'remove_script_host'=>false
+						);
+		if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
+			$settings['useCompression']=true;
+		else
+			$settings['useCompression']=false;
+			
+		$init = array(
 		    'model' => $model,
 		    'attribute' => 'body',
-		    // Optional config
 		    'compressorRoute' => 'tinyMce/compressor',
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-			'settings' => array('convert_urls'=>true,
-								'relative_urls'=>false,
-								'remove_script_host'=>false
-								),
-		    'htmlOptions' => array(
-		        'rows' => 6,
-		        'cols' => 80,
-		    ),
-		));
-		?>
-		<?php echo $form->error($model,'body'); ?>
+			'settings' => $settings,
+			);
+		if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
+			unset($init['compressorRoute']);
+
+		$this->widget('ext.tinymce.TinyMce', $init);
+		echo $form->error($model,'body');
+	?>
 	</div>
 
 	<div class="row buttons">

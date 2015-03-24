@@ -4,6 +4,7 @@ app/.htaccess
 app/assets/*
 !app/assets/.gitignore
 files/*
+app/css/color.css
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db

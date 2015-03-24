@@ -27,7 +27,8 @@ $this->menu=array(
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'manager')),
 	array('label'=>__('List enquiries'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:team_manager';
+$this->inlineHelp=':manual:enquiry:adminview';
+$this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>

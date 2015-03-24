@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -30,10 +30,39 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
+<script>
+function toggleSearchOptions(){
+	if ($("#searchOptions").is(":visible")){
+		$("#searchOptionsToggle").html("<i class='icon-search-circled'></i>");
+		$("#searchOptions").slideUp();
+	}else{
+		$("#searchOptionsToggle").html("<i class='icon-cancel-circled'></i>");
+		$("#searchOptions").slideDown();
+	}
+}
+</script>
+<div style="position:relative;">
+	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+		<i class="icon-search-circled"></i>
+	</div>
+</div>
+<div style="position:relative; right:40px" >
+	<div class="teamMenu" onCLick="js:showHelp('<?php echo getInlineHelpURL(":manual:enquiry:admin");?>');return false;">
+		<i class="icon-help-circled"></i>
+	</div>
+</div>
+<div style="position:relative; right:80px" >
+	<div class="teamMenu" class="color" onCLick="js:viewLog('Enquiry');return false;">
+		<i class="icon-book"></i>
+	</div>
+</div>
+<?php $this->widget('InlineHelp'); ?>
+<?php $this->widget('ViewLog'); ?>
 
 <h1><?php echo __('Manage enquiries');?></h1>
 
-<div class="search-form">
+
+<div id="searchOptions" class="search-form">
 <?php $this->renderPartial('_managerSearch',array(
 	'model'=>$model,
 )); ?>
@@ -59,8 +88,15 @@ $('.search-form form').submit(function(){
 		array(
 			'name'=>'state',
 			'type'=>'raw',
-			//'value'=>'Enquiry::getHumanStates($data->state)',
-            'value'=>function($data,$row){return $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state);},
+            'value'=>function($data,$row){
+				$value = $data->state.'.&nbsp;&nbsp'.Enquiry::getHumanStates($data->state,$data->addressed_to);
+				if($data->state == ENQUIRY_PENDING_VALIDATION)
+					$value = $value.' <i class="icon-attention amber"></i>';
+				//team member rejected the enquiry
+				if($data->state == ENQUIRY_REJECTED && $data->team_member)
+					$value = $value.' <i class="icon-attention green"></i>';
+				return $value;
+				},
 		),
 	),
 )); ?>

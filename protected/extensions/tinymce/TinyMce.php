@@ -7,6 +7,7 @@ require_once(dirname(__FILE__) . '/TinyMceCompressorAction.php');
  */
 class TinyMce extends CInputWidget
 {
+	
     /** @var bool|string Route to compressor action */
     public $compressorRoute = false;
 
@@ -39,16 +40,11 @@ class TinyMce extends CInputWidget
     public $fileManager = false;
 
     /** @var array Supported languages */
-    private static $languages = array(
-        'ar', 'az', 'be', 'bg', 'bn', 'br', 'bs', 'ca', 'ch', 'cn', 'cs', 'cy', 'da', 'de', 'dv', 'el', 'en', 'eo',
-        'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gl', 'gu', 'he', 'hi', 'hr', 'hu', 'hy', 'ia', 'id', 'is',
-        'it', 'ja', 'ka', 'kl', 'km', 'ko', 'lb', 'lt', 'lv', 'mk', 'ml', 'mn', 'ms', 'my', 'nb', 'nl',
-        'nn', 'no', 'pl', 'ps', 'pt', 'ro', 'ru', 'sc', 'se', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'sy',
-        'ta', 'te', 'th', 'tn', 'tr', 'tt', 'tw', 'uk', 'ur', 'vi', 'zh_cn', 'zh_tw', 'zh', 'zu',); // widget supported languages
+    private static $languages = array('ca','de','el', 'en','es','fr','gl','it','pt',); // widget supported languages
 
 
     private static $defaultSettings = array(
-        'language' => 'ru',
+        'language' => 'en',
         // General options
         'theme' => "advanced",
 //        'skin' => 'o2k7',
@@ -60,8 +56,10 @@ class TinyMce extends CInputWidget
 		//http://www.midwesternmac.com/blogs/jeff-geerling/line-breaks-instead-paragraphs
 		'forced_root_block' => FALSE,
 
-        'plugins' => "autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,iespell,insertdatetime,contextmenu,paste,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
-        
+        'plugins' =>	"autolink,lists,pagebreak,style,layer,advhr,advimage,advlink,iespell,
+						insertdatetime,contextmenu,paste,noneditable,visualchars,nonbreaking,
+						xhtmlxtras,template,advlist,media",
+
         // Theme options
 /*
         'theme_advanced_buttons1' => "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
@@ -73,20 +71,26 @@ class TinyMce extends CInputWidget
 	'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink",
 
 	//chris. stop pasting most styles into editor
-	'valid_styles' => array('*' => 'text-decoration,text-align,display,margin-left,margin-right'),
+	'valid_styles' => array('*' => 'text-decoration,text-align,display,margin,padding,float,margin-left,margin-right'),
 
+	// http://www.forumdesalternatives.org/docs/using.htm
+	// https://www.drupal.org/node/126216#comment-1224981
+	'extended_valid_elements' =>  'img[style|class|src|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]',
+	
         'theme_advanced_toolbar_location' => "top",
         'theme_advanced_toolbar_align' => "left",
         'theme_advanced_statusbar_location' => "bottom",
+        'theme_advanced_blockformats' => 'h1,h2,h3',
         'theme_advanced_resizing' => true,
         'height' => '400px',
+        'width' => '100%',
         'relative_urls' => false,
 
         'spellchecker_languages' => "+Русский=ru",
 
 
         // Example content CSS (should be your site CSS)
-        //content_css : "css/content.css",
+        //'content_css' => 
 
         // Drop lists for link/image/media/template dialogs
         //'template_external_list_url' => "lists/template_list.js",
@@ -107,6 +111,7 @@ class TinyMce extends CInputWidget
         $dir = dirname(__FILE__) . '/vendors/tinymce/jscripts/tiny_mce';
         $this->assetsDir = Yii::app()->assetManager->publish($dir);
         $this->settings = array_merge(self::$defaultSettings, $this->settings);
+        $this->settings['content_css'] = Yii::app()->request->baseUrl.'/css/tinymce.css';
         if ($this->language === false)
             $this->settings['language'] = Yii::app()->language;
         else
@@ -156,7 +161,7 @@ class TinyMce extends CInputWidget
     private function registerScripts($id)
     {
         $cs = Yii::app()->getClientScript();
-        $cs->registerCoreScript('jquery');
+		$cs->registerCoreScript('jquery');
         if ($this->compressorRoute === false) {
             $cs->registerScriptFile($this->assetsDir . '/tiny_mce.js');
             $cs->registerScriptFile($this->assetsDir . '/jquery.tinymce.js');
@@ -173,6 +178,7 @@ class TinyMce extends CInputWidget
             /** @var $fm TinyMceFileManager */
             $fm = Yii::createComponent($this->fileManager);
             $fm->init();
+            // https://github.com/Studio-42/elFinder/wiki/Integration-with-TinyMCE-3.x
             $this->settings['file_browser_callback'] = $fm->getFileBrowserCallback();
         }
 

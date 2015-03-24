@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,18 +22,19 @@ Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 
 ?>
-<div style="margin:-10px;background-color:orange">
-	<h1 style="text-align:center;color:black;padding:15px;">!! Delete enquiry !!</h1>
-</div>
+<div class="modalTitle"><?php echo __('Delete enquiry');?> <i class="icon-attention red"></i></div>
 
-<div id="enquiry_body" style="margin:-5px;margin-top:-15px;">
+<div id="enquiry_body" >
 	<?php echo $this->renderPartial('//enquiry/_teamView', array('model'=>$model)); ?>
 </div>
 
-<div style="background-color:orange;padding:5px;margin:-10px;margin-top:5px;margin-bottom:-10px;">
-	<h1 style="text-align:center;color:black;padding:15px;">Are you sure you want to delete it all?</h1>
-	<div style="width:100%">
-		<div style="float:left;width:80%;color:black;font-weight:strong;">
+<div style="padding:5px;margin:-10px;margin-top:5px;margin-bottom:-10px;">
+	<div class="horizontalRule"></div>
+	<h1 style="text-align:center;color:black">
+		<?php echo __('Are you sure you want to delete it all?');?><i class="icon-attention red"></i>
+	</h1>
+	<div>
+		<div style="float:left;width:60%;color:black;font-size:16px;">
 			<ul>
 			<?php
 			echo '<li>'.__('Reformulated enquires').' ('.$object_count['reforumulated'].')</li>';
@@ -48,7 +49,9 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 		</div>
 	</div>
 	<div style="float:left;margin-top:35px;">
-		<input type="button" id="mega_delete_button" enquiry_id="" onClick="js:megaDelete(this)" value="Yes, delete it all" />
+		<input	type="button" id="mega_delete_button" enquiry_id=""
+				onClick="js:megaDelete(this)"
+				value="<?php echo __('Yes, delete it all')?>" />
 	</div>
 	<div style="clear:both"></div>
 </div>

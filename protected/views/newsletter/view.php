@@ -22,7 +22,10 @@
 /* @var $model Newsletter */
 ?>
 
-<div style="margin:0px 0 20px 0;">
-<?php echo '<span class="bigTitle">'.__('Newsletter').'</span>';?>
-</div>
+
+<h1 style="margin:-15px 0 15px -15px;">
+	<i class="icon-megaphone"></i>
+	<?php echo __('Newsletter');?>
+</h1>
+
 <?php echo $this->renderPartial('_view', array('data'=>$model)); ?>

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,13 +21,18 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
-/*
-if(Yii::app()->request->isAjaxRequest){
-	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
-	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/budgetDescription.css" />
+
+<?php 
+if(!Yii::app()->request->isAjaxRequest)
+	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
+else{
+	//Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+	//Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+	//Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 }
-*/
+
 
 if(Yii::app()->clientScript->isScriptRegistered('jquery.js'))
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
@@ -36,8 +41,6 @@ if(Yii::app()->clientScript->isScriptRegistered('jquery.min.js'))
 if(Yii::app()->clientScript->isScriptRegistered('jquery.ba-bbq.js'))
 	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 
-$this->layout='//layouts/column1';
-
 $root_budget = $model->findByAttributes(array('csv_id'=>$model->csv_id[0], 'year'=>$model->year));
 if(!$root_budget){
 	$this->render('//site/error',array('code'=>'Budget not found', 'message'=>__('Budget with internal code').' "'.$model->csv_id[0].'" '.__('is not defined')));
@@ -45,17 +48,18 @@ if(!$root_budget){
 }
 
 $dataProvider=new CActiveDataProvider('Enquiry', array(
-	'criteria'=>array(
-		'condition'=>'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED,
-		'order'=>'created DESC',
-	),
-	'pagination'=>array(
-		'pageSize'=>20,
-	),
-));
-
+				'criteria'=>array(
+					'condition'=>'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED,
+					'order'=>'created DESC',
+				),
+				'pagination'=>array(
+					'pageSize'=>20,
+				),
+		));
 ?>
+
 <script>
+
 function getAnualComparative(budget_id){
 	if($('#budget_comparative').html() != ''){
 		_showAnualComparative();
@@ -88,21 +92,35 @@ function showBudgetDetails(){
 	$('#compareYearsLink').show();
 	$('#budget_details').show();
 }
+function budgetModal2Page(){
+	$('#budget_popup').bPopup().close();
+	window.open('<?php echo $this->createAbsoluteUrl('/budget/'.$model->id); ?>',  '_blank');
+}
+<?php if(Yii::app()->user->canEditBudgetDescriptions()){ ?>
+function editBudgetDescription(){
+	if(typeof budgetDetailsUpdated == 'function')
+		budgetDetailsUpdated();	//this function is located in budget/index
+	$('#budget_popup').bPopup().close();
+	window.open("<?php echo Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id ?>",  '_blank');
+	return null;
+}
+<?php } ?>
 </script>
 
 <?php
-	echo '<div style="margin:-10px 0 -2px 2px;font-size:1.1em;color:#8A8A8A;">'.$model->getCategory().'</div>';
+	$category=$model->getCategory();
 
-	$modify_link = Null;
-	if(Yii::app()->user->isAdmin()){
-		$modify_link=CHtml::link('+',array('budgetDescription/modify','budget'=>$model->id),array('style'=>'text-decoration:none'));
-		$modify_link=' <span style="font-size:0.8em;">'.$modify_link.'</span>';
+	if(Yii::app()->request->isAjaxRequest){
+		echo '<div class="modalTitle">'.__('Budget').': '.$category.'</div>';
+		echo '<h1>'.$model->getTitle().'</h1>';
+	}else{
+		echo '<div style="font-size:16px;margin-top:-20px;">&nbsp;'.$category.'</div>';
+		echo '<h1>'.$model->getTitle().'</h1>';
 	}
-	echo '<h1>'.$model->getTitle().$modify_link.'</h1>';
 
 	echo '<div>';
 		echo '<div id="budget_box" style="width:450px;padding:0px;margin-left:10px;float:right">';
-		
+
 		if(count($model->getAllBudgetsWithCSV_ID()) > 1){
 			$compareYears = '<span id="compareYearsLink" class="link" style="float:right;font-size:1.1em" '.
 					'onclick="js:getAnualComparative('.$model->id.')">'.__('Compare years').
@@ -111,9 +129,10 @@ function showBudgetDetails(){
 			$showBudgetDetails='<span id="hideComparisonLink" class="link" style="float:right;font-size:1.1em;display:none" '.
 								'onclick="js:showBudgetDetails()">'.$words.'</span>';
 			echo $showBudgetDetails;
-			echo $compareYears.'<div style="clear:both"></div>';
+			echo $compareYears;
 		}
-		
+		echo '<div style="clear:both"></div>';
+
 		echo '<div id="budget_details">';
 		$this->renderPartial('_budgetDetails',array('model'=>$model,
 													'showCreateEnquiry'=>1,
@@ -126,22 +145,38 @@ function showBudgetDetails(){
 		echo '</div>';
 		echo '<div id="budget_comparative" style="display:none"></div>';
 		echo '</div>';
-	
-	echo '<div style="margin-top:15px; font-size:1.2em">';	
+
+	echo '<div style="margin-top:15px; font-size:1.2em">';
 	if($description = $model->getDescription()){
-		echo $description->description;
+		if(Yii::app()->user->canEditBudgetDescriptions()){
+			if(Yii::app()->request->isAjaxRequest)
+				echo '<a href="#" onclick="js:editBudgetDescription()">'.__('Can you improve this description?').'</a>';
+			else
+				echo '<a href="'.Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id.'">'.__('Can you improve this description?').'</a>';
+			echo '<br />';
+		}
+		echo '<div class="budgetExplication">'.$description->description.'</div>';
 		if($description->modified){
-			if($state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language)){
+			$state_description = BudgetDescState::model()->getDescription($description->csv_id, $description->language);
+			if($state_description && $state_description->description){
 				echo '<div class="link" style="margin-top:15px;" onClick="js:$(\'#state_desc\').slideDown();$(this).empty();return false">'.
 					  __('Read the administration\'s description').'</div>';
 				echo '<div id="state_desc" style="display:none;margin-top:10px;">';
 				echo '<div class="sub_title">'.__('Official description').'</div>';
-				echo $state_description->description;
+				echo '<div class="budgetExplication">'.$state_description->description.'</div>';
 				echo '</div>';
-			}	
+			}
 		}
-	}	
-	
+	}else{
+		if(Yii::app()->user->canEditBudgetDescriptions()){
+			if(Yii::app()->request->isAjaxRequest)
+				echo '<a href="#" onclick="js:editBudgetDescription()">'.__('Please consider adding a description here').'</a>';
+			else
+				echo '<a href="'.Yii::app()->request->baseUrl.'/budgetDescription/modify?budget='.$model->id.'">'.__('Please consider adding a description here').'</a>';
+			echo '<br />';
+		}
+	}
+
 	echo '<p style="font-size:1.2em;margin-top:35px;">';
 	if(!$dataProvider->getData()){
 		echo '<span>'.__('No enquiries have been made about this budget yet').'.</span><br />'.
@@ -155,7 +190,6 @@ function showBudgetDetails(){
 <div style="clear:both"></div>
 
 <?php
-
 if(count($dataProvider->getData()) > 0){
 	echo '<p>';
 	if(count($dataProvider->getData()) == 1)
@@ -174,11 +208,6 @@ if(count($dataProvider->getData()) > 0){
 	    ),
 		'template' => '{items}{pager}',
 		'ajaxUpdate'=>true,
-		'pager'=>array('class'=>'CLinkPager',
-						'header'=>'',
-						'maxButtonCount'=>6,
-						'prevPageLabel'=>'< Prev',
-		),
 		'columns'=>array(
 				array(
 					'header'=>__('Enquiry'),
@@ -199,7 +228,6 @@ if(count($dataProvider->getData()) > 0){
     	        array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	)));
 }
-
 ?>
 </p>
 

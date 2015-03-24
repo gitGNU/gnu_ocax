@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -32,7 +32,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete, restoreBudgets', // we only allow deletion via POST request
+			'postOnly + delete, restoreBudgets, delTree', // we only allow deletion via POST request
 		);
 	}
 
@@ -45,7 +45,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getPieData','getChildBars','getBudgetDetailsForBar',
+				'actions'=>array('index','graph','view','getPieData','getChildBars','getBudgetDetailsForBar',
 									'getBudget','getAnualComparison'),
 				'users'=>array('*'),
 			),
@@ -54,9 +54,12 @@ class BudgetController extends Controller
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(	'getTotalYearlyBudgets','adminYears','deleteYearsBudgets',
-									'createYear','updateYear','featured','feature',/*'update',*/'delete',
-									'dumpBudgets','restoreBudgets',
+				'actions'=>array(	'getTotalYearlyBudgets','admin',
+									'createYear','updateYear',
+									'featured','feature','changeWeight',
+									'deleteYearsBudgets',
+									'deleteTree','delTree',
+									'delete','dumpBudgets','restoreBudgets',
 									'noDescriptions'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
@@ -65,7 +68,6 @@ class BudgetController extends Controller
 			),
 		);
 	}
-
 
 	public function actionGetTotalYearlyBudgets($id)
 	{
@@ -80,7 +82,8 @@ class BudgetController extends Controller
 	 */
 	public function actionView($id)
 	{
-		
+		$this->layout='//layouts/column1';
+
 		$model=$this->loadModel($id);
 		$this->pageTitle=CHtml::encode(__('Budget').': '.$model->title);
 		$this->render('view',array(
@@ -132,6 +135,11 @@ class BudgetController extends Controller
 		else
 			$rootBudget_id = $id;
 
+		if( !(is_numeric($id) && is_numeric($rootBudget_id)) ){
+				echo 0;
+				Yii::app()->end();
+		}
+
 		$model=$this->loadModel($id);
 		$graphThisModel=$model;
 		$goBackID=$model->parent0->id;
@@ -142,7 +150,9 @@ class BudgetController extends Controller
 			$graphThisModel=$model->parent0;
 			$goBackID=$model->parent0->parent0->id;
 			$hideConcept=Null;
-		}
+		}//else
+			//$model->orderChildBudgets();
+			
 		if(!$model->parent0->parent)
 			$goBackID = Null;
 
@@ -150,12 +160,12 @@ class BudgetController extends Controller
 			$goBackID = Null;
 		if(($model->parent0->id == $rootBudget_id) && !$isParent)
 			$goBackID = Null;
-		
+
 		$params=array(	'parent_id'=>$model->parent,
 						'title'=>$graphThisModel->getConcept(),
 						'budget_details'=>	'<div class="budget_details" style="padding:0px">'.
 											$this->renderPartial('_budgetDetails',array('model'=>$model,
-																						'showCreateEnquiry'=>1,
+																						//'showCreateEnquiry'=>1,
 																						'showLinks'=>1,
 																						'hideConcept'=>$hideConcept),
 																						true,false).
@@ -185,18 +195,18 @@ class BudgetController extends Controller
 
 	/**
 	 * team_member uses this to change enquiry type.
-	 */	
+	 */
 	public function actionGetBudgetDetails($id)
 	{
 		if(!Yii::app()->request->isAjaxRequest)
 		  Yii::app()->end();
-		  
+
  		$model=$this->loadModel($id);
 		if($model){
-			echo CJavaScript::jsonEncode($this->renderPartial('_enquiryView',array('model'=>$model),true,true));
+			echo CJavaScript::jsonEncode($this->renderPartial('//enquiry/_budgetDetails',array('model'=>$model),true,true));
 		}else
 			echo 0;
-	} 
+	}
 
 	public function actionGetAnualComparison($id)
 	{
@@ -267,7 +277,8 @@ class BudgetController extends Controller
 		{
 			$model->attributes=$_POST['Budget'];
 			if($model->save()){
-				$this->redirect(array('adminYears'));
+				Log::model()->write('Budget','Year '.$model->year.' created');
+				$this->redirect(array('admin'));
 			}
 		}
 		$this->render('createYear',array(
@@ -304,7 +315,7 @@ class BudgetController extends Controller
 		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,true)));
 	}
 	*/
-	
+
 	/**
 	 * List budgets without corresponding budgetDescription.
 	 */
@@ -330,13 +341,22 @@ class BudgetController extends Controller
 
 		if(isset($_POST['Budget']))
 		{
+			$wasPublished = $model->code;
 			$model->attributes=$_POST['Budget'];
 			if($model->save()){
 				$years=new CActiveDataProvider('Budget',array(
 					'criteria'=>array('condition'=>'parent IS NULL',
 					'order'=>'year DESC'),
 				));
-				$this->redirect(array('adminYears'));
+				if($wasPublished != $model->code){
+					Config::model()->isZipFileUpdated(0);
+					if($model->code == 0)
+						$word = 'unpublished';
+					else
+						$word = 'published';
+					Log::model()->write('Budget', 'Year '.$model->year.' '.$word);
+				}
+				$this->redirect(array('admin'));
 			}
 		}
 
@@ -350,27 +370,6 @@ class BudgetController extends Controller
 		$this->render('updateYear',array(
 			'model'=>$model,'enquirys'=>$enquirys,));
 	}
-
-	/**
-	 * Manages all models.
-	 */
-	 /*
-	public function actionAdmin()
-	{
-		$model=new Budget('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['year']))
-			$model->year=$_GET['year'];
-		else
-			$model->year=Config::model()->findByPk('year')->value;
-		if(isset($_GET['Budget']))
-			$model->attributes=$_GET['Budget'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-	*/
 
 	public function actionFeatured($id)
 	{
@@ -395,50 +394,140 @@ class BudgetController extends Controller
 		if(!$model->budgets){
 			echo 1;
 			return;
-		}	
-		if($model->featured)
+		}
+		if($model->featured){
 			$model->featured=0;
-		else
+			$model->weight=0;
+			$model->save();
+		}
+		else{
 			$model->featured=1;
+			$model->weight=0;
+			$model->save();
+		}
+		$model->refreshFeaturedWeights();
+		echo 1;
+	}
+
+	public function actionChangeWeight($id)
+	{
+		$model = $this->loadModel($id);
+		$featuredBudgets = $model->getFeatured();
+		/*
+		if(count($featuredBudgets) == 1){
+				$model->weight=1;
+				$model->save();
+				echo 1;
+				Yii::app()->end();
+		}
+		*/
+		$highest = $featuredBudgets[0]->weight;
+		$lowest = $featuredBudgets[count($featuredBudgets)-1]->weight;
+		if($model->weight == $highest && $_GET['increment'] == 1){
+			echo 1;
+			Yii::app()->end();
+		}
+		if($model->weight == $lowest && $_GET['increment'] == -1){
+			echo 1;
+			Yii::app()->end();
+		}
+		$newWeight = $model->weight + $_GET['increment'];
+		if($swap = $model->findByAttributes(array('year'=>$model->year, 'featured'=>1, 'weight'=>$newWeight))){
+				$swap->weight = $swap->weight + ($_GET['increment'] * -1);
+				$swap->save();
+		}
+		$model->weight = $newWeight;
 		$model->save();
 		echo 1;
 	}
 
+	/*
+	 * Show a grid of budgets
+	 * 
+	 */
+	public function actionDeleteTree($id)
+	{
+		$model=new Budget('deleteTreeSearch');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($id))
+			$model->year=$id;
+		else
+			$model->year=Config::model()->findByPk('year')->value;
+		if(isset($_GET['Budget']))
+			$model->attributes=$_GET['Budget'];
 
-	public function actionAdminYears()
+		$this->render('deleteTree',array(
+			'model'=>$model,
+		));
+	}
+
+	/* 
+	 * delete selected budget
+	 */
+	public function actionDelTree($id)
+	{
+		$model = $this->loadModel($id);
+		
+		$year = $model->year;
+		$csv_id = $model->csv_id;
+		$budgetCount = 0;
+		
+		$sql = "SELECT budget.id, budget.year, budget.csv_id, enquiry.budget
+				FROM budget
+				INNER JOIN enquiry
+				ON budget.id=enquiry.budget
+				WHERE budget.year = '$year'
+				AND budget.csv_id LIKE '".$csv_id."%'"; 
+
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		$enquiryCount = Yii::app()->db->createCommand($cnt)->queryScalar();
+		
+		if(!$enquiryCount){
+			$sql = "SELECT budget.id
+					FROM budget  WHERE year = '$year'
+					AND parent IS NOT NULL
+					AND budget.csv_id LIKE '".$csv_id."%'";
+					
+			$cnt = "SELECT COUNT(*) FROM ($sql) subq";					
+			$budgetCount = Yii::app()->db->createCommand($cnt)->queryScalar();
+
+			$sql = "DELETE FROM budget  WHERE year = '$year'
+										AND parent IS NOT NULL
+										AND budget.csv_id LIKE '".$csv_id."%'
+										ORDER BY id DESC;";
+										
+			Yii::app()->db->createCommand($sql)	->execute();
+
+			if ($model->isPublished()){
+				Config::model()->isZipFileUpdated(0);
+			}
+			Log::model()->write('Budget', 'Year '.$model->year.'. Budget "'.$model->csv_id.'" deleted');
+		}
+		echo CJavaScript::jsonEncode(array('totalBudgets'=>$budgetCount, 'totalEnquiries'=>$enquiryCount));
+	}
+
+	public function actionAdmin()
 	{
 		$years=new CActiveDataProvider('Budget',array(
 			'criteria'=>array('condition'=>'parent IS NULL',
 			'order'=>'year DESC'),
 		));
-		$this->render('adminYears',array('years'=>$years,));
+		$this->render('admin',array('years'=>$years,));
 	}
 
-
+	/*
+	 * Delete all the budgets in the year
+	 */
 	public function actionDeleteYearsBudgets($id)
 	{
 		$model = $this->loadModel($id);
 
-		$criteria=new CDbCriteria;
-		$criteria->condition = 'year = '.$model->year.' AND parent IS NOT NULL';
-		$criteria->order = 'csv_id DESC';
-
-		$budgets = $model->findAll($criteria);
-		$total=count($budgets);
-
-		while($budgets){
-			foreach($budgets as $budget){
-				if(Enquiry::model()->findByAttributes(array('budget'=>$budget->id)))
-					continue;
-				if(!$model->findByAttributes(array('parent'=>$budget->id)))
-					$budget->delete();
-			}
-			$budgets = $model->findAll($criteria);
-			$new_total=count($budgets);
-			if($total == $new_total)
-				break;
-			else
-				$total = $new_total;
+		if ($model->getYearsTotalEnquiries() == 0){
+			$year = $model->year;
+			$sql = "DELETE FROM budget WHERE year = '$year' AND parent IS NOT NULL ORDER BY id DESC;";
+			Yii::app()->db->createCommand($sql)	->execute();
+			
+			Log::model()->write('Budget', 'Year '.$year.'. '.__('All budgets deleted'));
 		}
 		$this->redirect(array('updateYear','id'=>$model->id));
 	}
@@ -459,7 +548,8 @@ class BudgetController extends Controller
 			$model->delete();
 			if($root_budget){
 				Yii::app()->user->setFlash('success',__('Year deleted'));
-				$this->redirect(array('adminYears'));
+				Log::model()->write('Budget', 'Year '.$model->year.' deleted');
+				$this->redirect(array('admin'));
 			}
 		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -478,10 +568,14 @@ class BudgetController extends Controller
 
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['year'])){
-			$model->year = $_GET['year'];
+			if(strtotime($_GET['year']) !== false)
+				$model->year = $_GET['year'];
+			else
+				$model->year = Config::model()->findByPk('year')->value;
+
 			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
 		}
-		elseif(isset(Yii::app()->request->cookies['year']))
+		elseif(isset(Yii::app()->request->cookies['year']) && strtotime(Yii::app()->request->cookies['year']->value) !== false)
 			$model->year = Yii::app()->request->cookies['year']->value;
 		else
 			$model->year = Config::model()->findByPk('year')->value;
@@ -506,6 +600,38 @@ class BudgetController extends Controller
 	}
 
 	/**
+	 * Show the graph for one particular budget.
+	 */
+	public function actionGraph($id)
+	{
+		$this->layout='//layouts/column1';
+		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('administrationName')->value;
+		$root_budget=$this->loadModel($id);
+
+		$model = new Budget('publicSearch');
+		$model->year = $root_budget->year;
+
+		if(isset($_GET['graph_type'])){
+			$graph_type=$_GET['graph_type'];
+			Yii::app()->request->cookies['graph_type'] = new CHttpCookie('graph_type', $graph_type);
+		}
+		elseif(isset(Yii::app()->request->cookies['graph_type']))
+			$graph_type=Yii::app()->request->cookies['graph_type']->value;
+		else
+			$graph_type='pie';
+
+		if (isset($_GET['Budget'])) {
+			$model->attributes = $_GET['Budget'];
+		}
+
+		$this->render('index', array(
+			'model' => $model,
+			'root_budget' => $root_budget,
+			'graph_type' => $graph_type,
+		));
+	}
+
+	/**
 	 * Dump the budget table
 	 */
 	public function actionDumpBudgets()
@@ -521,6 +647,7 @@ class BudgetController extends Controller
 		$result = Budget::model()->restoreBudgets($id);
 		if($result === true){
 			Yii::app()->user->setFlash('success',__('Database restored correctly'));
+			Log::model()->write('Budget', 'Budget table restored');
 		}
 		return $result;
 	}

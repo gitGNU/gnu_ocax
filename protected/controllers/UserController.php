@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,12 +19,8 @@
 
 class UserController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column1';
 
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -50,13 +46,13 @@ class UserController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('view','admin','delete','updateRoles'),
+				'actions'=>array('view','admin','delete','updateRoles','enable'),
 				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('allow',
 				'actions'=>array('disable'),
-				'expression'=>"Yii::app()->user->isManager()",
-			),			
+				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -68,17 +64,17 @@ class UserController extends Controller
 	 */
 	public function actionPanel()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('My page'));
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
 
-		$id=Yii::app()->user->getUserID();
+		$userid=Yii::app()->user->getUserID();
 		$enquirys=new CActiveDataProvider('Enquiry', array(
 			'criteria'=>array(
-				'condition'=>"user=$id",
+				'condition'=>"user=$userid",
 			),
 			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 
-		$userid=Yii::app()->user->getUserID();
 		$subscribed=new CActiveDataProvider('Enquiry',array(
 			'criteria'=>array(
 				'with'=>array('subscriptions'),
@@ -87,52 +83,39 @@ class UserController extends Controller
 								t.user != '.$userid.' AND
 								( t.team_member != '.$userid.' || t.team_member IS NULL )',
 				'together'=>true,
-				//'order'=>'t.id DESC',
 			),
 			'sort'=>array('defaultOrder'=>'t.modified DESC'),
 		));
-
-		// check for OCAx updates once a week
-		$upgrade = Null;
+		
 		if(Yii::app()->user->isAdmin()){
+			$config = Config::model();
+			
+			// update schema.
+			$schema = new Schema;
+			if(!$schema->isSchemaUptodate($config->getOCAxVersion())){
+				$schema->migrate();
+				$postInstallChecked = $config->findByPk('siteConfigStatusPostInstallChecked');
+				$postInstallChecked->value = 0;
+				$postInstallChecked->save();			
+			}
+			// check for OCAx updates once a week
 			$latest_version_file = Yii::app()->basePath.'/runtime/latest.ocax.version';
-			if (file_exists($latest_version_file)) {
+			if (!file_exists($latest_version_file))
+				$config->updateVersionInfo();
+			else{
 				$date = new DateTime();
-	
-				if( $date->getTimestamp() - filemtime($latest_version_file) > 86400 ){ //604800 a week
-					$context = stream_context_create(array(
-						'http' => array(
-						'header' => 'Content-type: application/x-www-form-urlencoded',
-						'method' => 'GET',
-						'timeout' => 5
-					)));
-					if($result = @file_get_contents('http://ocax.net/network/current/version', 0, $context)){
-						$new_version = json_decode($result);
-						if(isset($new_version->ocax))
-							file_put_contents($latest_version_file, $new_version->ocax);
-					}
-				}
-			}else
-				copy(Yii::app()->basePath.'/data/ocax.version', Yii::app()->basePath.'/runtime/latest.ocax.version');
-
-			$installed_version = getOCAXVersion();
-			$installed_version = str_replace('.','',$installed_version );
-			$installed_version = str_pad($installed_version, 10 , '0');			
-			
-			$latest_version = file_get_contents($latest_version_file);
-			$latest_version = str_replace('.','',$latest_version );
-			$latest_version = str_pad($latest_version, 10 , '0');
-			
-			if($latest_version > $installed_version)
-				$upgrade = file_get_contents($latest_version_file);
+				if( $date->getTimestamp() - filemtime($latest_version_file) > 86400 ) // 604800 a week
+					$config->updateVersionInfo();
+			}
+			if($config->isOCAXUptodate())
+				$config->updateSiteConfigurationStatus('siteConfigStatusUptodate', 1);
+			else
+				$config->updateSiteConfigurationStatus('siteConfigStatusUptodate', 0);
 		}
-
-
 		$this->render('panel',array(
-			'model'=>$this->loadModel($user->id),
-			'enquirys'=>$enquirys,
-			'subscribed'=>$subscribed,
-			'upgrade'=>$upgrade,
+				'model'=>$this->loadModel($user->id),
+				'enquirys'=>$enquirys,
+				'subscribed'=>$subscribed,
 		));
 	}
 
@@ -187,7 +170,7 @@ class UserController extends Controller
 
 				if(!$model->validate()){
 					$this->render('update',array('model'=>$model,));
-					yii:app()->end();
+					Yii:app()->end();
 				}
 				$model->salt=$model->generateSalt();
 				$model->password = $model->hashPassword($model->new_password,$model->salt);
@@ -195,14 +178,13 @@ class UserController extends Controller
 			if($email != $model->email)
 				$model->is_active=0;
 
-			//if($language != $model->language){
+			if($model->save()){
+
 				Yii::app()->language = $model->language;
 				$cookie = new CHttpCookie('lang', $model->language);
-				$cookie->expire = time()+60*60*24*180; 
+				$cookie->expire = time()+60*60*24*180;
 				Yii::app()->request->cookies['lang'] = $cookie;
-			//}
 
-			if($model->save()){
 				Yii::app()->user->setFlash('success', __('Changes saved Ok'));
 				if(!$model->is_active)
 					$this->redirect(array('/site/sendActivationCode'));
@@ -225,7 +207,7 @@ class UserController extends Controller
 			if(isset($_GET['confirmed'])){
 				$block = new BlockUser;
 				if(! $block->findByAttributes(array('user'=>$userid, 'blocked_user'=>$blocked_user->id))){
-	
+
 					$block->user=$userid;
 					$block->blocked_user=$blocked_user->id;
 					$block->save();
@@ -250,8 +232,10 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			if($model->save())
+			if($model->save()){
+				Log::model()->write('User',__('User permissiones changed for').' "'.$model->username.'"',$model->id);
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('updateRoles',array(
@@ -266,13 +250,25 @@ class UserController extends Controller
 	public function actionDisable($id)
 	{
 		$model=$this->loadModel($id);
-		$model->is_active = 0;
-		$model->is_disabled = 1;
-		$model->save();
-		Yii::app()->user->setFlash('success', __('User disabled'));
-		echo 1;
+		$model->disableUser();
+		if(Yii::app()->request->isAjaxRequest){
+			Yii::app()->user->setFlash('success', __('User disabled'));
+			echo 1;
+		}else
+			$this->redirect(array('view','id'=>$model->id));
 	}
 
+	public function actionEnable($id)
+	{
+		$model=$this->loadModel($id);
+		$model->enableUser();
+		$this->redirect(array('view','id'=>$model->id));
+	}
+
+	/*
+	 * The user deletes his account
+	 * We don't delete the database entry because it might be referenced by other models
+	 */
 	public function actionOptout()
 	{
 		if(Yii::app()->user->isGuest){
@@ -280,15 +276,10 @@ class UserController extends Controller
 			Yii:app()->end();
 		}
 		$model=$this->loadModel(Yii::app()->user->getUserID());
-		
-		$model->scenario = 'opt_out';
-		$model->is_active = 0;
-		$model->is_disabled = 1;
-		$model->username = '░░░░░░░░░';
-		$model->fullname = '░░░░░░░░░';
-		$model->email = '░░░░░░░░░';
-		
-		$model->save();			
+
+		$username = $model->username;
+		$model->smudgeUser();
+
 		Yii::app()->user->logout();
 		//Yii::app()->user->setFlash('success', __('Your profile has been deleted.'));
 		$this->redirect(Yii::app()->homeUrl);
@@ -302,22 +293,9 @@ class UserController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
-/*
-		foreach($model->comments as $comment)
-			$comment->delete();
-		foreach($model->votes as $vote)
-			$vote->delete();
-		foreach($model->enquirySubscribes as $subscription)
-			$subscription->delete();
-		foreach($model->resetPasswords as $resetPassword)
-			$resetPassword->delete();
-			
-		$model->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-*/
+		$model->smudgeUser();
+		Yii::app()->user->setFlash('success', __('User deleted'));
+		$this->redirect(array('/user/admin'));
 	}
 
 	/**

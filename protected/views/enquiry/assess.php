@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,9 +24,10 @@
 $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
-
+$this->inlineHelp=':manual:enquiry:assess';
+$this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <style>           
@@ -91,7 +92,7 @@ function negative(){
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
 			<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/managed';">No</button>
+			<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl?>/enquiry/assigned';">No</button>
     </div>
 <?php endif; ?>
 

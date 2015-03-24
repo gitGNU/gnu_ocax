@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -65,6 +65,14 @@ class Budget extends CActiveRecord
 	}
 
 	/**
+	 * @return string this models log prefix
+	 */
+	public function logPrefix()
+	{
+		return 'budget';
+	}
+
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -73,17 +81,18 @@ class Budget extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('year, concept, initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4, featured', 'required'),
-			array('parent, year, featured, weight', 'numerical', 'integerOnly'=>true),
+			array('parent, featured, weight', 'numerical', 'integerOnly'=>true),
+			array('year', 'date', 'format'=>'yyyy'),
 			array('initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4', 'type', 'type'=>'float'),
 			//array('initial_provision, actual_provision, t1, t2, t3, t4', 'length', 'max'=>14),
 			array('code', 'length', 'max'=>20),
-			array('csv_id, csv_parent_id', 'length', 'max'=>100),
+			array('csv_id, csv_parent_id', 'length', 'max'=>255),
 			//array('csv_id', 'unique', 'className' => 'Budget'),	// this is a good idea but need to check against year
 			array('label, concept', 'length', 'max'=>255),
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, parent, year, code, label, concept, provision, featured, weight', 'safe', 'on'=>'search'),
+			array('parent, year, code, label, concept, provision, featured, weight', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,9 +105,19 @@ class Budget extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'parent0' => array(self::BELONGS_TO, 'Budget', 'parent'),
-			'budgets' => array(self::HAS_MANY, 'Budget', 'parent'),
+			'budgets'=>array(self::HAS_MANY, 'Budget', 'parent', 'order'=>'budgets.csv_id ASC'),
 			'enquirys' => array(self::HAS_MANY, 'Enquiry', 'budget'),
 		);
+	}
+
+	public function orderChildBudgets()
+	{
+		$budgtes = $this->with(array(
+			'budget'=>array(
+					'order'=>'budget.id',
+			),
+		));
+		$this->budgets = $budgets;
 	}
 
 	public function behaviors()  {
@@ -126,6 +145,7 @@ class Budget extends CActiveRecord
 			'trimester_2' => __('Trimester 2'),
 			'trimester_3' => __('Trimester 3'),
 			'trimester_4' => __('Trimester 4'),
+			'featured' => __('Featured'),
 			'weight' => __('Weight'),
 		);
 	}
@@ -133,7 +153,6 @@ class Budget extends CActiveRecord
 	public function getYearString()
 	{
 		return CHtml::encode($this->year);
-		//return CHtml::encode($this->year).' - '.CHtml::encode($this->year +1);
 	}
 
 	public function getLabel()
@@ -168,20 +187,23 @@ class Budget extends CActiveRecord
 		$lang=Yii::app()->language;
 		if($description = BudgetDescLocal::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
 			if($description->label)
-				$label = $description->label.': ';
+				$label = $description->label;
 			if($description->concept)
 				$concept = $description->concept;
-			if($concept)
-				return $label.$concept;
+			if($label && $concept)
+				return $label.': '.$concept;
 		}
 		if($description = BudgetDescCommon::model()->findByAttributes(array('csv_id'=>$this->csv_id, 'language'=>$lang))){
-			if($description->label)
-				$label = $description->label.': ';
-			if($description->concept)
-				$concept = $description->concept;				
-			return $label.$concept;
+			if($description->label && !$label)
+				$label = $description->label;
+			if($description->concept && !$concept)
+				$concept = $description->concept;			
 		}
-		return $this->concept;
+		if($label && $concept)
+			return $label.': '.$concept;
+		if($concept)
+			return $concept;
+		return $this->concept;	// data imported with csv		
 	}
 
 	public function getDescription()
@@ -247,21 +269,45 @@ class Budget extends CActiveRecord
 		return $this->findAll(array('condition'=>'parent IS NULL AND code = 1','order'=>'year DESC'));
 	}
 
+	public function getFeatured()
+	{
+		if(!$this->year)
+			return Null;
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('featured = 1');
+		$criteria->addCondition('year = '.$this->year);
+		$criteria->order = 'weight DESC';
+		return $this->findAll($criteria);
+	}
+
+	public function refreshFeaturedWeights()
+	{
+		$featuredBudgets = $this->getFeatured();
+		$weight = count($featuredBudgets);
+		foreach($featuredBudgets as $budget){
+			$budget->weight = $weight;
+			$budget->save();
+			$weight--;
+		}
+	}
+
 	/**
 	 * Dump the budget table
 	 */
 	public function dumpBudgets()
 	{
 		$timestamp = time();
-		$fileName = 'budget-dump-'.date('Y-m-d-H-i-s',$timestamp).'.sql';
 
-		$file = new File;
+		$file = new File();
+		$file->baseDir = Yii::app()->basePath;
 		$file->model = get_class($this);
-		$file->path = '/files/'.$file->model.'/'.$fileName;
-		$file->name = __('Budget table saved on the').' '.date('d-m-Y H:i:s',$timestamp);
+		$file->path = '/runtime/'.$file->model;
+		
+		if(!is_dir($file->getURI()))
+			createDirectory($file->getURI());		
 
-		if(!is_dir($file->baseDir.'/files/'.$file->model))	// should move this to model beforeSave.
-			mkdir($file->baseDir.'/files/'.$file->model, 0700, true);
+		$file->path = $file->path.'/budget-dump-'.date('Y-m-d-H-i-s',$timestamp).'.sql';
+		$file->name = __('Budget table saved on the').' '.date('d-m-Y H:i:s',$timestamp);
 
 		$backup = new Backup();
 		if($error = $backup->dumpDatabase($file->getURI(), 'budget')){
@@ -279,38 +325,14 @@ class Budget extends CActiveRecord
 	 */
 	public function restoreBudgets($file_id)
 	{
+		Yii::import('application.includes.*');
+		require_once('runSQL.php');
+
 		$file = File::model()->findByPk($file_id);
 		if(!$file)
 			Yii::app()->end();
 		
-		// http://www.cnblogs.com/davidhhuan/archive/2011/12/30/2306841.html
-        $pdo = Yii::app()->db->pdoInstance;
-        try 
-        { 
-            if (file_exists($file->getURI())) 
-            {
-                $sqlStream = file_get_contents($file->getURI());
-                $sqlStream = rtrim($sqlStream);
-                $newStream = preg_replace_callback("/\((.*)\)/", create_function('$matches', 'return str_replace(";"," $$$ ",$matches[0]);'), $sqlStream); 
-                $sqlArray = explode(";", $newStream); 
-                foreach ($sqlArray as $value) 
-                { 
-                    if (!empty($value))
-                    {
-                        $sql = str_replace(" $$$ ", ";", $value) . ";";
-                        $pdo->exec($sql);
-                    } 
-                } 
-                //echo "succeed to import the sql data!";
-                return true;
-            } 
-        } 
-        catch (PDOException $e) 
-        { 
-            echo $e->getMessage();
-            exit; 
-        }
-		
+		return runSQLFile($file->getURI());
 /*
 		$params = getMySqlParams();
 		$output = NULL;
@@ -320,6 +342,31 @@ class Budget extends CActiveRecord
 		exec($command, $output, $return_var);
 		echo $return_var;
 */
+	}
+
+	/*
+	 * After importing a CSV we can find base budgets and feature them
+	 */
+	public function autoFeatureBudgets()
+	{
+		/*
+		Yii::app()->db->createCommand()->update(
+						'budget',	// table
+						array('featured'=>1),	// column to update
+						'char_length(csv_id) = 3 AND year = :year',	// condition (should improve this with regex)
+						array(':year'=>$this->year)	// params
+					);
+		*/
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = '.$this->year.' AND char_length(csv_id) = 3';
+		$budgets= $this->findAll($criteria);
+		foreach($budgets as $budget){
+			if($budget->featured == 1)
+				continue;
+			$budget->featured=1;
+			$budget->save();
+			$this->refreshFeaturedWeights();
+		}
 	}
 
 	public function budgetsWithoutDescription()
@@ -354,6 +401,26 @@ class Budget extends CActiveRecord
 												'pagination'=>array('pageSize'=>10),
 											));
 	}
+
+	public function getYearsBudgetCount()
+	{
+		$sql = 'SELECT COUNT(*) FROM budget where year = '.$this->year.' AND parent IS NOT NULL';
+		return Yii::app()->db->createCommand($sql)->queryScalar();
+	}
+
+	public function getYearsTotalEnquiries()
+	{
+		$year = $this->year;
+		$sql ="SELECT budget.id, budget.year, enquiry.budget
+				FROM budget
+				INNER JOIN enquiry
+				ON budget.id=enquiry.budget
+				WHERE budget.year = '$year'"; 
+
+		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+		return Yii::app()->db->createCommand($cnt)->queryScalar();
+	}
+
 
 	public function publicSearch()
 	{
@@ -513,10 +580,12 @@ class Budget extends CActiveRecord
 		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
 		foreach($root_budgets as $budget){
 			if($budget->code == 0)	// this year not published
-				$criteria->addCondition('year != '.$budget->year);			
+				$criteria->addCondition('year != '.$budget->year);
 		}
 		$criteria->addCondition('parent is not null');	// dont show year budget
-
+		$criteria->addCondition('CHAR_LENGTH(t.csv_id) > 1');	// don't show 'S' or 'I', etc
+		
+		$criteria->compare('csv_id',$this->csv_id, true);
 		$criteria->compare('year',$this->year);
 		$criteria->compare('code',$this->code);
 		$criteria->compare('concept',$this->concept,true);
@@ -546,6 +615,7 @@ class Budget extends CActiveRecord
 		$criteria->addCondition('CHAR_LENGTH(t.csv_id) > 1');	// don't show 'S' o 'I', etc
 		
 		$criteria->compare('t.featured', $this->featured);
+		$criteria->compare('t.weight', $this->weight);
 		$criteria->compare('t.code', $this->code);
 		$criteria->compare('t.concept', $this->concept, true);
 		$criteria->compare('t.csv_id', $this->csv_id, true);
@@ -553,10 +623,28 @@ class Budget extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'t.csv_id ASC'),
+			'sort'=>array('defaultOrder'=>'t.featured DESC, t.weight DESC, t.csv_id ASC'),
 		));
 	}
 
+	/*
+	 * budgets displayed in the grid for deletetion
+	 */
+	public function deleteTreeSearch()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = '.$this->year.' AND parent IS NOT NULL';
+		
+		$criteria->compare('code', $this->code);
+		$criteria->compare('concept', $this->concept, true);
+		$criteria->compare('csv_id', $this->csv_id, true);
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'csv_id ASC'),
+		));		
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

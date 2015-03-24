@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,26 +38,22 @@ $(document).ready(function() {
 		$('#enquiry-form').find(':textarea:not(:disabled)').prop('disabled',true);
 	}
 });
-function showChangedAddressedToMSG(el){
-	if($(el).val() == 1){	// want to address to the observatory
-		$('#addressed_to_msg').bPopup({
-			modalClose: false
-			, follow: ([false,false])
-			, positionStyle: 'absolute'
-			, modelColor: '#ae34d5'
-			, speed: 10
-		});
-	}
-}
-function closeChangedAddressedToMSG(choice){
-	$('#addressed_to_msg').bPopup().close();
-	$('#Enquiry_addressed_to_' + choice).prop('checked',true);
-}
 function submitForm(){
 	$('.loading_gif').show();
 	$('input[type=button]').prop("disabled",true);
 	document.forms['enquiry-form'].submit();
 }
+<?php if ($model->team_member == Yii::app()->user->getUserID()) { ?>
+$(function() {
+	$("#Enquiry_addressed_to_1").on('click', function() {
+		var val = confirm("<?php echo __('Are you sure?');?>");
+		if(val == false){
+			$('#Enquiry_addressed_to_1').prop("checked",false);
+			$('#Enquiry_addressed_to_0').prop("checked",true);
+		}
+	});
+})
+<?php } ?>
 </script>
 
 
@@ -84,7 +80,7 @@ function submitForm(){
 			if($model->budget){
 				echo '<div class="row" style="margin:0px 0px 0px -10px;">';
 				$budget=Budget::model()->findByPk($model->budget);
-				$this->renderPartial('//budget/_enquiryView',array('model'=>$budget,'showMore'=>1));
+				$this->renderPartial('_budgetDetails',array('model'=>$budget,'showMore'=>1));
 				echo '</div>';
 			}
 		}
@@ -103,7 +99,23 @@ function submitForm(){
 		<?php echo $form->labelEx($model,'body'); ?>
 
 <?php
-$this->widget('ext.tinymce.TinyMce', array(
+$settings=array('convert_urls'=>true,
+				'relative_urls'=>false,
+				'remove_script_host'=>false,
+				'theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,bullist,numlist,|,link,unlink",
+				//'entity_encoding' => "raw",
+				'theme_advanced_resize_horizontal' => 0,
+				'theme_advanced_resize_vertical' => 0,
+				'theme_advanced_resizing_use_cookie' => false,
+				'width'=>'100%',
+				'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,br,ul,ol,li",
+			);
+if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
+	$settings['useCompression']=true;
+else
+	$settings['useCompression']=false;
+
+$init = array(
     'model' => $model,
     'attribute' => 'body',
     'compressorRoute' => 'tinyMce/compressor',
@@ -111,37 +123,25 @@ $this->widget('ext.tinymce.TinyMce', array(
     //'spellcheckerUrl' => array('tinyMce/spellchecker'),
     // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
     'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-	'settings' => array('convert_urls'=>true,
-						'relative_urls'=>false,
-						'remove_script_host'=>false,
-						//'entity_encoding' => "raw",
-						'theme_advanced_resize_horizontal' => 0,
-						'theme_advanced_resize_vertical' => 0,
-						'theme_advanced_resizing_use_cookie' => false,
-						'width'=>'100%',
-						'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li",
-						),
-));
+	'settings' => $settings,
+);
+if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
+		unset($init['compressorRoute']);
+
+$this->widget('ext.tinymce.TinyMce', $init);
+echo $form->error($model,'body');
 ?>
-		<?php echo $form->error($model,'body'); ?>
 	</div>
-	
-	<div class="row">
-	<?php
-			echo '<p style="margin-bottom:-5px">';
-			echo '<span style="float:left;margin-right:5px;">'.__('You address this enquiry to').'</span> ';
-			echo '<span style="float:left">';
-			echo $form->radioButtonList($model,'addressed_to',
-										$model->getHumanAddressedTo(),
-										array(	'labelOptions'=>array('style'=>'display:inline'),
-												'separator'=>'<br />',
-												'onchange'=>'js:showChangedAddressedToMSG(this);return false;',
-											)
-									);
-			echo '</span></p><div style="clear:both;margin-bottom:-5px;"></div>';
-	?>
-	</div>
-	
+
+	<?php if ($model->team_member == Yii::app()->user->getUserID()) {
+		echo '<div style="font-size:16px;">'.__('Who will reply to this enquiry?').'</div>';
+		echo $form->radioButtonList($model,'addressed_to',
+			$model->getHumanAddressedTo(),
+			array('labelOptions'=>array('style'=>'display:inline'))
+		);
+		echo '<p></p>';
+	} ?>
+
 	<div class="row buttons">
 		<?php $buttonText = $model->isNewRecord ? __('Send') : __('Update') ?>
 		<input type="button" onclick="submitForm()" value="<?php echo $buttonText; ?>">
@@ -163,15 +163,3 @@ $this->widget('ext.tinymce.TinyMce', array(
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-
-<div id="addressed_to_msg" class="modal" style="width:450px;">
-<h1><?php echo __('A reminder');?></h1>
-<p><?php echo __('ADDRESSED_TO_MSG');?></p>
-<p style="margin-bottom:10px"><?php echo __('Who do you want to address the enquiry to?');?></p>
-<div style="text-align:center">
-<input type="button" value="<?php echo $model->getHumanAddressedTo(ADMINISTRATION);?>" onclick="js:closeChangedAddressedToMSG(0)" />
-&nbsp;&nbsp;&nbsp;
-<input type="button" value="<?php echo $model->getHumanAddressedTo(OBSERVATORY);?>" onclick="js:closeChangedAddressedToMSG(1)" />
-</div>
-</div>
-

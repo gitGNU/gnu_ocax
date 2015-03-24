@@ -1,7 +1,7 @@
 <?php
 
 /**
-OCAX -- Citizen driven Municipal Observatory software
+OCAX -- Citizen driven Observatory software
 Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
@@ -20,8 +20,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class InlineHelp extends CWidget
 {
-	public $padParams='';
-	
     public function run()
     {
 		?>
@@ -29,25 +27,35 @@ class InlineHelp extends CWidget
 <style>iframe{min-height:500px;}</style>
 <script src="<?php echo Yii::app()->request->baseUrl;?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
+function helpModal2Page(){
+	var url = $('#help_popup').attr('url');
+	$('#help_popup').bPopup().close();
+	window.open(url);
+}
 function showHelp(url){
-		$('#help').bPopup({
+		$('#help_popup').attr('url', url);
+		$('#help_popup').bPopup({
 			modalClose: false,
 			follow: ([false,false]),
 			speed: 10,
 			positionStyle: 'absolute',
 			modelColor: '#ae34d5',
 			content:'iframe',
-			iframeAttr:'width=900px scrolling=auto',
-			contentContainer:'#helpContent',
+			iframeAttr:'width=916px scrolling=auto',
+			contentContainer:'#help_popup_content',
 			loadUrl:url,
 			/*loadCallback: function(){ $('.loading_help').hide(); },*/
 		});
 }
 </script>
-<div id="help" class="modal" style="width:900px;scrolling:auto;padding:0px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="helpContent"></div>
+
+<div id="help_popup" class="modal" style="width:900px;" url="">
+	<div class="modalTitle"><?php echo __('Help');?></div>
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<i class='icon-popup modalWindowButton bModal2Page' onclick="js:helpModal2Page();"></i>
+	<div id="help_popup_content" style="padding:0px; margin:0px 0px -8px -8px;"></div>
 </div>
+
 <!-- help widget stop -->
 <?php
     }

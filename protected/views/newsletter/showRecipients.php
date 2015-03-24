@@ -20,7 +20,7 @@
 
 ?>
 
-<div class="sub_title">
+<div class="modalTitle">
 <?php 
 	if($draft)
 		echo __('Will send to all users at').' '.Config::model()->findByPk('siglas')->value;

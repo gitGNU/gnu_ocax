@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -27,9 +27,9 @@ $this_year=$model->find($criteria);
 
 $this->menu=array(
 	array('label'=>__('Edit year').' '.$model->year, 'url'=>array('/budget/updateYear/'.$this_year->id)),
-	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:admin:budgets';
+$this->inlineHelp=':manual:budget:featured';
 ?>
 
 <script>
@@ -37,7 +37,25 @@ function featureBudget(budget_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/feature',
 		type: 'GET',
-		data: {'id': budget_id },
+		data: {'id': budget_id},
+		success: function(data){
+			if(data != 0){
+				$('#budget-grid :input[type=text]').val('');
+  				$.fn.yiiGridView.update('budget-grid', {
+					data: $(this).serialize()
+				});
+			}
+		},
+		error: function() {
+			alert("Error on Feature budget");
+		}
+	});
+}
+function changeWeight(budget_id, increment){
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/changeWeight',
+		type: 'GET',
+		data: {'id': budget_id, 'increment': increment},
 		success: function(data){
 			if(data != 0){
   				$.fn.yiiGridView.update('budget-grid', {
@@ -46,7 +64,7 @@ function featureBudget(budget_id){
 			}
 		},
 		error: function() {
-			alert("Error on Feature budget");
+			alert("Error on budget/changeWeight");
 		}
 	});
 }
@@ -62,26 +80,41 @@ function featureBudget(budget_id){
 	'dataProvider'=>$model->featuredSearch(),
 	'filter'=>$model,
 	'columns'=>array(
-		'featured',
+		//'featured',
+		//'weight',
 		array(
 			'header'=>__('Concept'),
 			'name'=>'concept',
 			'value'=>'Budget::model()->findByPk($data[\'id\'])->getConcept()',
 		),
-		'code',
+		//'code',
 		'csv_id',
 		array(
 			'class'=>'CButtonColumn',
+			'htmlOptions' => array('style' => 'width:70px; text-align:right'),
 			'buttons' => array(
+				'up' => array(
+					'label'=> '<i class="icon-up green"></i>',
+					'visible'=>'$data->featured',
+					'url'=> '"javascript:changeWeight(\"".$data->id."\",+1);"',
+				),
+				'down' => array(
+					'label'=> '<i class="icon-down green"></i>',
+					'visible'=>'$data->featured',
+					'url'=> '"javascript:changeWeight(\"".$data->id."\",-1);"',
+				),
 				'feature' => array(
-					'label'=> __('Feature budget'),
+					'label'=> '<i class="icon-star green"></i>',
+					'visible'=>'$data->featured',
 					'url'=> '"javascript:featureBudget(\"".$data->id."\");"',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/insert_icon.png',
-					'visible' => 'true',
+				),
+				'unfeature' => array(
+					'label'=> '<i class="icon-star-empty green"></i>',
+					'visible'=>'!$data->featured',
+					'url'=> '"javascript:featureBudget(\"".$data->id."\");"',
 				)
-
 			),
-			'template'=>'{feature}',
+			'template'=>'{up}{down} {feature}{unfeature}',
 		),
 	),
 )); ?>

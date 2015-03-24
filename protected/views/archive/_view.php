@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -23,19 +23,25 @@
 
 <div class="archive" >
 	<?php
-
 		echo '<span class="created">'.format_date($data->created).'</span>';
+		echo '<div class="alert showLinkAlert"></div>';
+		echo '<i class="showLink icon-link" onclick="js:showLink('.$data->id.',this);return false;"></i>';
 		if($data->author == $user_id || $is_admin)
-			echo '<span class="delete" onClick="js:deleteArchive('.$data->id.')">'.__('Delete').'</span>';
+			echo '<i class="icon-cancel-circled  delete red" onClick="js:deleteArchive('.$data->id.')"></i>';
 
-		echo '<a href="'.$data->getWebPath().'">';
-		echo '<div style="padding-left:3px;overflow:hidden;">';
-		echo '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/'.$data->extension.'.png"/>';
-		echo '<span class="name">'.CHtml::encode($data->name).'</span>';
-		echo '</div>';
-		echo '<div style="clear:both"></div>';
-		echo '<div class="description">'.CHtml::encode($data->description).'</div>';
-
+		//echo '<a href="'.$data->getWebPath().'">';
+		echo '<a href="'.Yii::app()->baseUrl.'/archive/'.$data->id.'">';
+			echo '<div style="padding-left:3px;overflow:hidden;">';
+			$name = CHtml::encode($data->name);
+			$icon = '/images/fileicons/'.strtolower($data->extension).'.png';
+			if(file_exists(dirname(Yii::app()->request->scriptFile).$icon))
+				echo '<img class="icon" src="'.Yii::app()->baseUrl.$icon.'"/>';
+			elseif($data->extension)
+				$name = $name.'.'.$data->extension;
+			echo '<span class="name">'.$name.'</span>';
+			echo '</div>';
+			echo '<div style="clear:both"></div>';
+			echo '<div class="description">'.CHtml::encode($data->description).'</div>';
 		echo '</a>';
 	?>
 </div>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -44,9 +44,16 @@ else{
 
 if(isset($showLinks)){
 	$budgetModal = array('onclick'=>'js:showBudget('.$model->id.', this);return false;');
+	$create_enquiry_link = '';
+	if(isset($showCreateEnquiry)){
 	$create_enquiry_link = 	'<span style="float:right">'.
 							CHtml::link(__('New enquiry'), $this->createAbsoluteUrl('enquiry/create?budget='.$model->id)).
 							'</span>';
+	}elseif(!isset($showMore)){
+		$create_enquiry_link = 	'<span style="float:right">'.
+								'<a href="'.$this->createAbsoluteUrl('budget/view/'.$model->id).'" onClick="js:showBudget('.$model->id.', this);return false;">'.__('More detail').'</a>';
+								'</span>';
+	}
 	if($enquiry_count){
 		if($enquiry_count == 1){
 			if((isset($enquiry) && $enquiry->budget == $model->id) || isset($showMore))
@@ -62,7 +69,6 @@ if(isset($showLinks)){
 	}else
 		$enquiries = '0 '.__('enquiries made').' '.$create_enquiry_link;
 
-	//$budget_concept= CHtml::link($model->getConcept(), array('budget/view', 'id'=>$model->id), $budgetModal);
 	$budget_concept= CHtml::link($model->getConcept(), $this->createAbsoluteUrl('budget/view',array('id'=>$model->id)), $budgetModal);
 }else{
 	if($enquiry_count){
@@ -76,38 +82,36 @@ if(isset($showLinks)){
 }
 
 $percentage = '<span style="float:right">'.$model->getPercentage().'% '.__('of total').'</span>';
+
+$yearCode_value = ($model->code)? $model->getYearString().' / '.$model->code : $model->getYearString();
+if(isset($showLinks) && isset($showMore) && $model->budgets){
+		$htmlOptions = array('style'=>'float:right;');
+		if(Yii::app()->request->isAjaxRequest)
+			$htmlOptions['target'] = '_blank';
+		$link = CHtml::link(' <i class="icon-chart-pie color"></i>'.__('Graph'),
+							array(	'budget/graph',
+									'id'=>$model->id
+							),
+							$htmlOptions
+						);
+		$yearCode_value = $yearCode_value.$link;
+}
+	
 $attributes=array(
-/*
 		array(
 	        'label'=>($model->code)? __('Year / Code'):__('Year'),
 	        'type'=>'raw',
-	        'value'=>($model->code)? $model->getCategory().' '.$model->getYearString().'/'.$model->code.$compareYears : $model->getYearString().$compareYears,
-		),
-*/
-/*
-		array(
-	        'label'=>($model->code)? __('Code'):'',
-	        'type'=>'raw',
-	        'value'=>($model->code)? $model->code.$compareYears : $compareYears,
-		),
-*/
-		array(
-	        'label'=>($model->code)? __('Year / Code'):__('Year'),
-	        'type'=>'raw',
-	        'value'=>($model->code)? $model->getYearString().' / '.$model->code : $model->getYearString(),
+	        'value'=>$yearCode_value,
 		),
 		array('name'=>'actual_provision', 'type'=>'raw', 'value'=>format_number($model->actual_provision).' '.$percentage),
 		array(
 	        'label'=>__('Euros per person'),
 	        'value'=>format_number($model->actual_provision / $model->getPopulation()),
 		),
-
 	);
 
 if(!isset($hideConcept)){
 	$label=$model->getLabel();
-	//if(isset($showLinks))
-	//	$label .=' <img style="margin-top:1px;margin-right:-13px;float:right;" src="'.Yii::app()->getBaseUrl(true).'/images/info_small.png" />';
 	$row =	array(
 				array(
 					'label'=>$label,
@@ -118,37 +122,58 @@ if(!isset($hideConcept)){
 	array_splice( $attributes, 0, 0, $row );
 }
 if(!isset($showMore)){
-	$row =	array(
+	$attributes[] =	array(
 	       		'label'=>__('Enquiries'),
 				'type'=>'raw',
 				'value'=>$enquiries,
 			);
-	$attributes[]=$row;
 }
+if(isset($showMore)){
+	$attributes[]=array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision));
 
+	if($executed = $model->getExecuted()){
+		$attributes[]=array(
+						'label'=>__('Executed'),
+						'type'=>'raw',
+						'value'=>'<a href="#" onclick="js:$(\'#trimesters\').toggle(); return false;">'.format_number($executed).'</a>',
+					);
+	}else{
+		$attributes[]=array(
+						'label'=>__('Executed'),
+						'type'=>'raw',
+						'value'=>__('Unknown'),
+					);
+	}		
+}
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>$attributes,
 ));
 
 if(isset($showMore)){
-	$this->widget('zii.widgets.CDetailView', array(
-	
-	'data'=>$model,
-	'attributes'=>array(
-					array('name'=>'initial_provision', 'type'=>'raw', 'value'=>format_number($model->initial_provision)),
-					array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1)),
-					array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2)),
-					array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3)),
-					array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4)),
-					array(
-	        			'label'=>__('Enquiries'),
-						'type'=>'raw',
-						'value'=>$enquiries,
-					),
-				),
-	));
+	if($executed = $model->getExecuted()){
+		$attributes=array();
+		$attributes[]=array('name'=>'trimester_1', 'type'=>'raw', 'value'=>format_number($model->trimester_1));
+		$attributes[]=array('name'=>'trimester_2', 'type'=>'raw', 'value'=>format_number($model->trimester_2));
+		$attributes[]=array('name'=>'trimester_3', 'type'=>'raw', 'value'=>format_number($model->trimester_3));
+		$attributes[]=array('name'=>'trimester_4', 'type'=>'raw', 'value'=>format_number($model->trimester_4));
 
+		echo '<div id="trimesters" style="display:none;">';
+		$this->widget('zii.widgets.CDetailView', array(
+			'data'=>$model,
+			'attributes'=>$attributes,
+		));
+		echo '</div>';
+	}	
+	$this->widget('zii.widgets.CDetailView', array(
+		'data'=>$model,
+		'attributes'=>array(
+				array(
+	       			'label'=>__('Enquiries'),
+					'type'=>'raw',
+					'value'=>$enquiries,
+				)),
+	));
 }
 ?>
 

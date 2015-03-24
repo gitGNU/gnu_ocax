@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 
@@ -42,13 +42,42 @@ $this->menu=array(
 	array('label'=>__('View User'), 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>__('Manage Users'), 'url'=>array('admin')),
 );
+
+if(Yii::app()->user->getUserID() != $model->id){
+	if(!$model->enquirys){
+		$item= array(	array(	'label'=>__('Delete user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>__('Are you sure you want to delete this item?'))
+						));
+		array_splice( $this->menu, 1, 0, $item );
+	}
+	if($model->is_disabled){
+		$item = array( array('label'=>__('Enable user'), 'url'=>array('enable', 'id'=>$model->id)));
+		array_splice( $this->menu, 1, 0, $item );
+	}else{
+		$item = array( array(	'label'=>__('Disable user'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('disable', 'id'=>$model->id))));
+		array_splice( $this->menu, 1, 0, $item );	
+	}
+}
+
+$this->inlineHelp=':manual:user:updateroles';
+$this->viewLog='User|'.$model->id;
 ?>
 
-<style>           
+<style>
 	.left{width: 48%; float: left;  margin: 0px;}
 	.right{width: 48%; float: left; margin: 0px;}
 	.clear{clear:both;}
 </style>
+
+<script>
+$(document).on('change', 'input[type="checkbox"]', function(e) {
+	if( $(this).prop('checked') ){
+		if($(this).attr('id') != 'User_is_description_editor')
+			$('#User_is_description_editor').prop('checked', true);
+	}
+});
+</script>
 
 <div class="form">
 
@@ -74,6 +103,14 @@ $this->menu=array(
 <div>
 	<?php changeColumn();?>
 	<div class="row">
+		<?php echo $form->labelEx($model,'is_description_editor'); ?>
+		<?php echo $form->checkBox($model,'is_description_editor', array('checked'=>$model->is_description_editor)); ?>
+		<?php echo __('Can edit budget descriptions').'.';?>
+	</div>
+	</div>
+
+	<?php changeColumn();?>
+	<div class="row">
 		<?php echo $form->labelEx($model,'is_team_member'); ?>
 		<?php echo $form->checkBox($model,'is_team_member', array('checked'=>$model->is_team_member)); ?>
 		<?php echo __('Manage the enquiries you are responsable for').'.';?>
@@ -84,13 +121,13 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_editor'); ?>
 		<?php echo $form->checkBox($model,'is_editor', array('checked'=>$model->is_editor)); ?>
-		CMS site editor.
+		<?php __('Page editor');?>.
 	</div>
 	</div>
 
 	<?php changeColumn();?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'is_manager'); ?> 
+		<?php echo $form->labelEx($model,'is_manager'); ?>
 		<?php echo $form->checkBox($model,'is_manager', array('checked'=>$model->is_manager)); ?>
 		<?php echo __('Assign enquiries to team members and check status').'.';?>
 	</div>

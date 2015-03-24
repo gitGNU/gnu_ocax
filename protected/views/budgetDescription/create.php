@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,9 +22,13 @@
 /* @var $model BudgetDescription */
 
 $this->menu=array(
-	array('label'=>__('Manage descriptions'), 'url'=>array('admin')),
+	array('label'=>__('View description').'<i class="icon-popup-1"></i>', 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:viewSavedLocalDescription();')),
+	array('label'=>__('Local descriptions'), 'url'=>array('admin')),
+	array('label'=>__('Common descriptions'), 'url'=>array('budgetDescription/browseCommon')),
+	array('label'=>__('State descriptions'), 'url'=>array('budgetDescription/browseState')),
 );
-$this->inlineHelp=':budget_descriptions';
+$this->inlineHelp=':manual:budgetdescription:update';
+$this->viewLog='BudgetDescription';
+$this->extraText = $this->renderPartial('_legend',null,true,false);
 ?>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model,'title'=>__('Create description'))); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

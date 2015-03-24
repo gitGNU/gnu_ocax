@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,56 +19,45 @@
  */
 
 /* @var $this BudgetDescriptionController */
-/* @var $model BudgetDescription */
+/* @var $model BudgetDescLocal */
 
 
 $this->menu=array(
+	array('label'=>__('Common descriptions'), 'url'=>array('budgetDescription/browseCommon')),
+	array('label'=>__('State descriptions'), 'url'=>array('budgetDescription/browseState')),
 	array('label'=>__('Budgets without description'), 'url'=>array('budget/noDescriptions')),
 );
-$this->inlineHelp=':budget_descriptions';
+$this->inlineHelp=':manual:budgetdescription:admin';
+$this->viewLog='BudgetDescription';
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#budget-description-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
-<h1><?php echo __('Manage Budget descriptions');?></h1>
+<h1 style="margin-bottom:15px"><?php echo __('Manage').' '.__('budget descriptions');?></h1>
 
 
-<?php echo CHtml::link(__('Advanced Search'),'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+<div id="searchOptions" class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+$this->widget('PGridView', array(
+	'id'=>'budget-description-grid',
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'id'=>'budget-description-grid',
 	'dataProvider'=>$model->search(),
+    'onClick'=>array(
+        'type'=>'url',
+        'call'=>Yii::app()->request->baseUrl.'/budgetDescription/update',
+    ),
 	'filter'=>$model,
 	'columns'=>array(
-		'csv_id',
 		'language',
+		'csv_id',
 		'code',
 		'concept',
-		array(
-			'class'=>'CButtonColumn',
-			'buttons'=>array(
-				'view' => array(
-					'url'=>'Yii::app()->createUrl("budgetDescription/view/".$data->id)',
-				),
-			),
-		),
+		array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 	),
-)); ?>
+));
+?>

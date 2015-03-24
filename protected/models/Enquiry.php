@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,12 +28,13 @@
  * @property integer $team_member
  * @property integer $manager
  * @property string $created
+ * @property string $modified
  * @property string $assigned
  * @property string $submitted
  * @property string $registry_number
  * @property integer $documentation
  * @property integer $type
- * @property integer $addressed_to
+ * @addressed_to integet $addressed_to
  * @property integer $budget
  * @property integer $state
  * @property string $title
@@ -52,8 +53,13 @@
  */
 class Enquiry extends CActiveRecord
 {
-
 	public $username=Null;
+	
+	/* used at enquiry/_searchPublic searchform */
+	public $searchDate_min=Null;
+	public $searchDate_max=Null;
+	public $searchText=Null;
+	public $basicFilter=Null;
 
 	public function getHumanTypes($type=Null)
 	{
@@ -74,10 +80,9 @@ class Enquiry extends CActiveRecord
 	public function getHumanAddressedTo($address=Null)
 	{
 		$humanAddressValues=array(
-				0=>Config::model()->findByPk('administrationName')->value,
-				1=>__('The observatory'),
+			0=>Config::model()->findByPk('administrationName')->value,
+			1=>Config::model()->getObservatoryName(),
 		);
-
 		if($address === Null){
 			$addresses=array();
 			foreach($humanAddressValues as $key=>$value)
@@ -86,7 +91,7 @@ class Enquiry extends CActiveRecord
 		}
 		return __($humanAddressValues[$address]);
 	}
-	
+
 	public static function getHumanStates($state=Null, $addressed_to=ADMINISTRATION)
 	{
 		$humanStateValues=array(
@@ -94,15 +99,13 @@ class Enquiry extends CActiveRecord
 				ENQUIRY_ASSIGNED				=>__('Enquiry assigned to team member'),
 				ENQUIRY_REJECTED				=>__('Enquiry rejected by the %s'),
 				ENQUIRY_ACCEPTED				=>__('Enquiry accepted by the %s'),
-				ENQUIRY_AWAITING_REPLY			=>'',
+				ENQUIRY_AWAITING_REPLY			=>__('Awaiting reply from the administration'),
 				ENQUIRY_REPLY_PENDING_ASSESSMENT=>__('Reply pending assessment'),
 				ENQUIRY_REPLY_SATISFACTORY		=>__('Reply considered satisfactory'),
 				ENQUIRY_REPLY_INSATISFACTORY	=>__('Reply considered insatisfactory'),
 		);
-		if($addressed_to)
+		if($addressed_to == OBSERVATORY)
 			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the observatory');
-		else
-			$humanStateValues[ENQUIRY_AWAITING_REPLY]=__('Awaiting reply from the administration');
 
 		if($state!==Null){
 			if(!(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager()) && $state==ENQUIRY_ASSIGNED)
@@ -117,13 +120,15 @@ class Enquiry extends CActiveRecord
 		$states = array();
 		foreach($humanStateValues as $key=>$value){
 			if( strpos($value, '%s') !== false){
+				/*
 				if($key == ENQUIRY_AWAITING_REPLY){
 					if($addressed_to == OBSERVATORY)
 						$value = str_replace("%s", __('the observatory'), $value);
 					else
 						$value = str_replace("%s", __('the administration'), $value);
 				}else
-					$value = str_replace('%s', $siglas, $value);
+				*/
+				$value = str_replace('%s', $siglas, $value);
 			}
 			$states[$key]=$value;
 		}
@@ -156,16 +161,21 @@ class Enquiry extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user, created, title, body, addressed_to', 'required'),
+			array('user, created, title, body', 'required'),
 			array('submitted, registry_number', 'required', 'on'=>'submitted_to_council'),
-			array('related_to, user, team_member, manager, budget, type, state, documentation', 'numerical', 'integerOnly'=>true),
+			array('related_to, user, team_member, manager, budget, type, addressed_to, state, documentation', 'numerical', 'integerOnly'=>true),
 			array('title', 'validTitle'),
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
-			array('addressed_to, assigned, submitted, body', 'safe'),
+			array('assigned, submitted, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('related_to, user, username, team_member, manager, created, assigned, type, state, title, body', 'safe', 'on'=>'search'),
+			array( 'related_to, user, username, team_member,
+					manager, created,
+					assigned, type, state,
+					title, body,
+					searchText, searchDate_min, searchDate_max, basicFilter',
+					'safe', 'on'=>'search'),
 		);
 	}
 
@@ -220,7 +230,7 @@ class Enquiry extends CActiveRecord
 			'body' => __('Body'),
 		);
 	}
-	
+
 	public function getEmailRecipients()
 	{
 		if($this->state == ENQUIRY_ASSIGNED){ 	// internal email to team_member
@@ -252,6 +262,7 @@ class Enquiry extends CActiveRecord
 		sort($related_models);
 		return new CArrayDataProvider(array_values($related_models));
 	}
+
 	public function _getReformulatedEnquires($result)
 	{
 		if(!array_key_exists($this->id, $result))
@@ -267,8 +278,23 @@ class Enquiry extends CActiveRecord
 		return $result;
 	}
 
+	/* Are there enquiries that require the attention of the team manager? */
+	public function alertTeamManager()
+	{
+		if($this->findByAttributes(array('state'=>ENQUIRY_PENDING_VALIDATION)))
+			return 1;	// a new enquiry
 
-	public function countObjects()
+		/*
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('state = '.ENQUIRY_REJECTED);
+		$criteria->addCondition('team_member IS NOT NULL');
+		if($this->find($criteria))
+			return 1; // the team member rejected the enquiry
+		*/
+		return 0;
+	}
+
+	public function countObjects()	// for mega delete
 	{
 		$object_count = array(
 							'reforumulated'=>-1,
@@ -324,6 +350,58 @@ class Enquiry extends CActiveRecord
 			$comment->delete();
 	}
 
+	public function getStatistics()
+	{
+		$stats = array();
+		$stats['total'] = $this->count();
+		
+		if($stats['total']){
+			$stats['pending'] = $this->count(array('condition' =>
+														'state = '.ENQUIRY_PENDING_VALIDATION.' OR state = '.
+																	ENQUIRY_ASSIGNED));			
+			$stats['accepted']=
+					$this->count(array('condition' =>'state = '.ENQUIRY_ACCEPTED));
+			
+			if($reject = $this->count(array('condition' =>'state = '.ENQUIRY_REJECTED)))
+				$stats['rejected'] = round($reject/$stats['total']*100, 0);
+			else
+				$stats['rejected']= 0;
+					
+			$stats['waiting_reply']=
+					$this->count(array('condition' =>'state = '.ENQUIRY_AWAITING_REPLY));
+			
+			$stats['pending_assesment']=
+					$this->count(array('condition' =>'state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
+			
+			$assessed = $this->count(array('condition' =>'state > '.ENQUIRY_REPLY_PENDING_ASSESSMENT));
+			if($assessed){
+				$stats['reply_satisfactory']=
+						round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_SATISFACTORY))/$assessed*100, 0);
+				$stats['reply_insatisfactory']=
+						round($this->count(array('condition' =>'state = '.ENQUIRY_REPLY_INSATISFACTORY))/$assessed*100, 0);
+			}else{
+				$stats['reply_satisfactory']=0;
+				$stats['reply_insatisfactory']=0;
+			}
+		}else{
+			$stats['pending']=$stats['rejected']=$stats['accepted']=$stats['waiting_reply']=0;
+			$stats['pending_assesment']=$stats['reply_satisfactory']=$stats['reply_insatisfactory']=0;
+		}
+		return $stats;
+	}
+
+	public function addressToObservatory()
+	{
+		if($this->state != ENQUIRY_PENDING_VALIDATION && $this->state < ENQUIRY_AWAITING_REPLY){
+			if($this->team_member == Yii::app()->user->getUserID())
+				$this->state = ENQUIRY_AWAITING_REPLY; // skip the 'submit to administration' step.			
+		}
+		if(!$this->submitted){
+			$this->submitted = date('c');
+			$this->registry_number = $this->id;
+		}
+	}
+
 	public function getEnquiriesForRSS()
 	{
 		$criteria=new CDbCriteria;
@@ -332,28 +410,73 @@ class Enquiry extends CActiveRecord
 								' AND state != '.ENQUIRY_REJECTED);
 		$criteria->order = 'created DESC';
 		$criteria->limit = '20';
-		
+
 		return $this->findAll($criteria);
 	}
-	
+
 
 	public function publicSearch()
 	{
-		$search_text=$this->body;
-
 		$criteria=new CDbCriteria;
+		$my_params = array();
 		$criteria->addCondition('state != '.ENQUIRY_PENDING_VALIDATION.
 								' AND state != '.ENQUIRY_ASSIGNED.
-								' AND state != '.ENQUIRY_REJECTED);
-								
-		//$criteria->compare('type',$this->type);
-		//$criteria->compare('state',$this->state);
-		//$criteria->compare('title',$search_text);
-		$criteria->compare('addressed_to',$this->addressed_to, true);
-		$criteria->compare('body',$search_text,true);
+								' AND state != '.ENQUIRY_REJECTED); // not working properly. check filter by date index/enquiry
 
+		if($this->basicFilter){
+			if($this->basicFilter == 'noreply')
+				$criteria->addCondition('state <= '.ENQUIRY_AWAITING_REPLY);
+			if($this->basicFilter == 'pending')
+				$criteria->addCondition('state = '.ENQUIRY_REPLY_PENDING_ASSESSMENT);		
+			if($this->basicFilter == 'assessed')
+				$criteria->addCondition('state = '.ENQUIRY_REPLY_SATISFACTORY.
+										' OR state = '.ENQUIRY_REPLY_INSATISFACTORY);		
+			return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'sort'=>array('defaultOrder'=>'modified DESC'),
+			));
+		}
+		
+		$searchDate_min=Null;
+		$searchDate_max=Null;
+		if($this->searchDate_min){
+			$searchDate_min = DateTime::createFromFormat('d/m/Y', $this->searchDate_min);
+			$searchDate_min->modify('-1 day');
+			$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
+			if(!$this->searchDate_max){
+				$searchDate_max = new DateTime('c');
+				$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');
+			}
+		}
+		if($this->searchDate_max){
+			$searchDate_max = DateTime::createFromFormat('d/m/Y', $this->searchDate_max);
+			$searchDate_max = $searchDate_max->format('Y-m-d H:i:s');
+			if(!$this->searchDate_min){
+				$searchDate_min = new DateTime("2012-12-12");	// this is the past
+				$searchDate_min = $searchDate_min->format('Y-m-d H:i:s');
+			}
+		}
+		if($searchDate_min && $searchDate_max){
+			$criteria->condition = 'created BETWEEN :min_date AND :max_date';
+			$my_params[':min_date'] = "$searchDate_min";
+			$my_params[':max_date'] = "$searchDate_max";
+		}
+		if($this->searchText){
+			$text = $this->searchText;
+			$criteria->addCondition("title LIKE :match OR body LIKE :match");
+			$my_params[':match'] = "%$text%";
+		}
+		$criteria->compare('type',$this->type);
+		$criteria->compare('state',$this->state);
+		
+		$criteria->params = array_merge($criteria->params, $my_params);	// not working properly. check filter by date index/enquiry
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+
+			'Pagination' => array (
+				'PageSize' => 8, //edit your number items per page here
+			),
+
 			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 	}
@@ -370,10 +493,9 @@ class Enquiry extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->with=array('user0');
 		$criteria->compare('user0.username', $this->username, true);
-		
+
 		$criteria->compare('team_member',Yii::app()->user->getUserID());
 		$criteria->compare('type',$this->type);
-		$criteria->compare('addressed_to',$this->addressed_to);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);
@@ -381,7 +503,7 @@ class Enquiry extends CActiveRecord
 		//$criteria->compare('created',$this->created,true);
 		//$criteria->compare('assigned',$this->assigned,true);
 		//$criteria->compare('budget',$this->budget);
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'created DESC'),
@@ -406,14 +528,13 @@ class Enquiry extends CActiveRecord
 		$criteria->compare('manager',$this->manager);
 		//$criteria->compare('assigned',$this->assigned);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('addressed_to',$this->addressed_to);
 		$criteria->compare('budget',$this->budget);
 		$criteria->compare('state',$this->state);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('body',$this->body,true);
 		//$criteria->compare('related_to',$this->related_to);
 		//$criteria->compare('created',$this->created,true);
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'created DESC'),

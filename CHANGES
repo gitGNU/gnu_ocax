@@ -1,3 +1,25 @@
+1.2.0
+Configurable site color. :)
+Many usability tweaks.
+New system log.
+Some CSV import fixes.
+Introduced follow-me icons for observatory staff.
+Team_member can correct submissions and replys.
+Local Budget_description edition improved.
+New experimental peer2peer automated site backups.
+Improved Site page edition.
+Changed enquiry/index layout
+Included some user moderation. (delete comments, disable users)
+Added some tools to help budget administrator.
+Automatic SQL migration between versions.
+Some post instalation/upgrade testing.
+Emails get sent in 30 recipient batches.
+Changed embedded graphics url from api/ocaxpie to graph/ocaxpie
+Improved performance for when budget table gets big.
+Lots of bugs squashed.
+Please read UPGRADE
+
+
 1.1.4
 Now support State, Common, and Local descriptions.
 Some new Global params.

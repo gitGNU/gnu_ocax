@@ -24,9 +24,10 @@
 $this->menu=array(
 	//array('label'=>__('View enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
 	array('label'=>__('Sent emails'), 'url'=>array('/email/index/', 'id'=>$model->id, 'menu'=>'team')),
-	array('label'=>__('List enquiries'), 'url'=>array('managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('assigned')),
 );
-$this->inlineHelp=':profiles:team_member';
+$this->inlineHelp=':manual:enquiry:validate';
+$this->viewLog='Enquiry|'.$model->id;
 ?>
 
 <style>           
@@ -43,6 +44,15 @@ function validate(){
 	$('#Enquiry_state').val('<?php echo ENQUIRY_ACCEPTED;?>');
 	$('#enquiry-form').submit();
 }
+$(function() {
+	$("#Enquiry_addressed_to_1").on('click', function() {
+		var val = confirm("<?php echo __('Are you sure?');?>");
+		if(val == false){
+			$('#Enquiry_addressed_to_1').prop("checked",false);
+			$('#Enquiry_addressed_to_0').prop("checked",true);
+		}
+	});
+})
 </script>
 
 <div class="form">
@@ -55,6 +65,16 @@ function validate(){
 
 	<div class="title"><?php echo __('Validate enquiry');?></div>
 	<p style="font-style:italic"><?php echo __('Please study the enquiry below before deciding on an option').'.'?></p>
+	
+	<?php
+		echo '<div style="font-size:16px;">'.__('Who will reply to this enquiry?').'</div>';
+		echo $form->radioButtonList($model,'addressed_to',
+			$model->getHumanAddressedTo(),
+			array('labelOptions'=>array('style'=>'display:inline'))
+		);
+	?>
+	<p></p>
+
 	<ol id="yourOptions">
 		<?php
 			$text = __('Tell %s you do not want to take responsibility of this enquiry');
@@ -85,6 +105,6 @@ function validate(){
 		$url=Yii::app()->request->baseUrl.'/email/create?enquiry='.$model->id.'&menu=team';
 		?>
 		<button onclick="js:window.location='<?php echo $url?>';">Sí</button>
-		<button onclick="$('.flash-notice').slideUp('fast')">No</button>
+		<button onclick="js:window.location='<?php echo Yii::app()->request->baseUrl;?>/enquiry/teamView/<?php echo $model->id?>'">No</button>
     </div>
 <?php endif; ?>

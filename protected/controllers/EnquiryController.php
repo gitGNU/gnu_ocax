@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -53,7 +53,7 @@ class EnquiryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow',
-				'actions'=>array('teamView','managed','validate','changeType',
+				'actions'=>array('teamView','assigned','validate','changeType',
 								 'submit','unSubmit','assess','reformulate'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
@@ -64,6 +64,10 @@ class EnquiryController extends Controller
 			array('allow',
 				'actions'=>array('getMegaDelete', 'megaDelete'),
 				'expression'=>"Yii::app()->user->isManager() || Yii::app()->user->isAdmin()",
+			),
+			array('allow',
+				'actions'=>array('changeBudget'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -96,11 +100,21 @@ class EnquiryController extends Controller
 		$this->pageTitle=__('Enquiries').' '.Config::model()->findByPk('administrationName')->value;
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->addressed_to = Null;
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
 
+		if(isset($_GET['display'])){
+			$displayType = $_GET['display'];
+			Yii::app()->request->cookies['enquiry_display_type'] = new CHttpCookie('enquiry_display_type', $displayType);
+		}
+		elseif(isset(Yii::app()->request->cookies['enquiry_display_type']))
+			$displayType=Yii::app()->request->cookies['enquiry_display_type']->value;
+		else
+			$displayType='list';
+			
 		$this->render('index',array(
+			'displayType'=>$displayType,
+			'dataProvider'=>$model->publicSearch(),
 			'model'=>$model,
 		));
 	}
@@ -173,7 +187,7 @@ class EnquiryController extends Controller
 				Yii::app()->end();
 		}
 		$model->addressed_to = ADMINISTRATION;
-
+		
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
@@ -212,7 +226,7 @@ class EnquiryController extends Controller
 
 				$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->getHumanStates($model->state);
-				$mailer->Body=Emailtext::model()->findByPk($model->state)->getBody($model);
+				$mailer->Body=EmailTemplate::model()->findByPk($model->state)->getBody($model);
 
 				$email = new Email;
 
@@ -223,6 +237,8 @@ class EnquiryController extends Controller
 				$email->body=$mailer->Body;
 				$email->recipients=$recipients;
 				$email->enquiry=$model->id;
+
+				Log::model()->write('Enquiry', __('New enquiry').'. id='.$model->id, $model->id);
 
 				if($mailer->send()){
 					$email->sent=1;
@@ -334,6 +350,10 @@ class EnquiryController extends Controller
 		if(isset($_POST['Enquiry']))
 		{
 			$model->attributes=$_POST['Enquiry'];
+			
+			if($model->addressed_to == OBSERVATORY)
+				$model->addressToObservatory();
+			
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 			if($model->save()){
@@ -359,7 +379,7 @@ class EnquiryController extends Controller
 	}
 
 	/**
-	 * Change Generic, Budgetary, budget->id
+	 * Team member can change Generic, Budgetary, budget->id
 	 */
 	public function actionChangeType($id)
 	{
@@ -368,21 +388,33 @@ class EnquiryController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if( $model->team_member != Yii::app()->user->getUserID() ){
-			$this->render('/site/index');
-			Yii::app()->end();
+		if($model->team_member != Yii::app()->user->getUserID()){
+			$this->redirect(array('index'));
 		}
 
 		if(isset($_POST['Enquiry']))
 		{
+			if($model->budget)
+				$preUpdateBudget = Budget::model()->findByPk($model->budget);
+			else
+				$preUpdateBudget = Null;
+				
 			$model->attributes=$_POST['Enquiry'];
-			if($model->type == 0)
+			if($model->type == GENERIC)
 				$model->budget = Null;
 			if($model->save()){
-				$this->render('teamView',array(
-					'model'=>$model,
-				));
-				Yii::app()->end();
+				if($preUpdateBudget)
+					$msg = $preUpdateBudget->year.'.'.$preUpdateBudget->csv_id.' > ';
+				else
+					$msg = __('generic enquiry').' > ';
+				$model->refresh();
+				if($model->budget0)
+					$msg = $msg.$model->budget0->year.'.'.$model->budget0->csv_id;
+				else
+					$msg = $msg.__('generic enquiry');
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('changed budget').' '.$msg);
+
+				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}
 		$budget=new Budget('changeTypeSearch');
@@ -393,7 +425,54 @@ class EnquiryController extends Controller
 
 		$this->render('changeType',array(
 			'model'=>$model,
-			'filterBudgetModel'=>$budget,
+			'budgetModel'=>$budget,
+		));
+	}
+
+	/*
+	 * Used by Admim to change the enquiry->budget->id
+	 */
+	public function actionChangeBudget($id)
+	{
+		$model=$this->loadModel($id);
+		$budget=new Budget('changeTypeSearch');
+
+		$oldBudget_year = Null;
+		if($model->budget0){
+			$criteria = new CDbCriteria;
+			$criteria->condition = 'parent IS NULL AND year ='.$model->budget0->year;
+			$oldBudget_year=$budget->find($criteria);
+		}
+		if(isset($_POST['Enquiry']))
+		{
+			$preUpdateBudget = Budget::model()->findByPk($model->budget);
+			$model->attributes=$_POST['Enquiry'];
+			if($model->type == 0)
+				$model->budget = Null;
+			if($model->save()){
+				$msg = $preUpdateBudget->year.'.'.$preUpdateBudget->csv_id.' > ';
+				$model->refresh();
+				if($model->budget0)
+					$msg = $msg.$model->budget0->year.'.'.$model->budget0->csv_id;
+				else
+					$msg = $msg.__('generic enquiry');
+
+				Yii::app()->user->setFlash('success', __('Enquiry').' '.__('changed budget').' '.$msg);
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('changed budget').' '.$msg);
+				if($oldBudget_year)
+					$this->redirect(array('budget/updateYear','id'=>$oldBudget_year->id));
+				else
+					$this->redirect(array('budget/admin'));
+			}
+		}
+
+		$budget->unsetAttributes();  // clear any default values
+		if(isset($_GET['Budget']))
+			$budget->attributes=$_GET['Budget'];
+
+		$this->render('changeBudget',array(
+			'model'=>$model,
+			'budgetModel'=>$budget,
 		));
 	}
 
@@ -402,6 +481,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionSubmit($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Submit enquiry'));
 		$model=$this->loadModel($id);
 		$model->scenario = 'submitted_to_council';
 		// Uncomment the following line if AJAX validation is needed
@@ -414,6 +494,10 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
+			if($model->state < ENQUIRY_AWAITING_REPLY)
+				$msg = __('submitted to administration');
+			else
+				$msg = __('submit corrected');
 			$model->attributes=$_POST['Enquiry'];
 
 			if($model->validate()){
@@ -424,13 +508,15 @@ class EnquiryController extends Controller
 			}
 			if(Yii::app()->request->isAjaxRequest){
 				//http://www.yiiframework.com/forum/index.php/topic/37075-form-validation-with-ajaxsubmitbutton/
-				if($model->save())
+				if($model->save()){
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.$msg);
 					echo CJSON::encode(array('status'=>'success'));
-				else
+				}else
 					echo CActiveForm::validate($model);
 				Yii::app()->end();
 			}
 			if($model->save()){
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.$msg);
 				if($model->documentation){
 					$model->promptEmail();			
 					$this->redirect(array('teamView','id'=>$model->id));
@@ -475,6 +561,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionTeamView($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage enquiry'));
 		$model=$this->loadModel($id);
 		if( $model->team_member == Yii::app()->user->getUserID()){
 			if($model->state == ENQUIRY_ASSIGNED)
@@ -510,9 +597,10 @@ class EnquiryController extends Controller
 		));
 	}
 
-	public function actionManaged()
+	public function actionAssigned()
 	{
 		// grid of enquirys by team_member
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Entrusted enquiries'));
 		$this->layout='//layouts/column1';
 
 		$model=new Enquiry('search');
@@ -520,7 +608,7 @@ class EnquiryController extends Controller
 		//$model->team_member = Yii::app()->user->getUserID();
 		if(isset($_GET['Enquiry']))
 			$model->attributes=$_GET['Enquiry'];
-		$this->render('managed',array(
+		$this->render('assigned',array(
 			'model'=>$model,
 		));
 	}
@@ -538,21 +626,25 @@ class EnquiryController extends Controller
 			$model->attributes=$_POST['Enquiry'];
 			$model->modified = date('c');
 
-			if($model->state == ENQUIRY_ACCEPTED && $model->addressed_to == OBSERVATORY)	
-				$model->state = ENQUIRY_AWAITING_REPLY;	// skip the 'submit to administration' step.
-				
+			if($model->addressed_to == OBSERVATORY)
+				$model->addressToObservatory();
+
 			if($model->save()){
 				$model->promptEmail();
 				if($model->state == ENQUIRY_REJECTED && $model->team_member == 	Yii::app()->user->getUserID()){
 					// somehow send an email to manager
 				}
+				if($model->state == ENQUIRY_REJECTED)
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('rejected by team member'), $model->id);
+				else
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('accepted by team member'), $model->id);
+				
 			}			
 		}		
 		$this->render('validate',array(
 			'model'=>$model,
 		));		
 	}
-
 
 	public function actionManage($id)
 	{
@@ -567,10 +659,14 @@ class EnquiryController extends Controller
 			$team_member=$model->team_member;
 			$model->attributes=$_POST['Enquiry'];
 
+			if( $model->addressed_to == OBSERVATORY)
+				$model->addressToObservatory();
+
 			if($model->state == 'rejected'){
 				$model->state = ENQUIRY_REJECTED;
 				$model->assigned = Null;
 				$model->team_member = Null;
+				Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('rejected by team manager'), $model->id);
 			}
 			elseif(!$model->team_member){
 				Yii::app()->user->setFlash('notice', __('You must assign a team member'));
@@ -583,6 +679,7 @@ class EnquiryController extends Controller
 					$model->modified=date('c');
 					if($model->state <= ENQUIRY_REJECTED) // maybe enquiry was already accepted and has higher state.
 						$model->state=ENQUIRY_ASSIGNED;
+					Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('assigned to team member').' '.User::model()->findByPk($model->team_member)->username, $model->id);
 				}else{
 					Yii::app()->user->setFlash('notice', __('You must assign a team member'));
 					$saveMe=Null;
@@ -606,7 +703,7 @@ class EnquiryController extends Controller
 			}//else
 			//	$model=$this->loadModel($id);	// render an unchanged model.
 		}
-		$team_members = user::model()->findAll(array("condition"=>"is_team_member =  1","order"=>"username"));
+		$team_members = User::model()->getTeamMembers();
 		$this->render('manage',array(
 			'model'=>$model,
 			'team_members'=>$team_members,
@@ -615,11 +712,14 @@ class EnquiryController extends Controller
 
 	public function actionAdminView($id)
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage enquiry'));
 		$model=$this->loadModel($id);
 		if($model->state == ENQUIRY_PENDING_VALIDATION)
 			$this->redirect(array('manage','id'=>$model->id));
-		else
-			$this->render('adminView',array('model'=>$model));
+		if($model->state == ENQUIRY_REJECTED && $model->team_member != Null)
+			$this->redirect(array('manage','id'=>$model->id));
+		
+		$this->render('adminView',array('model'=>$model));
 	}
 
 	/**
@@ -627,6 +727,7 @@ class EnquiryController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Manage enquiries'));
 		$this->layout='//layouts/column1';
 		$model=new Enquiry('search');
 		$model->unsetAttributes();  // clear any default values
@@ -661,11 +762,15 @@ class EnquiryController extends Controller
 		}
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Enquiries'),
-			'link'    => Yii::app()->createUrl('enquiry'),
-			'charset' => 'UTF-8',
-			'entries' => $entries,      
-			), 'rss');
+			'title'			=> Config::model()->findByPk('siglas')->value.' '.__('Enquiries'),
+			'description'	=> Config::model()-> getObservatoryName(),
+			'link'			=> Yii::app()->createUrl('enquiry'),
+			'image'			=> Yii::app()->createAbsoluteUrl('files/logo.png'),
+			'charset'		=> 'UTF-8',
+			'entries'		=> $entries,
+			),
+			'rss'
+		);
 		$feed->send();  
 	}
 
@@ -680,6 +785,10 @@ class EnquiryController extends Controller
 		$model = $this->loadModel($id);
 		$user=Yii::app()->user->getUserID();
 		if($model->state==ENQUIRY_PENDING_VALIDATION && ($model->user == $user || Yii::app()->user->isManager()) ){
+			if($model->user == $user)
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('deleted'), $model->id);
+			else
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('deleted by team manager'), $model->id);
 			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -705,6 +814,7 @@ class EnquiryController extends Controller
 	public function actionMegaDelete($id)
 	{
 		$model=$this->loadModel($id);
+		Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('deleted by team manager'), $model->id);
 		$model->delete();
 		Yii::app()->user->setFlash('success', __('Enquiry has been deleted'));
 		echo $id;

@@ -50,7 +50,7 @@ function validateFileName(form){
 }
 </script>
 
-<div class="form" style="padding:10px">
+<div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'file-form',
@@ -58,17 +58,20 @@ function validateFileName(form){
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
-	<div class="title"><?php echo __('Upload file');?></div>
+	<div class="modalTitle"><?php echo __('Upload file');?></div>
 
 	<?php echo $form->hiddenField($model,'model'); ?>
 	<?php echo $form->hiddenField($model,'model_id'); ?>
 
-	<?php if($model->model == 'Reply' || $model->model == 'Enquiry'){
+	<?php
+	if($model->model == 'Reply'){
 		echo $form->label($model, 'name');
 		echo '<div class="hint">'.__('Name used for the link').'</div>';
 		echo $form->textField($model, 'name');
 		echo $form->label($model, 'file');
-	}?>
+	}else
+		echo '<p></p>';
+	?>
 
 	<?php echo $form->fileField($model, 'file'); ?>
 	<div class="errorMessage" id="file_error"></div>

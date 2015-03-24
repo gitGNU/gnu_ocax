@@ -58,19 +58,21 @@ class BudgetDescState extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-/*
+
 		return array(
+		/*
 			array('language, concept', 'required'),
 			array('csv_id', 'length', 'max'=>100),
 			array('language', 'length', 'max'=>2),
 			array('code, label', 'length', 'max'=>32),
 			array('concept', 'length', 'max'=>255),
 			array('description, text, modified', 'safe'),
+		*/
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, csv_id, language, code, label, concept, description, text, modified', 'safe', 'on'=>'search'),
+			array('csv_id, language, code, label, concept, description', 'safe', 'on'=>'search'),
 		);
-*/
+
 		return array();
 	}
 
@@ -97,28 +99,28 @@ class BudgetDescState extends CActiveRecord
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-/*
+
 	public function attributeLabels()
 	{
 		return array(
 			'id' => 'ID',
-			'csv_id' => 'Csv',
-			'language' => 'Language',
-			'code' => 'Code',
-			'label' => 'Label',
-			'concept' => 'Concept',
-			'description' => 'Description',
+			'csv_id' => 'Internal_code',
+			'language' => __('Language'),
+			'code' => __('Code'),
+			'label' => __('Label'),
+			'concept' => __('Concept'),
+			'description' => __('Explication'),
 			'text' => 'Text',
-			'modified' => 'Modified',
+			'modified' => __('Modified'),
 		);
 	}
-*/
+
+
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -126,19 +128,15 @@ class BudgetDescState extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
 		$criteria->compare('csv_id',$this->csv_id,true);
 		$criteria->compare('language',$this->language,true);
 		$criteria->compare('code',$this->code,true);
-		$criteria->compare('label',$this->label,true);
+		//$criteria->compare('label',$this->label,true);
 		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('text',$this->text,true);
-		$criteria->compare('modified',$this->modified,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));
 	}
-*/
 }

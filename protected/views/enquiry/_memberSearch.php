@@ -23,7 +23,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form" style="width:100%">
+<div class="wide form" style="width:100%;margin-top:15px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
@@ -56,11 +56,6 @@
 		<?php echo $form->dropDownList($model, 'type', array(""=>__('Not filtered')) + $model->getHumanTypes());?>
 	</div>
 	
-	<div class="row">
-		<?php echo $form->label($model,'addressed_to'); ?>
-		<?php echo $form->dropDownList($model, 'addressed_to', array(""=>__('Not filtered')) + $model->getHumanAddressedTo());?>
-	</div>
-
 	<div class="row">
 		<?php echo $form->label($model,'state'); ?>
 		<?php echo $form->dropDownList($model, 'state', array(""=>__('Not filtered')) + $model->getHumanStates());?>

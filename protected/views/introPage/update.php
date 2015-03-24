@@ -33,7 +33,7 @@ $this->menu=array(
 	array('label'=>__('Create page'), 'url'=>array('create')),
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+$this->inlineHelp=':manual:intropage:create';
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update page'))); ?>

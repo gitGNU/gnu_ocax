@@ -24,7 +24,7 @@
 $this->menu=array(
 	array('label'=>__('Upload file'), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:uploadFile();')),
 );
-$this->inlineHelp=':profiles:cms_editor';
+$this->inlineHelp=':manual:file:wallpaper';
 ?>
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -38,8 +38,8 @@ function uploadFile(){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#files_content").html(data);
-				$('#files').bPopup({
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -55,7 +55,7 @@ function uploadFile(){
 }
 </script>
 
-<h1><?php echo __('Manage wallpaper');?></h1>
+<h1 style="margin-bottom: 15px;"><?php echo __('Manage wallpaper');?></h1>
 
 <?php
 $dataProvider = new CActiveDataProvider('File', array(
@@ -68,7 +68,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'file-grid',
 	'dataProvider'=>$dataProvider,
-	//'filter'=>$model,
 	'columns'=>array(
 		array(
 			'header'=>__('Path'),
@@ -96,7 +95,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
     </div>
 <?php endif; ?>
 
-<div id="files" class="modal" style="width:500px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="margin:-10px"></div>
-</div>
+<?php echo $this->renderPartial('//file/modal'); ?>

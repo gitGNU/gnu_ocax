@@ -27,10 +27,14 @@
 ?>
 
 <?php
+/*
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'parent = '.$model->id.' AND actual_provision != 0';
 	$criteria->order = 'code ASC';
 	$child_budgets = Budget::model()->findAll($criteria);
+*/
+
+	$child_budgets  = $model->budgets;
 
 	foreach($child_budgets as $budget){
 

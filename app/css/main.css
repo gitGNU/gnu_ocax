@@ -34,16 +34,21 @@ h1, h2, h3, h4, h5, h6 {font-weight:normal}
 }
 
 h1 {
+/*
 	line-height: 90%;
 	font-size: 22pt;
 	letter-spacing:-0.5pt;
 	font-weight:200;
 	margin-bottom:15px;
+*/
 }
-
-
-/* --------------------- RESTO --------------------- */
-
+h1 {
+	line-height: 90%;
+	font-size: 25pt;
+	letter-spacing: -0.5pt;
+	font-weight: 200;
+	margin-bottom:0px;
+}
 body
 {
 	height: 100%;
@@ -67,12 +72,8 @@ body
 {
 	margin: 0;
 	padding: 0;
-
 	height:34px;
 	font-size: 16px;
-
-	/*color:#1F1F1F;*/
-		/*background-color:yellow;*/
 	background: url("../images/back.png") repeat-x scroll 0 0;
 }
 
@@ -92,10 +93,10 @@ body
 {
 	list-style-type:none;
 	font-weight:600;
-	padding: 1px 17px 0 17px;
+	padding: 3px 15px 0 15px;
 	border-right: 2px solid #d0cdcd;
 	border-left: 2px solid #fbfbfb;
-	height:29px;
+	height:27px;
 	float:right;
 }
 
@@ -108,69 +109,35 @@ body
 	border-left: none;
 }
 
+#header_bar > ul > li > span
+{
+display:inline-block; vertical-align:top
+}
+
+i.header-icons
+{
+	font-size: 24px;
+}
+
 #header
 {
 	color:#1F1F1F;
 	margin: 0;
 	padding: 0;
 }
-#header div
+#observatoryTitle
 {
-	width:950px;
+	width:980px;
 	margin:0 auto;
-}
-
-
-
-#content
-{
-    padding: 5px 5px 10px 15px;
-}
-
-#sidebar
-{
-	padding: 20px 20px 20px 0;
-}
-
-
-/*FOOTER*/
-#footer
-{
-	margin:0;
-	width:950px;
-	margin:0 auto;
-	padding: 6px 20px 05px 10px;
-}
-#footer div
-{
-	margin-top: 0px;
-	margin-bottom:0px;
-}
-#footer div a { color: lightgrey }
-
-#postFooterRSSLink { float:right; }
-
-#postFooterRSSLink > a {
-	vertical-align: middle;
-	margin-left:5px;
-}
-
-.poweredBy
-{
-	padding-top:10px;
-	text-align:center;
-}
-
-#logo
-{
+	color: #A6A29E;
 	font-size: 410%;
 	line-height: 90%;
 	letter-spacing:-0.5pt;
 	font-weight:100;
-	padding: 15px 20px 30px 0px;
+	padding: 15px 0px 25px 20px;
 }
 
-#nombre_ocax
+#observatoryName2
 {
 	text-decoration:underline;
 }
@@ -206,6 +173,32 @@ body
 	text-decoration:none;
 }
 
+/*CONTENT*/
+#content
+{
+    padding: 5px 5px 10px 15px;
+}
+#sidebar	/* what's this? */
+{
+	padding: 20px 20px 20px 0;
+}
+
+/* Got to top */
+.goToTop{
+	position:fixed;
+	right:0px;
+	bottom:0px;
+	height:auto;
+	width:auto;
+	padding:2px 8px 2px 8px;
+	color:#e4ded7;
+	background-color:#6E6E6E;
+	font-size:13pt;
+	display:none;
+	cursor:pointer;
+}
+
+/* FLASHES */
 div.flash-error, div.flash-notice, div.flash-success
 {
 	padding:.8em;
@@ -293,12 +286,28 @@ div.breadcrumbs span
 }
 */
 
-div.search-form
+.tabMenu{ height: 30px; }
+.tabMenu ul
 {
-	padding: 10px;
-	margin: 10px 0;
-	border-bottom: 2px dashed #555555;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-left: 20px;
 }
+.tabMenu li
+{
+	float: left;
+	margin: 0px 15px 0 0;
+	padding: 0 3px 0 3px;
+	cursor:pointer;
+	font-weight:200;
+	font-size: 20px;
+}
+.tabMenu li:hover { background-color: white }
+
+.tabMenu li.activeItem { margin-bottom: -4px; }
+.tabMenu i { font-size: 16px }
+.tabMenuContent { display:none; }
 
 .portlet
 {
@@ -326,10 +335,17 @@ div.search-form
 
 .portlet-content
 {
-	font-size:1.9em;
+	font: 15px SansPro;
 	/*margin: 0 0 15px 0;*/
 	/*padding: 5px 8px;*/
 	/*background:#EFFDFF;*/
+}
+
+.portlet-content #extraText
+{
+	padding: 15px 5px 15px 5px;
+	font: 15px SansPro;
+	color: grey;
 }
 
 .portlet-content ul
@@ -346,6 +362,7 @@ div.search-form
 	padding: 0px;
 }
 
+/* 2 column layout options menu */
 .operations
 {
 	list-style-type: none;
@@ -374,6 +391,9 @@ div.search-form
 	background-color:rgb(228, 222, 215);
 }
 
+
+
+/* TITLES */
 .veryBigTitle
 {
 	font-size: 600%;
@@ -396,6 +416,11 @@ div.search-form
 	letter-spacing:-0.5pt;
 	font-weight:200;
 }
+.sub_title > i{
+	font-size: 22px;
+}
+
+
 
 .horizontalRule
 {
@@ -407,27 +432,42 @@ div.search-form
 }
 
 
-/*PAGES*/
-/*
-.outer_index_j
-{
-	background: url(../images/backindex.jpg) no-repeat scroll right bottom transparent;
-	width:100%; padding: 0px; float: left;
-}
-*/
-
-/*HEADER BAR*/
-
-
-
 /*ENQUIRIES*/
 .enquiryBody{
-	font-size:1.2em;
+	font-size:18px;
 	/* overflow-x:hidden; */
 }
-.enquiryBody p
-{
-	font-size: 1em;
+.enquiryBody p { font-size: 1em; }
+
+span.ocaxButton {
+	border:1px solid #C4C4C4;
+	background-color: #E8E8E8;
+	cursor:pointer;
+	padding: 3px 0px 3px 8px;
+	height: 18px;
+	font-size: 16px;
+	color: #555;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+span.ocaxButton:hover { border:1px solid #9C9C9C; }
+
+span.ocaxButton i { padding: 0 5px 0 3px; font-size: 1em; color:#555 }
+
+span.ocaxButtonCount {
+	border-left:1px solid #CCCCCC;
+	/*margin-left:0px;*/
+	padding: 3px 7px 3px 6px;
+	height: 18px;
+	font-size: 16px;
+	background-color: white;
+	-webkit-border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
 }
 
 /*USER PANEL*/
@@ -442,86 +482,25 @@ div.search-form
 	padding:10px 0px 0px 0px;
 }
 
-span.ocaxButton {
-	border:1px solid #DEDEDE;
-	background-color: #EDEDED;
-	cursor:pointer;
-	padding: 0px 4px 0px 4px;
-    height: 18px;
-	font-size:0.9em;
-    -webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+#ocmMemberPanel { height:55px; }
+/* user panel legend */
+#legend {
+	position:absolute;
+	display:none;
+	font-size: 16px;
+	top:0px;
+	left:70px;
+	width: 800px;
+	background-color: #f5f1ed;
 }
-span.ocaxButton:hover { border:1px solid #BDBDBD; }
-
-span.ocaxButtonCount {
-
-    height: 18px;
-	border:1px solid #DEDEDE;
-	background-color: white;
-	padding: 0px 4px 0px 4px;
-	margin-left:2px;
+#legend span {
+	display: inline;
+	padding-right:30px;
+	white-space: nowrap;
 }
-
-.social_popup {
-	font-size:1.1em;
-	display :none;
-	position: absolute;
-	margin-top:-5px;
-	padding:10px 5px 10px 5px;
-	border:1px solid #DEDEDE;
-	border-top:3px solid rgb(228, 222, 215);
-	border-bottom:3px solid rgb(228, 222, 215);
-	z-index: 1;
-	background-color: #EDEDED
-}
-
-#nueva_consulta {
-	float:left;
-	margin-right: 8px;
-	margin-bottom:8px;
-	outline: none;
-	text-indent: -5000px;
-	display:block;
-	width:55px;
-	height:51px;
-	cursor:pointer;
-}
-#nueva_consulta:hover {
-	background-position: -55px 0;
-}
-
-#datos_usuario {
-	float:left;
-	margin-right: 8px;
-	margin-bottom:10px;
-	outline: none;
-	text-indent: -5000px;
-	display:block;
-	width:46px;
-	height:46px;
-	cursor:pointer;
-}
-#datos_usuario:hover {
-	background-position: -46px 0;
-}
-
-
-#control_panel {
-	float:left;
-	margin-right: 8px;
-	margin-bottom:10px;
-	outline: none;
-	text-indent: -5000px;
-	display:block;
-	width:55px;
-	height:46px;
-}
-#control_panel:hover {
-	background-position: -55px 0;
-}
-
+#legendToggle { height:45px; }
+#legendToggle:hover { background-color:white; }
+#ocmMemberMenu { margin-top:5px; }
 
 #panelMyEnquiries {
 	float:left;
@@ -534,57 +513,134 @@ span.ocaxButtonCount {
 	height:55px;
 }
 
-/* ******* CMS*/
-.activeMenuItem a {text-decoration:none;}
-
-.cms_titulo
-{
-	font-size: 410%;
-	line-height: 100%;
-	letter-spacing:-0.5pt;
-	font-weight:100;
-	margin-bottom:20px;
-}
-
-.cms_content
-{
-	font-size: 18px;
-}
-.cms_content p
-{
-	font-size: 1em;
-}
-
-#cmsPageMenu
-{
-	background-image:url('../images/bar.gif');
-	background-repeat: repeat-x;
-	background-position: top;
-	/*width: 27%; */
-	/*float: right; */
-	padding:10px 0px 0px 0px;
-}
-.cmsPageMenuItem { font-size:1.6em; }
-
 /*bPopup Lightbox*/
 .modal
 {
 	display:none;
 	background-color: rgb(245,241,237);
 	padding:10px;
-	margin-left:-20px;
+	margin-left:-20px;	/* did this because I didn't get the layout right in the beginning */
 	margin-top:30px;	/* did this for new bPopup version 0.9.4 */
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
-.bClose{ /* close popup window icon */
+.modal h1 { margin-top: 5px; }
+
+.modal .modalTitle {
+	font-size: 1.5em;
+	height:32px;
+	padding-left: 10px;
+	padding-top: 2px;
+	margin: -10px -10px 0 -10px;
+	border-bottom: 1px solid #cdcbc9;
+}
+.modalWindowButton {
 	cursor: pointer;
 	position: absolute;
-	right: -21px;
-	top: -21px;
+	font-size:20px;
+	color: #7D7D7D;	
+}
+.modalWindowButton:hover {
+	color: #454545;	
+}
+.bClose{ /* close popup window icon */
+	position: absolute;
+	right: 5px;
+	top: 7px;
+}
+.bModal2Page { /* expand popup 2 page icon */
+	position: absolute;
+	right: 37px;
+	top: 7px;
 }
 /* https://github.com/dinbror/bpopup/issues/30 */
 .b-modal {
 	background: rgba(0, 0, 0, 0.7) !important;
 	opacity: 1 !important;
+}
+
+.modalContextHelp
+{
+	display:none;
+	background-color: rgb(245,241,237);
+	padding:10px;
+	margin-left:-20px;
+	margin-top:30px; /* did this for new bPopup version 0.9.4 */
+}
+
+.modalContextHelp > .bClose{ /* close popup window icon */
+	cursor: pointer;
+	position: absolute;
+	right: -21px;
+	top: -21px;
+	}
+
+/* Some pages have an icon to toggle More Options */
+#moreOptionsToggle {
+	color: #7D7D7D;	
+	position:absolute;
+	top: -20px;
+	right: -20px;
+	font-size: 2em;
+	cursor:pointer;
+}
+#moreOptionsToggle:hover {
+	color: #454545;	
+}
+#moreOptionsToggle > .icon-plus-circled {
+	top: 7px;
+	right: 2px;
+}
+
+/* team menu */
+.teamMenu, #searchOptionsToggle
+{
+	color: #7D7D7D;	
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	cursor:pointer;
+}
+
+.teamMenu i:hover, #searchOptionsToggle:hover {
+	color: #454545;	
+}
+.teamMenu i, #searchOptionsToggle i
+{
+	font-size: 2em;
+}
+
+/* Hidden options div revealed by the optionsToggle */
+#searchOptions {
+	display:none;
+}
+
+/* attention and OK icons */
+.icon-attention{
+	font-size: 1.1em;
+}
+.icon-ok-circled{
+	font-size: 1.1em;
+	color: #2E8B57;
+}
+.red { color: #CD0000; }
+.green { color: #2E8B57; }
+.amber { color: #EE7621; }
+
+/*Cookie alert */
+.cookieAlert {
+	padding:2px;
+	margin-top:-2px;
+	border:0px;
+	text-align:center;
+	font-size:1.2em;
+	background-color:black;
+	color:white;
+	opacity:0.5;
 }
 
 /* intro page */
@@ -656,5 +712,23 @@ div.reply > .title{
 	border-bottom: 1px solid #cdcbc9;
 }
 
+/* alert popup box */
+.alert {
+	cursor: default;
+	display:none;
+	position: absolute;
+	background-color: #FEFEFE;
+	margin: 0px;
+	padding: 5px 2px 5px 9px;
+	width:420px;
+	z-index: 100;
+	font-size: 16px;
+	/* http://www.css3.info/preview/box-shadow/ */
+	-moz-box-shadow: 10px 10px 5px #B8B8B8;
+	-webkit-box-shadow: 10px 10px 5px #B8B8B8;
+	box-shadow: 10px 10px 5px #B8B8B8;
+}
+
+
 .link { cursor:pointer; text-decoration:underline; font-size:16px; }
-.clear{clear:both;}
+

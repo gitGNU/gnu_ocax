@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,9 +23,15 @@
 
 $this->menu=array(
 	array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$model->id)),
-	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 );
-$this->inlineHelp=':profiles:team_member';
+$this->inlineHelp=':manual:enquiry:submit';
+$this->viewLog='Enquiry|'.$model->id;
+
+if($model->addressed_to == ADMINISTRATION && $model->id == $model->registry_number){
+	$text =	'<i class="icon-attention green"></i><br />'.__('Registry number is possibly incorrect');
+	$this->extraText = $text;
+}
 ?>
 
 <style>           
@@ -67,6 +73,7 @@ function deleteDoc(){
 					'model' => $model,
 					'name'=>'Enquiry[submitted]',
 					'value'=>$model->submitted,
+					'language' => Yii::app()->language,
 					'options'=>array(
 						'showAnim'=>'fold',
 						'dateFormat'=>'yy-mm-dd',
@@ -89,7 +96,7 @@ function deleteDoc(){
 	<div class="row buttons">
 	<?php
 		if($model->documentation){
-			echo '<div>'.__('Is this information correct?').'</div>';
+			echo '<p>'.__('Is this information correct?').'</p>';
 			$name=__('Submit');
 		}else
 			$name=__('Add document');
@@ -127,10 +134,10 @@ function deleteDoc(){
 <div class="right">
 
 	<?php if($model->documentation){ ?>
-	<div class="row">
+	<div class="row" style="font-size:1.1em;">
 		<div style="margin-bottom:5px;font-weight:bold;"><?php echo __('Documentation');?></div>
 		<a href="<?php echo $model->documentation0->getWebPath();?>" target="_new"><?php echo $model->documentation0->name;?></a>
-		<img class="icon" src="<?php echo Yii::app()->request->baseUrl;?>/images/delete.png" onClick="js:deleteDoc()" />
+		<i class="icon-cancel-circle red icon" onClick="js:deleteDoc()"></i>
 	</div>
 	<?php } ?>
 

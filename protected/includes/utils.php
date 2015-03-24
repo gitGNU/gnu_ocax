@@ -1,8 +1,8 @@
 <?php
 
 /**
-OCAX -- Citizen driven Municipal Observatory software
-Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+OCAX -- Citizen driven Observatory software
+Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -84,6 +84,7 @@ function format_date($date, $hours=Null){
 		return $date->format('d-m-Y');
 }
 
+// moved this to model/config Remember to remove it from here.
 function getOCAXVersion(){
 	$path = Yii::app()->basePath.'/data/ocax.version';
 	$handle = @fopen($path, "r");
@@ -93,7 +94,11 @@ function getOCAXVersion(){
 }
 
 function getInlineHelpURL($path){
-	return 'http://wiki.ocax.net/'.Yii::app()->user->getState('applicationLanguage').$path;	
+	$availableTranslations = array('ca', 'es', 'en');
+	$lang = Yii::app()->user->getState('applicationLanguage');
+	if(!in_array($lang, $availableTranslations))
+		$lang = 'es';
+	return 'http://wiki.ocax.net/'.$lang.$path;
 }
 
 function getMySqlParams()
@@ -110,5 +115,94 @@ function getMySqlParams()
 	return $result;
 }
 
+function createDirectory($path)
+{
+	if(!file_exists($path)){
+		$oldmask = umask(0);
+		mkdir($path, 0777, true);	// some servers have strange permision setups.
+		umask($oldmask);
+	}
+}
+
+function bytesForHumans($bytes, $precision = 2)
+{
+	$units = array('B', 'KB', 'MB', 'GB', 'TB'); 
+
+	$bytes = max($bytes, 0); 
+	$pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
+	$pow = min($pow, count($units) - 1); 
+
+	// Uncomment one of the following alternatives
+	//$bytes /= pow(1024, $pow);
+	$bytes /= (1 << (10 * $pow)); 
+
+	return round($bytes, $precision) . ' ' . $units[$pow]; 
+}
+
+function svgDir(){
+	return dirname(Yii::app()->request->scriptFile).'/images/svg/';
+}
+
+function resizeLogo($fn){
+	$ext = pathinfo($fn, PATHINFO_EXTENSION);
+	if(!($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg'))		
+		return Null;
+	if(!extension_loaded('gd'))
+		return Null;
+
+	$gdInfo=gd_info();
+	if(!isset($gdInfo))
+		return Null;
+	if($ext == 'png' && !$gdInfo['PNG Support'])
+		return Null;
+	if(($ext == 'jpg' || $ext == 'jpeg') && !$gdInfo['JPEG Support'])
+		return Null;
+
+	list($width, $height) = getimagesize($fn);
+	$new_width = 90;
+	$new_height = 90;
+
+	$image_p = imagecreatetruecolor($new_width, $new_height);
+	if($ext == 'png')
+		$image = imagecreatefrompng($fn);
+	else
+		$image = imagecreatefromjpeg($fn);
+	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+	if($ext == 'png')
+		imagepng($image_p, $fn, 9);
+	else
+		imagejpeg($image_p, $fn, 100);
+		
+	// create favicon
+	Yii::import('application.includes.*');
+	require_once('php-ico.php');
+	$source = $fn;
+	$destination = dirname(Yii::app()->request->scriptFile).'/files/favicon.ico';
+	$ico_lib = new PHP_ICO( $source, array(array( 16, 16 )) );
+	$ico_lib->save_ico( $destination );
+}
+
+
+// http://stackoverflow.com/questions/3938120/check-if-exec-is-disabled
+function isExecAvailable() {
+	static $available;
+
+	if (!isset($available)) {
+		$available = true;
+		if (ini_get('safe_mode')) {
+			$available = false;
+		} else {
+			$d = ini_get('disable_functions');
+			$s = ini_get('suhosin.executor.func.blacklist');
+			if ("$d$s") {
+				$array = preg_split('/,\s*/', "$d,$s");
+				if (in_array('exec', $array)) {
+					$available = false;
+				}
+			}
+		}
+	}
+	return $available;
+}
 
 ?>

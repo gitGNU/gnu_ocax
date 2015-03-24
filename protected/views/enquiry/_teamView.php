@@ -26,7 +26,7 @@ if(Yii::app()->request->isAjaxRequest){
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
-<h1><?php echo __('The Enquiry');?></h1>
+<h1 style="margin-bottom: 15px;"><?php echo __('The Enquiry');?></h1>
 
 <?php $this->renderPartial('//enquiry/_detailsForTeam', array('model'=>$model));?>
 
@@ -39,6 +39,6 @@ if($reformulatedDataprovider = $model->getReformulatedEnquires()){
 															'onClick'=>'/enquiry/teamView'));
 
 }
-echo '<h1>'.$model->title.'</h1>';
+echo '<h1 style="margin-bottom: 15px;">'.$model->title.'</h1>';
 echo $this->renderPartial('//enquiry/_view', array('model'=>$model));
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,14 +24,14 @@
 $yearBudget=Budget::model()->findByAttributes(array('parent'=>Null,'year'=>$model->year));
 $this->menu=array(
 	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
-	array('label'=>__('List Years'), 'url'=>array('//budget/adminYears')),
+	array('label'=>__('List Years'), 'url'=>array('//budget/admin')),
 );
 if($model->csv){
 	$importAgain = array( array('label'=>__('Upload CSV again'), 'url'=>array('csv/importCSV/'.$model->year)), );
 	array_splice( $this->menu, 0, 0, $importAgain );
 }
 
-$this->inlineHelp=':csv_format';
+$this->inlineHelp=':manual:csv:import';
 ?>
 
 <style>
@@ -65,32 +65,49 @@ function checkFormat(el, next){
 						$('#step_'+next).show();
 					}
 		},
-		error: function() { alert("error on checkFormat"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/checkCSVFormat?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on checkFormat. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 
 function addMissingValues(el, next){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingValues',
+		url: '<?php echo Yii::app()->request->baseUrl.'/csv/addMissingValues/';?>',
 		type: 'GET',
 		dataType: 'json',
-		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
+		data: { 'csv_file': '<?php echo $model->csv;?>', 'year': '<?php echo $model->year;?>' },
+		beforeSend: function(){ $("#check_missing_values_button").attr("disabled", "disabled"); $('#checking_missing_values').show(); },
+		complete: function(){ $('#checking_missing_values').hide(); },
 		success: function(data){
 					if(data.error){
 						$(el).replaceWith('<span class="error">'+data.error+'</span>');
 					}else{
-						if(data.updated > 0 || data.new_concepts > 0 ){
-							download = '<br /><span class="success">Download updated CSV</span> <a href="'+data.file+'">'+data.file+'</a>';
+						if(data.updated > 0 || data.new_concepts > 0 || data.new_totals > 0){
+							download = '<?php echo Yii::app()->request->baseUrl; ?>/csv/downloadUpdatedCSV/<?php echo $model->year;?>';
+							msg = '<br />1. Download new CSV: <a href="'+download+'"><?php echo $model->csv;?></a>';
+							msg = msg+'<br />2. Open new CSV on your PC and check it.';
+							msg = msg+'<br />3. Use new CSV to import your data.';
 						}else{
-							download = '';
+							msg = '';
 							$('#step_'+next).show();
 						}
-						$(el).replaceWith('<span class="success">'+data.msg+'</span> '+download);
+						$(el).replaceWith('<span class="success">'+data.msg+'</span> '+msg);
 					}
 		},
-		error: function() { alert("error on checkMissingValues"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/addMissingValues?csv_file='.$model->csv.'&year='.$model->year;
+				echo	'<span class=\"error\"><br />error on checkMissingValues. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 function checkTotals(el,next_step){
@@ -99,8 +116,6 @@ function checkTotals(el,next_step){
 		type: 'GET',
 		dataType: 'json',
 		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
 		success: function(data){
 					if(data.error){
 						alert(data.error);
@@ -113,36 +128,16 @@ function checkTotals(el,next_step){
 						$('#step_'+next_step).show();
 					}
 		},
-		error: function() { alert("error on checkTotals"); },
-	});
-}
-/*
-function checkMissingConcepts(el, next_step){
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/addMissingDescriptions',
-		type: 'GET',
-		dataType: 'json',
-		data: { 'csv_file': '<?php echo $model->csv;?>' },
-		//beforeSend: function(){  },
-		//complete: function(){  },
-		success: function(data){
-					if(data.error){
-						$(el).replaceWith('<span class="error">'+data.error+'</span>');
-					}else{
-						if(data.updated == 0){
-							$(el).replaceWith('<span class="success">All concepts are defined</span>');
-							$('#step_'+next_step).show();
-						}else{
-							download = '<a href="'+data.file+'">'+data.file+'</a>';
-							$(el).replaceWith(	'<span class="warn">Made '+data.updated+' changes.</span><br />'+
-												'<span class="success">Download updated CSV</span> '+download);
-						}
-					}
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/checkCSVTotals?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on checkTotals. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
 		},
-		error: function() { alert("error on checkMissingConcepts"); },
 	});
 }
-*/
 function dumpBudgets(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/dumpBudgets',
@@ -158,7 +153,14 @@ function dumpBudgets(el,next_step){
 					}
 					$('#step_'+next_step).show();
 		},
-		error: function() { alert("error on dump Budgets"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/budget/dumpBudgets';
+				echo	'<span class=\"error\"><br />error on dump Budgets. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 function importData(el,next_step){
@@ -178,12 +180,19 @@ function importData(el,next_step){
 						$('#step_'+next_step).show();
 					}
 		},
-		error: function() { alert("error on importData"); },
+		error: function() {
+			$(el).replaceWith("<?php
+				$link = Yii::app()->getBaseUrl(true).'/csv/importCSVData/'.$model->year.'?csv_file='.$model->csv;
+				echo	'<span class=\"error\"><br />error on importData. For more detail see<br />'.
+						'<a href=\"'.$link.'\">'.$link.'</a>'.
+						'</span>';
+			?>");
+		},
 	});
 }
 </script>
 
-<?php echo '<h1>'.__('Import csv into').' '.$model->year.'</h1>';?>
+<h1 style="margin: 0 0 15px 0"><?php echo __('Import csv into').' '.$model->year;?></h1>
 
 <?php
 if(!$model->csv){
@@ -224,17 +233,17 @@ if($model->step == 2){
 }
 
 echo '<p id="step_3" style="display:none">Step 3. Check for missing values ';
-echo '<input type="button" value="Check" onClick="js:addMissingValues(this,4);" /></p>';
+echo '<input id="check_missing_values_button" type="button" value="Check" onClick="js:addMissingValues(this,4);" />';
+echo '<img id="checking_missing_values" style="display:none" src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />';
+echo '</p>';
 
 echo '<p id="step_4" style="display:none">Step 4. Check totals  ';
-echo '<input type="button" step="41" value="Calculate" onClick="js:checkTotals(this,5);" /></p>';
+echo '<input type="button" step="41" value="Calculate" onClick="js:checkTotals(this,5);" />';
+echo '</p>';
 
 echo '<p id="step_41" style="display:none">';
 echo '<input type="button" value="Try again" onClick="js:location.href=\''.Yii::app()->request->baseUrl.'/csv/importCSV/'.$model->year.'\';" /> ';
 echo '<input type="button" value="Continue anyway" onClick="js:step41_to_5();" /></p>';
-
-//echo '<p id="step_5" style="display:none">Step 5. Check for missing Concepts ';
-//echo '<input type="button" value="Check" onClick="js:checkMissingConcepts(this,6);" /></p>';
 
 echo '<p id="step_5" style="display:none">Step 5. Backup budget database: ';
 echo '<input id="dump_button" type="button" style="margin-left:15px;" value="Backup" onClick="js:dumpBudgets(this,6);" /></p>';
@@ -248,8 +257,9 @@ $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = '.$model->year;
 $year=Budget::model()->find($criteria);
 
-echo '<p id="step_7" style="display:none">Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
+echo '<p id="step_7" style="display:none">';
+if($year->code == 1) // this year has already been published
+	echo 'Remember to <b>update the zip file</b> with this csv.<br />';
+echo 'Return to year '.CHtml::link($model->year, array('budget/updateYear', 'id'=>$year->id)).'</p>';
 
 ?>
-
-

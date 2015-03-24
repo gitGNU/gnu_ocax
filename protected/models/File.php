@@ -75,6 +75,12 @@ class File extends CActiveRecord
 		);
 	}
 
+	public function afterFind()
+	{
+		if(strpos($this->path, '/runtime') === 0)
+			$this->baseDir = Yii::app()->basePath;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -149,5 +155,23 @@ class File extends CActiveRecord
 		$string = str_replace(' ', '-', $string);
 
 		return trim($string, ' -');
+	}
+
+	public function checkExtension($ext)
+	{
+		$path_parts = pathinfo($this->path);
+		if($path_parts['extension'] == $ext)
+			return 1;
+		return 0;
+	}
+	
+	public function getYearFromCSVFilename()
+	{
+		if($this->checkExtension('csv')){
+			$year = basename($this->path, ".csv");
+			if(strtotime($year) !== false)
+				return $year;
+		}
+		return Null;
 	}
 }

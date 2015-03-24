@@ -26,12 +26,13 @@ Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
 Yii::app()->clientScript->scriptMap['jquery.yiigridview.js'] = false;
 
 
-echo '<h1 style="padding:5px">'.__('Uploaded files').'</h1>';
+echo '<div class="modalTitle">'.__('Uploaded files').'</div>';
 
 $dataProvider = new CActiveDataProvider('File', array(
-    'criteria'=>array('condition'=>'model = "CmsPage"')
+    'criteria'=>array('condition'=>'model = "SitePage"')
 ));
 
+echo '<div style="margin: 10px -10px 0 -10px">';
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -50,5 +51,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 ));
-
+echo '</div>';
 ?>

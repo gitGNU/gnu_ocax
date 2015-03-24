@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -24,44 +24,33 @@
 $this->menu=array(
 	array('label'=>__('Manage descriptions'), 'url'=>array('budgetDescription/admin')),
 );
-$this->inlineHelp=':budget_descriptions';
+$this->inlineHelp=':manual:budget:nodescriptions';
 ?>
 
 <h1><?php echo __('Budgets without description');?></h1>
 
 <?php
-	
-
 	$this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
-	'loadingCssClass'=>'pgrid-view-loading',
+	'loadingCssClass'=>'grid-view-loading',
 	'id'=>'budget-grid',
 	'dataProvider'=>$model->budgetsWithoutDescription(),
 	'filter'=>$model,
 	'columns'=>array(
-        'csv_id',
+		array(
+			'header'=>'internal code',
+			'value'=>'$data["csv_id"]',
+		),
         'code',
         'year',
-        /*
-		array(
-			'header'=>__('Internal code'),
-			'value'=>'$data[\'csv_id\']',
-			'type'=>'raw',
-        ),
-        array(
-			'name'=>__('Year'),
-			'value'=>'$data[\'year\']',
-			'type'=>'raw',
-        ),
-		*/
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{create}',
 			'buttons'=>array(
 				'create' => array(
-					'url'=>'Yii::app()->createUrl("budgetDescription/create", array("budget"=>$data[\'id\']))',
-					'imageUrl' => Yii::app()->request->baseUrl.'/images/insert_icon.png',
+					'label'=> '<i class="icon-plus-circled amber"></i>',
+					'url'=>'Yii::app()->createUrl("budgetDescription/modify", array("budget"=>$data[\'id\']))',
 				),
 			),
 		),

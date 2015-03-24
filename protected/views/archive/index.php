@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -38,8 +38,8 @@ function uploadFile(){
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
-				$("#files_content").html(data);
-				$('#files').bPopup({
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -71,16 +71,30 @@ function deleteArchive(archive_id){
 	});
 }
 </script>
-<div id="files" class="modal" style="width:500px;">
-<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-<div id="files_content" style="margin:-10px"></div>
-</div>
-<?php } ?>
+<?php 
+	echo $this->renderPartial('//file/modal');
+} ?>
 
+<script>
+function showLink(archive_id, el){
+	notice = $(el).parent().find('.alert');
+	$('.alert').not(notice).each(function(){
+		$(this).hide();
+	});
+	text = $('<div></div>');
+	archiveLink = '<?php echo Yii::app()->createAbsoluteUrl('');?>/archive/'+archive_id;
+	input = $('<input type="text" style="width:205px;margin-right:3px;" value='+archiveLink+' />');
+	$(text).append(input);
+	$(text).append('<i class="icon-cancel-circled closeLinkAlert" onclick="js:$(\'.alert\').hide();"></i>');
+	$(notice).html(	text );
+	$(notice).show();
+	$(input).select();
+}
+</script>
 
-<div style="margin:0px 0 40px 0">
+<div style="margin:-15px 0 15px -15px;">
 <?php
-echo '<span class="bigTitle">'.__('Archive').'</span>';
+echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($userCanCreate){
 	echo '<div style="float:right">';
 	echo '<a class="link" href="'.getInlineHelpURL(':archive').'" target="_new">'.__('About the Archive').'</a><br />';
@@ -88,10 +102,12 @@ if($userCanCreate){
 	echo '</div>';
 }
 ?>
+<div class="clear"></div>
 </div>
 
+<div class="horizontalRule"></div>
 
-<div style="margin-left:30px">
+<div style="margin:-15px 0 0 30px">
 <?php
 $user_id = Null;
 $is_admin = Null;
@@ -101,7 +117,7 @@ if(!Yii::app()->user->isGuest){
 }
 $this->widget('zii.widgets.CListView', array(
 	'id'=>'archive_list',
-	'template'=>'{items}<div style="clear:both"></div>{pager}',
+	'template'=>'<p>{pager}</p>{items}<div style="clear:both"></div>',
 	'dataProvider'=>$dataProvider,
 	'viewData'=>array('user_id'=>$user_id,'is_admin'=>$is_admin),
 	'itemView'=>'_view',

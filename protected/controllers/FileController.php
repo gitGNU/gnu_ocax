@@ -17,6 +17,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// this is a mess !!!
+
 class FileController extends Controller
 {
 	/**
@@ -45,7 +47,7 @@ class FileController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('showCMSfiles','wallpaper'),
+				'actions'=>array('wallpaper','showCMSfiles'),
 				'expression'=>"Yii::app()->user->isEditor()",
 			),
 			array('allow',
@@ -101,28 +103,39 @@ class FileController extends Controller
 		{
 			$model->attributes=$_POST['File'];
 			$model->file=CUploadedFile::getInstance($model,'file');
-			
+
 			if($model->file){
-				$path=$this->getPath($model->model,$model->model_id);
+				if($model->model == 'logo')
+					$path = '';
+				else
+					$path=$this->getPath($model->model,$model->model_id);
+
 				$model->path='/files/'.$path;
 
 				if(!is_dir($model->getURI()))
-					mkdir($model->getURI(), 0777, true);
+					createDirectory($model->getURI());
 
-				$normalized_name = $model->normalize($model->file->name);
-				$model->path=$model->path.'/'.$normalized_name;
-
+				if($model->model == 'logo'){
+					$ext = pathinfo($model->file->name, PATHINFO_EXTENSION);
+					$model->path = $model->path.'logo.'.$ext;
+				}else{
+					$normalized_name = $model->normalize($model->file->name);
+					$model->path=$model->path.'/'.$normalized_name;
+				}
 				if(!$model->name)
 					$model->name=$model->file->name;
 
-
+				if($model->model == 'logo'){
+					if($logo = $model->findByAttributes(array('model'=>'logo')))
+						$logo->delete();
+				}
 				if($file_saved = $model->file->saveAs($model->getURI()))
 					$model->save();
 
-				if($model->model == 'CmsPage'){
+				if($model->model == 'SitePage'){
 					if($file_saved)
 						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
-					$this->redirect(array('cmsPage/admin'));
+					$this->redirect(array('sitePage/admin'));
 
 				}elseif($model->model == 'Reply'){
 					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);
@@ -139,10 +152,14 @@ class FileController extends Controller
 					$this->redirect(array('enquiry/submit','id'=>$model->model_id));
 
 				}elseif($model->model == 'wallpaper'){
-					$this->redirect(array('file/wallpaper'));				
+					$this->redirect(array('file/wallpaper'));
 
 				}elseif($model->model == 'DatabaseDownload/docs'){
 					$this->redirect(array('file/databaseDownload'));
+
+				}elseif($model->model == 'logo'){
+					resizeLogo($model->getURI());
+					$this->redirect(array('config/image'));
 
 				}else
 					$this->redirect(array('site/index'));
@@ -165,7 +182,7 @@ class FileController extends Controller
 		if(isset($_GET['file_name']))
 		{
 			$file_name = $model->normalize($_GET['file_name']);
-			$path=$model->baseDir.'/files/'.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;			
+			$path=$model->baseDir.'/files/'.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;
 
 			if(!$file_name)
 				echo 'File required.';
@@ -189,24 +206,28 @@ class FileController extends Controller
 		$file->path='/files/'.$file->model.'/'.$zip_name;
 		$file->name = $zip_name;
 
-		$tmp_fn = tempnam(sys_get_temp_dir(), 'zip-');
+		//$tmp_fn = tempnam(sys_get_temp_dir(), 'zip-');
+		$tmpDir = Yii::app()->basePath.'/runtime/tmp/';
+		$tmp_fn = $tmpDir.'zip-'.mt_rand(10000,99999);
 		$zip = new ZipArchive();
 
 		if ($zip->open($tmp_fn, ZIPARCHIVE::CREATE)){
 			$source = $file->baseDir.'/files/'.$file->model;
-			
+
 			$zip->addEmptyDir('data');
-			$nodes = glob($source.'/data/*'); 
-			foreach($nodes as $node)
-				$zip->addFile($node, str_replace($source.'/', '/', $node));
-
+			$nodes = scandir($source.'/data');
+			foreach($nodes as $node){
+				if(strpos($node, '.') !== 0)
+					$zip->addFile($source.'/data/'.$node, 'data/'.$node);
+			}
 			$zip->addEmptyDir('docs');
-			$nodes = glob($source.'/docs/*');
-			foreach($nodes as $node)
-				$zip->addFile($node, str_replace($source.'/', '/', $node));			
-
+			$nodes = scandir($source.'/docs');
+			foreach($nodes as $node){
+				if(strpos($node, '.') !== 0)
+					$zip->addFile($source.'/docs/'.$node, 'docs/'.$node);
+			}
 			$zip->close();
-			
+
 			$old_zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'));
 			$archive=Null;
 			if($old_zip){
@@ -222,23 +243,25 @@ class FileController extends Controller
 			if(!$archive)	// this is the first time zip has been created
 				$archive = new Archive;
 
-			$archive->name = $file->name;
+			$archive->name = str_replace(".zip", "", $file->name);
 			$archive->path = $file->path;
-			
+
 			$language = Yii::app()->language;
 			Yii::app()->language = getDefaultLanguage();
 			$archive->description = __('MSG_ZIP_DESCRIPTION');
-			Yii::app()->language = $language;			
+			Yii::app()->language = $language;
 
 			$archive->extension = 'zip';
 			$archive->created = date('Y-m-d');
 			$archive->author = Yii::app()->user->getUserID();
 			$archive->save();
-			
+
 			copy($tmp_fn, $file->getURI());
-			unlink($tmp_fn);		
-				
+			unlink($tmp_fn);
+
 			$file->save();
+			Config::model()->updateSiteConfigurationStatus('siteConfigStatusZipFileUpdated', 1);
+			Log::model()->write('ZipFile', 'Zip file updated');
 			Yii::app()->user->setFlash('success',__('Zip file updated'));
 		}else{
 			Yii::app()->user->setFlash('error',__('Error: zip file not created'));
@@ -254,6 +277,10 @@ class FileController extends Controller
 	public function actionDelete($id)
 	{
 		$model=$this->loadModel($id);
+		
+		if(strpos($model->path, '/runtime') === 0)
+			$model->baseDir = Yii::app()->basePath;
+			
 		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -267,6 +294,7 @@ class FileController extends Controller
 
 	public function actionDatabaseDownload()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Zip file'));
 		$this->render('adminDatabaseDownload');
 	}
 	public function actionShowCMSfiles()
@@ -279,9 +307,10 @@ class FileController extends Controller
 	}
 	public function actionWallpaper()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Wallpaper'));
 		echo $this->render('wallpaper');
 	}
-	
+
 	public function actionAdminArchive()
 	{
 		$model=new File('search');
@@ -289,13 +318,13 @@ class FileController extends Controller
 
 		if(isset($_GET['File']))
 			$model->attributes=$_GET['File'];
-			
+
 		$model->model='archive';
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
-	}	
+	}
 
 	/**
 	 * Manages all models.

@@ -25,9 +25,10 @@
 $this->menu=array(
 	array('label'=>__('View Enquiry'), 'url'=>array('teamView', 'id'=>$model->id)),
 	array('label'=>__('Change type'), 'url'=>array('changeType', 'id'=>$model->id)),
-	array('label'=>__('List enquiries'), 'url'=>array('managed')),
+	array('label'=>__('List enquiries'), 'url'=>array('assigned')),
 );
-$this->inlineHelp=':profiles:team_member';
+$this->inlineHelp=':manual:enquiry:teamedit';
+$this->viewLog='Enquiry|'.$model->id;
 
 
 echo $this->renderPartial('_form', array('model'=>$model));

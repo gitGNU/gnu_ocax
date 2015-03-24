@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -112,6 +112,28 @@ class Comment extends CActiveRecord
 			'user' => __('User'),
 			'body' => __('Comment'),
 		);
+	}
+
+	public function belongsToEnquiry()
+	{
+		if($this->model == 'Enquiry' || $this->model == 'Reply'){
+			if($this->model == 'Reply'){
+				$reply = Reply::model()->findByPk($this->model_id);
+				return $reply->enquiry0;
+			}
+			if($this->model == 'Enquiry')
+				return Enquiry::model()->findByPk($this->model_id);
+		}
+		return Null;
+	}
+
+	public function isModerator($user_id)
+	{
+		if($enquiry = $this->belongsToEnquiry()){
+			if($enquiry->teamMember->id == $user_id)
+				return 1;
+		}
+		return 0;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -54,8 +54,8 @@ class EmailController extends Controller
 				'expression'=>"(Yii::app()->user->isManager() || Yii::app()->user->isTeamMember())",	//not working? check this.
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(/*'admin','delete'*/),
-				'users'=>array('admin'),
+				'actions'=>array('test'),
+				'expression'=>"Yii::app()->user->isAdmin()",
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -82,7 +82,7 @@ class EmailController extends Controller
 	}
 
 	/**
-	 * Creates a new model.
+	 * Creates and sends an email.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
@@ -110,21 +110,19 @@ class EmailController extends Controller
 
 			$model->sender = Yii::app()->user->getUserID();
 			if($model->save()){
-
  				$mailer = new Mailer();
-				$addresses = explode(',', $model->recipients);
-				foreach($addresses as $address)
-					$mailer->AddBCC(trim($address));
-
+ 				
 				$mailer->SetFrom($model->sent_as, Config::model()->findByPk('siglas')->value);
 				$mailer->Subject=$model->title;
 				$mailer->Body=$model->body;
-
-				if($mailer->send()){
-					$model->sent=1;
-					$model->save();
+				$addresses = explode(',', $model->recipients);
+				
+				$model->sent = $mailer->sendBatches($addresses);
+				$model->save();
+				
+				if($model->sent){
 					//$link=CHtml::link(__('View email'),array('email/index/'.$model->enquiry.'?menu=manager'));	// need to fix this!!
-					Yii::app()->user->setFlash('success',__('Email sent OK')/*.'&nbsp;&nbsp;&nbsp;'.$link*/);
+					Yii::app()->user->setFlash('success',__('Email sent OK'));
 				}else
 					Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 
@@ -143,9 +141,9 @@ class EmailController extends Controller
 		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->enquiry));
 
 		if(!$model->body)
-			$model->body=Emailtext::model()->findByPk($enquiry->state)->getBody($enquiry);
+			$model->body=EmailTemplate::model()->findByPk($enquiry->state)->getBody($enquiry);
 		if(!$model->title)
-			$model->title=$enquiry->getHumanStates($enquiry->state,$enquiry->addressed_to);
+			$model->title=$enquiry->getHumanStates($enquiry->state);
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -180,7 +178,7 @@ class EmailController extends Controller
 			$user_text = htmLawed::hl($model->body, array('elements'=>'-*', 'keep_bad'=>0));
 			$user_text = nl2br($user_text);
 			$model->body = '<p>'.$model->title.'</p>';	//get the preamble from the title
-			
+
 			$model->title = str_replace("%s", Config::model()->findByPk('siglas')->value, __('Private email request from a user at the %s'));
 
 			if($model->save()){
@@ -213,6 +211,30 @@ class EmailController extends Controller
 	}
 
 	/**
+	 * Admin can test email parameters.
+	 */
+	public function actionTest($id)
+	{
+		$user = User::model()->findByPk(Yii::app()->user->getUserID());
+
+		$mailer = new Mailer();
+		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
+		$mailer->AddAddress($user->email);
+		$mailer->Subject=$id;
+		$mailer->Body='<p>This is a test</p>';
+
+		if($mailer->send()){
+			Yii::app()->user->setFlash('success',__('Email sent OK'));
+			Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmail', 1);
+		}else{
+			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
+			Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmail', 0);
+		}
+
+		$this->redirect(array('/config/email'));
+	}
+
+	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
@@ -231,7 +253,7 @@ class EmailController extends Controller
 	 */
 	public function actionIndex($id)
 	{
-
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Sent emails'));
 		$enquiry=Enquiry::model()->findByPk($id);
 
 		$dataProvider=new CActiveDataProvider('Email', array(

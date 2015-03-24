@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,90 +25,22 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 	Yii::app()->clientScript->scriptMap['jquery.ba-bbq.js'] = false;
+}else{
+	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/css/enquiry.css" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
+	echo '<script src="'.Yii::app()->request->baseUrl.'/scripts/jquery.bpopup-0.9.4.min.js"></script>';
+	echo $this->renderPartial('subscribeScript',array(),false,false);
+	
 }
-if(!Yii::app()->request->isAjaxRequest){?>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
-<?php } ?>
+?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
-<style>
-i[class^="icon-"]:before, i[class*=" icon-"]:before {
-	margin-top:0px;
-	margin-right:3px;
-	font-size:	17px;
+<?php
+if(!Yii::app()->request->isAjaxRequest) {
+	echo $this->renderPartial('//includes/socialWidgetsScript', array());
 }
-#enquiryDetails tr:first-child td{border:none;}
-#enquiryDetails tr:first-child th{border:none;}
-</style>
+?>
 
 <script>
-!function(d,s,id){
-	var js,fjs=d.getElementsByTagName(s)[0];
-	if(!d.getElementById(id)){
-		js=d.createElement(s);
-		js.id=id;
-		js.src="https://platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js,fjs);
-	}
-}
-(document,"script","twitter-wjs");
-</script>
-
-<div id="fb-root"></div>
-<script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
-
-<script>
-function subscribe(el){
-	if('1' == '<?php echo Yii::app()->user->isGuest;?>'){
-		$(el).attr('checked', false);
-		alert("<?php echo __('Please login to subscribe')?>");
-		$('#subscribe').hide();
-		return;
-	}
-	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/subscribe',
-		type: 'POST',
-		dataType: 'json',
-		data: { 'enquiry': <?php echo $model->id;?>,
-				'subscribe': $(el).is(':checked'),
-			  },
-		//beforeSend: function(){ },
-		//complete: function(){ },
-		success: function(data){
-			$('#subscribe').slideUp('fast');
-			if($('#subscriptionTotal').length>0){
-				updateSubscriptionTotal(data);
-			}
-		},
-		error: function() { alert("error on subscribe"); },
-	});
-}
-function clickSocialIcon(el){
-	if( $(el).attr('social_icon') ){
-		$('#'+$(el).attr('social_icon')).show();
-	}
-}
-$(function() {
-	$('.social_popup').mouseleave(function() {
-		$('.social_popup').fadeOut('fast');
-	});
-});
-
-function toggleStatesDiagram(){
-	$('#states_diagram').toggle();
-	return false;
-}
-
-
 function showBudget(budget_id, element){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
@@ -135,160 +67,102 @@ function showBudget(budget_id, element){
 		}
 	});
 }
+function enquiryModal2Page(){
+	$('#enquiry_popup').bPopup().close();
+	window.open('<?php echo $this->createAbsoluteUrl('/e/'.$model->id); ?>',  '_blank');
+}
 </script>
 
-<?php if($reformulatedDataprovider = $model->getReformulatedEnquires()){
-	$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
+<?php
+	if(Yii::app()->request->isAjaxRequest)
+		echo '<div class="modalTitle">'.__('Enquiry').'</div>';
+
+	if($reformulatedDataprovider = $model->getReformulatedEnquires()){
+		$this->renderPartial('//enquiry/_reformulated', array(	'dataProvider'=>$reformulatedDataprovider,
 															'model'=>$model,
 															'onClick'=>'/enquiry/view'));
-}?>
+	}
+?>
 
-<h1 style="margin-bottom:-2px;"><?php echo $model->title?></h1>
+<h1 id="enquiryTitle" <?php echo !Yii::app()->request->isAjaxRequest ? 'style="margin-top:-15px;"':'' ?>>
+<?php echo $model->title?>
+</h1>
 
-<div	id="states_diagram" 
-		style="	display:none;
-				cursor:pointer;
-				padding:20px;
-				border: 1px solid grey;
-				z-index:10;
-				position:absolute;
-				background-color:white;
-				margin-left:10px;
-				margin-top:10px;
-				width:350px"
-		onClick="$(this).toggle();return false;"		
->
-<img	style="	cursor: pointer;
-				position: absolute;
-				right: -21px;
-				top: -21px;"
-		src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png";
-/>
-<?php $this->renderPartial('workflow',array('model'=>$model));?>
-
-</div>
-
-<div style="float:right;margin-top:5px;text-align:left;margin-left:5px;padding:0px;width:470px;">
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'id' => 'enquiryDetails',
-	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-	'data'=>$model,
-	'attributes'=>array(
-		array(
-	        'label'=>__('Formulated'),
-			'type' => 'raw',
-	        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
-						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
-						format_date($model->created).' '.__('by').' '.CHtml::link(
+<div id="enquiryDetails">
+<?php
+$attribs = array();
+$attribs[] = array(
+        'label'=>__('Formulated'),
+		'type' => 'raw',
+        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
+					format_date($model->created).' '.__('by').' '.$model->user0->fullname :
+					format_date($model->created).' '.__('by').' '.CHtml::link(
 															CHtml::encode($model->user0->fullname), '#!',
 															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
 														),
-		),
-		array(
-	        'label'=>__('Type'),
-	        'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
-		),
-		array(
-	        'label'=>__('State'),
-			'type' => 'raw',
-			'value'=> CHtml::link(
-						CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)), 'javascript:void(0);',
-						array('onclick'=>'toggleStatesDiagram(); return false;')
-					),
-		),
-	),
-));
-
-if($model->state >= ENQUIRY_AWAITING_REPLY && $model->addressed_to != OBSERVATORY){
+	);
+$attribs[] = array(
+		'label'=>__('State'),
+		'type' => 'raw',
+		'value'=> CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)),
+	);
+		
+if($model->state >= ENQUIRY_AWAITING_REPLY){
 	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
 	if($model->documentation)
 		$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';
-	$attributes=array(
-					array(
-	        			'label'=>__('Submitted'),
+	$attribs[] = array(	'label'=>__('Submitted'),
 						'type'=>'raw',
 						'value'=>$submitted_info,
-					),
 				);
-	$this->widget('zii.widgets.CDetailView', array(
-		'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-		'data'=>$model,
-		'attributes'=>$attributes,
-	));
 }
+$attribs[] = array(
+		'label'=>__('Type'),
+		'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
+	);
+$this->widget('zii.widgets.CDetailView', array(
+	'id' => 'e_details',
+	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
+	'data'=>$model,
+	'attributes'=>$attribs,
+));
+
+
 if($model->budget)
-	$this->renderPartial('//budget/_enquiryView', array('model'=>$model->budget0, 'showLinks'=>1, 'showEnquiriesMadeLink'=>1, 'enquiry'=>$model));
+	$this->renderPartial('_budgetDetails', array(	'model'=>$model->budget0,
+													'showLinks'=>1,
+													'showEnquiriesMadeLink'=>1,
+													'enquiry'=>$model,
+												));
 ?>
 
-</div>	<!-- end float right -->
+</div>	<!-- end enquiryDetails -->
 <div>
 
 <!-- socaial options start -->
-<div style="padding: 10px 00px 10px 0px; width:400px;margin-top:5px;">
-
-	<div id="directlink" class="social_popup">
-		<?php
-		$url = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-		echo '<span style="cursor:pointer;" onClick=\'location.href="'.$url.'";\'>'.$url.'</span>';
-		?>
-	</div>
-
-	<div id="subscribe" class="social_popup">
-		<?php
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'enquiry = '.$model->id.' AND user = '.Yii::app()->user->getUserID();
-			$checked = '';
-			if( EnquirySubscribe::model()->findAll($criteria) )
-				$checked = 'checked';
-		?>
-		<?php echo __('Keep me informed via email when there are changes')?>
-			<input	id="subscribe_checkbox"
-					type="checkbox"
-					onClick="js:subscribe(this);"
-					style="
-					    vertical-align: middle;
-					    position: relative;
-					    bottom: 1px;
-					"
-					<?php echo $checked; ?>
-			/>
-	</div>
-
-
+<div id="socialOptions">
 	<?php
 	if($model->state >= ENQUIRY_ACCEPTED){
-		echo '<span style="float:left;margin-right:10px" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="directlink">'.
-		'<i class="icon-link"></i>'.__('Direct link').'</span>';
-		echo '<span style="float:left" class="ocaxButton" onClick="js:clickSocialIcon(this);" social_icon="subscribe">'.
-		'<i class="icon-mail"></i>'.__('Subscribe').'</span>';
-		echo '<span style="float:left" class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+		$active='';
+		if(EnquirySubscribe::model()->isUserSubscribed($model->id, Yii::app()->user->getUserID()))
+			$active = "active";
 
-		echo '<div style="float:left;margin-left:10px;width:80px;">
-			  <a	href="https://twitter.com/share"
-					class="twitter-share-button"
-					data-url="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
-					data-counturl="'.trim($this->createAbsoluteUrl('/enquiry/'.$model->id)).'"
-					data-text="'.trim($model->title).'"
-					data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
-					data-lang="en"
-					>
-			</a>
-			</div>';	
+		echo '<span style="position:relative;  margin-right:10px">';
+		echo '<span class="ocaxButton" onClick="js:showSocialWidgets(); ">'.
+			 __('Share').'<i class="icon-share"></i>';
+		echo '</span>';
+		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
+		echo '</span>';
 
-		echo '<div style="float:left;margin-left:10px;">
-			  <div	class="fb-like"
-					data-href="'.$this->createAbsoluteUrl('/enquiry/'.$model->id).'"
-					data-send="false"
-					data-layout="button_count"
-					data-width="80px"
-					data-show-faces="false"
-					data-font="arial">
-			</div>
-			</div>';
+		echo '<span
+				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"
+				onClick="js:showSubscriptionNotice(this, '.$model->id.');">'.
+			 __('Subscribed').'<i class="icon-mail-1"></i>';
+		echo '<span class="ocaxButtonCount" id="subscriptionTotal">'.count($model->subscriptions).'</span>';
+		echo '<div class="alert subscription_notice" style="margin-top:-30px;"></div>';
+		echo '</span>';
 	}?>
-
 </div>
-<br />
 <!-- social options stop -->
 
 <?php
@@ -309,5 +183,3 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
 </div>
 
 <div class="clear"></div>
-
-

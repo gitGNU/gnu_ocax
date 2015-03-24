@@ -1,7 +1,7 @@
 <?php
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -82,11 +82,15 @@ class NewsletterController extends Controller
 		}
 		// generate and render RSS feed
 		$feed=Zend_Feed::importArray(array(
-			'title'   => Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
-			'link'    => Yii::app()->createUrl('newsletter'),
-			'charset' => 'UTF-8',
-			'entries' => $entries,      
-			), 'rss');
+			'title'			=> Config::model()->findByPk('siglas')->value.' '.__('Newsletters'),
+			'description'	=> Config::model()-> getObservatoryName(),
+			'link'			=> Yii::app()->createUrl('newsletter'),
+			'image'			=> Yii::app()->createAbsoluteUrl('files/logo.png'),
+			'charset'		=> 'UTF-8',
+			'entries'		=> $entries,      
+			),
+			'rss'
+		);
 		$feed->send();  
 	}
 
@@ -196,9 +200,10 @@ class NewsletterController extends Controller
 				->where('is_active = 1')
 				->queryAll();
 
+		$addresses = array();
 		foreach($users as $recipient){
 		    $model->recipients=$model->recipients.$recipient['email'].', ';
-			$mailer->AddBCC(trim($recipient['email']));
+		    $addresses[] = trim($recipient['email']);
 		}
 		$model->recipients = substr_replace($model->recipients ,"",-2);
 		$model->sender=Yii::app()->user->getUserID();
@@ -206,11 +211,13 @@ class NewsletterController extends Controller
 		$mailer->Subject=$model->subject;
 		$mailer->Body=$model->body;
 
-		if($mailer->send()){
+		if($mailer->sendBatches($addresses)){
 			$model->sent=2;
 			$model->published = date('c');
 			Yii::app()->user->setFlash('success',__('Email sent OK'));
+			Log::model()->write('Newsletter', __('Newsletter published'), $model->id);
 		}else{
+			$model->published = Null;
 			$model->sent=1;
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 		}
@@ -223,6 +230,7 @@ class NewsletterController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Newsletter'));
 		$model=new Newsletter('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Newsletter']))

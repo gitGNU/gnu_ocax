@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -28,34 +28,43 @@
 
 <div class="reply">
 <?php
-	$user_id=Yii::app()->user->getUserID();
-	echo '<div class="title">';
-		echo '<span class="sub_title">'.__('Reply').': '.format_date($model->created).'</span>';
+	if($user_id = Yii::app()->user->getUserID()){
+		if($userVote = Vote::model()->findByAttributes(array('reply'=>$model->id, 'user'=>$user_id)))
+			$userVote = $userVote->vote;
+	}else
+		$userVote = Null;
 
-		echo '<div class="voteBlock">';
+	echo '<div class="title">';
+		echo '<div class="sub_title" style="font-size:28px; float:left; margin:0 15px 0 0;">'.__('Reply').': '.format_date($model->created).'</div>';
+
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
-				echo '<span id="attachment_'.$attachment->id.'" style="margin-left:30px">';
-				echo	'<span class="ocaxButton" style="padding:6px 8px 4px 5px;" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">'.
-						'<img style="vertical-align:text-bottom;" src="'.Yii::app()->request->baseUrl.'/images/paper_clip.png" />'.
-						$attachment->name;
-				echo	'</span>';
+				echo '<span	id="attachment_'.$attachment->id.'">';
+					echo '<span	class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">';
+					echo $attachment->name.'<i class="icon-attach"></i>';
+					echo '</span>';
 				if( $model->team_member == $user_id ){
-					echo '	<img style="margin-right:-10px;cursor:pointer;vertical-align:middle;"
-					src="'.Yii::app()->request->baseUrl.'/images/delete.png" onclick="js:deleteFile('.$attachment->id.');" />';
+					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 				echo '</span>';
 			}
-			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$model->id.', 1);">'.
-				 __('Vote').'<i class="icon-thumbs-up"></i></span>';
-			echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1).'</span>';
-			echo '<span style="margin-left:30px"></span>';
-			echo '<span class="ocaxButton" style="padding:6px 8px 4px 12px;" onClick="js:vote('.$model->id.', 0);">'.
-				 __('Vote').'<i class="icon-thumbs-down"></i></span>';
-			echo '<span class="ocaxButtonCount" style="padding:4px;" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0).'</span>';
+		echo '<span class="voteBlock">';
 
-		echo '</div><div class="clear"></div>';
+			$userVote === '1' ? $voted = 'active' : $voted = '';
+			echo '<span style="margin-left:15x"></span>';
+			echo '<span id="voteUp_'.$model->id.'" class="ocaxButton '.$voted.'" onClick="js:vote('.$model->id.', 1, this);">'.
+				 __('Vote').'<i class="icon-thumbs-up"></i>';
+			echo '<span class="ocaxButtonCount" id="voteLikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 1);
+			echo '</span></span>';
+			
+			$userVote === '0' ? $voted = 'active' : $voted = '';
+			echo '<span style="margin-left:15px"></span>';
+			echo '<span id="voteDown_'.$model->id.'" class="ocaxButton '.$voted.'" onClick="js:vote('.$model->id.', 0, this);">'.
+				 __('Vote').'<i class="icon-thumbs-down"></i>';
+			echo '<span class="ocaxButtonCount" id="voteDislikeTotal_'.$model->id.'">'.Vote::model()->getTotal($model->id, 0);
+			echo '</span></span>';
+
+		echo '</span><div class="clear"></div>';
 	echo '</div>';
 	if($model->team_member == Yii::app()->user->getUserID()){
 		echo '<div class="link" style="margin-top:-10px;float:right;" onClick=\'js:uploadFile("Reply",'.$model->id.');\'>'.__('Add attachment').'</div>';

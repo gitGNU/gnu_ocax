@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
+ * OCAX -- Citizen driven Observatory software
  * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@ class ArchiveController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -60,17 +60,31 @@ class ArchiveController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
+	 * Downloads a particular model.
+	 * @param integer $id the ID of the model to be downloaded
 	 */
-	/*
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$model=$this->loadModel($id);
+
+		if (file_exists($model->baseDir.$model->path)) {
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
+			$mime_type = finfo_file($finfo, $model->baseDir.$model->path);
+			
+			header("Pragma: public");
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Cache-Control: public");
+			header("Content-Description: File Transfer");
+			header("Content-type: $mime_type");
+			header("Content-Disposition: attachment; filename=\"".$model->name.".".$model->extension."\"");
+			//header("Content-Transfer-Encoding: binary");
+			header("Content-Length: ".filesize($model->baseDir.$model->path));
+			ob_end_flush();
+			@readfile($model->baseDir.$model->path);
+			exit;
+		}
 	}
-	*/
 	
 	public function actionValidateFile()
 	{
@@ -167,8 +181,10 @@ class ArchiveController extends Controller
 	public function actionDelete($id)
 	{
 		echo $id;
-
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+		
+		if(strpos($model->path, '/files/DatabaseDownload') !== 0)	// we don't delete the zip file
+			$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

@@ -24,7 +24,7 @@
 if($menu == 'team'){
 	$this->menu=array(
 		array('label'=>__('View enquiry'), 'url'=>array('/enquiry/teamView', 'id'=>$enquiry->id)),
-		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/managed')),
+		array('label'=>__('List enquiries'), 'url'=>array('/enquiry/assigned')),
 		//array('label'=>'email ciudadano', 'url'=>'#', 'linkOptions'=>array('onclick'=>'getEmailForm('.$model->user0->id.')')),
 	);
 }

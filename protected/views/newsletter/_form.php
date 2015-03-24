@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -38,8 +38,8 @@ function showRecipients(){
 		type: 'GET',
 		success: function(data){
 			if(data != 0){
-				$("#recipients_body").html(data);
-				$('#recipients').bPopup({
+				$("#recipients_popup_body").html(data);
+				$('#recipients_popup').bPopup({
                     modalClose: false
 					, follow: ([false,false])
 					, speed: 10
@@ -91,7 +91,24 @@ function showRecipients(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
 		<?php
-		$this->widget('ext.tinymce.TinyMce', array(
+		$settings = array('theme_advanced_buttons1' => "undo,redo,|,bold,italic,underline,|,justifyleft,justifycenter,
+														justifyright,|,bullist,numlist,|,outdent,indent,|,
+														link,unlink,|,image",
+							'convert_urls'=>true,
+							'relative_urls'=>false,
+							'remove_script_host'=>false,
+							'theme_advanced_resize_horizontal' => 0,
+							'theme_advanced_resize_vertical' => 0,
+							'theme_advanced_resizing_use_cookie' => false,
+							'width'=>'100%',
+							'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
+				);
+		if(Config::model()->findByPk('htmlEditorUseCompressor')->value)
+			$settings['useCompression']=true;
+		else
+			$settings['useCompression']=false;
+			
+		$init = array(
 		    'model' => $model,
 		    'attribute' => 'body',
 		    // Optional config
@@ -99,22 +116,14 @@ function showRecipients(){
 		    //'spellcheckerUrl' => array('tinyMce/spellchecker'),
 		    // or use yandex spell: http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-tinymce.xml
 		    'spellcheckerUrl' => 'http://speller.yandex.net/services/tinyspell',
-			'settings' => array(
-								'theme_advanced_buttons1' => "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,
-															justifyright,|,bullist,numlist,|,outdent,indent,|,
-															undo,redo,|,link,unlink,|,image",
-								'convert_urls'=>true,
-								'relative_urls'=>false,
-								'remove_script_host'=>false,
-								'theme_advanced_resize_horizontal' => 0,
-								'theme_advanced_resize_vertical' => 0,
-								'theme_advanced_resizing_use_cookie' => false,
-								'width'=>'100%',
-								'valid_elements' => "@[style],p,span,a[href|target=_blank],strong/b,div[align],br,ul,ol,li,img[src]",
-				),
-		));
-		?>
-		<?php echo $form->error($model,'body'); ?>
+			'settings' => $settings,
+		);
+		if(!Config::model()->findByPk('htmlEditorUseCompressor')->value)
+				unset($init['compressorRoute']);
+
+		$this->widget('ext.tinymce.TinyMce', $init);
+		echo $form->error($model,'body');
+	?>
 	</div>
 
 	<div class="row buttons">
@@ -125,8 +134,8 @@ function showRecipients(){
 
 </div><!-- form -->
 
-<div id="recipients" class="modal" style="width:600px;">
-	<img class="bClose" src="<?php echo Yii::app()->request->baseUrl; ?>/images/close_button.png" />
-	<div id="recipients_body"></div>
+<div id="recipients_popup" class="modal" style="width:650px;">
+	<i class='icon-cancel-circled modalWindowButton bClose'></i>
+	<div id="recipients_popup_body"></div>
 </div>
 

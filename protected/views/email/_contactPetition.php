@@ -1,8 +1,8 @@
 <?php
 
 /**
- * OCAX -- Citizen driven Municipal Observatory software
- * Copyright (C) 2013 OCAX Contributors. See AUTHORS.
+ * OCAX -- Citizen driven Observatory software
+ * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +23,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form" style="padding:10px">
+<div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'email-form',
 	//'enableAjaxValidation'=>true,
@@ -31,7 +31,7 @@
 	//'action'=>Yii::app()->baseUrl.'/email/create',
 )); ?>
 
-	<div class="title" style="padding-bottom:10px"><?php echo __('Petition to make contact via email')?></div>
+	<div class="modalTitle"><?php echo __('Petition to make contact via email')?></div>
 
 	<?php
 		echo $form->hiddenField($model,'enquiry');
@@ -49,21 +49,19 @@
 						__('would like to contact you privately via email').'.<br />'.
 						__('However, we do not share users\' email addresses').'.</p><p>'.
 						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p><p>'.
-						__('If you think this user is spamming you, you can block future petitions at this link').'<br />'.
+						__('If you think this user is spamming you, you can block future petitions at this link').': '.
 						$block.'</p>'.
 						'<p>'.__('Kind regards').',<br />'.Config::model()->getObservatoryName().'</p>';
 
 		echo '<div style="	background-color:white;
-							margin:-10px;
-							margin-top:-15px;
-							margin-bottom:0px;
+							margin:0px -10px 0px -10px;
 							padding:5px">'.$model->title.'</div>';		
 		echo $form->hiddenField($model,'title');
 
 		echo '<div class="row">';
 		echo '<b>'.$user->fullname.' '.__('says').'...</b><br />';
 		echo '<div class="hint">'.__('Optionally, you may attach text to this email').'</div>';
-		echo $form->textArea($model, 'body', array('style'=>'width: 100%; height: 120px;'));
+		echo $form->textArea($model, 'body', array('style'=>'width: 690px; height: 120px;'));
 		echo '</div>';
 
 	?>
@@ -79,22 +77,22 @@
 <style>
 .contact_form_bottom{
 	display:none;
-	margin:-11px;
-	margin-top:0px;
+	margin:0 -10px -10px -10px;
 	padding:15px;
-	border-top: 1px solid #C9E0ED;
+	border-top: 1px solid #CDCBC9;
 	text-align:center;
 	font-size:1.4em;
 	background-color:white;
 }
 </style>
-<div id="contact_petition_sending" class="contact_form_bottom" style="color:orange">
+<div id="contact_petition_sending" class="contact_form_bottom" style="color:amber">
 <?php echo __('Sending email')?>&nbsp;&nbsp;
 <?php echo '<img style="vertical-align:text-middle;"
 			src="'.Yii::app()->request->baseUrl.'/images/loading.gif" />'?>
 </div>
-<div id="contact_petition_sent" class="contact_form_bottom" style="color:green">
+<div id="contact_petition_sent" class="contact_form_bottom">
 <?php echo __('Email sent')?>
+<i class="icon-ok-circled green" style="margin-left:10px;"></i>
 </div>
 <div id="contact_petition_error" class="contact_form_bottom" style="color:red">
 </div>

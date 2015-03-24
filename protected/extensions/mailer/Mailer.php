@@ -51,6 +51,21 @@ class Mailer
 		else throw new CException(Yii::t('Mailer', 'Can not access a property of a non existent object'));
 	}
 
+	public function sendBatches($addresses)
+	{
+		$batches = array_chunk($addresses, 30);	// batches of 30 BCCs
+				
+		foreach($batches as $batch){
+			foreach($batch as $address)
+				$this->AddBCC(trim($address));
+			if(!$this->send())
+				return 0;
+				
+			$this->ClearBCCs();
+		}		
+		return 1;
+	}
+
 	/**
 	 * Cleanup work before serializing.
 	 * This is a PHP defined magic method.

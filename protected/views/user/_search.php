@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* @var $this UserController */
 /* @var $model User */
 /* @var $form CActiveForm */
@@ -27,7 +27,7 @@
 
 </style>
 
-<div class="wide form" style="width:100%">
+<div class="wide form" style="width:100%;margin-top:15px;">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
@@ -37,23 +37,18 @@
 <div style="float:left;width:50%">
 
 	<div class="row">
-		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->label($model,'username',array('style'=>'white-space: nowrap;')); ?>
+		<?php echo $form->textField($model,'username',array('style'=>'width:200px')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'fullname'); ?>
-		<?php echo $form->textField($model,'fullname',array('size'=>32,'maxlength'=>64)); ?>
+		<?php echo $form->label($model,'fullname',array('style'=>'white-space: nowrap;')); ?>
+		<?php echo $form->textField($model,'fullname',array('style'=>'width:200px')); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>32,'maxlength'=>128)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'joined'); ?>
-		<?php echo $form->textField($model,'joined'); ?>
+		<?php echo $form->label($model,'email',array('style'=>'white-space: nowrap;')); ?>
+		<?php echo $form->textField($model,'email',array('style'=>'width:200px')); ?>
 	</div>
 
 	<div class="row buttons">
@@ -72,7 +67,7 @@
 		<?php echo $form->label($model,'is_manager'); ?>
 		<?php echo $form->textField($model,'is_manager',array('size'=>5)); ?>
 	</div>
-	
+
 	<div class="row">
 		<?php echo $form->label($model,'is_admin'); ?>
 		<?php echo $form->textField($model,'is_admin',array('size'=>5)); ?>
@@ -97,7 +92,7 @@
 		<?php echo $form->label($model,'is_editor'); ?>
 		<?php echo $form->textField($model,'is_editor',array('size'=>5)); ?>
 	</div>
-	
+
 </div>
 
 <?php $this->endWidget(); ?>

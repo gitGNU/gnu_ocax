@@ -19,12 +19,17 @@
  */
 
 $this->menu=array(
-	array('label'=>__('Manage years'), 'url'=>array('adminYears')),
+	array('label'=>__('Manage years'), 'url'=>array('admin')),
 );
-
+$this->inlineHelp=':manual:budget:createyear';
 ?>
 
-<?php echo $this->renderPartial('_formYear', array('model'=>$model, 'title'=>__('Create Year'), 'totalBudgets'=>0)); ?>
+<?php echo $this->renderPartial('_formYear',
+								array(	'model'=>$model,
+										'title'=>__('Create Year'),
+										'totalBudgets'=>0,
+										'featuredCount'=>0
+								)); ?>
 
 <?php if(Yii::app()->user->hasFlash('badYear')):?>
 	<script>
