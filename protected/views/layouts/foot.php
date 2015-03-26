@@ -41,7 +41,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<a href="http://ocmunicipal.net/<?php echo $lang;?>">http://ocmunicipal.net</a><br />
 			<a href="http://ocax.net/<?php echo $lang;?>">http://ocax.net</a><br />
 			<a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPLv3</a> Copyright &copy; <?php echo date('Y'); ?><br />
-			<a href="http://download.savannah.gnu.org/releases/ocax/">Source hosted on Savannah</a>
+			<a href="https://savannah.nongnu.org/projects/ocax">Hosted on Savannah</a>
 		</div>
 		<div style="float:right;margin-left:20px">
 			<a href="http://auditoriaciudadana.net"><div id="pacd_logo"></div></a>
