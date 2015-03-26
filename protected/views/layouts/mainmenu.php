@@ -56,7 +56,7 @@
 								);
 	
 					if($subpages){
-						$subItems=array();
+						$subitems=array();
 						foreach($subpages as $subpage){
 							$subpage_content = $subpage->getContentForModel(Yii::app()->language);
 							$subitems[] = array('label'=>$subpage_content->pageTitle,
