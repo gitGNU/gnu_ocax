@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
-"POT-Creation-Date: 2015-03-22 20:01+0100\n"
-"PO-Revision-Date: 2015-03-24 17:22+0100\n"
+"POT-Creation-Date: 2015-03-27 15:37+0100\n"
+"PO-Revision-Date: 2015-03-27 15:59+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -802,7 +802,7 @@ msgstr "Correu electrònic enviat"
 #: protected/controllers/EnquiryController.php:564
 #: protected/controllers/EnquiryController.php:715
 msgid "Manage enquiry"
-msgstr "Manage enquiry"
+msgstr "Gestiona consulta"
 
 #: protected/views/email/index.php:41
 msgid "Emails originated from the enquiry"
@@ -981,7 +981,7 @@ msgstr "Afegir resposta"
 
 #: protected/views/enquiry/teamView.php:47 protected/views/reply/edit.php:43
 msgid "Correct reply"
-msgstr "Data de resposta"
+msgstr "Corregir resposta"
 
 #: protected/views/enquiry/teamView.php:51
 #: protected/views/enquiry/submit.php:62
@@ -1012,7 +1012,7 @@ msgstr "Text"
 
 #: protected/views/enquiry/_searchPublic.php:111
 msgid "Filter"
-msgstr "Fitxer"
+msgstr "Filtre"
 
 #: protected/views/enquiry/reformulate.php:27
 #: protected/views/enquiry/teamEdit.php:26
@@ -1582,7 +1582,7 @@ msgstr "Any per omissió"
 
 #: protected/views/budget/admin.php:29
 msgid "Restore database"
-msgstr "Restore database"
+msgstr "Restaurar base de dades"
 
 #: protected/views/budget/admin.php:61
 msgid "Restore budgets"
@@ -1908,7 +1908,7 @@ msgstr "Còpies de seguretat"
 
 #: protected/views/user/panel.php:270
 msgid "Manual Backup"
-msgstr "Manual còpia de seguretat"
+msgstr "Còpia de seguretat manual"
 
 #: protected/views/user/panel.php:275
 #: protected/views/emailTemplate/admin.php:28
@@ -2357,7 +2357,7 @@ msgstr "Mostrar agenda"
 
 #: protected/views/vault/admin.php:24
 msgid "Manual backup"
-msgstr "Còpia de Seguretat"
+msgstr "Còpia de seguretat manual"
 
 #: protected/views/vault/admin.php:25
 #: protected/controllers/VaultController.php:167
@@ -2383,7 +2383,7 @@ msgstr "Ells guarden les còpies al teu servidor"
 
 #: protected/views/vault/admin.php:114 protected/views/vault/schedule.php:67
 msgid "Remote vaults"
-msgstr "Accés remot"
+msgstr "Capses remotas"
 
 #: protected/views/vault/admin.php:116 protected/views/vault/view.php:96
 msgid "You save your copies on their server"
@@ -2423,7 +2423,7 @@ msgstr "Verificar"
 
 #: protected/views/vault/view.php:31
 msgid "You are going to delete this vault. Are you sure?"
-msgstr "Vas a borrar aquesta capsa. Estàs segur?"
+msgstr "Vas a esborrar aquesta capsa. Estàs segur?"
 
 #: protected/views/vault/view.php:40
 msgid "The copy was saved on "
@@ -2718,7 +2718,7 @@ msgstr "Afegir un csv a la cua"
 
 #: protected/views/file/adminDatabaseDownload.php:30
 msgid "Download zip file"
-msgstr "Download zip file"
+msgstr "Baixar fitxer zip"
 
 #: protected/views/file/adminDatabaseDownload.php:128
 msgid "Prepare file"
@@ -3014,7 +3014,7 @@ msgstr "Per favor, canvia la teva contrasenya ara"
 #: protected/controllers/FileController.php:137
 #: protected/controllers/ArchiveController.php:141
 msgid "File uploaded correctly"
-msgstr "File uploaded correctly"
+msgstr "Fitxer pujat correctament"
 
 #: protected/controllers/FileController.php:251
 msgid "MSG_ZIP_DESCRIPTION"
