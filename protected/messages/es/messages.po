@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-03-24 17:24+0100\n"
-"PO-Revision-Date: 2015-03-24 17:25+0100\n"
+"POT-Creation-Date: 2015-03-28 21:03+0100\n"
+"PO-Revision-Date: 2015-03-28 21:15+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -2540,7 +2540,7 @@ msgstr "Descripciones comunes"
 #: protected/views/budgetDescription/update.php:29
 #: protected/controllers/BudgetDescriptionController.php:312
 msgid "State descriptions"
-msgstr "Descripciones Oficiales"
+msgstr "Descripciones estatales"
 
 #: protected/views/budgetDescription/admin.php:35
 msgid "budget descriptions"
@@ -2560,7 +2560,7 @@ msgstr "Hojear descripciones estatales"
 #: protected/views/budgetDescription/create.php:25
 #: protected/views/budgetDescription/update.php:25
 msgid "View description"
-msgstr "View description"
+msgstr "Ver descripción"
 
 #: protected/views/budgetDescription/browseCommon.php:33
 msgid "Browse common descriptions"

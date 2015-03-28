@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: 2015-03-27 15:37+0100\n"
-"PO-Revision-Date: 2015-03-27 15:59+0100\n"
+"PO-Revision-Date: 2015-03-28 21:19+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -2538,7 +2538,7 @@ msgstr "Descripcions comuns"
 #: protected/views/budgetDescription/update.php:29
 #: protected/controllers/BudgetDescriptionController.php:312
 msgid "State descriptions"
-msgstr "Descripcions oficials"
+msgstr "Descripcions estatals"
 
 #: protected/views/budgetDescription/admin.php:35
 msgid "budget descriptions"
@@ -2553,7 +2553,7 @@ msgstr "Descripcions locals"
 
 #: protected/views/budgetDescription/browseState.php:33
 msgid "Browse state descriptions"
-msgstr "Veure descripcions oficials"
+msgstr "Veure descripcions estatals"
 
 #: protected/views/budgetDescription/create.php:25
 #: protected/views/budgetDescription/update.php:25
@@ -2579,7 +2579,7 @@ msgstr "Utilitzada a"
 
 #: protected/views/budgetDescription/_form.php:145
 msgid "State description"
-msgstr "Descripció Estatal"
+msgstr "Descripció estatal"
 
 #: protected/views/budgetDescription/_form.php:155
 msgid "Common description"
@@ -2587,7 +2587,7 @@ msgstr "Descripció comuna"
 
 #: protected/views/budgetDescription/_form.php:165
 msgid "Local description"
-msgstr "Descripció Local"
+msgstr "Descripció local"
 
 #: protected/views/budgetDescription/_form.php:182
 msgid "Using data imported with CSV files"
@@ -2619,7 +2619,7 @@ msgstr "No hi ha descripció comuna a la base de dades"
 
 #: protected/views/budgetDescription/_form.php:337
 msgid "No state description in the database"
-msgstr "No hi ha descripció oficial a la base de dades"
+msgstr "No hi ha descripció estatal a la base de dades"
 
 #: protected/views/budgetDescription/update.php:26
 msgid "Delete local description"
