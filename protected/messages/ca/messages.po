@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: 2015-03-27 15:37+0100\n"
-"PO-Revision-Date: 2015-03-28 21:19+0100\n"
+"PO-Revision-Date: 2015-03-30 16:56+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -205,7 +205,7 @@ msgstr "Editor descripció partides pressupostàries"
 #: protected/models/User.php:141 protected/views/user/panel.php:232
 #: protected/views/user/updateRoles.php:124
 msgid "Page editor"
-msgstr "Pàgina d'edició"
+msgstr "Editor de pàgines"
 
 #: protected/models/User.php:192 protected/models/User.php:200
 #: protected/models/User.php:212 protected/models/Log.php:77

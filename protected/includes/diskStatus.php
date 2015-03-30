@@ -25,6 +25,9 @@ class DiskStatus {
 		if ($diskTotalSpace === FALSE) {
 			throw new Exception('totalSpace(): Invalid disk path.');
 		}
+		if (!$diskTotalSpace){
+			$diskTotalSpace = 1;
+		}
 		return $rawOutput ? $diskTotalSpace : $this->addUnits($diskTotalSpace);
 	}
 
@@ -33,6 +36,9 @@ class DiskStatus {
 
 		if ($diskFreeSpace === FALSE) {
 			throw new Exception('freeSpace(): Invalid disk path.');
+		}
+		if (!$diskFreeSpace){
+			$diskFreeSpace = 1;
 		}
 		return $rawOutput ? $diskFreeSpace : $this->addUnits($diskFreeSpace);
 	}

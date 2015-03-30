@@ -360,8 +360,6 @@ class ImportCSV extends CFormModel
 		$registers = $this->csv2array();
 		$registers = array_reverse($registers, true);
 
-		//file_put_contents('/tmp/out',count($registers));
-
 		$budgets = array();
 
 		foreach($registers as $internal_code => $register){
@@ -526,7 +524,6 @@ class ImportCSV extends CFormModel
 			if ($parent){
 				$new_budget->parent = $parent->id;
 			}else{
-				file_put_contents('/tmp/root', $rootBudget->id);
 				$new_budget->parent = $rootBudget->id;
 			}
 			$criteria=new CDbCriteria;
@@ -576,8 +573,6 @@ class ImportCSV extends CFormModel
 
 		$query = 'SELECT id FROM budget WHERE 1 ORDER BY id DESC LIMIT 1;';
 		$budget_table_id = Yii::app()->db->createCommand($query)->queryScalar();
-
-		file_put_contents('/tmp/last_id',$budget_table_id);
 
 		$insert_fn = $this->path.$this->year.'-insert.sql';
 		if( file_exists($insert_fn)){
