@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: 2015-03-27 15:37+0100\n"
-"PO-Revision-Date: 2015-03-30 16:56+0100\n"
+"PO-Revision-Date: 2015-03-30 17:45+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -1130,7 +1130,7 @@ msgstr "reformulada"
 
 #: protected/views/enquiry/view.php:152
 msgid "Share"
-msgstr "Compartie"
+msgstr "Compartir"
 
 #: protected/views/enquiry/view.php:160
 msgid "Subscribed"
