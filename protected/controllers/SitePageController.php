@@ -102,11 +102,13 @@ class SitePageController extends Controller
 			$model = $this->loadModel($content->page);	
 			if($model->published == 0 && !Yii::app()->user->isEditor())
 				$_404=1;
+			/*
 			if($model->weight == 0){
 				if( count(SitePage::model()->findAllByAttributes(array('block'=>$model->block,'published'=>1))) > 1){
 					$this->redirect(array('site/index'));
 				}
 			}
+			*/
 		}
 		if($_404){
 			throw new CHttpException(404,'The requested page does not exist.');
