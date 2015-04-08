@@ -26,6 +26,13 @@
 
 <?php $this->renderPartial('_title', array('paramGroup'=>__('Locale')));?>
 
+<script>
+function changeCoordinate(el){
+	updateParam(el);
+	document.getElementById('map').contentDocument.location.reload(true);
+}
+</script>
+
 <div class="parameterGroup">
 	<div class="param">
 		<?php $param = Config::model()->findByPk('currencySymbol'); ?>
@@ -42,3 +49,29 @@
 		<div class="progress"></div>
 	</div>
 </div>
+
+<div class="parameterGroup">
+	<div style="margin-top:15px;font-size:16px;">
+	<?php echo __('Coordinates for the map at').' <a href="http://network.ocax.net/map/" target="_blank">http://network.ocax.net/map/</a>';?>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('administrationLongitude'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:changeCoordinate(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<div class="param">
+		<?php $param = Config::model()->findByPk('administrationLatitude'); ?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input id="value_<?php echo $param->parameter;?>" type="text" value = "<?php echo $param->value;?>"/>
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:changeCoordinate(this); return false;"/>
+		<div class="progress"></div>
+	</div>
+	<p>
+	<a href="http://gll.petschge.de/" target="_blank"><?php echo __('Find coordinates here');?></a>
+	</p>
+</div>
+
+<iframe id="map" src="<?php echo Yii::app()->getBaseUrl(true).'/site/map';?>" width="740px">
+</iframe>

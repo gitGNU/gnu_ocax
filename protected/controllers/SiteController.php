@@ -445,6 +445,14 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Displays the local map
+	 */
+	public function actionMap()
+	{
+		$this->renderPartial('map');
+	}
+
+	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout()
