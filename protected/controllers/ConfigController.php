@@ -46,7 +46,7 @@ class ConfigController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array(	'index','update',
-									'email','observatory','social','locale'
+									'email','observatory','social','locale',
 									'image','backups','misc',
 								),
 				'expression'=>"Yii::app()->user->isAdmin()",
