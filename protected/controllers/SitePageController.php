@@ -81,14 +81,20 @@ class SitePageController extends Controller
 		{
 			$model->attributes=$_POST['SitePage'];	
 			$content->attributes=$_POST['SitePageContent'];
-			if($model->validate() && $content->validate())
+			if($model->validate() && $content->validate()){
 				$model->save();
-		}
+				$this->render('show',array(
+					'model'=>$model,
+					'content'=>$content,
+					'preview'=>1,
+				));
 
-		$this->render('show',array(
+				Yii::app()->end();
+			}
+		}
+		$this->render('update',array(
 			'model'=>$model,
 			'content'=>$content,
-			'preview'=>1,
 		));
 	}
 

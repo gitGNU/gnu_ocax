@@ -64,6 +64,7 @@ class SitePage extends CActiveRecord
 			array('block, weight, advancedHTML, showTitle, published', 'numerical', 'integerOnly'=>true),
 			array('block, weight', 'validCombination', 'on'=>'create'),
 			array('block, weight', 'validCombination', 'on'=>'update'),
+			//array('block, weight, advancedHTML, showTitle, published', 'safe', 'on'=>'update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('block, weight, advancedHTML, showTitle, published', 'safe', 'on'=>'search'),
@@ -85,7 +86,7 @@ class SitePage extends CActiveRecord
 
 	public function validCombination($attribute,$params)
 	{
-		if($this->weight === '')
+		if($this->weight === Null || $this->weight === '')
 			return;
 		if($existing = $this->findByAttributes(array('block'=>$this->block,'weight'=>$this->weight))){
 			if(!$this->isNewRecord && $this->id == $existing->id)
