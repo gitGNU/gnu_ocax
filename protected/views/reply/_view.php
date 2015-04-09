@@ -23,7 +23,18 @@
 ?>
 
 <style>
-
+.attachment {
+	float:left;
+	margin-left:-10px;
+	max-width: <?php echo (Yii::app()->request->isAjaxRequest) ? '380px' : '440px' ?>;
+	height: 24px;
+	overflow:hidden;
+	font-size: 16px;
+}
+.attachment:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
 </style>
 
 <div class="reply">
@@ -40,12 +51,13 @@
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
 			foreach($attachments as $attachment){
 				echo '<span	id="attachment_'.$attachment->id.'">';
-					echo '<span	class="ocaxButton" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">';
-					echo $attachment->name.'<i class="icon-attach"></i>';
+					echo '<span	class="attachment" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">';
+					echo '<i class="icon-attach"></i>'.$attachment->name;
 					echo '</span>';
 				if( $model->team_member == $user_id ){
 					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
+				
 				echo '</span>';
 			}
 		echo '<span class="voteBlock">';
