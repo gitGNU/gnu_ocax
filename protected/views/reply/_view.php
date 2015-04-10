@@ -26,7 +26,7 @@
 .attachment {
 	float:left;
 	margin-left:-10px;
-	max-width: <?php echo (Yii::app()->request->isAjaxRequest) ? '380px' : '440px' ?>;
+	max-width: <?php echo (Yii::app()->request->isAjaxRequest) ? '375px' : '435px' ?>;
 	height: 24px;
 	overflow:hidden;
 	font-size: 16px;
@@ -53,11 +53,11 @@
 				echo '<span	id="attachment_'.$attachment->id.'">';
 					echo '<span	class="attachment" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">';
 					echo '<i class="icon-attach"></i>'.$attachment->name;
-					echo '</span>';
+					echo '</span>';	
 				if( $model->team_member == $user_id ){
-					echo '<i class="icon-cancel-circle red" style="cursor:pointer;margin-right:-10px;" onclick="js:deleteFile('.$attachment->id.');"></i>';
+					echo '<i class="icon-cancel-circle red" style="float:left;padding-right:5px;cursor:pointer;" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
-				
+			
 				echo '</span>';
 			}
 		echo '<span class="voteBlock">';

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: 2015-03-28 21:03+0100\n"
-"PO-Revision-Date: 2015-03-28 21:15+0100\n"
+"PO-Revision-Date: 2015-04-10 00:50+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -2090,7 +2090,7 @@ msgstr "PHP ZipArchive lib no está instalado"
 
 #: protected/views/config/image.php:72
 msgid "Observatory color and logo"
-msgstr "Colo y logo del observatorio"
+msgstr "Color y logo del observatorio"
 
 #: protected/views/config/image.php:78
 msgid "Create a logo"
