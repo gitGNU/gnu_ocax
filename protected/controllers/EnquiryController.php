@@ -45,7 +45,7 @@ class EnquiryController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('view','index','getEnquiry','feed'),
+				'actions'=>array('view','index','getEnquiry','export','feed'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -738,6 +738,45 @@ class EnquiryController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	/*
+	 * Export the enquiry in PDF 
+	 */
+	public function actionExport($id)
+	{
+		$model=$this->loadModel($id);
+		
+		Yii::import('application.extensions.html2pdf.*');
+		require_once('html2pdf.class.php');
+
+		// get the HTML
+		ob_start();
+		$this->renderPartial('pdf',array('model'=>$model),false,true);
+		$content = ob_get_clean();
+
+		try
+		{
+			// init HTML2PDF
+			$html2pdf = new HTML2PDF('P', 'A4', getDefaultLanguage(), true, 'UTF-8', array(0, 0, 0, 0));
+
+			// display the full page
+			//$html2pdf->pdf->SetDisplayMode('fullpage');
+
+			// convert
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+
+			// add the automatic index
+			//$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2);
+
+			// send the PDF
+			$html2pdf->Output('about.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}
+	}
+
 
 	public function actionFeed()
 	{

@@ -64,6 +64,9 @@ protected/extensions/tinymce/vendors/tinymce LGPLv2.1 (see http://www.tinymce.co
 -Clouddueling
 protected/extensions/Clouddueling/* MIT (see protected/extensions/Clouddueling/README.md)
 
+-HTML2PDF
+/home/chris/project/ocax/protected/extensions/html2pdf/_LGPL.txt GNU LESSER GENERAL PUBLIC LICENSE Version 3
+
 -MbMenu
 protected/extensions/mbmenu/MbMenu.php New BSD License (http://www.yiiframework.com/extension/mbmenu/#download)
 

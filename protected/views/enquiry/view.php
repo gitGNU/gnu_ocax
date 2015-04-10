@@ -89,52 +89,7 @@ function enquiryModal2Page(){
 </h1>
 
 <div id="enquiryDetails">
-<?php
-$attribs = array();
-$attribs[] = array(
-        'label'=>__('Formulated'),
-		'type' => 'raw',
-        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
-					format_date($model->created).' '.__('by').' '.$model->user0->fullname :
-					format_date($model->created).' '.__('by').' '.CHtml::link(
-															CHtml::encode($model->user0->fullname), '#!',
-															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
-														),
-	);
-$attribs[] = array(
-		'label'=>__('State'),
-		'type' => 'raw',
-		'value'=> CHtml::encode($model->getHumanStates($model->state,$model->addressed_to)),
-	);
-		
-if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
-	if($model->documentation)
-		$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';
-	$attribs[] = array(	'label'=>__('Submitted'),
-						'type'=>'raw',
-						'value'=>$submitted_info,
-				);
-}
-$attribs[] = array(
-		'label'=>__('Type'),
-		'value'=>($model->related_to) ? $model->getHumanTypes($model->type).' ('.__('reformulated').')' : $model->getHumanTypes($model->type),
-	);
-$this->widget('zii.widgets.CDetailView', array(
-	'id' => 'e_details',
-	'cssFile' => Yii::app()->request->baseUrl.'/css/pdetailview.css',
-	'data'=>$model,
-	'attributes'=>$attribs,
-));
-
-
-if($model->budget)
-	$this->renderPartial('_budgetDetails', array(	'model'=>$model->budget0,
-													'showLinks'=>1,
-													'showEnquiriesMadeLink'=>1,
-													'enquiry'=>$model,
-												));
-?>
+<?php $this->renderPartial('//enquiry/_detailsForCitizen', array('model'=>$model)); ?>
 
 </div>	<!-- end enquiryDetails -->
 <div>
@@ -154,7 +109,13 @@ if($model->budget)
 		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
 		echo '</span>';
 
-		echo '<span
+		echo '<span style="position:relative;  margin-right:10px">';
+		echo '<span class="ocaxButton" onClick="js:window.open(\''.Yii::app()->request->baseUrl.'/enquiry/export/'.$model->id.'\'); ">'.
+			 __('Export').'<i class="icon-download-alt"></i>';
+		echo '</span>';
+		echo '</span>';
+
+		echo '<span 
 				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"
 				onClick="js:showSubscriptionNotice(this, '.$model->id.');">'.
 			 __('Subscribed').'<i class="icon-mail-1"></i>';
