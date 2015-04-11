@@ -158,6 +158,7 @@ function resizeLogo($fn){
 	if(($ext == 'jpg' || $ext == 'jpeg') && !$gdInfo['JPEG Support'])
 		return Null;
 
+	// create logo
 	list($width, $height) = getimagesize($fn);
 	$new_width = 90;
 	$new_height = 90;

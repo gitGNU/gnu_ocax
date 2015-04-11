@@ -29,7 +29,7 @@ echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUr
 <style type="text/css">
 <!--
 
-    table.page_header {width: 100%; border: none; border-bottom: solid <?php echo $color;?>; }
+    table.page_header {width: 100%; border: none; border-bottom: solid <?php echo $color;?>; font-size: 18px; }
     table.page_footer {width: 100%; border: none; background-color: #DDDDFF; border-top: solid 1mm #AAAADD; padding: 2mm}
     div.note {border: solid 1mm #DDDDDD;background-color: #EEEEEE; padding: 2mm; border-radius: 2mm; width: 100%; }
     ul.main { width: 95%; list-style-type: square; }
@@ -38,28 +38,30 @@ echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUr
     h3 { text-align: center; font-size: 14mm}
     
 
-page { font-size: 12pt; }
+.logo { margin: -3px 10px -4px -3px; width: 42px; height 42px; }
+
+page { font-size: 10pt; }
 
 .sectionTitle {
 	border-bottom: 2px #6E6E6E solid;
 	margin: 10px 0 15px 0;
 }
 .sectionTitle span {
-	font-size: 14pt;
+	font-size: 12pt;
 	color: white;
 	background-color: #6E6E6E;
 }
 
 .title {
-	font-size: 18pt;
-	color: <?php echo $color;?>;
+	font-size: 14pt;
+	/* color: <?php echo $color;?>; */
 	margin-bottom:15px;
 }
 .commentID {
 	color: #5C5C5C;
 }
 
-
+td { padding: 0 10px 3px 0 }
 -->
 </style>
 
@@ -69,7 +71,7 @@ page { font-size: 12pt; }
             <tr>
                 <td style="width: 100%; text-align: left">
 					<?php 
-					//echo '<img id="logo" src="'.Yii::app()->request->baseUrl.'/files/logo.png" />';
+					echo '<img class="logo" src="'.dirname(Yii::app()->request->scriptFile).'/files/logo.png" />';
 					echo Config::model()->getObservatoryName();
 					?>       
                 </td>
