@@ -165,6 +165,16 @@ function createTempFile()
 	}
 }
 
+function string2ascii($string)
+{
+	$string = htmlentities($string, ENT_QUOTES, 'UTF-8');
+	$string = preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', $string);
+	$string = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+	$string = preg_replace(array('~[^0-9.a-z]~i', '~[ -]+~'), ' ', $string);
+
+	return trim($string, ' ');
+}
+
 function bytesForHumans($bytes, $precision = 2)
 {
 	$units = array('B', 'KB', 'MB', 'GB', 'TB'); 

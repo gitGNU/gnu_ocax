@@ -754,10 +754,10 @@ class EnquiryController extends Controller
 		if($model->replys){
 			$replyFiles = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->replys[0]->id));
 			foreach($replyFiles as $file){
-				copy($file->getURI(), $tmpDir.'/'.$file->name.'.'.$file->getExtension());
+				copy($file->getURI(), $tmpDir.'/'.string2ascii($file->name).'.'.$file->getExtension());
 			}
 		}else
-			$replyFile = Null;
+			$replyFiles = Null;
 
 		// Create PDF
 		Yii::import('application.extensions.html2pdf.*');
@@ -771,11 +771,11 @@ class EnquiryController extends Controller
 		{
 			$html2pdf = new HTML2PDF('P', 'A4', getDefaultLanguage(), true, 'UTF-8', array(0, 0, 0, 0));
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			if(! ($enquiryFile || $replyFile) ) {
+			if(! ($enquiryFile || $replyFiles) ) {
 				$html2pdf->Output($model->title.'.pdf', 'D');
 				Yii::app()->end();
 			}else
-				$html2pdf->Output($tmpDir.$model->title.'.pdf', 'F');
+				$html2pdf->Output($tmpDir.string2ascii($model->title).'.pdf', 'F');
 		}
 		catch(HTML2PDF_exception $e) {
 			echo $e;
