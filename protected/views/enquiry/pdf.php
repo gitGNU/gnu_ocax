@@ -148,9 +148,10 @@ if ($comments = Comment::model()->findAllByAttributes(array('model'=>get_class($
 }
 ?>
 </page>
-<page pageset="old">
+
 <?php
 if ($model->replys){
+	echo '<page pageset="old">';
 	$reply = $model->replys[0];
 	
 	echo '<div class="sectionTitle">';
@@ -173,10 +174,11 @@ if ($model->replys){
 			echo '</p>';
 		}
 	}
+	echo '</page>';
 }
 ?>
 
-</page>
+
 
 
 

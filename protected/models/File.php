@@ -167,7 +167,6 @@ class File extends CActiveRecord
 		return $path_parts['extension'];
 	}
 
-
 	public function getYearFromCSVFilename()
 	{
 		if($this->checkExtension('csv')){
