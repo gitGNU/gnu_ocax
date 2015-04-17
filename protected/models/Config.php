@@ -221,6 +221,12 @@ class Config extends CActiveRecord
 		return str_replace('#', ' ', $title);
 	}
 
+	public function getObservatoryInitials()
+	{
+		return $this->findByPk('siglas')->value;
+	}
+
+
 	public function getSiteColor()
 	{
 		if($color = Config::model()->findByPk('siteColor'))

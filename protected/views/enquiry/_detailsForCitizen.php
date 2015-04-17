@@ -23,16 +23,26 @@
 
 
 $attribs = array();
-$attribs[] = array(
-        'label'=>__('Formulated'),
-		'type' => 'raw',
-        'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
-					format_date($model->created).' '.__('by').' '.$model->user0->fullname :
-					format_date($model->created).' '.__('by').' '.CHtml::link(
-															CHtml::encode($model->user0->fullname), '#!',
-															array('onclick'=>'js:getContactForm('.$model->user.');return false;')
-														),
-	);
+
+if(!isset($hideLinks)){
+
+	$attribs[] = array(
+			'label'=>__('Formulated'),
+			'type' => 'raw',
+			'value'=>($model->user0->username == Yii::app()->user->id || $model->user0->is_disabled == 1) ?
+						format_date($model->created).' '.__('by').' '.$model->user0->fullname :
+						format_date($model->created).' '.__('by').' '.CHtml::link(
+																CHtml::encode($model->user0->fullname), '#!',
+																array('onclick'=>'js:getContactForm('.$model->user.');return false;')
+															),
+		);
+} else {
+	$attribs[] = array(
+			'label'=>__('Formulated'),
+			'type' => 'raw',
+			'value'=>(format_date($model->created).' '.__('by').' '.$model->user0->fullname),
+		);
+}
 $attribs[] = array(
 		'label'=>__('State'),
 		'type' => 'raw',
@@ -40,13 +50,14 @@ $attribs[] = array(
 	);
 		
 if($model->state >= ENQUIRY_AWAITING_REPLY){
-	$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
-	if($model->documentation)
-		$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';
-	$attribs[] = array(	'label'=>__('Submitted'),
-						'type'=>'raw',
-						'value'=>$submitted_info,
-				);
+
+		$submitted_info=format_date($model->submitted).', '.__('Registry number').': '.$model->registry_number;
+		if($model->documentation && !isset($hideLinks))
+			$submitted_info = '<a href="'.$model->documentation0->getWebPath().'" target="_new">'.$submitted_info.'</a>';
+		$attribs[] = array(	'label'=>__('Submitted'),
+							'type'=>'raw',
+							'value'=>$submitted_info,
+					);
 }
 $attribs[] = array(
 		'label'=>__('Type'),

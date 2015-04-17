@@ -21,26 +21,22 @@
 /* @var $this EnquiryController */
 /* @var $model Enquiry */
 
-$color = '#'.Config::model()->getSiteColor();
-
-echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/fonts/fontello/css/fontello.css" />';
 ?>
 
 <style type="text/css">
 <!--
-
-    table.page_header {width: 100%; border: none; border-bottom: solid <?php echo $color;?>; font-size: 18px; }
-    table.page_footer {width: 100%; border: none; background-color: #DDDDFF; border-top: solid 1mm #AAAADD; padding: 2mm}
-    div.note {border: solid 1mm #DDDDDD;background-color: #EEEEEE; padding: 2mm; border-radius: 2mm; width: 100%; }
-    ul.main { width: 95%; list-style-type: square; }
-    ul.main li { padding-bottom: 2mm; }
-    h1 { text-align: center; font-size: 20mm}
-    h3 { text-align: center; font-size: 14mm}
+table.page_header {width: 100%; border: none; border-bottom: solid lightgrey; font-size: 18px;}
+table.page_header td { width:100%; badding-bottom: 2px; }
+table.page_footer {width: 100%; border: none;  border-top: solid lightgrey; padding: 2mm}
+div.note {border: solid 1mm #DDDDDD;background-color: #EEEEEE; padding: 2mm; border-radius: 2mm; width: 100%; }
+ul.main { width: 95%; list-style-type: square; }
+ul.main li { padding-bottom: 2mm; }
+h1 { text-align: center; font-size: 20mm}
+h3 { text-align: center; font-size: 14mm}
     
+page { font-size: 10pt;}
 
-.logo { margin: -3px 10px -4px -3px; width: 42px; height 42px; }
-
-page { font-size: 10pt; }
+#header_logo {  margin: -3px 10px -4px -3px; width: 42px; height: 42px; }
 
 .sectionTitle {
 	border-bottom: 2px #6E6E6E solid;
@@ -52,16 +48,22 @@ page { font-size: 10pt; }
 	background-color: #6E6E6E;
 }
 
+.budgetDetails th{
+	padding-right: 30px;
+}
+.enquiryDetails th{
+	padding-right: 30px;
+}
+
 .title {
 	font-size: 14pt;
-	/* color: <?php echo $color;?>; */
 	margin-bottom:15px;
 }
+.budget_link { margin: 0 0 0 0; }
+
 .commentID {
 	color: #5C5C5C;
 }
-
-td { padding: 0 10px 3px 0 }
 -->
 </style>
 
@@ -69,33 +71,31 @@ td { padding: 0 10px 3px 0 }
     <page_header>
         <table class="page_header">
             <tr>
-                <td style="width: 100%; text-align: left">
+                <td>
 					<?php 
-					echo '<img class="logo" src="'.dirname(Yii::app()->request->scriptFile).'/files/logo.png" />';
-					echo Config::model()->getObservatoryName();
+					echo '<img id="header_logo" src="'.dirname(Yii::app()->request->scriptFile).'/files/logo.png" />';
+					echo '<span id="header_text">'.Config::model()->getObservatoryName().'</span>';
 					?>       
                 </td>
             </tr>
         </table>
     </page_header>
-    <page_footer>
-        <table class="page_footer">
-            <tr>
-                <td style="width: 33%; text-align: left;">
+	<page_footer>
+		<table class="page_footer">
+			<tr>
+				<td style="width: 85%; text-align: left;">
 					<?php
-					$link = Yii::app()->getBaseUrl(true).'/enquiry/'.$model->id;
+					echo Config::model()->getObservatoryInitials().' '.__('Enquiry').': ';
+					$link = Yii::app()->getBaseUrl(true).'/e/'.$model->id;
 					echo "<a href='$link'>$link</a>";
 					?>
                 </td>
-                <td style="width: 34%; text-align: center">
-                    <?php echo __('page');?> [[page_cu]]/[[page_nb]]
-                </td>
-                <td style="width: 33%; text-align: right">
-                    <?php echo Config::model()->getObservatoryName();?>
-                </td>
-            </tr>
-        </table>
-    </page_footer>
+				<td style="width: 15%; text-align: right">
+					<?php echo __('page');?> [[page_cu]]/[[page_nb]]
+				</td>
+			</tr>
+		</table>
+	</page_footer>
 
 	<?php 
 	echo '<div class="sectionTitle">';
@@ -105,9 +105,11 @@ td { padding: 0 10px 3px 0 }
 	echo '<div class="title">';
 	echo $model->title;
 	echo '</div>';
-	echo '<p>';
-	$this->renderPartial('//enquiry/_detailsForCitizen', array('model'=>$model, 'hideBudgetDetails'=>1));
-	echo '</p>';
+	echo '<div class="enquiryDetails">';
+	$this->renderPartial('//enquiry/_detailsForCitizen',
+						array('model'=>$model, 'hideBudgetDetails'=>1, 'hideLinks'=>1 )
+						);
+	echo '</div>';
 	?>
 	<p><?php echo $model->body; ?></p>
 
@@ -116,18 +118,23 @@ if ($model->budget){
 	echo '<div class="sectionTitle">';
 	echo '<span>'.__('Relative budgetary information').'</span>';
 	echo '</div>';
-	
+
+
+	echo '<div class="budget_link">';
+	$link = Yii::app()->getBaseUrl(true).'/b/'.$model->budget;
+	echo '<a href="'.$link.'">'.$link.'</a>';	
+	echo '</div>';	
 	echo '<div class="title">';
 	echo $model->budget0->getTitle();
 	echo '</div>';
-
-
+	
+	echo '<div class="budgetDetails">';
 	echo $this->renderPartial('//enquiry/_budgetDetails', array('model'=>$model->budget0,'showMore'=>1));
 
 	echo '<p>';
 	echo $model->budget0->getExplication();
 	echo '</p>';
-		
+	echo '</div>';
 }
 ?>
 

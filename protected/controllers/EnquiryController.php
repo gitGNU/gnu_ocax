@@ -756,17 +756,8 @@ class EnquiryController extends Controller
 
 		try
 		{
-			// init HTML2PDF
 			$html2pdf = new HTML2PDF('P', 'A4', getDefaultLanguage(), true, 'UTF-8', array(0, 0, 0, 0));
-
-			// display the full page
-			//$html2pdf->pdf->SetDisplayMode('fullpage');
-
-			// convert
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-
-			// add the automatic index
-			//$html2pdf->createIndex('Sommaire', 30, 12, false, true, 2);
 
 			// send the PDF
 			$html2pdf->Output('about.pdf');
