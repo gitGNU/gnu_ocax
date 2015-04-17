@@ -124,6 +124,47 @@ function createDirectory($path)
 	}
 }
 
+function createTempDirectory()
+{
+	$basePath = Yii::app()->basePath.'/runtime/tmp/';
+	$tempDir = uniqid('',false);
+	
+	while(1){
+		if(!file_exists($basePath.$tempDir)){
+			createDirectory($basePath.$tempDir);
+			return $basePath.$tempDir.'/';
+		}
+		$tempDir = uniqid('',false);
+	}
+}
+
+function deleteTempDirectory($dir)
+{
+	$basePath = Yii::app()->basePath.'/runtime/tmp/';
+	if(strpos($dir, $basePath) === false){
+			return; // we only delete dirs in ../protected/runtime/tmp/
+	}
+	$files = array_diff(scandir($dir), array('.', '..')); 
+	foreach ($files as $file) { 
+		(is_dir("$dir/$file")) ? deleteTempDirectory("$dir/$file") : unlink("$dir/$file"); 
+	}
+	return rmdir($dir); 
+} 
+
+
+function createTempFile()
+{
+	$basePath = Yii::app()->basePath.'/runtime/tmp/';
+	$fn = uniqid('',false);
+	while(1){
+		if(!file_exists($basePath.$fn)){
+			touch($basePath.$fn);
+			return $basePath.$fn;
+		}
+		$fn = uniqid('',false);
+	}
+}
+
 function bytesForHumans($bytes, $precision = 2)
 {
 	$units = array('B', 'KB', 'MB', 'GB', 'TB'); 

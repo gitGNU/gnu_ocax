@@ -47,23 +47,18 @@ page { font-size: 10pt;}
 	color: white;
 	background-color: #6E6E6E;
 }
-
 .budgetDetails th{
 	padding-right: 30px;
 }
 .enquiryDetails th{
 	padding-right: 30px;
 }
-
 .title {
 	font-size: 14pt;
 	margin-bottom:15px;
 }
 .budget_link { margin: 0 0 0 0; }
-
-.commentID {
-	color: #5C5C5C;
-}
+.commentID { color: #5C5C5C; }
 -->
 </style>
 
@@ -85,9 +80,9 @@ page { font-size: 10pt;}
 			<tr>
 				<td style="width: 85%; text-align: left;">
 					<?php
-					echo Config::model()->getObservatoryInitials().' '.__('Enquiry').': ';
+					echo __('PDF created on the').' '.format_date(date('c')).'. ';
 					$link = Yii::app()->getBaseUrl(true).'/e/'.$model->id;
-					echo "<a href='$link'>$link</a>";
+					echo __('Source').': '."<a href='$link'>$link</a>";
 					?>
                 </td>
 				<td style="width: 15%; text-align: right">

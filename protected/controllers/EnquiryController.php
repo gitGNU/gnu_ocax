@@ -745,11 +745,24 @@ class EnquiryController extends Controller
 	public function actionExport($id)
 	{
 		$model=$this->loadModel($id);
-		
+		$tmpDir = createTempDirectory();
+
+		$enquiryFile = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
+		if($enquiryFile){
+			copy($enquiryFile->getURI(), $tmpDir.__('Enquiry').'.'.$enquiryFile->getExtension());
+		}
+		if($model->replys){
+			$replyFiles = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->replys[0]->id));
+			foreach($replyFiles as $file){
+				copy($file->getURI(), $tmpDir.'/'.$file->name.'.'.$file->getExtension());
+			}
+		}else
+			$replyFile = Null;
+
+		// Create PDF
 		Yii::import('application.extensions.html2pdf.*');
 		require_once('html2pdf.class.php');
-
-		// get the HTML
+		
 		ob_start();
 		$this->renderPartial('pdf',array('model'=>$model),false,true);
 		$content = ob_get_clean();
@@ -758,14 +771,52 @@ class EnquiryController extends Controller
 		{
 			$html2pdf = new HTML2PDF('P', 'A4', getDefaultLanguage(), true, 'UTF-8', array(0, 0, 0, 0));
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-
-			// send the PDF
-			$html2pdf->Output('about.pdf');
+			if(! ($enquiryFile || $replyFile) ) {
+				$html2pdf->Output($model->title.'.pdf', 'D');
+				Yii::app()->end();
+			}else
+				$html2pdf->Output($tmpDir.$model->title.'.pdf', 'F');
 		}
 		catch(HTML2PDF_exception $e) {
 			echo $e;
 			exit;
 		}
+
+		// Create Zip
+		$tmpZipfile = createTempFile();
+		$zip = new ZipArchive();
+
+		$zip->open($tmpZipfile, ZIPARCHIVE::CREATE );
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($tmpDir), RecursiveIteratorIterator::SELF_FIRST);
+
+		foreach ($files as $file){
+			
+			$file = str_replace('\\', '/', $file);
+			// Ignore "." and ".." folders
+			if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+				continue;
+			$zip->addFromString(str_replace($tmpDir, '', $file), file_get_contents($file));
+		}
+		$zip->close();
+		ignore_user_abort(true);
+
+		$zip_name = $model->title.'.zip';
+
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=\"" . $zip_name . "\"");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: " . filesize($tmpZipfile));
+		ob_end_flush();
+		@readfile($tmpZipfile);
+		//exit;
+
+		deleteTempDirectory($tmpDir);
+		unlink($tmpZipfile);
 	}
 
 
