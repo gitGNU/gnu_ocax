@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-03-28 21:03+0100\n"
-"PO-Revision-Date: 2015-04-10 00:50+0100\n"
+"POT-Creation-Date: 2015-04-17 22:49+0100\n"
+"PO-Revision-Date: 2015-04-17 22:54+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -45,7 +45,7 @@ msgstr "Opacidad"
 msgid "Width"
 msgstr "Anchura"
 
-#: protected/models/IntroPage.php:112 protected/models/SitePage.php:106
+#: protected/models/IntroPage.php:112 protected/models/SitePage.php:107
 #: protected/models/Newsletter.php:108 protected/views/budget/admin.php:94
 msgid "Published"
 msgstr "Publicada"
@@ -113,7 +113,7 @@ msgstr "Trimestre 4"
 msgid "Featured"
 msgstr "Destacadas"
 
-#: protected/models/Budget.php:149 protected/models/SitePage.php:105
+#: protected/models/Budget.php:149 protected/models/SitePage.php:106
 msgid "Weight"
 msgstr "Peso"
 
@@ -123,23 +123,23 @@ msgstr "Peso"
 msgid "Budget"
 msgstr "Presupuesto"
 
-#: protected/models/Budget.php:310
+#: protected/models/Budget.php:324
 msgid "Budget table saved on the"
 msgstr "Tabla de presupuestos guardada el"
 
-#: protected/models/SitePage.php:93
+#: protected/models/SitePage.php:94
 msgid "Combination already exists."
 msgstr "La combinación ya existe."
 
-#: protected/models/SitePage.php:104
+#: protected/models/SitePage.php:105
 msgid "Block"
 msgstr "Bloque"
 
-#: protected/models/SitePage.php:107
+#: protected/models/SitePage.php:108
 msgid "Advanced HTML"
 msgstr "HTML Avanzado"
 
-#: protected/models/SitePage.php:108
+#: protected/models/SitePage.php:109
 msgid "Include title"
 msgstr "Incluir título"
 
@@ -147,7 +147,7 @@ msgstr "Incluir título"
 msgid "CSV file"
 msgstr "Fichero CSV"
 
-#: protected/models/ImportCSV.php:755
+#: protected/models/ImportCSV.php:750
 msgid "generated on the"
 msgstr "generada el"
 
@@ -239,9 +239,10 @@ msgstr "borrar cuenta"
 #: protected/controllers/EnquiryController.php:640
 #: protected/controllers/EnquiryController.php:669
 #: protected/controllers/EnquiryController.php:682
-#: protected/controllers/EnquiryController.php:789
-#: protected/controllers/EnquiryController.php:791
-#: protected/controllers/EnquiryController.php:817
+#: protected/controllers/EnquiryController.php:752
+#: protected/controllers/EnquiryController.php:870
+#: protected/controllers/EnquiryController.php:872
+#: protected/controllers/EnquiryController.php:898
 #: protected/controllers/ReplyController.php:106
 #: protected/controllers/ReplyController.php:134
 #: protected/controllers/CommentController.php:161
@@ -282,7 +283,8 @@ msgstr "Creada"
 #: protected/models/Enquiry.php:228 protected/models/Vault.php:182
 #: protected/models/EmailTemplate.php:113
 #: protected/views/enquiry/_reformulated.php:48
-#: protected/views/enquiry/view.php:105 protected/views/enquiry/index.php:206
+#: protected/views/enquiry/_detailsForCitizen.php:47
+#: protected/views/enquiry/index.php:206
 #: protected/views/enquiry/_detailsForTeam.php:27
 #: protected/views/newsletter/admin.php:45 protected/views/user/panel.php:332
 #: protected/views/user/panel.php:366 protected/views/user/view.php:142
@@ -356,7 +358,7 @@ msgstr "Recuérdame"
 
 #: protected/models/Log.php:79 protected/models/Email.php:99
 #: protected/models/Enquiry.php:226 protected/models/Vault.php:178
-#: protected/views/enquiry/view.php:120
+#: protected/views/enquiry/_detailsForCitizen.php:63
 #: protected/views/enquiry/_detailsForTeam.php:39
 #: protected/views/vault/admin.php:156
 msgid "Type"
@@ -397,7 +399,6 @@ msgid "Not finished"
 msgstr "Sin terminar"
 
 #: protected/models/Backup.php:150
-#: protected/models/defunt.manual.backup.php:45
 msgid "Cannot create zip file"
 msgstr "No se puede crear fichero zip"
 
@@ -510,9 +511,10 @@ msgstr "Manager"
 
 #: protected/models/Enquiry.php:221
 #: protected/views/enquiry/_reformulated.php:53
-#: protected/views/enquiry/view.php:95 protected/views/enquiry/index.php:201
-#: protected/views/budget/view.php:218 protected/views/user/panel.php:327
-#: protected/views/user/panel.php:361
+#: protected/views/enquiry/_detailsForCitizen.php:30
+#: protected/views/enquiry/_detailsForCitizen.php:41
+#: protected/views/enquiry/index.php:201 protected/views/budget/view.php:218
+#: protected/views/user/panel.php:327 protected/views/user/panel.php:361
 msgid "Formulated"
 msgstr "Formulada"
 
@@ -520,12 +522,14 @@ msgstr "Formulada"
 msgid "Assigned"
 msgstr "Asignada"
 
-#: protected/models/Enquiry.php:223 protected/views/enquiry/view.php:114
+#: protected/models/Enquiry.php:223
+#: protected/views/enquiry/_detailsForCitizen.php:57
 #: protected/views/enquiry/_detailsForTeam.php:68
 msgid "Submitted"
 msgstr "Fecha de entrega"
 
-#: protected/models/Enquiry.php:224 protected/views/enquiry/view.php:111
+#: protected/models/Enquiry.php:224
+#: protected/views/enquiry/_detailsForCitizen.php:54
 #: protected/views/enquiry/_detailsForTeam.php:59
 msgid "Registry number"
 msgstr "Nº de registro"
@@ -551,12 +555,13 @@ msgstr "team member"
 msgid "people subscribed to the Enquiry"
 msgstr "personas subscritas a la consulta"
 
-#: protected/models/Vote.php:90 protected/views/reply/_view.php:38
+#: protected/models/Vote.php:90 protected/views/enquiry/pdf.php:158
+#: protected/views/reply/_view.php:49
 msgid "Reply"
 msgstr "Respuesta"
 
-#: protected/models/Vote.php:92 protected/views/reply/_view.php:56
-#: protected/views/reply/_view.php:63
+#: protected/models/Vote.php:92 protected/views/reply/_view.php:68
+#: protected/views/reply/_view.php:75
 msgid "Vote"
 msgstr "Vota"
 
@@ -646,9 +651,9 @@ msgid "User fullname will go here"
 msgstr "El nombre del usuario irá aquí"
 
 #: protected/models/SitePageContent.php:107
-#: protected/controllers/SitePageController.php:156
-#: protected/controllers/SitePageController.php:258
-#: protected/controllers/SitePageController.php:294
+#: protected/controllers/SitePageController.php:164
+#: protected/controllers/SitePageController.php:266
+#: protected/controllers/SitePageController.php:302
 msgid "Page"
 msgstr "Página"
 
@@ -666,7 +671,8 @@ msgstr "Título de la página"
 msgid "Preview"
 msgstr "Vista preliminar"
 
-#: protected/models/Comment.php:113
+#: protected/models/Comment.php:113 protected/views/enquiry/pdf.php:144
+#: protected/views/enquiry/pdf.php:172
 msgid "Comment"
 msgstr "Comentario"
 
@@ -917,6 +923,7 @@ msgid "No, take me to"
 msgstr "No, llévame al"
 
 #: protected/views/enquiry/_reformulated.php:26
+#: protected/views/enquiry/pdf.php:97
 msgid "The enquiry"
 msgstr "La Consulta"
 
@@ -964,6 +971,28 @@ msgstr "El consenso general es que la respuesta es satisfactoria"
 msgid "The general consensus is that the reply is not satisfactory"
 msgstr "El consenso general es que la respuesta es insatisfactoria"
 
+#: protected/views/enquiry/pdf.php:83
+msgid "PDF created on the"
+msgstr "PDF creado el día"
+
+#: protected/views/enquiry/pdf.php:85
+msgid "Source"
+msgstr "Fuente"
+
+#: protected/views/enquiry/pdf.php:89
+msgid "page"
+msgstr "página"
+
+#: protected/views/enquiry/pdf.php:114
+#, fuzzy
+msgid "Relative budgetary information"
+msgstr "@A en la cuenta-i de la información del enlace: %m\n"
+
+#: protected/views/enquiry/pdf.php:139 protected/views/enquiry/pdf.php:167
+#, fuzzy
+msgid "Citizen comments"
+msgstr "Leyendo comentarios…"
+
 #: protected/views/enquiry/teamView.php:29
 #: protected/views/enquiry/submit.php:60
 #: protected/controllers/EnquiryController.php:484
@@ -998,6 +1027,17 @@ msgstr "Reformular consulta"
 msgid "No"
 msgstr "No"
 
+#: protected/views/enquiry/_detailsForCitizen.php:33
+#: protected/views/enquiry/_detailsForCitizen.php:34
+#: protected/views/enquiry/_detailsForCitizen.php:43
+msgid "by"
+msgstr "por"
+
+#: protected/views/enquiry/_detailsForCitizen.php:64
+#: protected/views/enquiry/_detailsForTeam.php:40
+msgid "reformulated"
+msgstr "reformulada"
+
 #: protected/views/enquiry/_searchPublic.php:64
 msgid "Minimum date"
 msgstr "Fecha mínima"
@@ -1030,7 +1070,7 @@ msgid "find the corresponding budget"
 msgstr "encuentra la partida correspondiente"
 
 #: protected/views/enquiry/manage.php:100
-#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:176
+#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:137
 #: protected/views/enquiry/validate.php:49
 #: protected/views/enquiry/_form.php:49 protected/views/sitePage/_form.php:36
 #: protected/views/sitePage/_form.php:43
@@ -1120,40 +1160,35 @@ msgstr ""
 msgid "change related budget"
 msgstr "cambiar la partida relacionada"
 
-#: protected/views/enquiry/view.php:98 protected/views/enquiry/view.php:99
-msgid "by"
-msgstr "por"
-
-#: protected/views/enquiry/view.php:121
-#: protected/views/enquiry/_detailsForTeam.php:40
-msgid "reformulated"
-msgstr "reformulada"
-
-#: protected/views/enquiry/view.php:152
+#: protected/views/enquiry/view.php:107
 msgid "Share"
 msgstr "Compartir"
 
-#: protected/views/enquiry/view.php:160
+#: protected/views/enquiry/view.php:114
+msgid "Export"
+msgstr "Exportar"
+
+#: protected/views/enquiry/view.php:121
 msgid "Subscribed"
 msgstr "Suscrito"
 
-#: protected/views/enquiry/view.php:170
+#: protected/views/enquiry/view.php:131
 msgid "You can"
 msgstr "Puedes"
 
-#: protected/views/enquiry/view.php:171
+#: protected/views/enquiry/view.php:132
 msgid "edit the enquiry"
 msgstr "editar la consulta"
 
-#: protected/views/enquiry/view.php:171
+#: protected/views/enquiry/view.php:132
 msgid "and even"
 msgstr "e incluso"
 
-#: protected/views/enquiry/view.php:172
+#: protected/views/enquiry/view.php:133
 msgid "delete it"
 msgstr "borrarlo"
 
-#: protected/views/enquiry/view.php:177
+#: protected/views/enquiry/view.php:138
 msgid "until it has been accepted by the observatory."
 msgstr "hasta que haya sido aceptado por el observatorio."
 
@@ -1211,7 +1246,7 @@ msgstr "Euros por persona"
 #: protected/views/user/panel.php:322 protected/views/user/panel.php:356
 #: protected/views/user/view.php:136 protected/views/layouts/mainmenu.php:28
 #: protected/controllers/EnquiryController.php:100
-#: protected/controllers/EnquiryController.php:765
+#: protected/controllers/EnquiryController.php:846
 msgid "Enquiries"
 msgstr "Consultas"
 
@@ -1481,7 +1516,7 @@ msgstr "Ver boletín"
 #: protected/views/sitePage/admin.php:25
 #: protected/views/sitePage/create.php:31
 #: protected/controllers/IntroPageController.php:92
-#: protected/controllers/SitePageController.php:130
+#: protected/controllers/SitePageController.php:138
 msgid "Create page"
 msgstr "Crear página"
 
@@ -1496,7 +1531,7 @@ msgstr "Gestionar páginas"
 #: protected/views/sitePage/create.php:25
 #: protected/views/sitePage/update.php:31 protected/views/sitePage/show.php:66
 #: protected/controllers/IntroPageController.php:198
-#: protected/controllers/SitePageController.php:317
+#: protected/controllers/SitePageController.php:325
 msgid "Manage pages"
 msgstr "Gestionar páginas"
 
@@ -1570,7 +1605,7 @@ msgstr "Borrar página"
 #: protected/views/introPage/update.php:39
 #: protected/views/sitePage/update.php:37
 #: protected/controllers/IntroPageController.php:129
-#: protected/controllers/SitePageController.php:180
+#: protected/controllers/SitePageController.php:188
 msgid "Update page"
 msgstr "Actualizar página"
 
@@ -2105,7 +2140,7 @@ msgid "Upload the file"
 msgstr "Subir el fichero"
 
 #: protected/views/config/image.php:83
-#: protected/views/config/observatory.php:114
+#: protected/views/config/observatory.php:94
 msgid "Refresh the page pressing F5"
 msgstr "Refrescar la página con la tecla F5"
 
@@ -2158,14 +2193,6 @@ msgstr "Otros"
 msgid "Observatory"
 msgstr "El observatorio"
 
-#: protected/views/config/observatory.php:92
-msgid "Coordinates for the map at"
-msgstr "Coordinadas para el mapa en"
-
-#: protected/views/config/observatory.php:109
-msgid "Find coordinates here"
-msgstr "Encuentra coordinadas aquí"
-
 #: protected/views/config/pendingConfiguration.php:27
 msgid "Admin tasks"
 msgstr "Tareas del Admin"
@@ -2214,6 +2241,14 @@ msgstr "%s las plantillas de correo necesitan ser definidas"
 #: protected/views/config/locale.php:27 protected/views/config/index.php:110
 msgid "Locale"
 msgstr "Local"
+
+#: protected/views/config/locale.php:55
+msgid "Coordinates for the map at"
+msgstr "Coordinadas para el mapa en"
+
+#: protected/views/config/locale.php:72
+msgid "Find coordinates here"
+msgstr "Encuentra coordinadas aquí"
 
 #: protected/views/config/email.php:41 protected/views/config/email.php:73
 msgid "Send as"
@@ -2339,7 +2374,7 @@ msgstr ""
 "Cuando hayas añadido la respuesta, tendrás la opción de adjuntar la "
 "documentación recibida del ayuntamiento."
 
-#: protected/views/reply/_view.php:70
+#: protected/views/reply/_view.php:82
 msgid "Add attachment"
 msgstr "Añadir adjunto"
 
@@ -2689,6 +2724,10 @@ msgstr "Sigue estas instrucciones "
 msgid "Enter your email address and we will send you a link"
 msgstr "Introduce tu dirección de correo electrónico y te enviaremos un enlace"
 
+#: protected/views/site/map.php:24
+msgid "Map"
+msgstr "Mapa"
+
 #: protected/views/site/cookieAlert.php:35
 msgid ""
 "uses Twitter and Facebook cookies that collect statistics. By using this web "
@@ -2802,7 +2841,7 @@ msgid "Error while sending email"
 msgstr "Error while sending email"
 
 #: protected/controllers/UserController.php:188
-#: protected/controllers/SitePageController.php:259
+#: protected/controllers/SitePageController.php:267
 msgid "Changes saved Ok"
 msgstr "Se han guardado los cambios correctamente"
 
@@ -2829,21 +2868,21 @@ msgid "introPage"
 msgstr "introPage"
 
 #: protected/controllers/IntroPageController.php:111
-#: protected/controllers/SitePageController.php:156
+#: protected/controllers/SitePageController.php:164
 #: protected/controllers/BudgetDescriptionController.php:151
 msgid "created"
 msgstr "creada"
 
 #: protected/controllers/IntroPageController.php:160
 #: protected/controllers/EmailTemplateController.php:96
-#: protected/controllers/SitePageController.php:258
+#: protected/controllers/SitePageController.php:266
 #: protected/controllers/BudgetDescriptionController.php:212
 msgid "updated"
 msgstr "actualizada"
 
 #: protected/controllers/IntroPageController.php:186
-#: protected/controllers/EnquiryController.php:789
-#: protected/controllers/SitePageController.php:294
+#: protected/controllers/EnquiryController.php:870
+#: protected/controllers/SitePageController.php:302
 #: protected/controllers/BudgetDescriptionController.php:263
 msgid "deleted"
 msgstr "borrada"
@@ -2928,13 +2967,13 @@ msgstr "asignada al team member"
 msgid "New team member assigned"
 msgstr "Nuevo team member assignado"
 
-#: protected/controllers/EnquiryController.php:791
-#: protected/controllers/EnquiryController.php:817
+#: protected/controllers/EnquiryController.php:872
+#: protected/controllers/EnquiryController.php:898
 msgid "deleted by team manager"
 msgstr "borrado por el team manager"
 
-#: protected/controllers/EnquiryController.php:796
-#: protected/controllers/EnquiryController.php:819
+#: protected/controllers/EnquiryController.php:877
+#: protected/controllers/EnquiryController.php:900
 msgid "Enquiry has been deleted"
 msgstr "Se ha borrado la consulta"
 
