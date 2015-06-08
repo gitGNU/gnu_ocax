@@ -189,9 +189,13 @@ class ImportCSV extends CFormModel
 			$t4 = trim($t4);
 			if(!is_numeric($initial_prov)){
 				$error[]='<br />Register '. ($line_num+1) .': Initial provision is not numeric';
+			}else if ($initial_prov == 0){
+				$error[]='<br />Register '. ($line_num+1) .': Initial provision cannot be 0';
 			}
 			if(!is_numeric($actual_prov)){
 				$error[]='<br />Register '. ($line_num+1) .': Actual provision is not numeric';
+			}else if ($actual_prov == 0){
+				$error[]='<br />Register '. ($line_num+1) .': Actual provision cannot be 0';
 			}
 			if(!is_numeric($t1)){
 				$error[]='<br />Register '. ($line_num+1) .': Trimester 1 is not numeric';

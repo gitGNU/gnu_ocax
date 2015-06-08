@@ -17,8 +17,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+// For help see. http://agora.ocax.net/c/ocax/install
 
-// For help join our mailing list. http://ocax.net/cgi-bin/mailman/listinfo/lista
 
 $config = array(
 	'theme'=>'default',
