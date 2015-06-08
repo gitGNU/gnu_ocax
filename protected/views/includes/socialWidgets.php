@@ -28,7 +28,7 @@
 	display:none;
 	position:absolute;
 	top: -7px;
-	width:250px;
+	width:290px;
 	z-index:99;
 }
 .socialWidgetBox > div.widget {
@@ -45,7 +45,9 @@
 	$fullurl = $this->createAbsoluteUrl('/enquiry/'.$model->id);
 	$url = $this->createAbsoluteUrl('/e/'.$model->id);
 
-	echo '<div	class="widget">
+	echo '<div style="float:right; margin:5px 5px 0 0; font-size:22px;"><i class="icon-cancel-circled" onclick="js:$(\'.alert\').hide();"></i></div>';
+
+	echo '<div class="widget">
 			<input type="text" style="width:232px; font-size:15px;" value='.$url.' />
 		</div>';
 	if(Config::model()->findByPk('socialActivateMeneame')->value){

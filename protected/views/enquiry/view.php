@@ -102,20 +102,20 @@ function enquiryModal2Page(){
 		if(EnquirySubscribe::model()->isUserSubscribed($model->id, Yii::app()->user->getUserID()))
 			$active = "active";
 
-		echo '<span style="margin-right:10px">';
+		echo '<span style="position:relative; margin-right:10px">';
 		echo '<span class="ocaxButton" onClick="js:showSocialWidgets(); ">'.
 			 __('Share').'<i class="icon-share"></i>';
 		echo '</span>';
 		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
 		echo '</span>';
 
-		echo '<span style="margin-right:13px">';
+		echo '<span style="position:relative; margin-right:13px">';
 		echo '<span class="ocaxButton" onClick="js:window.open(\''.Yii::app()->request->baseUrl.'/enquiry/export/'.$model->id.'\'); ">'.
 			 __('Export').'<i class="icon-download-alt"></i>';
 		echo '</span>';
 		echo '</span>';
 
-		echo '<span
+		echo '<span style="position:relative;"
 				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"
 				onClick="js:showSubscriptionNotice(this, '.$model->id.');">'.
 			 __('Subscribed').'<i class="icon-mail-1"></i>';
