@@ -427,4 +427,5 @@ INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsern
 INSERT INTO config(parameter, required, description) VALUES ('telephone', '0', 'Contact telephone');
 INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
 INSERT INTO config(parameter, value, required, description) VALUES ('year', '2015', '1', 'Default Year (this year)');
+INSERT INTO config(parameter, value, required, description) VALUES ('showExport', '1', '0', 'Show "Enquiry export" PDF button');
 

@@ -1,0 +1,1 @@
+INSERT INTO config(parameter, value, required, description) VALUES ('showExport', '1', '0', 'Show "Enquiry export" PDF button');

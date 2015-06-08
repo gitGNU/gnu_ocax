@@ -42,5 +42,17 @@
 		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
 		<div class="progress"></div>
 	</div>
+	<div class="param">
+		<?php /* Remove this global param when we know all servers work correctly with PDF export
+				* I just added 'showExport' as a save guard
+				*/
+		$param = Config::model()->findByPk('showExport');
+		?>
+		<span class="paramDescription"><?php echo $param->description;?></span><br />
+		<input type="radio" name="showExport" value="0" <?php echo ($param->value == 0) ? 'checked="checked"' : '' ?> />No
+		<input type="radio" name="showExport" value="1" <?php echo ($param->value == 1) ? 'checked="checked"' : '' ?> />Yes
+		<input type="button" value="save" param="<?php echo $param->parameter;?>" onClick="js:updateBool(this); return false;"/>
+		<div class="progress"></div>
+	</div>
 </div>
 

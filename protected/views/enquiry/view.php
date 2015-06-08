@@ -109,12 +109,13 @@ function enquiryModal2Page(){
 		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
 		echo '</span>';
 
-		echo '<span style="position:relative; margin-right:13px">';
-		echo '<span class="ocaxButton" onClick="js:window.open(\''.Yii::app()->request->baseUrl.'/enquiry/export/'.$model->id.'\'); ">'.
-			 __('Export').'<i class="icon-download-alt"></i>';
-		echo '</span>';
-		echo '</span>';
-
+		if (Config::model()->findByPk('showExport')->value){
+			echo '<span style="position:relative; margin-right:13px">';
+			echo '<span class="ocaxButton" onClick="js:window.open(\''.Yii::app()->request->baseUrl.'/enquiry/export/'.$model->id.'\'); ">'.
+				 __('Export').'<i class="icon-download-alt"></i>';
+			echo '</span>';
+			echo '</span>';
+		}
 		echo '<span style="position:relative;"
 				id="subscribe-icon_'.$model->id.'" class="ocaxButton email-subscribe subscribe-icon_'.$model->id.' '.$active.'"
 				onClick="js:showSubscriptionNotice(this, '.$model->id.');">'.
