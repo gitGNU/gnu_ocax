@@ -160,11 +160,10 @@ class ImportCSV extends CFormModel
 	public function checkCSVFormat()
 	{
 		$error=array();
-		//$correct_field_delimiter=0;
 		$ids = array();
 		$lines = file($this->csv);
+		array_shift($lines);
 		foreach ($lines as $line_num => $line) {
-		
 			$delimiterCnt = substr_count($line, '|');
 			if ($delimiterCnt == 0){
 				$error[]='Delimiter | not found on row '.$line_num;
@@ -174,9 +173,9 @@ class ImportCSV extends CFormModel
 				$error[]=($delimiterCnt+1).' columns found but expected 10 on row '.$line_num;
 				break;
 			}
-			continue;
 
 			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
+			file_put_contents('/tmp/prov', '-'.$initial_prov.'-');
 			$id = trim($id);
 			if(in_array($id, $ids)) {
 				$error[]='<br />Register '. ($line_num+1) .': Internal code "'.$id.'" is not unique';
@@ -189,7 +188,7 @@ class ImportCSV extends CFormModel
 			$t4 = trim($t4);
 			if(!is_numeric($initial_prov)){
 				$error[]='<br />Register '. ($line_num+1) .': Initial provision is not numeric';
-			}else if ($initial_prov == 0){
+			} else	if ($initial_prov == 0){
 				$error[]='<br />Register '. ($line_num+1) .': Initial provision cannot be 0';
 			}
 			if(!is_numeric($actual_prov)){
