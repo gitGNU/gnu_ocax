@@ -1,6 +1,7 @@
 # This is a file to keep tabs on ocax version and corresponding mysql schema version
 # Syntax ocax-version:schema-version
-# Order new first, older last
+# Version order: newest on the first line, oldest on the last line
 
+1.2.1:3
 1.2.0:2
 1.1.4:0
