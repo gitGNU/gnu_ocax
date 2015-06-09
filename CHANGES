@@ -1,3 +1,9 @@
+1.2.1
+Added Enquiry export
+Some interface improvements
+Fixed a CSV import bug
+Squashed some other bugs
+
 1.2.0
 Configurable site color. :)
 Many usability tweaks.

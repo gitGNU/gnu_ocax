@@ -5,11 +5,18 @@ Before upgrading, read INSTALL to refresh your memory.
 3. Overwrite app/ and protected/ with new version
 4. Check file permissions # chown -R www-data app/ protected/runtime/
 
-PLEASE README!
+
+
+PLEASE README! Version 1.1.3 or earlier ONLY!!
 If, for example you are on version 1.1.0 and you are upgrading to version 1.1.3,
 you cannot jump to the 1.1.3 instructions.
 You must follow all upgrade instructions in ascending order. 1.1.1 then 1.1.2 then 1.1.3
 
+
+_________________________________________________
+OCAX 1.2.1
+Upgrade instructions.
+1. Follow steps 1-4 above.
 
 _________________________________________________
 OCAX 1.2.0
