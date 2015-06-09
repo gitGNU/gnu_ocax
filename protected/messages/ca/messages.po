@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
-"POT-Creation-Date: 2015-04-17 22:51+0100\n"
-"PO-Revision-Date: 2015-04-17 22:53+0100\n"
+"POT-Creation-Date: 2015-06-09 19:48+0100\n"
+"PO-Revision-Date: 2015-06-09 19:50+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -147,7 +147,7 @@ msgstr "Incloure títol"
 msgid "CSV file"
 msgstr "Fitxer CSV"
 
-#: protected/models/ImportCSV.php:750
+#: protected/models/ImportCSV.php:753
 msgid "generated on the"
 msgstr "generada el"
 
@@ -556,12 +556,12 @@ msgid "people subscribed to the Enquiry"
 msgstr "persones subscrites a la consulta"
 
 #: protected/models/Vote.php:90 protected/views/enquiry/pdf.php:158
-#: protected/views/reply/_view.php:49
+#: protected/views/reply/_view.php:59
 msgid "Reply"
 msgstr "Resposta"
 
-#: protected/models/Vote.php:92 protected/views/reply/_view.php:68
-#: protected/views/reply/_view.php:75
+#: protected/models/Vote.php:92 protected/views/reply/_view.php:80
+#: protected/views/reply/_view.php:87
 msgid "Vote"
 msgstr "Vota"
 
@@ -984,17 +984,12 @@ msgid "page"
 msgstr "pàgina"
 
 #: protected/views/enquiry/pdf.php:114
-#, fuzzy
 msgid "Relative budgetary information"
-msgstr ""
-"S'està fent una còpia de seguretat de la informació del @b de nodes-i del "
-"@j.\n"
-"\n"
+msgstr "Informació pressupostària"
 
 #: protected/views/enquiry/pdf.php:139 protected/views/enquiry/pdf.php:167
-#, fuzzy
 msgid "Citizen comments"
-msgstr "Cerca comentaris"
+msgstr "Comentaris dels ciutadans"
 
 #: protected/views/enquiry/teamView.php:29
 #: protected/views/enquiry/submit.php:60
@@ -1073,7 +1068,7 @@ msgid "find the corresponding budget"
 msgstr "trova el corresponent pressupost"
 
 #: protected/views/enquiry/manage.php:100
-#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:137
+#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:138
 #: protected/views/enquiry/validate.php:49
 #: protected/views/enquiry/_form.php:49 protected/views/sitePage/_form.php:36
 #: protected/views/sitePage/_form.php:43
@@ -1166,31 +1161,31 @@ msgstr "canviar partida pressupostària"
 msgid "Share"
 msgstr "Compartir"
 
-#: protected/views/enquiry/view.php:114
+#: protected/views/enquiry/view.php:115
 msgid "Export"
 msgstr "Exportar"
 
-#: protected/views/enquiry/view.php:121
+#: protected/views/enquiry/view.php:122
 msgid "Subscribed"
 msgstr "Subscrits"
 
-#: protected/views/enquiry/view.php:131
+#: protected/views/enquiry/view.php:132
 msgid "You can"
 msgstr "Pots"
 
-#: protected/views/enquiry/view.php:132
+#: protected/views/enquiry/view.php:133
 msgid "edit the enquiry"
 msgstr "editar la consulta"
 
-#: protected/views/enquiry/view.php:132
+#: protected/views/enquiry/view.php:133
 msgid "and even"
 msgstr "i fins i tot"
 
-#: protected/views/enquiry/view.php:133
+#: protected/views/enquiry/view.php:134
 msgid "delete it"
 msgstr "esborrar-ho"
 
-#: protected/views/enquiry/view.php:138
+#: protected/views/enquiry/view.php:139
 msgid "until it has been accepted by the observatory."
 msgstr "fins que hagi estat acceptat per l'observatori."
 
@@ -2376,7 +2371,7 @@ msgstr ""
 "Quan hagis afegit la respota, tindràs l'opció d'ajuntar la documentació "
 "rebuda de l'ajuntament."
 
-#: protected/views/reply/_view.php:82
+#: protected/views/reply/_view.php:94
 msgid "Add attachment"
 msgstr "Afegeix adjunt"
 

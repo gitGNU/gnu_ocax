@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-04-17 22:49+0100\n"
-"PO-Revision-Date: 2015-04-17 22:54+0100\n"
+"POT-Creation-Date: 2015-06-09 19:47+0100\n"
+"PO-Revision-Date: 2015-06-09 19:50+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -147,7 +147,7 @@ msgstr "Incluir título"
 msgid "CSV file"
 msgstr "Fichero CSV"
 
-#: protected/models/ImportCSV.php:750
+#: protected/models/ImportCSV.php:753
 msgid "generated on the"
 msgstr "generada el"
 
@@ -556,12 +556,12 @@ msgid "people subscribed to the Enquiry"
 msgstr "personas subscritas a la consulta"
 
 #: protected/models/Vote.php:90 protected/views/enquiry/pdf.php:158
-#: protected/views/reply/_view.php:49
+#: protected/views/reply/_view.php:59
 msgid "Reply"
 msgstr "Respuesta"
 
-#: protected/models/Vote.php:92 protected/views/reply/_view.php:68
-#: protected/views/reply/_view.php:75
+#: protected/models/Vote.php:92 protected/views/reply/_view.php:80
+#: protected/views/reply/_view.php:87
 msgid "Vote"
 msgstr "Vota"
 
@@ -984,14 +984,12 @@ msgid "page"
 msgstr "página"
 
 #: protected/views/enquiry/pdf.php:114
-#, fuzzy
 msgid "Relative budgetary information"
-msgstr "@A en la cuenta-i de la información del enlace: %m\n"
+msgstr "Información presupuestaria"
 
 #: protected/views/enquiry/pdf.php:139 protected/views/enquiry/pdf.php:167
-#, fuzzy
 msgid "Citizen comments"
-msgstr "Leyendo comentarios…"
+msgstr "Comentarios de los ciudadanos"
 
 #: protected/views/enquiry/teamView.php:29
 #: protected/views/enquiry/submit.php:60
@@ -1070,7 +1068,7 @@ msgid "find the corresponding budget"
 msgstr "encuentra la partida correspondiente"
 
 #: protected/views/enquiry/manage.php:100
-#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:137
+#: protected/views/enquiry/manage.php:108 protected/views/enquiry/view.php:138
 #: protected/views/enquiry/validate.php:49
 #: protected/views/enquiry/_form.php:49 protected/views/sitePage/_form.php:36
 #: protected/views/sitePage/_form.php:43
@@ -1164,31 +1162,31 @@ msgstr "cambiar la partida relacionada"
 msgid "Share"
 msgstr "Compartir"
 
-#: protected/views/enquiry/view.php:114
+#: protected/views/enquiry/view.php:115
 msgid "Export"
 msgstr "Exportar"
 
-#: protected/views/enquiry/view.php:121
+#: protected/views/enquiry/view.php:122
 msgid "Subscribed"
 msgstr "Suscrito"
 
-#: protected/views/enquiry/view.php:131
+#: protected/views/enquiry/view.php:132
 msgid "You can"
 msgstr "Puedes"
 
-#: protected/views/enquiry/view.php:132
+#: protected/views/enquiry/view.php:133
 msgid "edit the enquiry"
 msgstr "editar la consulta"
 
-#: protected/views/enquiry/view.php:132
+#: protected/views/enquiry/view.php:133
 msgid "and even"
 msgstr "e incluso"
 
-#: protected/views/enquiry/view.php:133
+#: protected/views/enquiry/view.php:134
 msgid "delete it"
 msgstr "borrarlo"
 
-#: protected/views/enquiry/view.php:138
+#: protected/views/enquiry/view.php:139
 msgid "until it has been accepted by the observatory."
 msgstr "hasta que haya sido aceptado por el observatorio."
 
@@ -2374,7 +2372,7 @@ msgstr ""
 "Cuando hayas añadido la respuesta, tendrás la opción de adjuntar la "
 "documentación recibida del ayuntamiento."
 
-#: protected/views/reply/_view.php:82
+#: protected/views/reply/_view.php:94
 msgid "Add attachment"
 msgstr "Añadir adjunto"
 
