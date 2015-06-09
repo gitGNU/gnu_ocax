@@ -23,10 +23,14 @@
 ?>
 
 <style>
+#attachments {
+	float:left;
+	max-width: <?php echo (Yii::app()->request->isAjaxRequest) ? '395px' : '445px' ?>;
+}
 .attachment {
 	float:left;
 	margin-left:-10px;
-	max-width: <?php echo (Yii::app()->request->isAjaxRequest) ? '375px' : '435px' ?>;
+	max-width: <?php echo (Yii::app()->request->isAjaxRequest) ? '365px' : '415px' ?>;
 	height: 24px;
 	overflow:hidden;
 	font-size: 16px;
@@ -34,6 +38,12 @@
 .attachment:hover {
 	cursor: pointer;
 	text-decoration: underline;
+}
+.attachmentDelete {
+	float:left;
+	padding-top: 6px;
+	cursor: pointer;
+	font-size: 16px;
 }
 </style>
 
@@ -49,17 +59,19 @@
 		echo '<div class="sub_title" style="font-size:28px; float:left; margin:0 15px 0 0;">'.__('Reply').': '.format_date($model->created).'</div>';
 
 			$attachments = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->id));
+			echo '<div id="attachments">';
 			foreach($attachments as $attachment){
 				echo '<span	id="attachment_'.$attachment->id.'">';
 					echo '<span	class="attachment" onClick="js:viewFile(\''.$attachment->getWebPath().'\');">';
 					echo '<i class="icon-attach"></i>'.$attachment->name;
 					echo '</span>';	
 				if( $model->team_member == $user_id ){
-					echo '<i class="icon-cancel-circle red" style="float:left;padding-right:5px;cursor:pointer;" onclick="js:deleteFile('.$attachment->id.');"></i>';
+					echo '<i class="icon-cancel-circle red attachmentDelete" onclick="js:deleteFile('.$attachment->id.');"></i>';
 				}
 			
-				echo '</span>';
+				echo '</span><br />';
 			}
+			echo '</div>';
 		echo '<span class="voteBlock">';
 
 			$userVote === '1' ? $voted = 'active' : $voted = '';

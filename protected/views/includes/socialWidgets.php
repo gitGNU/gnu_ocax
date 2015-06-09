@@ -38,6 +38,13 @@
 		font-size: 16px;
 		height: 22px;
 }
+.closeWidgetBox {
+		cursor: pointer;
+		color: #7F7F7F;
+		float:right;
+		margin:9px 5px 0 0;
+		font-size: 17px;
+}
 </style>
 
 <div class="alert socialWidgetBox">
@@ -45,7 +52,7 @@
 	$fullurl = $this->createAbsoluteUrl('/enquiry/'.$model->id);
 	$url = $this->createAbsoluteUrl('/e/'.$model->id);
 
-	echo '<div style="float:right; margin:5px 5px 0 0; font-size:22px;"><i class="icon-cancel-circled" onclick="js:$(\'.alert\').hide();"></i></div>';
+	echo '<div><i class="closeWidgetBox icon-cancel-circled" onclick="js:$(\'.alert\').hide();"></i></div>';
 
 	echo '<div class="widget">
 			<input type="text" style="width:232px; font-size:15px;" value='.$url.' />

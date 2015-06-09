@@ -20,10 +20,11 @@
 
 <div id="fb-root"></div>
 <script>
+/*
 $( document ).on( "mouseleave", ".socialWidgetBox", function() {
 	$(this).fadeOut('fast')
 });
-
+*/
 // http://www.blackfishweb.com/blog/asynchronously-loading-twitter-google-facebook-and-linkedin-buttons-and-widgets-ajax-bonus
 // http://stackoverflow.com/questions/12810018/fb-getloginstatus-called-before-calling-fb-init/16593474#16593474
 function showSocialWidgets(){
