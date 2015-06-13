@@ -1,10 +1,10 @@
-OCAX(x) version 1.2.0
+OCAX(x) version 1.2.1
 http://ocax.net/
-http://wiki.ocax.net/
+http://wiki.ocax.net/en:install
+http://agora.ocax.net/c/ocax/install
 
-This software is BETA.
 
-** Preinstallation concerns
+** Preinstallation
 
 Directory structure.
 index.php is in the app/ directory. So, your domain ocax.example.com -> app/
@@ -17,7 +17,7 @@ There are two possible directory structures.
 |
 - protected
 |
-- framework	(YII, http://www.yiiframework.com/ (use version 1.1.15))
+- framework	(YII, http://www.yiiframework.com/download/#yii1 (use version 1.1.16))
 
 2. If your server provider only gives you access to the webroot directory.
  
@@ -58,16 +58,15 @@ and modify mysql connection parameters in protected/config/main.php
 If you cannot edit the apache server config, you'll need a .htaccess file
 $ cp app/htaccess app/.htaccess
 
-That's it. You should be able to browse to your site now.
+Now you should be able to browse your site now.
+
+5. Create a user account
+Via the OCAx web interface register a new user.
+Let's say your username is andy.
+Now you have to manually alter the database to make your new user 'andy' an Admin.
+
+UPDATE user SET is_admin=1 WHERE username = 'andy'; 
+
+** El fin **
 
 
-** Post Installation
-
-1. Follow the instructions here http://wiki.ocax.net/en:install
-
-
-** Help
-
-If you are having trouble installing OCAx, or any other OCAx related problems,
-Please subscribe to our mailing list and ask there.
-http://ocax.net/cgi-bin/mailman/listinfo/lista
