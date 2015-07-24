@@ -67,8 +67,10 @@ page { font-size: 10pt;}
         <table class="page_header">
             <tr>
                 <td>
-					<?php 
-					echo '<img id="header_logo" src="'.dirname(Yii::app()->request->scriptFile).'/files/logo.png" />';
+					<?php
+					if (file_exists(dirname(Yii::app()->request->scriptFile).'/files/logo.png')){
+						echo '<img id="header_logo" src="'.dirname(Yii::app()->request->scriptFile).'/files/logo.png" />';
+					}
 					echo '<span id="header_text">'.Config::model()->getObservatoryName().'</span>';
 					?>       
                 </td>

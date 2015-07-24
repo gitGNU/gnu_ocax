@@ -217,8 +217,9 @@ class Config extends CActiveRecord
 
 	public function getObservatoryName()
 	{
-		$title=str_replace('%s', $this->findByPk('observatoryName2')->value, $this->findByPk('observatoryName1')->value);
-		return str_replace('#', ' ', $title);
+		$title = str_replace('%s', $this->findByPk('observatoryName2')->value, $this->findByPk('observatoryName1')->value);
+		$title = str_replace('#', ' ', $title);
+		return strip_tags($title);
 	}
 
 	public function getObservatoryInitials()
