@@ -564,7 +564,7 @@ class BudgetController extends Controller
 	{
 		$this->layout='//layouts/column1';
 		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('administrationName')->value;
-		$model = new Budget('publicSearch');
+		$model = new Budget('search');
 
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['year'])){
@@ -590,6 +590,7 @@ class BudgetController extends Controller
 			$graph_type='pie';
 
 		if (isset($_GET['Budget'])) {
+			$model->setScenario('search');
 			$model->attributes = $_GET['Budget'];
 		}
 

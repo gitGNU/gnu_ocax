@@ -31,7 +31,9 @@ if(isset($root_budget)){
 	$featured[]=$root_budget;
 }else{
 	$criteria = new CDbCriteria;
-	$criteria->condition = 'year = '.$year.' AND parent is NULL';
+	$criteria->condition = 'year = :year AND parent is NULL';
+	$criteria->params[":year"] = $year;
+	
 	$root_budget = Budget::model()->find($criteria);
 	if($root_budget){
 		if(!Yii::app()->user->isAdmin() && !$model->isPublished())
