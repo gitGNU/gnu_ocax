@@ -63,7 +63,7 @@ class Vote extends CActiveRecord
 			array('reply, user, vote', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, reply, user, vote', 'safe', 'on'=>'search'),
+			array('reply, user, vote', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,10 +93,20 @@ class Vote extends CActiveRecord
 		);
 	}
 
+	public function getTotal($reply, $vote)
+	{
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'reply = :reply AND vote = :vote';
+		$criteria->params[":reply"] = $reply;
+		$criteria->params[":vote"] = $vote;		
+		return count($this->findAll($criteria));
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -113,12 +123,6 @@ class Vote extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
-	public function getTotal($reply, $vote)
-	{
-		$criteria = new CDbCriteria;
-		$criteria->condition = 'reply = '.$reply.' AND vote = '.$vote;
-		return count($this->findAll($criteria));
-	}
+*/
 
 }

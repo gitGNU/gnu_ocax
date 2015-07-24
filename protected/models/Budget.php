@@ -277,7 +277,10 @@ class Budget extends CActiveRecord
 	
 	public function isPublished()
 	{
-		return $this->find(array('condition'=>'parent IS NULL AND code = 1 AND year = '.$this->year));
+		$criteria=new CDbCriteria;
+		$criteria->addCondition("parent is null and code = 1 and year= :year");
+		$criteria->params[":year"] = $this->year;
+		return $this->find($criteria);
 	}
 	
 	public function getPublicYears()
@@ -291,7 +294,8 @@ class Budget extends CActiveRecord
 			return Null;
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('featured = 1');
-		$criteria->addCondition('year = '.$this->year);
+		$criteria->addCondition('year = :year');
+		$criteria->params[":year"] = $this->year;
 		$criteria->order = 'weight DESC';
 		return $this->findAll($criteria);
 	}
@@ -365,16 +369,10 @@ class Budget extends CActiveRecord
 	 */
 	public function autoFeatureBudgets()
 	{
-		/*
-		Yii::app()->db->createCommand()->update(
-						'budget',	// table
-						array('featured'=>1),	// column to update
-						'char_length(csv_id) = 3 AND year = :year',	// condition (should improve this with regex)
-						array(':year'=>$this->year)	// params
-					);
-		*/
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'year = '.$this->year.' AND char_length(csv_id) = 3';
+		$criteria->condition = 'year = :year AND char_length(csv_id) = 3';
+		$criteria->params[":year"] = $this->year;
+		
 		$budgets= $this->findAll($criteria);
 		foreach($budgets as $budget){
 			if($budget->featured == 1)
@@ -589,30 +587,29 @@ class Budget extends CActiveRecord
 	public function getAllBudgetsWithCSV_ID()
 	{
 		$criteria=new CDbCriteria;
-
 		$root_budgets=$this->findAllByAttributes(array('parent'=>Null, 'code'=>0));	// code means published
 
 		foreach($root_budgets as $budget){
 			//if($budget->code == 0)	// this year not published
-			$criteria->addCondition('year != '.$budget->year);
+			$criteria->addCondition('year != :year');
+			$criteria->params[":year"] = $budget->year;
 		}
-
-		$criteria->addCondition('csv_id = "'.$this->csv_id.'"');
+		$criteria->addCondition('csv_id = :csv_id');
+		$criteria->params[":csv_id"] = $this->csv_id;
 		$criteria->order = 'year DESC';
 		return $this->findAll($criteria);	
 	}
 
 	public function changeTypeSearch()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
 		foreach($root_budgets as $budget){
-			if($budget->code == 0)	// this year not published
-				$criteria->addCondition('year != '.$budget->year);
+			if($budget->code == 0){	// this year not published
+				$criteria->addCondition('year != :year');
+				$criteria->params[":year"] = $budget->year;	
+			}
 		}
 		$criteria->addCondition('parent is not null');	// dont show year budget
 		$criteria->addCondition('CHAR_LENGTH(t.csv_id) > 1');	// don't show 'S' or 'I', etc
@@ -665,7 +662,8 @@ class Budget extends CActiveRecord
 	public function deleteTreeSearch()
 	{
 		$criteria=new CDbCriteria;
-		$criteria->condition = 'year = '.$this->year.' AND parent IS NOT NULL';
+		$criteria->condition = 'year = :year AND parent IS NOT NULL';
+		$criteria->params[":year"] = $this->year;
 		
 		$criteria->compare('code', $this->code);
 		$criteria->compare('concept', $this->concept, true);
