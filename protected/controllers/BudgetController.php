@@ -594,6 +594,10 @@ class BudgetController extends Controller
 			$model->attributes = $_GET['Budget'];
 		}
 
+		if (strtotime($model->year) === false){
+			$model->year = Config::model()->findByPk('year')->value;
+		}
+
 		$this->render('index', array(
 			'model' => $model,
 			'graph_type' => $graph_type,
