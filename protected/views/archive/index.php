@@ -33,8 +33,6 @@ $('.search-form form').submit(function(){
 $userCanCreate = Yii::app()->user->isPrivileged();
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/archive.css" />
-
 <style>
 .pgrid-view table.items th
 {
