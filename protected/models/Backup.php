@@ -174,7 +174,9 @@ class Backup extends CActiveRecord
 			case 'native':
 				$output = NULL;
 				$return_var = NULL;
-				$command =	'mysqldump --user='.$params['user'].' --password='.$params['pass'].
+				//$command =	'mysqldump --user='.$params['user'].' --password='.$params['pass'].
+				//			' --host='.$params['host'].' '.$params['dbname'].' '.$table.' > '.$filePath;
+				$command =  'mysqldump --user='.$params['user'].' --password=\''.$params['pass'].'\''.
 							' --host='.$params['host'].' '.$params['dbname'].' '.$table.' > '.$filePath;
 				exec($command, $output, $return_var);
 				if($return_var)
