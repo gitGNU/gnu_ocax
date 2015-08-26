@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2015 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,10 +21,34 @@
 /* @var $this ArchiveController */
 /* @var $dataProvider CActiveDataProvider */
 
+Yii::app()->clientScript->registerScript('search', "
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('archive-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+
 $userCanCreate = Yii::app()->user->isPrivileged();
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/archive.css" />
+
+<style>
+.pgrid-view table.items th
+{
+	font-size: 1.2em;
+	color: #555;
+	background-color: transparent;
+	text-align: left;
+}
+.pgrid-view table.items td {
+	font-size: 1.1em;
+}
+.pgrid-view i { cursor:pointer; }
+</style>
+
 
 <?php if($userCanCreate){ ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -34,8 +58,6 @@ function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/create',
 		type: 'POST',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
 				$("#files_popup_content").html(data);
@@ -60,10 +82,8 @@ function deleteArchive(archive_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
 		type: 'POST',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
-			$.fn.yiiListView.update("archive_list",{});
+			$.fn.yiiGridView.update("archive-grid",{});
 		},
 		error: function() {
 			alert("Error on get archive/delete");
@@ -75,57 +95,69 @@ function deleteArchive(archive_id){
 	echo $this->renderPartial('//file/modal');
 } ?>
 
-<script>
-function showLink(archive_id, el){
-	notice = $(el).parent().find('.alert');
-	$('.alert').not(notice).each(function(){
-		$(this).hide();
-	});
-	text = $('<div></div>');
-	archiveLink = '<?php echo Yii::app()->createAbsoluteUrl('');?>/archive/'+archive_id;
-	input = $('<input type="text" style="width:205px;margin-right:3px;" value='+archiveLink+' />');
-	$(text).append(input);
-	$(text).append('<i class="icon-cancel-circled closeLinkAlert" onclick="js:$(\'.alert\').hide();"></i>');
-	$(notice).html(	text );
-	$(notice).show();
-	$(input).select();
-}
-</script>
-
 <div style="margin:-15px 0 15px -15px;">
 <?php
 echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($userCanCreate){
-	echo '<div style="float:right">';
+	echo '<div style="float:right; padding-left:20px;">';
 	echo '<a class="link" href="'.getInlineHelpURL(':archive').'" target="_new">'.__('About the Archive').'</a><br />';
 	echo '<span class="link" onClick="js:uploadFile()">'.__('Upload a file').'</span>';
 	echo '</div>';
 }
 ?>
+
+<div style="float:right; white-space:nowrap;"><!-- search-form -->
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div>
+
 <div class="clear"></div>
 </div>
 
 <div class="horizontalRule"></div>
 
-<div style="margin:-15px 0 0 30px">
 <?php
-$user_id = Null;
-$is_admin = Null;
+$user_id = 0;
+$is_admin = 0;
 if(!Yii::app()->user->isGuest){
 	$user_id = Yii::app()->user->getUserID();
 	$is_admin = Yii::app()->user->isAdmin();
 }
-$this->widget('zii.widgets.CListView', array(
-	'id'=>'archive_list',
-	'template'=>'<p>{pager}</p>{items}<div style="clear:both"></div>',
+
+$this->widget('zii.widgets.grid.CGridView', array(
+	'htmlOptions'=>array('class'=>'pgrid-view'),
+	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
+	'id'=>'archive-grid',
 	'dataProvider'=>$dataProvider,
-	'viewData'=>array('user_id'=>$user_id,'is_admin'=>$is_admin),
-	'itemView'=>'_view',
+	'template' => '{items} {pager}',
+	'ajaxUpdate'=>true,
+	'columns'=>array(
+		array(
+			'type'=>'raw',
+			'value'=> '$data->getIcon();',
+		),
+		array(
+			'name'=>__('Name'),
+			'value'=> '$data->name',
+		),
+		array(
+			'name'=>__('Description'),
+			'value'=> '$data->description',
+		),
+		array(
+			'name'=>__('Date'),
+			'type'=>'raw',
+			'value'=> 'format_date($data->created);',
+		),
+		array(
+			'type'=>'raw',
+			'value'=> '$data->getGridActions('.$user_id.', '.$is_admin.');',
+		),	
+	),
 ));
 ?>
 <div style="clear:both"></div>
-</div>
-
 
 <?php if($userCanCreate){
 	if(Yii::app()->user->hasFlash('success')){

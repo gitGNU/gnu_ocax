@@ -20,6 +20,7 @@ class Archive extends CActiveRecord
 	
 	public $baseDir;
 	public $file;
+	public $searchText=Null;
 
 	public function init()
 	{
@@ -58,7 +59,8 @@ class Archive extends CActiveRecord
 			array('extension', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, path, extension, author, description, created', 'safe', 'on'=>'search'),
+			//array('name, description', 'safe', 'on'=>'search'),
+			array('searchText', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,6 +89,7 @@ class Archive extends CActiveRecord
 			'author' => __('Author'),
 			'description' => __('Description'),
 			'created' => __('Created'),
+			'searchText' => __('Search'),
 		);
 	}
 
@@ -113,21 +116,36 @@ class Archive extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('path',$this->path,true);
-		$criteria->compare('extension',$this->extension,true);
-		$criteria->compare('author',$this->author);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('created',$this->created,true);
-
+		$text = $this->searchText;
+		$criteria->addCondition("name LIKE :match OR description LIKE :match");
+		$criteria->params[':match'] = "%$text%";
+		$criteria->order = 'created DESC';
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array('pageSize'=>20),
 		));
+	}
+
+	public function getIcon(){
+		$icon = '/images/fileicons/'.strtolower($this->extension).'.png';
+		if(file_exists(dirname(Yii::app()->request->scriptFile).$icon))
+			return '<img class="icon" src="'.Yii::app()->baseUrl.$icon.'"/>';
+		return '';
+	}
+
+	/*
+	 * I'm building my own 'ButtonsColumn' because webfont code shows as the link's 'alt' property
+	 * I don't want non proviliged users to see it.
+	 */
+	public function getGridActions($user_id, $is_admin){	
+		$result = '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
+		if ($this->author == $user_id || $is_admin){
+			$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$this->id.')"></i>';
+		}
+		return '<div style="white-space:nowrap; float:right;">'.$result.'</div>';
 	}
 
 	public function getExtension($file_name){
