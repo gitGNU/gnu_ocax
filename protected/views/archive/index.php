@@ -52,10 +52,25 @@ $userCanCreate = Yii::app()->user->isPrivileged();
 }
 #archiveOptions i{
 	cursor:pointer;
-	font-size:24px;
+	font-size:26px;
 }
 </style>
 
+
+<script>
+$(function() {
+	$(window).scroll(function() {
+		if($(this).scrollTop() > 300)
+			$('.goToTop').fadeIn(500);
+		else
+			$('.goToTop').fadeOut(500);
+	});
+	$(".goToTop").click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 0);
+		$('.goToTop').hide();
+	});
+});
+</script>
 
 <?php if($userCanCreate){ ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
@@ -106,7 +121,7 @@ function deleteArchive(archive_id){
 	echo $this->renderPartial('//file/modal');
 } ?>
 
-<div style="margin:-15px 0 15px -15px;">
+<div style="margin:-15px 0 8px -15px;">
 <?php
 echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($userCanCreate){
@@ -142,12 +157,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'archive-grid',
 	'dataProvider'=>$dataProvider,
-	'template' => '{items} {pager}',
+	'template' => '{pager} {items}',
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		array(
 			'type'=>'raw',
-			'value'=> '$data->getIcon();',
+			'value'=>function($data){
+				$icon = '/images/fileicons/'.strtolower($data->extension).'.png';
+				if (file_exists(dirname(Yii::app()->request->scriptFile).$icon)){
+					return '<img class="icon" src="'.Yii::app()->baseUrl.$icon.'"/>';
+				}
+				return '';
+			}
 		),
 		array(
 			'name'=>__('Name'),
@@ -158,18 +179,22 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=> '$data->description',
 		),
 		array(
-			'name'=>__('Date'),
+			'name'=>'Date',
 			'type'=>'raw',
-			'value'=> 'format_date($data->created);',
+            'value'=>function($data, $user_id, $is_admin){
+				$result = format_date($data->created).'&nbsp;&nbsp;';
+				$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$data->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
+				if ($data->author == $user_id || $is_admin){
+					$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$data->id.')"></i>';
+				}
+				return '<div style="white-space:nowrap; float:right;">'.$result.'</div>';
+			},
 		),
-		array(
-			'type'=>'raw',
-			'value'=> '$data->getGridActions('.$user_id.', '.$is_admin.');',
-		),	
 	),
 ));
 ?>
 <div style="clear:both"></div>
+<div class="goToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
 
 <?php if($userCanCreate){
 	if(Yii::app()->user->hasFlash('success')){

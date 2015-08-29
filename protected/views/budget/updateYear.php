@@ -130,10 +130,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'ajaxUpdate'=>true,
 	'columns'=>array(
 		array(
-			'name'=>'enquiry title',
+			'name'=>__('Enquiry'),
 			'value'=>'$data->title',
 		),
-		'state',
+		array(
+			'name'=>'state',
+			'type'=>'raw',
+            'value'=>function($data,$row){
+				$value = Enquiry::getHumanStates($data->state,$data->addressed_to);
+				return $value;
+				},
+		),
 		array(
 			'name'=>'internal code',
 			'value'=>'$data->budget0->csv_id',
