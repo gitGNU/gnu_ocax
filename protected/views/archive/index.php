@@ -45,6 +45,15 @@ $userCanCreate = Yii::app()->user->isPrivileged();
 	font-size: 1.1em;
 }
 .pgrid-view i { cursor:pointer; }
+#archiveOptions{
+	float:right;
+	padding-left:20px;
+	padding-top:8px;
+}
+#archiveOptions i{
+	cursor:pointer;
+	font-size:24px;
+}
 </style>
 
 
@@ -89,6 +98,10 @@ function deleteArchive(archive_id){
 	});
 }
 </script>
+
+<?php $this->widget('InlineHelp'); ?>
+<?php $this->widget('ViewLog'); ?>
+
 <?php 
 	echo $this->renderPartial('//file/modal');
 } ?>
@@ -97,9 +110,10 @@ function deleteArchive(archive_id){
 <?php
 echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($userCanCreate){
-	echo '<div style="float:right; padding-left:20px;">';
-	echo '<a class="link" href="'.getInlineHelpURL(':archive').'" target="_new">'.__('About the Archive').'</a><br />';
-	echo '<span class="link" onClick="js:uploadFile()">'.__('Upload a file').'</span>';
+	echo '<div id="archiveOptions">';
+	echo '<i title="'.__("Help").'" class="icon-help-circled color" onCLick="js:showHelp(\''.getInlineHelpURL(":archive").'\');return false;"></i>';
+	echo '<i title="'.__("Log").'" class="icon-book color" onCLick="js:viewLog(\'Archive\');return false;"></i>';
+	echo '<i title="'.__("Upload a file").'" class="icon-download-alt color" onClick="js:uploadFile();return false;"></i>';
 	echo '</div>';
 }
 ?>

@@ -137,41 +137,16 @@ class ArchiveController extends Controller
 				$saved = $model->save();
 			}
 
-			if($saved)
+			if ($saved){
+				Log::model()->write('Archive',__('Uploaded').' "'.$model->name.'.'.$model->extension.'"');
 				Yii::app()->user->setFlash('success', __('File uploaded correctly'));
-			else
+			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
-			
+			}
 			$this->redirect(array('archive/index'));
 		}
 		echo $this->renderPartial('create',array('model'=>$model),false,true);
 	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	/*
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Archive']))
-		{
-			$model->attributes=$_POST['Archive'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-	*/
 
 	/**
 	 * Deletes a particular model.
@@ -180,11 +155,14 @@ class ArchiveController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		echo $id;
+		//echo $id;
 		$model = $this->loadModel($id);
+		$fileName = $model->name.'.'.$model->extension;
 		
-		if(strpos($model->path, '/files/DatabaseDownload') !== 0)	// we don't delete the zip file
+		if (strpos($model->path, '/files/DatabaseDownload') !== 0){	// we don't delete the zip file
 			$model->delete();
+			Log::model()->write('Archive',__('Deleted').' "'.$fileName.'"');
+		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
