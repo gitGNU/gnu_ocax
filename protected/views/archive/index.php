@@ -137,7 +137,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'name'=>__('Name'),
-			'value'=> '$data->name',
+			'value'=> '$data->name.".".$data->extension',
 		),
 		array(
 			'name'=>__('Description'),

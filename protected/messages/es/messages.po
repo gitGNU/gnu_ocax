@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
-"POT-Creation-Date: 2015-06-09 19:47+0100\n"
-"PO-Revision-Date: 2015-06-09 19:50+0100\n"
+"POT-Creation-Date: 2015-08-29 16:19+0100\n"
+"PO-Revision-Date: 2015-08-29 16:19+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __\n"
-"X-Poedit-Basepath: /home/chris/project/ocax/\n"
+"X-Poedit-Basepath: /home/chris/projects/ocax/\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: protected/models\n"
 "X-Poedit-SearchPath-1: protected/views\n"
@@ -50,32 +50,32 @@ msgstr "Anchura"
 msgid "Published"
 msgstr "Publicada"
 
-#: protected/models/Budget.php:135
+#: protected/models/Budget.php:137
 msgid "Parent"
 msgstr "Padre"
 
-#: protected/models/Budget.php:138
+#: protected/models/Budget.php:140
 #: protected/views/enquiry/_budgetDetails.php:80
 #: protected/views/budget/_budgetDetails.php:102
 #: protected/views/budget/_compareYears.php:25
 msgid "Year"
 msgstr "Año"
 
-#: protected/models/Budget.php:139 protected/models/BudgetDescCommon.php:102
+#: protected/models/Budget.php:141 protected/models/BudgetDescCommon.php:102
 #: protected/models/BudgetDescLocal.php:106
 #: protected/models/BudgetCategory.php:89
 #: protected/models/BudgetDescState.php:109
 msgid "Code"
 msgstr "Código"
 
-#: protected/models/Budget.php:140 protected/models/BudgetDescCommon.php:103
+#: protected/models/Budget.php:142 protected/models/BudgetDescCommon.php:103
 #: protected/models/BudgetDescLocal.php:107
 #: protected/models/BudgetDescState.php:110
 #: protected/views/budgetDescription/_form.php:94
 msgid "Label"
 msgstr "Etiqueta"
 
-#: protected/models/Budget.php:141 protected/models/BudgetDescCommon.php:104
+#: protected/models/Budget.php:143 protected/models/BudgetDescCommon.php:104
 #: protected/models/BudgetDescLocal.php:108
 #: protected/models/BudgetDescState.php:111
 #: protected/views/enquiry/_changeType.php:127
@@ -85,45 +85,45 @@ msgstr "Etiqueta"
 msgid "Concept"
 msgstr "Concepto"
 
-#: protected/models/Budget.php:142
+#: protected/models/Budget.php:144
 msgid "Initial provision"
 msgstr "Previsión inicial"
 
-#: protected/models/Budget.php:143
+#: protected/models/Budget.php:145
 msgid "Actual provision"
 msgstr "Previsión actual"
 
-#: protected/models/Budget.php:144
+#: protected/models/Budget.php:146
 msgid "Trimester 1"
 msgstr "Trimestre 1"
 
-#: protected/models/Budget.php:145
+#: protected/models/Budget.php:147
 msgid "Trimester 2"
 msgstr "Trimestre 2"
 
-#: protected/models/Budget.php:146
+#: protected/models/Budget.php:148
 msgid "Trimester 3"
 msgstr "Trimestre 3"
 
-#: protected/models/Budget.php:147
+#: protected/models/Budget.php:149
 msgid "Trimester 4"
 msgstr "Trimestre 4"
 
-#: protected/models/Budget.php:148
+#: protected/models/Budget.php:150
 msgid "Featured"
 msgstr "Destacadas"
 
-#: protected/models/Budget.php:149 protected/models/SitePage.php:106
+#: protected/models/Budget.php:151 protected/models/SitePage.php:106
 msgid "Weight"
 msgstr "Peso"
 
-#: protected/models/Budget.php:169 protected/views/enquiry/create.php:47
+#: protected/models/Budget.php:171 protected/views/enquiry/create.php:47
 #: protected/views/budget/view.php:114
 #: protected/controllers/BudgetController.php:88
 msgid "Budget"
 msgstr "Presupuesto"
 
-#: protected/models/Budget.php:324
+#: protected/models/Budget.php:330
 msgid "Budget table saved on the"
 msgstr "Tabla de presupuestos guardada el"
 
@@ -272,7 +272,7 @@ msgstr "Envío fallido"
 msgid "Sent OK"
 msgstr "Enviado OK"
 
-#: protected/models/Newsletter.php:107 protected/models/Archive.php:89
+#: protected/models/Newsletter.php:107 protected/models/Archive.php:91
 #: protected/models/Log.php:78 protected/models/Backup.php:101
 #: protected/models/Email.php:100 protected/models/Vault.php:180
 #: protected/models/Vault.php:190
@@ -298,31 +298,47 @@ msgstr "Estado"
 msgid "Subject"
 msgstr "Asunto"
 
-#: protected/models/Archive.php:83
+#: protected/models/Archive.php:85
 msgid "File"
 msgstr "Fichero"
 
-#: protected/models/Archive.php:84 protected/models/File.php:110
+#: protected/models/Archive.php:86 protected/models/File.php:110
+#: protected/views/archive/index.php:139
 msgid "Name"
 msgstr "Nombre"
 
-#: protected/models/Archive.php:85 protected/models/File.php:111
+#: protected/models/Archive.php:87 protected/models/File.php:111
 #: protected/views/file/admin.php:69 protected/views/file/wallpaper.php:73
 msgid "Path"
 msgstr "Ruta"
 
-#: protected/models/Archive.php:87
+#: protected/models/Archive.php:89
 msgid "Author"
 msgstr "Autor"
 
-#: protected/models/Archive.php:88 protected/models/Config.php:208
+#: protected/models/Archive.php:90 protected/models/Config.php:208
 #: protected/models/BudgetDescCommon.php:105
 #: protected/models/BudgetCategory.php:90
+#: protected/views/archive/index.php:143
 #: protected/controllers/BudgetDescriptionController.php:151
 #: protected/controllers/BudgetDescriptionController.php:212
 #: protected/controllers/BudgetDescriptionController.php:263
 msgid "Description"
 msgstr "Descripción"
+
+#: protected/models/Archive.php:92
+#: protected/views/enquiry/_managerSearch.php:91
+#: protected/views/enquiry/_memberSearch.php:67
+#: protected/views/newsletter/_search.php:44
+#: protected/views/budget/index.php:240 protected/views/user/_search.php:55
+#: protected/views/archive/_search.php:35
+#: protected/views/budgetDescription/_search.php:51
+msgid "Search"
+msgstr "Busca"
+
+#: protected/models/Archive.php:144
+msgid "Download"
+msgstr "Descarga"
 
 #: protected/models/Config.php:90
 msgid "Please define a language"
@@ -555,7 +571,7 @@ msgstr "team member"
 msgid "people subscribed to the Enquiry"
 msgstr "personas subscritas a la consulta"
 
-#: protected/models/Vote.php:90 protected/views/enquiry/pdf.php:158
+#: protected/models/Vote.php:90 protected/views/enquiry/pdf.php:160
 #: protected/views/reply/_view.php:59
 msgid "Reply"
 msgstr "Respuesta"
@@ -671,8 +687,8 @@ msgstr "Título de la página"
 msgid "Preview"
 msgstr "Vista preliminar"
 
-#: protected/models/Comment.php:113 protected/views/enquiry/pdf.php:144
-#: protected/views/enquiry/pdf.php:172
+#: protected/models/Comment.php:113 protected/views/enquiry/pdf.php:146
+#: protected/views/enquiry/pdf.php:174
 msgid "Comment"
 msgstr "Comentario"
 
@@ -923,7 +939,7 @@ msgid "No, take me to"
 msgstr "No, llévame al"
 
 #: protected/views/enquiry/_reformulated.php:26
-#: protected/views/enquiry/pdf.php:97
+#: protected/views/enquiry/pdf.php:99
 msgid "The enquiry"
 msgstr "La Consulta"
 
@@ -950,14 +966,6 @@ msgstr "veces"
 msgid "Not filtered"
 msgstr "Sin filtrar"
 
-#: protected/views/enquiry/_managerSearch.php:91
-#: protected/views/enquiry/_memberSearch.php:67
-#: protected/views/newsletter/_search.php:44
-#: protected/views/budget/index.php:238 protected/views/user/_search.php:55
-#: protected/views/budgetDescription/_search.php:51
-msgid "Search"
-msgstr "Busca"
-
 #: protected/views/enquiry/assess.php:58
 #: protected/views/enquiry/teamView.php:58
 msgid "Assess reply"
@@ -971,23 +979,23 @@ msgstr "El consenso general es que la respuesta es satisfactoria"
 msgid "The general consensus is that the reply is not satisfactory"
 msgstr "El consenso general es que la respuesta es insatisfactoria"
 
-#: protected/views/enquiry/pdf.php:83
+#: protected/views/enquiry/pdf.php:85
 msgid "PDF created on the"
 msgstr "PDF creado el día"
 
-#: protected/views/enquiry/pdf.php:85
+#: protected/views/enquiry/pdf.php:87
 msgid "Source"
 msgstr "Fuente"
 
-#: protected/views/enquiry/pdf.php:89
+#: protected/views/enquiry/pdf.php:91
 msgid "page"
 msgstr "página"
 
-#: protected/views/enquiry/pdf.php:114
+#: protected/views/enquiry/pdf.php:116
 msgid "Relative budgetary information"
 msgstr "Información presupuestaria"
 
-#: protected/views/enquiry/pdf.php:139 protected/views/enquiry/pdf.php:167
+#: protected/views/enquiry/pdf.php:141 protected/views/enquiry/pdf.php:169
 msgid "Citizen comments"
 msgstr "Comentarios de los ciudadanos"
 
@@ -1345,7 +1353,7 @@ msgstr "Formula una consulta nueva"
 msgid "No enquiries here"
 msgstr "No hay consultas aquí"
 
-#: protected/views/enquiry/index.php:229 protected/views/budget/index.php:335
+#: protected/views/enquiry/index.php:229 protected/views/budget/index.php:337
 msgid "go to top"
 msgstr "subir al principio"
 
@@ -1753,27 +1761,27 @@ msgstr "Ejecutado"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: protected/views/budget/index.php:181 protected/views/user/panel.php:115
+#: protected/views/budget/index.php:183 protected/views/user/panel.php:115
 #: protected/views/config/summary.php:89
 #: protected/views/layouts/mainmenu.php:27
 #: protected/controllers/BudgetController.php:566
-#: protected/controllers/BudgetController.php:608
+#: protected/controllers/BudgetController.php:613
 msgid "Budgets"
 msgstr "Presupuestos"
 
-#: protected/views/budget/index.php:204
+#: protected/views/budget/index.php:206
 msgid "Available years"
 msgstr "Años disponibles"
 
-#: protected/views/budget/index.php:247
+#: protected/views/budget/index.php:249
 msgid "No search results"
 msgstr "No hubo coincidencias"
 
-#: protected/views/budget/index.php:283
+#: protected/views/budget/index.php:285
 msgid "Download data"
 msgstr "Bajar Datos"
 
-#: protected/views/budget/index.php:312
+#: protected/views/budget/index.php:314
 msgid "No data available"
 msgstr "No hay datos disponibles"
 
@@ -2288,7 +2296,7 @@ msgstr "Cambiar parámetro globale"
 msgid "Logout"
 msgstr "Logout"
 
-#: protected/views/layouts/main.php:91 protected/views/archive/index.php:97
+#: protected/views/layouts/main.php:91 protected/views/archive/index.php:98
 #: protected/controllers/ArchiveController.php:200
 msgid "Archive"
 msgstr "Archivo"
@@ -2535,17 +2543,21 @@ msgstr "Selecciona los día(s) que quieres hacer la copia"
 msgid "Programme"
 msgstr "Programa"
 
-#: protected/views/archive/index.php:57
+#: protected/views/archive/index.php:77
 msgid "Delete this archive?"
 msgstr "¿Borrar este archivo?"
 
-#: protected/views/archive/index.php:100
+#: protected/views/archive/index.php:101
 msgid "About the Archive"
 msgstr "Sobre el Archivo"
 
-#: protected/views/archive/index.php:101
+#: protected/views/archive/index.php:102
 msgid "Upload a file"
 msgstr "Subir un fichero"
+
+#: protected/views/archive/index.php:147
+msgid "Date"
+msgstr "Fecha"
 
 #: protected/views/archive/_form.php:35
 msgid "Description required"
@@ -3123,7 +3135,7 @@ msgstr "Todos los presupuestos borrados"
 msgid "Year deleted"
 msgstr "Año borrado"
 
-#: protected/controllers/BudgetController.php:649
+#: protected/controllers/BudgetController.php:654
 msgid "Database restored correctly"
 msgstr "Database restaurada correctamente"
 

@@ -1,7 +1,7 @@
 Before upgrading, read INSTALL to refresh your memory.
 
 You do not need to delete existing files.
-Nut, if you do delete existing files, DO NOT delete app/files
+But, if you do delete existing files, _DO_NOT_ delete app/files
 
 1. Make a backup and save it on your PC!
 2. Save your protected/config/main.php file
