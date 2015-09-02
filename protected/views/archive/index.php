@@ -126,9 +126,9 @@ function deleteArchive(archive_id){
 echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($userCanCreate){
 	echo '<div id="archiveOptions">';
-	echo '<i title="'.__("Help").'" class="icon-help-circled color" onCLick="js:showHelp(\''.getInlineHelpURL(":archive").'\');return false;"></i>';
-	echo '<i title="'.__("Log").'" class="icon-book color" onCLick="js:viewLog(\'Archive\');return false;"></i>';
-	echo '<i title="'.__("Upload a file").'" class="icon-download-alt color" onClick="js:uploadFile();return false;"></i>';
+	echo '<i title="'.__("Help").'" class="icon-help-circled" onCLick="js:showHelp(\''.getInlineHelpURL(":archive").'\');return false;"></i>';
+	echo '<i title="'.__("Log").'" class="icon-book" onCLick="js:viewLog(\'Archive\');return false;"></i>';
+	echo '<i title="'.__("Upload a file").'" class="icon-upload-cloud" onClick="js:uploadFile();return false;"></i>';
 	echo '</div>';
 }
 ?>
@@ -179,17 +179,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=> '$data->description',
 		),
 		array(
-			'name'=>'Date',
+			'name'=>__('Date'),
 			'type'=>'raw',
-            'value'=>function($data, $user_id, $is_admin){
-				$result = format_date($data->created).'&nbsp;&nbsp;';
-				$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$data->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
-				if ($data->author == $user_id || $is_admin){
-					$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$data->id.')"></i>';
-				}
-				return '<div style="white-space:nowrap; float:right;">'.$result.'</div>';
-			},
-		),
+			'value'=> '$data->getGridActions('.$user_id.', '.$is_admin.');',
+		),	
 	),
 ));
 ?>

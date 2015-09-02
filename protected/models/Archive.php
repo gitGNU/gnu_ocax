@@ -129,6 +129,19 @@ class Archive extends CActiveRecord
 		));
 	}
 
+	/*
+	 * I'm building my own 'ButtonsColumn' because webfont code shows as the link's 'alt' property
+	 * I don't want non proviliged users to see it.
+	 */
+	public function getGridActions($user_id, $is_admin){	
+		$result = format_date($this->created).'&nbsp;&nbsp;';
+		$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
+		if ($this->author == $user_id || $is_admin){
+			$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$this->id.')"></i>';
+		}
+		return '<div style="white-space:nowrap; float:right;">'.$result.'</div>';
+	}
+
 	public function getExtension($file_name){
 		return pathinfo($file_name, PATHINFO_EXTENSION);
 	}
