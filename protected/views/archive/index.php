@@ -54,6 +54,10 @@ $userCanCreate = Yii::app()->user->isPrivileged();
 	cursor:pointer;
 	font-size:26px;
 }
+.pgrid-view img {
+	height: 28px;
+	width: 28px;
+}
 </style>
 
 
@@ -78,8 +82,29 @@ $(function() {
 <script>
 function uploadFile(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/create',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/uploadFile',
 		type: 'POST',
+		success: function(data){
+			if(data != 0){
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, speed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get archive/create");
+		}
+	});
+}
+function createContainer(){
+	$.ajax({
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/createContainer/'.$model->container; ?>",
+		type: 'GET',
 		success: function(data){
 			if(data != 0){
 				$("#files_popup_content").html(data);
@@ -118,7 +143,7 @@ function deleteArchive(archive_id){
 <?php $this->widget('ViewLog'); ?>
 
 <?php 
-	echo $this->renderPartial('//file/modal');
+	echo $this->renderPartial('modal');
 } ?>
 
 <div style="margin:-15px 0 8px -15px;">
@@ -128,6 +153,7 @@ if($userCanCreate){
 	echo '<div id="archiveOptions">';
 	echo '<i title="'.__("Help").'" class="icon-help-circled" onCLick="js:showHelp(\''.getInlineHelpURL(":archive").'\');return false;"></i>';
 	echo '<i title="'.__("Log").'" class="icon-book" onCLick="js:viewLog(\'Archive\');return false;"></i>';
+	echo '<i title="'.__("Create a folder").'" class="icon-folder-1" onClick="js:createContainer();return false;"></i>';
 	echo '<i title="'.__("Upload a file").'" class="icon-upload-cloud" onClick="js:uploadFile();return false;"></i>';
 	echo '</div>';
 }
@@ -163,16 +189,25 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'type'=>'raw',
 			'value'=>function($data){
-				$icon = '/images/fileicons/'.strtolower($data->extension).'.png';
+				if ($data->is_container){
+					$icon = '/images/fileicons/folder.svg';
+				}else{
+					$icon = '/images/fileicons/'.strtolower($data->extension).'.svg';
+				}
 				if (file_exists(dirname(Yii::app()->request->scriptFile).$icon)){
 					return '<img class="icon" src="'.Yii::app()->baseUrl.$icon.'"/>';
 				}
-				return '';
+				return '<img class="icon" src="'.Yii::app()->baseUrl.'/images/fileicons/unknown.svg"/>';
 			}
 		),
 		array(
 			'name'=>__('Name'),
-			'value'=> '$data->name.".".$data->extension',
+			'value'=>function($data){
+				if ($data->extension){
+					return $data->name.".".$data->extension;
+				}
+				return $data->name;
+			}
 		),
 		array(
 			'name'=>__('Description'),

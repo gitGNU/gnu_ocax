@@ -10,6 +10,7 @@
  * @property string $extension
  * @property integer $author
  * @property string $description
+ * @property integer $container
  * @property string $created
  *
  * The followings are the available model relations:
@@ -19,6 +20,7 @@ class Archive extends CActiveRecord
 {
 	
 	public $baseDir;
+	public $archiveRoot = '/files/archive/';
 	public $file;
 	public $searchText=Null;
 
@@ -53,13 +55,12 @@ class Archive extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, path, author, description, created', 'required'),
-			array('author', 'numerical', 'integerOnly'=>true),
+			array('name, path, author, description, created', 'required', 'on'=>'uploadFile'),
+			array('name, path, author, description, created', 'required', 'on'=>'createContainer'),
+			array('author, container', 'numerical', 'integerOnly'=>true),
 			array('name, path', 'length', 'max'=>255),
 			array('extension', 'length', 'max'=>5),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			//array('name, description', 'safe', 'on'=>'search'),
 			array('searchText', 'safe', 'on'=>'search'),
 		);
 	}
@@ -73,6 +74,7 @@ class Archive extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'author0' => array(self::BELONGS_TO, 'User', 'author'),
+			'container0' => array(self::BELONGS_TO, 'Archive', 'container'),
 		);
 	}
 	
@@ -110,18 +112,47 @@ class Archive extends CActiveRecord
 		return Yii::app()->request->baseUrl.$this->path;
 	}
 
+	public function getParentContainerWebPath()
+	{
+		if ($this->container){
+			$path = str_replace($this->archiveRoot, '', $this->container0->path);
+		}else{
+			$path = '';
+		}
+		return Yii::app()->createAbsoluteUrl('').'archive/index'.$path;
+	}
+	
+	public function buildPathFromName()
+	{
+		$this->name = str_replace(array('\\','\/'), '', $this->name);
+		if ($container = Archive::model()->findByPk($this->container)){
+			$this->path = $container->path.'/'.string2ascii($this->name);
+		}else{
+			$this->path = $this->archiveRoot.string2ascii($this->name);
+		}
+	}
+
+	private function getContainerFromPath($containerPath)
+	{
+		$container = $this->findByAttributes(array('name'=>$containerPath));
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($containerPath)
 	{
 		$criteria=new CDbCriteria;
-
 		$text = $this->searchText;
+		$container = $this->getContainerFromPath($containerPath);
+		
 		$criteria->addCondition("name LIKE :match OR description LIKE :match");
 		$criteria->params[':match'] = "%$text%";
-		$criteria->order = 'created DESC';
+		if ($container){
+			$criteria->compare('container', $container->id);
+		}
+		$criteria->order = 'is_container DESC, created DESC';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -135,7 +166,12 @@ class Archive extends CActiveRecord
 	 */
 	public function getGridActions($user_id, $is_admin){	
 		$result = format_date($this->created).'&nbsp;&nbsp;';
-		$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
+		if ($this->is_container){
+			$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/index/'.$this->path.'" title="'.__('Open').'"><i class="icon-folder-1 color"></i></a>';
+
+		}else{
+			$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
+		}
 		if ($this->author == $user_id || $is_admin){
 			$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$this->id.')"></i>';
 		}

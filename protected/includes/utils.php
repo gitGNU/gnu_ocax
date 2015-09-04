@@ -119,9 +119,13 @@ function createDirectory($path)
 {
 	if(!file_exists($path)){
 		$oldmask = umask(0);
-		mkdir($path, 0777, true);	// some servers have strange permision setups.
+		if (mkdir($path, 0777, true)){	// some servers have strange permision setups.
+			umask($oldmask);
+			return 1;	// success
+		}
 		umask($oldmask);
 	}
+	return 0; // fail
 }
 
 function createTempDirectory()

@@ -50,7 +50,7 @@ class ArchiveController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('validateFile','create','delete'),
+				'actions'=>array('validateFile','uploadFile','createContainer','delete'),
 				'expression'=>"Yii::app()->user->isPrivileged()",
 			),
 			array('deny',  // deny all users
@@ -114,12 +114,13 @@ class ArchiveController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionUploadFile()
 	{
 		$model=new Archive;
 
 		if(isset($_POST['Archive']))
 		{
+			$model->setScenario('uploadFile');
 			$model->attributes = $_POST['Archive'];
 			$model->file = CUploadedFile::getInstance($model,'file');
 			
@@ -143,10 +144,54 @@ class ArchiveController extends Controller
 			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
 			}
-			$this->redirect(array('archive/index'));
+			$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
 		}
-		echo $this->renderPartial('create',array('model'=>$model),false,true);
+		echo $this->renderPartial('_uploadFile',array('model'=>$model),false,true);
 	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreateContainer($id = Null)
+	{
+		$model=new Archive;
+		$parentContainer = $id;
+		$model->container = $parentContainer;
+
+		if (isset($_POST['Archive']))
+		{
+			$model->setScenario('createContainer');
+			$model->attributes = $_POST['Archive'];
+
+			$model->buildPathFromName();
+			
+			if (file_exists($model->baseDir.$model->path)) {
+				Yii::app()->user->setFlash('error', __('Folder already exists'));
+				$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+			}
+			if (!createDirectory($model->baseDir.$model->path)){
+				Yii::app()->user->setFlash('error', __('Cannot create folder'));
+				$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+			}
+					
+			$model->is_container = 1;
+			$model->created = date('Y-m-d');
+			$model->author = Yii::app()->user->getUserID();
+			
+			if ($model->save()){
+				Log::model()->write('Archive',__('Folder created').' "'.$model->path.'"');
+				Yii::app()->user->setFlash('success', __('Folder created correctly'));
+				$this->redirect(array('archive/index'.$model->path));
+			}else{
+				rmdir($model->baseDir.$model->path);
+				Yii::app()->user->setFlash('error', __('New folder failed'));
+			}
+			$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+		}
+		echo $this->renderPartial('_createContainer',array('model'=>$model),false,true);
+	}
+
 
 	/**
 	 * Deletes a particular model.
@@ -173,8 +218,10 @@ class ArchiveController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionIndex($id = Null)
 	{
+		$current_container = $id;
+		file_put_contents('/tmp/cont','--'.$current_container.'--');
 		$this->pageTitle = Config::model()->findByPk('siglas')->value.' '.__('Archive');
 		$model=new Archive('search');
 		$model->unsetAttributes();  // clear any default values
@@ -182,7 +229,7 @@ class ArchiveController extends Controller
 			$model->attributes=$_GET['Archive'];
 		}
 		$this->render('index',array(
-			'dataProvider'=>$model->search(),
+			'dataProvider'=>$model->search($current_container),
 			'model'=>$model,
 		));
 	}
