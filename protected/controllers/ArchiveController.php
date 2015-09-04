@@ -123,7 +123,13 @@ class ArchiveController extends Controller
 	public function actionUploadFile($id = Null)
 	{
 		$model=new Archive;
+		
 		$model->container = $id;
+		if ($container = $model->findByPk($model->container)){
+			$containerPath = $container->path.'/';
+		}else{
+			$containerPath = $model->archiveRoot;
+		}
 		
 		if(isset($_POST['Archive']))
 		{
@@ -132,7 +138,7 @@ class ArchiveController extends Controller
 			$model->file = CUploadedFile::getInstance($model,'file');
 			
 			$model->name = $model->file->name;
-			$model->path = '/files/archive/'.$model->file->name;
+			$model->path = $containerPath.$model->file->name;
 			$model->created = date('Y-m-d');
 			$model->author = Yii::app()->user->getUserID();
 			

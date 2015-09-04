@@ -57,14 +57,20 @@ if ($userCanCreate){
 	padding-left:20px;
 	padding-top:8px;
 }
-#archiveOptions i{
-	cursor:pointer;
-	font-size:26px;
-}
 .pgrid-view img {
 	height: 28px;
 	width: 28px;
 }
+#archiveOptions i{
+	cursor:pointer;
+	font-size:26px;
+}
+#upLevel{
+	font-size: 18px;
+	position: absolute;
+	margin-top: -5px;
+}
+
 </style>
 
 
@@ -179,7 +185,9 @@ if($userCanCreate){
 
 <?php
 if($container){
-	echo $container->description;
+	echo '<div id="upLevel">';
+	echo '<a href="'.$container->getParentContainerURL().'"><i class="icon-back color"></i>'.__('up a level').'</a>';
+	echo '</div>';
 }
 ?>
 
@@ -196,9 +204,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
 	'id'=>'archive-grid',
 	'dataProvider'=>$dataProvider,
-	'template' => '{pager} {items}',
+	'template' => '{pager} <div style="margin-top:15px;">{items}</div>',
 	'ajaxUpdate'=>true,
-	'emptyText'=>__('Empty folder'),
+	'emptyText'=>__('Nothing found here'),
 	'columns'=>array(
 		array(
 			'type'=>'raw',
