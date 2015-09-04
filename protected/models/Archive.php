@@ -122,14 +122,6 @@ class Archive extends CActiveRecord
 		return Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id;
 	}
 
-	public function getWebPath()
-	{
-		if ($this->container){
-			return str_replace($this->archiveRoot, '', $this->path);
-		}
-		return Yii::app()->request->baseUrl.$this->path;
-	}
-
 	public function getParentContainerURL()
 	{
 		if ($this->container){
@@ -139,7 +131,25 @@ class Archive extends CActiveRecord
 		}
 		return Yii::app()->createAbsoluteUrl('').'/archive/index/'.$path;
 	}
-	
+
+	public function getWebPath()
+	{
+		if ($this->container){
+			return str_replace($this->archiveRoot, '', $this->path);
+		}
+		return Yii::app()->request->baseUrl.$this->path;
+	}
+
+	public function getParentContainerWebPath()
+ 	{
+		if ($this->container){
+			$path = str_replace($this->archiveRoot, '', $this->container0->path);
+		}else{
+			$path = '';
+		}
+		return $path;
+	}
+
 	public function buildPathFromName()
 	{
 		$this->name = str_replace(array('\\','\/'), '', $this->name);
