@@ -39,7 +39,7 @@ function validate(){
 		return;
 		
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/validateFile',
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/validateFile/'.$model->container;?>",
 		type: 'GET',
 		data: {	'file_name'	: $('#Archive_file').val().replace('C:\\fakepath\\', '') },
 		//beforeSend: function() {},

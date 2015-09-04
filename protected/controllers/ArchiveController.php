@@ -86,24 +86,30 @@ class ArchiveController extends Controller
 		}
 	}
 	
-	public function actionValidateFile()
+	public function actionValidateFile($id = Null)
 	{
 		$model=new Archive;
+		$containerID = $id;
+		if ($container = $model->findByPk($containerID)){
+			$containerPath = $container->path.'/';
+		}else{
+			$containerPath = $model->archiveRoot;
+		}
+		
 		// doing validation like this because I think I can't do it with ajax in a modal window
 		if(isset($_GET['file_name']))
 		{
-			//$file_name = File::model()->normalize($_GET['file_name']);
 			$file_name = $_GET['file_name'];
-			$path = $model->baseDir.'/files/archive/'.$file_name;
+			$path = $model->baseDir.$containerPath.$file_name;
 
-			if(!$file_name)
+			if (!$file_name){
 				echo 'File required.';
-			//elseif (!preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z]{3,4}$/', $file_name))
-    	    //    echo '"'.$file_name.'" Only characters a-z A-Z and 0-9 are allowed. ej: file.pdf';
-			elseif(file_exists($path))
+			}
+			elseif (file_exists($path)){
     	        echo '"'.$file_name.'" File already uploaded';
-			else
+			}else{
 				echo 1;
+			}
 			Yii::app()->end();
 		}
 		echo 'File required.';
@@ -114,10 +120,11 @@ class ArchiveController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionUploadFile()
+	public function actionUploadFile($id = Null)
 	{
 		$model=new Archive;
-
+		$model->container = $id;
+		
 		if(isset($_POST['Archive']))
 		{
 			$model->setScenario('uploadFile');
@@ -144,7 +151,7 @@ class ArchiveController extends Controller
 			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
 			}
-			$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+			$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
 		}
 		echo $this->renderPartial('_uploadFile',array('model'=>$model),false,true);
 	}
@@ -156,23 +163,22 @@ class ArchiveController extends Controller
 	public function actionCreateContainer($id = Null)
 	{
 		$model=new Archive;
-		$parentContainer = $id;
-		$model->container = $parentContainer;
+		$model->container = $id;
 
 		if (isset($_POST['Archive']))
 		{
 			$model->setScenario('createContainer');
-			$model->attributes = $_POST['Archive'];
+			$model->attributes = $_POST['Archive'];			
 
 			$model->buildPathFromName();
 			
 			if (file_exists($model->baseDir.$model->path)) {
 				Yii::app()->user->setFlash('error', __('Folder already exists'));
-				$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+				$this->redirect(array('archive/index/'.$model->getWebPath()));
 			}
 			if (!createDirectory($model->baseDir.$model->path)){
 				Yii::app()->user->setFlash('error', __('Cannot create folder'));
-				$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+				$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
 			}
 					
 			$model->is_container = 1;
@@ -182,12 +188,12 @@ class ArchiveController extends Controller
 			if ($model->save()){
 				Log::model()->write('Archive',__('Folder created').' "'.$model->path.'"');
 				Yii::app()->user->setFlash('success', __('Folder created correctly'));
-				$this->redirect(array('archive/index'.$model->path));
+				$this->redirect(array('archive/index/'.str_replace($model->archiveRoot, '', $model->path)));
 			}else{
 				rmdir($model->baseDir.$model->path);
 				Yii::app()->user->setFlash('error', __('New folder failed'));
 			}
-			$this->redirect(array('archive/index'.$model->getParentContainerWebPath()));
+			$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
 		}
 		echo $this->renderPartial('_createContainer',array('model'=>$model),false,true);
 	}
@@ -200,13 +206,24 @@ class ArchiveController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		//echo $id;
 		$model = $this->loadModel($id);
-		$fileName = $model->name.'.'.$model->extension;
+		$is_container = $model->is_container;
 		
+		if ($is_container){
+			$itemName = $model->path;
+		}else{
+			$itemName = $model->name;
+			if($model->extension){
+				$itemName .= '.'.$model->extension;
+			}
+		}
 		if (strpos($model->path, '/files/DatabaseDownload') !== 0){	// we don't delete the zip file
 			$model->delete();
-			Log::model()->write('Archive',__('Deleted').' "'.$fileName.'"');
+			if($is_container){
+				Log::model()->write('Archive',__('Deleted folder').' "'.$itemName.'"');
+			}else{
+				Log::model()->write('Archive',__('Deleted').' "'.$itemName.'"');
+			}
 		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -218,19 +235,19 @@ class ArchiveController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex($id = Null)
+	public function actionIndex($folder = Null)
 	{
-		$current_container = $id;
-		file_put_contents('/tmp/cont','--'.$current_container.'--');
 		$this->pageTitle = Config::model()->findByPk('siglas')->value.' '.__('Archive');
 		$model=new Archive('search');
 		$model->unsetAttributes();  // clear any default values
 		if (isset($_GET['Archive'])){
 			$model->attributes=$_GET['Archive'];
 		}
+		$container = $model->getContainerFromPath($folder);
 		$this->render('index',array(
-			'dataProvider'=>$model->search($current_container),
+			'dataProvider'=>$model->search($container),
 			'model'=>$model,
+			'container' => $container,
 		));
 	}
 

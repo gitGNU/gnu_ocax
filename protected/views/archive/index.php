@@ -31,6 +31,13 @@ $('.search-form form').submit(function(){
 ");
 
 $userCanCreate = Yii::app()->user->isPrivileged();
+
+if ($userCanCreate){
+	$containerID = '';
+	if ($container){
+		$containerID  = $container->id;
+	}
+}
 ?>
 
 <style>
@@ -82,7 +89,7 @@ $(function() {
 <script>
 function uploadFile(){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/uploadFile',
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/uploadFile/'.$containerID; ?>",
 		type: 'POST',
 		success: function(data){
 			if(data != 0){
@@ -103,7 +110,7 @@ function uploadFile(){
 }
 function createContainer(){
 	$.ajax({
-		url: "<?php echo Yii::app()->request->baseUrl.'/archive/createContainer/'.$model->container; ?>",
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/createContainer/'.$containerID; ?>",
 		type: 'GET',
 		success: function(data){
 			if(data != 0){
@@ -143,7 +150,7 @@ function deleteArchive(archive_id){
 <?php $this->widget('ViewLog'); ?>
 
 <?php 
-	echo $this->renderPartial('modal');
+	echo $this->renderPartial('//file/modal');
 } ?>
 
 <div style="margin:-15px 0 8px -15px;">
@@ -171,6 +178,12 @@ if($userCanCreate){
 <div class="horizontalRule"></div>
 
 <?php
+if($container){
+	echo $container->description;
+}
+?>
+
+<?php
 $user_id = 0;
 $is_admin = 0;
 if(!Yii::app()->user->isGuest){
@@ -185,6 +198,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'template' => '{pager} {items}',
 	'ajaxUpdate'=>true,
+	'emptyText'=>__('Empty folder'),
 	'columns'=>array(
 		array(
 			'type'=>'raw',
@@ -201,13 +215,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			}
 		),
 		array(
-			'name'=>__('Name'),
-			'value'=>function($data){
+			'header'=>__('Name'),
+			'urlExpression'=>'$data->getURL()',
+			'labelExpression'=>function($data){
 				if ($data->extension){
 					return $data->name.".".$data->extension;
 				}
 				return $data->name;
-			}
+			},
+			'class'=>'CLinkColumn'
 		),
 		array(
 			'name'=>__('Description'),

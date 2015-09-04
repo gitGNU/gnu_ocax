@@ -97,8 +97,14 @@ class Archive extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		if(file_exists($this->getURI()))
-			unlink($this->getURI());
+		
+		if (file_exists($this->getURI())){
+			if ($this->is_container){
+				rmdir($this->getURI());
+			}else{
+				unlink($this->getURI());
+			}			
+		}
 		return parent::beforeDelete();
 	}
 
@@ -106,9 +112,20 @@ class Archive extends CActiveRecord
 	{
 		return $this->baseDir.$this->path;
 	}
-	
+
+	public function getURL()
+	{
+		if ($this->is_container){
+			return str_replace($this->archiveRoot, '', Yii::app()->createAbsoluteUrl('').'/archive/index/'.$this->path);
+		}
+		return Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id;
+	}
+
 	public function getWebPath()
 	{
+		if ($this->container){
+			return str_replace($this->archiveRoot, '', $this->path);
+		}
 		return Yii::app()->request->baseUrl.$this->path;
 	}
 
@@ -119,40 +136,41 @@ class Archive extends CActiveRecord
 		}else{
 			$path = '';
 		}
-		return Yii::app()->createAbsoluteUrl('').'archive/index'.$path;
+		return $path;
 	}
 	
 	public function buildPathFromName()
 	{
 		$this->name = str_replace(array('\\','\/'), '', $this->name);
 		if ($container = Archive::model()->findByPk($this->container)){
-			$this->path = $container->path.'/'.string2ascii($this->name);
+			$this->path = $container->path.'/'.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
 		}else{
-			$this->path = $this->archiveRoot.string2ascii($this->name);
+			$this->path = $this->archiveRoot.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
 		}
 	}
 
-	private function getContainerFromPath($containerPath)
+	public function getContainerFromPath($containerPath)
 	{
-		$container = $this->findByAttributes(array('name'=>$containerPath));
+		return $this->findByAttributes(array('path'=>$this->archiveRoot.$containerPath));
 	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search($containerPath)
+	public function search($container = Null)
 	{
 		$criteria=new CDbCriteria;
 		$text = $this->searchText;
-		$container = $this->getContainerFromPath($containerPath);
 		
 		$criteria->addCondition("name LIKE :match OR description LIKE :match");
 		$criteria->params[':match'] = "%$text%";
 		if ($container){
 			$criteria->compare('container', $container->id);
+		}else{
+			$criteria->addCondition('container is NULL');
 		}
-		$criteria->order = 'is_container DESC, created DESC';
+		$criteria->order = 'is_container DESC, name ASC';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -166,14 +184,17 @@ class Archive extends CActiveRecord
 	 */
 	public function getGridActions($user_id, $is_admin){	
 		$result = format_date($this->created).'&nbsp;&nbsp;';
-		if ($this->is_container){
-			$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/index/'.$this->path.'" title="'.__('Open').'"><i class="icon-folder-1 color"></i></a>';
-
-		}else{
-			$result .= '<a href="'.Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id.'" title="'.__('Download').'"><i class="icon-download-alt color"></i></a>';
-		}
+		
 		if ($this->author == $user_id || $is_admin){
-			$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$this->id.')"></i>';
+			$canDelete = true;
+			if ($this->is_container){
+				if($this->findByAttributes(array('container'=>$this->id))){
+					$canDelete = false;
+				}
+			}
+			if ($canDelete){
+				$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$this->id.')"></i>';
+			}
 		}
 		return '<div style="white-space:nowrap; float:right;">'.$result.'</div>';
 	}
