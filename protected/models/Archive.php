@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'archive':
  * @property integer $id
+ * @property integer $is_container
  * @property string $name
  * @property string $path
  * @property string $extension
@@ -58,6 +59,7 @@ class Archive extends CActiveRecord
 			array('name, path, author, description, created', 'required', 'on'=>'uploadFile'),
 			array('name, path, author, description, created', 'required', 'on'=>'createContainer'),
 			array('author, container', 'numerical', 'integerOnly'=>true),
+			array('description', 'length', 'max'=>2000),
 			array('name, path', 'length', 'max'=>255),
 			array('extension', 'length', 'max'=>5),
 			// The following rule is used by search().
@@ -117,7 +119,7 @@ class Archive extends CActiveRecord
 	{
 		if ($this->is_container){
 			$path = str_replace($this->archiveRoot, '', $this->path);
-			return Yii::app()->createAbsoluteUrl('').'/archive/index/'.$path;
+			return Yii::app()->createAbsoluteUrl('').'/archive/d/'.$path;
 		}
 		return Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id;
 	}
@@ -126,10 +128,10 @@ class Archive extends CActiveRecord
 	{
 		if ($this->container){
 			$path = str_replace($this->archiveRoot, '', $this->container0->path);
+			return Yii::app()->createAbsoluteUrl('').'/archive/d/'.$path;
 		}else{
-			$path = '';
+			return '/archive';
 		}
-		return Yii::app()->createAbsoluteUrl('').'/archive/index/'.$path;
 	}
 
 	public function getWebPath()
@@ -189,25 +191,11 @@ class Archive extends CActiveRecord
 		));
 	}
 
-	/*
-	 * I'm building my own 'ButtonsColumn' because webfont code shows as the link's 'alt' property
-	 * I don't want non proviliged users to see it.
-	 */
-	public function getGridActions($user_id, $is_admin){	
-		$result = format_date($this->created).'&nbsp;&nbsp;';
-		
+	public function canEdit($user_id, $is_admin){	
 		if ($this->author == $user_id || $is_admin){
-			$canDelete = true;
-			if ($this->is_container){
-				if($this->findByAttributes(array('container'=>$this->id))){
-					$canDelete = false;
-				}
-			}
-			if ($canDelete){
-				$result .= '<i class="icon-cancel-circled delete red" onClick="js:deleteArchive('.$this->id.')"></i>';
-			}
+			return true;
 		}
-		return '<div style="white-space:nowrap; float:right;">'.$result.'</div>';
+		return false;
 	}
 
 	public function getExtension($file_name){

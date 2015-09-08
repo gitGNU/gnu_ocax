@@ -79,7 +79,7 @@ return array(
 				//array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
 				//array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
 				
-				'archive/index/<folder:[a-zA-Z0-9-_.\/]+>'=>'archive/index',
+				'archive/d/<folder:[a-zA-Z0-9-_.\/]+>'=>'archive/index',
 				'p/<pageURL:[a-z0-9-]+>'=>'sitePage/show',
 				'e/<id:\d+>'=>'enquiry/view',
 				'b/<id:\d+>'=>'budget/view',

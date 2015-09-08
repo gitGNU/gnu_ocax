@@ -30,13 +30,17 @@ $('.search-form form').submit(function(){
 });
 ");
 
-$userCanCreate = Yii::app()->user->isPrivileged();
+$user_id = 0;
+$is_admin = 0;
+$priviliged = Yii::app()->user->isPrivileged();
 
-if ($userCanCreate){
+if ($priviliged){
 	$containerID = '';
 	if ($container){
 		$containerID  = $container->id;
 	}
+	$user_id = Yii::app()->user->getUserID();
+	$is_admin = Yii::app()->user->isAdmin();
 }
 ?>
 
@@ -51,7 +55,8 @@ if ($userCanCreate){
 .pgrid-view table.items td {
 	font-size: 1.1em;
 }
-.pgrid-view i { cursor:pointer; }
+.pgrid-view i { cursor:pointer; color: #454545; }
+
 #archiveOptions{
 	float:right;
 	padding-left:20px;
@@ -64,6 +69,7 @@ if ($userCanCreate){
 #archiveOptions i{
 	cursor:pointer;
 	font-size:26px;
+	color: #454545;
 }
 #upLevel{
 	font-size: 18px;
@@ -89,10 +95,27 @@ $(function() {
 });
 </script>
 
-<?php if($userCanCreate){ ?>
+<?php if($priviliged){ ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <script>
+function validate(){
+	$('.errorMessage').html('');
+	errors=0;
+
+	if ($('#Archive_name').val() == ''){
+		$('#name_error').html("<?php echo __('Name required');?>");
+		errors=1;
+	}
+
+	if ($('#Archive_description').val() == ''){
+		$('#description_error').html("<?php echo __('Description required');?>");
+		errors=1;
+	}
+	if (!errors){
+		$('#archive-form').submit();
+	}
+}
 function uploadFile(){
 	$.ajax({
 		url: "<?php echo Yii::app()->request->baseUrl.'/archive/uploadFile/'.$containerID; ?>",
@@ -135,10 +158,35 @@ function createContainer(){
 		}
 	});
 }
+function editArchive(archive_id){
+	//if(confirm("<?php echo __('Delete this archive?');?>") == false)
+	//	return;
+
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/update/'+archive_id,
+		type: 'GET',
+		success: function(data){
+			if(data != 0){
+				$("#files_popup_content").html(data);
+				$('#files_popup').bPopup({
+                    modalClose: false
+					, follow: ([false,false])
+					, speed: 10
+					, positionStyle: 'absolute'
+					, modelColor: '#ae34d5'
+                });
+			}
+		},
+		error: function() {
+			alert("Error on get archive/create");
+		}
+	});
+}
 function deleteArchive(archive_id){
 	if(confirm("<?php echo __('Delete this archive?');?>") == false)
 		return;
 
+	$('#files_popup').bPopup().close();
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
 		type: 'POST',
@@ -146,7 +194,7 @@ function deleteArchive(archive_id){
 			$.fn.yiiGridView.update("archive-grid",{});
 		},
 		error: function() {
-			alert("Error on get archive/delete");
+			alert("Error on get archive/edit");
 		}
 	});
 }
@@ -162,7 +210,7 @@ function deleteArchive(archive_id){
 <div style="margin:-15px 0 8px -15px;">
 <?php
 echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
-if($userCanCreate){
+if($priviliged){
 	echo '<div id="archiveOptions">';
 	echo '<i title="'.__("Help").'" class="icon-help-circled" onCLick="js:showHelp(\''.getInlineHelpURL(":archive").'\');return false;"></i>';
 	echo '<i title="'.__("Log").'" class="icon-book" onCLick="js:viewLog(\'Archive\');return false;"></i>';
@@ -192,12 +240,6 @@ if($container){
 ?>
 
 <?php
-$user_id = 0;
-$is_admin = 0;
-if(!Yii::app()->user->isGuest){
-	$user_id = Yii::app()->user->getUserID();
-	$is_admin = Yii::app()->user->isAdmin();
-}
 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
@@ -240,15 +282,27 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'=>__('Date'),
 			'type'=>'raw',
-			'value'=> '$data->getGridActions('.$user_id.', '.$is_admin.');',
-		),	
+			'value'=> 'format_date($data->created)',
+		),
+		array(
+			'class'=>'CButtonColumn',
+			'buttons' => array(
+				'edit' => array(
+					'label'=> '<i class="icon-edit-1"></i>',
+					'url'=> '"javascript:editArchive(\"".$data->id."\");"',
+					'visible'=>'$data->canEdit('.$user_id.', '.$is_admin.');',
+				)
+			),
+			'template'=>'{edit}',
+			'visible'=>$priviliged,
+		),
 	),
 ));
 ?>
 <div style="clear:both"></div>
 <div class="goToTop">&#x25B2;&nbsp;&nbsp;&nbsp;<?php echo __('go to top');?></div>
 
-<?php if($userCanCreate){
+<?php if($priviliged){
 	if(Yii::app()->user->hasFlash('success')){
 		echo '<script>';
 			echo '$(function() {'.

@@ -50,7 +50,7 @@ class ArchiveController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('validateFile','uploadFile','createContainer','delete'),
+				'actions'=>array('validateFile','uploadFile','createContainer','update','delete'),
 				'expression'=>"Yii::app()->user->isPrivileged()",
 			),
 			array('deny',  // deny all users
@@ -157,7 +157,7 @@ class ArchiveController extends Controller
 			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
 			}
-			$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
+			$this->redirect(array('archive/d/'.$model->getParentContainerWebPath()));
 		}
 		echo $this->renderPartial('_uploadFile',array('model'=>$model),false,true);
 	}
@@ -194,7 +194,7 @@ class ArchiveController extends Controller
 			if ($model->save()){
 				Log::model()->write('Archive',__('Folder created').' "'.$model->path.'"');
 				Yii::app()->user->setFlash('success', __('Folder created correctly'));
-				$this->redirect(array('archive/index/'.str_replace($model->archiveRoot, '', $model->path)));
+				$this->redirect(array('archive/d/'.str_replace($model->archiveRoot, '', $model->path)));
 			}else{
 				rmdir($model->baseDir.$model->path);
 				Yii::app()->user->setFlash('error', __('New folder failed'));
@@ -202,6 +202,23 @@ class ArchiveController extends Controller
 			$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
 		}
 		echo $this->renderPartial('_createContainer',array('model'=>$model),false,true);
+	}
+
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
+
+		if(isset($_POST['Archive']))
+		{
+			$model->attributes = $_POST['Archive'];
+			$model->save();
+			if($model->container){
+				$this->redirect(array('archive/d/'.$model->getParentContainerWebPath()));
+			}else{
+				$this->redirect(array('archive/index/'));
+			}
+		}	
+		echo $this->renderPartial('_editArchive',array('model'=>$model),false,true);
 	}
 
 
@@ -233,8 +250,9 @@ class ArchiveController extends Controller
 		}
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
+		if(!isset($_GET['ajax'])){
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		}
 
 	}
 
@@ -256,23 +274,6 @@ class ArchiveController extends Controller
 			'container' => $container,
 		));
 	}
-
-	/**
-	 * Manages all models.
-	 */
-	/*
-	public function actionAdmin()
-	{
-		$model=new Archive('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Archive']))
-			$model->attributes=$_GET['Archive'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-	*/
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
