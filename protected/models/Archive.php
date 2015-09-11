@@ -167,6 +167,56 @@ class Archive extends CActiveRecord
 		return $this->findByAttributes(array('path'=>$this->archiveRoot.$containerPath));
 	}
 
+	public function canEdit($user_id, $is_admin){	
+		if ($this->author == $user_id || $is_admin){
+			return true;
+		}
+		return false;
+	}
+
+	public function getExtension($file_name){
+		return pathinfo($file_name, PATHINFO_EXTENSION);
+	}
+
+	/*
+	 * Update the path if $this->name has changed.
+	 */
+	public function rename()
+	{	
+		$oldPath = $this->path;
+		$newPath = substr($this->path, 0, strrpos( $this->path, '/')).'/'.string2ascii($this->name);
+		$newPath = strtolower(str_replace(' ', '-', trim($newPath)));
+		if ($this->extension){
+			$newPath .= '.'.$this->extension;
+		}
+		if ($newPath != $oldPath){ // name changed
+			if ($this->findByAttributes(array('path'=>$newPath))){ // we don't want to overwrite anything
+				if ($this->is_container){
+					Yii::app()->user->setFlash('error', __('Folder name already exists'));
+				}else{
+					Yii::app()->user->setFlash('error', __('File already exists'));
+				}
+				return 0;
+			}
+			if (rename($this->baseDir.$oldPath, $this->baseDir.$newPath)){
+				$this->path = $newPath;
+				if ($this->save()){
+					return 1;
+				}
+				rename($this->baseDir.$newPath, $this->baseDir.$oldPath);
+			}
+		}
+		return 0;
+	}
+
+	/*
+	 * Update the path if $this->name has changed.
+	 */
+	public function move()
+	{	
+
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -189,16 +239,5 @@ class Archive extends CActiveRecord
 			'criteria'=>$criteria,
 			'pagination'=>array('pageSize'=>20),
 		));
-	}
-
-	public function canEdit($user_id, $is_admin){	
-		if ($this->author == $user_id || $is_admin){
-			return true;
-		}
-		return false;
-	}
-
-	public function getExtension($file_name){
-		return pathinfo($file_name, PATHINFO_EXTENSION);
 	}
 }

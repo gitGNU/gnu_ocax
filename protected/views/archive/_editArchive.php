@@ -31,7 +31,50 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 margin: 0px -10px 5px -10px;
 border-bottom: 1px solid #CDCBC9;
 }
+#destinations > span:hover { background-color: white; }
 </style>
+
+<script>
+var DestinationsLoaded = 0;
+function getDestinations(){
+	if(DestinationsLoaded)
+		return;
+	$.ajax({
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/getDestinations/'; ?>",
+		type: 'GET',
+		beforeSend: function(){ /* $('#loadDestinations').show(); */ },
+		complete: function(){ /* $('#loadDestinations').hide(); */ },
+		success: function(data){
+			if(data != 0){
+				DestinationsLoaded = 1;
+				$('#getDestinationsLink').removeClass('link');
+				$("#destinations").html(data);
+			}
+		},
+		error: function() {
+			alert("Error on get archive/destinations");
+		}
+	});
+}
+function moveArchive(destination_id){
+	$('#files_popup').bPopup().close();
+	$.ajax({
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/move'; ?>",
+		type: 'GET',
+		data: { 'id': '<?php echo $model->id;?>', 'destination_id': destination_id },
+		beforeSend: function(){ /* $('#loadDestinations').show(); */ },
+		complete: function(){ /* $('#loadDestinations').hide(); */ },
+		success: function(data){
+			if(data != 0){
+				$.fn.yiiGridView.update("archive-grid",{});
+			}
+		},
+		error: function() {
+			alert("Error on get archive/move");
+		}
+	});
+}
+</script>
 
 <div class="form">
 
@@ -41,25 +84,31 @@ border-bottom: 1px solid #CDCBC9;
 	'action'=>Yii::app()->baseUrl.'/archive/update/'.$model->id,
 )); ?>
 
-	<?php
-			if ($model->is_container){
-				$word = __('Folder');
-			}else{
-				$word = __('File');
-			}
-	?>
+<?php
+	if ($model->is_container){
+		$word = __('Folder');
+		$verb = __('Created');
+	}else{
+		$word = __('File');
+		$verb = __('Uploaded');
+	}
+?>
 	
-	<div class="modalTitle"><?php echo $word;?></div>
+<div class="modalTitle"><?php echo $word;?></div>
+
+<?php echo '<p style="margin-bottom:0px;">'.$verb.' '.format_date($model->created).' '.__('by').' '.$model->author0->fullname.'</p>'; ?>
 
 	<?php
 		echo $form->label($model, 'name');
 		echo '<div class="errorMessage" id="name_error"></div>';
-		echo $form->textField($model,'name',array('style'=>'width:485px'));
+		echo $form->textField($model,'name',array('style'=>'width:400px'));
+		if (!$model->is_container && $model->extension){
+			echo '<span style="font-size:16px"> .'.$model->extension.'</span>';
+		}
 	?>
 
 	<?php
 		echo $form->label($model, 'description');
-		echo '<div class="hint">'.__('A description of this folder').'</div>';
 		echo '<div class="errorMessage" id="description_error"></div>';
 		echo $form->textArea($model,'description',array('rows'=>4, 'style'=>'width:485px'));
 	?>
@@ -75,18 +124,17 @@ border-bottom: 1px solid #CDCBC9;
 <div class="divider"></div>
 
 <?php
-	echo '<div style="font-size:16px; margin-bottom: 10px;">';
+	echo '<div style="font-size:16px; margin-top: 10px;">';
 	if (!$model->is_container || !$model->findByAttributes(array('container'=>$model->id))){
 		if ($model->is_container){
 			$word = __('Delete this folder');
 		}else{
 			$word = __('Delete this file');
-		}
-			
+		}	
 		echo $word.'<i class="icon-cancel-circled red" style="cursor:pointer" onClick="js:deleteArchive('.$model->id.')"></i>';
 			
 	}else if ($model->is_container){
-		echo __('Cannot delete').'. '.__('This folder is not empty').'.';
+		echo __('This folder is not empty');
 	}
 	echo '</div>';
 ?>
@@ -98,9 +146,9 @@ border-bottom: 1px solid #CDCBC9;
 	}else{
 		$word = __('Move this file to ..');
 	}
-			
-	echo $word;
-			
+	
+	echo '<span id="getDestinationsLink" class="link" onClick="js:getDestinations();">'.$word.'</span> ';
+
+	echo '<div id="destinations"></div>';
 	echo '</div>';
 ?>
-

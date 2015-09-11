@@ -50,7 +50,7 @@ class ArchiveController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('validateFile','uploadFile','createContainer','update','delete'),
+				'actions'=>array('validateFile','uploadFile','createContainer','update','getDestinations','move','delete'),
 				'expression'=>"Yii::app()->user->isPrivileged()",
 			),
 			array('deny',  // deny all users
@@ -210,9 +210,16 @@ class ArchiveController extends Controller
 
 		if(isset($_POST['Archive']))
 		{
+			$save = False;
+			$oldName = $model->name;
 			$model->attributes = $_POST['Archive'];
-			$model->save();
-			if($model->container){
+			
+			if ($model->name != $oldName){
+				$model->rename();
+			}else{
+				$model->save();
+			}
+			if($model->container0){
 				$this->redirect(array('archive/d/'.$model->getParentContainerWebPath()));
 			}else{
 				$this->redirect(array('archive/index/'));
@@ -221,7 +228,50 @@ class ArchiveController extends Controller
 		echo $this->renderPartial('_editArchive',array('model'=>$model),false,true);
 	}
 
+	public function actionGetDestinations()
+	{
+		$containers=Archive::model()->findAllByAttributes(array('is_container'=>1));
+		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/index</span>';
+		foreach ($containers as $container){
+			$path = '/d/'.str_replace($container->archiveRoot, '',$container->getWebPath()); 
+			$result .= '<br /><span class="link" onClick="js:moveArchive(\''.$container->id.'\')">'.$path.'</span>';
+		}
+		echo $result;
+	}
 
+	public function actionMove($id, $destination_id)
+	{
+		if ($id == $destination_id){
+			echo "id = $id , dest = $destination_id";
+			Yii::app()->end();
+		}
+		$model = $this->loadModel($id);
+		if($destination_id == 0){
+			$destination_path = $model->archiveRoot;
+			$destination_id = Null;
+		}else{
+			$destination = $this->loadModel($destination_id);
+			$destination_path = $destination->path;
+		}
+		
+		$oldPath = $model->path;
+		$newPath = $destination_path.'/'.strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
+		if (!$model->is_container && $model->extension){
+			$newPath .= '.'.$model->extension;
+		}
+		
+		if (rename($model->baseDir.$oldPath, $model->baseDir.$newPath)){
+			$model->path = $newPath;
+			$model->container = $destination_id;
+			if ($model->save()){
+				echo 1;
+				Yii::app()->end();
+			}
+			rename($this->baseDir.$newPath, $this->baseDir.$oldPath);
+		}
+		echo 'no 2';
+	}
+	
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
