@@ -97,6 +97,14 @@ class Archive extends CActiveRecord
 		);
 	}
 
+	protected function beforeSave()
+	{
+		if (! file_exists($this->getURI()) ){	// let's make sure the file/dir actually exists
+			return 0;
+		}
+		return parent::beforeSave();
+	}
+	
 	protected function beforeDelete()
 	{
 		
@@ -167,6 +175,23 @@ class Archive extends CActiveRecord
 		return $this->findByAttributes(array('path'=>$this->archiveRoot.$containerPath));
 	}
 
+	public function isChildOf($parent)
+	{
+		$loop = true;
+		$model = $this;
+		while ($loop){
+			if (!$model->container){
+				$loop = false;
+			}else{
+				if($model->container0->id == $parent->id){
+					return 1;
+				}
+				$model = $model->container0;
+			}
+		}
+		return 0;
+	}
+
 	public function canEdit($user_id, $is_admin){	
 		if ($this->author == $user_id || $is_admin){
 			return true;
@@ -196,6 +221,9 @@ class Archive extends CActiveRecord
 				}else{
 					Yii::app()->user->setFlash('error', __('File already exists'));
 				}
+				return 0;
+			}
+			if (! file_exists($model->baseDir.$oldPath) || file_exists($model->baseDir.$newPath) ){
 				return 0;
 			}
 			if (rename($this->baseDir.$oldPath, $this->baseDir.$newPath)){

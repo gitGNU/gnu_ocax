@@ -2,7 +2,7 @@
 
 /**
  * OCAX -- Citizen driven Observatory software
- * Copyright (C) 2014 OCAX Contributors. See AUTHORS.
+ * Copyright (C) 2015 OCAX Contributors. See AUTHORS.
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -207,6 +207,11 @@ class ArchiveController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		
+		if (strpos($model->path, '/files/DatabaseDownload') === 0){ // we don't edit this archive
+			echo 0;
+			Yii::app()->end();
+		}
 
 		if(isset($_POST['Archive']))
 		{
@@ -228,11 +233,16 @@ class ArchiveController extends Controller
 		echo $this->renderPartial('_editArchive',array('model'=>$model),false,true);
 	}
 
-	public function actionGetDestinations()
+	public function actionGetDestinations($id)
 	{
+		$model = $this->loadModel($id);
+
 		$containers=Archive::model()->findAllByAttributes(array('is_container'=>1));
 		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/index</span>';
 		foreach ($containers as $container){
+			if ($container->id == $model->id || $container->isChildOf($model)){
+				continue;
+			}
 			$path = '/d/'.str_replace($container->archiveRoot, '',$container->getWebPath()); 
 			$result .= '<br /><span class="link" onClick="js:moveArchive(\''.$container->id.'\')">'.$path.'</span>';
 		}
@@ -251,15 +261,23 @@ class ArchiveController extends Controller
 			$destination_id = Null;
 		}else{
 			$destination = $this->loadModel($destination_id);
-			$destination_path = $destination->path;
+			$destination_path = $destination->path.'/';
 		}
 		
 		$oldPath = $model->path;
-		$newPath = $destination_path.'/'.strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
+		$newPath = $destination_path.strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
+		
 		if (!$model->is_container && $model->extension){
 			$newPath .= '.'.$model->extension;
 		}
-		
+		if ($oldPath == $newPath){	// already exists
+			echo "id = $id , dest = $destination_id";
+			Yii::app()->end();
+		}
+		if (! file_exists($model->baseDir.$oldPath) || file_exists($model->baseDir.$newPath) ){ 	// already exists
+			echo 0;
+			Yii::app()->end();
+		}
 		if (rename($model->baseDir.$oldPath, $model->baseDir.$newPath)){
 			$model->path = $newPath;
 			$model->container = $destination_id;
@@ -269,7 +287,7 @@ class ArchiveController extends Controller
 			}
 			rename($this->baseDir.$newPath, $this->baseDir.$oldPath);
 		}
-		echo 'no 2';
+		echo 0;
 	}
 	
 	/**

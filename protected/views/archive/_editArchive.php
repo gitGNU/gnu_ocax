@@ -40,7 +40,7 @@ function getDestinations(){
 	if(DestinationsLoaded)
 		return;
 	$.ajax({
-		url: "<?php echo Yii::app()->request->baseUrl.'/archive/getDestinations/'; ?>",
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/getDestinations/'.$model->id; ?>",
 		type: 'GET',
 		beforeSend: function(){ /* $('#loadDestinations').show(); */ },
 		complete: function(){ /* $('#loadDestinations').hide(); */ },
@@ -97,7 +97,7 @@ function moveArchive(destination_id){
 <div class="modalTitle"><?php echo $word;?></div>
 
 <?php echo '<p style="margin-bottom:0px;">'.$verb.' '.format_date($model->created).' '.__('by').' '.$model->author0->fullname.'</p>'; ?>
-
+<?php echo '<p style="margin-bottom:0px;">'.$model->path.'</p>';?>
 	<?php
 		echo $form->label($model, 'name');
 		echo '<div class="errorMessage" id="name_error"></div>';

@@ -159,9 +159,6 @@ function createContainer(){
 	});
 }
 function editArchive(archive_id){
-	//if(confirm("<?php echo __('Delete this archive?');?>") == false)
-	//	return;
-
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/update/'+archive_id,
 		type: 'GET',
@@ -175,6 +172,8 @@ function editArchive(archive_id){
 					, positionStyle: 'absolute'
 					, modelColor: '#ae34d5'
                 });
+			}else{
+				alert("<?php echo __('Sorry, cannot edit the csv zip file');?>");
 			}
 		},
 		error: function() {
