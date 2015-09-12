@@ -153,9 +153,9 @@ class Archive extends CActiveRecord
 	public function getParentContainerWebPath()
  	{
 		if ($this->container){
-			$path = str_replace($this->archiveRoot, '', $this->container0->path);
+			$path = 'archive/d/'.str_replace($this->archiveRoot, '', $this->container0->path);
 		}else{
-			$path = '';
+			$path = 'archive/index/';
 		}
 		return $path;
 	}
@@ -223,7 +223,7 @@ class Archive extends CActiveRecord
 				}
 				return 0;
 			}
-			if (! file_exists($model->baseDir.$oldPath) || file_exists($model->baseDir.$newPath) ){
+			if (! file_exists($this->baseDir.$oldPath) || file_exists($this->baseDir.$newPath) ){
 				return 0;
 			}
 			if (rename($this->baseDir.$oldPath, $this->baseDir.$newPath)){
@@ -237,14 +237,6 @@ class Archive extends CActiveRecord
 		return 0;
 	}
 
-	/*
-	 * Update the path if $this->name has changed.
-	 */
-	public function move()
-	{	
-
-	}
-
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -256,11 +248,13 @@ class Archive extends CActiveRecord
 		
 		$criteria->addCondition("name LIKE :match OR description LIKE :match");
 		$criteria->params[':match'] = "%$text%";
+
 		if ($container){
 			$criteria->compare('container', $container->id);
 		}else{
 			$criteria->addCondition('container is NULL');
 		}
+
 		$criteria->order = 'is_container DESC, name ASC';
 		
 		return new CActiveDataProvider($this, array(

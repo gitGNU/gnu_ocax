@@ -157,7 +157,7 @@ class ArchiveController extends Controller
 			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
 			}
-			$this->redirect(array('archive/d/'.$model->getParentContainerWebPath()));
+			$this->redirect(array($model->getParentContainerWebPath()));
 		}
 		echo $this->renderPartial('_uploadFile',array('model'=>$model),false,true);
 	}
@@ -184,7 +184,7 @@ class ArchiveController extends Controller
 			}
 			if (!createDirectory($model->baseDir.$model->path)){
 				Yii::app()->user->setFlash('error', __('Cannot create folder'));
-				$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
+				$this->redirect(array($model->getParentContainerWebPath()));
 			}
 					
 			$model->is_container = 1;
@@ -194,12 +194,11 @@ class ArchiveController extends Controller
 			if ($model->save()){
 				Log::model()->write('Archive',__('Folder created').' "'.$model->path.'"');
 				Yii::app()->user->setFlash('success', __('Folder created correctly'));
-				$this->redirect(array('archive/d/'.str_replace($model->archiveRoot, '', $model->path)));
 			}else{
 				rmdir($model->baseDir.$model->path);
 				Yii::app()->user->setFlash('error', __('New folder failed'));
 			}
-			$this->redirect(array('archive/index/'.$model->getParentContainerWebPath()));
+			$this->redirect(array($model->getParentContainerWebPath()));
 		}
 		echo $this->renderPartial('_createContainer',array('model'=>$model),false,true);
 	}
@@ -224,11 +223,7 @@ class ArchiveController extends Controller
 			}else{
 				$model->save();
 			}
-			if($model->container0){
-				$this->redirect(array('archive/d/'.$model->getParentContainerWebPath()));
-			}else{
-				$this->redirect(array('archive/index/'));
-			}
+			$this->redirect(array($model->getParentContainerWebPath()));
 		}	
 		echo $this->renderPartial('_editArchive',array('model'=>$model),false,true);
 	}
@@ -237,8 +232,13 @@ class ArchiveController extends Controller
 	{
 		$model = $this->loadModel($id);
 
-		$containers=Archive::model()->findAllByAttributes(array('is_container'=>1));
+		$criteria=new CDbCriteria;
+		$criteria->addCondition("is_container = 1");
+		$criteria->order = 'path ASC';
+
+		$containers=$model->findAll($criteria);
 		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/index</span>';
+
 		foreach ($containers as $container){
 			if ($container->id == $model->id || $container->isChildOf($model)){
 				continue;
@@ -274,7 +274,7 @@ class ArchiveController extends Controller
 			echo "id = $id , dest = $destination_id";
 			Yii::app()->end();
 		}
-		if (! file_exists($model->baseDir.$oldPath) || file_exists($model->baseDir.$newPath) ){ 	// already exists
+		if (! file_exists($model->baseDir.$oldPath) || file_exists($model->baseDir.$newPath) ){
 			echo 0;
 			Yii::app()->end();
 		}
