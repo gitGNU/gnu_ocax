@@ -99,6 +99,9 @@ $(function() {
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <script>
+function showLoader(){
+	$('#archive-grid').addClass('grid-view-loading');
+}
 function validate(){
 	$('.errorMessage').html('');
 	errors=0;
@@ -186,6 +189,7 @@ function deleteArchive(archive_id){
 		return;
 
 	$('#files_popup').bPopup().close();
+	showLoader();
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
 		type: 'POST',

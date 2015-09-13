@@ -58,6 +58,7 @@ function getDestinations(){
 }
 function moveArchive(destination_id){
 	$('#files_popup').bPopup().close();
+	showLoader();
 	$.ajax({
 		url: "<?php echo Yii::app()->request->baseUrl.'/archive/move'; ?>",
 		type: 'GET',
