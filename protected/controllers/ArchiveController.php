@@ -67,6 +67,10 @@ class ArchiveController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		if ($model->is_container){
+			$this->redirect(array($model->getWebPath()));
+		}
+
 		if (file_exists($model->baseDir.$model->path)) {
 			$finfo = finfo_open(FILEINFO_MIME_TYPE);
 			$mime_type = finfo_file($finfo, $model->baseDir.$model->path);
@@ -125,11 +129,6 @@ class ArchiveController extends Controller
 		$model=new Archive;
 		
 		$model->container = $id;
-		if ($container = $model->findByPk($model->container)){
-			$containerPath = $container->path.'/';
-		}else{
-			$containerPath = $model->archiveRoot;
-		}
 		
 		if(isset($_POST['Archive']))
 		{
@@ -138,13 +137,13 @@ class ArchiveController extends Controller
 			$model->file = CUploadedFile::getInstance($model,'file');
 			
 			$model->name = $model->file->name;
-			$model->path = $containerPath.$model->file->name;
+			$model->extension = $model->getExtension($model->file->name);
+			$model->setFilePath();
 			$model->created = date('Y-m-d');
 			$model->author = Yii::app()->user->getUserID();
 			
 			$saved = 0;
-			if($model->file->saveAs($model->baseDir.$model->path)){
-				$model->extension = $model->getExtension($model->baseDir.$model->path);
+			if($model->file->saveAs($model->baseDir.'/'.$model->path)){
 				if($model->extension){	// remove extension from name
 					$model->name = substr($model->name , 0, (-1 * strlen($model->extension))-1 );
 				}
@@ -176,17 +175,15 @@ class ArchiveController extends Controller
 			$model->setScenario('createContainer');
 			$model->attributes = $_POST['Archive'];			
 
-			$model->buildPathFromName();
+			// path is not the URI. It is part of a path.
+			$model->path = strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
 			
-			if (file_exists($model->baseDir.$model->path)) {
+			// check that another container with same path doesn't exist
+			if ($model->doesContainerExist()){
 				Yii::app()->user->setFlash('error', __('Folder already exists'));
-				$this->redirect(array('archive/index/'.$model->getWebPath()));
-			}
-			if (!createDirectory($model->baseDir.$model->path)){
-				Yii::app()->user->setFlash('error', __('Cannot create folder'));
 				$this->redirect(array($model->getParentContainerWebPath()));
 			}
-					
+			
 			$model->is_container = 1;
 			$model->created = date('Y-m-d');
 			$model->author = Yii::app()->user->getUserID();
@@ -211,18 +208,11 @@ class ArchiveController extends Controller
 			echo 0;
 			Yii::app()->end();
 		}
-
 		if(isset($_POST['Archive']))
 		{
-			$save = False;
-			$oldName = $model->name;
+			$model->setScenario('update');
 			$model->attributes = $_POST['Archive'];
-			
-			if ($model->name != $oldName){
-				$model->rename();
-			}else{
-				$model->save();
-			}
+			$model->save();
 			$this->redirect(array($model->getParentContainerWebPath()));
 		}	
 		echo $this->renderPartial('_editArchive',array('model'=>$model),false,true);
@@ -237,13 +227,13 @@ class ArchiveController extends Controller
 		$criteria->order = 'path ASC';
 
 		$containers=$model->findAll($criteria);
-		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/index</span>';
+		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/archive/index</span>';
 
 		foreach ($containers as $container){
 			if ($container->id == $model->id || $container->isChildOf($model)){
 				continue;
 			}
-			$path = '/d/'.str_replace($container->archiveRoot, '',$container->getWebPath()); 
+			$path = str_replace($container->archiveRoot, '', $container->getContainerWebPath()); 
 			$result .= '<br /><span class="link" onClick="js:moveArchive(\''.$container->id.'\')">'.$path.'</span>';
 		}
 		echo $result;
@@ -256,38 +246,24 @@ class ArchiveController extends Controller
 			Yii::app()->end();
 		}
 		$model = $this->loadModel($id);
-		if($destination_id == 0){
-			$destination_path = $model->archiveRoot;
-			$destination_id = Null;
-		}else{
-			$destination = $this->loadModel($destination_id);
-			$destination_path = $destination->path.'/';
-		}
-		
-		$oldPath = $model->path;
-		$newPath = $destination_path.strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
-		
-		if (!$model->is_container && $model->extension){
-			$newPath .= '.'.$model->extension;
-		}
-		if ($oldPath == $newPath){	// already exists
-			echo "id = $id , dest = $destination_id";
+		if (!$destination_id){
+			$model->container = Null;
+			$model->save();
+			echo 1;
 			Yii::app()->end();
 		}
-		if (! file_exists($model->baseDir.$oldPath) || file_exists($model->baseDir.$newPath) ){
-			echo 0;
-			Yii::app()->end();
-		}
-		if (rename($model->baseDir.$oldPath, $model->baseDir.$newPath)){
-			$model->path = $newPath;
-			$model->container = $destination_id;
-			if ($model->save()){
-				echo 1;
+
+		if ($container = Archive::model()->findByAttributes(array('id'=>$destination_id, 'is_container'=>1))){
+			if(($container->isChildOf($model))){
+				echo 'Cannot move folder into sub folder';
 				Yii::app()->end();
 			}
-			rename($this->baseDir.$newPath, $this->baseDir.$oldPath);
+			$model->container = $container->id;
+			$model->save();
+			echo 1;
+			Yii::app()->end();
 		}
-		echo 0;
+		echo 'Unknown error on moving archive';
 	}
 	
 	/**

@@ -102,6 +102,9 @@ $(function() {
 function showLoader(){
 	$('#archive-grid').addClass('grid-view-loading');
 }
+function hideLoader(){
+	$('#archive-grid').removeClass('grid-view-loading');
+}
 function validate(){
 	$('.errorMessage').html('');
 	errors=0;
@@ -188,11 +191,10 @@ function deleteArchive(archive_id){
 	if(confirm("<?php echo __('Delete this archive?');?>") == false)
 		return;
 
-	$('#files_popup').bPopup().close();
-	showLoader();
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
 		type: 'POST',
+		beforeSend: function(){ $('#files_popup').bPopup().close(); },
 		success: function(data){
 			$.fn.yiiGridView.update("archive-grid",{});
 		},

@@ -58,6 +58,7 @@ class Archive extends CActiveRecord
 		return array(
 			array('name, path, author, description, created', 'required', 'on'=>'uploadFile'),
 			array('name, path, author, description, created', 'required', 'on'=>'createContainer'),
+			array('name, description', 'required', 'on'=>'update'),
 			array('author, container', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>2000),
 			array('name, path', 'length', 'max'=>255),
@@ -97,6 +98,7 @@ class Archive extends CActiveRecord
 		);
 	}
 
+/*
 	protected function beforeSave()
 	{
 		if (! file_exists($this->getURI()) ){	// let's make sure the file/dir actually exists
@@ -104,7 +106,8 @@ class Archive extends CActiveRecord
 		}
 		return parent::beforeSave();
 	}
-	
+*/
+
 	protected function beforeDelete()
 	{
 		
@@ -118,16 +121,26 @@ class Archive extends CActiveRecord
 		return parent::beforeDelete();
 	}
 
+	public function doesContainerExist()
+	{
+		if ($this->findAllByAttributes(array('is_container'=>1, 'container'=>$this->container, 'path'=>$this->path))){
+			return 1;
+		}
+		return 0;
+	}
+
 	public function getURI()
 	{
+		if ($this->is_container){
+			return Null;
+		}
 		return $this->baseDir.$this->path;
 	}
 
 	public function getURL()
 	{
 		if ($this->is_container){
-			$path = str_replace($this->archiveRoot, '', $this->path);
-			return Yii::app()->createAbsoluteUrl('').'/archive/d/'.$path;
+			return Yii::app()->createAbsoluteUrl('').$this->getContainerWebPath();
 		}
 		return Yii::app()->createAbsoluteUrl('').'/archive/'.$this->id;
 	}
@@ -135,44 +148,52 @@ class Archive extends CActiveRecord
 	public function getParentContainerURL()
 	{
 		if ($this->container){
-			$path = str_replace($this->archiveRoot, '', $this->container0->path);
-			return Yii::app()->createAbsoluteUrl('').'/archive/d/'.$path;
+			return Yii::app()->createAbsoluteUrl('').$this->container0->getContainerWebPath();
 		}else{
-			return '/archive';
+			return Yii::app()->createAbsoluteUrl('').'/archive';
 		}
 	}
 
-	public function getWebPath()
+	public function getContainerWebPath()
 	{
-		if ($this->container){
-			return str_replace($this->archiveRoot, '', $this->path);
+		if (!$this->is_container){
+			return '/archive/index';
 		}
-		return Yii::app()->request->baseUrl.$this->path;
+		$path = '/'.$this->path;
+		$model = $this;
+		while ($model->container){
+			$path = '/'.$model->container0->path.$path;
+			$model = $model->container0;
+		}
+		return '/archive/d'.$path;
 	}
 
 	public function getParentContainerWebPath()
  	{
-		if ($this->container){
-			$path = 'archive/d/'.str_replace($this->archiveRoot, '', $this->container0->path);
-		}else{
-			$path = 'archive/index/';
+		if (!$this->container){
+			return '/archive/index';
 		}
-		return $path;
-	}
-
-	public function buildPathFromName()
-	{
-		$this->name = str_replace(array('\\','\/'), '', $this->name);
-		if ($container = Archive::model()->findByPk($this->container)){
-			$this->path = $container->path.'/'.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
-		}else{
-			$this->path = $this->archiveRoot.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
-		}
+		return $this->container0->getContainerWebPath();
 	}
 
 	public function getContainerFromPath($containerPath)
 	{
-		return $this->findByAttributes(array('path'=>$this->archiveRoot.$containerPath));
+		$pathComponents = explode('/', $containerPath);
+		$containerPath = array_pop($pathComponents);
+		$parentContainerPath = array_pop($pathComponents);
+		
+		//file_put_contents('/tmp/path','--!'.$parentContainerPath.'!--!'.$containerPath.'!--');
+		
+		$containers = $this->findAllByAttributes(array('is_container'=>1, 'path'=>$containerPath));
+		foreach ($containers as $container){
+			if ($container->container == Null && $parentContainerPath == Null){	// a root container
+				return $container;
+			}
+			if ($container && $container->container0->path == $parentContainerPath){
+				return $container;
+			}
+		}
+		return Null;
 	}
 
 	public function isChildOf($parent)
@@ -203,39 +224,15 @@ class Archive extends CActiveRecord
 		return pathinfo($file_name, PATHINFO_EXTENSION);
 	}
 
-	/*
-	 * Update the path if $this->name has changed.
-	 */
-	public function rename()
-	{	
-		$oldPath = $this->path;
-		$newPath = substr($this->path, 0, strrpos( $this->path, '/')).'/'.string2ascii($this->name);
-		$newPath = strtolower(str_replace(' ', '-', trim($newPath)));
-		if ($this->extension){
-			$newPath .= '.'.$this->extension;
+ 	public function setFilePath()
+	{
+		$path = substr(md5(rand(0, 1000000)), 0, 45);
+		while($this->findAllByAttributes(array('path'=>$this->archiveRoot.$path))){
+			$path = substr(md5(rand(0, 1000000)), 0, 45);
 		}
-		if ($newPath != $oldPath){ // name changed
-			if ($this->findByAttributes(array('path'=>$newPath))){ // we don't want to overwrite anything
-				if ($this->is_container){
-					Yii::app()->user->setFlash('error', __('Folder name already exists'));
-				}else{
-					Yii::app()->user->setFlash('error', __('File already exists'));
-				}
-				return 0;
-			}
-			if (! file_exists($this->baseDir.$oldPath) || file_exists($this->baseDir.$newPath) ){
-				return 0;
-			}
-			if (rename($this->baseDir.$oldPath, $this->baseDir.$newPath)){
-				$this->path = $newPath;
-				if ($this->save()){
-					return 1;
-				}
-				rename($this->baseDir.$newPath, $this->baseDir.$oldPath);
-			}
-		}
-		return 0;
+		$this->path = $this->archiveRoot.$path;
 	}
+
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -262,4 +259,16 @@ class Archive extends CActiveRecord
 			'pagination'=>array('pageSize'=>20),
 		));
 	}
+
+/*
+	public function buildPathFromName()
+	{
+		$this->name = str_replace(array('\\','\/'), '', $this->name);
+		if ($container = Archive::model()->findByPk($this->container)){
+			$this->path = $container->path.'/'.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
+		}else{
+			$this->path = $this->archiveRoot.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
+		}
+	}
+*/
 }

@@ -31,6 +31,12 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 margin: 0px -10px 5px -10px;
 border-bottom: 1px solid #CDCBC9;
 }
+#destinations {
+	display: none;
+	height: 215px;
+	padding-bottom: 15px;
+	overflow-y: auto;
+}
 #destinations > span:hover { background-color: white; }
 </style>
 
@@ -49,6 +55,7 @@ function getDestinations(){
 				DestinationsLoaded = 1;
 				$('#getDestinationsLink').removeClass('link');
 				$("#destinations").html(data);
+				$("#destinations").show();
 			}
 		},
 		error: function() {
@@ -57,17 +64,18 @@ function getDestinations(){
 	});
 }
 function moveArchive(destination_id){
-	$('#files_popup').bPopup().close();
-	showLoader();
 	$.ajax({
 		url: "<?php echo Yii::app()->request->baseUrl.'/archive/move'; ?>",
 		type: 'GET',
 		data: { 'id': '<?php echo $model->id;?>', 'destination_id': destination_id },
-		beforeSend: function(){ /* $('#loadDestinations').show(); */ },
-		complete: function(){ /* $('#loadDestinations').hide(); */ },
+		beforeSend: function(){ $('#files_popup').bPopup().close(); showLoader(); },
+		complete: function(){ hideLoader(); },
 		success: function(data){
-			if(data != 0){
+			if(data == 1){
 				$.fn.yiiGridView.update("archive-grid",{});
+			}else{
+				hideLoader();
+				alert(data);
 			}
 		},
 		error: function() {

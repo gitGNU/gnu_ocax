@@ -308,10 +308,10 @@ CREATE TABLE IF NOT EXISTS site_page_content (
 
 CREATE TABLE IF NOT EXISTS archive (
   id int(11) NOT NULL AUTO_INCREMENT,
-  is_container TINYINT(1) DEFAULT 0;
+  is_container TINYINT(1) DEFAULT 0,
   name varchar(255) NOT NULL,
   extension varchar(5) DEFAULT NULL,
-  path varchar(255) NOT NULL,
+  path varchar(255) NOT NULL,	/* URI for files. Path name path for containers */
   author int(11) NOT NULL,
   description TEXT NOT NULL,
   container int(11) DEFAULT NULL, /* a container (folder) is an archive object without the associated file */
