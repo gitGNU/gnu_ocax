@@ -171,7 +171,6 @@ class Archive extends CActiveRecord
 		return $this->container0->getContainerWebPath();
 	}
 
-
 	public function getContainerFromPath($containerPath)
 	{
 		$pathComponents = explode('/', $containerPath);

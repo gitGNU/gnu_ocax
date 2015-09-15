@@ -151,7 +151,9 @@ class ArchiveController extends Controller
 			}
 
 			if ($saved){
-				Log::model()->write('Archive',__('Uploaded').' "'.$model->name.'.'.$model->extension.'"');
+				$completeName = $model->name.'.'.$model->extension;
+				$text = str_replace('%s', $completeName, __('Uploaded "%s" to'));
+				Log::model()->write('Archive', 'id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
 				Yii::app()->user->setFlash('success', __('File uploaded correctly'));
 			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
@@ -189,7 +191,7 @@ class ArchiveController extends Controller
 			$model->author = Yii::app()->user->getUserID();
 			
 			if ($model->save()){
-				Log::model()->write('Archive',__('Folder created').' "'.$model->path.'"');
+				Log::model()->write('Archive','id='.$model->id.' '.__('Folder created').' '.$model->getContainerWebPath(), $model->id);
 				Yii::app()->user->setFlash('success', __('Folder created correctly'));
 			}else{
 				rmdir($model->baseDir.$model->path);
@@ -208,18 +210,26 @@ class ArchiveController extends Controller
 			echo 0;
 			Yii::app()->end();
 		}
+		$oldName = $model->name;
 		if(isset($_POST['Archive']))
 		{
 			$model->setScenario('update');
 			$model->attributes = $_POST['Archive'];
 			if ($model->is_container){
 				$model->path = strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
-				if ($model->doesContainerExist()){
-					Yii::app()->user->setFlash('error', __('Folder already exists'));
+				if ($oldName != $model->name && $model->doesContainerExist()){
+					Yii::app()->user->setFlash('error', __('A folder with that name already exists'));
 					$this->redirect(array($model->getParentContainerWebPath()));
 				}
 			}
 			$model->save();
+			if ($oldName != $model->name){
+				$name = $model->name;
+				if($model->extension){
+					$name .= '.'.$model->extension;
+				}
+				Log::model()->write('Archive','id='.$model->id.' '.__('Changed name to').' "'.$name.'"', $model->id);
+			}
 			$this->redirect(array($model->getParentContainerWebPath()));
 		}	
 		echo $this->renderPartial('_editArchive',array('model'=>$model),false,true);
@@ -284,6 +294,8 @@ class ArchiveController extends Controller
 				Yii::app()->end();
 			}
 			$model->save();
+			$text = str_replace('%s', $model->name, __('Moved folder "%s" to'));
+			Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
 			echo 1;
 			Yii::app()->end();
 		}
@@ -300,20 +312,17 @@ class ArchiveController extends Controller
 		$model = $this->loadModel($id);
 		$is_container = $model->is_container;
 		
-		if ($is_container){
-			$itemName = $model->path;
-		}else{
-			$itemName = $model->name;
-			if($model->extension){
-				$itemName .= '.'.$model->extension;
-			}
-		}
 		if (strpos($model->path, '/files/DatabaseDownload') !== 0){	// we don't delete the zip file
 			$model->delete();
 			if($is_container){
-				Log::model()->write('Archive',__('Deleted folder').' "'.$itemName.'"');
+				Log::model()->write('Archive','id='.$model->id.' '.__('Deleted folder').' '.$model->getContainerWebPath(), $model->id);
 			}else{
-				Log::model()->write('Archive',__('Deleted').' "'.$itemName.'"');
+				$name = $model->name;
+				if($model->extension){
+					$name .= '.'.$model->extension;
+				}
+				$text = str_replace('%s', $name, __('Deleted "%s" from'));
+				Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
 			}
 		}
 
@@ -336,7 +345,6 @@ class ArchiveController extends Controller
 			$model->attributes=$_GET['Archive'];
 		}
 		$container = $model->getContainerFromPath($folder);
-		//file_put_contents('/tmp/fold',$folder);
 		$this->render('index',array(
 			'dataProvider'=>$model->search($container),
 			'model'=>$model,
