@@ -33,7 +33,7 @@ border-bottom: 1px solid #CDCBC9;
 }
 #destinations {
 	display: none;
-	height: 215px;
+	max-height: 215px;
 	padding-bottom: 15px;
 	overflow-y: auto;
 }
@@ -75,7 +75,8 @@ function moveArchive(destination_id){
 				$.fn.yiiGridView.update("archive-grid",{});
 			}else{
 				hideLoader();
-				alert(data);
+				flashError(data);
+				//alert(data);
 			}
 		},
 		error: function() {

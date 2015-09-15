@@ -99,6 +99,15 @@ $(function() {
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 
 <script>
+function flashError(text){
+	if(text != ''){
+		$(".flash-error").html(text);
+	}
+	$(".flash-error").show();
+	setTimeout(function() {
+		$(".flash-error").slideUp("fast");
+	}, 4500);
+}
 function showLoader(){
 	$('#archive-grid').addClass('grid-view-loading');
 }
@@ -320,10 +329,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	    echo '<div class="flash-success" style="display:none">';
 			echo Yii::app()->user->getFlash('success');
 	    echo '</div>';
-	}	
-	if(Yii::app()->user->hasFlash('error')){
-		echo '<div class="flash-error">';
-			echo Yii::app()->user->getFlash('error');
-		echo '</div>';
 	}
+	if(Yii::app()->user->hasFlash('error')){
+		echo '<script>';
+			echo '$(function() { flashError();});';
+		echo '</script>';
+	}
+	echo '<div class="flash-error" style="display:none">';
+		if(Yii::app()->user->hasFlash('error')){
+			echo Yii::app()->user->getFlash('error');
+		}
+	echo '</div>';
 } ?>

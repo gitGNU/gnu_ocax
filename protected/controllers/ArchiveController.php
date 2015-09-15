@@ -180,7 +180,7 @@ class ArchiveController extends Controller
 			
 			// check that another container with same path doesn't exist
 			if ($model->doesContainerExist()){
-				Yii::app()->user->setFlash('error', __('Folder already exists'));
+				Yii::app()->user->setFlash('error', __('A folder with that name already exists'));
 				$this->redirect(array($model->getParentContainerWebPath()));
 			}
 			
@@ -212,6 +212,13 @@ class ArchiveController extends Controller
 		{
 			$model->setScenario('update');
 			$model->attributes = $_POST['Archive'];
+			if ($model->is_container){
+				$model->path = strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
+				if ($model->doesContainerExist()){
+					Yii::app()->user->setFlash('error', __('Folder already exists'));
+					$this->redirect(array($model->getParentContainerWebPath()));
+				}
+			}
 			$model->save();
 			$this->redirect(array($model->getParentContainerWebPath()));
 		}	
@@ -224,17 +231,27 @@ class ArchiveController extends Controller
 
 		$criteria=new CDbCriteria;
 		$criteria->addCondition("is_container = 1");
-		$criteria->order = 'path ASC';
+		
+		if ($model->container){
+			$criteria->addCondition("id != :id");
+			$criteria->params[":id"] = $model->container;
+			$criteria->order = 'path ASC';
+		}
 
 		$containers=$model->findAll($criteria);
-		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/archive/index</span>';
-
+		$paths = array();
 		foreach ($containers as $container){
 			if ($container->id == $model->id || $container->isChildOf($model)){
 				continue;
 			}
 			$path = str_replace($container->archiveRoot, '', $container->getContainerWebPath()); 
-			$result .= '<br /><span class="link" onClick="js:moveArchive(\''.$container->id.'\')">'.$path.'</span>';
+			$paths[$container->id] = $path;
+		}
+		asort($paths);
+		
+		$result = '<span class="link" onClick="js:moveArchive(\'0\')">/archive/index</span>';
+		foreach($paths as $id => $path){
+			$result .= '<br /><span class="link" onClick="js:moveArchive(\''.$id.'\')">'.$path.'</span>';
 		}
 		echo $result;
 	}
@@ -248,17 +265,24 @@ class ArchiveController extends Controller
 		$model = $this->loadModel($id);
 		if (!$destination_id){
 			$model->container = Null;
+			if ($model->doesContainerExist()){
+				echo __('A folder with that name already exists');
+				Yii::app()->end();
+			}
 			$model->save();
 			echo 1;
 			Yii::app()->end();
 		}
-
 		if ($container = Archive::model()->findByAttributes(array('id'=>$destination_id, 'is_container'=>1))){
-			if(($container->isChildOf($model))){
-				echo 'Cannot move folder into sub folder';
+			$model->container = $container->id;
+			if ($model->doesContainerExist()){
+				echo __('A folder with that name already exists');
 				Yii::app()->end();
 			}
-			$model->container = $container->id;
+			if(($container->isChildOf($model))){
+				echo __('Cannot move folder into sub folder');
+				Yii::app()->end();
+			}
 			$model->save();
 			echo 1;
 			Yii::app()->end();
@@ -312,6 +336,7 @@ class ArchiveController extends Controller
 			$model->attributes=$_GET['Archive'];
 		}
 		$container = $model->getContainerFromPath($folder);
+		//file_put_contents('/tmp/fold',$folder);
 		$this->render('index',array(
 			'dataProvider'=>$model->search($container),
 			'model'=>$model,

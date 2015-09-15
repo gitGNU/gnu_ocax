@@ -40,6 +40,10 @@ protected/yiic
 protected/tests/*
 app/css/screen.css (see app/css/blueprint-license.txt)
 
+-Icons
+app/images/fileicons/*
+faenza-icon-theme GNU GPL v3
+
 ------------------------------------
 Other dependencies/modules/libraries bundled with OCAx
 

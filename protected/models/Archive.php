@@ -110,13 +110,8 @@ class Archive extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		
 		if (file_exists($this->getURI())){
-			if ($this->is_container){
-				rmdir($this->getURI());
-			}else{
-				unlink($this->getURI());
-			}			
+			unlink($this->getURI());
 		}
 		return parent::beforeDelete();
 	}
@@ -176,24 +171,21 @@ class Archive extends CActiveRecord
 		return $this->container0->getContainerWebPath();
 	}
 
+
 	public function getContainerFromPath($containerPath)
 	{
 		$pathComponents = explode('/', $containerPath);
-		$containerPath = array_pop($pathComponents);
-		$parentContainerPath = array_pop($pathComponents);
-		
-		//file_put_contents('/tmp/path','--!'.$parentContainerPath.'!--!'.$containerPath.'!--');
-		
-		$containers = $this->findAllByAttributes(array('is_container'=>1, 'path'=>$containerPath));
-		foreach ($containers as $container){
-			if ($container->container == Null && $parentContainerPath == Null){	// a root container
-				return $container;
+		$container = Null;
+		$containerID = Null;
+		while($pathComponents){	
+			$path = array_shift($pathComponents);
+			$container = $this->findByAttributes(array('is_container'=>1, 'path'=>$path, 'container'=>$containerID));
+			if (!$container){
+				break;
 			}
-			if ($container && $container->container0->path == $parentContainerPath){
-				return $container;
-			}
+			$containerID = $container->id;
 		}
-		return Null;
+		return $container;
 	}
 
 	public function isChildOf($parent)
@@ -233,7 +225,6 @@ class Archive extends CActiveRecord
 		$this->path = $this->archiveRoot.$path;
 	}
 
-
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -259,16 +250,4 @@ class Archive extends CActiveRecord
 			'pagination'=>array('pageSize'=>20),
 		));
 	}
-
-/*
-	public function buildPathFromName()
-	{
-		$this->name = str_replace(array('\\','\/'), '', $this->name);
-		if ($container = Archive::model()->findByPk($this->container)){
-			$this->path = $container->path.'/'.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
-		}else{
-			$this->path = $this->archiveRoot.strtolower(str_replace(' ', '-', trim(string2ascii($this->name))));
-		}
-	}
-*/
 }
