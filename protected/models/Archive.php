@@ -124,6 +124,15 @@ class Archive extends CActiveRecord
 		return 0;
 	}
 
+	public function getFullname()
+	{
+		$name = $this->name;
+		if ($this->extension){
+			$name .= '.'.$this->extension;
+		}
+		return $name;
+	}
+
 	public function getURI()
 	{
 		if ($this->is_container){

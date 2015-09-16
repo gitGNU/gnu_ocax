@@ -149,10 +149,8 @@ class ArchiveController extends Controller
 				}
 				$saved = $model->save();
 			}
-
 			if ($saved){
-				$completeName = $model->name.'.'.$model->extension;
-				$text = str_replace('%s', $completeName, __('Uploaded "%s" to'));
+				$text = str_replace('%s', $model->getFullname(), __('Uploaded "%s" to'));
 				Log::model()->write('Archive', 'id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
 				Yii::app()->user->setFlash('success', __('File uploaded correctly'));
 			}else{
@@ -224,11 +222,7 @@ class ArchiveController extends Controller
 			}
 			$model->save();
 			if ($oldName != $model->name){
-				$name = $model->name;
-				if($model->extension){
-					$name .= '.'.$model->extension;
-				}
-				Log::model()->write('Archive','id='.$model->id.' '.__('Changed name to').' "'.$name.'"', $model->id);
+				Log::model()->write('Archive','id='.$model->id.' '.__('Changed name to').' "'.$model->getFullname().'"', $model->id);
 			}
 			$this->redirect(array($model->getParentContainerWebPath()));
 		}	
@@ -268,6 +262,7 @@ class ArchiveController extends Controller
 
 	public function actionMove($id, $destination_id)
 	{
+		$saved = False;
 		if ($id == $destination_id){
 			echo "id = $id , dest = $destination_id";
 			Yii::app()->end();
@@ -279,11 +274,8 @@ class ArchiveController extends Controller
 				echo __('A folder with that name already exists');
 				Yii::app()->end();
 			}
-			$model->save();
-			echo 1;
-			Yii::app()->end();
-		}
-		if ($container = Archive::model()->findByAttributes(array('id'=>$destination_id, 'is_container'=>1))){
+			$saved = $model->save();
+		}else if ($container = Archive::model()->findByAttributes(array('id'=>$destination_id, 'is_container'=>1))){
 			$model->container = $container->id;
 			if ($model->doesContainerExist()){
 				echo __('A folder with that name already exists');
@@ -293,13 +285,20 @@ class ArchiveController extends Controller
 				echo __('Cannot move folder into sub folder');
 				Yii::app()->end();
 			}
-			$model->save();
-			$text = str_replace('%s', $model->name, __('Moved folder "%s" to'));
+			$saved = $model->save();
+		}
+		if ($saved){
+			if ($model->is_container){
+				$text = str_replace('%s', $model->name, __('Moved folder "%s" to'));
+			}else{
+				$name = $model->getFullname();
+				$text = str_replace('%s', $name, __('Moved file "%s" to'));
+			}
 			Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
 			echo 1;
-			Yii::app()->end();
+		}else{
+			echo 'Unknown error on moving archive';
 		}
-		echo 'Unknown error on moving archive';
 	}
 	
 	/**
@@ -317,11 +316,7 @@ class ArchiveController extends Controller
 			if($is_container){
 				Log::model()->write('Archive','id='.$model->id.' '.__('Deleted folder').' '.$model->getContainerWebPath(), $model->id);
 			}else{
-				$name = $model->name;
-				if($model->extension){
-					$name .= '.'.$model->extension;
-				}
-				$text = str_replace('%s', $name, __('Deleted "%s" from'));
+				$text = str_replace('%s', $model->getFullname(), __('Deleted file "%s" from'));
 				Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
 			}
 		}

@@ -62,10 +62,12 @@ if ($priviliged){
 	padding-left:20px;
 	padding-top:8px;
 }
+
 .pgrid-view img {
 	height: 28px;
 	width: 28px;
 }
+
 #archiveOptions i{
 	cursor:pointer;
 	font-size:26px;
