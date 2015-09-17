@@ -356,6 +356,14 @@ class BudgetController extends Controller
 						$word = 'published';
 					Log::model()->write('Budget', 'Year '.$model->year.' '.$word);
 				}
+				// update default year
+				$defaultYear = Config::model()->findByPk('year');
+				if ($years = $model->getPublicYears()){
+					if ($defaultYear->value != $years[0]->year){
+						$defaultYear->value = $years[0]->year;	// most recent published year
+						$defaultYear->save();
+					}
+				}
 				$this->redirect(array('admin'));
 			}
 		}
