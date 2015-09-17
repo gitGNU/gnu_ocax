@@ -258,4 +258,12 @@ class Archive extends CActiveRecord
 			'pagination'=>array('pageSize'=>20),
 		));
 	}
+	
+	/* I want to use a webfont in the <td> element and I don't know how to do it without using the label
+	 * This gets called from the CGrid
+	 */
+	public function getShareColumnItem()
+	{
+		return '<span style="position:relative"><i class="icon-share color" onClick="js:loadSocialWidgets(\''.$this->id.'\', this)"></i></span>';
+	} 
 }

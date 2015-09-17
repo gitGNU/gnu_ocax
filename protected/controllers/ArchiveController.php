@@ -46,7 +46,7 @@ class ArchiveController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'getSocialWidgets'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -87,6 +87,18 @@ class ArchiveController extends Controller
 			ob_end_flush();
 			@readfile($model->baseDir.$model->path);
 			exit;
+		}
+	}
+
+	public function actionGetSocialWidgets($id)
+	{
+		//if(Yii::app()->request->isAjaxRequest && $model = Archive::model()->findByPk($id)){
+		if( $model = Archive::model()->findByPk($id)){
+			echo $this->renderPartial('//includes/socialWidgets', array(
+								'url' => $model->getURL(),
+								'title'=> $model->name));		
+		}else{
+			echo '';
 		}
 	}
 	

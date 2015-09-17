@@ -49,9 +49,9 @@
 
 <div class="alert socialWidgetBox">
 <?php
-	$fullurl = $this->createAbsoluteUrl('/enquiry/'.$model->id);
-	$url = $this->createAbsoluteUrl('/e/'.$model->id);
-
+	if (!isset($fullurl)){
+		$fullurl = $url;
+	}
 	echo '<div><i class="closeWidgetBox icon-cancel-circled" onclick="js:$(\'.alert\').hide();"></i></div>';
 
 	echo '<div class="widget">
@@ -60,7 +60,7 @@
 	if(Config::model()->findByPk('socialActivateMeneame')->value){
 		echo '<div	class="widget"
 					style="cursor:pointer;"
-					onclick="js:window.open(\'http://meneame.net/submit.php?url='.$url.'&title='.$model->title.'\',\'_blank\')"
+					onclick="js:window.open(\'http://meneame.net/submit.php?url='.$url.'&title='.$title.'\',\'_blank\')"
 				>
 				<img style="float:left;" src="'.Yii::app()->request->baseUrl.'/images/meneame-icon.png" />
 				<div style="float:left; margin:-2px 0 0 4px;">Meneame</div>
@@ -72,7 +72,7 @@
 					class="twitter-share-button"
 					data-url="'.trim($url).'"
 					data-counturl="'.trim($fullurl).'"
-					data-text="'.trim($model->title).'"
+					data-text="'.trim($title).'"
 					data-via="'.trim(Config::model()->findByPk('socialTwitterUsername')->value).'"
 					data-lang="en"
 					>

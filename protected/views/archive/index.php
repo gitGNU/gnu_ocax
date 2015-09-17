@@ -71,16 +71,18 @@ if ($priviliged){
 #archiveOptions i{
 	cursor:pointer;
 	font-size:26px;
-	color: #454545;
+	/*color: #454545;*/
 }
 #upLevel{
 	font-size: 18px;
 	position: absolute;
 	margin-top: -5px;
 }
-
+.socialWidgetBox {
+	left: -280px;
+	z-index:99;
+}
 </style>
-
 
 <script>
 $(function() {
@@ -95,6 +97,23 @@ $(function() {
 		$('.goToTop').hide();
 	});
 });
+function loadSocialWidgets(archive_id, el){
+	$.ajax({
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/getSocialWidgets/'; ?>"+archive_id,
+		type: 'GET',
+		beforeSend: function(){ $('.shareBox').remove(); },
+		success: function(data){
+			if(data != 0){
+				$(el).parent( "span" ).append('<span class="shareBox">'+data+'</span>');
+				$('.socialWidgetBox').show();
+				showSocialWidgets();
+			}
+		},
+		error: function() {
+			alert("Error on get archive/getSocialWidgets");
+		}
+	});
+}
 </script>
 
 <?php if($priviliged){ ?>
@@ -215,13 +234,12 @@ function deleteArchive(archive_id){
 	});
 }
 </script>
-
-<?php $this->widget('InlineHelp'); ?>
-<?php $this->widget('ViewLog'); ?>
-
 <?php 
+	$this->widget('InlineHelp');
+	$this->widget('ViewLog');
 	echo $this->renderPartial('//file/modal');
-} ?>
+}
+?>
 
 <div style="margin:-15px 0 8px -15px;">
 <?php
@@ -301,6 +319,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=> 'format_date($data->created)',
 		),
 		array(
+			'type'=>'raw',
+			'value'=>function($data){
+				return $data->getShareColumnItem();
+			},
+		),
+		array(
 			'class'=>'CButtonColumn',
 			'buttons' => array(
 				'edit' => array(
@@ -343,3 +367,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		}
 	echo '</div>';
 } ?>
+
+<?php echo $this->renderPartial('//includes/socialWidgetsScript', array()); ?>

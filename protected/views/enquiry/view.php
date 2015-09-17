@@ -106,7 +106,10 @@ function enquiryModal2Page(){
 		echo '<span class="ocaxButton" onClick="js:showSocialWidgets(); ">'.
 			 __('Share').'<i class="icon-share"></i>';
 		echo '</span>';
-		echo $this->renderPartial('//includes/socialWidgets', array('model'=>$model));
+		echo $this->renderPartial('//includes/socialWidgets', array(
+							'fullurl' => $this->createAbsoluteUrl('/enquiry/'.$model->id),
+							'url' => $this->createAbsoluteUrl('/e/'.$model->id),
+							'title'=> $model->title));
 		echo '</span>';
 
 		if (Config::model()->findByPk('showExport')->value){
