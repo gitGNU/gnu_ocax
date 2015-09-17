@@ -343,25 +343,22 @@ class BudgetController extends Controller
 		{
 			$wasPublished = $model->code;
 			$model->attributes=$_POST['Budget'];
-			if($model->save()){
-				$years=new CActiveDataProvider('Budget',array(
-					'criteria'=>array('condition'=>'parent IS NULL',
-					'order'=>'year DESC'),
-				));
+			if ($model->save()){
 				if($wasPublished != $model->code){
 					Config::model()->isZipFileUpdated(0);
 					if($model->code == 0)
-						$word = 'unpublished';
+						$word = __('unpublished');
 					else
-						$word = 'published';
-					Log::model()->write('Budget', 'Year '.$model->year.' '.$word);
-				}
-				// update default year
-				$defaultYear = Config::model()->findByPk('year');
-				if ($years = $model->getPublicYears()){
-					if ($defaultYear->value != $years[0]->year){
-						$defaultYear->value = $years[0]->year;	// most recent published year
-						$defaultYear->save();
+						$word = __('published');
+					Log::model()->write('Budget', __('Year').' '.$model->year.' '.$word);
+
+					// update default year
+					$defaultYear = Config::model()->findByPk('year');
+					if ($years = $model->getPublicYears()){
+						if ($defaultYear->value != $years[0]->year){
+							$defaultYear->value = $years[0]->year;	// most recent published year
+							$defaultYear->save();
+						}
 					}
 				}
 				$this->redirect(array('admin'));
