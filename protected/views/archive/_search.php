@@ -24,16 +24,10 @@
 
 <script>
 function resetSearch(){
-	$('#Archive_searchText').val('');
-	$('#archive_search').submit();
-	/*
-	$('.search-form form').submit(function(){
-		$.fn.yiiGridView.update('archive-grid', {
-			data: $(this).serialize()
-		});
-		return false;
-	});
-	*/
+	if ($('#Archive_searchText').val() != ''){
+		$('#Archive_searchText').val('');
+		$('#archive_search').submit();
+	}
 }
 </script>
 

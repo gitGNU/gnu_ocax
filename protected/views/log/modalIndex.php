@@ -21,6 +21,27 @@
  */
 
 ?>
+<style>
+.log_register{
+	margin: -1px -10px 1px -10px;
+	border-top: 1px solid #cdcbc9;
+	font-size: 16px;
+	clear: both;
+}
+.log_created{
+	width: 130px;
+	padding: 2px 30px 2px 5px;
+	white-space: nowrap;
+	float: left;
+}
+.log_message{
+	width: 650px;
+	padding: 2px 5px 2px 0;
+	float: right;
+	text-align: left;
+}
+</style>
+
 <script>
 function logModal2Page(){
 	$('#log_popup').bPopup().close();
@@ -28,19 +49,13 @@ function logModal2Page(){
 }
 </script>
 
-<div class="modalTitle">
-<?php echo __('Log').': '.$title;?></div>
+<div class="modalTitle"><?php echo __('Log').': '.$title;?></div>
 
 <?php
 foreach($logs as $log){
-	echo '<div style="
-			margin: 0 -10px 0 -10px;
-			padding: 2px 0 2px 0;
-			border-bottom: 1px solid #cdcbc9;
-			font-size: 16px"
-		>';
-	echo '<span style="display:inline; margin: 0 30px 0 5px">'.$log->created.'</span>';
-	echo $log->message;
+	echo '<div class="log_register">';
+	echo '<div class="log_created">'.$log->created.'</div>';
+	echo '<div class="log_message">'.$log->message.'</div>';
 	echo '</div>';
 }
 ?>

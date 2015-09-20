@@ -175,7 +175,7 @@ class Archive extends CActiveRecord
 	public function getParentContainerWebPath()
  	{
 		if (!$this->container){
-			return '/archive/index';
+			return 'archive/index';
 		}
 		return $this->container0->getContainerWebPath();
 	}
