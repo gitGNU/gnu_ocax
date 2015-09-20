@@ -23,27 +23,36 @@
 
 ?>
 
+<?php
+if (!isset($coords)){
+	$coords = array();
+	$coords['top'] = '-8px';
+	$coords['left'] = '0px';
+}
+?>
+
 <style>
 .socialWidgetBox {
 	display:none;
 	position:absolute;
-	top: -7px;
-	width:290px;
+	top: <?php echo $coords['top'];?>;
+	left: <?php echo $coords['left'];?>;
+	width:280px;
 	z-index:99;
 }
 .socialWidgetBox > div.widget {
-		margin: 4px 2px 8px 2px;
+		margin: 8px 2px 0px 2px;
 		padding: 0px;
 		width: 110px;
 		font-size: 16px;
-		height: 22px;
+		height: 25px;
 }
 .closeWidgetBox {
 		cursor: pointer;
 		color: #7F7F7F;
 		float:right;
-		margin:9px 5px 0 0;
-		font-size: 17px;
+		margin: 12px 5px 0 0;
+		font-size: 1.2em;
 }
 </style>
 
@@ -52,7 +61,7 @@
 	if (!isset($fullurl)){
 		$fullurl = $url;
 	}
-	echo '<div><i class="closeWidgetBox icon-cancel-circled" onclick="js:$(\'.alert\').hide();"></i></div>';
+	echo '<div><i class="closeWidgetBox icon-cancel-circled" onclick="js:$(\'.alert\').hide(); return false;"></i></div>';
 
 	echo '<div class="widget">
 			<input type="text" style="width:232px; font-size:15px;" value='.$url.' />

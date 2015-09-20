@@ -45,44 +45,9 @@ if ($priviliged){
 ?>
 
 <style>
-.pgrid-view table.items th
-{
-	font-size: 1.2em;
-	color: #555;
-	background-color: transparent;
-	text-align: left;
-}
-.pgrid-view table.items td {
-	font-size: 1.1em;
-}
-.pgrid-view i { cursor:pointer; color: #454545; }
-
-#archiveOptions{
-	float:right;
-	padding-left:20px;
-	padding-top:8px;
-}
-
-.pgrid-view img {
-	height: 28px;
-	width: 28px;
-}
-
-#archiveOptions i{
-	cursor:pointer;
-	font-size:26px;
-	/*color: #454545;*/
-}
-#upLevel{
-	font-size: 18px;
-	position: absolute;
-	margin-top: -5px;
-}
-.socialWidgetBox {
-	left: -280px;
-	z-index:99;
-}
 </style>
+
+<?php echo '<link rel="stylesheet" type="text/css" href="'.Yii::app()->request->baseUrl.'/css/archive.css" />'; ?>
 
 <script>
 $(function() {
@@ -255,11 +220,8 @@ if($priviliged){
 ?>
 
 <div style="float:right; white-space:nowrap;"><!-- search-form -->
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+	<?php $this->renderPartial('_search',array('model'=>$model)); ?>
 </div>
-
 <div class="clear"></div>
 </div>
 
@@ -274,7 +236,6 @@ if($container){
 ?>
 
 <?php
-
 $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('class'=>'pgrid-view'),
 	'cssFile'=>Yii::app()->request->baseUrl.'/css/pgridview.css',
@@ -317,6 +278,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'=>__('Date'),
 			'type'=>'raw',
 			'value'=> 'format_date($data->created)',
+			'htmlOptions'=>array('style'=>'white-space: nowrap'),
 		),
 		array(
 			'type'=>'raw',
@@ -331,8 +293,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'label'=> '<i class="icon-edit-1"></i>',
 					'url'=> '"javascript:editArchive(\"".$data->id."\");"',
 					'visible'=>'$data->canEdit('.$user_id.', '.$is_admin.');',
+					//'htmlOptions'=>array('style'=>'padding: 0 -10px 0 -10px;'),
 				)
 			),
+			//'name'=>'a',
 			'template'=>'{edit}',
 			'visible'=>$priviliged,
 		),

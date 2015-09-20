@@ -245,13 +245,14 @@ class Archive extends CActiveRecord
 		$criteria->addCondition("name LIKE :match OR description LIKE :match");
 		$criteria->params[':match'] = "%$text%";
 
-		if ($container){
-			$criteria->compare('container', $container->id);
-		}else{
-			$criteria->addCondition('container is NULL');
+		if (!$text){
+			if ($container){
+				$criteria->compare('container', $container->id);
+			}else{
+				$criteria->addCondition('container is NULL');
+			}
 		}
-
-		$criteria->order = 'is_container DESC, name ASC';
+		$criteria->order = 'is_container DESC, name ASC';		
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -264,6 +265,6 @@ class Archive extends CActiveRecord
 	 */
 	public function getShareColumnItem()
 	{
-		return '<span style="position:relative"><i class="icon-share color" onClick="js:loadSocialWidgets(\''.$this->id.'\', this)"></i></span>';
+		return '<span style="position:relative"><i class="icon-share" onClick="js:loadSocialWidgets(\''.$this->id.'\', this)"></i></span>';
 	} 
 }

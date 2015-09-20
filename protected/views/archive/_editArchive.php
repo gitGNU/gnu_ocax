@@ -28,8 +28,8 @@ Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 ?>
 <style>
 .divider {
-margin: 0px -10px 5px -10px;
-border-bottom: 1px solid #CDCBC9;
+	margin: 0px -10px 5px -10px;
+	border-bottom: 1px solid #CDCBC9;
 }
 #destinations {
 	display: none;
