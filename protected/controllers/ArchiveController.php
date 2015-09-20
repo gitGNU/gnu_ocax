@@ -152,7 +152,7 @@ class ArchiveController extends Controller
 			$model->file = CUploadedFile::getInstance($model,'file');
 			
 			$model->name = $model->file->name;
-			$model->extension = $model->getExtension($model->file->name);
+			$model->extension = strtolower($model->getExtension($model->file->name));
 			$model->setFilePath();
 			$model->created = date('Y-m-d');
 			$model->author = Yii::app()->user->getUserID();

@@ -55,6 +55,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "6605ee6441bf499ffa3c63d3c7409471",
+      "css": "move",
+      "code": 59444,
+      "src": "fontawesome"
+    },
+    {
       "uid": "6855131631509e8795730ce062045ea1",
       "css": "left-circled",
       "code": 59424,
@@ -167,6 +173,12 @@
       "css": "facebook-squared",
       "code": 59409,
       "src": "entypo"
+    },
+    {
+      "uid": "l11ixzfrief0chds7elurdm2ot98xp4l",
+      "css": "cancel-alt-filled",
+      "code": 59445,
+      "src": "typicons"
     },
     {
       "uid": "tau7t0t38662eqxrb80ozeiase5em2x9",

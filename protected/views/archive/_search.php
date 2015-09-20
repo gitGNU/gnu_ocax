@@ -22,9 +22,25 @@
 /* @var $form CActiveForm */
 ?>
 
+<script>
+function resetSearch(){
+	$('#Archive_searchText').val('');
+	$('#archive_search').submit();
+	/*
+	$('.search-form form').submit(function(){
+		$.fn.yiiGridView.update('archive-grid', {
+			data: $(this).serialize()
+		});
+		return false;
+	});
+	*/
+}
+</script>
+
 <div class="form wide">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
+	'id' => 'archive_search',
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
@@ -32,6 +48,7 @@
 
 	<div class="row" style="font-size: 1.2em;">
 		<?php echo $form->textField($model,'searchText'); ?>
+		<i class="icon-cancel-alt-filled" style="cursor:pointer;" onClick="js:resetSearch();return false;"></i>
 		<?php echo CHtml::submitButton(__('Search')); ?>
 	</div>
 

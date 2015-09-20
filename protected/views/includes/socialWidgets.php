@@ -49,10 +49,13 @@ if (!isset($coords)){
 }
 .closeWidgetBox {
 		cursor: pointer;
-		color: #7F7F7F;
+		color: #555;
 		float:right;
 		margin: 12px 5px 0 0;
 		font-size: 1.2em;
+}
+.closeWidgetBox:hover{
+	color: #454545;
 }
 </style>
 
