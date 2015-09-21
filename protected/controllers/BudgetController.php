@@ -580,19 +580,21 @@ class BudgetController extends Controller
 
 			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
 		}
-		elseif(isset(Yii::app()->request->cookies['year']) && strtotime(Yii::app()->request->cookies['year']->value) !== false)
+		elseif (isset(Yii::app()->request->cookies['year']) && strtotime(Yii::app()->request->cookies['year']->value) !== false){
 			$model->year = Yii::app()->request->cookies['year']->value;
-		else
+		}else{
 			$model->year = Config::model()->findByPk('year')->value;
-
-		if(isset($_GET['graph_type'])){
-			$graph_type=$_GET['graph_type'];
-			Yii::app()->request->cookies['graph_type'] = new CHttpCookie('graph_type', $graph_type);
 		}
-		elseif(isset(Yii::app()->request->cookies['graph_type']))
-			$graph_type=Yii::app()->request->cookies['graph_type']->value;
-		else
-			$graph_type='pie';
+
+		if (isset($_GET['display'])){
+			$display=$_GET['display'];
+			Yii::app()->request->cookies['display'] = new CHttpCookie('display', $display);
+		}
+		elseif (isset(Yii::app()->request->cookies['display'])){
+			$display=Yii::app()->request->cookies['display']->value;
+		}else{
+			$display='pie';
+		}
 
 		if (isset($_GET['Budget'])) {
 			$model->setScenario('search');
@@ -605,7 +607,7 @@ class BudgetController extends Controller
 
 		$this->render('index', array(
 			'model' => $model,
-			'graph_type' => $graph_type,
+			'display' => $display,
 		));
 	}
 
@@ -621,23 +623,27 @@ class BudgetController extends Controller
 		$model = new Budget('publicSearch');
 		$model->year = $root_budget->year;
 
-		if(isset($_GET['graph_type'])){
-			$graph_type=$_GET['graph_type'];
-			Yii::app()->request->cookies['graph_type'] = new CHttpCookie('graph_type', $graph_type);
+		if (isset($_GET['display'])){
+			$display=$_GET['display'];
+			Yii::app()->request->cookies['display'] = new CHttpCookie('display', $display);
 		}
-		elseif(isset(Yii::app()->request->cookies['graph_type']))
-			$graph_type=Yii::app()->request->cookies['graph_type']->value;
-		else
-			$graph_type='pie';
-
+		elseif (isset(Yii::app()->request->cookies['display'])){
+			$display=Yii::app()->request->cookies['display']->value;
+		}else{
+			$display='pie';
+		}
+		if ($display != 'pie' || $display != 'bar'){
+			$display = 'pie';
+		}
+/*
 		if (isset($_GET['Budget'])) {
 			$model->attributes = $_GET['Budget'];
 		}
-
+*/
 		$this->render('index', array(
 			'model' => $model,
 			'root_budget' => $root_budget,
-			'graph_type' => $graph_type,
+			'display' => $display,
 		));
 	}
 

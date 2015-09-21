@@ -29,7 +29,9 @@ $featured = array();
 
 if(isset($root_budget)){
 	$featured[]=$root_budget;
+	$showModifiedAlert = false;
 }else{
+	$showModifiedAlert = true;
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'year = :year AND parent is NULL';
 	$criteria->params[":year"] = $year;
@@ -115,7 +117,7 @@ function showBudget(budget_id, element){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/getBudget/'+budget_id,
 		type: 'GET',
 		beforeSend: function(){
-						if('bar' == '<?php echo $graph_type;?>'){
+						if('bar' == '<?php echo $display;?>'){
 							$('#bar_loader_gif').appendTo(element);
 							$('#bar_loader_gif').show();
 						}else{
@@ -203,6 +205,7 @@ if(count($years) > 1){
 	*/
 		
 		echo '<div style="float:left">';
+		
 		echo __('Available years').'<br />';
 		echo CHtml::dropDownList('budget', $model->year, $list,
 								array(	'id'=>'selectYear',
@@ -210,6 +213,7 @@ if(count($years) > 1){
 								));
 		echo '</div>';
 	echo '</div>';
+	echo '<i class="icon-calendar" style="float:right; font-size:40px;"></i>';
 }
 ?>
 <!--  Select year finished  -->
@@ -253,21 +257,23 @@ if(count($years) > 1){
 </div>
 <div class="right">
 
-	<!--  Change graph type start  -->
+	<!--  Change display start  -->
 	<div style="clear:right">
 	<?php
-	
 		echo '<div class="budgetOptions" style="position:relative">';
-		$change=Yii::app()->request->baseUrl.'/'.Yii::app()->request->pathInfo.'?graph_type';
+		$change=Yii::app()->request->baseUrl.'/'.Yii::app()->request->pathInfo.'?display';
 		echo '<span style="cursor:pointer" onclick="window.location=\''.$change.'=pie\'">';
 		include(svgDir().'graph-type-pie.svg');
 		echo '</span>';
 		echo '<span style="cursor:pointer" onclick="window.location=\''.$change.'=bar\'">';
 		include(svgDir().'graph-type-bar.svg');
 		echo '</span>';
+
+		if ($showModifiedAlert && $model->alert()){
+			echo '<i id="modified_menu_icon" class="icon-alert color" style="font-size:42px" onclick="window.location=\''.$change.'=modified\'"></i>';
+		}
+		
 		if($showFeaturedMenu){
-			//echo '<img id="featured_menu_icon" src="'.
-			//	Yii::app()->theme->baseUrl.'/images/menuitems.png" onclick="js:toggleFeaturedMenu()" />';
 			echo '<i id="featured_menu_icon" class="icon-indent-left color" style="font-size:38px" onclick="js:toggleFeaturedMenu()"></i>';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
@@ -287,7 +293,7 @@ if(count($years) > 1){
 		}
 	?>
 	</div>
-	<!--  Change graph type finish  -->
+	<!--  Change display finish  -->
 </div>
 
 </div>
@@ -313,10 +319,13 @@ if(count($years) > 1){
 		echo '<div class="horizontalRule"></div>';
 		echo '<div class="sub_title" style="margin:20px 0 60px 0;">'. __('No data available').'</div>';
 	}else{
-		if($graph_type == 'bar')
+		if ($display == 'modified'){
+			$this->renderPartial('_indexModified',array('model'=>$model));
+		}elseif ($display == 'bar'){
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));
-		else
+		}else{
 			$this->renderPartial('_indexPie',array('model'=>$model,'featured'=>$featured));
+		}
 	}
 	echo '</div>';
 ?>

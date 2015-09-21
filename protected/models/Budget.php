@@ -249,6 +249,12 @@ class Budget extends CActiveRecord
 		return $this->trimester_1 + $this->trimester_2 + $this->trimester_3 + $this->trimester_4;
 	}	
 
+/*
+	public function getProvisionModification(){
+		return $this->actual_provision - $this->initial_provision;
+	}
+*/
+
 	public function getCategory()
 	{
 		if($budget = $this->findByAttributes(array('csv_id'=>substr($this->csv_id, 0, 3))))
@@ -383,6 +389,32 @@ class Budget extends CActiveRecord
 		}
 	}
 
+	/*
+	 * Has the provision been changed by the Administration?
+	 */
+	public function alert()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = :year AND parent IS NOT NULL';
+		$criteria->addCondition('initial_provision != actual_provision');
+		$criteria->addCondition('csv_id IS NOT NULL');
+		$criteria->params[":year"] = $this->year;	
+		
+		if ($this->find($criteria)){
+			return true;
+		}
+		return false;
+		/*
+		$budgets= $this->findAll($criteria);
+		foreach($budgets as $budget){
+			if ($budget->initial_provision != $budget->actual_provision){
+				return true;
+			}
+		}
+		return false;
+		*/
+	}
+	
 	public function budgetsWithoutDescription()
 	{
 		($this->csv_id)? $csv_id='AND b.csv_id LIKE "%'.$this->csv_id.'%"' : $csv_id='';
@@ -654,6 +686,23 @@ class Budget extends CActiveRecord
 			'criteria'=>$criteria,
 			'sort'=>array('defaultOrder'=>'t.featured DESC, t.weight DESC, t.csv_id ASC'),
 		));
+	}
+
+	/*
+	 * budgets displayed in modified grid at budget/index
+	 */
+	public function modifiedSearch()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'year = :year AND parent IS NOT NULL';
+		$criteria->addCondition('initial_provision != actual_provision');
+		$criteria->addCondition('CHAR_LENGTH(csv_id) > 1');	// don't show 'S' o 'I', etc
+		$criteria->params[":year"] = $this->year;	
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array('defaultOrder'=>'csv_id DESC'),
+		));	
 	}
 
 	/*

@@ -145,6 +145,14 @@
 	cursor:pointer;
 }
 
+#modified_menu_icon
+{
+	position:absolute;
+	top:15px;
+	right: 38px;
+	cursor:pointer
+}
+
 #featured_menu_icon
 {
 	position:absolute;
