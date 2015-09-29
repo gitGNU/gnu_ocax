@@ -21,14 +21,42 @@
 /* @var $this BudgetController */
 /* @var $model Budget */
 
+if ($featured){
+	?>
+<script>
+function filterbyFeatured(){
+	$.fn.yiiGridView.update('modified-budget-grid', {
+			data: $('#selectFeatured').serialize()
+		});
+}
+</script>
+<?php
+}
+
+
 echo '<div class="horizontalRule"></div>';
-echo '<div style="font-size: 1.5em; margin-top: -10px;">'.__('Modifications').'</div>';
-echo '<div style="margin-top:10px;">';
+echo '<div style="float:left; font-size: 1.5em; margin-top: -5px;">'.__('Modifications').'</div>';
+
+if ($featured){
+	$list=CHtml::listData($featured, 'csv_id', function($featured) {
+			return $featured->getTitle();
+		}
+	);
+	echo '<div style="float:left">';
+	echo CHtml::dropDownList('featuredFilter', $model->featuredFilter, array(''=>__('Not filtered')) + $list,
+							array(	'id'=>'selectFeatured',
+									'onchange'=>'js:filterbyFeatured();return false;'
+							));
+	echo '</div>';
+}
+
+echo '<div class="clear"></div>';
+echo '<div style="margin-top:5px;">';
 
 $this->widget('PGridView', array(
-	'id'=>'budget-grid',
-	'template' => '{items}{pager}',
-	'dataProvider'=>$model->modifiedSearch(),
+	'id'=>'modified-budget-grid',
+	'template' => '<span style="float:left; clear:both;">{summary}</span> {pager} <div style="clear:both;">{items}</div>',
+	'dataProvider'=>$dataProvider,
     'onClick'=>array(
         'type'=>'javascript',
         'call'=>'showBudget',
@@ -51,8 +79,8 @@ $this->widget('PGridView', array(
 				'value'=>function($data){
 					return format_number($data->initial_provision);
 				},
-				'headerHtmlOptions'=>array('style'=>'text-align: right'),
-				'htmlOptions'=>array('style'=>'text-align: right'),
+				'headerHtmlOptions'=>array('style'=>'text-align: right; white-space: nowrap'),
+				'htmlOptions'=>array('style'=>'text-align: right; white-space: nowrap'),
 			),	
 			array(
 				'name'=>__('actual_provision'),
@@ -60,22 +88,20 @@ $this->widget('PGridView', array(
 				'value'=>function($data){
 					return format_number($data->actual_provision);
 				},
-				'headerHtmlOptions'=>array('style'=>'text-align: right'),
-				'htmlOptions'=>array('style'=>'text-align: right'),
+				'headerHtmlOptions'=>array('style'=>'text-align: right; white-space: nowrap'),
+				'htmlOptions'=>array('style'=>'text-align: right; white-space: nowrap'),
 			),			
 			array(
-				'header'=>__('Difference'),
 				'type'=>'raw',
 				'value'=>function($data){
 					$diff = $data->actual_provision - $data->initial_provision;
-					//$diff = $data->getProvisionModification();
 					if ($diff > 0){
 						return '<span class="green">'.format_number($diff).'</span>';
 					}
 					return '<span class="red">'.format_number($diff).'</span>';
 				},
 				'headerHtmlOptions'=>array('style'=>'text-align: right'),
-				'htmlOptions'=>array('style'=>'text-align: right'),
+				'htmlOptions'=>array('style'=>'text-align: right; white-space: nowrap'),
 			),
 			array('class'=>'PHiddenColumn','value'=>'"$data[id]"'),
 )));

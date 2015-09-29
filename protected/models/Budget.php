@@ -46,6 +46,9 @@
  */
 class Budget extends CActiveRecord
 {
+	
+	public $featuredFilter = '';
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -84,7 +87,6 @@ class Budget extends CActiveRecord
 			array('parent, featured, weight', 'numerical', 'integerOnly'=>true),
 			array('year', 'date', 'format'=>'yyyy'),
 			array('initial_provision, actual_provision, trimester_1, trimester_2, trimester_3, trimester_4', 'type', 'type'=>'float'),
-			//array('initial_provision, actual_provision, t1, t2, t3, t4', 'length', 'max'=>14),
 			array('code', 'length', 'max'=>20),
 			array('csv_id, csv_parent_id', 'length', 'max'=>255),
 			//array('csv_id', 'unique', 'className' => 'Budget'),	// this is a good idea but need to check against year
@@ -92,7 +94,6 @@ class Budget extends CActiveRecord
 			array('year', 'unique', 'className'=>'Budget', 'on'=>'newYear'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			//array('parent, year, code, label, concept, provision, featured, weight', 'safe', 'on'=>'search'),
 			array('year, code, concept', 'safe', 'on'=>'search'),
 
 		);
@@ -247,13 +248,7 @@ class Budget extends CActiveRecord
 	public function getExecuted()
 	{
 		return $this->trimester_1 + $this->trimester_2 + $this->trimester_3 + $this->trimester_4;
-	}	
-
-/*
-	public function getProvisionModification(){
-		return $this->actual_provision - $this->initial_provision;
 	}
-*/
 
 	public function getCategory()
 	{
@@ -392,7 +387,7 @@ class Budget extends CActiveRecord
 	/*
 	 * Has the provision been changed by the Administration?
 	 */
-	public function alert()
+	public function hasModifications()
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'year = :year AND parent IS NOT NULL';
@@ -404,15 +399,6 @@ class Budget extends CActiveRecord
 			return true;
 		}
 		return false;
-		/*
-		$budgets= $this->findAll($criteria);
-		foreach($budgets as $budget){
-			if ($budget->initial_provision != $budget->actual_provision){
-				return true;
-			}
-		}
-		return false;
-		*/
 	}
 	
 	public function budgetsWithoutDescription()
@@ -658,14 +644,13 @@ class Budget extends CActiveRecord
 
 	public function featuredSearch()
 	{
-		//$root_budgets=$this->findAllByAttributes(array('parent'=>Null));
-		$criteria=new CDbCriteria;
-
 		/*
 		SELECT * FROM `budget` `t` LEFT JOIN budget as child
 		ON t.id = child.parent AND t.year = child.year 
 		WHERE (CHAR_LENGTH(t.csv_id) > 1) AND child.id IS NOT NULL group by t.id
 		*/
+		
+		$criteria=new CDbCriteria;
 		// we only show budgets that have children. otherwise the graphs don't make sense.
 		$criteria->select = 't.*';
 		$criteria->together = true;
@@ -695,13 +680,18 @@ class Budget extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'year = :year AND parent IS NOT NULL';
-		$criteria->addCondition('initial_provision != actual_provision');
+		$criteria->addCondition('initial_provision != actual_provision');	// modified true
 		$criteria->addCondition('CHAR_LENGTH(csv_id) > 1');	// don't show 'S' o 'I', etc
-		$criteria->params[":year"] = $this->year;	
+		if ($this->featuredFilter != ''){
+			$criteria->addCondition('csv_id LIKE :featured');
+			$criteria->params[":featured"] = "$this->featuredFilter%";
+		}
+		$criteria->params[":year"] = $this->year;
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'sort'=>array('defaultOrder'=>'csv_id DESC'),
+			'pagination'=>array('pageSize'=>40),
+			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));	
 	}
 
@@ -723,36 +713,5 @@ class Budget extends CActiveRecord
 			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));		
 	}
-	
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-/*
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('parent is not null');	// dont show year budget
-
-		//$criteria->compare('id',$this->id);
-		$criteria->compare('parent',$this->parent);
-		$criteria->compare('csv_id',$this->csv_id,true);
-		$criteria->compare('csv_parent_id',$this->csv_parent_id,true);
-		$criteria->compare('year',$this->year);
-		$criteria->compare('code',$this->code);
-		$criteria->compare('label',$this->label,true);
-		$criteria->compare('concept',$this->concept,true);
-		$criteria->compare('initial_provision',$this->initial_provision);
-		$criteria->compare('featured',$this->featured);
-		//$criteria->compare('weight',$this->weight);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-*/
 }
 

@@ -287,36 +287,6 @@ class BudgetController extends Controller
 	}
 
 	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-
-	/*
-	public function actionUpdate($id)
-	{
-		if(!Yii::app()->request->isAjaxRequest)
-			Yii::app()->end();
-
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if(isset($_POST['Budget']))
-		{
-			$model->attributes=$_POST['Budget'];
-			if($model->save())
-				echo 1;
-			else
-				echo 0;
-			Yii::app()->end();
-		}
-		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('update',array('model'=>$model),true,true)));
-	}
-	*/
-
-	/**
 	 * List budgets without corresponding budgetDescription.
 	 */
 	public function actionNoDescriptions()
@@ -571,21 +541,6 @@ class BudgetController extends Controller
 		$this->pageTitle=__('Budgets').' '.Config::model()->findByPk('administrationName')->value;
 		$model = new Budget('search');
 
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['year'])){
-			if(strtotime($_GET['year']) !== false)
-				$model->year = $_GET['year'];
-			else
-				$model->year = Config::model()->findByPk('year')->value;
-
-			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
-		}
-		elseif (isset(Yii::app()->request->cookies['year']) && strtotime(Yii::app()->request->cookies['year']->value) !== false){
-			$model->year = Yii::app()->request->cookies['year']->value;
-		}else{
-			$model->year = Config::model()->findByPk('year')->value;
-		}
-
 		if (isset($_GET['display'])){
 			$display=$_GET['display'];
 			Yii::app()->request->cookies['display'] = new CHttpCookie('display', $display);
@@ -595,19 +550,40 @@ class BudgetController extends Controller
 		}else{
 			$display='pie';
 		}
-
+		
+		$model->unsetAttributes();  // clear any default values
 		if (isset($_GET['Budget'])) {
 			$model->setScenario('search');
 			$model->attributes = $_GET['Budget'];
 		}
 
-		if (strtotime($model->year) === false){
+		if (isset($_GET['year'])){
+			if (strtotime($_GET['year']) !== false){
+				$model->year = $_GET['year'];
+			}else{
+				$model->year = Config::model()->findByPk('year')->value;
+			}
+			Yii::app()->request->cookies['year'] = new CHttpCookie('year', $model->year);
+		}
+		elseif (isset(Yii::app()->request->cookies['year']) && strtotime(Yii::app()->request->cookies['year']->value) !== false){
+			$model->year = Yii::app()->request->cookies['year']->value;
+		}else{
 			$model->year = Config::model()->findByPk('year')->value;
+		}
+		if (isset($_GET['featuredFilter'])){
+			$model->featuredFilter = $_GET['featuredFilter'];
+		}
+
+		if ($display == 'modified'){
+			$modifiedDataProvider = $model->modifiedSearch();
+		}else{
+			$modifiedDataProvider = Null;
 		}
 
 		$this->render('index', array(
 			'model' => $model,
 			'display' => $display,
+			'modifiedDataProvider' => $modifiedDataProvider,
 		));
 	}
 
@@ -632,18 +608,14 @@ class BudgetController extends Controller
 		}else{
 			$display='pie';
 		}
-		if ($display != 'pie' || $display != 'bar'){
+		if (!($display == 'pie' || $display == 'bar')){
 			$display = 'pie';
 		}
-/*
-		if (isset($_GET['Budget'])) {
-			$model->attributes = $_GET['Budget'];
-		}
-*/
 		$this->render('index', array(
 			'model' => $model,
 			'root_budget' => $root_budget,
 			'display' => $display,
+			'showModifiedAlert' => false,
 		));
 	}
 

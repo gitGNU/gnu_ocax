@@ -24,14 +24,12 @@
 Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 
 $year = $model->year;
-$showFeaturedMenu=0;
+$showFeaturedMenu=false;
 $featured = array();
 
-if(isset($root_budget)){
+if (isset($root_budget)){
 	$featured[]=$root_budget;
-	$showModifiedAlert = false;
 }else{
-	$showModifiedAlert = true;
 	$criteria = new CDbCriteria;
 	$criteria->condition = 'year = :year AND parent is NULL';
 	$criteria->params[":year"] = $year;
@@ -43,9 +41,13 @@ if(isset($root_budget)){
 		else{
 			$featured=$root_budget->getFeatured();
 		}
-		if(count($featured) > 2)
-			$showFeaturedMenu=1;
+		if (count($featured) > 2 && $display != 'modified'){
+			$showFeaturedMenu=true;
+		}
 	}
+}
+if (!isset($showModifiedAlert)){
+	$showModifiedAlert = true;
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -213,7 +215,7 @@ if(count($years) > 1){
 								));
 		echo '</div>';
 	echo '</div>';
-	echo '<i class="icon-calendar" style="float:right; font-size:40px;"></i>';
+	echo '<i class="icon-calendar" style="float:right; font-size:40px; color: #7D7D7D"></i>';
 }
 ?>
 <!--  Select year finished  -->
@@ -269,7 +271,7 @@ if(count($years) > 1){
 		include(svgDir().'graph-type-bar.svg');
 		echo '</span>';
 
-		if ($showModifiedAlert && $model->alert()){
+		if ($showModifiedAlert && $model->hasModifications()){
 			echo '<i id="modified_menu_icon" class="icon-alert color" style="font-size:42px" onclick="window.location=\''.$change.'=modified\'"></i>';
 		}
 		
@@ -320,7 +322,7 @@ if(count($years) > 1){
 		echo '<div class="sub_title" style="margin:20px 0 60px 0;">'. __('No data available').'</div>';
 	}else{
 		if ($display == 'modified'){
-			$this->renderPartial('_indexModified',array('model'=>$model));
+			$this->renderPartial('_indexModified',array('model'=>$model,'featured'=>$featured, 'dataProvider'=>$modifiedDataProvider));
 		}elseif ($display == 'bar'){
 			$this->renderPartial('_indexBar',array('model'=>$model,'featured'=>$featured));
 		}else{
