@@ -68,12 +68,14 @@
 					array_splice( $items, 0, 0, array($item) );
 				}
 			}
+			/*
 			if(!Yii::app()->user->isGuest){
 				$item = array(	'label'=>__('My page'),
 								'url'=>array('/user/panel'),
 						);
 				array_splice( $items, 0, 0, array($item) );
 			}
+			*/
 			$this->widget('application.extensions.mbmenu.MbMenu',array(
 				'items'=>$items,
 			));

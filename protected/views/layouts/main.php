@@ -93,8 +93,13 @@
 	</li>
 	<li>
 	<?php
-		echo CHtml::link('<i class="icon-home header-icons"></i>', array('/site/index'));
-		echo '<span>'.CHtml::link(__('Home'), array('/site/index')).'</span>';
+		if (Yii::app()->user->isGuest){
+			echo CHtml::link('<i class="icon-home header-icons"></i>', array('/site/index'));
+			echo '<span>'.CHtml::link(__('Home'), array('/site/index')).'</span>';
+		}else{
+			echo CHtml::link('<i class="icon-home header-icons"></i>', array('/user/panel'));
+			echo '<span>'.CHtml::link(__('My page'), array('/user/panel')).'</span>';
+		}
 	?>
 	</li>
 </ul>

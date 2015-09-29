@@ -264,19 +264,19 @@ if(count($years) > 1){
 	<?php
 		echo '<div class="budgetOptions" style="position:relative">';
 		$change=Yii::app()->request->baseUrl.'/'.Yii::app()->request->pathInfo.'?display';
-		echo '<span style="cursor:pointer" onclick="window.location=\''.$change.'=pie\'">';
+		echo '<span style="cursor:pointer" title="'.__('Pie graph').'" onclick="window.location=\''.$change.'=pie\'">';
 		include(svgDir().'graph-type-pie.svg');
 		echo '</span>';
-		echo '<span style="cursor:pointer" onclick="window.location=\''.$change.'=bar\'">';
+		echo '<span style="cursor:pointer" title="'.__('Bar graph').'" onclick="window.location=\''.$change.'=bar\'">';
 		include(svgDir().'graph-type-bar.svg');
 		echo '</span>';
 
 		if ($showModifiedAlert && $model->hasModifications()){
-			echo '<i id="modified_menu_icon" class="icon-alert color" style="font-size:42px" onclick="window.location=\''.$change.'=modified\'"></i>';
+			echo '<i id="modified_menu_icon" class="icon-alert color" style="font-size:42px" title="'.__('Modifications').'" onclick="window.location=\''.$change.'=modified\'"></i>';
 		}
 		
 		if($showFeaturedMenu){
-			echo '<i id="featured_menu_icon" class="icon-indent-left color" style="font-size:38px" onclick="js:toggleFeaturedMenu()"></i>';
+			echo '<i id="featured_menu_icon" class="icon-indent-left color" style="font-size:38px" title="'.__('Featured budgets').'" onclick="js:toggleFeaturedMenu()"></i>';
 			echo '<ul id="featured_menu">';
 			foreach($featured as $budget)
 				echo '<li anchor="#anchor_'.$budget->id.'">'.$budget->getConcept().'</li>';
@@ -285,7 +285,7 @@ if(count($years) > 1){
 		echo '</div>';
 
 		if($zip = File::model()->findByAttributes(array('model'=>'DatabaseDownload'))){
-			echo '<div class="budgetOptions" style="float:left; margin-bottom:-20px;">';
+			echo '<div class="budgetOptions" style="float:left; margin-bottom:-20px;" title="'.__('Download data').'">';
 			echo '<span id="download_database" onclick="window.location=\''.$zip->webPath.'\'">';
 			include(svgDir().'download-database.svg');
 			echo '</span>';
