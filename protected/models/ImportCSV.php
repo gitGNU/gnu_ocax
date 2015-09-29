@@ -175,7 +175,6 @@ class ImportCSV extends CFormModel
 			}
 
 			list($id, $code, $initial_prov, $actual_prov, $t1, $t2, $t3, $t4, $label, $concept) = explode("|", $line);
-			file_put_contents('/tmp/prov', '-'.$initial_prov.'-');
 			$id = trim($id);
 			if(in_array($id, $ids)) {
 				$error[]='<br />Register '. ($line_num+1) .': Internal code "'.$id.'" is not unique';
@@ -698,9 +697,6 @@ class ImportCSV extends CFormModel
 
 	public function createCSV($year)
 	{
-		//if(strtotime($year) === false)
-		//	return Null;
-
 		$file = new File;
 		$file->name = $year.'.csv';
 		$file->model = 'DatabaseDownload/data';
@@ -712,11 +708,29 @@ class ImportCSV extends CFormModel
 													trimester_1, trimester_2, trimester_3, trimester_4
 													FROM budget
 													WHERE year = '.$year.' AND parent IS NOT NULL');
+
+		if ($this->_writeCSV($file->getURI(), $budgets)){
+			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('d-m-Y H:i:s').')';
+			$file->save();
+			return array($file, $budgets);
+		}
+		return false;
+	}
+
+	public function createModifiedBudgetsCSV($year)
+	{
+		
+	}
+
+
+	private function _writeCSV($filename, $budgets)
+	{
 		$csv = array();
 		$lang = getDefaultLanguage();
+		$description = new BudgetDescLocal;
 		foreach($budgets as $b){
 			// we add new localDescription data to the csv
-			$desc = BudgetDescLocal::model()->getDescriptionFields($b->csv_id, $lang);
+			$desc = $description->getDescriptionFields($b->csv_id, $lang);
 			
 			$label = $desc['label'] ? $desc['label'] : $b->label;
 			$concept = $desc['concept'] ? $desc['concept'] : $b->concept;
@@ -748,12 +762,11 @@ class ImportCSV extends CFormModel
         fwrite($fh,$content);
         fclose($fh);
 
-		if (copy($tmp_fn, $file->getURI())) {
+		if (copy($tmp_fn, $filename)) {
 			unlink($tmp_fn);
-			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('d-m-Y H:i:s').')';
-			$file->save();
-			return array($file, $budgets);
-		}else
-			return Null;
+			return true;
+		}else{
+			return false;		
+		}
 	}
 }

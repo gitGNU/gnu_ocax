@@ -374,16 +374,41 @@ class CsvController extends Controller
 	 */
 	public function actionExport($id)
 	{
+		if (!Budget::model()->findByAttributes(array('year'=>$id)) ){
+			return false;
+		}
 		$model = new ImportCSV;
 		if(list($file, $budgets) = $model->createCSV($id)){
 			$download='<a href="'.$file->getWebPath().'">'.$file->getWebPath().'</a>';
 			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported<br />'.$download);
 
 			$criteria=new CDbCriteria;
-			$criteria->condition='parent IS NULL AND year='.$id;
+			$criteria->condition='parent IS NULL AND year=:year';
+			$criteria->params[":year"] = $id;
 			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 		}
 	}
+
+	/*
+	 * Export a years modifications in a csv file
+	 */
+	public function actionExportModifications($id)
+	{
+		if (!Budget::model()->findByAttributes(array('year'=>$id)) ){
+			return false;
+		}
+		$model = new ImportCSV;
+		if(list($file, $budgets) = $model->createModifiedBudgetsCSV($id)){
+			$download='<a href="'.$file->getWebPath().'">'.$file->getWebPath().'</a>';
+			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported<br />'.$download);
+
+			$criteria=new CDbCriteria;
+			$criteria->condition='parent IS NULL AND year=:year';
+			$criteria->params[":year"] = $id;
+			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
+		}
+	}
+	
 
 	/*
 	 * Part of the import CSV process

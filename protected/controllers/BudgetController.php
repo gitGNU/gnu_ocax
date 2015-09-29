@@ -543,7 +543,9 @@ class BudgetController extends Controller
 
 		if (isset($_GET['display'])){
 			$display=$_GET['display'];
-			Yii::app()->request->cookies['display'] = new CHttpCookie('display', $display);
+			if ($display == 'pie' || $display == 'bar'){
+				Yii::app()->request->cookies['display'] = new CHttpCookie('display', $display);
+			}
 		}
 		elseif (isset(Yii::app()->request->cookies['display'])){
 			$display=Yii::app()->request->cookies['display']->value;

@@ -688,9 +688,12 @@ class Budget extends CActiveRecord
 		}
 		$criteria->params[":year"] = $this->year;
 		
+		//$criteria->compare('code', $this->code);
+		//$criteria->compare('concept', $this->concept, true);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination'=>array('pageSize'=>40),
+			'pagination'=>array('pageSize'=>60),
 			'sort'=>array('defaultOrder'=>'csv_id ASC'),
 		));	
 	}

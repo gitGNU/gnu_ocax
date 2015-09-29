@@ -22,20 +22,20 @@
 /* @var $model Budget */
 
 if ($featured){
-	?>
-<script>
-function filterbyFeatured(){
-	$.fn.yiiGridView.update('modified-budget-grid', {
-			data: $('#selectFeatured').serialize()
-		});
-}
-</script>
+?>
+	<script>
+	function filterbyFeatured(){
+		$.fn.yiiGridView.update('modified-budget-grid', {
+				data: $('#selectFeatured').serialize()
+			});
+	}
+	</script>
 <?php
 }
 
-
 echo '<div class="horizontalRule"></div>';
-echo '<div style="float:left; font-size: 1.5em; margin-top: -5px;">'.__('Modifications').'</div>';
+echo '<div style="font-size: 1.5em;">';
+echo '<span style="float:left; margin: -5px 10px 0 0">'.__('Modifications').'</span>';
 
 if ($featured){
 	$list=CHtml::listData($featured, 'csv_id', function($featured) {
@@ -49,14 +49,17 @@ if ($featured){
 							));
 	echo '</div>';
 }
-
+//echo '<a href="" target="_blank" style="float:right;"><i class="icon-download-alt"></i></a>';
+echo '</div>';
 echo '<div class="clear"></div>';
+
 echo '<div style="margin-top:5px;">';
 
 $this->widget('PGridView', array(
 	'id'=>'modified-budget-grid',
 	'template' => '<span style="float:left; clear:both;">{summary}</span> {pager} <div style="clear:both;">{items}</div>',
 	'dataProvider'=>$dataProvider,
+	//'filter'=>$model,
     'onClick'=>array(
         'type'=>'javascript',
         'call'=>'showBudget',
@@ -71,7 +74,7 @@ $this->widget('PGridView', array(
 			array(
 				'header'=>__('Budget'),
 				'name'=>'concept',
-				'value'=>'$data->concept',
+				'value'=>'$data->getConcept()',
 			),
 			array(
 				'name'=>__('initial_provision'),
