@@ -27,6 +27,8 @@ $this->menu=array(
 );
 $this->inlineHelp=':manual:enquiry:manage';
 $this->viewLog='Enquiry|'.$model->id;
+
+echo $this->renderPartial('_validationOptions');
 ?>
 
 <style>           
@@ -36,10 +38,6 @@ $this->viewLog='Enquiry|'.$model->id;
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
-function reject(){
-	$('#Enquiry_state').val('rejected');
-	$('#enquiry-form').submit();
-}
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
@@ -95,34 +93,15 @@ function disableUser(){
 		}
 	});
 }
-$(function() {
-	$("#Enquiry_addressed_to_1").on('click', function() {
-		var val = confirm("<?php echo __('Are you sure?');?>");
-		if(val == false){
-			$('#Enquiry_addressed_to_1').prop("checked",false);
-			$('#Enquiry_addressed_to_0').prop("checked",true);
-		}
-	});
-})
-function addressToObservatory(){
-	var val = confirm("<?php echo __('Are you sure?');?>");
-	if(val == false)
-		$('#Enquiry_addressed_to_1').prop("checked",false);
-}
 </script>
 
 <h1><?php echo __('Manage enquiry');?></h1>
-
-
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'enquiry-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
-
-
 
 	<p style="font-style: italic;">
 	<?php echo __('Please study the enquiry below before continuing').'.'?>

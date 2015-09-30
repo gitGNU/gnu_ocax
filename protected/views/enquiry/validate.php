@@ -28,6 +28,9 @@ $this->menu=array(
 );
 $this->inlineHelp=':manual:enquiry:validate';
 $this->viewLog='Enquiry|'.$model->id;
+
+echo $this->renderPartial('_validationOptions');
+
 ?>
 
 <style>           
@@ -36,23 +39,10 @@ $this->viewLog='Enquiry|'.$model->id;
 </style>
 
 <script>
-function reject(){
-	$('#Enquiry_state').val('<?php echo ENQUIRY_REJECTED;?>');
-	$('#enquiry-form').submit();
-}
 function validate(){
 	$('#Enquiry_state').val('<?php echo ENQUIRY_ACCEPTED;?>');
 	$('#enquiry-form').submit();
 }
-$(function() {
-	$("#Enquiry_addressed_to_1").on('click', function() {
-		var val = confirm("<?php echo __('Are you sure?');?>");
-		if(val == false){
-			$('#Enquiry_addressed_to_1').prop("checked",false);
-			$('#Enquiry_addressed_to_0').prop("checked",true);
-		}
-	});
-})
 </script>
 
 <div class="form">
