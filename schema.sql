@@ -414,7 +414,7 @@ INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigS
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusUptodate', '0', '1', 'OCAx version is up to date');
 INSERT INTO config(parameter, value, required, description) VALUES ('siteConfigStatusPostInstallChecked', '0', '1', 'Post installation check');
 
-INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '3', '0', 'Database schema version');
+INSERT INTO config(parameter, value, can_edit, description) VALUES ('schemaVersion', '4', '0', 'Database schema version');
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpMethod', '0', '1', 'Email server'); /* 0=SMTP, 1=Sendmail */
 INSERT INTO config(parameter, value, required, description) VALUES ('smtpAuth', '1', '1', 'SMTP Auth'); /*  0=No, 1=Yes */
 INSERT INTO config(parameter, required, description) VALUES ('smtpHost', '0', 'SMTP Server');
@@ -429,6 +429,6 @@ INSERT INTO config(parameter, required, description) VALUES ('socialTwitterURL',
 INSERT INTO config(parameter, required, description) VALUES ('socialTwitterUsername', '0', "Observatory's twitter username");
 INSERT INTO config(parameter, required, description) VALUES ('telephone', '0', 'Contact telephone');
 INSERT INTO config(parameter, value, required, description) VALUES ('vaultDefaultCapacity', '3', '1', 'Default vault capacity');
-INSERT INTO config(parameter, value, required, description) VALUES ('year', '2015', '1', 'Default Year (this year)');
+INSERT INTO config(parameter, value, required, description) VALUES ('year', '2015', '1', 'Default Year. Most recent published year');
 INSERT INTO config(parameter, value, required, description) VALUES ('showExport', '1', '0', 'Show "Enquiry export" PDF button');
 

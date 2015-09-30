@@ -133,6 +133,16 @@ class Archive extends CActiveRecord
 		return $name;
 	}
 
+	public function getParentContainerName()
+	{
+		if ($this->container0){
+			return $this->container0->name;
+		}else{
+			return __('index');
+		}
+	}
+
+
 	public function getURI()
 	{
 		if ($this->is_container){

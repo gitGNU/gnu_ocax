@@ -230,7 +230,8 @@ if($priviliged){
 <?php
 if($container){
 	echo '<div id="upLevel">';
-	echo '<a href="'.$container->getParentContainerURL().'"><i class="icon-back color"></i>'.__('up a level').'</a>';
+	echo '<a href="'.$container->getParentContainerURL().'"><i class="icon-back color"></i>'.__('up to');
+	echo '&nbsp;&nbsp;"'.$container->getParentContainerName().'"</a>';
 	echo '</div>';
 }
 ?>
