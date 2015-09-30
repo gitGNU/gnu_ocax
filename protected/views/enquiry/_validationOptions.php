@@ -21,7 +21,7 @@
 ?>
 <style>
 .addressedToAlert{
-	displat: none;
+	display: none;
 }
 </style>
 
@@ -53,10 +53,6 @@ function changeAddressedToCanceled(){
 	$('#Enquiry_addressed_to_0').prop("checked",true);
 	alert_cnt = 0;	
 }
-function validate(){
-	$('#Enquiry_state').val('<?php echo ENQUIRY_ACCEPTED;?>');
-	$('#enquiry-form').submit();
-}
 function reject(){
 	$('#Enquiry_state').val('<?php echo ENQUIRY_REJECTED;?>');
 	$('#enquiry-form').submit();
@@ -70,23 +66,19 @@ $(function() {
 
 <div id="alert_popup" class="modal" style="width:500px;">
 	<div id="alert_popup_content">
-	<div class="modalTitle"><?php echo __('Are you sure?');?>
-	&nbsp;
-	<span id ="alert_cnt"></span>
-	</div>
-	<p style="font-size:18px; padding-top:10px;">
+	<div class="modalTitle"><?php echo __('Are you sure?');?>&nbsp;<span id ="alert_cnt"></span></div>
+	<p style="font-size:18px; padding-top:20px;">
 		<?php echo '<span id="alert_1" class="addressedToAlert">'.__('What the Administration says matters, not the opinion of the Observatory!').'</span>';?>
 		<?php echo '<span id="alert_2" class="addressedToAlert">'.__('The Observatory is not the local authority!').'</span>';?>
 		<?php echo '<span id="alert_3" class="addressedToAlert">'.__('Citizens build a position of force when the Administration pronounces itself!').'</span>';?>
 		<br /><br />
+
+		<?php echo __('Are you sure the observatory should respond to the enquiry?');?>
+		<br />
 		<span	class="link" 
 				onClick="<?php echo 'js:showHelp(\''.getInlineHelpURL(":manual:enquiry:who-replies").'\')';?>">
-				<?php echo __('Read more about this decision');?>
+				<?php echo __('Read more about this decision');?><i class="icon-popup-1"></i>
 		</span>
-		<i class="icon-popup-1"></i>
-	</p>
-	<p>
-		<?php echo __('Are you sure the observatory should respond to the enquiry?');?>
 	</p>
 	<input type="button" value="&nbsp;<?php echo __('Yes');?>&nbsp;" onClick="js:changeAddressedTo();return false;" />
 	&nbsp;&nbsp;&nbsp;

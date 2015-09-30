@@ -662,8 +662,7 @@ class EnquiryController extends Controller
 			if( $model->addressed_to == OBSERVATORY)
 				$model->addressToObservatory();
 
-			if($model->state == 'rejected'){
-				$model->state = ENQUIRY_REJECTED;
+			if($model->state == ENQUIRY_REJECTED){
 				$model->assigned = Null;
 				$model->team_member = Null;
 				Log::model()->write('Enquiry',__('Enquiry').' '.$model->id.' '.__('rejected by team manager'), $model->id);
