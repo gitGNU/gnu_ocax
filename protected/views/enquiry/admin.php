@@ -41,19 +41,24 @@ function toggleSearchOptions(){
 	}
 }
 </script>
-<div style="position:relative;">
-	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
-		<i class="icon-search-circled"></i>
+<div style="position:relative;" >
+	<div class="teamMenu" onCLick="js:window.location.href = '<?php echo $this->createUrl('/user/panel');?>';">
+		<i class="icon-home"></i>
 	</div>
 </div>
 <div style="position:relative; right:40px" >
+	<div class="teamMenu" class="color" onCLick="js:viewLog('Enquiry');return false;">
+		<i class="icon-book"></i>
+	</div>
+</div>
+<div style="position:relative; right:80px" >
 	<div class="teamMenu" onCLick="js:showHelp('<?php echo getInlineHelpURL(":manual:enquiry:admin");?>');return false;">
 		<i class="icon-help-circled"></i>
 	</div>
 </div>
-<div style="position:relative; right:80px" >
-	<div class="teamMenu" class="color" onCLick="js:viewLog('Enquiry');return false;">
-		<i class="icon-book"></i>
+<div style="position:relative; right:120px">
+	<div id="searchOptionsToggle" class="color" onCLick="js:toggleSearchOptions();return false;">
+		<i class="icon-search-circled"></i>
 	</div>
 </div>
 <?php $this->widget('InlineHelp'); ?>

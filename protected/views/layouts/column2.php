@@ -42,14 +42,12 @@
 		$this->menu = array_merge( $this->menu, $mypage );
 
 		$title=__('Options');
-		if($this->inlineHelp){
-			$help = CHtml::link(
-				'<i style="float:right;font-size:23px;color:#f5f1ed;" class="icon-help-circled"></i>', 
+		$myPage = CHtml::link(
+				'<i style="float:right;font-size:23px;color:#f5f1ed;" class="icon-home"></i>', 
 				'#',
-				array('onClick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");','title'=>__('Help'))
+				array('onClick'=>'js:window.location.href = "'.$this->createUrl('/user/panel').'";','title'=>__('My page'))
 			);
-			$title=$title.$help;
-		}
+		$title=$title.$myPage;		
 		if($this->viewLog){
 			$params = explode('|',$this->viewLog);
 			$param = '"'.$params[0].'"';
@@ -62,7 +60,14 @@
 			);			
 			$title=$title.$log;
 		}
-		
+		if($this->inlineHelp){
+			$help = CHtml::link(
+				'<i style="float:right;font-size:23px;color:#f5f1ed;" class="icon-help-circled"></i>', 
+				'#',
+				array('onClick'=>'js:showHelp("'.getInlineHelpURL($this->inlineHelp).'");','title'=>__('Help'))
+			);
+			$title=$title.$help;
+		}		
 		//http://www.yiiframework.com/doc/blog/1.1/en/portlet.menu
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>$title,
