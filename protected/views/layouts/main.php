@@ -61,7 +61,7 @@
 				echo CHtml::link('<i class="icon-user-female header-icons"></i>', array('/site/login'));
 				echo '<span>'.CHtml::link(__('Login'), array('/site/login')).'</span>';
 			}else{
-				echo CHtml::link('<i class="icon-user-female header-icons"></i>', array('/site/logout'));
+				echo CHtml::link('<i class="icon-logout header-icons"></i>', array('/site/logout'));
 				echo '<span>'.CHtml::link(__('Logout').' ('.Yii::app()->user->id.')', array('/site/logout')).'</span>';
 			}
 		?>
@@ -80,7 +80,6 @@
 	?>
 	<li>
 	<?php
-		//echo CHtml::link('<i class="icon-mail-2 header-icons"></i>', array('/newsletter'));
 		echo CHtml::link('<i class="icon-megaphone header-icons"></i>', array('/newsletter'));
 		echo '<span>'.CHtml::link(__('Newsletters'), array('/newsletter')).'</span>';
 	?>
@@ -91,17 +90,14 @@
 		echo '<span>'.CHtml::link(__('Archive'), array('/archive')).'</span>';
 	?>
 	</li>
-	<li>
 	<?php
-		if (Yii::app()->user->isGuest){
-			echo CHtml::link('<i class="icon-home header-icons"></i>', array('/site/index'));
-			echo '<span>'.CHtml::link(__('Home'), array('/site/index')).'</span>';
-		}else{
+		if (!Yii::app()->user->isGuest){
+			echo '<li>';
 			echo CHtml::link('<i class="icon-home header-icons"></i>', array('/user/panel'));
 			echo '<span>'.CHtml::link(__('My page'), array('/user/panel')).'</span>';
+			echo '</li>';
 		}
 	?>
-	</li>
 </ul>
 
 </div>

@@ -20,6 +20,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ?>
 
+<style>
+#cookie_ok{
+	border-radius: 4px;
+	background-color: #FF4500;
+	color: white;
+	padding: 0 7px 1px 7px;
+	cursor: pointer;
+}
+</style>
 <script>
 function acceptCookies(){
 	$.ajax({
@@ -34,5 +43,5 @@ function acceptCookies(){
 echo	Config::model()->getObservatoryName().' '.
 		__('uses Twitter and Facebook cookies that collect statistics. By using this web site you accept this.').' ';
 ?>
-<span class="link" style="color:yellow" onclick="js:acceptCookies()"><?php echo __('Ok'); ?></span>
+<span id="cookie_ok" onclick="js:acceptCookies()"><?php echo __('Ok'); ?></span>
 </div>
