@@ -211,10 +211,11 @@ function deleteArchive(archive_id){
 echo '<h1 style="float:left;"><i class="icon-folder-1"></i> '.__('Archive').'</h1>';
 if($priviliged){
 	echo '<div id="archiveOptions">';
+	echo '<i title="'.__("Upload a file").'" class="icon-upload-cloud" onClick="js:uploadFile();return false;"></i>';
+	echo '<i title="'.__("Create a folder").'" class="icon-folder-1" onClick="js:createContainer();return false;"></i>';
 	echo '<i title="'.__("Help").'" class="icon-help-circled" onCLick="js:showHelp(\''.getInlineHelpURL(":archive").'\');return false;"></i>';
 	echo '<i title="'.__("Log").'" class="icon-book" onCLick="js:viewLog(\'Archive\');return false;"></i>';
-	echo '<i title="'.__("Create a folder").'" class="icon-folder-1" onClick="js:createContainer();return false;"></i>';
-	echo '<i title="'.__("Upload a file").'" class="icon-upload-cloud" onClick="js:uploadFile();return false;"></i>';
+	echo '<i title="'.__("My page").'" class="icon-home" onCLick="js:window.location.href = \''.$this->createUrl('/user/panel').'\';"></i>';
 	echo '</div>';
 }
 ?>

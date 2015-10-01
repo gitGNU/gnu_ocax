@@ -26,7 +26,9 @@ $this->menu=array(
 	array('label'=>__('Create page'), 'url'=>array('create')),
 );
 $this->inlineHelp=':manual:intropage:admin';
+$this->viewLog='introPage';
 ?>
+
 <h1><?php echo __('Manage Introduction pages');?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(

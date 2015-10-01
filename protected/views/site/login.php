@@ -64,7 +64,7 @@ function requestNewPasswd(){
 
 <div class="outer">
 <div class="left">
-<h1><?php echo __('Login')?></h1>
+<h1><?php echo __('Login')?><i class="icon-user-female"></i></h1>
 	
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(

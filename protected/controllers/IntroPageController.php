@@ -108,7 +108,7 @@ class IntroPageController extends Controller
 				$model->save();
 				$content->page=$model->id;
 				$content->save();
-				Log::model()->write('introPage',__('introPage').' "'.$content->title.'" '.__('created'));
+				Log::model()->write('introPage',__('introPage').' "'.$content->title.'" '.__('created'), $model->id);
 				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
@@ -157,7 +157,7 @@ class IntroPageController extends Controller
 			if($model->validate() && $content->validate()){
 				$model->save();
 				$content->save();
-				Log::model()->write('introPage',__('introPage').' "'.$content->title.'" '.__('updated'));
+				Log::model()->write('introPage',__('introPage').' "'.$content->title.'" '.__('updated'), $model->id);
 				$this->redirect(array('view','id'=>$model->id,'lang'=>$content->language));
 			}
 		}
@@ -183,7 +183,7 @@ class IntroPageController extends Controller
 				$content->delete();		
 		$model->delete();
 		
-		Log::model()->write('introPage',__('introPage').' "'.$title.'" '.__('deleted'));
+		Log::model()->write('introPage',__('introPage').' "'.$title.'" '.__('deleted'), $model->id);
 		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

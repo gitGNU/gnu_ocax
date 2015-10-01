@@ -34,6 +34,7 @@ $this->menu=array(
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':manual:intropage:create';
+$this->viewLog='introPage|'.$model->id;
 ?>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'content'=>$content,'title'=>__('Update page'))); ?>
