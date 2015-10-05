@@ -291,7 +291,6 @@ class EnquiryController extends Controller
 			$model->title = htmLawed::hl($model->title, array('elements'=>'-*', 'keep_bad'=>0));
 			$model->body = htmLawed::hl($model->body, array('safe'=>1, 'deny_attribute'=>'script, class, id'));
 
-			//$related_enquiry=Enquiry::model()->findByPk($model->related_to);
 			$model->team_member=$related_enquiry->team_member;
 			$model->assigned=date('Y-m-d');
 			$model->modified = date('c');
@@ -305,14 +304,17 @@ class EnquiryController extends Controller
 				$description->save();
 				
 				// subscribe users to this new enquiry
-				foreach($related_enquiry->subscriptions as $old_subscription){
-					$subscription=new EnquirySubscribe;
-					$subscription->user = $old_subscription->user;
-					$subscription->enquiry = $model->id;
-					$subscription->save();					
+				if ($model->relatedTo){
+					foreach($model->relatedTo->subscriptions as $old_subscription){
+						$subscription=new EnquirySubscribe;
+						$subscription->user = $old_subscription->user;
+						$subscription->enquiry = $model->id;
+						$subscription->save();					
+					}
 				}
-				
-				Yii::app()->user->setFlash('success', __('New reformulated enquiry created OK'));			
+				Yii::app()->user->setFlash('success', __('New reformulated enquiry created OK'));
+				Log::model()->write('Enquiry', __('New enquiry').'. id='.$model->id, $model->id);		
+				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('assigned to team member').' '.User::model()->findByPk($model->team_member)->username, $model->id);
 				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}

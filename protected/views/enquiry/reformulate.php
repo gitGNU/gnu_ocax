@@ -29,15 +29,7 @@ $this->menu=array(
 );
 
 $this->inlineHelp=':profiles:team_member';
-$this->viewLog='Enquiry|'.$related_enquiry->id;
-?>
-
-<?php
-if(!$model->budget){
-	echo '<div style="margin-top:-10px;margin-bottom:15px;">';
-	echo __('If you wish to formulate a budgetary enquiry, you must first').' '.CHtml::link(__('find the corresponding budget'),array('/budget')).'</div>';
-
-}
+//$this->viewLog='Enquiry|'.$related_enquiry->id;
 ?>
 
 <div style="padding:10px">
