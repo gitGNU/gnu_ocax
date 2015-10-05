@@ -31,7 +31,7 @@ return array(
 	'behaviors' => array('ApplicationConfigBehavior'),
 	
 	// preloading 'log' component
-	'preload'=>array('log'),
+	//'preload'=>array('log'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -56,7 +56,7 @@ return array(
 	'components'=>array(
 		'request'=>array(
 			'enableCookieValidation'=>true,
-			'enableCsrfValidation'=>true,
+			//'enableCsrfValidation'=>true,	/* this generates errors */
 		),
 		'messages' => array(
 			'class' => "CGettextMessageSource",
@@ -115,7 +115,7 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
-
+		/*
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
@@ -124,12 +124,13 @@ return array(
 					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
+
+				//array(
+				//	'class'=>'CWebLogRoute',
+				//),
+
 			),
 		),
+		*/
 	),
 );
