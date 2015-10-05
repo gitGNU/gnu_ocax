@@ -54,6 +54,10 @@ return array(
 
 	// application components
 	'components'=>array(
+		'request'=>array(
+			'enableCookieValidation'=>true,
+			'enableCsrfValidation'=>true,
+		),
 		'messages' => array(
 			'class' => "CGettextMessageSource",
 			'useMoFile' => TRUE,

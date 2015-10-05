@@ -26,7 +26,7 @@ $this->menu=array(
 	array('label'=>__('Local descriptions'), 'url'=>array('admin')),
 	array('label'=>__('State descriptions'), 'url'=>array('budgetDescription/browseState')),
 );
-$this->inlineHelp=':manual:budgetdescription:browsestate';
+$this->inlineHelp=':manual:budgetdescription:browsecommon';
 $this->viewLog='BudgetDescription';
 
 ?>

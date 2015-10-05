@@ -314,7 +314,7 @@ class EnquiryController extends Controller
 				}
 				Yii::app()->user->setFlash('success', __('New reformulated enquiry created OK'));
 				Log::model()->write('Enquiry', __('New enquiry').'. id='.$model->id, $model->id);		
-				Log::model()->write('Enquiry',__('Enquiry').' id='.$model->id.' '.__('assigned to team member').' '.User::model()->findByPk($model->team_member)->username, $model->id);
+				Log::model()->write('Enquiry', __('Enquiry').' id='.$model->id.' '.__('assigned to team member').' '.$model->teamMember->username, $model->id);
 				$this->redirect(array('teamView','id'=>$model->id));
 			}
 		}
