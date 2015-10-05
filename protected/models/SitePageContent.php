@@ -119,13 +119,8 @@ class SitePageContent extends CActiveRecord
 
 	public function sanitizeURL($string)
 	{
-		$string = str_replace(' ', '-', $string);
-		$string = preg_replace('/[^-a-zA-Z0-9]/', '-', $string);
-		$string = strtolower($string);
-
-		return $string;
+		return strtolower(str_replace(' ', '-', trim(string2ascii($string))));
 	}
-	
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
