@@ -747,16 +747,17 @@ class EnquiryController extends Controller
 		$tmpDir = createTempDirectory();
 
 		$enquiryFile = File::model()->findByAttributes(array('model'=>'Enquiry','model_id'=>$model->id));
-		if($enquiryFile){
+		if ($enquiryFile){
 			copy($enquiryFile->getURI(), $tmpDir.__('Enquiry').'.'.$enquiryFile->getExtension());
 		}
-		if($model->replys){
+		if ($model->replys){
 			$replyFiles = File::model()->findAllByAttributes(array('model'=>'Reply','model_id'=>$model->replys[0]->id));
 			foreach($replyFiles as $file){
 				copy($file->getURI(), $tmpDir.'/'.string2ascii($file->name).'.'.$file->getExtension());
 			}
-		}else
+		}else{
 			$replyFiles = Null;
+		}
 
 		// Create PDF
 		Yii::import('application.extensions.html2pdf.*');
@@ -770,11 +771,31 @@ class EnquiryController extends Controller
 		{
 			$html2pdf = new HTML2PDF('P', 'A4', getDefaultLanguage(), true, 'UTF-8', array(0, 0, 0, 0));
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			
 			if(! ($enquiryFile || $replyFiles) ) {
-				$html2pdf->Output($model->title.'.pdf', 'D');
+				// Create and download a single pdf file
+				$tmp_name = substr(md5(rand(0, 1000000)), 0, 45);
+				$html2pdf->Output($tmpDir.$tmp_name.'.pdf', 'F');
+
+				ignore_user_abort(true);
+
+				header("Pragma: public");
+				header("Expires: 0");
+				header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+				header("Cache-Control: public");
+				header("Content-Description: File Transfer");
+				header("Content-type:application/pdf");
+				header("Content-Disposition: attachment; filename=\"" . $model->title.'.pdf' . "\"");
+				header("Content-Transfer-Encoding: binary");
+				header("Content-Length: " . filesize($tmpDir.$tmp_name.'.pdf'));
+				ob_end_flush();
+				@readfile($tmpDir.$tmp_name.'.pdf');
+
+				deleteTempDirectory($tmpDir);
 				Yii::app()->end();
-			}else
-				$html2pdf->Output($tmpDir.string2ascii($model->title).'.pdf', 'F');
+			}else{
+				$html2pdf->Output($tmpDir.$model->title.'.pdf', 'F');
+			}
 		}
 		catch(HTML2PDF_exception $e) {
 			echo $e;
@@ -806,16 +827,16 @@ class EnquiryController extends Controller
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 		header("Cache-Control: public");
 		header("Content-Description: File Transfer");
-		header("Content-type: application/octet-stream");
+		header("Content-Type: application/zip");
 		header("Content-Disposition: attachment; filename=\"" . $zip_name . "\"");
 		header("Content-Transfer-Encoding: binary");
 		header("Content-Length: " . filesize($tmpZipfile));
 		ob_end_flush();
 		@readfile($tmpZipfile);
-		//exit;
 
 		deleteTempDirectory($tmpDir);
 		unlink($tmpZipfile);
+		Yii::app()->end();
 	}
 
 

@@ -93,7 +93,6 @@ class ArchiveController extends Controller
 	public function actionGetSocialWidgets($id)
 	{
 		if (Yii::app()->request->isAjaxRequest && $model = Archive::model()->findByPk($id)){
-		//if( $model = Archive::model()->findByPk($id)){
 			$coords = array();
 			echo $this->renderPartial('//includes/socialWidgets', array(
 								'url' => $model->getURL(),
