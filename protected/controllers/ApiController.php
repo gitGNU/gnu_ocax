@@ -62,6 +62,8 @@ class ApiController extends Controller
 							'administration_name'=>Config::model()->findByPk('administrationName')->value,
 							'observatory_name'=>Config::model()->getObservatoryName(),
 							'url'=>Yii::app()->getBaseUrl(true),
+							'email'=>Config::model()->findByPk('emailContactAddress')->value,
+							'telephone'=>Config::model()->findByPk('telephone')->value,
 							'language'=>Config::model()->findByPk('languages')->value,
 							'currenySymbol'=>Config::model()->findByPk('currencySymbol')->value,
 							'latitude'=>Config::model()->findByPk('administrationLatitude')->value,
