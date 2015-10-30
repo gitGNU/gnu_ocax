@@ -796,7 +796,7 @@ class EnquiryController extends Controller
 				deleteTempDirectory($tmpDir);
 				Yii::app()->end();
 			}else{
-				$html2pdf->Output($tmpDir.$model->title.'.pdf', 'F');
+				$html2pdf->Output($tmpDir.string2ascii($model->title).'.pdf', 'F');
 			}
 		}
 		catch(HTML2PDF_exception $e) {

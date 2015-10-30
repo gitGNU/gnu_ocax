@@ -94,10 +94,17 @@ class ArchiveController extends Controller
 	{
 		if (Yii::app()->request->isAjaxRequest && $model = Archive::model()->findByPk($id)){
 			$coords = array();
+			$top = -15;
+			if (Config::model()->findByPk('socialActivateNonFree')->value){
+				$top = $top-40;
+			}
+			if (Config::model()->findByPk('socialActivateMeneame')->value){
+				$top = $top-15;
+			}
 			echo $this->renderPartial('//includes/socialWidgets', array(
 								'url' => $model->getURL(),
 								'title'=> CHtml::encode($model->getFullname()),
-								'coords' => array('top'=>'-70px', 'left'=>'-270px'),
+								'coords' => array('top'=>$top.'px', 'left'=>'-270px'),
 								));
 		}else{
 			echo 0;

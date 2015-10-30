@@ -66,7 +66,7 @@ if (!isset($coords)){
 	}
 	echo '<div><i class="closeWidgetBox icon-cancel-circled" onclick="js:$(\'.alert\').hide(); return false;"></i></div>';
 
-	echo '<div class="widget">
+	echo '<div class="widget" style="padding-bottom:5px;">
 			<input type="text" style="width:232px; font-size:15px;" value='.$url.' />
 		</div>';
 	if(Config::model()->findByPk('socialActivateMeneame')->value){
