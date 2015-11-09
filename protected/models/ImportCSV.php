@@ -187,13 +187,9 @@ class ImportCSV extends CFormModel
 			$t4 = trim($t4);
 			if(!is_numeric($initial_prov)){
 				$error[]='<br />Register '. ($line_num+1) .': Initial provision is not numeric';
-			}// else	if ($initial_prov == 0){
-			//	$error[]='<br />Register '. ($line_num+1) .': Initial provision cannot be 0';
-			//}
+			}
 			if(!is_numeric($actual_prov)){
 				$error[]='<br />Register '. ($line_num+1) .': Actual provision is not numeric';
-			}else if ($actual_prov == 0){
-				$error[]='<br />Register '. ($line_num+1) .': Actual provision cannot be 0';
 			}
 			if(!is_numeric($t1)){
 				$error[]='<br />Register '. ($line_num+1) .': Trimester 1 is not numeric';
@@ -361,20 +357,11 @@ class ImportCSV extends CFormModel
 	{
 		$registers = $this->csv2array();
 		$registers = array_reverse($registers, true);
-
 		$budgets = array();
 
 		foreach($registers as $internal_code => $register){
 			$budgets[$internal_code] = $this->register2array($register);
-			
-			//	echo '<p>';
-			//	print_r($budgets[$internal_code]);
-			//	echo '</p>';
 		}
-		//		echo '<p>All registers converted to arrays';
-		//		print_r($budgets);
-		//		echo '</p>';
-
 		$total=0;
 		$parentID_placeholder=Null;
 		$budgetID_parent=Null;
@@ -389,57 +376,39 @@ class ImportCSV extends CFormModel
 		$updated_t4 = 0;
 		
 		foreach($budgets as $internal_code => & $budget){
-
-				//echo '<p>Totals: ';//|'.$internal_code.'| ';
-				//print_r($totals);
-				//echo '</p>';
-
-			//echo 'internal_code |'.$internal_code.'|<br />';
-			//if(!isset($totals[$internal_code]))
-			//	echo 'internal_code |'.$internal_code.'| not set<br />';
-			
-					
-			if(isset($totals[$internal_code])){	
+			if (isset($totals[$internal_code])){	
 				$initial_prov = $budget['initial_prov'];
-				
-				//echo $internal_code.' '.$initial_prov.' $initial_prov, ';
-				
-				if($initial_prov == 0){
-					
-					//echo $internal_code.' '.$totals[$internal_code]['initial_prov'].'<br />';
-					//echo '$budget["initial_prov"] = '.$totals[$internal_code]['initial_prov'].'<br />';
-					
+				if ($initial_prov == 0){
 					$budget['initial_prov'] = $totals[$internal_code]['initial_prov'];
 					if($totals[$internal_code]['initial_prov'] != $initial_prov)
 						$updated_initial_prov += 1;
 				}
-				
 				$actual_prov = $budget['actual_prov'];
-				if($actual_prov == 0){
+				if ($actual_prov == 0){
 					$budget['actual_prov'] = $totals[$internal_code]['actual_prov'];
 					if($totals[$internal_code]['actual_prov'] != $actual_prov)
 						$updated_actual_prov += 1;
 				}
 				$t1 = $budget['t1'];
-				if($t1 == 0){
+				if ($t1 == 0){
 					$budget['t1'] = $totals[$internal_code]['t1'];
 					if($budget['t1'] != $t1)
 						$updated_t1 += 1;
 				}
 				$t2 = $budget['t2'];
-				if($t2 == 0){
+				if ($t2 == 0){
 					$budget['t2'] = $totals[$internal_code]['t2'];
 					if($budget['t2'] != $t2)
 						$updated_t2 += 1;
 				}
 				$t3 = $budget['t3'];
-				if($t3 == 0){
+				if ($t3 == 0){
 					$budget['t3'] = $totals[$internal_code]['t3'];
 					if($budget['t3'] != $t3)
 						$updated_t3 += 1;
 				}
 				$t4 = $budget['t4'];
-				if($t4 == 0){
+				if ($t4 == 0){
 					$budget['t4'] = $totals[$internal_code]['t4'];
 					if($budget['t4'] != $t4)
 						$updated_t4 += 1;
@@ -447,33 +416,24 @@ class ImportCSV extends CFormModel
 			}
 			$budgetID_parent = $this->getParentCode($internal_code);
 
-			//echo 'parentId='.$budgetID_parent.' parentPlaceHolder='.$parentID_placeholder.'<br />';
-
 			if($budgetID_parent != $parentID_placeholder){
-					//echo '$budgetID_parent != $parentID_placeholder<br />';
-					if(!isset($totals[$budgetID_parent])){
+					if (!isset($totals[$budgetID_parent])){
 						$totals[$budgetID_parent]=$this->createEmptyBudgetArray();
-						//$totals[$budgetID_parent]['csv_id'] = $budgetID_parent;
 					}
 					$parentID_placeholder=$budgetID_parent;
 			}
-			
-			
+
 			$totals[$budgetID_parent]['initial_prov'] += $budget['initial_prov'];
 			$totals[$budgetID_parent]['actual_prov'] += $budget['actual_prov'];
 			$totals[$budgetID_parent]['t1'] += $budget['t1'];
 			$totals[$budgetID_parent]['t2'] += $budget['t2'];
 			$totals[$budgetID_parent]['t3'] += $budget['t3'];
 			$totals[$budgetID_parent]['t4'] += $budget['t4'];
-			
-			//echo $internal_code.' '.$totals[$internal_code]['initial_prov'].'<br />';
-			//echo $budgetID_parent.' '.$totals[$budgetID_parent]['initial_prov'].'<br />';
 		}
 		$budgets = array_reverse($budgets, true);
-
 		$updated = $updated_initial_prov + $updated_actual_prov + $updated_t1 + $updated_t2 + $updated_t3 + $updated_t4;
-		//echo 'updated '.$updated;
-		if($updated){
+		
+		if ($updated){
 			$fh = fopen($this->csv, 'w');
 			fwrite($fh, $this->getHeader());
 			foreach($budgets as $budget){

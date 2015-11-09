@@ -51,8 +51,8 @@ if (!isset($coords)){
 		cursor: pointer;
 		color: #555;
 		float:right;
-		margin: 12px 5px 0 0;
-		font-size: 1.2em;
+		margin: 11px 5px 0 0;
+		font-size: 20px;
 }
 .closeWidgetBox:hover{
 	color: #454545;

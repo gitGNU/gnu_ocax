@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: 2015-11-05 11:42+0100\n"
-"PO-Revision-Date: 2015-11-05 11:42+0100\n"
+"PO-Revision-Date: 2015-11-06 17:33+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -2650,7 +2650,7 @@ msgstr "Esborrar aquesta carpeta"
 
 #: protected/views/archive/_editArchive.php:144
 msgid "Delete this file"
-msgstr "Esboorar aquest arxiu"
+msgstr "Esborrar aquest arxiu"
 
 #: protected/views/archive/_editArchive.php:149
 msgid "This folder is not empty"
@@ -3244,12 +3244,12 @@ msgstr "No es pot moure la carpeta a la subcarpeta"
 #: protected/controllers/ArchiveController.php:313
 #, php-format
 msgid "Moved folder \"%s\" to"
-msgstr "Moure carpeta \"%s\" a"
+msgstr "Carpeta \"%s\" mogut a"
 
 #: protected/controllers/ArchiveController.php:316
 #, php-format
 msgid "Moved file \"%s\" to"
-msgstr "Moure arxiu \"%s\" a"
+msgstr "Arxiu \"%s\" mogut a"
 
 #: protected/controllers/ArchiveController.php:338
 msgid "Deleted folder"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: 2015-11-05 11:00+0100\n"
-"PO-Revision-Date: 2015-11-05 11:00+0100\n"
+"PO-Revision-Date: 2015-11-06 17:35+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -3245,12 +3245,12 @@ msgstr "No se ha mover la carpeta a subcarpeta"
 #: protected/controllers/ArchiveController.php:313
 #, php-format
 msgid "Moved folder \"%s\" to"
-msgstr "Mover carpeta \"%s\" a"
+msgstr "Carpeta \"%s\" movido a"
 
 #: protected/controllers/ArchiveController.php:316
 #, php-format
 msgid "Moved file \"%s\" to"
-msgstr "Archivo movido \"%s\" a"
+msgstr "Archivo \"%s\" movido a"
 
 #: protected/controllers/ArchiveController.php:338
 msgid "Deleted folder"
