@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_ca\n"
 "POT-Creation-Date: 2015-11-05 11:42+0100\n"
-"PO-Revision-Date: 2015-11-06 17:33+0100\n"
+"PO-Revision-Date: 2015-11-09 23:08+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -2322,7 +2322,7 @@ msgstr "Instal·lat"
 
 #: protected/views/config/versionSummary.php:26
 msgid "Available"
-msgstr "Disponibles"
+msgstr "Disponible"
 
 #: protected/views/config/versionSummary.php:30
 msgid "Please update"
@@ -2617,11 +2617,11 @@ msgstr "Pujar un fitxer"
 
 #: protected/views/archive/index.php:234
 msgid "up to"
-msgstr "Torna enrera"
+msgstr "Pujar a"
 
 #: protected/views/archive/index.php:248
 msgid "Nothing found here"
-msgstr "Carpeta buida"
+msgstr "No hi ha res aquí"
 
 #: protected/views/archive/index.php:280
 msgid "Date"
@@ -2654,7 +2654,7 @@ msgstr "Esborrar aquest arxiu"
 
 #: protected/views/archive/_editArchive.php:149
 msgid "This folder is not empty"
-msgstr "Aquesta carpeta està buida"
+msgstr "Aquesta carpeta no està buida"
 
 #: protected/views/archive/_editArchive.php:157
 msgid "Move this folder to .."

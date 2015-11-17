@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: 2015-11-05 11:00+0100\n"
-"PO-Revision-Date: 2015-11-06 17:35+0100\n"
+"PO-Revision-Date: 2015-11-09 22:20+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -2619,11 +2619,11 @@ msgstr "Subir un fichero"
 
 #: protected/views/archive/index.php:234
 msgid "up to"
-msgstr "Volver"
+msgstr "Subir a"
 
 #: protected/views/archive/index.php:248
 msgid "Nothing found here"
-msgstr "Carpeta vacía"
+msgstr "No hay nada aquí"
 
 #: protected/views/archive/index.php:280
 msgid "Date"

@@ -113,6 +113,8 @@ class Budget extends CActiveRecord
 		);
 	}
 
+
+	// is this used?
 	public function orderChildBudgets()
 	{
 		$budgtes = $this->with(array(
