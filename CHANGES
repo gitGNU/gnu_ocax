@@ -1,3 +1,12 @@
+1.3.0
+New Archive
+New 'Display modified' budgets
+Automated default year change
+Enquiry comments now render html links
+Improved PDF export
+Some other bugs fixed
+Please read UPGRADE 
+
 1.2.2
 Fixed a security bug. Please upgrade!!
 Squashed some other bugs
