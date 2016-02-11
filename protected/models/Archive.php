@@ -173,13 +173,14 @@ class Archive extends CActiveRecord
 		if (!$this->is_container){
 			return '/archive/index';
 		}
-		$path = '/'.$this->path;
+		$path = ':'.$this->path;
 		$model = $this;
 		while ($model->container){
-			$path = '/'.$model->container0->path.$path;
+			$path = ':'.$model->container0->path.$path;
 			$model = $model->container0;
 		}
-		return '/archive/d'.$path;
+		$path= ltrim ($path, ':');
+		return '/archive/d/'.$path;
 	}
 
 	public function getParentContainerWebPath()
@@ -192,7 +193,7 @@ class Archive extends CActiveRecord
 
 	public function getContainerFromPath($containerPath)
 	{
-		$pathComponents = explode('/', $containerPath);
+		$pathComponents = explode(':', $containerPath);
 		$container = Null;
 		$containerID = Null;
 		while($pathComponents){	
@@ -262,7 +263,7 @@ class Archive extends CActiveRecord
 				$criteria->addCondition('container is NULL');
 			}
 		}
-		$criteria->order = 'is_container DESC, name ASC';		
+		$criteria->order = 'is_container DESC, name ASC';
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

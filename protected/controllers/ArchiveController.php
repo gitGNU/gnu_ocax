@@ -116,7 +116,7 @@ class ArchiveController extends Controller
 		$model=new Archive;
 		$containerID = $id;
 		if ($container = $model->findByPk($containerID)){
-			$containerPath = $container->path.'/';
+			$containerPath = $container->path.':';
 		}else{
 			$containerPath = $model->archiveRoot;
 		}
@@ -172,7 +172,7 @@ class ArchiveController extends Controller
 			}
 			if ($saved){
 				$text = str_replace('%s', $model->getFullname(), __('Uploaded "%s" to'));
-				Log::model()->write('Archive', 'id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
+				Log::model()->write('Archive', 'id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().':', $model->id);
 				Yii::app()->user->setFlash('success', __('File uploaded correctly'));
 			}else{
 				Yii::app()->user->setFlash('error', __('File uploaded failed'));
@@ -315,7 +315,7 @@ class ArchiveController extends Controller
 				$name = $model->getFullname();
 				$text = str_replace('%s', $name, __('Moved file "%s" to'));
 			}
-			Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
+			Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().':', $model->id);
 			echo 1;
 		}else{
 			echo 'Unknown error on moving archive';
@@ -338,7 +338,7 @@ class ArchiveController extends Controller
 				Log::model()->write('Archive','id='.$model->id.' '.__('Deleted folder').' '.$model->getContainerWebPath(), $model->id);
 			}else{
 				$text = str_replace('%s', $model->getFullname(), __('Deleted file "%s" from'));
-				Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().'/', $model->id);
+				Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().':', $model->id);
 			}
 		}
 
