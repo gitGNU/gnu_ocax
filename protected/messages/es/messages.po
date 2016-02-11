@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: 2015-11-05 11:00+0100\n"
-"PO-Revision-Date: 2015-11-09 22:20+0100\n"
+"PO-Revision-Date: 2016-02-11 17:36+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -344,7 +344,7 @@ msgstr "Busca"
 
 #: protected/models/Archive.php:141
 msgid "index"
-msgstr "Índice "
+msgstr "Índice"
 
 #: protected/models/Config.php:90
 msgid "Please define a language"
