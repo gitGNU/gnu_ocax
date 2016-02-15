@@ -78,11 +78,7 @@ return array(
 			'rules'=>array(
 				array('graph/script', 'pattern'=>'graph/<script:\w+>', 'verb'=>'GET'),
 				array('api/list', 'pattern'=>'api/<model:\w+>', 'verb'=>'GET'),
-				//array('api/view', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'GET'),
-				//array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
-				//array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
-				//array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'),
-				
+
 				'archive/d/<folder:[a-zA-Z0-9-_.:]+>'=>'archive/index',
 				'p/<pageURL:[a-z0-9-]+>'=>'sitePage/show',
 				'e/<id:\d+>'=>'enquiry/view',

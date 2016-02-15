@@ -198,6 +198,7 @@ class ArchiveController extends Controller
 
 			// path is not the URI. It is part of a path.
 			$model->path = strtolower(str_replace(' ', '-', trim(string2ascii($model->name))));
+			$model->path = str_replace(':', '-', $model->path);
 			
 			// check that another container with same path doesn't exist
 			if ($model->doesContainerExist()){
