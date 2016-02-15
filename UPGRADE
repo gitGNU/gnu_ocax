@@ -5,9 +5,10 @@ But, if you do delete existing files, _DO_NOT_ delete app/files
 
 1. Backup: Make a backup and save it on your PC!
 2. Backup: Save your protected/config/main.php file
-3. Upload: Overwrite app/ and protected/ with new version
-4. Permission: Check file permissions # chown -R www-data app/ protected/runtime/
-5. Database: Admin user must visit 'My page'. This will update the database.
+3. Backup: If you have created/modified app/themes/head.html, you need to save it.
+4. Upload: Overwrite app/ and protected/ with new version
+5. Permission: Check file permissions # chown -R www-data app/ protected/runtime/
+6. Database: Admin user must visit 'My page'. This will update the database.
 
 _________________________________________________
 Version 1.1.3 or earlier ONLY!!

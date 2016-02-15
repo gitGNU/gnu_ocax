@@ -27,6 +27,8 @@ $lang = Yii::app()->user->getState('applicationLanguage');
 	<meta name="language" content="<?php echo $lang?>" />
 	<meta property="og:image" content="<?php echo Yii::app()->request->baseUrl.'/files/logo.png';?>'" />
 
+	<title><?php echo (($this->pageTitle) ? $this->pageTitle : Config::model()->findByPk('siglas')->value); ?></title>
+    
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/fonts/fontello/css/fontello.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
@@ -34,11 +36,13 @@ $lang = Yii::app()->user->getState('applicationLanguage');
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/foot.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/color.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />
-	
+    <?php
+        // Include custom stuff here
+        if (file_exists(dirname(Yii::app()->request->scriptFile).'/themes/head.html')){
+            echo file_get_contents(dirname(Yii::app()->request->scriptFile).'/themes/head.html');
+        }
+    ?>
 	<?php Yii::app()->clientScript->registerCoreScript('jquery');?>
-
-	<title><?php echo (($this->pageTitle) ? $this->pageTitle : Config::model()->findByPk('siglas')->value); ?></title>
 
 </head>
 
@@ -126,8 +130,9 @@ if(Config::model()->isSocialNonFree() && !Yii::app()->user->getState('cookiesAcc
 
 <?php
 // foot files get updated when a global parameter is saved
-if(file_exists(Yii::app()->basePath.'/runtime/html/foot/'.Yii::app()->language.'.html'))
+if (file_exists(Yii::app()->basePath.'/runtime/html/foot/'.Yii::app()->language.'.html')){
 	echo file_get_contents(Yii::app()->basePath.'/runtime/html/foot/'.Yii::app()->language.'.html');
+}
 ?>
 
 </body>
