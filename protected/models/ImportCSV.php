@@ -323,7 +323,7 @@ class ImportCSV extends CFormModel
 							$updated++;
 					}
 					if($budgets[$internal_code]['concept'] === '' || $budgets[$internal_code]['concept'] === 'UNKNOWN'){
-						$budgets[$internal_code]['concept'] = $description->concept;
+						$budgets[$internal_code]['concept'] = trim(preg_replace('/\s+/', ' ', $description->concept));
 						if($budgets[$internal_code]['concept'] !== '')
 							$updated++;
 					}
@@ -358,10 +358,10 @@ class ImportCSV extends CFormModel
 		$registers = $this->csv2array();
 		$registers = array_reverse($registers, true);
 		$budgets = array();
-
 		foreach($registers as $internal_code => $register){
 			$budgets[$internal_code] = $this->register2array($register);
 		}
+
 		$total=0;
 		$parentID_placeholder=Null;
 		$budgetID_parent=Null;
@@ -374,7 +374,7 @@ class ImportCSV extends CFormModel
 		$updated_t2 = 0;
 		$updated_t3 = 0;
 		$updated_t4 = 0;
-		
+
 		foreach($budgets as $internal_code => & $budget){
 			if (isset($totals[$internal_code])){	
 				$initial_prov = $budget['initial_prov'];
@@ -430,6 +430,7 @@ class ImportCSV extends CFormModel
 			$totals[$budgetID_parent]['t3'] += $budget['t3'];
 			$totals[$budgetID_parent]['t4'] += $budget['t4'];
 		}
+
 		$budgets = array_reverse($budgets, true);
 		$updated = $updated_initial_prov + $updated_actual_prov + $updated_t1 + $updated_t2 + $updated_t3 + $updated_t4;
 		
