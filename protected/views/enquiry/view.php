@@ -138,7 +138,8 @@ if($model->state == ENQUIRY_PENDING_VALIDATION && $model->user == Yii::app()->us
                     array(
 						"submit"=>array('delete', 'id'=>$model->id),
 						"params"=>array('returnUrl'=>Yii::app()->request->baseUrl.'/user/panel'),
-						'confirm' => __('Are you sure?'))).
+						'confirm' => __('Are you sure?'),
+						'csrf'=>true)).
 		 ' '.__('until it has been accepted by the observatory.').
 		 '</div>';
 }

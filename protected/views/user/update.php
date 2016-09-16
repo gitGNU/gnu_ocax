@@ -33,6 +33,7 @@ function optout(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/user/optout',
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		success: function(){
 			window.location.href = '<?php echo Yii::app()->request->baseUrl; ?>';					
 		},

@@ -50,7 +50,7 @@ class ArchiveController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('validateFile','uploadFile','createContainer','update','getDestinations','move','delete'),
+				'actions'=>array('validateFile','getUploadFileForm','uploadFile','createContainer','update','getDestinations','move','delete'),
 				'expression'=>"Yii::app()->user->isPrivileged()",
 			),
 			array('deny',  // deny all users
@@ -141,15 +141,20 @@ class ArchiveController extends Controller
 
 	}
 
+	public function actionGetUploadFileForm($id=Null)	// Null is root dir
+	{
+		$model=new Archive;
+		$model->container = $id;
+		echo $this->renderPartial('_uploadFile',array('model'=>$model),false,true);
+	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionUploadFile($id = Null)
+	public function actionUploadFile()
 	{
 		$model=new Archive;
-		
-		$model->container = $id;
 		
 		if(isset($_POST['Archive']))
 		{
@@ -179,7 +184,7 @@ class ArchiveController extends Controller
 			}
 			$this->redirect(array($model->getParentContainerWebPath()));
 		}
-		echo $this->renderPartial('_uploadFile',array('model'=>$model),false,true);
+		Yii::app()->end();
 	}
 
 	/**
@@ -282,45 +287,50 @@ class ArchiveController extends Controller
 		echo $result;
 	}
 
-	public function actionMove($id, $destination_id)
+	public function actionMove($id)
 	{
-		$saved = False;
-		if ($id == $destination_id){
-			echo "id = $id , dest = $destination_id";
-			Yii::app()->end();
-		}
-		$model = $this->loadModel($id);
-		if (!$destination_id){
-			$model->container = Null;
-			if ($model->doesContainerExist()){
-				echo __('A folder with that name already exists');
+		if(isset($_POST['destination_id']))
+		{
+			$destination_id = $_POST['destination_id'];
+			
+			$saved = False;
+			if ($id == $destination_id){
+				echo "id = $id , dest = $destination_id";
 				Yii::app()->end();
 			}
-			$saved = $model->save();
-		}else if ($container = Archive::model()->findByAttributes(array('id'=>$destination_id, 'is_container'=>1))){
-			$model->container = $container->id;
-			if ($model->doesContainerExist()){
-				echo __('A folder with that name already exists');
+			$model = $this->loadModel($id);
+			if (!$destination_id){
+				$model->container = Null;
+				if ($model->doesContainerExist()){
+					echo __('A folder with that name already exists');
+					Yii::app()->end();
+				}
+				$saved = $model->save();
+			}else if ($container = Archive::model()->findByAttributes(array('id'=>$destination_id, 'is_container'=>1))){
+				$model->container = $container->id;
+				if ($model->doesContainerExist()){
+					echo __('A folder with that name already exists');
+					Yii::app()->end();
+				}
+				if(($container->isChildOf($model))){
+					echo __('Cannot move folder into sub folder');
+					Yii::app()->end();
+				}
+				$saved = $model->save();
+			}
+			if ($saved){
+				if ($model->is_container){
+					$text = str_replace('%s', $model->name, __('Moved folder "%s" to'));
+				}else{
+					$name = $model->getFullname();
+					$text = str_replace('%s', $name, __('Moved file "%s" to'));
+				}
+				Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().':', $model->id);
+				echo 1;
 				Yii::app()->end();
 			}
-			if(($container->isChildOf($model))){
-				echo __('Cannot move folder into sub folder');
-				Yii::app()->end();
-			}
-			$saved = $model->save();
 		}
-		if ($saved){
-			if ($model->is_container){
-				$text = str_replace('%s', $model->name, __('Moved folder "%s" to'));
-			}else{
-				$name = $model->getFullname();
-				$text = str_replace('%s', $name, __('Moved file "%s" to'));
-			}
-			Log::model()->write('Archive','id='.$model->id.' '.$text.' '.$model->getParentContainerWebPath().':', $model->id);
-			echo 1;
-		}else{
-			echo 'Unknown error on moving archive';
-		}
+		echo 'Unknown error on moving archive';
 	}
 	
 	/**

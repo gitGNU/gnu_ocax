@@ -56,7 +56,7 @@ return array(
 	'components'=>array(
 		'request'=>array(
 			'enableCookieValidation'=>true,
-			//'enableCsrfValidation'=>true,	/* this generates errors */
+			'enableCsrfValidation'=>true,
 		),
 		'messages' => array(
 			'class' => "CGettextMessageSource",

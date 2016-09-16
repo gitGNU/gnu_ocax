@@ -44,7 +44,7 @@ if($model->addressed_to == ADMINISTRATION && $model->id == $model->registry_numb
 
 <script>
 function deleteDoc(){
-	location.href='<?php echo Yii::app()->request->baseUrl; ?>/enquiry/unSubmit/<?php echo $model->id;?>';
+	location.href='<?php echo Yii::app()->request->baseUrl; ?>/enquiry/deleteSubmittedDocument/<?php echo $model->id;?>';
 }
 </script>
 
@@ -137,7 +137,15 @@ function deleteDoc(){
 	<div class="row" style="font-size:1.1em;">
 		<div style="margin-bottom:5px;font-weight:bold;"><?php echo __('Documentation');?></div>
 		<a href="<?php echo $model->documentation0->getWebPath();?>" target="_new"><?php echo $model->documentation0->name;?></a>
-		<i class="icon-cancel-circle red icon" onClick="js:deleteDoc()"></i>
+		
+		
+		<?php echo CHtml::link(	'<i class="icon-cancel-circle red icon"></i>',
+								"#",
+								array(	"submit"=>array('/enquiry/deleteSubmittedDocument', 'id'=>$model->id),
+										'csrf'=>true
+								));
+		?>
+
 	</div>
 	<?php } ?>
 

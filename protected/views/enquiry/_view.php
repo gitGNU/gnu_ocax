@@ -152,6 +152,7 @@ function deleteComment(comment_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/comment/delete/'+comment_id,
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		success: function(data){
 				if(data == 1){
 					show_comments_link = $('#comment_'+comment_id).parents('.comments').find('.show_comments_link');
@@ -184,7 +185,11 @@ function vote(reply_id, like, el){
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/vote/create',
 		type: 'POST',
 		dataType: 'json',
-		data: { 'reply': reply_id, 'like': like },
+		data: {
+				'reply': reply_id,
+				'like': like,
+				'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>'
+		},
 		success: function(data){
 				if(data != 0){
 					if(data.already_voted){
@@ -321,10 +326,14 @@ foreach($replys as $reply)
 
 <?php if ($model->team_member == Yii::app()->user->getUserID()) { ?>
 <script>
-function uploadFile(model,model_id){
+function uploadFile(model, model_id){
 	$.ajax({
-		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model='+model+'&model_id='+model_id,
-		type: 'POST',
+		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create',
+		type: 'GET',
+		data: {
+			'model': model,
+			'model_id': model_id,
+		},
 		success: function(data){
 			if(data != 0){
 				$("#files_popup_content").html(data);
@@ -338,7 +347,7 @@ function uploadFile(model,model_id){
 			}
 		},
 		error: function() {
-			alert("Error on get file/create");
+			alert("Error on get file/upload");
 		}
 	});
 }

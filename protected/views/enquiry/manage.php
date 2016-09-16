@@ -68,6 +68,7 @@ function megaDelete(el){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/megaDelete/'+enquiry_id,
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		success: function(data){
 			if($('#disable_user').is(':checked') == true)
 				disableUser();
@@ -85,6 +86,7 @@ function disableUser(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/user/disable/'+user_id,
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		success: function(data){
 			window.location = '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/admin';
 		},

@@ -44,8 +44,11 @@ function requestNewPasswd(){
 	}
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/site/requestNewPassword',
-		type: 'GET',
-		data: { 'email': $('#email').val() },
+		type: 'POST',
+		data: { 
+				'email': $('#email').val(),
+				'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>'
+			},
 		beforeSend: function(){ $('#loading').show(); $('#email_button').prop('disabled', true);  },
 		success: function(data){
 			$('#loading').hide();

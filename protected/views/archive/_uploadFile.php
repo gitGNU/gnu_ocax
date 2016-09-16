@@ -62,6 +62,7 @@ function validate(){
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'archive-form',
+	'action'=>Yii::app()->baseUrl.'/archive/uploadFile',
 	'enableAjaxValidation'=>false,
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>

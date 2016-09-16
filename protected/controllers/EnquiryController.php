@@ -32,7 +32,7 @@ class EnquiryController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete, megaDelete', // we only allow deletion via POST request
+			'postOnly + delete, megaDelete, deleteSubmittedDocument', // we only allow deletion via POST request
 		);
 	}
 
@@ -54,7 +54,7 @@ class EnquiryController extends Controller
 			),
 			array('allow',
 				'actions'=>array('teamView','assigned','validate','changeType',
-								 'submit','unSubmit','assess','reformulate'),
+								 'submit','deleteSubmittedDocument','assess','reformulate'),
 				'expression'=>"Yii::app()->user->isTeamMember()",
 			),
 			array('allow',
@@ -533,7 +533,7 @@ class EnquiryController extends Controller
 	/**
 	 * team_member deletes documentation
 	 */
-	public function actionUnSubmit($id)
+	public function actionDeleteSubmittedDocument($id)
 	{
 		$model=$this->loadModel($id);
 

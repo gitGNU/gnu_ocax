@@ -104,6 +104,8 @@ class FileController extends Controller
 			$model->attributes=$_POST['File'];
 			$model->file=CUploadedFile::getInstance($model,'file');
 
+			file_put_contents('/tmp/model', '--'.$model->model.' '.$model->model_id.'--');
+
 			if($model->file){
 				if($model->model == 'logo')
 					$path = '';
@@ -129,9 +131,10 @@ class FileController extends Controller
 					if($logo = $model->findByAttributes(array('model'=>'logo')))
 						$logo->delete();
 				}
-				if($file_saved = $model->file->saveAs($model->getURI()))
+				if ($file_saved = $model->file->saveAs($model->getURI())){
 					$model->save();
-
+				}
+				
 				if($model->model == 'SitePage'){
 					if($file_saved)
 						Yii::app()->user->setFlash('success', __('File uploaded correctly'));
@@ -184,14 +187,18 @@ class FileController extends Controller
 			$file_name = $model->normalize($_GET['file_name']);
 			$path=$model->baseDir.'/files/'.$this->getPath($_GET['model'],$_GET['model_id']).'/'.$file_name;
 
-			if(!$file_name)
+			if (!$file_name){
 				echo 'File required.';
-			elseif (!preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z]{3,4}$/', $file_name))
+			}
+			elseif (!preg_match('/^[a-zA-Z0-9_\-]+\.[a-zA-Z]{3,4}$/', $file_name)){
     	        echo '"'.$file_name.'" Only characters a-z A-Z and 0-9 are allowed. ej: file.pdf';
-			elseif(file_exists($path))
+			}
+			elseif (file_exists($path)){
     	        echo '"'.$file_name.'" File already uploaded';
-			else
+			}
+			else{
 				echo 1;
+			}
 			Yii::app()->end();
 		}
 		echo 'File required.';

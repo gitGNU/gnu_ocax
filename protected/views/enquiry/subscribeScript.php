@@ -63,6 +63,7 @@ function subscribe(enquiry_id, subscribe){
 		dataType: 'json',
 		data: { 'enquiry': enquiry_id,
 				'subscribe': subscribe,
+				'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>',
 			  },
 		//beforeSend: function(){ },
 		//complete: function(){ },

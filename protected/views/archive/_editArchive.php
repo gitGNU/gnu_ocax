@@ -65,9 +65,12 @@ function getDestinations(){
 }
 function moveArchive(destination_id){
 	$.ajax({
-		url: "<?php echo Yii::app()->request->baseUrl.'/archive/move'; ?>",
-		type: 'GET',
-		data: { 'id': '<?php echo $model->id;?>', 'destination_id': destination_id },
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/move/'.$model->id; ?>",
+		type: 'POST',
+		data: {
+				'destination_id': destination_id,
+				'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>'
+		},
 		beforeSend: function(){ $('#files_popup').bPopup().close(); showLoader(); },
 		complete: function(){ hideLoader(); },
 		success: function(data){
@@ -76,7 +79,6 @@ function moveArchive(destination_id){
 			}else{
 				hideLoader();
 				flashError(data);
-				//alert(data);
 			}
 		},
 		error: function() {

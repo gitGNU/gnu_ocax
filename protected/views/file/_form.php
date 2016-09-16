@@ -56,7 +56,9 @@ function validateFileName(form){
 	'id'=>'file-form',
 	'enableAjaxValidation'=>false,
 	'htmlOptions' => array('enctype' => 'multipart/form-data'),
-)); ?>
+));
+//, 'YII_CSRF_TOKEN' => Yii::app()->request->csrfToken
+?>
 
 	<div class="modalTitle"><?php echo __('Upload file');?></div>
 

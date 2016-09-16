@@ -119,8 +119,8 @@ function validate(){
 }
 function uploadFile(){
 	$.ajax({
-		url: "<?php echo Yii::app()->request->baseUrl.'/archive/uploadFile/'.$containerID; ?>",
-		type: 'POST',
+		url: "<?php echo Yii::app()->request->baseUrl.'/archive/getUploadFileForm/'.$containerID; ?>",
+		type: 'GET',
 		success: function(data){
 			if(data != 0){
 				$("#files_popup_content").html(data);
@@ -134,7 +134,7 @@ function uploadFile(){
 			}
 		},
 		error: function() {
-			alert("Error on get archive/create");
+			alert("Error on get archive/getForm");
 		}
 	});
 }
@@ -189,6 +189,7 @@ function deleteArchive(archive_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/archive/delete/'+archive_id,
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		beforeSend: function(){ $('#files_popup').bPopup().close(); },
 		success: function(data){
 			$.fn.yiiGridView.update("archive-grid",{});
