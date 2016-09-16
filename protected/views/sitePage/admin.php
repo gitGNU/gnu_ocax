@@ -59,7 +59,7 @@ function showUploadedFiles(){
 function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=<?php echo get_class($model);?>',
-		type: 'POST',
+		type: 'GET',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){

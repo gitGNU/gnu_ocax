@@ -116,17 +116,19 @@ class IntroPage extends CActiveRecord
 	/**
 	 * Return the Title of the first related content object
 	 */
-	public function getTitleForModel($id,$lang=null)
+	public function getTitleForModel($id, $lang=null)
 	{
 		if(!$lang){
 			$content=IntroPageContent::model()->find(array('condition'=> 'page = '.$id));
-			if(!$content)
+			if (!$content){
 				return Null;
+			}
 		}
 		else{
 			$content=IntroPageContent::model()->find(array('condition'=> 'page = '.$id.' and language = "'.$lang.'"'));
-			if(!$content)
+			if (!$content){
 				return Null;
+			}
 		}
 		return $content->title;
 	}

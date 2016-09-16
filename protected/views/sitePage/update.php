@@ -27,7 +27,7 @@ if(count($model->sitePageContents) > 1)
 $deleteConfirm .='?';
 
 $this->menu=array(
-	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id),'confirm'=>$deleteConfirm)),
+	array('label'=>__('Delete page'), 'url'=>'#', 'linkOptions'=> array('submit'=>array('delete','id'=>$model->id), 'csrf'=>true, 'confirm'=>$deleteConfirm)),
 	array('label'=>__('Manage pages'), 'url'=>array('admin')),
 );
 $this->inlineHelp=':manual:sitepage:create';

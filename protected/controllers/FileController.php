@@ -104,8 +104,6 @@ class FileController extends Controller
 			$model->attributes=$_POST['File'];
 			$model->file=CUploadedFile::getInstance($model,'file');
 
-			file_put_contents('/tmp/model', '--'.$model->model.' '.$model->model_id.'--');
-
 			if($model->file){
 				if($model->model == 'logo')
 					$path = '';

@@ -49,6 +49,7 @@ function toggleAdvancedHTML(id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/sitePage/toggleSafeHTML/'+id,
 		type: 'POST',
+		data: {'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>'},
 		beforeSend: function(){ },
 		complete: function(){ },
 		success: function(data){
@@ -61,6 +62,7 @@ function toggleShowTitle(id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/sitePage/toggleShowTitle/'+id,
 		type: 'POST',
+		data: {'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>'},
 		beforeSend: function(){ },
 		complete: function(){ },
 		success: function(data){ },

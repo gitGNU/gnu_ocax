@@ -358,6 +358,7 @@ function deleteFile(file_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/delete/'+file_id,
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		success: function(){
 				$("#attachment_"+file_id).remove();
 		},

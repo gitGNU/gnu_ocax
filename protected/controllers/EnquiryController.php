@@ -537,11 +537,11 @@ class EnquiryController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		if( $model->team_member != Yii::app()->user->getUserID()){
+		if ($model->team_member != Yii::app()->user->getUserID()){
 			$this->render('/user/panel');
 			Yii::app()->end();
 		}
-		if($model->documentation){
+		if ($model->documentation){
 			$file=$model->documentation0;
 			$model->documentation = Null;
 			//if(!$model->state > ENQUIRY_AWAITING_REPLY)
@@ -552,10 +552,7 @@ class EnquiryController extends Controller
 				$model->save();
 			}			
 		}
-
-		$this->render('submit',array(
-			'model'=>$model,
-		));
+		$this->redirect(array('submit','id'=>$model->id));
 	}
 
 	/**

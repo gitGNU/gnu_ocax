@@ -33,7 +33,7 @@ $this->inlineHelp=':manual:file:wallpaper';
 function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=wallpaper',
-		type: 'POST',
+		type: 'GET',
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){

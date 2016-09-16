@@ -45,7 +45,7 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $downloadCsv );
 }elseif($model->year != Config::model()->findByPk('year')->value){
 	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
-								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')));
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'csrf'=>true, 'confirm'=>'Are you sure you want to delete this item?')));
 	array_splice( $this->menu, 1, 0, $deleteYear );
 }
 $this->inlineHelp=':manual:budget:updateyear';
