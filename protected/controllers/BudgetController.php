@@ -32,7 +32,7 @@ class BudgetController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete, restoreBudgets, delTree', // we only allow deletion via POST request
+			'postOnly + delete, restoreBudgets, delTree, deleteYearsBudgets', // we only allow deletion via POST request
 		);
 	}
 

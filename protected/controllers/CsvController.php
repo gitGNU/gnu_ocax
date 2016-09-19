@@ -333,12 +333,12 @@ class CsvController extends Controller
 			echo CJavaScript::jsonEncode(array('error'=>'Year not selected'));
 			Yii::app()->end();
 		}
-		if (!isset($_GET['csv_file'])){
+		if (!isset($_POST['csv_file'])){
 			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
 			Yii::app()->end();			
 		}
 		$model = new ImportCSV;
-		$model->csv = $model->path.$_GET['csv_file'];
+		$model->csv = $model->path.$_POST['csv_file'];
 		$model->year = $id;
 
 		$criteria=new CDbCriteria;

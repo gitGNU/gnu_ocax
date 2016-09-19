@@ -40,7 +40,7 @@ $this->viewLog="zipfile,budget";
 function uploadFile(){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/file/create?model=DatabaseDownload/docs',
-		type: 'POST',
+		type: 'GET',
 		success: function(data){
 			if(data != 0){
 				$("#files_popup_content").html(data);

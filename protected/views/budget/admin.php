@@ -63,7 +63,7 @@ function restoreBudgets(file_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/restoreBudgets/'+file_id,
 		type: 'POST',
-		async: false,
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		//beforeSend: function(){ $('#right_loading_gif').show(); },
 		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){

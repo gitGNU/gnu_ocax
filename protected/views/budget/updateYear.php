@@ -31,9 +31,16 @@ if($totalBudgets){
 	array_splice( $this->menu, 1, 0, $delTree );
 	
 	if($model->getYearsTotalEnquiries() == 0){
-		$deleteDatos = array( array( 'label'=>__("Delete this year's budgets"), 'url'=>'#', 'linkOptions'=>array('onclick'=>'js:deleteBudgets();') ) );
+		$deleteDatos = array( array('label'=>__("Delete this year's budgets"), 'url'=>'#',
+									'linkOptions'=>array('submit'=>array('budget/deleteYearsBudgets','id'=>$model->id), 'csrf'=>true, 'confirm'=>'Are you sure you want to delete '.$totalBudgets.' budgets?')));
 		array_splice( $this->menu, 1, 0, $deleteDatos );
 	}
+
+
+	$deleteYear= array(	array(	'label'=>__('Delete year'), 'url'=>'#',
+								'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'csrf'=>true, 'confirm'=>'Are you sure you want to delete this item?')));
+
+
 
 	$label = __('Define graphics');
 	if($totalBudgets > 0 && $featuredCount == 0)

@@ -43,6 +43,7 @@ function deleteTree(budget_id, budget_csv){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/budget/delTree/'+budget_id,
 		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
 		dataType: 'json',
 		beforeSend: function(){	$('#budget-grid').addClass('grid-view-loading'); },
 		complete: function(){ $('#budget-grid').removeClass('grid-view-loading'); },

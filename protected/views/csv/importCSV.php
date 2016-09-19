@@ -166,9 +166,11 @@ function dumpBudgets(el,next_step){
 function importData(el,next_step){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/csv/importCSVData/<?php echo $model->year;?>',
-		type: 'GET',
+		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>',
+				'csv_file': '<?php echo $model->csv;?>'
+		},
 		dataType: 'json',
-		data: { 'csv_file': '<?php echo $model->csv;?>'	},
 		beforeSend: function(){ $("#import_button").attr("disabled", "disabled"); $('#loading_importing_csv').show(); },
 		complete: function(){ $('#loading_importing_csv').hide(); },
 		success: function(data){
