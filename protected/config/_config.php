@@ -57,6 +57,9 @@ return array(
 		'request'=>array(
 			'enableCookieValidation'=>true,
 			'enableCsrfValidation'=>true,
+			'csrfCookie' => array(
+				'httpOnly' => true,
+			),
 		),
 		'messages' => array(
 			'class' => "CGettextMessageSource",

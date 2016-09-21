@@ -48,9 +48,8 @@
 						str_replace("%s", Config::model()->findByPk('siglas')->value, __('a user like you at the %s')).', '.
 						__('would like to contact you privately via email').'.<br />'.
 						__('However, we do not share users\' email addresses').'.</p><p>'.
-						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p><p>'.
-						__('If you think this user is spamming you, you can block future petitions at this link').': '.
-						$block.'</p>'.
+						__('If you wish, you may make contact yourself with').' '.$user->fullname.'; '.$user->email.'</p>'.
+						//__('If you think this user is spamming you, you can block future petitions at this link').': '.$block.'</p>'.
 						'<p>'.__('Kind regards').',<br />'.Config::model()->getObservatoryName().'</p>';
 
 		echo '<div style="	background-color:white;

@@ -196,7 +196,7 @@ class UserController extends Controller
 			'model'=>$model,
 		));
 	}
-
+/*
 	public function actionBlock($id)
 	{
 		$blocked_user=User::model()->findByAttributes(array('username'=>$id));
@@ -220,7 +220,7 @@ class UserController extends Controller
 		}
 		$this->redirect(array('panel'));
 	}
-
+*/
 	public function actionUpdateRoles($id)
 	{
 		$this->layout='//layouts/column2';
