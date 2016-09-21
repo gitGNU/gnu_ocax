@@ -41,7 +41,17 @@ function updateNoReply(){
 		$('#noReply').html("<?php echo __('Send as').':&ensp;&ensp;';?>"+value);
 }
 function sendTestEmail(){
-	location.href='<?php echo $this->createUrl('email/test/');?>/'+$('#subject').val();
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl;?>/email/test/'+$('#subject').val(),
+		type: 'POST',
+		data: {	
+				'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>'
+		},
+		error: function() {
+			alert("Error on test email");
+		},
+		complete: function(){ window.location.reload(); }
+	});
 }
 </script>
 

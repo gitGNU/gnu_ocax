@@ -33,7 +33,7 @@ class EmailController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + delete, test', // we only allow deletion via POST request
 		);
 	}
 
@@ -215,6 +215,8 @@ class EmailController extends Controller
 	 */
 	public function actionTest($id)
 	{
+		file_put_contents('/tmp/rmail',$id);
+
 		$user = User::model()->findByPk(Yii::app()->user->getUserID());
 
 		$mailer = new Mailer();
@@ -230,8 +232,7 @@ class EmailController extends Controller
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 			Config::model()->updateSiteConfigurationStatus('siteConfigStatusEmail', 0);
 		}
-
-		$this->redirect(array('/config/email'));
+		echo 1;
 	}
 
 	/**

@@ -61,19 +61,10 @@ $this->viewLog="Budget";
 
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/scripts/jquery.bpopup-0.9.4.min.js"></script>
 <script>
-
-function deleteBudgets(){
-	ans = confirm('Are you sure you want to delete <?php echo $totalBudgets;?> budgets?');
-	if (ans)
-		window.location = '<?php echo Yii::app()->request->baseUrl; ?>/budget/deleteYearsBudgets/<?php echo $model->id ;?>';
-}
-
 function showEnquiry(enquiry_id){
 	$.ajax({
 		url: '<?php echo Yii::app()->request->baseUrl; ?>/enquiry/getMegaDelete/'+enquiry_id,
 		type: 'GET',
-		//beforeSend: function(){ $('#right_loading_gif').show(); },
-		//complete: function(){ $('#right_loading_gif').hide(); },
 		success: function(data){
 			if(data != 0){
 				$("#mega_delete_content").html(data);

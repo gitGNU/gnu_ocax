@@ -29,7 +29,7 @@ class UserController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete, disable, optout', // we only allow deletion via POST request
+			'postOnly + delete, disable, enable, optout', // we only allow deletion via POST request
 		);
 	}
 

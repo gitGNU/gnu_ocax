@@ -33,6 +33,7 @@ if($model->sent == 0){
 																			'submit'=>array('delete',
 																					'id'=>$model->id
 																			),
+																			'csrf'=>true,
 																			'confirm'=>__('Are you sure you want to delete this item?'))
 																		));
 	array_splice( $this->menu, 0, 0, $delete );
@@ -78,9 +79,17 @@ function showRecipients(){
 function send(){
 	$('input').prop('disabled', true);
 	$('#loading').show();
-	location.href='<?php echo Yii::app()->request->baseUrl;?>/newsletter/send/<?php echo $model->id?>';
+	
+	$.ajax({
+		url: '<?php echo Yii::app()->request->baseUrl;?>/newsletter/send/<?php echo $model->id?>',
+		type: 'POST',
+		data: { 'YII_CSRF_TOKEN' : '<?php echo Yii::app()->request->csrfToken; ?>' },
+		error: function() {
+			alert("Error on send email");
+		},
+		complete: function(){ window.location.reload(); }
+	});
 }
-
 </script>
 
 <h1 class="sub_title"><?php echo CHtml::encode($model->subject);?></h1>

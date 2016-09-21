@@ -222,7 +222,8 @@ class NewsletterController extends Controller
 			Yii::app()->user->setFlash('error',__('Error while sending email').'<br />"'.$mailer->ErrorInfo.'"');
 		}
 		$model->save();
-		$this->redirect(array('adminView','id'=>$model->id));
+		echo 1;
+		//$this->redirect(array('adminView','id'=>$model->id));
 	}
 
 	/**
