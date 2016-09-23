@@ -140,7 +140,10 @@ class EnquiryController extends Controller
 		{
 			$user = Yii::app()->user->getUserID();
 			$criteria = new CDbCriteria;
-			$criteria->condition = 'enquiry = '.$_POST['enquiry'].' AND user = '.$user;
+			$criteria->condition = 'enquiry = :enquiry AND user = :user';
+			$criteria->params[':enquiry'] = $_POST['enquiry'];
+			$criteria->params[':user'] = $user;
+						
 			$model=EnquirySubscribe::model()->find($criteria);
 			
 			if($model && $_POST['subscribe']=='false'){
@@ -442,7 +445,8 @@ class EnquiryController extends Controller
 		$oldBudget_year = Null;
 		if($model->budget0){
 			$criteria = new CDbCriteria;
-			$criteria->condition = 'parent IS NULL AND year ='.$model->budget0->year;
+			$criteria->condition = 'parent IS NULL AND year = :year';
+			$criteria->params[':year'] = $model->budget0->year;
 			$oldBudget_year=$budget->find($criteria);
 		}
 		if(isset($_POST['Enquiry']))

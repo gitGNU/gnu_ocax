@@ -86,7 +86,10 @@ class Comment extends CActiveRecord
 		$counterModel = $this->model;
 		$counterModel_id = $this->model_id;
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'model = "'.$this->model.'" AND model_id = '.$this->model_id;
+		$criteria->condition = 'model = :model AND model_id = :model_id';
+		$criteria->params[':model'] = $this->model;
+		$criteria->params[':model_id'] = $this->model_id;
+		
 		$counter = CommentCount::model()->find($criteria);
 		if(!$counter){
 			$counter = new CommentCount;

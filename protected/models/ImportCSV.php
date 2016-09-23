@@ -482,7 +482,10 @@ class ImportCSV extends CFormModel
 			$new_budget->featured=0;
 
 			$criteria=new CDbCriteria;
-			$criteria->condition='csv_id = "'.$new_budget->csv_parent_id.'" AND year ='.$this->year;
+			$criteria->condition='csv_id = :csv_id AND year = :year';
+			$criteria->params[':csv_id'] = $new_budget->csv_parent_id;
+			$criteria->params[':year'] = $this->year;
+			
 			$parent=Budget::model()->find($criteria);
 			if ($parent){
 				$new_budget->parent = $parent->id;
@@ -490,7 +493,9 @@ class ImportCSV extends CFormModel
 				$new_budget->parent = $rootBudget->id;
 			}
 			$criteria=new CDbCriteria;
-			$criteria->condition='csv_id = "'.$new_budget->csv_id.'" AND year ='.$this->year;
+			$criteria->condition='csv_id = :csv_id AND year = :year';
+			$criteria->params[':csv_id'] = $new_budget->csv_id;
+			$criteria->params[':year'] = $this->year;
 			$budget=Budget::model()->find($criteria);
 			if (!$budget){
 				//$new_budget->validate();

@@ -300,7 +300,7 @@ class CsvController extends Controller
 			echo count($lines) - 1;
 	}
 
-
+/*
 	public function actiondddCreateSQLStatement($id)
 	{
 		if (!$id){
@@ -312,7 +312,9 @@ class CsvController extends Controller
 			Yii::app()->end();			
 		}
 		$criteria=new CDbCriteria;
-		$criteria->condition='parent IS NULL AND year='.$id;
+		$criteria->condition='parent IS NULL AND year= :year';
+		$criteria->params[':year'] = $id;
+		
 		$yearly_budget=Budget::model()->find($criteria);
 		if (!$yearly_budget){
 			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$id.' does not exist in database.'));
@@ -320,9 +322,8 @@ class CsvController extends Controller
 		}
 		$model->csv = $model->path.$_GET['csv_file'];
 		$model->createSQLStatement($yearly_budget->year);
-		
-
 	}		
+*/
 
 	/*
 	 * Only after running the checks do we import a CSV into the database
@@ -342,7 +343,8 @@ class CsvController extends Controller
 		$model->year = $id;
 
 		$criteria=new CDbCriteria;
-		$criteria->condition='parent IS NULL AND year='.$model->year;
+		$criteria->condition='parent IS NULL AND year= :year';
+		$criteria->params[':year'] = $model->year;
 
 		$yearly_budget=Budget::model()->find($criteria);
 		if (!$yearly_budget){

@@ -92,13 +92,22 @@ class LogController extends Controller
 		$prefixes = explode(',', $prefixes);
 
 		if(!$id){
-			$condition = 'prefix = "'.trim(array_shift($prefixes)).'"';
-			foreach($prefixes as $prefix)
-				$condition = $condition.' OR prefix = "'.$prefix.'"';
+			$condition = 'prefix =:prefix_0';
+			$criteria->params[':prefix_0'] = trim(array_shift($prefixes));
+			
+			$cnt=1;
+			foreach($prefixes as $prefix){
+				$paramname = ":prefix_".$cnt;
+				$condition = $condition.' OR prefix = '.$paramname ;
+				$criteria->params[$paramname] = $prefix;
+				$cnt=$cnt+1;
+			}
 			$criteria->addCondition($condition);
 		}else{
 			// we are displaying an object's log
-			$criteria->addCondition('prefix = "'.trim($prefixes[0]).'" AND model_id ='.$id);
+			$criteria->addCondition('prefix = :prefix AND model_id =:id');
+			$criteria->params[':prefix'] = trim($prefixes[0]);
+			$criteria->params[':id'] = $id;
 		}
 		$criteria->order = 'created DESC';
 		$criteria->limit = 20;

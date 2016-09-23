@@ -311,7 +311,8 @@ class Vault extends CActiveRecord
 	public function getMostRecentBackup()
 	{
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('vault ='.$this->id);
+		$criteria->addCondition('vault =:vault_id');
+		$criteria->params[':vault_id'] = $this->id;
 		$criteria->order = 'created DESC';
 		$backups = Backup::model()->findAll($criteria);
 		if($backups)
@@ -323,7 +324,9 @@ class Vault extends CActiveRecord
 	public function getOldestBackup()
 	{
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('vault ='.$this->id);
+		$criteria->addCondition('vault =:vault_id');
+		$criteria->params[':vault_id'] = $this->id;
+		
 		$criteria->order = 'created ASC';
 		$backups = Backup::model()->findAll($criteria);
 		if($backups)

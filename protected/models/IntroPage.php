@@ -141,13 +141,17 @@ class IntroPage extends CActiveRecord
 	public function getNextPage()
 	{
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('weight > '.$this->weight.' and published = 1');
+		$criteria->addCondition('weight > :weight and published = 1');
+		$criteria->params[':weight'] = $this->weight;
+		
 		$criteria->order = 'weight ASC';
 		if($pages = $this->findAll($criteria))
 			return $pages[0];
 
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('id != '.$this->id.' and published = 1');
+		$criteria->addCondition('id != :id and published = 1');
+		$criteria->params[':id'] = $this->id;
+		
 		if($page = $this->find($criteria))
 			return $page;
 		

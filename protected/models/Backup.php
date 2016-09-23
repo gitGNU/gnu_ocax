@@ -123,7 +123,8 @@ class Backup extends CActiveRecord
 	public function getDataproviderByVault($vault_id)
 	{
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('vault ='.$vault_id);
+		$criteria->addCondition('vault = :vault_id');
+		$criteria->params[':vault_id'] = $vault_id;
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -246,6 +247,7 @@ class Backup extends CActiveRecord
 		//$sql = "SELECT * FROM tablename WHERE columname BETWEEN '".$day." 00:00:00' AND '".$day." 23:59:59'";
 		$criteria=new CDbCriteria;
 		$criteria->compare('vault', $vault);
+		// http://www.yiiframework.com/forum/index.php/topic/25588-cdbcriteria-addbetweencondition-with-param-binding/
 		$criteria->addBetweenCondition('created', $day.' 00:00:00', $day.' 23:59:59');
 		return $this->find($criteria);
 	}
