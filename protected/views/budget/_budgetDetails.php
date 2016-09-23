@@ -23,21 +23,27 @@ if(Yii::app()->request->isAjaxRequest){
 	Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
 }
 
-
-if(Yii::app()->user->isTeamMember() || Yii::app()->user->isManager())
+if (Yii::app()->user->isTeamMember() || Yii::app()->user->isManager()){
 	$enquiry_count = count($model->enquirys);
-else{
+}else{
 	if($user_id=Yii::app()->user->getUserID()){
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'budget = '.$model->id.' AND user = "'.$user_id.'"';
+		$criteria->condition = 'budget = :budget AND user = :user';
+		$criteria->params[':budget'] = $model->id;
+		$criteria->params[':user'] = $user_id;
 		$enquiry_count = count(Enquiry::model()->findAll($criteria));		
 	
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED.' AND NOT user = "'.$user_id.'"';
+		$criteria->condition = 'budget = :budget AND state >= :state AND NOT user = :user';
+		$criteria->params[':budget'] = $model->id;
+		$criteria->params[':state'] = ENQUIRY_ACCEPTED;
+		$criteria->params[':user'] = $user_id;
 		$enquiry_count = $enquiry_count + count(Enquiry::model()->findAll($criteria));
 	}else{
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED;
+		$criteria->condition = 'budget = :budget AND state >= :state';
+		$criteria->params[':budget'] = $model->id;
+		$criteria->params[':state'] = ENQUIRY_ACCEPTED;
 		$enquiry_count = count(Enquiry::model()->findAll($criteria));
 	}
 }

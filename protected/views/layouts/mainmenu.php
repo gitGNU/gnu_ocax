@@ -37,7 +37,8 @@
 					
 					//find sub menu items
 					$criteria=new CDbCriteria;
-					$criteria->condition = 'block = '.$page->block.' AND weight != 0 AND published = 1 AND weight IS NOT NULL';
+					$criteria->condition = 'block = :block AND weight != 0 AND published = 1 AND weight IS NOT NULL';
+					$criteria->params[':block'] = $page->block;
 					$criteria->order = 'weight ASC';				
 					$subpages = $page->findAll($criteria);
 					if($subpages){

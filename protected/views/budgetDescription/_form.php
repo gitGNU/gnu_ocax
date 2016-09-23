@@ -23,7 +23,9 @@
 /* @var $form CActiveForm */
 
 $criteria=new CDbCriteria;
-$criteria->addCondition('csv_id = "'.$model->csv_id.'" AND language = "'.$model->language.'" AND modified IS NOT NULL');
+$criteria->addCondition('csv_id = :csv_id AND language = :language AND modified IS NOT NULL');
+$criteria->params[':csv_id'] = $model->csv_id;
+$criteria->params[':language'] = $model->language;
 $common_desc = BudgetDescCommon::model()->find($criteria);
 $state_desc = BudgetDescState::model()->findByAttributes(array('csv_id'=>$model->csv_id,'language'=>$model->language));
 

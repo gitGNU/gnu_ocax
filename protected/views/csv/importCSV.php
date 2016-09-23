@@ -256,7 +256,8 @@ echo '<img id="loading_importing_csv" style="display:none" src="'.Yii::app()->re
 echo '</p>';
 
 $criteria=new CDbCriteria;
-$criteria->condition='parent IS NULL AND year = '.$model->year;
+$criteria->condition='parent IS NULL AND year = :year';
+$criteria->params[':year'] = $model->year;
 $year=Budget::model()->find($criteria);
 
 echo '<p id="step_7" style="display:none">';

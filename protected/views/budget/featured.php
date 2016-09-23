@@ -22,7 +22,8 @@
 /* @var $model Budget */
 
 $criteria = new CDbCriteria;
-$criteria->condition = 'parent IS NULL AND year ='.$model->year;
+$criteria->condition = 'parent IS NULL AND year =:year';
+$criteria->params[':year'] = $model->year;
 $this_year=$model->find($criteria);
 
 $this->menu=array(

@@ -125,7 +125,9 @@ function toggleChildren(budget_id, indent, cache_id){
 	foreach($featured as $featured_budget){
 	
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'parent = '.$featured_budget->id;
+		$criteria->condition = 'parent = :featured';
+		$criteria->params[':featured'] =$featured_budget->id;
+		
 	
 		$largest_provisions = array('actual'=>0, 'executed'=>0);
 		foreach(Budget::model()->findAll($criteria) as $budget){
