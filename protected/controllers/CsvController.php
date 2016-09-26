@@ -300,31 +300,6 @@ class CsvController extends Controller
 			echo count($lines) - 1;
 	}
 
-/*
-	public function actiondddCreateSQLStatement($id)
-	{
-		if (!$id){
-			echo CJavaScript::jsonEncode(array('error'=>'Year not selected'));
-			Yii::app()->end();
-		}
-		if (!isset($_GET['csv_file'])){
-			echo CJavaScript::jsonEncode(array('error'=>'CSV file path not defined.'));
-			Yii::app()->end();			
-		}
-		$criteria=new CDbCriteria;
-		$criteria->condition='parent IS NULL AND year= :year';
-		$criteria->params[':year'] = $id;
-		
-		$yearly_budget=Budget::model()->find($criteria);
-		if (!$yearly_budget){
-			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$id.' does not exist in database.'));
-			Yii::app()->end();
-		}
-		$model->csv = $model->path.$_GET['csv_file'];
-		$model->createSQLStatement($yearly_budget->year);
-	}		
-*/
-
 	/*
 	 * Only after running the checks do we import a CSV into the database
 	 */
@@ -390,27 +365,6 @@ class CsvController extends Controller
 			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
 		}
 	}
-
-	/*
-	 * Export a years modifications in a csv file
-	 */
-	public function actionExportModifications($id)
-	{
-		if (!Budget::model()->findByAttributes(array('year'=>$id)) ){
-			return false;
-		}
-		$model = new ImportCSV;
-		if(list($file, $budgets) = $model->createModifiedBudgetsCSV($id)){
-			$download='<a href="'.$file->getWebPath().'">'.$file->getWebPath().'</a>';
-			Yii::app()->user->setFlash('csv_generated', count($budgets).' budgets exported<br />'.$download);
-
-			$criteria=new CDbCriteria;
-			$criteria->condition='parent IS NULL AND year=:year';
-			$criteria->params[":year"] = $id;
-			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
-		}
-	}
-	
 
 	/*
 	 * Part of the import CSV process

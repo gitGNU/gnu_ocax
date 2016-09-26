@@ -683,12 +683,6 @@ class ImportCSV extends CFormModel
 		return false;
 	}
 
-	public function createModifiedBudgetsCSV($year)
-	{
-		
-	}
-
-
 	private function _writeCSV($filename, $budgets)
 	{
 		$csv = array();
