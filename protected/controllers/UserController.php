@@ -66,7 +66,9 @@ class UserController extends Controller
 	{
 		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('My page'));
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
-
+		if ($user===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		$userid=Yii::app()->user->getUserID();
 		$enquirys=new CActiveDataProvider('Enquiry', array(
 			'criteria'=>array(
@@ -151,6 +153,9 @@ class UserController extends Controller
 	public function actionUpdate()
 	{
 		$model=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
+		if ($model===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		$email = $model->email;
 		$language = $model->language;
 

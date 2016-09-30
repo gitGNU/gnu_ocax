@@ -138,10 +138,17 @@ class Comment extends CActiveRecord
 		if($this->model == 'Enquiry' || $this->model == 'Reply'){
 			if($this->model == 'Reply'){
 				$reply = Reply::model()->findByPk($this->model_id);
+				if (!$reply){
+					throw new CHttpException(404,'The requested Reply does not exist.');
+				}
 				return $reply->enquiry0;
 			}
 			if($this->model == 'Enquiry')
-				return Enquiry::model()->findByPk($this->model_id);
+				$enquiry = Enquiry::model()->findByPk($this->model_id);
+				if (!$enquiry){
+					throw new CHttpException(404,'The requested Enquiry does not exist.');
+				}
+				return $enquiry;
 		}
 		return Null;
 	}

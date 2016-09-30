@@ -274,7 +274,9 @@ class EnquiryController extends Controller
 		if(isset($_GET['related'])){
 			$model->related_to=$_GET['related'];
 			$related_enquiry=Enquiry::model()->findByPk($model->related_to);
-			
+			if ($related_enquiry===null){
+				throw new CHttpException(404,'The requested Related_enquiry does not exist.');
+			}
 			if(Yii::app()->user->getUserID() != $related_enquiry->team_member)
 				$this->redirect(array('/site/index'));
 				
@@ -399,9 +401,12 @@ class EnquiryController extends Controller
 
 		if(isset($_POST['Enquiry']))
 		{
-			if($model->budget)
+			if ($model->budget){
 				$preUpdateBudget = Budget::model()->findByPk($model->budget);
-			else
+				if ($preUpdateBudget===null){
+					throw new CHttpException(404,'The requested preUpdateBudget does not exist.');
+				}
+			}else
 				$preUpdateBudget = Null;
 				
 			$model->attributes=$_POST['Enquiry'];
@@ -452,6 +457,9 @@ class EnquiryController extends Controller
 		if(isset($_POST['Enquiry']))
 		{
 			$preUpdateBudget = Budget::model()->findByPk($model->budget);
+			if ($preUpdateBudget===null){
+				throw new CHttpException(404,'The requested preUpdateBudget does not exist.');
+			}
 			$model->attributes=$_POST['Enquiry'];
 			if($model->type == 0)
 				$model->budget = Null;

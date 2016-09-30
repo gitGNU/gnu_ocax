@@ -243,6 +243,9 @@ class BudgetDescriptionController extends Controller
 
 		else{
 			$budget = Budget::model()->findByAttributes(array('csv_id'=>$_GET['csv_id']));
+			if ($budget===null){
+				throw new CHttpException(404,'The requested Budget does not exist.');
+			}
 			$this->redirect(Yii::app()->createUrl('BudgetDescription/create?budget='.$budget->id.'&lang='.$_GET['lang']));
 		}
 	}

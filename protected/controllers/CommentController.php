@@ -79,6 +79,9 @@ class CommentController extends Controller
 		$model->model_id = $id;
 		
 		$user=User::model()->findByPk(Yii::app()->user->getUserID());
+		if ($user===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		echo CJavaScript::jsonEncode(array(
 						'html'=>$this->renderPartial('_form',array('model'=>$model,'fullname'=>$user->fullname),true,true)));
 	}
@@ -106,11 +109,18 @@ class CommentController extends Controller
 			$model->created=date('c');
 			if($model->save()){
 				if($model->model == 'Enquiry' || $model->model == 'Reply'){
-					if($model->model == 'Enquiry')
+					if ($model->model == 'Enquiry'){
 						$enquiry = Enquiry::model()->findByPk($model->model_id);
-					else
-						$enquiry = Reply::model()->findByPk($model->model_id)->enquiry0;
-
+						if ($enquiry===null){
+							throw new CHttpException(404,'The requested Enquiry does not exist.');
+						}
+					}else{
+						$reply = Reply::model()->findByPk($model->model_id);
+						if ($reply===null){
+							throw new CHttpException(404,'The requested Reply does not exist.');
+						}
+						$enquiry = $reply->enquiry0;
+					}
 					$commentCreatedNewSubscription = EnquirySubscribe::model()->subscribeUser($enquiry->id, $model->user);
 					echo CJavaScript::jsonEncode(array(
 						'html'=>$this->renderPartial('_view',array('data'=>$model),true,true),

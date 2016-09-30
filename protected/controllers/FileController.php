@@ -139,14 +139,21 @@ class FileController extends Controller
 					$this->redirect(array('sitePage/admin'));
 
 				}elseif($model->model == 'Reply'){
-					$enquiry = Enquiry::model()->findByPk(Reply::model()->findByPk($model->model_id)->enquiry);
+					$reply = Reply::model()->findByPk($model->model_id);
+					if ($reply===null){
+						throw new CHttpException(404,'The requested Reply does not exist.');
+					}
+					$enquiry = Enquiry::model()->findByPk($reply->enquiry);
 					if($file_saved)
 						$enquiry->promptEmail();
 					$this->redirect(array('enquiry/teamView','id'=>$enquiry->id));
 
 				}elseif($model->model == 'Enquiry'){
-					if($file_saved){
+					if ($file_saved){
 						$enquiry = Enquiry::model()->findByPk($model->model_id);
+						if ($enquiry===null){
+							throw new CHttpException(404,'The requested Enquiry does not exist.');
+						}
 						$enquiry->documentation = $model->id;
 						$enquiry->save();
 					}

@@ -151,10 +151,11 @@ class BudgetDescLocal extends CActiveRecord
 	/* years that have budgets that use a local description */
 	public function whereUsed()
 	{	
-
-		$budgets =  Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id), array('order'=>'year DESC'));
-
 		$result = '';
+		$budgets =  Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id), array('order'=>'year DESC'));
+		if (!$budgets){
+			return $result;
+		}
 		foreach($budgets as $budget)
 				$result = $budget->year.', '.$result;
 		return rtrim($result, ' ,');

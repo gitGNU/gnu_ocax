@@ -103,11 +103,15 @@ class EmailController extends Controller
 			$model->created = date('c');
 			$model->sent=0;
 
-			if($model->sender == 0)
+			if ($model->sender == 0){
 				$model->sent_as=Config::model()->findByPk('emailNoReply')->value;
-			else
-				$model->sent_as=User::model()->findByPk($model->sender)->email;
-
+			}else{
+				$user = User::model()->findByPk($model->sender);
+				if ($user===null){
+					throw new CHttpException(404,'The requested User does not exist.');
+				}
+				$model->sent_as=$user->email;
+			}
 			$model->sender = Yii::app()->user->getUserID();
 			if($model->save()){
  				$mailer = new Mailer();
@@ -139,7 +143,7 @@ class EmailController extends Controller
 		}
 		$model->sender=Yii::app()->user->getUserID();
 		$enquiry=Enquiry::model()->findByPk($model->enquiry);
-		if (!$enquiry){
+		if ($enquiry===null){
 			throw new CHttpException(404,'The requested page does not exist.');
 		}
 
@@ -168,7 +172,9 @@ class EmailController extends Controller
 			$model->attributes=$_POST['Email'];
 
 			$recipient = User::model()->findByAttributes(array('email'=>$model->recipients));
-
+			if ($recipient===null){
+				throw new CHttpException(404,'The requested Recipient does not exist.');
+			}
 			if(BlockUser::model()->findByAttributes(array('user'=>$recipient->id, 'blocked_user'=>Yii::app()->user->getUserID()))){
 					echo $recipient->fullname.' '.__('has blocked you');
 					Yii::app()->end();
@@ -207,12 +213,12 @@ class EmailController extends Controller
 
 		if(isset($_GET['recipient_id']) && isset($_GET['enquiry_id'])){			
 			$enquiry = Enquiry::model()->findByPk((int)$_GET['enquiry_id']);
-			if (!$enquiry){
+			if ($enquiry===null){
 				throw new CHttpException(404,'The requested page does not exist.');
 			}
 			$model->enquiry=$enquiry->id;
 			$recipient = User::model()->findByPk((int)$_GET['recipient_id']);
-			if (!$recipient){
+			if ($recipient===null){
 				throw new CHttpException(404,'The requested page does not exist.');
 			}			
 			echo $this->renderPartial('_contactPetition', array('model'=>$model, 'recipient'=>$recipient, false,true));
@@ -228,7 +234,9 @@ class EmailController extends Controller
 		file_put_contents('/tmp/rmail',$id);
 
 		$user = User::model()->findByPk(Yii::app()->user->getUserID());
-
+		if ($user===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		$mailer = new Mailer();
 		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
 		$mailer->AddAddress($user->email);
@@ -266,7 +274,7 @@ class EmailController extends Controller
 	{
 		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Sent emails'));
 		$enquiry=Enquiry::model()->findByPk((int)$id);
-		if (!$enquiry){
+		if ($enquiry===null){
 			throw new CHttpException(404,'The requested page does not exist.');
 		}
 		$criteria=new CDbCriteria;

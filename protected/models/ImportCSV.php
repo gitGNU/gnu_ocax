@@ -559,6 +559,9 @@ class ImportCSV extends CFormModel
 			
 		$tableIndex = array();
 		$rootBudget = Budget::model()->findByAttributes(array('year'=>$this->year, 'parent'=>Null));
+		if (!$rootBudget){
+			throw new CHttpException(404,'The requested rootBudget does not exist.');
+		}
 		$tableIndex['root'] = Array();
 		$tableIndex['root']['table_id'] = $rootBudget->id;
 		$tableIndex['root']['parent_table_id'] = NULL;

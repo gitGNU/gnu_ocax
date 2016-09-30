@@ -97,6 +97,9 @@ class ReplyController extends Controller
 
 			if($model->save()){
 				$enquiry=Enquiry::model()->findByPk($model->enquiry);
+				if ($enquiry===null){
+					throw new CHttpException(404,'The requested Enquiry does not exist.');
+				}
 				$enquiry->state=ENQUIRY_REPLY_PENDING_ASSESSMENT;
 				$enquiry->modified=date('c');
 				$enquiry->save();
@@ -109,7 +112,7 @@ class ReplyController extends Controller
 		}
 		if (isset($_GET['enquiry'])){
 			$enquiry=Enquiry::model()->findByPk((int)$_GET['enquiry']);
-			if (!$enquiry){
+			if ($enquiry===null){
 				throw new CHttpException(404,'The requested page does not exist.');
 			}
 			$model->enquiry=$enquiry->id;
@@ -142,6 +145,9 @@ class ReplyController extends Controller
 			}
 		}
 		$enquiry=Enquiry::model()->findByPk($model->enquiry);
+		if ($enquiry===null){
+			throw new CHttpException(404,'The requested Enquiry does not exist.');
+		}
 		$this->render('edit',array(
 			'model'=>$model,
 			'enquiry'=>$enquiry,

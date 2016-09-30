@@ -322,7 +322,7 @@ class CsvController extends Controller
 		$criteria->params[':year'] = $model->year;
 
 		$yearly_budget=Budget::model()->find($criteria);
-		if (!$yearly_budget){
+		if ($yearly_budget===null){
 			echo CJavaScript::jsonEncode(array('error'=>'Selected Year '.$model->year.' does not exist in database.'));
 			Yii::app()->end();
 		}
@@ -362,7 +362,11 @@ class CsvController extends Controller
 			$criteria=new CDbCriteria;
 			$criteria->condition='parent IS NULL AND year=:year';
 			$criteria->params[":year"] = $id;
-			$this->redirect(array('/budget/updateYear', 'id'=>Budget::model()->find($criteria)->id));
+			$budget=Budget::model()->find($criteria);
+			if ($budget===null){
+				throw new CHttpException(404,'The requested Budget does not exist.');
+			}
+			$this->redirect(array('/budget/updateYear', 'id'=>$budget->id));
 		}
 	}
 

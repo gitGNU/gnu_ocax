@@ -75,7 +75,9 @@ class SitePageController extends Controller
 		$this->layout='//layouts/column1';
 		$model = $this->loadModel($id);
 		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
-
+		if ($content===null){
+			throw new CHttpException(404,'The requested Content does not exist.');
+		}
 		$this->performAjaxValidation($model);
 		if(isset($_POST['SitePage'], $_POST['SitePageContent']))
 		{
@@ -102,7 +104,7 @@ class SitePageController extends Controller
 	{
 		$_404=Null;
 		$content=SitePageContent::model()->findByAttributes(array('pageURL'=>$pageURL));
-		if(!$content)
+		if($content===null)
 			$_404=1;
 		else{
 			$model = $this->loadModel($content->page);	
@@ -197,6 +199,9 @@ class SitePageController extends Controller
 		if(!$content){
 			// editing a language for the fisrt time. So we copy content from original language to help with the translation
 			$orig_content=SitePageContent::model()->findByAttributes(array('page' => $model->id), array('condition'=>'pageURL IS NOT NULL'));
+			if ($orig_content===null){
+				throw new CHttpException(404,'The requested Original content does not exist.');
+			}
 			$content = new  SitePageContent;
 			$content->language = $lang;
 			$content->pageURL = $orig_content->pageURL;
@@ -234,7 +239,9 @@ class SitePageController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
-
+		if ($content===null){
+			throw new CHttpException(404,'The requested Content does not exist.');
+		}
 		if($_POST['SitePageContent'])
 			$content->attributes=$_POST['SitePageContent'];
 		else
@@ -250,7 +257,9 @@ class SitePageController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
-		
+		if ($content===null){
+			throw new CHttpException(404,'The requested Content does not exist.');
+		}
 		if($_POST['SitePageContent'])
 			$content->attributes=$_POST['SitePageContent'];
 		else
@@ -293,8 +302,11 @@ class SitePageController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>getDefaultLanguage()));
-		$pageTitle = $content->pageTitle;
-		
+		if ($content===null){
+			$pageTitle = '';
+		}else{
+			$pageTitle = $content->pageTitle;
+		}
 		foreach($model->sitePageContents as $content)
 				$content->delete();
 				

@@ -282,7 +282,10 @@ function viewFile(url){
 
 <?php
 // start replies
-$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->id));
+$criteria = new CDbCriteria();
+$criteria->addCondition("enquiry=:enquiry");
+$criteria->params = array(':enquiry' => $model->id);
+$replys = Reply::model()->findAll($criteria);
 foreach($replys as $reply)
 	$this->renderPartial('//reply/_view', array('model'=>$reply));
 

@@ -86,38 +86,6 @@ class SiteController extends Controller
 			$this->renderPartial('candy');
 	}
 
-	/**
-	 * Displays the contact page
-	 */
-	/*
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				//$headers = "From: {$model->email}\r\nReply-To: {$model->email}";
-				$mailer = new Mailer();
-
-				$mailer->AddReplyTo($model->email);
-				$mailer->SetFrom($model->email);
-				$mailer->AddAddress(Config::model()->findByPk('emailContactAddress')->value);
-				$mailer->Subject=$model->subject;
-				$mailer->Body=$model->body;
-
-				if($mailer->send())
-					Yii::app()->user->setFlash('contact','Thank you for contacting us. We will get back as soon as possible.');
-				else
-					Yii::app()->user->setFlash('error','Error while sending email<br />"'.$mailer->ErrorInfo.'"');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
-	}
-	*/
-
 	private function getActivationEmailText($user)
 	{
 		return '<p>'.__('Please click the link below to activate your account').'.<br />'.
@@ -131,6 +99,9 @@ class SiteController extends Controller
 			Yii::app()->end();
 
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
+		if ($user===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		if($user->is_disabled)
 			Yii::app()->end();
 
@@ -160,7 +131,9 @@ class SiteController extends Controller
 			Yii::app()->end();
 
 		$user=User::model()->findByAttributes(array('username'=>Yii::app()->user->id));
-
+		if ($user===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		$mailer = new Mailer();
 		$mailer->AddAddress($user->email);
 		$mailer->SetFrom(Config::model()->findByPk('emailNoReply')->value, Config::model()->findByPk('siglas')->value);
@@ -370,6 +343,9 @@ class SiteController extends Controller
 					$this->redirect(array('/site/login'));
 				}
 				$user=User::model()->findByPk($reset->user);
+				if ($user===null){
+					throw new CHttpException(404,'The requested User does not exist.');
+				}
 				if($user->is_disabled)
 					$this->redirect(array('/site/index'));
 

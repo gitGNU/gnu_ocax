@@ -125,8 +125,9 @@ class SitePage extends CActiveRecord
 
 	public function findByURL($contentURL)
 	{
-		if($pageContent = SitePageContent::model()->findByAttributes(array('pageURL'=>$contentURL)))
+		if ($pageContent = SitePageContent::model()->findByAttributes(array('pageURL'=>$contentURL))){
 			return $pageContent->page0;
+		}
 		return null;
 	}
 
@@ -137,6 +138,9 @@ class SitePage extends CActiveRecord
 	public function getTitleForModel($id)
 	{
 		$content=SitePageContent::model()->findByAttributes(array('page' =>$id), array('condition'=>'pageTitle IS NOT NULL'));
+		if (!$content){
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
 		return $content->pageTitle;
 	}
 
@@ -145,7 +149,11 @@ class SitePage extends CActiveRecord
 		if($content=SitePageContent::model()->findByAttributes(array('page'=>$this->id,'language'=>Yii::app()->language)))
 			return $content;
 		
-		return SitePageContent::model()->find(array('page' =>$this->id), array('condition'=>'pageTitle IS NOT NULL'));
+		$contet = SitePageContent::model()->find(array('page' =>$this->id), array('condition'=>'pageTitle IS NOT NULL'));
+		if (!$content){
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
+		return $content;
 	}
 	
 	/**

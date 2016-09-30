@@ -135,8 +135,11 @@ class IntroPageController extends Controller
 		}
 		$model=$this->loadModel($id);
 		$content=IntroPageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
-		if(!$content){
+		if (!$content){
 			$orig_content=IntroPageContent::model()->find(array('condition'=> 'page = '.$model->id));
+			if ($orig_content===null){
+				throw new CHttpException(404,'The requested Original content does not exist.');
+			}
 			$content = new IntroPageContent;
 			$content->language = $lang;
 			$content->title = $orig_content->title;

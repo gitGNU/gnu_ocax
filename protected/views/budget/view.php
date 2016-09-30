@@ -49,7 +49,8 @@ if(!$root_budget){
 
 $dataProvider=new CActiveDataProvider('Enquiry', array(
 				'criteria'=>array(
-					'condition'=>'budget = '.$model->id.' AND state >= '.ENQUIRY_ACCEPTED,
+					'condition'=>'budget = :id AND state >= '.ENQUIRY_ACCEPTED,
+					'params'=>array(':id'=>$model->id),
 					'order'=>'created DESC',
 				),
 				'pagination'=>array(
