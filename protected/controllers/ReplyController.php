@@ -82,10 +82,9 @@ class ReplyController extends Controller
 		//if(!Yii::app()->request->isAjaxRequest)
 		//	Yii::app()->end();
 
-	$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Add reply'));
+		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Add reply'));
 		$model=new Reply;
-		if(isset($_GET['enquiry']))
-			$model->enquiry=$_GET['enquiry'];
+
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -108,11 +107,18 @@ class ReplyController extends Controller
 				$this->redirect(array('enquiry/teamView','id'=>$model->enquiry));
 			}
 		}
-		$enquiry=Enquiry::model()->findByPk($model->enquiry);
-		$this->render('edit',array(
-			'model'=>$model,
-			'enquiry'=>$enquiry,
-		));
+		if (isset($_GET['enquiry'])){
+			$enquiry=Enquiry::model()->findByPk((int)$_GET['enquiry']);
+			if (!$enquiry){
+				throw new CHttpException(404,'The requested page does not exist.');
+			}
+			$model->enquiry=$enquiry->id;
+			$this->render('edit',array(
+				'model'=>$model,
+				'enquiry'=>$enquiry,
+			));
+		}
+		Yii::app()->end();
 	}
 
 	/**

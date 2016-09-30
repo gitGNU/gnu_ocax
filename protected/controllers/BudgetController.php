@@ -72,8 +72,7 @@ class BudgetController extends Controller
 	public function actionGetTotalYearlyBudgets($id)
 	{
 		$model=$this->loadModel($id);
-		$budgets= Budget::model()->findAllBySql('SELECT id FROM budget WHERE year = '.$model->year.' AND parent IS NOT NULL');
-		echo count($budgets);
+		echo $model()->getYearsBudgetCount();
 	}
 
 	/**
@@ -123,7 +122,7 @@ class BudgetController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$this->renderPartial('childBars', array('model'=>$model,
-												'indent'=>$_GET['indent'],
+												'indent'=>(int)$_GET['indent'],
 												'globals'=>$_GET['globals']),
 												false,true);
 	}
@@ -131,7 +130,7 @@ class BudgetController extends Controller
 	public function actionGetPieData($id)
 	{
 		if(isset($_GET['rootBudget_id']))
-			$rootBudget_id = $_GET['rootBudget_id'];
+			$rootBudget_id = (int)$_GET['rootBudget_id'];
 		else
 			$rootBudget_id = $id;
 
@@ -337,8 +336,9 @@ class BudgetController extends Controller
 
 		$criteria = array(
 			'with'=>array('budget0'),
-			'condition'=>' budget0.year = '.$model->year,
+			'condition'=>' budget0.year = :year',
 			'together'=>true,
+			'params'=>array(':year'=>$model->year)
 		);
 		$enquirys = new CActiveDataProvider(Enquiry::model(), array('criteria'=>$criteria,));
 
@@ -350,10 +350,15 @@ class BudgetController extends Controller
 	{
 		$model=new Budget('featuredSearch');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($id))
-			$model->year=$id;
-		else
+		if (isset($id)){
+			if (!Budget::model()->findByAttributes(array('year'=>(int)$id), array('condition'=>'parent IS NOT NULL'))){
+				throw new CHttpException(404,'The requested page does not exist.');
+			}else{
+				$model->year=(int)$id;
+			}
+		}else{
 			$model->year=Config::model()->findByPk('year')->value;
+		}
 		if(isset($_GET['Budget']))
 			$model->attributes=$_GET['Budget'];
 
@@ -388,27 +393,20 @@ class BudgetController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$featuredBudgets = $model->getFeatured();
-		/*
-		if(count($featuredBudgets) == 1){
-				$model->weight=1;
-				$model->save();
-				echo 1;
-				Yii::app()->end();
-		}
-		*/
+
 		$highest = $featuredBudgets[0]->weight;
 		$lowest = $featuredBudgets[count($featuredBudgets)-1]->weight;
-		if($model->weight == $highest && $_GET['increment'] == 1){
+		if($model->weight == $highest && (int)$_GET['increment'] == 1){
 			echo 1;
 			Yii::app()->end();
 		}
-		if($model->weight == $lowest && $_GET['increment'] == -1){
+		if($model->weight == $lowest && (int)$_GET['increment'] == -1){
 			echo 1;
 			Yii::app()->end();
 		}
-		$newWeight = $model->weight + $_GET['increment'];
+		$newWeight = $model->weight + (int)$_GET['increment'];
 		if($swap = $model->findByAttributes(array('year'=>$model->year, 'featured'=>1, 'weight'=>$newWeight))){
-				$swap->weight = $swap->weight + ($_GET['increment'] * -1);
+				$swap->weight = $swap->weight + ((int)$_GET['increment'] * -1);
 				$swap->save();
 		}
 		$model->weight = $newWeight;
@@ -561,7 +559,7 @@ class BudgetController extends Controller
 
 		if (isset($_GET['year'])){
 			if (strtotime($_GET['year']) !== false){
-				$model->year = $_GET['year'];
+				$model->year = (int)$_GET['year'];
 			}else{
 				$model->year = Config::model()->findByPk('year')->value;
 			}

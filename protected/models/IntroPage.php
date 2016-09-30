@@ -119,13 +119,13 @@ class IntroPage extends CActiveRecord
 	public function getTitleForModel($id, $lang=null)
 	{
 		if(!$lang){
-			$content=IntroPageContent::model()->find(array('condition'=> 'page = '.$id));
+			$content=IntroPageContent::model()->findByAttributes(array('page' => $id1));
 			if (!$content){
 				return Null;
 			}
 		}
 		else{
-			$content=IntroPageContent::model()->find(array('condition'=> 'page = '.$id.' and language = "'.$lang.'"'));
+			$content=IntroPageContent::model()->findByAttributes(array('page'=>$id, 'language'=>$lang));
 			if (!$content){
 				return Null;
 			}
@@ -135,7 +135,7 @@ class IntroPage extends CActiveRecord
 
 	public function getContent($lang)
 	{
-		return IntroPageContent::model()->find(array('condition'=> 'page = '.$this->id.' and language = "'.$lang.'"'));
+		return IntroPageContent::model()->findByAttributes(array('page'=>$this->id, 'language'=>$lang));
 	}
 
 	public function getNextPage()

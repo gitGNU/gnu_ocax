@@ -196,7 +196,7 @@ class SitePageController extends Controller
 		$content=SitePageContent::model()->findByAttributes(array('page'=>$model->id,'language'=>$lang));
 		if(!$content){
 			// editing a language for the fisrt time. So we copy content from original language to help with the translation
-			$orig_content=SitePageContent::model()->find(array('condition'=> 'page = '.$model->id.' AND pageURL IS NOT NULL'));
+			$orig_content=SitePageContent::model()->findByAttributes(array('page' => $model->id), array('condition'=>'pageURL IS NOT NULL'));
 			$content = new  SitePageContent;
 			$content->language = $lang;
 			$content->pageURL = $orig_content->pageURL;

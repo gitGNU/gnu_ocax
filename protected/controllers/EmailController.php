@@ -131,14 +131,17 @@ class EmailController extends Controller
 
 		}
 		else{	//Get enquiry id
-			if(isset($_GET['enquiry']) && !$model->enquiry)
-				$model->enquiry=$_GET['enquiry'];
-			if(isset($_GET['menu']))
+			if (isset($_GET['enquiry']) && !$model->enquiry){
+				$model->enquiry=(int)$_GET['enquiry'];				
+			}
+			if (isset($_GET['menu']))
 				$returnURL=$this->getReturnURL($_GET['menu']);
 		}
 		$model->sender=Yii::app()->user->getUserID();
 		$enquiry=Enquiry::model()->findByPk($model->enquiry);
-		$replys = Reply::model()->findAll(array('condition'=>'enquiry =  '.$model->enquiry));
+		if (!$enquiry){
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
 
 		if(!$model->body)
 			$model->body=EmailTemplate::model()->findByPk($enquiry->state)->getBody($enquiry);
@@ -202,9 +205,16 @@ class EmailController extends Controller
 			Yii::app()->end();
 		}
 
-		if(isset($_GET['recipient_id']) && isset($_GET['enquiry_id'])){
-			$model->enquiry=$_GET['enquiry_id'];
-			$recipient = User::model()->findByPk($_GET['recipient_id']);
+		if(isset($_GET['recipient_id']) && isset($_GET['enquiry_id'])){			
+			$enquiry = Enquiry::model()->findByPk((int)$_GET['enquiry_id']);
+			if (!$enquiry){
+				throw new CHttpException(404,'The requested page does not exist.');
+			}
+			$model->enquiry=$enquiry->id;
+			$recipient = User::model()->findByPk((int)$_GET['recipient_id']);
+			if (!$recipient){
+				throw new CHttpException(404,'The requested page does not exist.');
+			}			
 			echo $this->renderPartial('_contactPetition', array('model'=>$model, 'recipient'=>$recipient, false,true));
 		}else
 			echo 0;
@@ -255,13 +265,16 @@ class EmailController extends Controller
 	public function actionIndex($id)
 	{
 		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Sent emails'));
-		$enquiry=Enquiry::model()->findByPk($id);
+		$enquiry=Enquiry::model()->findByPk((int)$id);
+		if (!$enquiry){
+			throw new CHttpException(404,'The requested page does not exist.');
+		}
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('enquiry=:enquiry');
+		$criteria->order = 'created DESC';
+		$criteria->params[':enquiry'] = $id;
+		$dataProvider=new CActiveDataProvider('Email', array('criteria'=>$criteria));
 
-		$dataProvider=new CActiveDataProvider('Email', array(
-			'criteria'=>array('condition'=>'enquiry='.$id,'order'=>'created DESC')
-		));
-
-		//$dataProvider=new CActiveDataProvider('Email');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 			'enquiry'=>$enquiry,

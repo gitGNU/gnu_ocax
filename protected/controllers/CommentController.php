@@ -118,8 +118,9 @@ class CommentController extends Controller
 					));
 					$criteria = array(
 						'with'=>array('enquirySubscribes'),
-						'condition'=>' enquirySubscribes.enquiry = '.$enquiry->id,
+						'condition'=>' enquirySubscribes.enquiry = :enquiry',
 						'together'=>true,
+						'params'=>array(':enquiry'=>$enquiry->id),
 					);
 					$subscribedUsers = User::model()->findAll($criteria);
 					$mailer = new Mailer();

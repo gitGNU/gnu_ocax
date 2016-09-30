@@ -152,7 +152,7 @@ class BudgetDescLocal extends CActiveRecord
 	public function whereUsed()
 	{	
 
-		$budgets =  Budget::model()->findAll("csv_id = '".$this->csv_id."' ORDER BY year ASC");
+		$budgets =  Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id), array('order'=>'year DESC'));
 
 		$result = '';
 		foreach($budgets as $budget)

@@ -104,7 +104,7 @@ class BudgetDescriptionController extends Controller
 	public function actionModify()
 	{
 		if(isset($_GET['budget'])){
-			if($budget = Budget::model()->findByPk($_GET['budget']))
+			if($budget = Budget::model()->findByPk((int)$_GET['budget']))
 				$csv_id = $budget->csv_id;
 		}
 		if(!isset($csv_id) && isset($_GET['csv_id'])){

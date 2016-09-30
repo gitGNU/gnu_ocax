@@ -689,7 +689,7 @@ class EnquiryController extends Controller
 			}
 			if($saveMe && $model->save()){
 				if($model->team_member){
-					if(!EnquirySubscribe::model()->find(array('condition'=>'enquiry='.$model->id. ' AND user='.$model->team_member))){
+					if(!EnquirySubscribe::model()->findByAttributes(array('enquiry'=>$model->id, 'user'=>$model->team_member))){
 						$subscription=new EnquirySubscribe;
 						$subscription->user = $model->team_member;
 						$subscription->enquiry = $model->id;

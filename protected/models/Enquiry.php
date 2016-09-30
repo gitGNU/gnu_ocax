@@ -234,12 +234,16 @@ class Enquiry extends CActiveRecord
 	public function getEmailRecipients()
 	{
 		if($this->state == ENQUIRY_ASSIGNED){ 	// internal email to team_member
-			$criteria = array('condition'=>'id = '.$this->teamMember->id);
+			$criteria = array(
+				'condition'=>'id = :id',
+				'params'=>array(':id'=>$this->teamMember->id)
+			);
 		}else{
 			$criteria = array(
 				'with'=>array('enquirySubscribes'),
-				'condition'=>' enquirySubscribes.enquiry = '.$this->id.' AND is_disabled = 0',
+				'condition'=>'enquirySubscribes.enquiry = :id AND is_disabled = 0',
 				'together'=>true,
+				'params'=>array(':id'=>$this->id)
 			);
 		}
 		return User::model()->findAll($criteria);

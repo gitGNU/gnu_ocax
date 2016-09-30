@@ -673,7 +673,8 @@ class ImportCSV extends CFormModel
 		$budgets = Budget::model()->findAllBySql('	SELECT csv_id, code, label, concept, initial_provision, actual_provision,
 													trimester_1, trimester_2, trimester_3, trimester_4
 													FROM budget
-													WHERE year = '.$year.' AND parent IS NOT NULL');
+													WHERE year = :year AND parent IS NOT NULL',
+													array(':year'=>$year));
 
 		if ($this->_writeCSV($file->getURI(), $budgets)){
 			$file->name = $year.'.csv'.' ('.__('generated on the').' '.date('d-m-Y H:i:s').')';

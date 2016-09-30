@@ -136,7 +136,7 @@ class SitePage extends CActiveRecord
 	 */
 	public function getTitleForModel($id)
 	{
-		$content=SitePageContent::model()->find(array('condition'=> 'page = '.$id.' AND pageTitle IS NOT NULL'));
+		$content=SitePageContent::model()->findByAttributes(array('page' =>$id), array('condition'=>'pageTitle IS NOT NULL'));
 		return $content->pageTitle;
 	}
 
@@ -145,7 +145,7 @@ class SitePage extends CActiveRecord
 		if($content=SitePageContent::model()->findByAttributes(array('page'=>$this->id,'language'=>Yii::app()->language)))
 			return $content;
 		
-		return SitePageContent::model()->find(array('condition'=> 'page = '.$this->id.' AND pageTitle IS NOT NULL'));
+		return SitePageContent::model()->find(array('page' =>$this->id), array('condition'=>'pageTitle IS NOT NULL'));
 	}
 	
 	/**

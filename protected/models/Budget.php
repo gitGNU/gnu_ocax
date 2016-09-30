@@ -439,8 +439,8 @@ class Budget extends CActiveRecord
 
 	public function getYearsBudgetCount()
 	{
-		$sql = 'SELECT COUNT(*) FROM budget where year = '.$this->year.' AND parent IS NOT NULL';
-		return Yii::app()->db->createCommand($sql)->queryScalar();
+		$sql = 'SELECT COUNT(*) FROM budget where year = :year AND parent IS NOT NULL';
+		return Yii::app()->db->createCommand($sql)->bindValue(":year", $this->year)->queryScalar();
 	}
 
 	public function getYearsTotalEnquiries()
