@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ocax_es\n"
 "POT-Creation-Date: 2015-11-05 11:00+0100\n"
-"PO-Revision-Date: 2016-02-11 17:36+0100\n"
+"PO-Revision-Date: 2016-10-06 16:09+0100\n"
 "Last-Translator: Chris <chris@gatopelao.org>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -422,7 +422,7 @@ msgstr "Sin terminar"
 
 #: protected/models/Backup.php:150
 msgid "Cannot create zip file"
-msgstr "No se puede crear fichero zip"
+msgstr "No se puede editar el fichero zip"
 
 #: protected/models/BudgetDescCommon.php:107
 #: protected/models/BudgetDescLocal.php:111
@@ -2081,13 +2081,13 @@ msgstr "no ha hecho ninguna consulta"
 #: protected/views/user/_notActiveInfo.php:23
 msgid "USER_NOT_ACTIVE_INFO"
 msgstr ""
-"<p>Para empezar a realizar consultas y a suscribirte en las consultas de "
-"otros usuarios, es necesario que confirmes tu dirección de correo "
-"electrónico.</p><p>- Te hemos enviado un correo electrónico con unas "
-"sencillas instrucciones.<br />- Si no has recibido el correo, comprueba que "
-"no te haya llegado como spam.<br />- Si quieres que te enviamos el correo de "
-"nuevo a %s, haz %s.<br />- Si tu dirección de correo no es %s la puedes "
-"cambiar por otra haciendo %s.</p>"
+"<p>Para empezar a realizar consultas y suscribirte en las consultas de otros "
+"usuarios, es necesario que confirmes tu dirección de correo electrónico.</"
+"p><p>- Te hemos enviado un correo electrónico con unas sencillas "
+"instrucciones.<br />- Si no has recibido el correo, comprueba que no te haya "
+"llegado como spam.<br />- Si quieres que te enviamos el correo de nuevo a "
+"%s, haz %s.<br />- Si tu dirección de correo no es %s la puedes cambiar por "
+"otra haciendo %s.</p>"
 
 #: protected/views/user/_notActiveInfo.php:26
 #: protected/views/user/_notActiveInfo.php:28
