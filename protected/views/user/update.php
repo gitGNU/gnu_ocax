@@ -93,6 +93,12 @@ function optout(){
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'is_admin'); ?>
+		<?php echo $form->textField($model,'is_admin',array('size'=>30,'maxlength'=>64)); ?>
+		<?php echo $form->error($model,'is_admin'); ?>
+	</div>
+
 
 </div>
 <div class="middle">

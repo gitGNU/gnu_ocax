@@ -159,12 +159,9 @@ class UserController extends Controller
 		$email = $model->email;
 		$language = $model->language;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		//$model->scenario = 'update';
 		if(isset($_POST['User']))
 		{
+			$model->scenario = 'update_user';
 			$model->attributes=$_POST['User'];
 
 			if($_POST['User']['new_password'] || $_POST['User']['password_repeat']){
@@ -180,11 +177,10 @@ class UserController extends Controller
 				$model->salt=$model->generateSalt();
 				$model->password = $model->hashPassword($model->new_password,$model->salt);
 			}
-			if($email != $model->email)
+			if ($email != $model->email){
 				$model->is_active=0;
-
+			}
 			if($model->save()){
-
 				Yii::app()->language = $model->language;
 				$cookie = new CHttpCookie('lang', $model->language);
 				$cookie->expire = time()+60*60*24*180;
@@ -236,6 +232,7 @@ class UserController extends Controller
 
 		if(isset($_POST['User']))
 		{
+			$model->scenario = 'update_roles';
 			$model->attributes=$_POST['User'];
 			if($model->save()){
 				Log::model()->write('User',__('User permissiones changed for').' "'.$model->username.'"',$model->id);

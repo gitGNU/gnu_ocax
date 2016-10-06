@@ -75,25 +75,35 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array ('username, activationcode, joined, password, salt,
+					is_description_editor, is_team_member, is_editor, activationcode, joined,
+					is_manager, is_admin, is_active, is_disabled', 'unsafe', 'on'=>'update_user'),
+			array ('username, activationcode, joined, salt,
+					is_description_editor, is_team_member, is_editor,
+					is_manager, is_admin, is_active, is_disabled', 'unsafe', 'on'=>'change_password'),
+			array ('username, activationcode, joined, password, salt,
+					fullname, email, language', 'unsafe', 'on'=>'update_roles'),
+
 			array('username, fullname, password, salt, email, activationcode', 'required'),
 			array('is_socio, is_description_editor, is_team_member, is_editor,
 					is_manager, is_admin, is_active, is_disabled', 'numerical',
 					'integerOnly'=>true),
+					
 			array('username, fullname, password, salt, email', 'length', 'max'=>128),
 			array('email', 'email', 'except' => 'opt_out', 'allowEmpty'=>false),
 			array('email', 'unique', 'except' => 'opt_out', 'className' => 'User'),
-			//array('username', 'exist', 'except' => 'update'),
+
 			array('new_password, password_repeat', 'required', 'on'=>'change_password'),
 			array('new_password', 'length', 'min' => 6,
 				    'tooShort'=>Yii::t("translation", "{attribute} es muy corta (6 carácteres min)."),
 				    'tooLong'=>Yii::t("translation", "{attribute} is too long."),
 					'on'=>'change_password'),
-			array('language', 'length', 'max'=>2),
 			array('password_repeat', 'compare', 'on'=>'change_password', 'compareAttribute'=>'new_password'),
 			array('password_repeat', 'safe'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, username, password, salt, email', 'safe', 'on'=>'search'),
+			
+			array('language', 'length', 'max'=>2),
+
+			array('username, email', 'safe', 'on'=>'search'),
 		);
 	}
 
