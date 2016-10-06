@@ -76,6 +76,9 @@ function submitForm(){
 	<div class="row">
 		<?php
 		$sender=User::model()->findByPk($model->sender);
+		if ($sender===null){
+			throw new CHttpException(404,'The requested Page does not exist.');
+		}
 		$senderList=array(	0=>Config::model()->findByPk('emailNoReply')->value,
 							$sender->id=>$sender->email);
 		if($enquiry->state == ENQUIRY_ASSIGNED)

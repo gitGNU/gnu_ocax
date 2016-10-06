@@ -66,6 +66,9 @@ if($model->related_to){
 	echo '<div class="horizontalRule"></div>';
 	echo '<div class="sub_title">'.__('The original enquiry').'</div';
 	$related_enquiry=Enquiry::model()->findByPk($model->related_to);
+	if ($related_enquiry===null){
+		throw new CHttpException(404,'The requested Enquiry does not exist.');
+	}
 	echo $this->renderPartial('_teamView', array('model'=>$related_enquiry));
 }
 ?>

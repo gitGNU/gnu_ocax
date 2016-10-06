@@ -22,6 +22,9 @@
 
 <?php
 $yearBudget=Budget::model()->findByAttributes(array('parent'=>Null,'year'=>$model->year));
+if ($yearBudget===null){
+	throw new CHttpException(404,'The requested Budget year does not exist.');
+}
 $this->menu=array(
 	array('label'=>__('Edit').' '.$model->year, 'url'=>array('//budget/updateYear/'.$yearBudget->id)),
 	array('label'=>__('List Years'), 'url'=>array('//budget/admin')),
@@ -259,7 +262,9 @@ $criteria=new CDbCriteria;
 $criteria->condition='parent IS NULL AND year = :year';
 $criteria->params[':year'] = $model->year;
 $year=Budget::model()->find($criteria);
-
+if ($year===null){
+	throw new CHttpException(404,'The requested Budget year does not exist.');
+}
 echo '<p id="step_7" style="display:none">';
 if($year->code == 1) // this year has already been published
 	echo 'Remember to <b>update the zip file</b> with this csv.<br />';

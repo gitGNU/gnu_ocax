@@ -87,11 +87,7 @@ class BudgetDescCommon extends CActiveRecord
 
 	public function getBudgets()
 	{
-		$budgets = Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id));
-		if (!$budget){
-			throw new CHttpException(404,'The requested budgets do not exist.');
-		}
-		return $budgets;
+		return Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id));
 	}
 
 	/**

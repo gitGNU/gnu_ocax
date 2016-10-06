@@ -24,6 +24,9 @@
 
 $user_id = Yii::app()->user->getUserID();
 $user= User::model()->findByPk($user_id);
+if ($user===null){
+	throw new CHttpException(404,'The requested User does not exist.');
+}
 if(!$user->is_active)
 	$this->renderPartial('//user/_notActiveInfo', array('model'=>$user));
 ?>
@@ -74,6 +77,9 @@ if ($model->team_member == Yii::app()->user->getUserID()) {
 			if($model->budget){
 				echo '<div class="row" style="margin:0px 0px 0px -10px;">';
 				$budget=Budget::model()->findByPk($model->budget);
+				if ($budget===null){
+					throw new CHttpException(404,'The requested Budget does not exist.');
+				}
 				$this->renderPartial('_budgetDetails',array('model'=>$budget,'showMore'=>1));
 				echo '</div>';
 			}

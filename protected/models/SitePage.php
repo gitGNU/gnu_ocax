@@ -149,7 +149,7 @@ class SitePage extends CActiveRecord
 		if($content=SitePageContent::model()->findByAttributes(array('page'=>$this->id,'language'=>Yii::app()->language)))
 			return $content;
 		
-		$contet = SitePageContent::model()->find(array('page' =>$this->id), array('condition'=>'pageTitle IS NOT NULL'));
+		$content = SitePageContent::model()->find(array('page' =>$this->id), array('condition'=>'pageTitle IS NOT NULL'));
 		if (!$content){
 			throw new CHttpException(404,'The requested page does not exist.');
 		}

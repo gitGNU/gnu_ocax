@@ -75,6 +75,9 @@ if($model->state >= ENQUIRY_AWAITING_REPLY){
 
 if($model->budget){
 	$budget=Budget::model()->findByPk($model->budget);
+	if ($budget===null){
+		throw new CHttpException(404,'The requested Budget does not exist.');
+	}
 	$this->renderPartial('//enquiry/_budgetDetails', array('model'=>$budget,'showMore'=>1));
 }
 

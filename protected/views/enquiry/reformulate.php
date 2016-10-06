@@ -22,7 +22,9 @@
 /* @var $model Enquiry */
 
 $related_enquiry=Enquiry::model()->findByPk($model->related_to);
-
+if ($related_enquiry===null){
+	throw new CHttpException(404,'The requested Related enquiry does not exist.');
+}
 $this->menu=array(
 	array('label'=>__('View Enquiry'), 'url'=>array('teamView', 'id'=>$related_enquiry->id)),
 	array('label'=>__('List enquiries'), 'url'=>array('assigned')),

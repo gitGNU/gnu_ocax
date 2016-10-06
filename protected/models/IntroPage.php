@@ -119,7 +119,7 @@ class IntroPage extends CActiveRecord
 	public function getTitleForModel($id, $lang=null)
 	{
 		if(!$lang){
-			$content=IntroPageContent::model()->findByAttributes(array('page' => $id1));
+			$content=IntroPageContent::model()->findByAttributes(array('page' => $id));
 			if (!$content){
 				return Null;
 			}

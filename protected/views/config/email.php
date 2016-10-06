@@ -76,6 +76,9 @@ function sendTestEmail(){
 	
 	<?php
 	$user = User::model()->findByPk(Yii::app()->user->getUserID());
+	if ($user===null){
+		throw new CHttpException(404,'User does not exist.');
+	}
 	?>
 	<div class="param" style="margin-top:40px">
 	<span class="paramDescription" style="font-size:1.4em"><?php echo __('Send a test email');?></span>

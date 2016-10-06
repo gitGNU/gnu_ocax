@@ -214,7 +214,7 @@ class EmailController extends Controller
 		if(isset($_GET['recipient_id']) && isset($_GET['enquiry_id'])){			
 			$enquiry = Enquiry::model()->findByPk((int)$_GET['enquiry_id']);
 			if ($enquiry===null){
-				throw new CHttpException(404,'The requested page does not exist.');
+				throw new CHttpException(404,'The requested Enquiry does not exist.');
 			}
 			$model->enquiry=$enquiry->id;
 			$recipient = User::model()->findByPk((int)$_GET['recipient_id']);
@@ -275,7 +275,7 @@ class EmailController extends Controller
 		$this->pageTitle=CHtml::encode(Config::model()->findByPk('siglas')->value.' '.__('Sent emails'));
 		$enquiry=Enquiry::model()->findByPk((int)$id);
 		if ($enquiry===null){
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested Enquiry does not exist.');
 		}
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('enquiry=:enquiry');

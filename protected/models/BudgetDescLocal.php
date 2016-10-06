@@ -153,9 +153,6 @@ class BudgetDescLocal extends CActiveRecord
 	{	
 		$result = '';
 		$budgets =  Budget::model()->findAllByAttributes(array('csv_id'=>$this->csv_id), array('order'=>'year DESC'));
-		if (!$budgets){
-			return $result;
-		}
 		foreach($budgets as $budget)
 				$result = $budget->year.', '.$result;
 		return rtrim($result, ' ,');

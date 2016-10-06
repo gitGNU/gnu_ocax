@@ -44,6 +44,9 @@ if($model->state == ENQUIRY_AWAITING_REPLY){
 }
 if($model->state >= ENQUIRY_REPLY_PENDING_ASSESSMENT){
 	$reply = Reply::model()->findByAttributes(array('enquiry'=>$model->id));
+	if ($reply===null){
+		throw new CHttpException(404,'The requested Reply does not exist.');
+	}
 	$item = array( array('label'=>__('Correct reply'), 'url'=>array('/reply/update', 'id'=>$reply->id)) );
 	array_splice( $this->menu, 0, 0, $item );	
 }

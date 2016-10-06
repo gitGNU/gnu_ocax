@@ -39,7 +39,9 @@
 		echo $form->hiddenField($model,'recipients');
 
 		$user = User::model()->findByPk(Yii::app()->user->getUserID());
-
+		if ($user===null){
+			throw new CHttpException(404,'The requested User does not exist.');
+		}
 		$block = Yii::app()->createAbsoluteUrl('user/block/'.$user->username);
 		$block = '<a href="'.$block.'">'.$block.'</a>';
 
