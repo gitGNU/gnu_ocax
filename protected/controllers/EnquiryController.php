@@ -193,6 +193,7 @@ class EnquiryController extends Controller
 		
 		if(isset($_POST['Enquiry']))
 		{
+			$model->setScenario('create');
 			$model->attributes=$_POST['Enquiry'];
 			$model->user = Yii::app()->user->getUserID();
 			$model->created = date('Y-m-d');
@@ -356,6 +357,7 @@ class EnquiryController extends Controller
 		
 		if(isset($_POST['Enquiry']))
 		{
+			$model->setScenario('edit');
 			$model->attributes=$_POST['Enquiry'];
 			
 			if($model->addressed_to == OBSERVATORY)

@@ -174,30 +174,32 @@ class ConfigController extends Controller
 				@file_get_contents('http://network.ocax.net/register/'.$url, false, $context);
 			}
 			if($model->save()){
-				if($model->getScenario() == 'siteColor')
+				if ($model->getScenario() == 'siteColor'){
 					file_put_contents(dirname(Yii::app()->request->scriptFile).'/css/color.css', $this->renderPartial('//layouts/color',false,true));
-
+				}
 				$this->generateFoot();
-				if(Yii::app()->request->isAjaxRequest)
+				if (Yii::app()->request->isAjaxRequest){
 					echo '1';
-				else{
-					if($returnURL)
+				}else{
+					if ($returnURL){
 						$this->redirect(array($returnURL));
-					else
+					}else{
 						$this->redirect(array('index'));
+					}
 				}
 				Yii::app()->end();
 			}else{
-				if(Yii::app()->request->isAjaxRequest){
+				if (Yii::app()->request->isAjaxRequest){
 					echo CJavaScript::jsonEncode($model->getErrors());
 					Yii::app()->end();
 				}
 			}
 		}
-		if(Yii::app()->request->isAjaxRequest)
+		if (Yii::app()->request->isAjaxRequest){
 			echo 0;
-		else
+		}else{
 			$this->render('update',array('model'=>$model,'returnURL'=>$returnURL));
+		}
 	}
 
 	private function generateFoot()

@@ -467,18 +467,19 @@ class Budget extends CActiveRecord
 		if (!$yearly_budget){
 			return new CActiveDataProvider($this,array('data'=>array()));	
 		}
-
-		if(!Yii::app()->user->isAdmin()){
+		if (!Yii::app()->user->isAdmin()){
 			if($yearly_budget->code != 1)	//not published
 				return new CActiveDataProvider($this,array('data'=>array()));
 		}
-		if(!$this->code && !$this->concept)
+		if (!$this->code && !$this->concept){
 			return new CActiveDataProvider($this,array('data'=>array()));
-			
-		$lang = Yii::app()->language;
-		$search_year = $this->year;
+		}
+		$sql_params=array(
+			":search_year" => $this->year,
+			":lang" => Yii::app()->language
+		);
 		if($this->code){
-			$search_code = $this->code;
+			$sql_params[":search_code"]=$this->code;
 			$sql = "SELECT	`b`.`csv_id` AS `csv_id`,
 				`b`.`id` AS `id`,
 				`b`.`year` AS `year`,
@@ -488,7 +489,7 @@ class Budget extends CActiveRecord
 				`description`.`common_text` AS `common_text`,
 				`description`.`common_concept` AS `common_concept`,
 				`description`.`local_text` AS `local_text`,
-				`description`.`local_concept` AS `local_concept`,				
+				`description`.`local_concept` AS `local_concept`,
 				`b`.`year` AS `common_score`,
 				`b`.`year` AS `local_score`,
 				`b`.`year` AS score
@@ -519,24 +520,19 @@ class Budget extends CActiveRecord
 				) AS `description` ON `b`.`csv_id` = `description`.`common_csv_id` OR `b`.`csv_id` = `description`.`local_csv_id`
 				WHERE
 					year = :search_year AND code = :search_code
-					AND (`description`.`common_language` = '$lang' OR description.local_language = '$lang')
+					AND (`description`.`common_language` = :lang OR description.local_language = :lang)
 					AND `b`.`parent` IS NOT NULL";
 
-			
-			$cnt = "SELECT COUNT(*) FROM (".$sql.") subq";
-			$command= Yii::app()->db->createCommand($cnt);
-			$command->bindParam(":search_year", $search_year, PDO::PARAM_STR);
-			$command->bindParam(":search_code", $search_code, PDO::PARAM_STR);
-			$count= $command->queryScalar();
+			$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+			$count= Yii::app()->db->createCommand($cnt)->bindValues($sql_params)->queryScalar();
 
 			return new CSqlDataProvider($sql, array(
-												'params' => array(":search_year" => $search_year, ":search_code" => $search_code),
+												'params' => $sql_params,
 												'totalItemCount'=>$count,
 												'pagination'=>array('pageSize'=>10),
 										));
 		}
-
-        $search_text = $this->concept;
+        $sql_params[":search_text"] = $this->concept;
 		$sql = "SELECT	`b`.`csv_id` AS `csv_id`,
 				`b`.`id` AS `id`,
 				`b`.`year` AS `year`,
@@ -586,23 +582,18 @@ class Budget extends CActiveRecord
 
 				WHERE
 					year = :search_year AND
-					(`description`.`common_language` = '$lang' OR description.local_language = '$lang') AND
+					(`description`.`common_language` = :lang OR description.local_language = :lang) AND
 					(common_score > 0 OR local_score > 0)
 				ORDER BY score DESC";
 
-
-			$cnt = "SELECT COUNT(*) FROM (".$sql.") subq";
-			$command= Yii::app()->db->createCommand($cnt);
-			$command->bindParam(":search_year", $search_year, PDO::PARAM_STR);
-			$command->bindParam(":search_text", $search_text, PDO::PARAM_STR);
-			$count= $command->queryScalar();
+			$cnt = "SELECT COUNT(*) FROM ($sql) subq";
+			$count= Yii::app()->db->createCommand($cnt)->bindValues($sql_params)->queryScalar();
 
 			return new CSqlDataProvider($sql, array(
-												'params' => array(":search_year" => $search_year, ":search_text" => $search_text),
+												'params' => $sql_params,
 												'totalItemCount'=>$count,
 												'pagination'=>array('pageSize'=>10),
 										));
-
 	}
 
 	public function getAllBudgetsWithCSV_ID()

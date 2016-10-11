@@ -69,7 +69,7 @@ class Reply extends CActiveRecord
 			array('created', 'date', 'allowEmpty'=>false, 'format'=>'yyyy-M-d'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enquiry, created, team_member, body', 'safe', 'on'=>'search'),
+			array('enquiry, created, team_member, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -118,6 +118,7 @@ class Reply extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -125,7 +126,6 @@ class Reply extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
 		$criteria->compare('enquiry',$this->enquiry);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('team_member',$this->team_member);
@@ -134,5 +134,6 @@ class Reply extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+		
 	}
 }

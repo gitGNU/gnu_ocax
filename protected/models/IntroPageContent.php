@@ -64,9 +64,6 @@ class IntroPageContent extends CActiveRecord
 			array('page', 'numerical', 'integerOnly'=>true),
 			array('language', 'length', 'max'=>2),
 			array('title, subtitle', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, page, language, title, subtitle, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,28 +92,5 @@ class IntroPageContent extends CActiveRecord
 			'subtitle' => 'Subtitle',
 			'body' => 'Body',
 		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('page',$this->page);
-		$criteria->compare('language',$this->language,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('subtitle',$this->subtitle,true);
-		$criteria->compare('body',$this->body,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 }

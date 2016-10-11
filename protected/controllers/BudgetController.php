@@ -220,42 +220,6 @@ class BudgetController extends Controller
 			echo 0;
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	 /*
-	public function actionCreate()
-	{
-		if(!Yii::app()->request->isAjaxRequest)
-			Yii::app()->end();
-
-		$model=new Budget;
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if(isset($_POST['Budget']))
-		{
-			$model->attributes=$_POST['Budget'];
-			if($model->save())
-				echo 1;
-			else
-				echo 0;
-			Yii::app()->end();
-		}
-		if(!$model->parent && isset($_GET['parent_id']) && !$model->year){
-			$parent=$model->findByPk($_GET['parent_id']);
-			if($parent){
-				$model->parent=$parent->id;
-				$model->csv_parent_id=$parent->csv_id;
-				$model->year=$parent->year;
-			}
-		}
-		echo CJavaScript::jsonEncode(array('html'=>$this->renderPartial('create',array('model'=>$model),true,true)));
-	}
-	*/
-
 	public function actionCreateYear()
 	{
 		$model=new Budget;
@@ -444,32 +408,37 @@ class BudgetController extends Controller
 		$year = $model->year;
 		$csv_id = $model->csv_id;
 		$budgetCount = 0;
-		
+
+		$sql_params = array(
+			':csv_id'=>"$csv_id%",
+			':year'=>$year,
+		);
+
 		$sql = "SELECT budget.id, budget.year, budget.csv_id, enquiry.budget
 				FROM budget
 				INNER JOIN enquiry
 				ON budget.id=enquiry.budget
-				WHERE budget.year = '$year'
-				AND budget.csv_id LIKE '".$csv_id."%'"; 
+				WHERE budget.year = :year
+				AND budget.csv_id LIKE :csv_id";
 
 		$cnt = "SELECT COUNT(*) FROM ($sql) subq";
-		$enquiryCount = Yii::app()->db->createCommand($cnt)->queryScalar();
-		
+		$enquiryCount = Yii::app()->db->createCommand($cnt)->bindValues($sql_params)->queryScalar();
+
 		if(!$enquiryCount){
 			$sql = "SELECT budget.id
-					FROM budget  WHERE year = '$year'
+					FROM budget  WHERE year = :year
 					AND parent IS NOT NULL
-					AND budget.csv_id LIKE '".$csv_id."%'";
-					
-			$cnt = "SELECT COUNT(*) FROM ($sql) subq";					
-			$budgetCount = Yii::app()->db->createCommand($cnt)->queryScalar();
+					AND budget.csv_id LIKE :csv_id";
 
-			$sql = "DELETE FROM budget  WHERE year = '$year'
+			$cnt = "SELECT COUNT(*) FROM ($sql) subq";				
+			$budgetCount = Yii::app()->db->createCommand($cnt)->bindValues($sql_params)->queryScalar();
+
+			$sql = "DELETE FROM budget  WHERE year = :year
 										AND parent IS NOT NULL
-										AND budget.csv_id LIKE '".$csv_id."%'
+										AND budget.csv_id LIKE :csv_id
 										ORDER BY id DESC;";
 										
-			Yii::app()->db->createCommand($sql)	->execute();
+			Yii::app()->db->createCommand($sql)->bindValues($sql_params)->execute();
 
 			if ($model->isPublished()){
 				Config::model()->isZipFileUpdated(0);
@@ -481,10 +450,7 @@ class BudgetController extends Controller
 
 	public function actionAdmin()
 	{
-		$years=new CActiveDataProvider('Budget',array(
-			'criteria'=>array('condition'=>'parent IS NULL',
-			'order'=>'year DESC'),
-		));
+		$years=new CActiveDataProvider('Budget',array('criteria'=>array('condition'=>'parent IS NULL', 'order'=>'year DESC')));
 		$this->render('admin',array('years'=>$years,));
 	}
 

@@ -107,7 +107,7 @@ class SitePageController extends Controller
 		if ($content===null){
 			$_404=1;
 		}else{
-			$model = $this->loadModel($content->page);	
+			$model = $this->loadModel($content->page);
 			if ($model->published == 0 && !Yii::app()->user->isEditor()){
 				$_404=1;
 			}
@@ -116,7 +116,6 @@ class SitePageController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 			return $model;
 		}
-
 		$this->layout='//layouts/column1';		
 		$content = $model->getContentForModel(Yii::app()->language);
 		$this->render('show',array(
@@ -135,8 +134,13 @@ class SitePageController extends Controller
 		// http://www.yiiframework.com/wiki/19/
 		$model=new SitePage;
 		$content =new SitePageContent;
-		$languages=explode(',', Config::model()->findByPk('languages')->value);
-		$content->language=$languages[0];
+		
+		if ($cookie = Yii::app()->request->cookies['lang']){
+			$content->language=$cookie->value;
+		}else{
+			$languages=explode(',', Config::model()->findByPk('languages')->value);
+			$content->language=$languages[0];
+		}
 
 		$model->setScenario('create');
 		//$this->performAjaxValidation($model);

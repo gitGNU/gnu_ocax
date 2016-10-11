@@ -123,7 +123,7 @@ class LogController extends Controller
 		$model=new Log('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Log']))
-			$model->attributes=$_GET['Log'];			
+			$model->attributes=$_GET['Log'];
 		$this->render('index',array('model'=>$model));
 	}
 

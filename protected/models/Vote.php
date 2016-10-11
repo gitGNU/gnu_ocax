@@ -63,7 +63,7 @@ class Vote extends CActiveRecord
 			array('reply, user, vote', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('reply, user, vote', 'safe', 'on'=>'search'),
+			//array('reply, user, vote', 'safe', 'on'=>'search'),
 		);
 	}
 

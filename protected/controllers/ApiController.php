@@ -103,28 +103,9 @@ class ApiController extends Controller
 				}
 				$this->_sendResponse(200, CJSON::encode($result));
 				Yii::app()->end();
-
-			default:
-				// Model not implemented error
-				$this->_sendResponse(501, sprintf(
-				'Error: %s not implemented',
-				$_GET['model']) );
-				Yii::app()->end();
 		}
-		// Did we get some results?
-		if(empty($models)) {
-			// No
-			$this->_sendResponse(200,
-				sprintf('No items where found for model <b>%s</b>', $_GET['model']) );
-		} else {
-			// Prepare response
-			$rows = array();
-			foreach($models as $model)
-				$rows[] = $model->attributes;
-
-			// Send the response
-			$this->_sendResponse(200, CJSON::encode($rows));
-		}
+		$this->_sendResponse(501, sprintf('Error: %s not implemented', $_GET['model']));
+		Yii::app()->end();
 	}
 
 	public function actionView()

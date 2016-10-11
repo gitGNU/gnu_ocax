@@ -306,12 +306,6 @@ class Config extends CActiveRecord
 	}
 
 	public function isOCAXUptodate(){
-		//file_put_contents('/tmp/ver','---'.$this->getOCAXVersion().'---'.$this->getLatestOCAXVersion().'---');
-		/*
-		if($this->getOCAXVersion() != $this->getLatestOCAXVersion())
-			return 0;
-		return 1;
-		*/
 		$installed_version = $this->getOCAXVersion();
 		$installed_version = str_replace('.','',$installed_version );
 		$installed_version = str_pad($installed_version, 10 , '0');

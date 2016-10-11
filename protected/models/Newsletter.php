@@ -81,7 +81,7 @@ class Newsletter extends CActiveRecord
 			array('subject', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, sent, sender, sent_as, recipients, subject, body', 'safe', 'on'=>'search'),
+			array('created, sent, published, subject', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -137,12 +137,13 @@ class Newsletter extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('created',$this->created,true);
+		$criteria->compare('published',$this->published,true);
 		$criteria->compare('sent',$this->sent);
 		//$criteria->compare('sender',$this->sender);
 		//$criteria->compare('sent_as',$this->sent_as,true);
-		$criteria->compare('recipients',$this->recipients,true);
+		//$criteria->compare('recipients',$this->recipients,true);
 		$criteria->compare('subject',$this->subject,true);
-		$criteria->compare('body',$this->body,true);
+		//$criteria->compare('body',$this->body,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

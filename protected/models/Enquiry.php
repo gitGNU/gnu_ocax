@@ -34,7 +34,7 @@
  * @property string $registry_number
  * @property integer $documentation
  * @property integer $type
- * @addressed_to integet $addressed_to
+ * @addressed_to integer $addressed_to
  * @property integer $budget
  * @property integer $state
  * @property string $title
@@ -168,6 +168,10 @@ class Enquiry extends CActiveRecord
 			array('title', 'length', 'max'=>255),
 			array('registry_number', 'length', 'max'=>32),
 			array('assigned, submitted, body', 'safe'),
+			
+			array('id, related_to, team_member, manager, assigned, submitted, registry_number, documentation', 'unsafe', 'on'=>'create'),
+			array('id, related_to, team_member, manager, assigned, submitted, registry_number, documentation', 'unsafe', 'on'=>'edit'),
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array( 'related_to, user, username, team_member,
@@ -468,11 +472,9 @@ class Enquiry extends CActiveRecord
 		$criteria->params = array_merge($criteria->params, $my_params);	// not working properly. check filter by date index/enquiry
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-
 			'Pagination' => array (
 				'PageSize' => 8, //edit your number items per page here
 			),
-
 			'sort'=>array('defaultOrder'=>'modified DESC'),
 		));
 	}

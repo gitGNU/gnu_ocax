@@ -69,14 +69,13 @@ class SitePageContent extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('page, language, pageURL, pageTitle', 'required'),
-			//array('page', 'safe', 'on'=>'cms_page_create'),
 			array('page', 'numerical', 'integerOnly'=>true),
 			array('language', 'length', 'max'=>2),
 			array('pageURL, pageTitle, heading, metaTitle, metaDescription, metaKeywords', 'length', 'max'=>255),
 			array('previewBody, body', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('page, language, pageURL, pageTitle, body', 'safe', 'on'=>'search'),
+			//array('page, language, pageURL, pageTitle, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -126,6 +125,7 @@ class SitePageContent extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	 /*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -139,14 +139,9 @@ class SitePageContent extends CActiveRecord
 		$criteria->compare('pageURL',$this->pageURL,true);
 		$criteria->compare('pageTitle',$this->pageTitle,true);
 		$criteria->compare('body',$this->body,true);
-		/*
-		$criteria->compare('heading',$this->heading,true);
-		$criteria->compare('metaTitle',$this->metaTitle,true);
-		$criteria->compare('metaDescription',$this->metaDescription,true);
-		$criteria->compare('metaKeywords',$this->metaKeywords,true);
-		*/
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+	*/
 }

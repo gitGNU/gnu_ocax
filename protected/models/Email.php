@@ -69,10 +69,10 @@ class Email extends CActiveRecord
 			array('sent, enquiry', 'numerical', 'integerOnly'=>true),
 			array('sender, type', 'safe'),
 			array('title', 'length', 'max'=>255),
-			array('sent_as', 'length', 'max'=>128),
+			array('sent_as', 'email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, created, sent, title, sender, sent_as, recipients, enquiry, body', 'safe', 'on'=>'search'),
+			//array('created, sent, title, sender, sent_as, enquiry, body', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -112,6 +112,7 @@ class Email extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	/*
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -133,4 +134,5 @@ class Email extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	*/
 }
