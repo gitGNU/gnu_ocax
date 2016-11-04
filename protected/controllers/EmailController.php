@@ -231,8 +231,6 @@ class EmailController extends Controller
 	 */
 	public function actionTest($id)
 	{
-		file_put_contents('/tmp/rmail',$id);
-
 		$user = User::model()->findByPk(Yii::app()->user->getUserID());
 		if ($user===null){
 			throw new CHttpException(404,'The requested User does not exist.');

@@ -21,7 +21,6 @@
 /* @var $model IntroPage */
 
 $nextPage=$model->getNextPage();
-file_put_contents('/tmp/page', $content->language);
 //$model->getTitleForModel($nextPage->id,$content->language)
 ?>
 
